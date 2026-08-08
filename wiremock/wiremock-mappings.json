@@ -1,0 +1,1323 @@
+{
+  "mappings": [
+    {
+      "id": "bda11cf3-4f42-4875-b815-1f4f64a4df40",
+      "name": "License decision plus usage-reporting and meter snapshots for this deployment. - default",
+      "request": {
+        "urlPathTemplate": "/v1/deployment/license/status",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"license\": {\n    \"key\": \"value\"\n  },\n  \"reporting\": {\n    \"key\": \"value\"\n  },\n  \"usage\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "bda11cf3-4f42-4875-b815-1f4f64a4df40",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "b5003154-c109-4b0e-9c22-aa60183ea2f9",
+      "name": "Open a document and return its head (versions, page count, security). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/head",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"id\": \"id\",\n  \"baseSha\": \"baseSha\",\n  \"storageSizeBytes\": 1,\n  \"docVersion\": 1,\n  \"state\": \"pending\",\n  \"encryption\": {\n    \"state\": \"unknown\",\n    \"requiresPassword\": true\n  },\n  \"permissions\": {\n    \"known\": true,\n    \"bits\": 1,\n    \"allAllowed\": true,\n    \"openedAs\": \"none\",\n    \"securityHandlerRevision\": 1,\n    \"canUpgradeToOwner\": true\n  },\n  \"access\": {\n    \"required\": true,\n    \"reasons\": [\n      \"password\"\n    ],\n    \"endpoint\": \"endpoint\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b5003154-c109-4b0e-9c22-aa60183ea2f9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c41a9215-1e78-4b69-ba0c-9ff1eb5752b9",
+      "name": "Download the layer's current PDF (base plus layer edits). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/download",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c41a9215-1e78-4b69-ba0c-9ff1eb5752b9",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f15ad081-ba33-4481-8301-59d43d63332e",
+      "name": "Full layer manifest at the layer's current version. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/manifest",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"docVersion\": 1,\n  \"layoutVersion\": 1,\n  \"metadataVersion\": 1,\n  \"actionsVersion\": 1,\n  \"attachmentsVersion\": 1,\n  \"auditHead\": 1,\n  \"baseSha\": \"baseSha\",\n  \"scopes\": {\n    \"content\": \"base\",\n    \"annotations\": \"base\",\n    \"layout\": \"base\",\n    \"attachments\": \"base\",\n    \"metadata\": \"base\",\n    \"actions\": \"base\"\n  },\n  \"pages\": [\n    {\n      \"state\": {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      },\n      \"cache\": {\n        \"contentVersion\": 1,\n        \"annotationVersion\": 1\n      }\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f15ad081-ba33-4481-8301-59d43d63332e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f1111450-3f81-4f0a-8d7e-1f0a4d590dcd",
+      "name": "Render one page as an image at the current layer version. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/render/pages/{pon}/data",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f1111450-3f81-4f0a-8d7e-1f0a4d590dcd",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d387666c-ac11-441e-86f8-d501243f3521",
+      "name": "Extracted text content for one page. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/text/pages/{pon}/data",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"text\": \"text\",\n  \"charCount\": 1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d387666c-ac11-441e-86f8-d501243f3521",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "3499a487-1db4-466e-b309-202ec463e72e",
+      "name": "List tenants, newest first, cursor-paginated. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"tenants\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"autoProvisioned\": true,\n      \"createdAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "3499a487-1db4-466e-b309-202ec463e72e",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      },
+      "postServeActions": []
+    },
+    {
+      "id": "fe3b22c9-48cf-40b1-aa68-ac1b69edf851",
+      "name": "Create a tenant, or confirm it already exists — ensure-style, idempotent. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"createdAt\": 1.1\n  },\n  \"created\": true\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "fe3b22c9-48cf-40b1-aa68-ac1b69edf851",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a09b5264-8740-4fb1-80e1-de3a232c3b9c",
+      "name": "Fetch one tenant record. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"createdAt\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a09b5264-8740-4fb1-80e1-de3a232c3b9c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d4266691-feb0-42ee-8da7-b4eae7c7199c",
+      "name": "Delete a tenant and everything under it. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d4266691-feb0-42ee-8da7-b4eae7c7199c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "829d2307-6f88-4949-b9a7-90da4814e35a",
+      "name": "List documents in the tenant, newest first, cursor-paginated. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"documents\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"state\": \"pending\",\n      \"baseSha\": \"baseSha\",\n      \"storageSizeBytes\": 1.1,\n      \"metadata\": {\n        \"key\": \"value\"\n      },\n      \"idempotencyKey\": \"idempotencyKey\",\n      \"failureReason\": \"failureReason\",\n      \"thumbnailState\": \"pending\",\n      \"thumbnailUrl\": \"thumbnailUrl\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "829d2307-6f88-4949-b9a7-90da4814e35a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d7c0da02-a1de-488b-9997-a0e8219a7050",
+      "name": "Fetch one document record. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d7c0da02-a1de-488b-9997-a0e8219a7050",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1b3e2270-ad12-4c11-bb1a-de119cf6e6b6",
+      "name": "Delete a document and its stored artifacts. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1b3e2270-ad12-4c11-bb1a-de119cf6e6b6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7900e323-666f-4656-97d4-49fa2a712d25",
+      "name": "Finish an upload: verify the SHA-256 and promote the document to ready. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/commit",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7900e323-666f-4656-97d4-49fa2a712d25",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8cd2a74b-a954-4c13-9c41-e89f9ba82620",
+      "name": "Download the stored base PDF bytes. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/download",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8cd2a74b-a954-4c13-9c41-e89f9ba82620",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "63a209ad-47fa-49ac-9aa9-6ab9447a7bee",
+      "name": "Fetch the warmed dashboard-tile render for a document. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/thumbnail",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "63a209ad-47fa-49ac-9aa9-6ab9447a7bee",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "52722630-c23c-4ef6-9600-e4dbad2d5dda",
+      "name": "Begin an upload: create (or resume/dedupe) a pending document and issue upload access. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/init",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"upload\": {\n    \"presigned\": {\n      \"url\": \"url\",\n      \"headers\": {\n        \"key\": \"value\"\n      },\n      \"method\": \"PUT\",\n      \"expiresAt\": 1.1\n    },\n    \"key\": \"key\",\n    \"kind\": \"presigned\"\n  },\n  \"tag\": \"created\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "52722630-c23c-4ef6-9600-e4dbad2d5dda",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "57255d00-a205-45e0-9ab6-dedc6072995b",
+      "name": "Mint a delegated JWT: a doc token, or (API token only) a tenant token. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/tokens",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"token\": \"token\",\n  \"jti\": \"jti\",\n  \"expiresAt\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "57255d00-a205-45e0-9ab6-dedc6072995b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "deffb0d4-1546-48d3-bb7d-36b5df27c688",
+      "name": "Revoke a token by jti; live sessions drop on their next heartbeat. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/tokens/{jti}/revoke",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "jti": {
+            "equalTo": "jti"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "deffb0d4-1546-48d3-bb7d-36b5df27c688",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e79b73b1-8c82-4996-8ca5-c46059b42f0d",
+      "name": "One page's annotations at the current layer version. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"pageState\": {\n    \"pageObjectNumber\": 1,\n    \"revision\": {\n      \"docSessionId\": \"docSessionId\",\n      \"pageObjectNumber\": 1,\n      \"generation\": 1\n    },\n    \"weakAnnotationState\": {\n      \"kind\": \"unknown\"\n    }\n  },\n  \"annotations\": [\n    {\n      \"ref\": {\n        \"pageObjectNumber\": 1,\n        \"annotObjectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"pageObjectNumber\": 1,\n      \"index\": 1,\n      \"identityQuality\": \"durable\",\n      \"nm\": \"nm\",\n      \"flags\": {\n        \"invisible\": true,\n        \"hidden\": true,\n        \"print\": true,\n        \"noZoom\": true,\n        \"noRotate\": true,\n        \"noView\": true,\n        \"readOnly\": true,\n        \"locked\": true,\n        \"toggleNoView\": true,\n        \"lockedContents\": true\n      },\n      \"rect\": {\n        \"left\": 1.1,\n        \"bottom\": 1.1,\n        \"right\": 1.1,\n        \"top\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"author\": \"author\",\n      \"created\": \"2024-01-15T09:30:00Z\",\n      \"modified\": \"2024-01-15T09:30:00Z\",\n      \"blendMode\": \"normal\",\n      \"inReplyTo\": {\n        \"pageObjectNumber\": 1,\n        \"annotObjectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"replyType\": \"reply\",\n      \"userId\": \"userId\",\n      \"groupId\": \"groupId\",\n      \"createdBy\": \"createdBy\",\n      \"updatedBy\": \"updatedBy\",\n      \"color\": {\n        \"r\": 1,\n        \"g\": 1,\n        \"b\": 1\n      },\n      \"opacity\": 1.1,\n      \"quadPoints\": [\n        {\n          \"p1\": {\n            \"x\": 1.1,\n            \"y\": 1.1\n          },\n          \"p2\": {\n            \"x\": 1.1,\n            \"y\": 1.1\n          },\n          \"p3\": {\n            \"x\": 1.1,\n            \"y\": 1.1\n          },\n          \"p4\": {\n            \"x\": 1.1,\n            \"y\": 1.1\n          }\n        }\n      ],\n      \"subtype\": \"highlight\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e79b73b1-8c82-4996-8ca5-c46059b42f0d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "444f288f-6cb4-4f4c-a22b-afa2f06c21a7",
+      "name": "Create an annotation on a page. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "444f288f-6cb4-4f4c-a22b-afa2f06c21a7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "0609d0ca-9b4a-4a58-b8c1-645efc198736",
+      "name": "Delete one annotation by key. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items/{annotKey}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          },
+          "annotKey": {
+            "equalTo": "annotKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "0609d0ca-9b4a-4a58-b8c1-645efc198736",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7a5c05e7-dd54-4c4d-9d4b-f91492b735d5",
+      "name": "Update one annotation by key. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items/{annotKey}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          },
+          "annotKey": {
+            "equalTo": "annotKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7a5c05e7-dd54-4c4d-9d4b-f91492b735d5",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "df9c7ba7-23af-4d1c-89c8-d54c27050629",
+      "name": "Reconciled form snapshot: fields, widgets, values. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"formKind\": \"none\",\n  \"needsAppearances\": true,\n  \"fields\": [\n    {\n      \"ref\": {\n        \"fieldObjectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldObjectNumber\": 1,\n      \"name\": \"name\",\n      \"origin\": \"acroform\",\n      \"flags\": {\n        \"readOnly\": true,\n        \"required\": true,\n        \"noExport\": true,\n        \"raw\": 1\n      },\n      \"alternateName\": \"alternateName\",\n      \"mappingName\": \"mappingName\",\n      \"valueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"defaultValueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"widgets\": [\n        {\n          \"annotObjectNumber\": 1,\n          \"pageObjectNumber\": 1\n        }\n      ],\n      \"value\": \"value\",\n      \"defaultValue\": \"defaultValue\",\n      \"maxLength\": 1,\n      \"multiline\": true,\n      \"password\": true,\n      \"comb\": true,\n      \"family\": \"text\"\n    }\n  ],\n  \"calculationOrder\": [\n    {\n      \"fieldObjectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "df9c7ba7-23af-4d1c-89c8-d54c27050629",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "19529da5-f2ec-4f0d-a1ec-5daa4d407d71",
+      "name": "Export form data as FDF or XFDF. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/data",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "19529da5-f2ec-4f0d-a1ec-5daa4d407d71",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7347c75a-2ae4-4497-9124-6d242e09950d",
+      "name": "Import form data (FDF/XFDF), filling matching fields. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/data",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7347c75a-2ae4-4497-9124-6d242e09950d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "22eb14fd-194a-4ea4-819f-b843a898cb27",
+      "name": "Reset one form field to its default value. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/fields/{fieldKey}/reset",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "fieldKey": {
+            "equalTo": "fieldKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "22eb14fd-194a-4ea4-819f-b843a898cb27",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7d2f663b-24cf-4c1d-8fce-886fcba990dc",
+      "name": "Set one form field's value. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/fields/{fieldKey}/value",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "fieldKey": {
+            "equalTo": "fieldKey"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7d2f663b-24cf-4c1d-8fce-886fcba990dc",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2d9be868-60ad-490a-8b4a-e1dbf5e94993",
+      "name": "Document metadata (PDF info dictionary view) for a layer. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/metadata",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"title\": \"title\",\n  \"author\": \"author\",\n  \"subject\": \"subject\",\n  \"keywords\": \"keywords\",\n  \"producer\": \"producer\",\n  \"creator\": \"creator\",\n  \"created\": \"2024-01-15T09:30:00Z\",\n  \"modified\": \"2024-01-15T09:30:00Z\",\n  \"trapped\": \"true\",\n  \"custom\": {\n    \"key\": \"value\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2d9be868-60ad-490a-8b4a-e1dbf5e94993",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "347df1d4-e622-4792-9a68-0cf1ad11b473",
+      "name": "Delete pages. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/delete",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "347df1d4-e622-4792-9a68-0cf1ad11b473",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "78516831-9031-4a14-a631-55eeb9bdba9a",
+      "name": "Flatten annotations and form fields into page content. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/flatten",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "78516831-9031-4a14-a631-55eeb9bdba9a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "27361925-5428-4b11-bebc-98ad9cb34fc7",
+      "name": "Reorder pages. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/move",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "27361925-5428-4b11-bebc-98ad9cb34fc7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "158b288c-49c5-455f-a2d8-c5ae10d66635",
+      "name": "Set absolute rotation on pages. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/rotate",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "158b288c-49c5-455f-a2d8-c5ae10d66635",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "77f2d8c0-1652-4efc-9938-61dc9d4e7d1d",
+      "name": "Apply pending redactions, permanently removing content. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/redactions/apply",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "77f2d8c0-1652-4efc-9938-61dc9d4e7d1d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    }
+  ],
+  "meta": {
+    "total": 34
+  }
+}
