@@ -1,8 +1,8 @@
-# Cloudpdf Go Library
+# CloudPDF Go SDK
 
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=Cloudpdf%2FGo)
 
-The Cloudpdf Go library provides convenient access to the Cloudpdf APIs from Go.
+The official Go SDK for the CloudPDF API.
 
 ## Table of Contents
 
