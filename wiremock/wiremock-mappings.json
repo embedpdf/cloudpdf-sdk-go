@@ -231,6 +231,221 @@
       }
     },
     {
+      "id": "59b8a94e-d1b3-49ea-a4f6-d146a14bfcc3",
+      "name": "Trade a public share token for a short-lived document session JWT. - default",
+      "request": {
+        "urlPathTemplate": "/v1/share-sessions",
+        "method": "POST"
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"token\": \"token\",\n  \"docId\": \"docId\",\n  \"layerName\": \"layerName\",\n  \"expiresAt\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "59b8a94e-d1b3-49ea-a4f6-d146a14bfcc3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d309f161-d8f6-4f54-9560-ba5d7abf9c4d",
+      "name": "List share grants in the tenant, newest first, cursor-paginated. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d309f161-d8f6-4f54-9560-ba5d7abf9c4d",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "c0e4f57a-7acc-4237-880f-3d64ce9b7dc4",
+      "name": "Create a standing share grant for one document — the no-backend embed credential. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "c0e4f57a-7acc-4237-880f-3d64ce9b7dc4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b8b58a73-7832-44af-9621-cc8bccb5e7db",
+      "name": "Fetch one share grant. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b8b58a73-7832-44af-9621-cc8bccb5e7db",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "66492131-2094-409e-9047-a56ec6165f0f",
+      "name": "Delete a grant; exchange stops immediately, live sessions lapse at their exp. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "66492131-2094-409e-9047-a56ec6165f0f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "ff0ab44d-02bc-42c0-8e5b-346f4bf223c7",
+      "name": "Edit a grant in place — every embedded copy of the token follows the row. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ff0ab44d-02bc-42c0-8e5b-346f4bf223c7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "3499a487-1db4-466e-b309-202ec463e72e",
       "name": "List tenants, newest first, cursor-paginated. - default",
       "request": {
@@ -244,7 +459,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenants\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"autoProvisioned\": true,\n      \"createdAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"tenants\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"autoProvisioned\": true,\n      \"status\": \"active\",\n      \"createdAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -276,7 +491,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"createdAt\": 1.1\n  },\n  \"created\": true\n}",
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"createdAt\": 1.1\n  },\n  \"created\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -312,7 +527,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"createdAt\": 1.1\n  }\n}",
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"createdAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -354,6 +569,114 @@
         }
       },
       "uuid": "d4266691-feb0-42ee-8da7-b4eae7c7199c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "29cd696c-e52f-43fa-8148-d5c8cd0c975f",
+      "name": "Lift a suspension; credentials for the tenant verify again. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/resume",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "29cd696c-e52f-43fa-8148-d5c8cd0c975f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "599361ed-d017-40b7-aa62-718c99b66bd0",
+      "name": "Fail the tenant closed: refuse every tenant JWT, doc JWT, and share exchange. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/suspend",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "599361ed-d017-40b7-aa62-718c99b66bd0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b1245dd5-6f00-4bb1-a2f5-a72e8b5973ff",
+      "name": "Per-tenant usage facts (views, uploads, stored bytes) for one UTC month. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/usage",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"tenantId\": \"tenantId\",\n  \"periodStart\": \"periodStart\",\n  \"periodEnd\": \"periodEnd\",\n  \"metrics\": {\n    \"pdf.views\": 1.1,\n    \"pdf.uploads\": 1.1,\n    \"storage.bytes\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b1245dd5-6f00-4bb1-a2f5-a72e8b5973ff",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -585,6 +908,45 @@
         }
       },
       "uuid": "63a209ad-47fa-49ac-9aa9-6ab9447a7bee",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "aae98187-29f7-41b7-9a32-31a370914c01",
+      "name": "Upload a bounded PDF through the API when the initialized transfer kind is proxy. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/upload-proxy",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"sha256\": \"sha256\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "aae98187-29f7-41b7-9a32-31a370914c01",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1318,6 +1680,6 @@
     }
   ],
   "meta": {
-    "total": 34
+    "total": 44
   }
 }

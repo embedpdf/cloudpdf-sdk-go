@@ -8,6 +8,7 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
+	strings "strings"
 	testing "testing"
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
@@ -183,6 +184,36 @@ func TestDocumentsCommitWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocumentsCommitWithWireMock", "POST", "/v1/tenants/tenantId/documents/id/commit", nil, 1)
+}
+
+func TestDocumentsUploadProxyWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.UploadProxyDocumentsRequest{
+		TenantID: "tenantId",
+		ID:       "id",
+		File: strings.NewReader(
+			"",
+		),
+	}
+	_, invocationErr := client.Documents.UploadProxy(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocumentsUploadProxyWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocumentsUploadProxyWithWireMock", "POST", "/v1/tenants/tenantId/documents/id/upload-proxy", nil, 1)
 }
 
 func TestDocumentsInitWithWireMock(
