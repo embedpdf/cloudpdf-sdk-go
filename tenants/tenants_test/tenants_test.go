@@ -178,3 +178,81 @@ func TestTenantsDeleteWithWireMock(
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestTenantsDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId", nil, 1)
 }
+
+func TestTenantsResumeWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.ResumeTenantsRequest{
+		TenantID: "tenantId",
+	}
+	invocationErr := client.Tenants.Resume(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestTenantsResumeWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestTenantsResumeWithWireMock", "POST", "/v1/tenants/tenantId/resume", nil, 1)
+}
+
+func TestTenantsSuspendWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.TenantsSuspendRequest{
+		TenantID: "tenantId",
+	}
+	invocationErr := client.Tenants.Suspend(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestTenantsSuspendWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestTenantsSuspendWithWireMock", "POST", "/v1/tenants/tenantId/suspend", nil, 1)
+}
+
+func TestTenantsUsageWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.UsageTenantsRequest{
+		TenantID: "tenantId",
+	}
+	_, invocationErr := client.Tenants.Usage(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestTenantsUsageWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestTenantsUsageWithWireMock", "GET", "/v1/tenants/tenantId/usage", nil, 1)
+}

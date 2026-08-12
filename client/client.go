@@ -9,6 +9,7 @@ import (
 	documents "github.com/embedpdf/cloudpdf-sdk-go/v3/documents"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
+	shares "github.com/embedpdf/cloudpdf-sdk-go/v3/shares"
 	tenants "github.com/embedpdf/cloudpdf-sdk-go/v3/tenants"
 	tokens "github.com/embedpdf/cloudpdf-sdk-go/v3/tokens"
 )
@@ -16,6 +17,7 @@ import (
 type Client struct {
 	Deployment *deployment.Client
 	Doc        *client.Client
+	Shares     *shares.Client
 	Tenants    *tenants.Client
 	Documents  *documents.Client
 	Tokens     *tokens.Client
@@ -30,6 +32,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 	return &Client{
 		Deployment: deployment.NewClient(options),
 		Doc:        client.NewClient(options),
+		Shares:     shares.NewClient(options),
 		Tenants:    tenants.NewClient(options),
 		Documents:  documents.NewClient(options),
 		Tokens:     tokens.NewClient(options),

@@ -6,6 +6,7 @@ import (
 	json "encoding/json"
 	fmt "fmt"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
+	io "io"
 	big "math/big"
 )
 
@@ -176,25 +177,27 @@ func (g *GetDocumentsRequest) SetID(id string) {
 }
 
 var (
-	documentsInitRequestFieldTenantID       = big.NewInt(1 << 0)
-	documentsInitRequestFieldContentLength  = big.NewInt(1 << 1)
-	documentsInitRequestFieldContentSha256  = big.NewInt(1 << 2)
-	documentsInitRequestFieldMetadata       = big.NewInt(1 << 3)
-	documentsInitRequestFieldIdempotencyKey = big.NewInt(1 << 4)
-	documentsInitRequestFieldDedupMode      = big.NewInt(1 << 5)
-	documentsInitRequestFieldDocID          = big.NewInt(1 << 6)
-	documentsInitRequestFieldUploadTTLSec   = big.NewInt(1 << 7)
+	documentsInitRequestFieldTenantID         = big.NewInt(1 << 0)
+	documentsInitRequestFieldContentLength    = big.NewInt(1 << 1)
+	documentsInitRequestFieldContentSha256    = big.NewInt(1 << 2)
+	documentsInitRequestFieldMetadata         = big.NewInt(1 << 3)
+	documentsInitRequestFieldIdempotencyKey   = big.NewInt(1 << 4)
+	documentsInitRequestFieldDedupMode        = big.NewInt(1 << 5)
+	documentsInitRequestFieldDocID            = big.NewInt(1 << 6)
+	documentsInitRequestFieldUploadTTLSec     = big.NewInt(1 << 7)
+	documentsInitRequestFieldUploadPreference = big.NewInt(1 << 8)
 )
 
 type DocumentsInitRequest struct {
-	TenantID       string                         `json:"-" url:"-"`
-	ContentLength  float64                        `json:"contentLength" url:"-"`
-	ContentSha256  string                         `json:"contentSha256" url:"-"`
-	Metadata       map[string]any                 `json:"metadata,omitempty" url:"-"`
-	IdempotencyKey *string                        `json:"idempotencyKey,omitempty" url:"-"`
-	DedupMode      *DocumentsInitRequestDedupMode `json:"dedupMode,omitempty" url:"-"`
-	DocID          *string                        `json:"docId,omitempty" url:"-"`
-	UploadTTLSec   *float64                       `json:"uploadTtlSec,omitempty" url:"-"`
+	TenantID         string                                `json:"-" url:"-"`
+	ContentLength    float64                               `json:"contentLength" url:"-"`
+	ContentSha256    string                                `json:"contentSha256" url:"-"`
+	Metadata         map[string]any                        `json:"metadata,omitempty" url:"-"`
+	IdempotencyKey   *string                               `json:"idempotencyKey,omitempty" url:"-"`
+	DedupMode        *DocumentsInitRequestDedupMode        `json:"dedupMode,omitempty" url:"-"`
+	DocID            *string                               `json:"docId,omitempty" url:"-"`
+	UploadTTLSec     *float64                              `json:"uploadTtlSec,omitempty" url:"-"`
+	UploadPreference *DocumentsInitRequestUploadPreference `json:"uploadPreference,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -261,6 +264,13 @@ func (d *DocumentsInitRequest) SetDocID(docID *string) {
 func (d *DocumentsInitRequest) SetUploadTTLSec(uploadTTLSec *float64) {
 	d.UploadTTLSec = uploadTTLSec
 	d.require(documentsInitRequestFieldUploadTTLSec)
+}
+
+// SetUploadPreference sets the UploadPreference field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInitRequest) SetUploadPreference(uploadPreference *DocumentsInitRequestUploadPreference) {
+	d.UploadPreference = uploadPreference
+	d.require(documentsInitRequestFieldUploadPreference)
 }
 
 func (d *DocumentsInitRequest) UnmarshalJSON(data []byte) error {
@@ -1787,7 +1797,7 @@ func (d DocumentsInit200ResponseCreatedDocumentThumbnailState) Ptr() *DocumentsI
 type DocumentsInit200ResponseCreatedUpload struct {
 	Kind      string
 	Presigned *DocumentsInit200ResponseCreatedUploadPresigned
-	Direct    *DocumentsInit200ResponseCreatedUploadDirect
+	Proxy     *DocumentsInit200ResponseCreatedUploadProxy
 
 	rawJSON json.RawMessage
 }
@@ -1806,11 +1816,11 @@ func (d *DocumentsInit200ResponseCreatedUpload) GetPresigned() *DocumentsInit200
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) GetDirect() *DocumentsInit200ResponseCreatedUploadDirect {
+func (d *DocumentsInit200ResponseCreatedUpload) GetProxy() *DocumentsInit200ResponseCreatedUploadProxy {
 	if d == nil {
 		return nil
 	}
-	return d.Direct
+	return d.Proxy
 }
 
 func (d *DocumentsInit200ResponseCreatedUpload) UnmarshalJSON(data []byte) error {
@@ -1831,12 +1841,12 @@ func (d *DocumentsInit200ResponseCreatedUpload) UnmarshalJSON(data []byte) error
 			return err
 		}
 		d.Presigned = value
-	case "direct":
-		value := new(DocumentsInit200ResponseCreatedUploadDirect)
+	case "proxy":
+		value := new(DocumentsInit200ResponseCreatedUploadProxy)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		d.Direct = value
+		d.Proxy = value
 	}
 	d.rawJSON = json.RawMessage(data)
 	return nil
@@ -1849,8 +1859,8 @@ func (d DocumentsInit200ResponseCreatedUpload) MarshalJSON() ([]byte, error) {
 	if d.Presigned != nil {
 		return internal.MarshalJSONWithExtraProperty(d.Presigned, "kind", "presigned")
 	}
-	if d.Direct != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Direct, "kind", "direct")
+	if d.Proxy != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Proxy, "kind", "proxy")
 	}
 	if len(d.rawJSON) > 0 {
 		return d.rawJSON, nil
@@ -1860,15 +1870,15 @@ func (d DocumentsInit200ResponseCreatedUpload) MarshalJSON() ([]byte, error) {
 
 type DocumentsInit200ResponseCreatedUploadVisitor interface {
 	VisitPresigned(*DocumentsInit200ResponseCreatedUploadPresigned) error
-	VisitDirect(*DocumentsInit200ResponseCreatedUploadDirect) error
+	VisitProxy(*DocumentsInit200ResponseCreatedUploadProxy) error
 }
 
 func (d *DocumentsInit200ResponseCreatedUpload) Accept(visitor DocumentsInit200ResponseCreatedUploadVisitor) error {
 	if d.Presigned != nil {
 		return visitor.VisitPresigned(d.Presigned)
 	}
-	if d.Direct != nil {
-		return visitor.VisitDirect(d.Direct)
+	if d.Proxy != nil {
+		return visitor.VisitProxy(d.Proxy)
 	}
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
@@ -1881,8 +1891,8 @@ func (d *DocumentsInit200ResponseCreatedUpload) validate() error {
 	if d.Presigned != nil {
 		fields = append(fields, "presigned")
 	}
-	if d.Direct != nil {
-		fields = append(fields, "direct")
+	if d.Proxy != nil {
+		fields = append(fields, "proxy")
 	}
 	if len(fields) == 0 {
 		if d.Kind != "" {
@@ -1908,106 +1918,6 @@ func (d *DocumentsInit200ResponseCreatedUpload) validate() error {
 		}
 	}
 	return nil
-}
-
-var (
-	documentsInit200ResponseCreatedUploadDirectFieldURL = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedUploadDirectFieldKey = big.NewInt(1 << 1)
-)
-
-type DocumentsInit200ResponseCreatedUploadDirect struct {
-	URL string `json:"url" url:"url"`
-	Key string `json:"key" url:"key"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) GetURL() string {
-	if d == nil {
-		return ""
-	}
-	return d.URL
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) GetKey() string {
-	if d == nil {
-		return ""
-	}
-	return d.Key
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetURL sets the URL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadDirect) SetURL(url string) {
-	d.URL = url
-	d.require(documentsInit200ResponseCreatedUploadDirectFieldURL)
-}
-
-// SetKey sets the Key field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadDirect) SetKey(key string) {
-	d.Key = key
-	d.require(documentsInit200ResponseCreatedUploadDirectFieldKey)
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreatedUploadDirect
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocumentsInit200ResponseCreatedUploadDirect(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreatedUploadDirect
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocumentsInit200ResponseCreatedUploadDirect) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -2259,6 +2169,106 @@ func NewDocumentsInit200ResponseCreatedUploadPresignedPresignedMethodFromString(
 
 func (d DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod) Ptr() *DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod {
 	return &d
+}
+
+var (
+	documentsInit200ResponseCreatedUploadProxyFieldURL = big.NewInt(1 << 0)
+	documentsInit200ResponseCreatedUploadProxyFieldKey = big.NewInt(1 << 1)
+)
+
+type DocumentsInit200ResponseCreatedUploadProxy struct {
+	URL string `json:"url" url:"url"`
+	Key string `json:"key" url:"key"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) GetURL() string {
+	if d == nil {
+		return ""
+	}
+	return d.URL
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) GetKey() string {
+	if d == nil {
+		return ""
+	}
+	return d.Key
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseCreatedUploadProxy) SetURL(url string) {
+	d.URL = url
+	d.require(documentsInit200ResponseCreatedUploadProxyFieldURL)
+}
+
+// SetKey sets the Key field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseCreatedUploadProxy) SetKey(key string) {
+	d.Key = key
+	d.require(documentsInit200ResponseCreatedUploadProxyFieldKey)
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInit200ResponseCreatedUploadProxy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsInit200ResponseCreatedUploadProxy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInit200ResponseCreatedUploadProxy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsInit200ResponseCreatedUploadProxy) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -3112,7 +3122,7 @@ func (d DocumentsInit200ResponseResumedDocumentThumbnailState) Ptr() *DocumentsI
 type DocumentsInit200ResponseResumedUpload struct {
 	Kind      string
 	Presigned *DocumentsInit200ResponseResumedUploadPresigned
-	Direct    *DocumentsInit200ResponseResumedUploadDirect
+	Proxy     *DocumentsInit200ResponseResumedUploadProxy
 
 	rawJSON json.RawMessage
 }
@@ -3131,11 +3141,11 @@ func (d *DocumentsInit200ResponseResumedUpload) GetPresigned() *DocumentsInit200
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) GetDirect() *DocumentsInit200ResponseResumedUploadDirect {
+func (d *DocumentsInit200ResponseResumedUpload) GetProxy() *DocumentsInit200ResponseResumedUploadProxy {
 	if d == nil {
 		return nil
 	}
-	return d.Direct
+	return d.Proxy
 }
 
 func (d *DocumentsInit200ResponseResumedUpload) UnmarshalJSON(data []byte) error {
@@ -3156,12 +3166,12 @@ func (d *DocumentsInit200ResponseResumedUpload) UnmarshalJSON(data []byte) error
 			return err
 		}
 		d.Presigned = value
-	case "direct":
-		value := new(DocumentsInit200ResponseResumedUploadDirect)
+	case "proxy":
+		value := new(DocumentsInit200ResponseResumedUploadProxy)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
-		d.Direct = value
+		d.Proxy = value
 	}
 	d.rawJSON = json.RawMessage(data)
 	return nil
@@ -3174,8 +3184,8 @@ func (d DocumentsInit200ResponseResumedUpload) MarshalJSON() ([]byte, error) {
 	if d.Presigned != nil {
 		return internal.MarshalJSONWithExtraProperty(d.Presigned, "kind", "presigned")
 	}
-	if d.Direct != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Direct, "kind", "direct")
+	if d.Proxy != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Proxy, "kind", "proxy")
 	}
 	if len(d.rawJSON) > 0 {
 		return d.rawJSON, nil
@@ -3185,15 +3195,15 @@ func (d DocumentsInit200ResponseResumedUpload) MarshalJSON() ([]byte, error) {
 
 type DocumentsInit200ResponseResumedUploadVisitor interface {
 	VisitPresigned(*DocumentsInit200ResponseResumedUploadPresigned) error
-	VisitDirect(*DocumentsInit200ResponseResumedUploadDirect) error
+	VisitProxy(*DocumentsInit200ResponseResumedUploadProxy) error
 }
 
 func (d *DocumentsInit200ResponseResumedUpload) Accept(visitor DocumentsInit200ResponseResumedUploadVisitor) error {
 	if d.Presigned != nil {
 		return visitor.VisitPresigned(d.Presigned)
 	}
-	if d.Direct != nil {
-		return visitor.VisitDirect(d.Direct)
+	if d.Proxy != nil {
+		return visitor.VisitProxy(d.Proxy)
 	}
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
@@ -3206,8 +3216,8 @@ func (d *DocumentsInit200ResponseResumedUpload) validate() error {
 	if d.Presigned != nil {
 		fields = append(fields, "presigned")
 	}
-	if d.Direct != nil {
-		fields = append(fields, "direct")
+	if d.Proxy != nil {
+		fields = append(fields, "proxy")
 	}
 	if len(fields) == 0 {
 		if d.Kind != "" {
@@ -3233,106 +3243,6 @@ func (d *DocumentsInit200ResponseResumedUpload) validate() error {
 		}
 	}
 	return nil
-}
-
-var (
-	documentsInit200ResponseResumedUploadDirectFieldURL = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedUploadDirectFieldKey = big.NewInt(1 << 1)
-)
-
-type DocumentsInit200ResponseResumedUploadDirect struct {
-	URL string `json:"url" url:"url"`
-	Key string `json:"key" url:"key"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) GetURL() string {
-	if d == nil {
-		return ""
-	}
-	return d.URL
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) GetKey() string {
-	if d == nil {
-		return ""
-	}
-	return d.Key
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetURL sets the URL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadDirect) SetURL(url string) {
-	d.URL = url
-	d.require(documentsInit200ResponseResumedUploadDirectFieldURL)
-}
-
-// SetKey sets the Key field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadDirect) SetKey(key string) {
-	d.Key = key
-	d.require(documentsInit200ResponseResumedUploadDirectFieldKey)
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumedUploadDirect
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocumentsInit200ResponseResumedUploadDirect(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumedUploadDirect
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocumentsInit200ResponseResumedUploadDirect) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -3584,6 +3494,106 @@ func NewDocumentsInit200ResponseResumedUploadPresignedPresignedMethodFromString(
 
 func (d DocumentsInit200ResponseResumedUploadPresignedPresignedMethod) Ptr() *DocumentsInit200ResponseResumedUploadPresignedPresignedMethod {
 	return &d
+}
+
+var (
+	documentsInit200ResponseResumedUploadProxyFieldURL = big.NewInt(1 << 0)
+	documentsInit200ResponseResumedUploadProxyFieldKey = big.NewInt(1 << 1)
+)
+
+type DocumentsInit200ResponseResumedUploadProxy struct {
+	URL string `json:"url" url:"url"`
+	Key string `json:"key" url:"key"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) GetURL() string {
+	if d == nil {
+		return ""
+	}
+	return d.URL
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) GetKey() string {
+	if d == nil {
+		return ""
+	}
+	return d.Key
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseResumedUploadProxy) SetURL(url string) {
+	d.URL = url
+	d.require(documentsInit200ResponseResumedUploadProxyFieldURL)
+}
+
+// SetKey sets the Key field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseResumedUploadProxy) SetKey(key string) {
+	d.Key = key
+	d.require(documentsInit200ResponseResumedUploadProxyFieldKey)
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInit200ResponseResumedUploadProxy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsInit200ResponseResumedUploadProxy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInit200ResponseResumedUploadProxy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsInit200ResponseResumedUploadProxy) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -4019,10 +4029,10 @@ func (d DocumentsList200ResponseDocumentsItemThumbnailState) Ptr() *DocumentsLis
 }
 
 var (
-	documentsUploadDirect200ResponseFieldSha256 = big.NewInt(1 << 0)
+	documentsUploadProxy200ResponseFieldSha256 = big.NewInt(1 << 0)
 )
 
-type DocumentsUploadDirect200Response struct {
+type DocumentsUploadProxy200Response struct {
 	Sha256 string `json:"sha256" url:"sha256"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -4032,21 +4042,21 @@ type DocumentsUploadDirect200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsUploadDirect200Response) GetSha256() string {
+func (d *DocumentsUploadProxy200Response) GetSha256() string {
 	if d == nil {
 		return ""
 	}
 	return d.Sha256
 }
 
-func (d *DocumentsUploadDirect200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsUploadProxy200Response) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsUploadDirect200Response) require(field *big.Int) {
+func (d *DocumentsUploadProxy200Response) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4055,18 +4065,18 @@ func (d *DocumentsUploadDirect200Response) require(field *big.Int) {
 
 // SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUploadDirect200Response) SetSha256(sha256 string) {
+func (d *DocumentsUploadProxy200Response) SetSha256(sha256 string) {
 	d.Sha256 = sha256
-	d.require(documentsUploadDirect200ResponseFieldSha256)
+	d.require(documentsUploadProxy200ResponseFieldSha256)
 }
 
-func (d *DocumentsUploadDirect200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsUploadDirect200Response
+func (d *DocumentsUploadProxy200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUploadProxy200Response
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsUploadDirect200Response(value)
+	*d = DocumentsUploadProxy200Response(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4076,8 +4086,8 @@ func (d *DocumentsUploadDirect200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsUploadDirect200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsUploadDirect200Response
+func (d *DocumentsUploadProxy200Response) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUploadProxy200Response
 	var marshaler = struct {
 		embed
 	}{
@@ -4087,7 +4097,7 @@ func (d *DocumentsUploadDirect200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsUploadDirect200Response) String() string {
+func (d *DocumentsUploadProxy200Response) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4124,6 +4134,31 @@ func (d DocumentsInitRequestDedupMode) Ptr() *DocumentsInitRequestDedupMode {
 	return &d
 }
 
+type DocumentsInitRequestUploadPreference string
+
+const (
+	DocumentsInitRequestUploadPreferenceAuto      DocumentsInitRequestUploadPreference = "auto"
+	DocumentsInitRequestUploadPreferencePresigned DocumentsInitRequestUploadPreference = "presigned"
+	DocumentsInitRequestUploadPreferenceProxy     DocumentsInitRequestUploadPreference = "proxy"
+)
+
+func NewDocumentsInitRequestUploadPreferenceFromString(s string) (DocumentsInitRequestUploadPreference, error) {
+	switch s {
+	case "auto":
+		return DocumentsInitRequestUploadPreferenceAuto, nil
+	case "presigned":
+		return DocumentsInitRequestUploadPreferencePresigned, nil
+	case "proxy":
+		return DocumentsInitRequestUploadPreferenceProxy, nil
+	}
+	var t DocumentsInitRequestUploadPreference
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsInitRequestUploadPreference) Ptr() *DocumentsInitRequestUploadPreference {
+	return &d
+}
+
 type ListDocumentsRequestState string
 
 const (
@@ -4150,4 +4185,60 @@ func NewListDocumentsRequestStateFromString(s string) (ListDocumentsRequestState
 
 func (l ListDocumentsRequestState) Ptr() *ListDocumentsRequestState {
 	return &l
+}
+
+var (
+	uploadProxyDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
+	uploadProxyDocumentsRequestFieldID       = big.NewInt(1 << 1)
+)
+
+type UploadProxyDocumentsRequest struct {
+	TenantID string    `json:"-" url:"-"`
+	ID       string    `json:"-" url:"-"`
+	File     io.Reader `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (u *UploadProxyDocumentsRequest) require(field *big.Int) {
+	if u.explicitFields == nil {
+		u.explicitFields = big.NewInt(0)
+	}
+	u.explicitFields.Or(u.explicitFields, field)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UploadProxyDocumentsRequest) SetTenantID(tenantID string) {
+	u.TenantID = tenantID
+	u.require(uploadProxyDocumentsRequestFieldTenantID)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UploadProxyDocumentsRequest) SetID(id string) {
+	u.ID = id
+	u.require(uploadProxyDocumentsRequestFieldID)
+}
+
+func (u *UploadProxyDocumentsRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler UploadProxyDocumentsRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*u = UploadProxyDocumentsRequest(body)
+	return nil
+}
+
+func (u *UploadProxyDocumentsRequest) MarshalJSON() ([]byte, error) {
+	type embed UploadProxyDocumentsRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*u),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, u.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }

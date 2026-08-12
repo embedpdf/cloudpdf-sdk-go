@@ -133,3 +133,82 @@ func (c *Client) Delete(
 	}
 	return nil
 }
+
+// Example:
+//
+//	request := &cloudpdf.ResumeTenantsRequest{
+//	    TenantID: "tenantId",
+//	}
+//	client.Tenants.Resume(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Resume(
+	ctx context.Context,
+	request *cloudpdf.ResumeTenantsRequest,
+	opts ...option.RequestOption,
+) error {
+	_, err := c.WithRawResponse.Resume(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Instantly reversible with resume. The API token is exempt, so a suspended tenant can still be inspected, exported, resumed, or deleted.
+//
+// Example:
+//
+//	request := &cloudpdf.TenantsSuspendRequest{
+//	    TenantID: "tenantId",
+//	}
+//	client.Tenants.Suspend(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Suspend(
+	ctx context.Context,
+	request *cloudpdf.TenantsSuspendRequest,
+	opts ...option.RequestOption,
+) error {
+	_, err := c.WithRawResponse.Suspend(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// Facts only — no limits or billing state. Views count share exchanges plus authorized /v1/access grants, deduplicated across the two.
+//
+// Example:
+//
+//	request := &cloudpdf.UsageTenantsRequest{
+//	    TenantID: "tenantId",
+//	}
+//	client.Tenants.Usage(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Usage(
+	ctx context.Context,
+	request *cloudpdf.UsageTenantsRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.TenantsUsage200Response, error) {
+	response, err := c.WithRawResponse.Usage(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

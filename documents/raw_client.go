@@ -316,13 +316,11 @@ func (r *RawClient) Thumbnail(
 	}, nil
 }
 
-func (r *RawClient) UploadDirect(
+func (r *RawClient) UploadProxy(
 	ctx context.Context,
-	tenantID string,
-	id string,
-	request io.Reader,
+	request *cloudpdf.UploadProxyDocumentsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsUploadDirect200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsUploadProxy200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -330,15 +328,24 @@ func (r *RawClient) UploadDirect(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/tenants/%v/documents/%v/upload-direct",
-		tenantID,
-		id,
+		baseURL+"/v1/tenants/%v/documents/%v/upload-proxy",
+		request.TenantID,
+		request.ID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.DocumentsUploadDirect200Response
+	writer := internal.NewMultipartWriter()
+	if err := writer.WriteFile("file", request.File); err != nil {
+		return nil, err
+	}
+	if err := writer.Close(); err != nil {
+		return nil, err
+	}
+	headers.Set("Content-Type", writer.ContentType())
+
+	var response *cloudpdf.DocumentsUploadProxy200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -350,7 +357,7 @@ func (r *RawClient) UploadDirect(
 			BodyProperties:  options.BodyProperties,
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
-			Request:         request,
+			Request:         writer.Buffer(),
 			Response:        &response,
 			ErrorDecoder:    internal.NewErrorDecoder(cloudpdf.ErrorCodes),
 		},
@@ -358,7 +365,7 @@ func (r *RawClient) UploadDirect(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsUploadDirect200Response]{
+	return &core.Response[*cloudpdf.DocumentsUploadProxy200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
