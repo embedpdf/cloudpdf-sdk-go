@@ -31,6 +31,30 @@ func (b *BadRequestError) Unwrap() error {
 	return b.APIError
 }
 
+// Conflict
+type ConflictError struct {
+	*core.APIError
+	Body *DocumentsUploadProxy409Response
+}
+
+func (c *ConflictError) UnmarshalJSON(data []byte) error {
+	var body *DocumentsUploadProxy409Response
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	c.StatusCode = 409
+	c.Body = body
+	return nil
+}
+
+func (c *ConflictError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.Body)
+}
+
+func (c *ConflictError) Unwrap() error {
+	return c.APIError
+}
+
 // Forbidden
 type ForbiddenError struct {
 	*core.APIError
@@ -55,6 +79,30 @@ func (f *ForbiddenError) Unwrap() error {
 	return f.APIError
 }
 
+// Gone
+type GoneError struct {
+	*core.APIError
+	Body *SharesExchange410Response
+}
+
+func (g *GoneError) UnmarshalJSON(data []byte) error {
+	var body *SharesExchange410Response
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	g.StatusCode = 410
+	g.Body = body
+	return nil
+}
+
+func (g *GoneError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(g.Body)
+}
+
+func (g *GoneError) Unwrap() error {
+	return g.APIError
+}
+
 // Not found
 type NotFoundError struct {
 	*core.APIError
@@ -77,4 +125,28 @@ func (n *NotFoundError) MarshalJSON() ([]byte, error) {
 
 func (n *NotFoundError) Unwrap() error {
 	return n.APIError
+}
+
+// Unprocessable
+type UnprocessableEntityError struct {
+	*core.APIError
+	Body *SharesExchange422Response
+}
+
+func (u *UnprocessableEntityError) UnmarshalJSON(data []byte) error {
+	var body *SharesExchange422Response
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	u.StatusCode = 422
+	u.Body = body
+	return nil
+}
+
+func (u *UnprocessableEntityError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(u.Body)
+}
+
+func (u *UnprocessableEntityError) Unwrap() error {
+	return u.APIError
 }

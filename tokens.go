@@ -372,7 +372,8 @@ var (
 	tokensIssueRequestDocFieldDisplayName = big.NewInt(1 << 5)
 	tokensIssueRequestDocFieldGroupID     = big.NewInt(1 << 6)
 	tokensIssueRequestDocFieldGroups      = big.NewInt(1 << 7)
-	tokensIssueRequestDocFieldExpiresIn   = big.NewInt(1 << 8)
+	tokensIssueRequestDocFieldOrigins     = big.NewInt(1 << 8)
+	tokensIssueRequestDocFieldExpiresIn   = big.NewInt(1 << 9)
 )
 
 type TokensIssueRequestDoc struct {
@@ -384,6 +385,7 @@ type TokensIssueRequestDoc struct {
 	DisplayName *string  `json:"displayName,omitempty" url:"displayName,omitempty"`
 	GroupID     *string  `json:"groupId,omitempty" url:"groupId,omitempty"`
 	Groups      []string `json:"groups,omitempty" url:"groups,omitempty"`
+	Origins     []string `json:"origins,omitempty" url:"origins,omitempty"`
 	ExpiresIn   int      `json:"expiresIn" url:"expiresIn"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -447,6 +449,13 @@ func (t *TokensIssueRequestDoc) GetGroups() []string {
 		return nil
 	}
 	return t.Groups
+}
+
+func (t *TokensIssueRequestDoc) GetOrigins() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Origins
 }
 
 func (t *TokensIssueRequestDoc) GetExpiresIn() int {
@@ -524,6 +533,13 @@ func (t *TokensIssueRequestDoc) SetGroupID(groupID *string) {
 func (t *TokensIssueRequestDoc) SetGroups(groups []string) {
 	t.Groups = groups
 	t.require(tokensIssueRequestDocFieldGroups)
+}
+
+// SetOrigins sets the Origins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestDoc) SetOrigins(origins []string) {
+	t.Origins = origins
+	t.require(tokensIssueRequestDocFieldOrigins)
 }
 
 // SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
@@ -761,6 +777,7 @@ const (
 	TokensIssueRequestTenantScopeItemOneDocsDelete     TokensIssueRequestTenantScopeItemOne = "docs.delete"
 	TokensIssueRequestTenantScopeItemOneTokensIssueDoc TokensIssueRequestTenantScopeItemOne = "tokens.issue-doc"
 	TokensIssueRequestTenantScopeItemOneTokensRevoke   TokensIssueRequestTenantScopeItemOne = "tokens.revoke"
+	TokensIssueRequestTenantScopeItemOneSharesManage   TokensIssueRequestTenantScopeItemOne = "shares.manage"
 )
 
 func NewTokensIssueRequestTenantScopeItemOneFromString(s string) (TokensIssueRequestTenantScopeItemOne, error) {
@@ -775,6 +792,8 @@ func NewTokensIssueRequestTenantScopeItemOneFromString(s string) (TokensIssueReq
 		return TokensIssueRequestTenantScopeItemOneTokensIssueDoc, nil
 	case "tokens.revoke":
 		return TokensIssueRequestTenantScopeItemOneTokensRevoke, nil
+	case "shares.manage":
+		return TokensIssueRequestTenantScopeItemOneSharesManage, nil
 	}
 	var t TokensIssueRequestTenantScopeItemOne
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
