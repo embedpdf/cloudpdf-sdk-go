@@ -191,17 +191,28 @@ func (c *Client) Thumbnail(
 	return response.Body, nil
 }
 
-func (c *Client) UploadDirect(
+// This bounded origin-mediated fallback must only be used after documents.init returns upload.kind=proxy. Auto mode prefers a presigned object-store PUT whenever available.
+//
+// Example:
+//
+//	request := &cloudpdf.UploadProxyDocumentsRequest{
+//	    TenantID: "tenantId",
+//	    ID: "id",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	client.Documents.UploadProxy(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) UploadProxy(
 	ctx context.Context,
-	tenantID string,
-	id string,
-	request io.Reader,
+	request *cloudpdf.UploadProxyDocumentsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsUploadDirect200Response, error) {
-	response, err := c.WithRawResponse.UploadDirect(
+) (*cloudpdf.DocumentsUploadProxy200Response, error) {
+	response, err := c.WithRawResponse.UploadProxy(
 		ctx,
-		tenantID,
-		id,
 		request,
 		opts...,
 	)

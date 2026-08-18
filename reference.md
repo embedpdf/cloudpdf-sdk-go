@@ -366,6 +366,478 @@ client.Doc.Text(
 </dl>
 </details>
 
+## Shares
+<details><summary><code>client.Shares.Exchange(request) -> *cloudpdf.SharesExchange200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, revoked, and disabled tokens are indistinguishable (404). Passphrase-protected grants return 422 SharePasswordRequired until `password` is supplied. Mounted only when the deployment can sign (HS256 mode).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.SharesExchangeRequest{
+    ShareToken: "shareToken",
+}
+client.Shares.Exchange(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**shareToken:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.List(TenantID) -> *cloudpdf.SharesList200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.ListSharesRequest{
+    TenantID: "tenantId",
+}
+client.Shares.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**docID:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Create(TenantID, request) -> *cloudpdf.SharesCreate200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The returned share id IS the public share token. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.SharesCreateRequest{
+    TenantID: "tenantId",
+    DocID: "docId",
+    Scope: []string{
+        "scope",
+    },
+}
+client.Shares.Create(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scope:** `[]string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**origins:** `[]string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sessionTTLSeconds:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiresAt:** `*int` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Get(TenantID, ShareID) -> *cloudpdf.SharesGet200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.GetSharesRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+}
+client.Shares.Get(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Delete(TenantID, ShareID) -> error</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.DeleteSharesRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+}
+client.Shares.Delete(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Update(TenantID, ShareID, request) -> *cloudpdf.SharesUpdate200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.SharesUpdateRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+}
+client.Shares.Update(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**scope:** `[]string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**origins:** `[]string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**password:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sessionTTLSeconds:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**disabled:** `*bool` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiresAt:** `*int` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Tenants
 <details><summary><code>client.Tenants.List() -> *cloudpdf.TenantsList200Response</code></summary>
 <dl>
@@ -568,6 +1040,188 @@ client.Tenants.Delete(
 <dd>
 
 **tenantID:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Tenants.Resume(TenantID) -> error</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.ResumeTenantsRequest{
+    TenantID: "tenantId",
+}
+client.Tenants.Resume(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Tenants.Suspend(TenantID, request) -> error</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Instantly reversible with resume. The API token is exempt, so a suspended tenant can still be inspected, exported, resumed, or deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.TenantsSuspendRequest{
+    TenantID: "tenantId",
+}
+client.Tenants.Suspend(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**reason:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Tenants.Usage(TenantID) -> *cloudpdf.TenantsUsage200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Facts only — no limits or billing state. Views count share exchanges plus authorized /v1/access grants, deduplicated across the two.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.UsageTenantsRequest{
+    TenantID: "tenantId",
+}
+client.Tenants.Usage(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**period:** `*string` 
     
 </dd>
 </dl>
@@ -934,6 +1588,78 @@ client.Documents.Thumbnail(
 </dl>
 </details>
 
+<details><summary><code>client.Documents.UploadProxy(TenantID, ID, request) -> *cloudpdf.DocumentsUploadProxy200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+This bounded origin-mediated fallback must only be used after documents.init returns upload.kind=proxy. Auto mode prefers a presigned object-store PUT whenever available.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.UploadProxyDocumentsRequest{
+    TenantID: "tenantId",
+    ID: "id",
+    File: strings.NewReader(
+        "",
+    ),
+}
+client.Documents.UploadProxy(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Documents.Init(TenantID, request) -> *cloudpdf.DocumentsInit200Response</code></summary>
 <dl>
 <dd>
@@ -1027,6 +1753,14 @@ client.Documents.Init(
 <dd>
 
 **uploadTTLSec:** `*float64` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**uploadPreference:** `*cloudpdf.DocumentsInitRequestUploadPreference` 
     
 </dd>
 </dl>

@@ -2138,11 +2138,13 @@ func (d DocManifest200ResponseScopesMetadata) Ptr() *DocManifest200ResponseScope
 var (
 	docText200ResponseFieldText      = big.NewInt(1 << 0)
 	docText200ResponseFieldCharCount = big.NewInt(1 << 1)
+	docText200ResponseFieldCharMap   = big.NewInt(1 << 2)
 )
 
 type DocText200Response struct {
-	Text      string `json:"text" url:"text"`
-	CharCount int    `json:"charCount" url:"charCount"`
+	Text      string  `json:"text" url:"text"`
+	CharCount int     `json:"charCount" url:"charCount"`
+	CharMap   [][]any `json:"charMap,omitempty" url:"charMap,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2163,6 +2165,13 @@ func (d *DocText200Response) GetCharCount() int {
 		return 0
 	}
 	return d.CharCount
+}
+
+func (d *DocText200Response) GetCharMap() [][]any {
+	if d == nil {
+		return nil
+	}
+	return d.CharMap
 }
 
 func (d *DocText200Response) GetExtraProperties() map[string]interface{} {
@@ -2191,6 +2200,13 @@ func (d *DocText200Response) SetText(text string) {
 func (d *DocText200Response) SetCharCount(charCount int) {
 	d.CharCount = charCount
 	d.require(docText200ResponseFieldCharCount)
+}
+
+// SetCharMap sets the CharMap field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocText200Response) SetCharMap(charMap [][]any) {
+	d.CharMap = charMap
+	d.require(docText200ResponseFieldCharMap)
 }
 
 func (d *DocText200Response) UnmarshalJSON(data []byte) error {
