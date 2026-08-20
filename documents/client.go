@@ -222,6 +222,38 @@ func (c *Client) UploadProxy(
 	return response.Body, nil
 }
 
+// Default mode is synchronous and bounded: the response returns only after the transfer verified and committed (or failed). mode=async (connection sources only) answers 202 immediately and an in-process worker performs the transfer with leased, fenced retries; poll the document until ready/failed. The deployment import policy gates scheme, network range, and size; sources must declare a length. CloudPDF copies and owns the bytes — the source is never referenced in place. A 502 marks a retryable upstream failure: retry with the same idempotencyKey to resume the same document. URL sources are capabilities and never echoed back. Connection sources name operator-registered storage (bucket/prefix scope, allowed credential classes, and tenant bindings are deployment configuration); `revision` is provider-interpreted (S3 VersionId, GCS generation, Azure version id).
+//
+// Example:
+//
+//	request := &cloudpdf.DocumentsImportFromRequest{
+//	    TenantID: "tenantId",
+//	    Source: &cloudpdf.DocumentsImportFromRequestSource{
+//	        URL: &cloudpdf.DocumentsImportFromRequestSourceURL{
+//	            URL: "url",
+//	        },
+//	    },
+//	}
+//	client.Documents.ImportFrom(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ImportFrom(
+	ctx context.Context,
+	request *cloudpdf.DocumentsImportFromRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocumentsImportFrom200Response, error) {
+	response, err := c.WithRawResponse.ImportFrom(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &cloudpdf.DocumentsInitRequest{

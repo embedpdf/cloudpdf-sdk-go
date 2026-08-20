@@ -959,6 +959,42 @@
       }
     },
     {
+      "id": "e83a7cad-60e3-4f29-a5b6-08de2c40c7db",
+      "name": "Server-side pull: fetch a PDF from a caller-supplied URL (e.g. a presigned object-store GET) or an operator-registered storage connection into CloudPDF-owned storage, verify it, and commit it. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/import",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"tag\": \"imported\",\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e83a7cad-60e3-4f29-a5b6-08de2c40c7db",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "52722630-c23c-4ef6-9600-e4dbad2d5dda",
       "name": "Begin an upload: create (or resume/dedupe) a pending document and issue upload access. - default",
       "request": {
@@ -1680,6 +1716,6 @@
     }
   ],
   "meta": {
-    "total": 44
+    "total": 45
   }
 }

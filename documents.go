@@ -177,6 +177,115 @@ func (g *GetDocumentsRequest) SetID(id string) {
 }
 
 var (
+	documentsImportFromRequestFieldTenantID       = big.NewInt(1 << 0)
+	documentsImportFromRequestFieldSource         = big.NewInt(1 << 1)
+	documentsImportFromRequestFieldExpected       = big.NewInt(1 << 2)
+	documentsImportFromRequestFieldMetadata       = big.NewInt(1 << 3)
+	documentsImportFromRequestFieldIdempotencyKey = big.NewInt(1 << 4)
+	documentsImportFromRequestFieldDedupMode      = big.NewInt(1 << 5)
+	documentsImportFromRequestFieldDocID          = big.NewInt(1 << 6)
+	documentsImportFromRequestFieldMode           = big.NewInt(1 << 7)
+)
+
+type DocumentsImportFromRequest struct {
+	TenantID       string                               `json:"-" url:"-"`
+	Source         *DocumentsImportFromRequestSource    `json:"source" url:"-"`
+	Expected       *DocumentsImportFromRequestExpected  `json:"expected,omitempty" url:"-"`
+	Metadata       map[string]any                       `json:"metadata,omitempty" url:"-"`
+	IdempotencyKey *string                              `json:"idempotencyKey,omitempty" url:"-"`
+	DedupMode      *DocumentsImportFromRequestDedupMode `json:"dedupMode,omitempty" url:"-"`
+	DocID          *string                              `json:"docId,omitempty" url:"-"`
+	Mode           *DocumentsImportFromRequestMode      `json:"mode,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocumentsImportFromRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetTenantID(tenantID string) {
+	d.TenantID = tenantID
+	d.require(documentsImportFromRequestFieldTenantID)
+}
+
+// SetSource sets the Source field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetSource(source *DocumentsImportFromRequestSource) {
+	d.Source = source
+	d.require(documentsImportFromRequestFieldSource)
+}
+
+// SetExpected sets the Expected field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetExpected(expected *DocumentsImportFromRequestExpected) {
+	d.Expected = expected
+	d.require(documentsImportFromRequestFieldExpected)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetMetadata(metadata map[string]any) {
+	d.Metadata = metadata
+	d.require(documentsImportFromRequestFieldMetadata)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(documentsImportFromRequestFieldIdempotencyKey)
+}
+
+// SetDedupMode sets the DedupMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetDedupMode(dedupMode *DocumentsImportFromRequestDedupMode) {
+	d.DedupMode = dedupMode
+	d.require(documentsImportFromRequestFieldDedupMode)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetDocID(docID *string) {
+	d.DocID = docID
+	d.require(documentsImportFromRequestFieldDocID)
+}
+
+// SetMode sets the Mode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetMode(mode *DocumentsImportFromRequestMode) {
+	d.Mode = mode
+	d.require(documentsImportFromRequestFieldMode)
+}
+
+func (d *DocumentsImportFromRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFromRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocumentsImportFromRequest(body)
+	return nil
+}
+
+func (d *DocumentsImportFromRequest) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFromRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	documentsInitRequestFieldTenantID         = big.NewInt(1 << 0)
 	documentsInitRequestFieldContentLength    = big.NewInt(1 << 1)
 	documentsInitRequestFieldContentSha256    = big.NewInt(1 << 2)
@@ -1209,6 +1318,463 @@ func NewDocumentsGet200ResponseDocumentThumbnailStateFromString(s string) (Docum
 }
 
 func (d DocumentsGet200ResponseDocumentThumbnailState) Ptr() *DocumentsGet200ResponseDocumentThumbnailState {
+	return &d
+}
+
+var (
+	documentsImportFrom200ResponseFieldTag      = big.NewInt(1 << 0)
+	documentsImportFrom200ResponseFieldDocument = big.NewInt(1 << 1)
+)
+
+type DocumentsImportFrom200Response struct {
+	Tag      DocumentsImportFrom200ResponseTag       `json:"tag" url:"tag"`
+	Document *DocumentsImportFrom200ResponseDocument `json:"document" url:"document"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsImportFrom200Response) GetTag() DocumentsImportFrom200ResponseTag {
+	if d == nil {
+		return ""
+	}
+	return d.Tag
+}
+
+func (d *DocumentsImportFrom200Response) GetDocument() *DocumentsImportFrom200ResponseDocument {
+	if d == nil {
+		return nil
+	}
+	return d.Document
+}
+
+func (d *DocumentsImportFrom200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsImportFrom200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetTag sets the Tag field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200Response) SetTag(tag DocumentsImportFrom200ResponseTag) {
+	d.Tag = tag
+	d.require(documentsImportFrom200ResponseFieldTag)
+}
+
+// SetDocument sets the Document field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200Response) SetDocument(document *DocumentsImportFrom200ResponseDocument) {
+	d.Document = document
+	d.require(documentsImportFrom200ResponseFieldDocument)
+}
+
+func (d *DocumentsImportFrom200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFrom200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsImportFrom200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsImportFrom200Response) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFrom200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsImportFrom200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	documentsImportFrom200ResponseDocumentFieldID               = big.NewInt(1 << 0)
+	documentsImportFrom200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
+	documentsImportFrom200ResponseDocumentFieldState            = big.NewInt(1 << 2)
+	documentsImportFrom200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 3)
+	documentsImportFrom200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
+	documentsImportFrom200ResponseDocumentFieldMetadata         = big.NewInt(1 << 5)
+	documentsImportFrom200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
+	documentsImportFrom200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 7)
+	documentsImportFrom200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 8)
+	documentsImportFrom200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
+	documentsImportFrom200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 10)
+	documentsImportFrom200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
+	documentsImportFrom200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+)
+
+type DocumentsImportFrom200ResponseDocument struct {
+	ID               string                                                `json:"id" url:"id"`
+	TenantID         string                                                `json:"tenantId" url:"tenantId"`
+	State            DocumentsImportFrom200ResponseDocumentState           `json:"state" url:"state"`
+	BaseSha          *string                                               `json:"baseSha,omitempty" url:"baseSha,omitempty"`
+	StorageSizeBytes *float64                                              `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
+	Metadata         map[string]any                                        `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey   *string                                               `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason    *string                                               `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState   *DocumentsImportFrom200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
+	ThumbnailURL     *string                                               `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt        float64                                               `json:"createdAt" url:"createdAt"`
+	UpdatedAt        float64                                               `json:"updatedAt" url:"updatedAt"`
+	CreatedBy        *string                                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetID() string {
+	if d == nil {
+		return ""
+	}
+	return d.ID
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetTenantID() string {
+	if d == nil {
+		return ""
+	}
+	return d.TenantID
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetState() DocumentsImportFrom200ResponseDocumentState {
+	if d == nil {
+		return ""
+	}
+	return d.State
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetBaseSha() *string {
+	if d == nil {
+		return nil
+	}
+	return d.BaseSha
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetStorageSizeBytes() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.StorageSizeBytes
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetMetadata() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Metadata
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetIdempotencyKey() *string {
+	if d == nil {
+		return nil
+	}
+	return d.IdempotencyKey
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetFailureReason() *string {
+	if d == nil {
+		return nil
+	}
+	return d.FailureReason
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetThumbnailState() *DocumentsImportFrom200ResponseDocumentThumbnailState {
+	if d == nil {
+		return nil
+	}
+	return d.ThumbnailState
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetThumbnailURL() *string {
+	if d == nil {
+		return nil
+	}
+	return d.ThumbnailURL
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetCreatedAt() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.CreatedAt
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetUpdatedAt() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.UpdatedAt
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetCreatedBy() *string {
+	if d == nil {
+		return nil
+	}
+	return d.CreatedBy
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetID(id string) {
+	d.ID = id
+	d.require(documentsImportFrom200ResponseDocumentFieldID)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetTenantID(tenantID string) {
+	d.TenantID = tenantID
+	d.require(documentsImportFrom200ResponseDocumentFieldTenantID)
+}
+
+// SetState sets the State field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetState(state DocumentsImportFrom200ResponseDocumentState) {
+	d.State = state
+	d.require(documentsImportFrom200ResponseDocumentFieldState)
+}
+
+// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetBaseSha(baseSha *string) {
+	d.BaseSha = baseSha
+	d.require(documentsImportFrom200ResponseDocumentFieldBaseSha)
+}
+
+// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
+	d.StorageSizeBytes = storageSizeBytes
+	d.require(documentsImportFrom200ResponseDocumentFieldStorageSizeBytes)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetMetadata(metadata map[string]any) {
+	d.Metadata = metadata
+	d.require(documentsImportFrom200ResponseDocumentFieldMetadata)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(documentsImportFrom200ResponseDocumentFieldIdempotencyKey)
+}
+
+// SetFailureReason sets the FailureReason field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetFailureReason(failureReason *string) {
+	d.FailureReason = failureReason
+	d.require(documentsImportFrom200ResponseDocumentFieldFailureReason)
+}
+
+// SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsImportFrom200ResponseDocumentThumbnailState) {
+	d.ThumbnailState = thumbnailState
+	d.require(documentsImportFrom200ResponseDocumentFieldThumbnailState)
+}
+
+// SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetThumbnailURL(thumbnailURL *string) {
+	d.ThumbnailURL = thumbnailURL
+	d.require(documentsImportFrom200ResponseDocumentFieldThumbnailURL)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetCreatedAt(createdAt float64) {
+	d.CreatedAt = createdAt
+	d.require(documentsImportFrom200ResponseDocumentFieldCreatedAt)
+}
+
+// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+	d.UpdatedAt = updatedAt
+	d.require(documentsImportFrom200ResponseDocumentFieldUpdatedAt)
+}
+
+// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetCreatedBy(createdBy *string) {
+	d.CreatedBy = createdBy
+	d.require(documentsImportFrom200ResponseDocumentFieldCreatedBy)
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFrom200ResponseDocument
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsImportFrom200ResponseDocument(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFrom200ResponseDocument
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocumentsImportFrom200ResponseDocumentState string
+
+const (
+	DocumentsImportFrom200ResponseDocumentStatePending  DocumentsImportFrom200ResponseDocumentState = "pending"
+	DocumentsImportFrom200ResponseDocumentStateReady    DocumentsImportFrom200ResponseDocumentState = "ready"
+	DocumentsImportFrom200ResponseDocumentStateFailed   DocumentsImportFrom200ResponseDocumentState = "failed"
+	DocumentsImportFrom200ResponseDocumentStateDeleting DocumentsImportFrom200ResponseDocumentState = "deleting"
+)
+
+func NewDocumentsImportFrom200ResponseDocumentStateFromString(s string) (DocumentsImportFrom200ResponseDocumentState, error) {
+	switch s {
+	case "pending":
+		return DocumentsImportFrom200ResponseDocumentStatePending, nil
+	case "ready":
+		return DocumentsImportFrom200ResponseDocumentStateReady, nil
+	case "failed":
+		return DocumentsImportFrom200ResponseDocumentStateFailed, nil
+	case "deleting":
+		return DocumentsImportFrom200ResponseDocumentStateDeleting, nil
+	}
+	var t DocumentsImportFrom200ResponseDocumentState
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsImportFrom200ResponseDocumentState) Ptr() *DocumentsImportFrom200ResponseDocumentState {
+	return &d
+}
+
+type DocumentsImportFrom200ResponseDocumentThumbnailState string
+
+const (
+	DocumentsImportFrom200ResponseDocumentThumbnailStatePending DocumentsImportFrom200ResponseDocumentThumbnailState = "pending"
+	DocumentsImportFrom200ResponseDocumentThumbnailStateReady   DocumentsImportFrom200ResponseDocumentThumbnailState = "ready"
+	DocumentsImportFrom200ResponseDocumentThumbnailStateLocked  DocumentsImportFrom200ResponseDocumentThumbnailState = "locked"
+	DocumentsImportFrom200ResponseDocumentThumbnailStateFailed  DocumentsImportFrom200ResponseDocumentThumbnailState = "failed"
+)
+
+func NewDocumentsImportFrom200ResponseDocumentThumbnailStateFromString(s string) (DocumentsImportFrom200ResponseDocumentThumbnailState, error) {
+	switch s {
+	case "pending":
+		return DocumentsImportFrom200ResponseDocumentThumbnailStatePending, nil
+	case "ready":
+		return DocumentsImportFrom200ResponseDocumentThumbnailStateReady, nil
+	case "locked":
+		return DocumentsImportFrom200ResponseDocumentThumbnailStateLocked, nil
+	case "failed":
+		return DocumentsImportFrom200ResponseDocumentThumbnailStateFailed, nil
+	}
+	var t DocumentsImportFrom200ResponseDocumentThumbnailState
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsImportFrom200ResponseDocumentThumbnailState) Ptr() *DocumentsImportFrom200ResponseDocumentThumbnailState {
+	return &d
+}
+
+type DocumentsImportFrom200ResponseTag string
+
+const (
+	DocumentsImportFrom200ResponseTagImported DocumentsImportFrom200ResponseTag = "imported"
+	DocumentsImportFrom200ResponseTagDeduped  DocumentsImportFrom200ResponseTag = "deduped"
+	DocumentsImportFrom200ResponseTagAccepted DocumentsImportFrom200ResponseTag = "accepted"
+)
+
+func NewDocumentsImportFrom200ResponseTagFromString(s string) (DocumentsImportFrom200ResponseTag, error) {
+	switch s {
+	case "imported":
+		return DocumentsImportFrom200ResponseTagImported, nil
+	case "deduped":
+		return DocumentsImportFrom200ResponseTagDeduped, nil
+	case "accepted":
+		return DocumentsImportFrom200ResponseTagAccepted, nil
+	}
+	var t DocumentsImportFrom200ResponseTag
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsImportFrom200ResponseTag) Ptr() *DocumentsImportFrom200ResponseTag {
 	return &d
 }
 
@@ -4098,6 +4664,476 @@ func (d *DocumentsUploadProxy200Response) MarshalJSON() ([]byte, error) {
 }
 
 func (d *DocumentsUploadProxy200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocumentsImportFromRequestDedupMode string
+
+const (
+	DocumentsImportFromRequestDedupModeAlwaysCreate  DocumentsImportFromRequestDedupMode = "always-create"
+	DocumentsImportFromRequestDedupModeReuseExisting DocumentsImportFromRequestDedupMode = "reuse-existing"
+)
+
+func NewDocumentsImportFromRequestDedupModeFromString(s string) (DocumentsImportFromRequestDedupMode, error) {
+	switch s {
+	case "always-create":
+		return DocumentsImportFromRequestDedupModeAlwaysCreate, nil
+	case "reuse-existing":
+		return DocumentsImportFromRequestDedupModeReuseExisting, nil
+	}
+	var t DocumentsImportFromRequestDedupMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsImportFromRequestDedupMode) Ptr() *DocumentsImportFromRequestDedupMode {
+	return &d
+}
+
+var (
+	documentsImportFromRequestExpectedFieldSizeBytes = big.NewInt(1 << 0)
+	documentsImportFromRequestExpectedFieldSha256    = big.NewInt(1 << 1)
+)
+
+type DocumentsImportFromRequestExpected struct {
+	SizeBytes *int    `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Sha256    *string `json:"sha256,omitempty" url:"sha256,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsImportFromRequestExpected) GetSizeBytes() *int {
+	if d == nil {
+		return nil
+	}
+	return d.SizeBytes
+}
+
+func (d *DocumentsImportFromRequestExpected) GetSha256() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Sha256
+}
+
+func (d *DocumentsImportFromRequestExpected) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsImportFromRequestExpected) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestExpected) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsImportFromRequestExpectedFieldSizeBytes)
+}
+
+// SetSha256 sets the Sha256 field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestExpected) SetSha256(sha256 *string) {
+	d.Sha256 = sha256
+	d.require(documentsImportFromRequestExpectedFieldSha256)
+}
+
+func (d *DocumentsImportFromRequestExpected) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFromRequestExpected
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsImportFromRequestExpected(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsImportFromRequestExpected) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFromRequestExpected
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsImportFromRequestExpected) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocumentsImportFromRequestMode string
+
+const (
+	DocumentsImportFromRequestModeSync  DocumentsImportFromRequestMode = "sync"
+	DocumentsImportFromRequestModeAsync DocumentsImportFromRequestMode = "async"
+)
+
+func NewDocumentsImportFromRequestModeFromString(s string) (DocumentsImportFromRequestMode, error) {
+	switch s {
+	case "sync":
+		return DocumentsImportFromRequestModeSync, nil
+	case "async":
+		return DocumentsImportFromRequestModeAsync, nil
+	}
+	var t DocumentsImportFromRequestMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsImportFromRequestMode) Ptr() *DocumentsImportFromRequestMode {
+	return &d
+}
+
+type DocumentsImportFromRequestSource struct {
+	Kind       string
+	URL        *DocumentsImportFromRequestSourceURL
+	Connection *DocumentsImportFromRequestSourceConnection
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocumentsImportFromRequestSource) GetKind() string {
+	if d == nil {
+		return ""
+	}
+	return d.Kind
+}
+
+func (d *DocumentsImportFromRequestSource) GetURL() *DocumentsImportFromRequestSourceURL {
+	if d == nil {
+		return nil
+	}
+	return d.URL
+}
+
+func (d *DocumentsImportFromRequestSource) GetConnection() *DocumentsImportFromRequestSourceConnection {
+	if d == nil {
+		return nil
+	}
+	return d.Connection
+}
+
+func (d *DocumentsImportFromRequestSource) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", d)
+	}
+	switch unmarshaler.Kind {
+	case "url":
+		value := new(DocumentsImportFromRequestSourceURL)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.URL = value
+	case "connection":
+		value := new(DocumentsImportFromRequestSourceConnection)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Connection = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocumentsImportFromRequestSource) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.URL != nil {
+		return internal.MarshalJSONWithExtraProperty(d.URL, "kind", "url")
+	}
+	if d.Connection != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Connection, "kind", "connection")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocumentsImportFromRequestSourceVisitor interface {
+	VisitURL(*DocumentsImportFromRequestSourceURL) error
+	VisitConnection(*DocumentsImportFromRequestSourceConnection) error
+}
+
+func (d *DocumentsImportFromRequestSource) Accept(visitor DocumentsImportFromRequestSourceVisitor) error {
+	if d.URL != nil {
+		return visitor.VisitURL(d.URL)
+	}
+	if d.Connection != nil {
+		return visitor.VisitConnection(d.Connection)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocumentsImportFromRequestSource) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.URL != nil {
+		fields = append(fields, "url")
+	}
+	if d.Connection != nil {
+		fields = append(fields, "connection")
+	}
+	if len(fields) == 0 {
+		if d.Kind != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Kind != "" {
+		field := fields[0]
+		if d.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Kind,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	documentsImportFromRequestSourceConnectionFieldConnectionID = big.NewInt(1 << 0)
+	documentsImportFromRequestSourceConnectionFieldKey          = big.NewInt(1 << 1)
+	documentsImportFromRequestSourceConnectionFieldRevision     = big.NewInt(1 << 2)
+)
+
+type DocumentsImportFromRequestSourceConnection struct {
+	ConnectionID string  `json:"connectionId" url:"connectionId"`
+	Key          string  `json:"key" url:"key"`
+	Revision     *string `json:"revision,omitempty" url:"revision,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) GetConnectionID() string {
+	if d == nil {
+		return ""
+	}
+	return d.ConnectionID
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) GetKey() string {
+	if d == nil {
+		return ""
+	}
+	return d.Key
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) GetRevision() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Revision
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetConnectionID sets the ConnectionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestSourceConnection) SetConnectionID(connectionID string) {
+	d.ConnectionID = connectionID
+	d.require(documentsImportFromRequestSourceConnectionFieldConnectionID)
+}
+
+// SetKey sets the Key field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestSourceConnection) SetKey(key string) {
+	d.Key = key
+	d.require(documentsImportFromRequestSourceConnectionFieldKey)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestSourceConnection) SetRevision(revision *string) {
+	d.Revision = revision
+	d.require(documentsImportFromRequestSourceConnectionFieldRevision)
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFromRequestSourceConnection
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsImportFromRequestSourceConnection(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFromRequestSourceConnection
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsImportFromRequestSourceConnection) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	documentsImportFromRequestSourceURLFieldURL = big.NewInt(1 << 0)
+)
+
+type DocumentsImportFromRequestSourceURL struct {
+	URL string `json:"url" url:"url"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsImportFromRequestSourceURL) GetURL() string {
+	if d == nil {
+		return ""
+	}
+	return d.URL
+}
+
+func (d *DocumentsImportFromRequestSourceURL) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsImportFromRequestSourceURL) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequestSourceURL) SetURL(url string) {
+	d.URL = url
+	d.require(documentsImportFromRequestSourceURLFieldURL)
+}
+
+func (d *DocumentsImportFromRequestSourceURL) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsImportFromRequestSourceURL
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsImportFromRequestSourceURL(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsImportFromRequestSourceURL) MarshalJSON() ([]byte, error) {
+	type embed DocumentsImportFromRequestSourceURL
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsImportFromRequestSourceURL) String() string {
 	if d == nil {
 		return "<nil>"
 	}

@@ -372,6 +372,53 @@ func (r *RawClient) UploadProxy(
 	}, nil
 }
 
+func (r *RawClient) ImportFrom(
+	ctx context.Context,
+	request *cloudpdf.DocumentsImportFromRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocumentsImportFrom200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/tenants/%v/documents/import",
+		request.TenantID,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocumentsImportFrom200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(cloudpdf.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocumentsImportFrom200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) Init(
 	ctx context.Context,
 	request *cloudpdf.DocumentsInitRequest,
