@@ -216,6 +216,37 @@ func TestDocumentsUploadProxyWithWireMock(
 	VerifyRequestCount(t, "TestDocumentsUploadProxyWithWireMock", "POST", "/v1/tenants/tenantId/documents/id/upload-proxy", nil, 1)
 }
 
+func TestDocumentsImportFromWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.DocumentsImportFromRequest{
+		TenantID: "tenantId",
+		Source: &cloudpdf.DocumentsImportFromRequestSource{
+			URL: &cloudpdf.DocumentsImportFromRequestSourceURL{
+				URL: "url",
+			},
+		},
+	}
+	_, invocationErr := client.Documents.ImportFrom(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocumentsImportFromWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocumentsImportFromWithWireMock", "POST", "/v1/tenants/tenantId/documents/import", nil, 1)
+}
+
 func TestDocumentsInitWithWireMock(
 	t *testing.T,
 ) {

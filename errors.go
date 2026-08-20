@@ -7,6 +7,30 @@ import (
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
 )
 
+// Response
+type BadGatewayError struct {
+	*core.APIError
+	Body *DocumentsImportFrom502Response
+}
+
+func (b *BadGatewayError) UnmarshalJSON(data []byte) error {
+	var body *DocumentsImportFrom502Response
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	b.StatusCode = 502
+	b.Body = body
+	return nil
+}
+
+func (b *BadGatewayError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(b.Body)
+}
+
+func (b *BadGatewayError) Unwrap() error {
+	return b.APIError
+}
+
 // Bad request
 type BadRequestError struct {
 	*core.APIError
