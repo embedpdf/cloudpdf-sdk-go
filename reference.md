@@ -1721,7 +1721,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**source:** `*cloudpdf.DocumentsImportFromRequestSource` 
+**source:** `*cloudpdf.DocumentsImportFromRequestSource` — Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
     
 </dd>
 </dl>
@@ -1729,7 +1729,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**expected:** `*cloudpdf.DocumentsImportFromRequestExpected` 
+**expected:** `*cloudpdf.DocumentsImportFromRequestExpected` — Integrity pins, enforced when present. When absent, the server-observed values become authoritative.
     
 </dd>
 </dl>
@@ -1745,7 +1745,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**idempotencyKey:** `*string` 
+**idempotencyKey:** `*string` — Retrying with the same key resumes the same document rather than importing a second copy — including after a 502.
     
 </dd>
 </dl>
@@ -1753,7 +1753,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**dedupMode:** `*cloudpdf.DocumentsImportFromRequestDedupMode` 
+**dedupMode:** `*cloudpdf.DocumentsImportFromRequestDedupMode` — always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
     
 </dd>
 </dl>
@@ -1769,7 +1769,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**mode:** `*cloudpdf.DocumentsImportFromRequestMode` 
+**mode:** `*cloudpdf.DocumentsImportFromRequestMode` — sync (default) holds the response open for the whole transfer. async answers 202 with the document pending and transfers in the background; it requires a connection source, and filesystem connections additionally require expected.sha256.
     
 </dd>
 </dl>
@@ -1857,7 +1857,7 @@ client.Documents.Init(
 <dl>
 <dd>
 
-**dedupMode:** `*cloudpdf.DocumentsInitRequestDedupMode` 
+**dedupMode:** `*cloudpdf.DocumentsInitRequestDedupMode` — always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
     
 </dd>
 </dl>

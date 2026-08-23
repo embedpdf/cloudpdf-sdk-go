@@ -188,14 +188,19 @@ var (
 )
 
 type DocumentsImportFromRequest struct {
-	TenantID       string                               `json:"-" url:"-"`
-	Source         *DocumentsImportFromRequestSource    `json:"source" url:"-"`
-	Expected       *DocumentsImportFromRequestExpected  `json:"expected,omitempty" url:"-"`
-	Metadata       map[string]any                       `json:"metadata,omitempty" url:"-"`
-	IdempotencyKey *string                              `json:"idempotencyKey,omitempty" url:"-"`
-	DedupMode      *DocumentsImportFromRequestDedupMode `json:"dedupMode,omitempty" url:"-"`
-	DocID          *string                              `json:"docId,omitempty" url:"-"`
-	Mode           *DocumentsImportFromRequestMode      `json:"mode,omitempty" url:"-"`
+	TenantID string `json:"-" url:"-"`
+	// Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
+	Source *DocumentsImportFromRequestSource `json:"source" url:"-"`
+	// Integrity pins, enforced when present. When absent, the server-observed values become authoritative.
+	Expected *DocumentsImportFromRequestExpected `json:"expected,omitempty" url:"-"`
+	Metadata map[string]any                      `json:"metadata,omitempty" url:"-"`
+	// Retrying with the same key resumes the same document rather than importing a second copy — including after a 502.
+	IdempotencyKey *string `json:"idempotencyKey,omitempty" url:"-"`
+	// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
+	DedupMode *DocumentsImportFromRequestDedupMode `json:"dedupMode,omitempty" url:"-"`
+	DocID     *string                              `json:"docId,omitempty" url:"-"`
+	// sync (default) holds the response open for the whole transfer. async answers 202 with the document pending and transfers in the background; it requires a connection source, and filesystem connections additionally require expected.sha256.
+	Mode *DocumentsImportFromRequestMode `json:"mode,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -298,11 +303,12 @@ var (
 )
 
 type DocumentsInitRequest struct {
-	TenantID         string                                `json:"-" url:"-"`
-	ContentLength    float64                               `json:"contentLength" url:"-"`
-	ContentSha256    string                                `json:"contentSha256" url:"-"`
-	Metadata         map[string]any                        `json:"metadata,omitempty" url:"-"`
-	IdempotencyKey   *string                               `json:"idempotencyKey,omitempty" url:"-"`
+	TenantID       string         `json:"-" url:"-"`
+	ContentLength  float64        `json:"contentLength" url:"-"`
+	ContentSha256  string         `json:"contentSha256" url:"-"`
+	Metadata       map[string]any `json:"metadata,omitempty" url:"-"`
+	IdempotencyKey *string        `json:"idempotencyKey,omitempty" url:"-"`
+	// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
 	DedupMode        *DocumentsInitRequestDedupMode        `json:"dedupMode,omitempty" url:"-"`
 	DocID            *string                               `json:"docId,omitempty" url:"-"`
 	UploadTTLSec     *float64                              `json:"uploadTtlSec,omitempty" url:"-"`
@@ -4678,6 +4684,7 @@ func (d *DocumentsUploadProxy200Response) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
+// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
 type DocumentsImportFromRequestDedupMode string
 
 const (
@@ -4700,14 +4707,17 @@ func (d DocumentsImportFromRequestDedupMode) Ptr() *DocumentsImportFromRequestDe
 	return &d
 }
 
+// Integrity pins, enforced when present. When absent, the server-observed values become authoritative.
 var (
 	documentsImportFromRequestExpectedFieldSizeBytes = big.NewInt(1 << 0)
 	documentsImportFromRequestExpectedFieldSha256    = big.NewInt(1 << 1)
 )
 
 type DocumentsImportFromRequestExpected struct {
-	SizeBytes *int    `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
-	Sha256    *string `json:"sha256,omitempty" url:"sha256,omitempty"`
+	// Checked against the source's declared Content-Length before the transfer.
+	SizeBytes *int `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	// Checked against the server-observed digest after the transfer. Required when dedupMode is reuse-existing.
+	Sha256 *string `json:"sha256,omitempty" url:"sha256,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4800,6 +4810,7 @@ func (d *DocumentsImportFromRequestExpected) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
+// sync (default) holds the response open for the whole transfer. async answers 202 with the document pending and transfers in the background; it requires a connection source, and filesystem connections additionally require expected.sha256.
 type DocumentsImportFromRequestMode string
 
 const (
@@ -4822,9 +4833,12 @@ func (d DocumentsImportFromRequestMode) Ptr() *DocumentsImportFromRequestMode {
 	return &d
 }
 
+// Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
 type DocumentsImportFromRequestSource struct {
-	Kind       string
-	URL        *DocumentsImportFromRequestSourceURL
+	Kind string
+	// The caller supplies the authority: a presigned S3/GCS/Azure/R2/MinIO GET, or any HTTPS endpoint the deployment import policy allows. The URL is a capability — treat it as a secret. CloudPDF never echoes its query string back in errors, logs, or stored failure reasons.
+	URL *DocumentsImportFromRequestSourceURL
+	// The operator pre-registered the authority: the request names a connection and a key inside it. Which provider backs the connection (S3, GCS, Azure Blob, filesystem, ...) is deployment configuration, never wire surface.
 	Connection *DocumentsImportFromRequestSourceConnection
 
 	rawJSON json.RawMessage
@@ -4948,6 +4962,7 @@ func (d *DocumentsImportFromRequestSource) validate() error {
 	return nil
 }
 
+// The operator pre-registered the authority: the request names a connection and a key inside it. Which provider backs the connection (S3, GCS, Azure Blob, filesystem, ...) is deployment configuration, never wire surface.
 var (
 	documentsImportFromRequestSourceConnectionFieldConnectionID = big.NewInt(1 << 0)
 	documentsImportFromRequestSourceConnectionFieldKey          = big.NewInt(1 << 1)
@@ -4955,9 +4970,12 @@ var (
 )
 
 type DocumentsImportFromRequestSourceConnection struct {
-	ConnectionID string  `json:"connectionId" url:"connectionId"`
-	Key          string  `json:"key" url:"key"`
-	Revision     *string `json:"revision,omitempty" url:"revision,omitempty"`
+	// The operator-registered storage connection to read from.
+	ConnectionID string `json:"connectionId" url:"connectionId"`
+	// The object key to read, inside the connection's configured scope. At most 1024 UTF-8 bytes.
+	Key string `json:"key" url:"key"`
+	// Pins a specific version of the object. Provider-interpreted (S3 VersionId, GCS generation, Azure version id); providers without versioning reject it.
+	Revision *string `json:"revision,omitempty" url:"revision,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5064,11 +5082,13 @@ func (d *DocumentsImportFromRequestSourceConnection) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
+// The caller supplies the authority: a presigned S3/GCS/Azure/R2/MinIO GET, or any HTTPS endpoint the deployment import policy allows. The URL is a capability — treat it as a secret. CloudPDF never echoes its query string back in errors, logs, or stored failure reasons.
 var (
 	documentsImportFromRequestSourceURLFieldURL = big.NewInt(1 << 0)
 )
 
 type DocumentsImportFromRequestSourceURL struct {
+	// The URL to fetch. Must be allowed by the deployment import policy (scheme, network range, size) and must declare a length.
 	URL string `json:"url" url:"url"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -5148,6 +5168,7 @@ func (d *DocumentsImportFromRequestSourceURL) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
+// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
 type DocumentsInitRequestDedupMode string
 
 const (
