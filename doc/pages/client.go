@@ -4,6 +4,7 @@ package pages
 
 import (
 	context "context"
+	io "io"
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
@@ -64,6 +65,39 @@ func (c *Client) Delete(
 	return response.Body, nil
 }
 
+// A read, not a mutation: the source document is untouched and no event is published. Body is `{"pageObjectNumbers": number[]}`; the response body is the new PDF.
+//
+// Example:
+//
+//	request := &doc.ExtractPagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Body: map[string]any{
+//	        "string": map[string]any{
+//	            "key": "value",
+//	        },
+//	    },
+//	}
+//	client.Doc.Pages.Extract(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Extract(
+	ctx context.Context,
+	request *doc.ExtractPagesRequest,
+	opts ...option.RequestOption,
+) (io.Reader, error) {
+	response, err := c.WithRawResponse.Extract(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &doc.FlattenPagesRequest{
@@ -83,6 +117,68 @@ func (c *Client) Flatten(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocPagesFlatten200Response, error) {
 	response, err := c.WithRawResponse.Flatten(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Multipart mutation envelope: a `body` field holding `{"destIndex"?: number}` (omitted → append) plus a `resource:source` file part carrying the standalone PDF whose pages are copied in. The inserted copies get fresh page object numbers, returned in insertion order.
+//
+// Example:
+//
+//	request := &doc.InsertPagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    File: strings.NewReader(
+//	        "",
+//	    ),
+//	}
+//	client.Doc.Pages.Insert(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Insert(
+	ctx context.Context,
+	request *doc.InsertPagesRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesInsert200Response, error) {
+	response, err := c.WithRawResponse.Insert(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Body is `{"size": {"width", "height"}, "count"?, "destIndex"?}` — size in PDF points, count in [1, 100], destIndex omitted → append.
+//
+// Example:
+//
+//	request := &doc.InsertBlankPagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Body: map[string]any{
+//	        "key": "value",
+//	    },
+//	}
+//	client.Doc.Pages.InsertBlank(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) InsertBlank(
+	ctx context.Context,
+	request *doc.InsertBlankPagesRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesInsertBlank200Response, error) {
+	response, err := c.WithRawResponse.InsertBlank(
 		ctx,
 		request,
 		opts...,

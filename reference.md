@@ -2903,6 +2903,96 @@ client.Doc.Pages.Delete(
 </dl>
 </details>
 
+<details><summary><code>client.Doc.Pages.Extract(DocID, LayerName, request) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+A read, not a mutation: the source document is untouched and no event is published. Body is `{"pageObjectNumbers": number[]}`; the response body is the new PDF.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.ExtractPagesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Body: map[string]any{
+        "string": map[string]any{
+            "key": "value",
+        },
+    },
+}
+client.Doc.Pages.Extract(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocPagesExtractRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Doc.Pages.Flatten(DocID, LayerName, request) -> *cloudpdf.DocPagesFlatten200Response</code></summary>
 <dl>
 <dd>
@@ -2966,6 +3056,174 @@ client.Doc.Pages.Flatten(
 <dd>
 
 **request:** `cloudpdf.DocPagesFlattenRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Pages.Insert(DocID, LayerName, request) -> *cloudpdf.DocPagesInsert200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Multipart mutation envelope: a `body` field holding `{"destIndex"?: number}` (omitted → append) plus a `resource:source` file part carrying the standalone PDF whose pages are copied in. The inserted copies get fresh page object numbers, returned in insertion order.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.InsertPagesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    File: strings.NewReader(
+        "",
+    ),
+}
+client.Doc.Pages.Insert(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Pages.InsertBlank(DocID, LayerName, request) -> *cloudpdf.DocPagesInsertBlank200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Body is `{"size": {"width", "height"}, "count"?, "destIndex"?}` — size in PDF points, count in [1, 100], destIndex omitted → append.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.InsertBlankPagesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Body: map[string]any{
+        "key": "value",
+    },
+}
+client.Doc.Pages.InsertBlank(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocPagesInsertBlankRequest` 
     
 </dd>
 </dl>

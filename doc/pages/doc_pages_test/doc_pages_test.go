@@ -8,6 +8,7 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
+	strings "strings"
 	testing "testing"
 
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/client"
@@ -135,6 +136,66 @@ func TestDocPagesFlattenWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocPagesFlattenWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/flatten", nil, 1)
+}
+
+func TestDocPagesInsertWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.InsertPagesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		File: strings.NewReader(
+			"",
+		),
+	}
+	_, invocationErr := client.Doc.Pages.Insert(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesInsertWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesInsertWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/insert", nil, 1)
+}
+
+func TestDocPagesInsertBlankWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.InsertBlankPagesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Body: map[string]any{
+			"key": "value",
+		},
+	}
+	_, invocationErr := client.Doc.Pages.InsertBlank(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesInsertBlankWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesInsertBlankWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/insert-blank", nil, 1)
 }
 
 func TestDocPagesMoveWithWireMock(
