@@ -132,6 +132,129 @@ func TestSettersMarkExplicitDeletePagesRequest(t *testing.T) {
 
 }
 
+func TestSettersExtractPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword", func(t *testing.T) {
+		obj := &ExtractPagesRequest{}
+		var fernTestValueDocumentPassword *string
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+		assert.Equal(t, fernTestValueDocumentPassword, obj.DocumentPassword)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDocID", func(t *testing.T) {
+		obj := &ExtractPagesRequest{}
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerName", func(t *testing.T) {
+		obj := &ExtractPagesRequest{}
+		var fernTestValueLayerName string
+		obj.SetLayerName(fernTestValueLayerName)
+		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestSettersMarkExplicitExtractPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ExtractPagesRequest{}
+		var fernTestValueDocumentPassword *string
+
+		// Act
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ExtractPagesRequest{}
+		var fernTestValueDocID string
+
+		// Act
+		obj.SetDocID(fernTestValueDocID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ExtractPagesRequest{}
+		var fernTestValueLayerName string
+
+		// Act
+		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersFlattenPagesRequest(t *testing.T) {
 	t.Run("SetDocumentPassword", func(t *testing.T) {
 		obj := &FlattenPagesRequest{}
@@ -226,6 +349,252 @@ func TestSettersMarkExplicitFlattenPagesRequest(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FlattenPagesRequest{}
+		var fernTestValueLayerName string
+
+		// Act
+		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersInsertPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword", func(t *testing.T) {
+		obj := &InsertPagesRequest{}
+		var fernTestValueDocumentPassword *string
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+		assert.Equal(t, fernTestValueDocumentPassword, obj.DocumentPassword)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDocID", func(t *testing.T) {
+		obj := &InsertPagesRequest{}
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerName", func(t *testing.T) {
+		obj := &InsertPagesRequest{}
+		var fernTestValueLayerName string
+		obj.SetLayerName(fernTestValueLayerName)
+		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestSettersMarkExplicitInsertPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertPagesRequest{}
+		var fernTestValueDocumentPassword *string
+
+		// Act
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertPagesRequest{}
+		var fernTestValueDocID string
+
+		// Act
+		obj.SetDocID(fernTestValueDocID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertPagesRequest{}
+		var fernTestValueLayerName string
+
+		// Act
+		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersInsertBlankPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword", func(t *testing.T) {
+		obj := &InsertBlankPagesRequest{}
+		var fernTestValueDocumentPassword *string
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+		assert.Equal(t, fernTestValueDocumentPassword, obj.DocumentPassword)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDocID", func(t *testing.T) {
+		obj := &InsertBlankPagesRequest{}
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerName", func(t *testing.T) {
+		obj := &InsertBlankPagesRequest{}
+		var fernTestValueLayerName string
+		obj.SetLayerName(fernTestValueLayerName)
+		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestSettersMarkExplicitInsertBlankPagesRequest(t *testing.T) {
+	t.Run("SetDocumentPassword_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertBlankPagesRequest{}
+		var fernTestValueDocumentPassword *string
+
+		// Act
+		obj.SetDocumentPassword(fernTestValueDocumentPassword)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertBlankPagesRequest{}
+		var fernTestValueDocID string
+
+		// Act
+		obj.SetDocID(fernTestValueDocID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &InsertBlankPagesRequest{}
 		var fernTestValueLayerName string
 
 		// Act

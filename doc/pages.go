@@ -5,6 +5,8 @@ package doc
 import (
 	json "encoding/json"
 	v3 "github.com/embedpdf/cloudpdf-sdk-go/v3"
+	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
+	io "io"
 	big "math/big"
 )
 
@@ -67,6 +69,64 @@ func (d *DeletePagesRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
+	extractPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	extractPagesRequestFieldDocID            = big.NewInt(1 << 1)
+	extractPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+)
+
+type ExtractPagesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string                   `json:"-" url:"-"`
+	DocID            string                    `json:"-" url:"-"`
+	LayerName        string                    `json:"-" url:"-"`
+	Body             v3.DocPagesExtractRequest `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (e *ExtractPagesRequest) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExtractPagesRequest) SetDocumentPassword(documentPassword *string) {
+	e.DocumentPassword = documentPassword
+	e.require(extractPagesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExtractPagesRequest) SetDocID(docID string) {
+	e.DocID = docID
+	e.require(extractPagesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExtractPagesRequest) SetLayerName(layerName string) {
+	e.LayerName = layerName
+	e.require(extractPagesRequestFieldLayerName)
+}
+
+func (e *ExtractPagesRequest) UnmarshalJSON(data []byte) error {
+	var body v3.DocPagesExtractRequest
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	e.Body = body
+	return nil
+}
+
+func (e *ExtractPagesRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(e.Body)
+}
+
+var (
 	flattenPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	flattenPagesRequestFieldDocID            = big.NewInt(1 << 1)
 	flattenPagesRequestFieldLayerName        = big.NewInt(1 << 2)
@@ -122,6 +182,130 @@ func (f *FlattenPagesRequest) UnmarshalJSON(data []byte) error {
 
 func (f *FlattenPagesRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(f.Body)
+}
+
+var (
+	insertPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	insertPagesRequestFieldDocID            = big.NewInt(1 << 1)
+	insertPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+)
+
+type InsertPagesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string   `json:"-" url:"-"`
+	DocID            string    `json:"-" url:"-"`
+	LayerName        string    `json:"-" url:"-"`
+	File             io.Reader `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (i *InsertPagesRequest) require(field *big.Int) {
+	if i.explicitFields == nil {
+		i.explicitFields = big.NewInt(0)
+	}
+	i.explicitFields.Or(i.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertPagesRequest) SetDocumentPassword(documentPassword *string) {
+	i.DocumentPassword = documentPassword
+	i.require(insertPagesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertPagesRequest) SetDocID(docID string) {
+	i.DocID = docID
+	i.require(insertPagesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertPagesRequest) SetLayerName(layerName string) {
+	i.LayerName = layerName
+	i.require(insertPagesRequestFieldLayerName)
+}
+
+func (i *InsertPagesRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler InsertPagesRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*i = InsertPagesRequest(body)
+	return nil
+}
+
+func (i *InsertPagesRequest) MarshalJSON() ([]byte, error) {
+	type embed InsertPagesRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*i),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, i.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	insertBlankPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	insertBlankPagesRequestFieldDocID            = big.NewInt(1 << 1)
+	insertBlankPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+)
+
+type InsertBlankPagesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string                       `json:"-" url:"-"`
+	DocID            string                        `json:"-" url:"-"`
+	LayerName        string                        `json:"-" url:"-"`
+	Body             v3.DocPagesInsertBlankRequest `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (i *InsertBlankPagesRequest) require(field *big.Int) {
+	if i.explicitFields == nil {
+		i.explicitFields = big.NewInt(0)
+	}
+	i.explicitFields.Or(i.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertBlankPagesRequest) SetDocumentPassword(documentPassword *string) {
+	i.DocumentPassword = documentPassword
+	i.require(insertBlankPagesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertBlankPagesRequest) SetDocID(docID string) {
+	i.DocID = docID
+	i.require(insertBlankPagesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertBlankPagesRequest) SetLayerName(layerName string) {
+	i.LayerName = layerName
+	i.require(insertBlankPagesRequestFieldLayerName)
+}
+
+func (i *InsertBlankPagesRequest) UnmarshalJSON(data []byte) error {
+	var body v3.DocPagesInsertBlankRequest
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	i.Body = body
+	return nil
+}
+
+func (i *InsertBlankPagesRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(i.Body)
 }
 
 var (

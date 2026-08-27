@@ -1559,6 +1559,45 @@
       }
     },
     {
+      "id": "53b73685-826d-4bfc-bdfe-73f37c3c7451",
+      "name": "Export the listed pages, in order, as a standalone PDF. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/extract",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "53b73685-826d-4bfc-bdfe-73f37c3c7451",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "78516831-9031-4a14-a631-55eeb9bdba9a",
       "name": "Flatten annotations and form fields into page content. - default",
       "request": {
@@ -1586,6 +1625,84 @@
         }
       },
       "uuid": "78516831-9031-4a14-a631-55eeb9bdba9a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "63bf8e89-7f23-4209-9e8d-03036a433643",
+      "name": "Copy every page of an uploaded PDF into the document at an index. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/insert",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "63bf8e89-7f23-4209-9e8d-03036a433643",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "6c708cf7-ea22-437b-9bd5-100587d6a2fd",
+      "name": "Create blank pages of an explicit size at an index. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/insert-blank",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6c708cf7-ea22-437b-9bd5-100587d6a2fd",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1716,6 +1833,6 @@
     }
   ],
   "meta": {
-    "total": 45
+    "total": 48
   }
 }
