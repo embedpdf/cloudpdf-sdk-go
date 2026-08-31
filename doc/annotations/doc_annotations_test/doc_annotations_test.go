@@ -77,6 +77,33 @@ func VerifyRequestCount(
 	require.Equal(t, expected, len(result.Requests))
 }
 
+func TestDocAnnotationsListAllWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.ListAllAnnotationsRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+	}
+	_, invocationErr := client.Doc.Annotations.ListAll(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocAnnotationsListAllWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocAnnotationsListAllWithWireMock", "GET", "/v1/docs/docId/layers/layerName/annotations/items", nil, 1)
+}
+
 func TestDocAnnotationsListWithWireMock(
 	t *testing.T,
 ) {

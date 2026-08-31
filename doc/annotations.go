@@ -191,6 +191,50 @@ func (l *ListAnnotationsRequest) SetPon(pon int) {
 }
 
 var (
+	listAllAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	listAllAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
+	listAllAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
+)
+
+type ListAllAnnotationsRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (l *ListAllAnnotationsRequest) require(field *big.Int) {
+	if l.explicitFields == nil {
+		l.explicitFields = big.NewInt(0)
+	}
+	l.explicitFields.Or(l.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListAllAnnotationsRequest) SetDocumentPassword(documentPassword *string) {
+	l.DocumentPassword = documentPassword
+	l.require(listAllAnnotationsRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListAllAnnotationsRequest) SetDocID(docID string) {
+	l.DocID = docID
+	l.require(listAllAnnotationsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListAllAnnotationsRequest) SetLayerName(layerName string) {
+	l.LayerName = layerName
+	l.require(listAllAnnotationsRequestFieldLayerName)
+}
+
+var (
 	updateAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	updateAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	updateAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)

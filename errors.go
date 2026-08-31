@@ -58,11 +58,11 @@ func (b *BadRequestError) Unwrap() error {
 // Conflict
 type ConflictError struct {
 	*core.APIError
-	Body *DocumentsUploadProxy409Response
+	Body any
 }
 
 func (c *ConflictError) UnmarshalJSON(data []byte) error {
-	var body *DocumentsUploadProxy409Response
+	var body any
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}

@@ -2018,6 +2018,14 @@ func TestSettersDocManifest200Response(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetAnnotationsVersion", func(t *testing.T) {
+		obj := &DocManifest200Response{}
+		var fernTestValueAnnotationsVersion *int
+		obj.SetAnnotationsVersion(fernTestValueAnnotationsVersion)
+		assert.Equal(t, fernTestValueAnnotationsVersion, obj.AnnotationsVersion)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetAuditHead", func(t *testing.T) {
 		obj := &DocManifest200Response{}
 		var fernTestValueAuditHead int
@@ -2186,6 +2194,39 @@ func TestGettersDocManifest200Response(t *testing.T) {
 			}
 		}()
 		_ = obj.GetAttachmentsVersion() // Should return zero value
+	})
+
+	t.Run("GetAnnotationsVersion", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var expected *int
+		obj.AnnotationsVersion = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAnnotationsVersion(), "getter should return the property value")
+	})
+
+	t.Run("GetAnnotationsVersion_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		obj.AnnotationsVersion = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetAnnotationsVersion(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetAnnotationsVersion_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DocManifest200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAnnotationsVersion() // Should return zero value
 	})
 
 	t.Run("GetAuditHead", func(t *testing.T) {
@@ -2435,6 +2476,37 @@ func TestSettersMarkExplicitDocManifest200Response(t *testing.T) {
 
 		// Act
 		obj.SetAttachmentsVersion(fernTestValueAttachmentsVersion)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAnnotationsVersion_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var fernTestValueAnnotationsVersion *int
+
+		// Act
+		obj.SetAnnotationsVersion(fernTestValueAnnotationsVersion)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

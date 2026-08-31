@@ -14,6 +14,11 @@ var ErrorCodes internal.ErrorCodes = internal.ErrorCodes{
 			APIError: apiError,
 		}
 	},
+	409: func(apiError *core.APIError) error {
+		return &cloudpdf.ConflictError{
+			APIError: apiError,
+		}
+	},
 	400: func(apiError *core.APIError) error {
 		return &cloudpdf.BadRequestError{
 			APIError: apiError,
