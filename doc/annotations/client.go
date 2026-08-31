@@ -35,6 +35,34 @@ func NewClient(options *core.RequestOptions) *Client {
 	}
 }
 
+// Returns one entry per page plus the audit-log cursor for reconciling subsequent document events. Page order is unspecified; join by `pageState.pageObjectNumber` when display order matters.
+//
+// Example:
+//
+//	request := &doc.ListAllAnnotationsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	}
+//	client.Doc.Annotations.ListAll(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ListAll(
+	ctx context.Context,
+	request *doc.ListAllAnnotationsRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocAnnotationsListAll200Response, error) {
+	response, err := c.WithRawResponse.ListAll(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &doc.ListAnnotationsRequest{

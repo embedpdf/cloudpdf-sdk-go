@@ -926,10 +926,11 @@ var (
 	docManifest200ResponseFieldMetadataVersion    = big.NewInt(1 << 2)
 	docManifest200ResponseFieldActionsVersion     = big.NewInt(1 << 3)
 	docManifest200ResponseFieldAttachmentsVersion = big.NewInt(1 << 4)
-	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 5)
-	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 6)
-	docManifest200ResponseFieldScopes             = big.NewInt(1 << 7)
-	docManifest200ResponseFieldPages              = big.NewInt(1 << 8)
+	docManifest200ResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
+	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 6)
+	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 7)
+	docManifest200ResponseFieldScopes             = big.NewInt(1 << 8)
+	docManifest200ResponseFieldPages              = big.NewInt(1 << 9)
 )
 
 type DocManifest200Response struct {
@@ -938,6 +939,7 @@ type DocManifest200Response struct {
 	MetadataVersion    int                                `json:"metadataVersion" url:"metadataVersion"`
 	ActionsVersion     *int                               `json:"actionsVersion,omitempty" url:"actionsVersion,omitempty"`
 	AttachmentsVersion *int                               `json:"attachmentsVersion,omitempty" url:"attachmentsVersion,omitempty"`
+	AnnotationsVersion *int                               `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
 	AuditHead          int                                `json:"auditHead" url:"auditHead"`
 	BaseSha            string                             `json:"baseSha" url:"baseSha"`
 	Scopes             *DocManifest200ResponseScopes      `json:"scopes,omitempty" url:"scopes,omitempty"`
@@ -983,6 +985,13 @@ func (d *DocManifest200Response) GetAttachmentsVersion() *int {
 		return nil
 	}
 	return d.AttachmentsVersion
+}
+
+func (d *DocManifest200Response) GetAnnotationsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.AnnotationsVersion
 }
 
 func (d *DocManifest200Response) GetAuditHead() int {
@@ -1060,6 +1069,13 @@ func (d *DocManifest200Response) SetActionsVersion(actionsVersion *int) {
 func (d *DocManifest200Response) SetAttachmentsVersion(attachmentsVersion *int) {
 	d.AttachmentsVersion = attachmentsVersion
 	d.require(docManifest200ResponseFieldAttachmentsVersion)
+}
+
+// SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetAnnotationsVersion(annotationsVersion *int) {
+	d.AnnotationsVersion = annotationsVersion
+	d.require(docManifest200ResponseFieldAnnotationsVersion)
 }
 
 // SetAuditHead sets the AuditHead field and marks it as non-optional;
