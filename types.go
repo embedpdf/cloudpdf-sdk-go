@@ -2925,6 +2925,1934 @@ func (d DocAnnotationsDelete404ResponseName) Ptr() *DocAnnotationsDelete404Respo
 }
 
 var (
+	docAnnotationsExportAppearance400ResponseFieldName    = big.NewInt(1 << 0)
+	docAnnotationsExportAppearance400ResponseFieldCode    = big.NewInt(1 << 1)
+	docAnnotationsExportAppearance400ResponseFieldMessage = big.NewInt(1 << 2)
+	docAnnotationsExportAppearance400ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocAnnotationsExportAppearance400Response struct {
+	Name    DocAnnotationsExportAppearance400ResponseName `json:"name" url:"name"`
+	Code    DocAnnotationsExportAppearance400ResponseCode `json:"code" url:"code"`
+	Message string                                        `json:"message" url:"message"`
+	Details map[string]any                                `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsExportAppearance400Response) GetName() DocAnnotationsExportAppearance400ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocAnnotationsExportAppearance400Response) GetCode() DocAnnotationsExportAppearance400ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocAnnotationsExportAppearance400Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocAnnotationsExportAppearance400Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocAnnotationsExportAppearance400Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsExportAppearance400Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance400Response) SetName(name DocAnnotationsExportAppearance400ResponseName) {
+	d.Name = name
+	d.require(docAnnotationsExportAppearance400ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance400Response) SetCode(code DocAnnotationsExportAppearance400ResponseCode) {
+	d.Code = code
+	d.require(docAnnotationsExportAppearance400ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance400Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docAnnotationsExportAppearance400ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance400Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docAnnotationsExportAppearance400ResponseFieldDetails)
+}
+
+func (d *DocAnnotationsExportAppearance400Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsExportAppearance400Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsExportAppearance400Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsExportAppearance400Response) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsExportAppearance400Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsExportAppearance400Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsExportAppearance400ResponseCode string
+
+const (
+	DocAnnotationsExportAppearance400ResponseCodeUnknown                       DocAnnotationsExportAppearance400ResponseCode = "Unknown"
+	DocAnnotationsExportAppearance400ResponseCodeInvalidArg                    DocAnnotationsExportAppearance400ResponseCode = "InvalidArg"
+	DocAnnotationsExportAppearance400ResponseCodeDocNotOpen                    DocAnnotationsExportAppearance400ResponseCode = "DocNotOpen"
+	DocAnnotationsExportAppearance400ResponseCodeDocOpenFailed                 DocAnnotationsExportAppearance400ResponseCode = "DocOpenFailed"
+	DocAnnotationsExportAppearance400ResponseCodeDocPasswordRequired           DocAnnotationsExportAppearance400ResponseCode = "DocPasswordRequired"
+	DocAnnotationsExportAppearance400ResponseCodeDocPasswordIncorrect          DocAnnotationsExportAppearance400ResponseCode = "DocPasswordIncorrect"
+	DocAnnotationsExportAppearance400ResponseCodeSharePasswordRequired         DocAnnotationsExportAppearance400ResponseCode = "SharePasswordRequired"
+	DocAnnotationsExportAppearance400ResponseCodeAborted                       DocAnnotationsExportAppearance400ResponseCode = "Aborted"
+	DocAnnotationsExportAppearance400ResponseCodeNetwork                       DocAnnotationsExportAppearance400ResponseCode = "Network"
+	DocAnnotationsExportAppearance400ResponseCodeUnauthenticated               DocAnnotationsExportAppearance400ResponseCode = "Unauthenticated"
+	DocAnnotationsExportAppearance400ResponseCodeForbidden                     DocAnnotationsExportAppearance400ResponseCode = "Forbidden"
+	DocAnnotationsExportAppearance400ResponseCodeNotFound                      DocAnnotationsExportAppearance400ResponseCode = "NotFound"
+	DocAnnotationsExportAppearance400ResponseCodeWireFormat                    DocAnnotationsExportAppearance400ResponseCode = "WireFormat"
+	DocAnnotationsExportAppearance400ResponseCodeRuntimeUnavailable            DocAnnotationsExportAppearance400ResponseCode = "RuntimeUnavailable"
+	DocAnnotationsExportAppearance400ResponseCodeInvalidReference              DocAnnotationsExportAppearance400ResponseCode = "InvalidReference"
+	DocAnnotationsExportAppearance400ResponseCodeWeakAnnotationSessionConflict DocAnnotationsExportAppearance400ResponseCode = "WeakAnnotationSessionConflict"
+	DocAnnotationsExportAppearance400ResponseCodeLayerVersionConflict          DocAnnotationsExportAppearance400ResponseCode = "LayerVersionConflict"
+	DocAnnotationsExportAppearance400ResponseCodeNotImplemented                DocAnnotationsExportAppearance400ResponseCode = "NotImplemented"
+	DocAnnotationsExportAppearance400ResponseCodeMalformedPdf                  DocAnnotationsExportAppearance400ResponseCode = "MalformedPdf"
+)
+
+func NewDocAnnotationsExportAppearance400ResponseCodeFromString(s string) (DocAnnotationsExportAppearance400ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocAnnotationsExportAppearance400ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocAnnotationsExportAppearance400ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocAnnotationsExportAppearance400ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocAnnotationsExportAppearance400ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocAnnotationsExportAppearance400ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocAnnotationsExportAppearance400ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocAnnotationsExportAppearance400ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocAnnotationsExportAppearance400ResponseCodeAborted, nil
+	case "Network":
+		return DocAnnotationsExportAppearance400ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocAnnotationsExportAppearance400ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocAnnotationsExportAppearance400ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocAnnotationsExportAppearance400ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocAnnotationsExportAppearance400ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocAnnotationsExportAppearance400ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocAnnotationsExportAppearance400ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocAnnotationsExportAppearance400ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocAnnotationsExportAppearance400ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocAnnotationsExportAppearance400ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocAnnotationsExportAppearance400ResponseCodeMalformedPdf, nil
+	}
+	var t DocAnnotationsExportAppearance400ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsExportAppearance400ResponseCode) Ptr() *DocAnnotationsExportAppearance400ResponseCode {
+	return &d
+}
+
+type DocAnnotationsExportAppearance400ResponseName string
+
+const (
+	DocAnnotationsExportAppearance400ResponseNameEngineError DocAnnotationsExportAppearance400ResponseName = "EngineError"
+)
+
+func NewDocAnnotationsExportAppearance400ResponseNameFromString(s string) (DocAnnotationsExportAppearance400ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocAnnotationsExportAppearance400ResponseNameEngineError, nil
+	}
+	var t DocAnnotationsExportAppearance400ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsExportAppearance400ResponseName) Ptr() *DocAnnotationsExportAppearance400ResponseName {
+	return &d
+}
+
+var (
+	docAnnotationsExportAppearance404ResponseFieldName    = big.NewInt(1 << 0)
+	docAnnotationsExportAppearance404ResponseFieldCode    = big.NewInt(1 << 1)
+	docAnnotationsExportAppearance404ResponseFieldMessage = big.NewInt(1 << 2)
+	docAnnotationsExportAppearance404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocAnnotationsExportAppearance404Response struct {
+	Name    DocAnnotationsExportAppearance404ResponseName `json:"name" url:"name"`
+	Code    DocAnnotationsExportAppearance404ResponseCode `json:"code" url:"code"`
+	Message string                                        `json:"message" url:"message"`
+	Details map[string]any                                `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsExportAppearance404Response) GetName() DocAnnotationsExportAppearance404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocAnnotationsExportAppearance404Response) GetCode() DocAnnotationsExportAppearance404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocAnnotationsExportAppearance404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocAnnotationsExportAppearance404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocAnnotationsExportAppearance404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsExportAppearance404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance404Response) SetName(name DocAnnotationsExportAppearance404ResponseName) {
+	d.Name = name
+	d.require(docAnnotationsExportAppearance404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance404Response) SetCode(code DocAnnotationsExportAppearance404ResponseCode) {
+	d.Code = code
+	d.require(docAnnotationsExportAppearance404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docAnnotationsExportAppearance404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsExportAppearance404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docAnnotationsExportAppearance404ResponseFieldDetails)
+}
+
+func (d *DocAnnotationsExportAppearance404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsExportAppearance404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsExportAppearance404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsExportAppearance404Response) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsExportAppearance404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsExportAppearance404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsExportAppearance404ResponseCode string
+
+const (
+	DocAnnotationsExportAppearance404ResponseCodeUnknown                       DocAnnotationsExportAppearance404ResponseCode = "Unknown"
+	DocAnnotationsExportAppearance404ResponseCodeInvalidArg                    DocAnnotationsExportAppearance404ResponseCode = "InvalidArg"
+	DocAnnotationsExportAppearance404ResponseCodeDocNotOpen                    DocAnnotationsExportAppearance404ResponseCode = "DocNotOpen"
+	DocAnnotationsExportAppearance404ResponseCodeDocOpenFailed                 DocAnnotationsExportAppearance404ResponseCode = "DocOpenFailed"
+	DocAnnotationsExportAppearance404ResponseCodeDocPasswordRequired           DocAnnotationsExportAppearance404ResponseCode = "DocPasswordRequired"
+	DocAnnotationsExportAppearance404ResponseCodeDocPasswordIncorrect          DocAnnotationsExportAppearance404ResponseCode = "DocPasswordIncorrect"
+	DocAnnotationsExportAppearance404ResponseCodeSharePasswordRequired         DocAnnotationsExportAppearance404ResponseCode = "SharePasswordRequired"
+	DocAnnotationsExportAppearance404ResponseCodeAborted                       DocAnnotationsExportAppearance404ResponseCode = "Aborted"
+	DocAnnotationsExportAppearance404ResponseCodeNetwork                       DocAnnotationsExportAppearance404ResponseCode = "Network"
+	DocAnnotationsExportAppearance404ResponseCodeUnauthenticated               DocAnnotationsExportAppearance404ResponseCode = "Unauthenticated"
+	DocAnnotationsExportAppearance404ResponseCodeForbidden                     DocAnnotationsExportAppearance404ResponseCode = "Forbidden"
+	DocAnnotationsExportAppearance404ResponseCodeNotFound                      DocAnnotationsExportAppearance404ResponseCode = "NotFound"
+	DocAnnotationsExportAppearance404ResponseCodeWireFormat                    DocAnnotationsExportAppearance404ResponseCode = "WireFormat"
+	DocAnnotationsExportAppearance404ResponseCodeRuntimeUnavailable            DocAnnotationsExportAppearance404ResponseCode = "RuntimeUnavailable"
+	DocAnnotationsExportAppearance404ResponseCodeInvalidReference              DocAnnotationsExportAppearance404ResponseCode = "InvalidReference"
+	DocAnnotationsExportAppearance404ResponseCodeWeakAnnotationSessionConflict DocAnnotationsExportAppearance404ResponseCode = "WeakAnnotationSessionConflict"
+	DocAnnotationsExportAppearance404ResponseCodeLayerVersionConflict          DocAnnotationsExportAppearance404ResponseCode = "LayerVersionConflict"
+	DocAnnotationsExportAppearance404ResponseCodeNotImplemented                DocAnnotationsExportAppearance404ResponseCode = "NotImplemented"
+	DocAnnotationsExportAppearance404ResponseCodeMalformedPdf                  DocAnnotationsExportAppearance404ResponseCode = "MalformedPdf"
+)
+
+func NewDocAnnotationsExportAppearance404ResponseCodeFromString(s string) (DocAnnotationsExportAppearance404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocAnnotationsExportAppearance404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocAnnotationsExportAppearance404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocAnnotationsExportAppearance404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocAnnotationsExportAppearance404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocAnnotationsExportAppearance404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocAnnotationsExportAppearance404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocAnnotationsExportAppearance404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocAnnotationsExportAppearance404ResponseCodeAborted, nil
+	case "Network":
+		return DocAnnotationsExportAppearance404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocAnnotationsExportAppearance404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocAnnotationsExportAppearance404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocAnnotationsExportAppearance404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocAnnotationsExportAppearance404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocAnnotationsExportAppearance404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocAnnotationsExportAppearance404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocAnnotationsExportAppearance404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocAnnotationsExportAppearance404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocAnnotationsExportAppearance404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocAnnotationsExportAppearance404ResponseCodeMalformedPdf, nil
+	}
+	var t DocAnnotationsExportAppearance404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsExportAppearance404ResponseCode) Ptr() *DocAnnotationsExportAppearance404ResponseCode {
+	return &d
+}
+
+type DocAnnotationsExportAppearance404ResponseName string
+
+const (
+	DocAnnotationsExportAppearance404ResponseNameEngineError DocAnnotationsExportAppearance404ResponseName = "EngineError"
+)
+
+func NewDocAnnotationsExportAppearance404ResponseNameFromString(s string) (DocAnnotationsExportAppearance404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocAnnotationsExportAppearance404ResponseNameEngineError, nil
+	}
+	var t DocAnnotationsExportAppearance404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsExportAppearance404ResponseName) Ptr() *DocAnnotationsExportAppearance404ResponseName {
+	return &d
+}
+
+type DocAnnotationsExportAppearanceRequest = map[string]any
+
+var (
+	docAnnotationsFlatten200ResponseFieldMeta = big.NewInt(1 << 0)
+)
+
+type DocAnnotationsFlatten200Response struct {
+	Meta *DocAnnotationsFlatten200ResponseMeta `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	ExtraProperties map[string]interface{} `json:"-" url:"-"`
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200Response) GetMeta() *DocAnnotationsFlatten200ResponseMeta {
+	if d == nil {
+		return nil
+	}
+	return d.Meta
+}
+
+func (d *DocAnnotationsFlatten200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.ExtraProperties
+}
+
+func (d *DocAnnotationsFlatten200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200Response) SetMeta(meta *DocAnnotationsFlatten200ResponseMeta) {
+	d.Meta = meta
+	d.require(docAnnotationsFlatten200ResponseFieldMeta)
+}
+
+func (d *DocAnnotationsFlatten200Response) UnmarshalJSON(data []byte) error {
+	type embed DocAnnotationsFlatten200Response
+	var unmarshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200Response(unmarshaler.embed)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.ExtraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200Response) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return internal.MarshalJSONWithExtraProperties(explicitMarshaler, d.ExtraProperties)
+}
+
+func (d *DocAnnotationsFlatten200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaFieldAffectedPages = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaFieldCacheDelta    = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsFlatten200ResponseMeta struct {
+	AffectedPages []*DocAnnotationsFlatten200ResponseMetaAffectedPagesItem `json:"affectedPages" url:"affectedPages"`
+	CacheDelta    *DocAnnotationsFlatten200ResponseMetaCacheDelta          `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) GetAffectedPages() []*DocAnnotationsFlatten200ResponseMetaAffectedPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.AffectedPages
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) GetCacheDelta() *DocAnnotationsFlatten200ResponseMetaCacheDelta {
+	if d == nil {
+		return nil
+	}
+	return d.CacheDelta
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAffectedPages sets the AffectedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMeta) SetAffectedPages(affectedPages []*DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) {
+	d.AffectedPages = affectedPages
+	d.require(docAnnotationsFlatten200ResponseMetaFieldAffectedPages)
+}
+
+// SetCacheDelta sets the CacheDelta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMeta) SetCacheDelta(cacheDelta *DocAnnotationsFlatten200ResponseMetaCacheDelta) {
+	d.CacheDelta = cacheDelta
+	d.require(docAnnotationsFlatten200ResponseMetaFieldCacheDelta)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMeta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMeta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMeta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMeta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldPageObjectNumber    = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldRevision            = big.NewInt(1 << 1)
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldWeakAnnotationState = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItem struct {
+	PageObjectNumber    int                                                                       `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Revision            *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision            `json:"revision" url:"revision"`
+	WeakAnnotationState *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState `json:"weakAnnotationState" url:"weakAnnotationState"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) GetRevision() *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision {
+	if d == nil {
+		return nil
+	}
+	return d.Revision
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) GetWeakAnnotationState() *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState {
+	if d == nil {
+		return nil
+	}
+	return d.WeakAnnotationState
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldPageObjectNumber)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) SetRevision(revision *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) {
+	d.Revision = revision
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldRevision)
+}
+
+// SetWeakAnnotationState sets the WeakAnnotationState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) SetWeakAnnotationState(weakAnnotationState *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) {
+	d.WeakAnnotationState = weakAnnotationState
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemFieldWeakAnnotationState)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaAffectedPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaAffectedPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaAffectedPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID     = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber = big.NewInt(1 << 1)
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldGeneration       = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision struct {
+	DocSessionID     string `json:"docSessionId" url:"docSessionId"`
+	PageObjectNumber int    `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Generation       int    `json:"generation" url:"generation"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) GetDocSessionID() string {
+	if d == nil {
+		return ""
+	}
+	return d.DocSessionID
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) GetGeneration() int {
+	if d == nil {
+		return 0
+	}
+	return d.Generation
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocSessionID sets the DocSessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) SetDocSessionID(docSessionID string) {
+	d.DocSessionID = docSessionID
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber)
+}
+
+// SetGeneration sets the Generation field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) SetGeneration(generation int) {
+	d.Generation = generation
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemRevisionFieldGeneration)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemRevision) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState struct {
+	Kind    string
+	Unknown *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	Known   *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKind() string {
+	if d == nil {
+		return ""
+	}
+	return d.Kind
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) GetUnknown() *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKnown() *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown {
+	if d == nil {
+		return nil
+	}
+	return d.Known
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", d)
+	}
+	switch unmarshaler.Kind {
+	case "unknown":
+		value := new(DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	case "known":
+		value := new(DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Known = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "kind", "unknown")
+	}
+	if d.Known != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Known, "kind", "known")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor interface {
+	VisitUnknown(*DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) error
+	VisitKnown(*DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) error
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) Accept(visitor DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor) error {
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	if d.Known != nil {
+		return visitor.VisitKnown(d.Known)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationState) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if d.Known != nil {
+		fields = append(fields, "known")
+	}
+	if len(fields) == 0 {
+		if d.Kind != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Kind != "" {
+		field := fields[0]
+		if d.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Kind,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations = big.NewInt(1 << 0)
+)
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown struct {
+	HasAnyWeakAnnotations bool `json:"hasAnyWeakAnnotations" url:"hasAnyWeakAnnotations"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetHasAnyWeakAnnotations() bool {
+	if d == nil {
+		return false
+	}
+	return d.HasAnyWeakAnnotations
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetHasAnyWeakAnnotations sets the HasAnyWeakAnnotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) SetHasAnyWeakAnnotations(hasAnyWeakAnnotations bool) {
+	d.HasAnyWeakAnnotations = hasAnyWeakAnnotations
+	d.require(docAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaCacheDeltaFieldPreviousDocVersion = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaCacheDeltaFieldDocVersion         = big.NewInt(1 << 1)
+	docAnnotationsFlatten200ResponseMetaCacheDeltaFieldAnnotationsVersion = big.NewInt(1 << 2)
+	docAnnotationsFlatten200ResponseMetaCacheDeltaFieldPages              = big.NewInt(1 << 3)
+)
+
+type DocAnnotationsFlatten200ResponseMetaCacheDelta struct {
+	PreviousDocVersion int                                                        `json:"previousDocVersion" url:"previousDocVersion"`
+	DocVersion         int                                                        `json:"docVersion" url:"docVersion"`
+	AnnotationsVersion *int                                                       `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
+	Pages              []*DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem `json:"pages" url:"pages"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) GetPreviousDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.PreviousDocVersion
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) GetDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.DocVersion
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) GetAnnotationsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.AnnotationsVersion
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) GetPages() []*DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.Pages
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPreviousDocVersion sets the PreviousDocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) SetPreviousDocVersion(previousDocVersion int) {
+	d.PreviousDocVersion = previousDocVersion
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaFieldPreviousDocVersion)
+}
+
+// SetDocVersion sets the DocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) SetDocVersion(docVersion int) {
+	d.DocVersion = docVersion
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaFieldDocVersion)
+}
+
+// SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) SetAnnotationsVersion(annotationsVersion *int) {
+	d.AnnotationsVersion = annotationsVersion
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaFieldAnnotationsVersion)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) SetPages(pages []*DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) {
+	d.Pages = pages
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaFieldPages)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaCacheDelta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaCacheDelta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaCacheDelta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDelta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemFieldCache            = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem struct {
+	PageObjectNumber int                                                           `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Cache            *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache `json:"cache" url:"cache"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) GetCache() *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache {
+	if d == nil {
+		return nil
+	}
+	return d.Cache
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber)
+}
+
+// SetCache sets the Cache field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) SetCache(cache *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) {
+	d.Cache = cache
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemFieldCache)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
+	docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache struct {
+	ContentVersion    int `json:"contentVersion" url:"contentVersion"`
+	AnnotationVersion int `json:"annotationVersion" url:"annotationVersion"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) GetContentVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.ContentVersion
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) GetAnnotationVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.AnnotationVersion
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetContentVersion sets the ContentVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) SetContentVersion(contentVersion int) {
+	d.ContentVersion = contentVersion
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion)
+}
+
+// SetAnnotationVersion sets the AnnotationVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) SetAnnotationVersion(annotationVersion int) {
+	d.AnnotationVersion = annotationVersion
+	d.require(docAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten200ResponseMetaCacheDeltaPagesItemCache) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsFlatten400ResponseFieldName    = big.NewInt(1 << 0)
+	docAnnotationsFlatten400ResponseFieldCode    = big.NewInt(1 << 1)
+	docAnnotationsFlatten400ResponseFieldMessage = big.NewInt(1 << 2)
+	docAnnotationsFlatten400ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocAnnotationsFlatten400Response struct {
+	Name    DocAnnotationsFlatten400ResponseName `json:"name" url:"name"`
+	Code    DocAnnotationsFlatten400ResponseCode `json:"code" url:"code"`
+	Message string                               `json:"message" url:"message"`
+	Details map[string]any                       `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten400Response) GetName() DocAnnotationsFlatten400ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocAnnotationsFlatten400Response) GetCode() DocAnnotationsFlatten400ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocAnnotationsFlatten400Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocAnnotationsFlatten400Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocAnnotationsFlatten400Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten400Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten400Response) SetName(name DocAnnotationsFlatten400ResponseName) {
+	d.Name = name
+	d.require(docAnnotationsFlatten400ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten400Response) SetCode(code DocAnnotationsFlatten400ResponseCode) {
+	d.Code = code
+	d.require(docAnnotationsFlatten400ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten400Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docAnnotationsFlatten400ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten400Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docAnnotationsFlatten400ResponseFieldDetails)
+}
+
+func (d *DocAnnotationsFlatten400Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten400Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten400Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten400Response) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten400Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten400Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsFlatten400ResponseCode string
+
+const (
+	DocAnnotationsFlatten400ResponseCodeUnknown                       DocAnnotationsFlatten400ResponseCode = "Unknown"
+	DocAnnotationsFlatten400ResponseCodeInvalidArg                    DocAnnotationsFlatten400ResponseCode = "InvalidArg"
+	DocAnnotationsFlatten400ResponseCodeDocNotOpen                    DocAnnotationsFlatten400ResponseCode = "DocNotOpen"
+	DocAnnotationsFlatten400ResponseCodeDocOpenFailed                 DocAnnotationsFlatten400ResponseCode = "DocOpenFailed"
+	DocAnnotationsFlatten400ResponseCodeDocPasswordRequired           DocAnnotationsFlatten400ResponseCode = "DocPasswordRequired"
+	DocAnnotationsFlatten400ResponseCodeDocPasswordIncorrect          DocAnnotationsFlatten400ResponseCode = "DocPasswordIncorrect"
+	DocAnnotationsFlatten400ResponseCodeSharePasswordRequired         DocAnnotationsFlatten400ResponseCode = "SharePasswordRequired"
+	DocAnnotationsFlatten400ResponseCodeAborted                       DocAnnotationsFlatten400ResponseCode = "Aborted"
+	DocAnnotationsFlatten400ResponseCodeNetwork                       DocAnnotationsFlatten400ResponseCode = "Network"
+	DocAnnotationsFlatten400ResponseCodeUnauthenticated               DocAnnotationsFlatten400ResponseCode = "Unauthenticated"
+	DocAnnotationsFlatten400ResponseCodeForbidden                     DocAnnotationsFlatten400ResponseCode = "Forbidden"
+	DocAnnotationsFlatten400ResponseCodeNotFound                      DocAnnotationsFlatten400ResponseCode = "NotFound"
+	DocAnnotationsFlatten400ResponseCodeWireFormat                    DocAnnotationsFlatten400ResponseCode = "WireFormat"
+	DocAnnotationsFlatten400ResponseCodeRuntimeUnavailable            DocAnnotationsFlatten400ResponseCode = "RuntimeUnavailable"
+	DocAnnotationsFlatten400ResponseCodeInvalidReference              DocAnnotationsFlatten400ResponseCode = "InvalidReference"
+	DocAnnotationsFlatten400ResponseCodeWeakAnnotationSessionConflict DocAnnotationsFlatten400ResponseCode = "WeakAnnotationSessionConflict"
+	DocAnnotationsFlatten400ResponseCodeLayerVersionConflict          DocAnnotationsFlatten400ResponseCode = "LayerVersionConflict"
+	DocAnnotationsFlatten400ResponseCodeNotImplemented                DocAnnotationsFlatten400ResponseCode = "NotImplemented"
+	DocAnnotationsFlatten400ResponseCodeMalformedPdf                  DocAnnotationsFlatten400ResponseCode = "MalformedPdf"
+)
+
+func NewDocAnnotationsFlatten400ResponseCodeFromString(s string) (DocAnnotationsFlatten400ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocAnnotationsFlatten400ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocAnnotationsFlatten400ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocAnnotationsFlatten400ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocAnnotationsFlatten400ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocAnnotationsFlatten400ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocAnnotationsFlatten400ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocAnnotationsFlatten400ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocAnnotationsFlatten400ResponseCodeAborted, nil
+	case "Network":
+		return DocAnnotationsFlatten400ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocAnnotationsFlatten400ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocAnnotationsFlatten400ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocAnnotationsFlatten400ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocAnnotationsFlatten400ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocAnnotationsFlatten400ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocAnnotationsFlatten400ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocAnnotationsFlatten400ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocAnnotationsFlatten400ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocAnnotationsFlatten400ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocAnnotationsFlatten400ResponseCodeMalformedPdf, nil
+	}
+	var t DocAnnotationsFlatten400ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsFlatten400ResponseCode) Ptr() *DocAnnotationsFlatten400ResponseCode {
+	return &d
+}
+
+type DocAnnotationsFlatten400ResponseName string
+
+const (
+	DocAnnotationsFlatten400ResponseNameEngineError DocAnnotationsFlatten400ResponseName = "EngineError"
+)
+
+func NewDocAnnotationsFlatten400ResponseNameFromString(s string) (DocAnnotationsFlatten400ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocAnnotationsFlatten400ResponseNameEngineError, nil
+	}
+	var t DocAnnotationsFlatten400ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsFlatten400ResponseName) Ptr() *DocAnnotationsFlatten400ResponseName {
+	return &d
+}
+
+var (
+	docAnnotationsFlatten404ResponseFieldName    = big.NewInt(1 << 0)
+	docAnnotationsFlatten404ResponseFieldCode    = big.NewInt(1 << 1)
+	docAnnotationsFlatten404ResponseFieldMessage = big.NewInt(1 << 2)
+	docAnnotationsFlatten404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocAnnotationsFlatten404Response struct {
+	Name    DocAnnotationsFlatten404ResponseName `json:"name" url:"name"`
+	Code    DocAnnotationsFlatten404ResponseCode `json:"code" url:"code"`
+	Message string                               `json:"message" url:"message"`
+	Details map[string]any                       `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsFlatten404Response) GetName() DocAnnotationsFlatten404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocAnnotationsFlatten404Response) GetCode() DocAnnotationsFlatten404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocAnnotationsFlatten404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocAnnotationsFlatten404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocAnnotationsFlatten404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsFlatten404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten404Response) SetName(name DocAnnotationsFlatten404ResponseName) {
+	d.Name = name
+	d.require(docAnnotationsFlatten404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten404Response) SetCode(code DocAnnotationsFlatten404ResponseCode) {
+	d.Code = code
+	d.require(docAnnotationsFlatten404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docAnnotationsFlatten404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsFlatten404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docAnnotationsFlatten404ResponseFieldDetails)
+}
+
+func (d *DocAnnotationsFlatten404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsFlatten404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsFlatten404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsFlatten404Response) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsFlatten404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsFlatten404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsFlatten404ResponseCode string
+
+const (
+	DocAnnotationsFlatten404ResponseCodeUnknown                       DocAnnotationsFlatten404ResponseCode = "Unknown"
+	DocAnnotationsFlatten404ResponseCodeInvalidArg                    DocAnnotationsFlatten404ResponseCode = "InvalidArg"
+	DocAnnotationsFlatten404ResponseCodeDocNotOpen                    DocAnnotationsFlatten404ResponseCode = "DocNotOpen"
+	DocAnnotationsFlatten404ResponseCodeDocOpenFailed                 DocAnnotationsFlatten404ResponseCode = "DocOpenFailed"
+	DocAnnotationsFlatten404ResponseCodeDocPasswordRequired           DocAnnotationsFlatten404ResponseCode = "DocPasswordRequired"
+	DocAnnotationsFlatten404ResponseCodeDocPasswordIncorrect          DocAnnotationsFlatten404ResponseCode = "DocPasswordIncorrect"
+	DocAnnotationsFlatten404ResponseCodeSharePasswordRequired         DocAnnotationsFlatten404ResponseCode = "SharePasswordRequired"
+	DocAnnotationsFlatten404ResponseCodeAborted                       DocAnnotationsFlatten404ResponseCode = "Aborted"
+	DocAnnotationsFlatten404ResponseCodeNetwork                       DocAnnotationsFlatten404ResponseCode = "Network"
+	DocAnnotationsFlatten404ResponseCodeUnauthenticated               DocAnnotationsFlatten404ResponseCode = "Unauthenticated"
+	DocAnnotationsFlatten404ResponseCodeForbidden                     DocAnnotationsFlatten404ResponseCode = "Forbidden"
+	DocAnnotationsFlatten404ResponseCodeNotFound                      DocAnnotationsFlatten404ResponseCode = "NotFound"
+	DocAnnotationsFlatten404ResponseCodeWireFormat                    DocAnnotationsFlatten404ResponseCode = "WireFormat"
+	DocAnnotationsFlatten404ResponseCodeRuntimeUnavailable            DocAnnotationsFlatten404ResponseCode = "RuntimeUnavailable"
+	DocAnnotationsFlatten404ResponseCodeInvalidReference              DocAnnotationsFlatten404ResponseCode = "InvalidReference"
+	DocAnnotationsFlatten404ResponseCodeWeakAnnotationSessionConflict DocAnnotationsFlatten404ResponseCode = "WeakAnnotationSessionConflict"
+	DocAnnotationsFlatten404ResponseCodeLayerVersionConflict          DocAnnotationsFlatten404ResponseCode = "LayerVersionConflict"
+	DocAnnotationsFlatten404ResponseCodeNotImplemented                DocAnnotationsFlatten404ResponseCode = "NotImplemented"
+	DocAnnotationsFlatten404ResponseCodeMalformedPdf                  DocAnnotationsFlatten404ResponseCode = "MalformedPdf"
+)
+
+func NewDocAnnotationsFlatten404ResponseCodeFromString(s string) (DocAnnotationsFlatten404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocAnnotationsFlatten404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocAnnotationsFlatten404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocAnnotationsFlatten404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocAnnotationsFlatten404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocAnnotationsFlatten404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocAnnotationsFlatten404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocAnnotationsFlatten404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocAnnotationsFlatten404ResponseCodeAborted, nil
+	case "Network":
+		return DocAnnotationsFlatten404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocAnnotationsFlatten404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocAnnotationsFlatten404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocAnnotationsFlatten404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocAnnotationsFlatten404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocAnnotationsFlatten404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocAnnotationsFlatten404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocAnnotationsFlatten404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocAnnotationsFlatten404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocAnnotationsFlatten404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocAnnotationsFlatten404ResponseCodeMalformedPdf, nil
+	}
+	var t DocAnnotationsFlatten404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsFlatten404ResponseCode) Ptr() *DocAnnotationsFlatten404ResponseCode {
+	return &d
+}
+
+type DocAnnotationsFlatten404ResponseName string
+
+const (
+	DocAnnotationsFlatten404ResponseNameEngineError DocAnnotationsFlatten404ResponseName = "EngineError"
+)
+
+func NewDocAnnotationsFlatten404ResponseNameFromString(s string) (DocAnnotationsFlatten404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocAnnotationsFlatten404ResponseNameEngineError, nil
+	}
+	var t DocAnnotationsFlatten404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsFlatten404ResponseName) Ptr() *DocAnnotationsFlatten404ResponseName {
+	return &d
+}
+
+type DocAnnotationsFlattenRequest = map[string]any
+
+var (
 	docAnnotationsList200ResponseFieldPageState   = big.NewInt(1 << 0)
 	docAnnotationsList200ResponseFieldAnnotations = big.NewInt(1 << 1)
 )
@@ -136823,6 +138751,1484 @@ func (d DocPagesMove404ResponseName) Ptr() *DocPagesMove404ResponseName {
 type DocPagesMoveRequest = map[string]any
 
 var (
+	docPagesRemoveName200ResponseFieldMeta = big.NewInt(1 << 0)
+)
+
+type DocPagesRemoveName200Response struct {
+	Meta *DocPagesRemoveName200ResponseMeta `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	ExtraProperties map[string]interface{} `json:"-" url:"-"`
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesRemoveName200Response) GetMeta() *DocPagesRemoveName200ResponseMeta {
+	if d == nil {
+		return nil
+	}
+	return d.Meta
+}
+
+func (d *DocPagesRemoveName200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.ExtraProperties
+}
+
+func (d *DocPagesRemoveName200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200Response) SetMeta(meta *DocPagesRemoveName200ResponseMeta) {
+	d.Meta = meta
+	d.require(docPagesRemoveName200ResponseFieldMeta)
+}
+
+func (d *DocPagesRemoveName200Response) UnmarshalJSON(data []byte) error {
+	type embed DocPagesRemoveName200Response
+	var unmarshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200Response(unmarshaler.embed)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.ExtraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return internal.MarshalJSONWithExtraProperties(explicitMarshaler, d.ExtraProperties)
+}
+
+func (d *DocPagesRemoveName200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaFieldAffectedPages = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaFieldCacheDelta    = big.NewInt(1 << 1)
+)
+
+type DocPagesRemoveName200ResponseMeta struct {
+	AffectedPages []*DocPagesRemoveName200ResponseMetaAffectedPagesItem `json:"affectedPages" url:"affectedPages"`
+	CacheDelta    *DocPagesRemoveName200ResponseMetaCacheDelta          `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) GetAffectedPages() []*DocPagesRemoveName200ResponseMetaAffectedPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.AffectedPages
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) GetCacheDelta() *DocPagesRemoveName200ResponseMetaCacheDelta {
+	if d == nil {
+		return nil
+	}
+	return d.CacheDelta
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAffectedPages sets the AffectedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMeta) SetAffectedPages(affectedPages []*DocPagesRemoveName200ResponseMetaAffectedPagesItem) {
+	d.AffectedPages = affectedPages
+	d.require(docPagesRemoveName200ResponseMetaFieldAffectedPages)
+}
+
+// SetCacheDelta sets the CacheDelta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMeta) SetCacheDelta(cacheDelta *DocPagesRemoveName200ResponseMetaCacheDelta) {
+	d.CacheDelta = cacheDelta
+	d.require(docPagesRemoveName200ResponseMetaFieldCacheDelta)
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMeta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMeta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMeta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMeta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaAffectedPagesItemFieldPageObjectNumber    = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaAffectedPagesItemFieldRevision            = big.NewInt(1 << 1)
+	docPagesRemoveName200ResponseMetaAffectedPagesItemFieldWeakAnnotationState = big.NewInt(1 << 2)
+)
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItem struct {
+	PageObjectNumber    int                                                                    `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Revision            *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision            `json:"revision" url:"revision"`
+	WeakAnnotationState *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState `json:"weakAnnotationState" url:"weakAnnotationState"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) GetRevision() *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision {
+	if d == nil {
+		return nil
+	}
+	return d.Revision
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) GetWeakAnnotationState() *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState {
+	if d == nil {
+		return nil
+	}
+	return d.WeakAnnotationState
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemFieldPageObjectNumber)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) SetRevision(revision *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) {
+	d.Revision = revision
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemFieldRevision)
+}
+
+// SetWeakAnnotationState sets the WeakAnnotationState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) SetWeakAnnotationState(weakAnnotationState *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) {
+	d.WeakAnnotationState = weakAnnotationState
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemFieldWeakAnnotationState)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaAffectedPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaAffectedPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaAffectedPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID     = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber = big.NewInt(1 << 1)
+	docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldGeneration       = big.NewInt(1 << 2)
+)
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision struct {
+	DocSessionID     string `json:"docSessionId" url:"docSessionId"`
+	PageObjectNumber int    `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Generation       int    `json:"generation" url:"generation"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) GetDocSessionID() string {
+	if d == nil {
+		return ""
+	}
+	return d.DocSessionID
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) GetGeneration() int {
+	if d == nil {
+		return 0
+	}
+	return d.Generation
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocSessionID sets the DocSessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) SetDocSessionID(docSessionID string) {
+	d.DocSessionID = docSessionID
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber)
+}
+
+// SetGeneration sets the Generation field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) SetGeneration(generation int) {
+	d.Generation = generation
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemRevisionFieldGeneration)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemRevision) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState struct {
+	Kind    string
+	Unknown *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	Known   *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKind() string {
+	if d == nil {
+		return ""
+	}
+	return d.Kind
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetUnknown() *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKnown() *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown {
+	if d == nil {
+		return nil
+	}
+	return d.Known
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", d)
+	}
+	switch unmarshaler.Kind {
+	case "unknown":
+		value := new(DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	case "known":
+		value := new(DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Known = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "kind", "unknown")
+	}
+	if d.Known != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Known, "kind", "known")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor interface {
+	VisitUnknown(*DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) error
+	VisitKnown(*DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) error
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) Accept(visitor DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor) error {
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	if d.Known != nil {
+		return visitor.VisitKnown(d.Known)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationState) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if d.Known != nil {
+		fields = append(fields, "known")
+	}
+	if len(fields) == 0 {
+		if d.Kind != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Kind != "" {
+		field := fields[0]
+		if d.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Kind,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	docPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations = big.NewInt(1 << 0)
+)
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown struct {
+	HasAnyWeakAnnotations bool `json:"hasAnyWeakAnnotations" url:"hasAnyWeakAnnotations"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetHasAnyWeakAnnotations() bool {
+	if d == nil {
+		return false
+	}
+	return d.HasAnyWeakAnnotations
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetHasAnyWeakAnnotations sets the HasAnyWeakAnnotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) SetHasAnyWeakAnnotations(hasAnyWeakAnnotations bool) {
+	d.HasAnyWeakAnnotations = hasAnyWeakAnnotations
+	d.require(docPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaCacheDeltaFieldPreviousDocVersion = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaCacheDeltaFieldDocVersion         = big.NewInt(1 << 1)
+	docPagesRemoveName200ResponseMetaCacheDeltaFieldAnnotationsVersion = big.NewInt(1 << 2)
+	docPagesRemoveName200ResponseMetaCacheDeltaFieldPages              = big.NewInt(1 << 3)
+)
+
+type DocPagesRemoveName200ResponseMetaCacheDelta struct {
+	PreviousDocVersion int                                                     `json:"previousDocVersion" url:"previousDocVersion"`
+	DocVersion         int                                                     `json:"docVersion" url:"docVersion"`
+	AnnotationsVersion *int                                                    `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
+	Pages              []*DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem `json:"pages" url:"pages"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) GetPreviousDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.PreviousDocVersion
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) GetDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.DocVersion
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) GetAnnotationsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.AnnotationsVersion
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) GetPages() []*DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.Pages
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPreviousDocVersion sets the PreviousDocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) SetPreviousDocVersion(previousDocVersion int) {
+	d.PreviousDocVersion = previousDocVersion
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaFieldPreviousDocVersion)
+}
+
+// SetDocVersion sets the DocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) SetDocVersion(docVersion int) {
+	d.DocVersion = docVersion
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaFieldDocVersion)
+}
+
+// SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) SetAnnotationsVersion(annotationsVersion *int) {
+	d.AnnotationsVersion = annotationsVersion
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaFieldAnnotationsVersion)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) SetPages(pages []*DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) {
+	d.Pages = pages
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaFieldPages)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaCacheDelta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaCacheDelta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaCacheDelta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDelta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaCacheDeltaPagesItemFieldCache            = big.NewInt(1 << 1)
+)
+
+type DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem struct {
+	PageObjectNumber int                                                        `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Cache            *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache `json:"cache" url:"cache"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) GetCache() *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache {
+	if d == nil {
+		return nil
+	}
+	return d.Cache
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber)
+}
+
+// SetCache sets the Cache field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) SetCache(cache *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) {
+	d.Cache = cache
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaPagesItemFieldCache)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
+	docPagesRemoveName200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
+)
+
+type DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache struct {
+	ContentVersion    int `json:"contentVersion" url:"contentVersion"`
+	AnnotationVersion int `json:"annotationVersion" url:"annotationVersion"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) GetContentVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.ContentVersion
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) GetAnnotationVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.AnnotationVersion
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetContentVersion sets the ContentVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) SetContentVersion(contentVersion int) {
+	d.ContentVersion = contentVersion
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion)
+}
+
+// SetAnnotationVersion sets the AnnotationVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) SetAnnotationVersion(annotationVersion int) {
+	d.AnnotationVersion = annotationVersion
+	d.require(docPagesRemoveName200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName200ResponseMetaCacheDeltaPagesItemCache) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesRemoveName400ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesRemoveName400ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesRemoveName400ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesRemoveName400ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesRemoveName400Response struct {
+	Name    DocPagesRemoveName400ResponseName `json:"name" url:"name"`
+	Code    DocPagesRemoveName400ResponseCode `json:"code" url:"code"`
+	Message string                            `json:"message" url:"message"`
+	Details map[string]any                    `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName400Response) GetName() DocPagesRemoveName400ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesRemoveName400Response) GetCode() DocPagesRemoveName400ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesRemoveName400Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesRemoveName400Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesRemoveName400Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName400Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName400Response) SetName(name DocPagesRemoveName400ResponseName) {
+	d.Name = name
+	d.require(docPagesRemoveName400ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName400Response) SetCode(code DocPagesRemoveName400ResponseCode) {
+	d.Code = code
+	d.require(docPagesRemoveName400ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName400Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesRemoveName400ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName400Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesRemoveName400ResponseFieldDetails)
+}
+
+func (d *DocPagesRemoveName400Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName400Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName400Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName400Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName400Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName400Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesRemoveName400ResponseCode string
+
+const (
+	DocPagesRemoveName400ResponseCodeUnknown                       DocPagesRemoveName400ResponseCode = "Unknown"
+	DocPagesRemoveName400ResponseCodeInvalidArg                    DocPagesRemoveName400ResponseCode = "InvalidArg"
+	DocPagesRemoveName400ResponseCodeDocNotOpen                    DocPagesRemoveName400ResponseCode = "DocNotOpen"
+	DocPagesRemoveName400ResponseCodeDocOpenFailed                 DocPagesRemoveName400ResponseCode = "DocOpenFailed"
+	DocPagesRemoveName400ResponseCodeDocPasswordRequired           DocPagesRemoveName400ResponseCode = "DocPasswordRequired"
+	DocPagesRemoveName400ResponseCodeDocPasswordIncorrect          DocPagesRemoveName400ResponseCode = "DocPasswordIncorrect"
+	DocPagesRemoveName400ResponseCodeSharePasswordRequired         DocPagesRemoveName400ResponseCode = "SharePasswordRequired"
+	DocPagesRemoveName400ResponseCodeAborted                       DocPagesRemoveName400ResponseCode = "Aborted"
+	DocPagesRemoveName400ResponseCodeNetwork                       DocPagesRemoveName400ResponseCode = "Network"
+	DocPagesRemoveName400ResponseCodeUnauthenticated               DocPagesRemoveName400ResponseCode = "Unauthenticated"
+	DocPagesRemoveName400ResponseCodeForbidden                     DocPagesRemoveName400ResponseCode = "Forbidden"
+	DocPagesRemoveName400ResponseCodeNotFound                      DocPagesRemoveName400ResponseCode = "NotFound"
+	DocPagesRemoveName400ResponseCodeWireFormat                    DocPagesRemoveName400ResponseCode = "WireFormat"
+	DocPagesRemoveName400ResponseCodeRuntimeUnavailable            DocPagesRemoveName400ResponseCode = "RuntimeUnavailable"
+	DocPagesRemoveName400ResponseCodeInvalidReference              DocPagesRemoveName400ResponseCode = "InvalidReference"
+	DocPagesRemoveName400ResponseCodeWeakAnnotationSessionConflict DocPagesRemoveName400ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesRemoveName400ResponseCodeLayerVersionConflict          DocPagesRemoveName400ResponseCode = "LayerVersionConflict"
+	DocPagesRemoveName400ResponseCodeNotImplemented                DocPagesRemoveName400ResponseCode = "NotImplemented"
+	DocPagesRemoveName400ResponseCodeMalformedPdf                  DocPagesRemoveName400ResponseCode = "MalformedPdf"
+)
+
+func NewDocPagesRemoveName400ResponseCodeFromString(s string) (DocPagesRemoveName400ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesRemoveName400ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesRemoveName400ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesRemoveName400ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesRemoveName400ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesRemoveName400ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesRemoveName400ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesRemoveName400ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesRemoveName400ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesRemoveName400ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesRemoveName400ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesRemoveName400ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesRemoveName400ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesRemoveName400ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesRemoveName400ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesRemoveName400ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesRemoveName400ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesRemoveName400ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesRemoveName400ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesRemoveName400ResponseCodeMalformedPdf, nil
+	}
+	var t DocPagesRemoveName400ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesRemoveName400ResponseCode) Ptr() *DocPagesRemoveName400ResponseCode {
+	return &d
+}
+
+type DocPagesRemoveName400ResponseName string
+
+const (
+	DocPagesRemoveName400ResponseNameEngineError DocPagesRemoveName400ResponseName = "EngineError"
+)
+
+func NewDocPagesRemoveName400ResponseNameFromString(s string) (DocPagesRemoveName400ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesRemoveName400ResponseNameEngineError, nil
+	}
+	var t DocPagesRemoveName400ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesRemoveName400ResponseName) Ptr() *DocPagesRemoveName400ResponseName {
+	return &d
+}
+
+var (
+	docPagesRemoveName404ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesRemoveName404ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesRemoveName404ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesRemoveName404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesRemoveName404Response struct {
+	Name    DocPagesRemoveName404ResponseName `json:"name" url:"name"`
+	Code    DocPagesRemoveName404ResponseCode `json:"code" url:"code"`
+	Message string                            `json:"message" url:"message"`
+	Details map[string]any                    `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesRemoveName404Response) GetName() DocPagesRemoveName404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesRemoveName404Response) GetCode() DocPagesRemoveName404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesRemoveName404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesRemoveName404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesRemoveName404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesRemoveName404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName404Response) SetName(name DocPagesRemoveName404ResponseName) {
+	d.Name = name
+	d.require(docPagesRemoveName404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName404Response) SetCode(code DocPagesRemoveName404ResponseCode) {
+	d.Code = code
+	d.require(docPagesRemoveName404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesRemoveName404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesRemoveName404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesRemoveName404ResponseFieldDetails)
+}
+
+func (d *DocPagesRemoveName404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesRemoveName404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesRemoveName404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesRemoveName404Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesRemoveName404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesRemoveName404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesRemoveName404ResponseCode string
+
+const (
+	DocPagesRemoveName404ResponseCodeUnknown                       DocPagesRemoveName404ResponseCode = "Unknown"
+	DocPagesRemoveName404ResponseCodeInvalidArg                    DocPagesRemoveName404ResponseCode = "InvalidArg"
+	DocPagesRemoveName404ResponseCodeDocNotOpen                    DocPagesRemoveName404ResponseCode = "DocNotOpen"
+	DocPagesRemoveName404ResponseCodeDocOpenFailed                 DocPagesRemoveName404ResponseCode = "DocOpenFailed"
+	DocPagesRemoveName404ResponseCodeDocPasswordRequired           DocPagesRemoveName404ResponseCode = "DocPasswordRequired"
+	DocPagesRemoveName404ResponseCodeDocPasswordIncorrect          DocPagesRemoveName404ResponseCode = "DocPasswordIncorrect"
+	DocPagesRemoveName404ResponseCodeSharePasswordRequired         DocPagesRemoveName404ResponseCode = "SharePasswordRequired"
+	DocPagesRemoveName404ResponseCodeAborted                       DocPagesRemoveName404ResponseCode = "Aborted"
+	DocPagesRemoveName404ResponseCodeNetwork                       DocPagesRemoveName404ResponseCode = "Network"
+	DocPagesRemoveName404ResponseCodeUnauthenticated               DocPagesRemoveName404ResponseCode = "Unauthenticated"
+	DocPagesRemoveName404ResponseCodeForbidden                     DocPagesRemoveName404ResponseCode = "Forbidden"
+	DocPagesRemoveName404ResponseCodeNotFound                      DocPagesRemoveName404ResponseCode = "NotFound"
+	DocPagesRemoveName404ResponseCodeWireFormat                    DocPagesRemoveName404ResponseCode = "WireFormat"
+	DocPagesRemoveName404ResponseCodeRuntimeUnavailable            DocPagesRemoveName404ResponseCode = "RuntimeUnavailable"
+	DocPagesRemoveName404ResponseCodeInvalidReference              DocPagesRemoveName404ResponseCode = "InvalidReference"
+	DocPagesRemoveName404ResponseCodeWeakAnnotationSessionConflict DocPagesRemoveName404ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesRemoveName404ResponseCodeLayerVersionConflict          DocPagesRemoveName404ResponseCode = "LayerVersionConflict"
+	DocPagesRemoveName404ResponseCodeNotImplemented                DocPagesRemoveName404ResponseCode = "NotImplemented"
+	DocPagesRemoveName404ResponseCodeMalformedPdf                  DocPagesRemoveName404ResponseCode = "MalformedPdf"
+)
+
+func NewDocPagesRemoveName404ResponseCodeFromString(s string) (DocPagesRemoveName404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesRemoveName404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesRemoveName404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesRemoveName404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesRemoveName404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesRemoveName404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesRemoveName404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesRemoveName404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesRemoveName404ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesRemoveName404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesRemoveName404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesRemoveName404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesRemoveName404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesRemoveName404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesRemoveName404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesRemoveName404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesRemoveName404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesRemoveName404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesRemoveName404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesRemoveName404ResponseCodeMalformedPdf, nil
+	}
+	var t DocPagesRemoveName404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesRemoveName404ResponseCode) Ptr() *DocPagesRemoveName404ResponseCode {
+	return &d
+}
+
+type DocPagesRemoveName404ResponseName string
+
+const (
+	DocPagesRemoveName404ResponseNameEngineError DocPagesRemoveName404ResponseName = "EngineError"
+)
+
+func NewDocPagesRemoveName404ResponseNameFromString(s string) (DocPagesRemoveName404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesRemoveName404ResponseNameEngineError, nil
+	}
+	var t DocPagesRemoveName404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesRemoveName404ResponseName) Ptr() *DocPagesRemoveName404ResponseName {
+	return &d
+}
+
+type DocPagesRemoveNameRequest = map[string]any
+
+var (
 	docPagesRotate200ResponseFieldMeta = big.NewInt(1 << 0)
 )
 
@@ -138299,6 +141705,1484 @@ func (d DocPagesRotate404ResponseName) Ptr() *DocPagesRotate404ResponseName {
 }
 
 type DocPagesRotateRequest = map[string]any
+
+var (
+	docPagesSetName200ResponseFieldMeta = big.NewInt(1 << 0)
+)
+
+type DocPagesSetName200Response struct {
+	Meta *DocPagesSetName200ResponseMeta `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	ExtraProperties map[string]interface{} `json:"-" url:"-"`
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesSetName200Response) GetMeta() *DocPagesSetName200ResponseMeta {
+	if d == nil {
+		return nil
+	}
+	return d.Meta
+}
+
+func (d *DocPagesSetName200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.ExtraProperties
+}
+
+func (d *DocPagesSetName200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200Response) SetMeta(meta *DocPagesSetName200ResponseMeta) {
+	d.Meta = meta
+	d.require(docPagesSetName200ResponseFieldMeta)
+}
+
+func (d *DocPagesSetName200Response) UnmarshalJSON(data []byte) error {
+	type embed DocPagesSetName200Response
+	var unmarshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200Response(unmarshaler.embed)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.ExtraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return internal.MarshalJSONWithExtraProperties(explicitMarshaler, d.ExtraProperties)
+}
+
+func (d *DocPagesSetName200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaFieldAffectedPages = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaFieldCacheDelta    = big.NewInt(1 << 1)
+)
+
+type DocPagesSetName200ResponseMeta struct {
+	AffectedPages []*DocPagesSetName200ResponseMetaAffectedPagesItem `json:"affectedPages" url:"affectedPages"`
+	CacheDelta    *DocPagesSetName200ResponseMetaCacheDelta          `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMeta) GetAffectedPages() []*DocPagesSetName200ResponseMetaAffectedPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.AffectedPages
+}
+
+func (d *DocPagesSetName200ResponseMeta) GetCacheDelta() *DocPagesSetName200ResponseMetaCacheDelta {
+	if d == nil {
+		return nil
+	}
+	return d.CacheDelta
+}
+
+func (d *DocPagesSetName200ResponseMeta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMeta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAffectedPages sets the AffectedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMeta) SetAffectedPages(affectedPages []*DocPagesSetName200ResponseMetaAffectedPagesItem) {
+	d.AffectedPages = affectedPages
+	d.require(docPagesSetName200ResponseMetaFieldAffectedPages)
+}
+
+// SetCacheDelta sets the CacheDelta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMeta) SetCacheDelta(cacheDelta *DocPagesSetName200ResponseMetaCacheDelta) {
+	d.CacheDelta = cacheDelta
+	d.require(docPagesSetName200ResponseMetaFieldCacheDelta)
+}
+
+func (d *DocPagesSetName200ResponseMeta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMeta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMeta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMeta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMeta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMeta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaAffectedPagesItemFieldPageObjectNumber    = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaAffectedPagesItemFieldRevision            = big.NewInt(1 << 1)
+	docPagesSetName200ResponseMetaAffectedPagesItemFieldWeakAnnotationState = big.NewInt(1 << 2)
+)
+
+type DocPagesSetName200ResponseMetaAffectedPagesItem struct {
+	PageObjectNumber    int                                                                 `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Revision            *DocPagesSetName200ResponseMetaAffectedPagesItemRevision            `json:"revision" url:"revision"`
+	WeakAnnotationState *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState `json:"weakAnnotationState" url:"weakAnnotationState"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) GetRevision() *DocPagesSetName200ResponseMetaAffectedPagesItemRevision {
+	if d == nil {
+		return nil
+	}
+	return d.Revision
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) GetWeakAnnotationState() *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState {
+	if d == nil {
+		return nil
+	}
+	return d.WeakAnnotationState
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemFieldPageObjectNumber)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) SetRevision(revision *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) {
+	d.Revision = revision
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemFieldRevision)
+}
+
+// SetWeakAnnotationState sets the WeakAnnotationState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) SetWeakAnnotationState(weakAnnotationState *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) {
+	d.WeakAnnotationState = weakAnnotationState
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemFieldWeakAnnotationState)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaAffectedPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaAffectedPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaAffectedPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID     = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber = big.NewInt(1 << 1)
+	docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldGeneration       = big.NewInt(1 << 2)
+)
+
+type DocPagesSetName200ResponseMetaAffectedPagesItemRevision struct {
+	DocSessionID     string `json:"docSessionId" url:"docSessionId"`
+	PageObjectNumber int    `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Generation       int    `json:"generation" url:"generation"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) GetDocSessionID() string {
+	if d == nil {
+		return ""
+	}
+	return d.DocSessionID
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) GetGeneration() int {
+	if d == nil {
+		return 0
+	}
+	return d.Generation
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocSessionID sets the DocSessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) SetDocSessionID(docSessionID string) {
+	d.DocSessionID = docSessionID
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber)
+}
+
+// SetGeneration sets the Generation field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) SetGeneration(generation int) {
+	d.Generation = generation
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemRevisionFieldGeneration)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaAffectedPagesItemRevision
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaAffectedPagesItemRevision(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaAffectedPagesItemRevision
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemRevision) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState struct {
+	Kind    string
+	Unknown *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	Known   *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKind() string {
+	if d == nil {
+		return ""
+	}
+	return d.Kind
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetUnknown() *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKnown() *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown {
+	if d == nil {
+		return nil
+	}
+	return d.Known
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", d)
+	}
+	switch unmarshaler.Kind {
+	case "unknown":
+		value := new(DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	case "known":
+		value := new(DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Known = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "kind", "unknown")
+	}
+	if d.Known != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Known, "kind", "known")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor interface {
+	VisitUnknown(*DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) error
+	VisitKnown(*DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) error
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) Accept(visitor DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor) error {
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	if d.Known != nil {
+		return visitor.VisitKnown(d.Known)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationState) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if d.Known != nil {
+		fields = append(fields, "known")
+	}
+	if len(fields) == 0 {
+		if d.Kind != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Kind != "" {
+		field := fields[0]
+		if d.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Kind,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	docPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations = big.NewInt(1 << 0)
+)
+
+type DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown struct {
+	HasAnyWeakAnnotations bool `json:"hasAnyWeakAnnotations" url:"hasAnyWeakAnnotations"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetHasAnyWeakAnnotations() bool {
+	if d == nil {
+		return false
+	}
+	return d.HasAnyWeakAnnotations
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetHasAnyWeakAnnotations sets the HasAnyWeakAnnotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) SetHasAnyWeakAnnotations(hasAnyWeakAnnotations bool) {
+	d.HasAnyWeakAnnotations = hasAnyWeakAnnotations
+	d.require(docPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaCacheDeltaFieldPreviousDocVersion = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaCacheDeltaFieldDocVersion         = big.NewInt(1 << 1)
+	docPagesSetName200ResponseMetaCacheDeltaFieldAnnotationsVersion = big.NewInt(1 << 2)
+	docPagesSetName200ResponseMetaCacheDeltaFieldPages              = big.NewInt(1 << 3)
+)
+
+type DocPagesSetName200ResponseMetaCacheDelta struct {
+	PreviousDocVersion int                                                  `json:"previousDocVersion" url:"previousDocVersion"`
+	DocVersion         int                                                  `json:"docVersion" url:"docVersion"`
+	AnnotationsVersion *int                                                 `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
+	Pages              []*DocPagesSetName200ResponseMetaCacheDeltaPagesItem `json:"pages" url:"pages"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) GetPreviousDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.PreviousDocVersion
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) GetDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.DocVersion
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) GetAnnotationsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.AnnotationsVersion
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) GetPages() []*DocPagesSetName200ResponseMetaCacheDeltaPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.Pages
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPreviousDocVersion sets the PreviousDocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDelta) SetPreviousDocVersion(previousDocVersion int) {
+	d.PreviousDocVersion = previousDocVersion
+	d.require(docPagesSetName200ResponseMetaCacheDeltaFieldPreviousDocVersion)
+}
+
+// SetDocVersion sets the DocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDelta) SetDocVersion(docVersion int) {
+	d.DocVersion = docVersion
+	d.require(docPagesSetName200ResponseMetaCacheDeltaFieldDocVersion)
+}
+
+// SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDelta) SetAnnotationsVersion(annotationsVersion *int) {
+	d.AnnotationsVersion = annotationsVersion
+	d.require(docPagesSetName200ResponseMetaCacheDeltaFieldAnnotationsVersion)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDelta) SetPages(pages []*DocPagesSetName200ResponseMetaCacheDeltaPagesItem) {
+	d.Pages = pages
+	d.require(docPagesSetName200ResponseMetaCacheDeltaFieldPages)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaCacheDelta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaCacheDelta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaCacheDelta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDelta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaCacheDeltaPagesItemFieldCache            = big.NewInt(1 << 1)
+)
+
+type DocPagesSetName200ResponseMetaCacheDeltaPagesItem struct {
+	PageObjectNumber int                                                     `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Cache            *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache `json:"cache" url:"cache"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) GetCache() *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache {
+	if d == nil {
+		return nil
+	}
+	return d.Cache
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetName200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber)
+}
+
+// SetCache sets the Cache field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) SetCache(cache *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) {
+	d.Cache = cache
+	d.require(docPagesSetName200ResponseMetaCacheDeltaPagesItemFieldCache)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaCacheDeltaPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaCacheDeltaPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaCacheDeltaPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
+	docPagesSetName200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
+)
+
+type DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache struct {
+	ContentVersion    int `json:"contentVersion" url:"contentVersion"`
+	AnnotationVersion int `json:"annotationVersion" url:"annotationVersion"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) GetContentVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.ContentVersion
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) GetAnnotationVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.AnnotationVersion
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetContentVersion sets the ContentVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) SetContentVersion(contentVersion int) {
+	d.ContentVersion = contentVersion
+	d.require(docPagesSetName200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion)
+}
+
+// SetAnnotationVersion sets the AnnotationVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) SetAnnotationVersion(annotationVersion int) {
+	d.AnnotationVersion = annotationVersion
+	d.require(docPagesSetName200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName200ResponseMetaCacheDeltaPagesItemCache) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetName400ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesSetName400ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesSetName400ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesSetName400ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesSetName400Response struct {
+	Name    DocPagesSetName400ResponseName `json:"name" url:"name"`
+	Code    DocPagesSetName400ResponseCode `json:"code" url:"code"`
+	Message string                         `json:"message" url:"message"`
+	Details map[string]any                 `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName400Response) GetName() DocPagesSetName400ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesSetName400Response) GetCode() DocPagesSetName400ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesSetName400Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesSetName400Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesSetName400Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName400Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName400Response) SetName(name DocPagesSetName400ResponseName) {
+	d.Name = name
+	d.require(docPagesSetName400ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName400Response) SetCode(code DocPagesSetName400ResponseCode) {
+	d.Code = code
+	d.require(docPagesSetName400ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName400Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesSetName400ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName400Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesSetName400ResponseFieldDetails)
+}
+
+func (d *DocPagesSetName400Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName400Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName400Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName400Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName400Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName400Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetName400ResponseCode string
+
+const (
+	DocPagesSetName400ResponseCodeUnknown                       DocPagesSetName400ResponseCode = "Unknown"
+	DocPagesSetName400ResponseCodeInvalidArg                    DocPagesSetName400ResponseCode = "InvalidArg"
+	DocPagesSetName400ResponseCodeDocNotOpen                    DocPagesSetName400ResponseCode = "DocNotOpen"
+	DocPagesSetName400ResponseCodeDocOpenFailed                 DocPagesSetName400ResponseCode = "DocOpenFailed"
+	DocPagesSetName400ResponseCodeDocPasswordRequired           DocPagesSetName400ResponseCode = "DocPasswordRequired"
+	DocPagesSetName400ResponseCodeDocPasswordIncorrect          DocPagesSetName400ResponseCode = "DocPasswordIncorrect"
+	DocPagesSetName400ResponseCodeSharePasswordRequired         DocPagesSetName400ResponseCode = "SharePasswordRequired"
+	DocPagesSetName400ResponseCodeAborted                       DocPagesSetName400ResponseCode = "Aborted"
+	DocPagesSetName400ResponseCodeNetwork                       DocPagesSetName400ResponseCode = "Network"
+	DocPagesSetName400ResponseCodeUnauthenticated               DocPagesSetName400ResponseCode = "Unauthenticated"
+	DocPagesSetName400ResponseCodeForbidden                     DocPagesSetName400ResponseCode = "Forbidden"
+	DocPagesSetName400ResponseCodeNotFound                      DocPagesSetName400ResponseCode = "NotFound"
+	DocPagesSetName400ResponseCodeWireFormat                    DocPagesSetName400ResponseCode = "WireFormat"
+	DocPagesSetName400ResponseCodeRuntimeUnavailable            DocPagesSetName400ResponseCode = "RuntimeUnavailable"
+	DocPagesSetName400ResponseCodeInvalidReference              DocPagesSetName400ResponseCode = "InvalidReference"
+	DocPagesSetName400ResponseCodeWeakAnnotationSessionConflict DocPagesSetName400ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesSetName400ResponseCodeLayerVersionConflict          DocPagesSetName400ResponseCode = "LayerVersionConflict"
+	DocPagesSetName400ResponseCodeNotImplemented                DocPagesSetName400ResponseCode = "NotImplemented"
+	DocPagesSetName400ResponseCodeMalformedPdf                  DocPagesSetName400ResponseCode = "MalformedPdf"
+)
+
+func NewDocPagesSetName400ResponseCodeFromString(s string) (DocPagesSetName400ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesSetName400ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesSetName400ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesSetName400ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesSetName400ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesSetName400ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesSetName400ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesSetName400ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesSetName400ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesSetName400ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesSetName400ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesSetName400ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesSetName400ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesSetName400ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesSetName400ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesSetName400ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesSetName400ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesSetName400ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesSetName400ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesSetName400ResponseCodeMalformedPdf, nil
+	}
+	var t DocPagesSetName400ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetName400ResponseCode) Ptr() *DocPagesSetName400ResponseCode {
+	return &d
+}
+
+type DocPagesSetName400ResponseName string
+
+const (
+	DocPagesSetName400ResponseNameEngineError DocPagesSetName400ResponseName = "EngineError"
+)
+
+func NewDocPagesSetName400ResponseNameFromString(s string) (DocPagesSetName400ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesSetName400ResponseNameEngineError, nil
+	}
+	var t DocPagesSetName400ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetName400ResponseName) Ptr() *DocPagesSetName400ResponseName {
+	return &d
+}
+
+var (
+	docPagesSetName404ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesSetName404ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesSetName404ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesSetName404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesSetName404Response struct {
+	Name    DocPagesSetName404ResponseName `json:"name" url:"name"`
+	Code    DocPagesSetName404ResponseCode `json:"code" url:"code"`
+	Message string                         `json:"message" url:"message"`
+	Details map[string]any                 `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetName404Response) GetName() DocPagesSetName404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesSetName404Response) GetCode() DocPagesSetName404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesSetName404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesSetName404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesSetName404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetName404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName404Response) SetName(name DocPagesSetName404ResponseName) {
+	d.Name = name
+	d.require(docPagesSetName404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName404Response) SetCode(code DocPagesSetName404ResponseCode) {
+	d.Code = code
+	d.require(docPagesSetName404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesSetName404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetName404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesSetName404ResponseFieldDetails)
+}
+
+func (d *DocPagesSetName404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetName404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetName404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetName404Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetName404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetName404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetName404ResponseCode string
+
+const (
+	DocPagesSetName404ResponseCodeUnknown                       DocPagesSetName404ResponseCode = "Unknown"
+	DocPagesSetName404ResponseCodeInvalidArg                    DocPagesSetName404ResponseCode = "InvalidArg"
+	DocPagesSetName404ResponseCodeDocNotOpen                    DocPagesSetName404ResponseCode = "DocNotOpen"
+	DocPagesSetName404ResponseCodeDocOpenFailed                 DocPagesSetName404ResponseCode = "DocOpenFailed"
+	DocPagesSetName404ResponseCodeDocPasswordRequired           DocPagesSetName404ResponseCode = "DocPasswordRequired"
+	DocPagesSetName404ResponseCodeDocPasswordIncorrect          DocPagesSetName404ResponseCode = "DocPasswordIncorrect"
+	DocPagesSetName404ResponseCodeSharePasswordRequired         DocPagesSetName404ResponseCode = "SharePasswordRequired"
+	DocPagesSetName404ResponseCodeAborted                       DocPagesSetName404ResponseCode = "Aborted"
+	DocPagesSetName404ResponseCodeNetwork                       DocPagesSetName404ResponseCode = "Network"
+	DocPagesSetName404ResponseCodeUnauthenticated               DocPagesSetName404ResponseCode = "Unauthenticated"
+	DocPagesSetName404ResponseCodeForbidden                     DocPagesSetName404ResponseCode = "Forbidden"
+	DocPagesSetName404ResponseCodeNotFound                      DocPagesSetName404ResponseCode = "NotFound"
+	DocPagesSetName404ResponseCodeWireFormat                    DocPagesSetName404ResponseCode = "WireFormat"
+	DocPagesSetName404ResponseCodeRuntimeUnavailable            DocPagesSetName404ResponseCode = "RuntimeUnavailable"
+	DocPagesSetName404ResponseCodeInvalidReference              DocPagesSetName404ResponseCode = "InvalidReference"
+	DocPagesSetName404ResponseCodeWeakAnnotationSessionConflict DocPagesSetName404ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesSetName404ResponseCodeLayerVersionConflict          DocPagesSetName404ResponseCode = "LayerVersionConflict"
+	DocPagesSetName404ResponseCodeNotImplemented                DocPagesSetName404ResponseCode = "NotImplemented"
+	DocPagesSetName404ResponseCodeMalformedPdf                  DocPagesSetName404ResponseCode = "MalformedPdf"
+)
+
+func NewDocPagesSetName404ResponseCodeFromString(s string) (DocPagesSetName404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesSetName404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesSetName404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesSetName404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesSetName404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesSetName404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesSetName404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesSetName404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesSetName404ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesSetName404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesSetName404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesSetName404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesSetName404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesSetName404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesSetName404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesSetName404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesSetName404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesSetName404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesSetName404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesSetName404ResponseCodeMalformedPdf, nil
+	}
+	var t DocPagesSetName404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetName404ResponseCode) Ptr() *DocPagesSetName404ResponseCode {
+	return &d
+}
+
+type DocPagesSetName404ResponseName string
+
+const (
+	DocPagesSetName404ResponseNameEngineError DocPagesSetName404ResponseName = "EngineError"
+)
+
+func NewDocPagesSetName404ResponseNameFromString(s string) (DocPagesSetName404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesSetName404ResponseNameEngineError, nil
+	}
+	var t DocPagesSetName404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetName404ResponseName) Ptr() *DocPagesSetName404ResponseName {
+	return &d
+}
+
+type DocPagesSetNameRequest = map[string]any
 
 var (
 	docRedactionsApply200ResponseFieldMeta = big.NewInt(1 << 0)

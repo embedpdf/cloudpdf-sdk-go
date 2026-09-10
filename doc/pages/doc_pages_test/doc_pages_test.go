@@ -228,6 +228,66 @@ func TestDocPagesMoveWithWireMock(
 	VerifyRequestCount(t, "TestDocPagesMoveWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/move", nil, 1)
 }
 
+func TestDocPagesSetNameWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.SetNamePagesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Body: map[string]any{
+			"key": "value",
+		},
+	}
+	_, invocationErr := client.Doc.Pages.SetName(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesSetNameWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesSetNameWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/names", nil, 1)
+}
+
+func TestDocPagesRemoveNameWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.RemoveNamePagesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Body: map[string]any{
+			"key": "value",
+		},
+	}
+	_, invocationErr := client.Doc.Pages.RemoveName(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesRemoveNameWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesRemoveNameWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/names/delete", nil, 1)
+}
+
 func TestDocPagesRotateWithWireMock(
 	t *testing.T,
 ) {

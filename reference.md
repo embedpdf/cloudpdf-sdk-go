@@ -2477,6 +2477,174 @@ client.Doc.Annotations.Update(
 </dl>
 </details>
 
+<details><summary><code>client.Doc.Annotations.ExportAppearance(DocID, LayerName, Pon, request) -> string</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.ExportAppearanceAnnotationsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Pon: 1,
+    Body: map[string]any{
+        "string": map[string]any{
+            "key": "value",
+        },
+    },
+}
+client.Doc.Annotations.ExportAppearance(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pon:** `int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocAnnotationsExportAppearanceRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Annotations.Flatten(DocID, LayerName, Pon, request) -> *cloudpdf.DocAnnotationsFlatten200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.FlattenAnnotationsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Pon: 1,
+    Body: map[string]any{
+        "key": "value",
+    },
+}
+client.Doc.Annotations.Flatten(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pon:** `int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocAnnotationsFlattenRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Doc Forms
 <details><summary><code>client.Doc.Forms.Get(DocID, LayerName) -> *cloudpdf.DocFormsGet200Response</code></summary>
 <dl>
@@ -3375,6 +3543,154 @@ client.Doc.Pages.Move(
 <dd>
 
 **request:** `cloudpdf.DocPagesMoveRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Pages.SetName(DocID, LayerName, request) -> *cloudpdf.DocPagesSetName200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.SetNamePagesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Body: map[string]any{
+        "key": "value",
+    },
+}
+client.Doc.Pages.SetName(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocPagesSetNameRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Pages.RemoveName(DocID, LayerName, request) -> *cloudpdf.DocPagesRemoveName200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.RemoveNamePagesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Body: map[string]any{
+        "key": "value",
+    },
+}
+client.Doc.Pages.RemoveName(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `cloudpdf.DocPagesRemoveNameRequest` 
     
 </dd>
 </dl>

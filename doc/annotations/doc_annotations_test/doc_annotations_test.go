@@ -223,3 +223,34 @@ func TestDocAnnotationsUpdateWithWireMock(
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocAnnotationsUpdateWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/annotations/pages/1/items/annotKey", nil, 1)
 }
+
+func TestDocAnnotationsFlattenWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.FlattenAnnotationsRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Pon:       1,
+		Body: map[string]any{
+			"key": "value",
+		},
+	}
+	_, invocationErr := client.Doc.Annotations.Flatten(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocAnnotationsFlattenWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocAnnotationsFlattenWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/1/items/flatten", nil, 1)
+}
