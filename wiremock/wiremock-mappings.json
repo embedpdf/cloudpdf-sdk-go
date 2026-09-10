@@ -1319,6 +1319,90 @@
       }
     },
     {
+      "id": "910be54b-8165-4cdd-9be4-f73384638138",
+      "name": "The chosen annotations' appearances as one single-page PDF sized to their union rect — vector, positions preserved. A read; the source is untouched. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items/appearance",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "910be54b-8165-4cdd-9be4-f73384638138",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "ef91122c-5659-445f-a290-237f7d147003",
+      "name": "Flatten a chosen set of one page's annotations into its content — pages.flatten for a selection. Painted annotations are removed; ineligible ones report skipped. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pon}/items/flatten",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "ef91122c-5659-445f-a290-237f7d147003",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "df9c7ba7-23af-4d1c-89c8-d54c27050629",
       "name": "Reconciled form snapshot: fields, widgets, values. - default",
       "request": {
@@ -1793,6 +1877,84 @@
       }
     },
     {
+      "id": "6c9427c8-e293-4796-bfeb-fed69651cc5c",
+      "name": "Register or rename a /Names /Pages entry (a named page). A page-structure mutation: the layout version advances. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/names",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "6c9427c8-e293-4796-bfeb-fed69651cc5c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "7f01b933-9bc4-4489-975a-89a257ffb98b",
+      "name": "Remove a /Names /Pages entry; the page itself stays. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/names/delete",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "7f01b933-9bc4-4489-975a-89a257ffb98b",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "158b288c-49c5-455f-a2d8-c5ae10d66635",
       "name": "Set absolute rotation on pages. - default",
       "request": {
@@ -1872,6 +2034,6 @@
     }
   ],
   "meta": {
-    "total": 49
+    "total": 53
   }
 }

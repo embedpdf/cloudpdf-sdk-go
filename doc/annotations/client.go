@@ -4,6 +4,7 @@ package annotations
 
 import (
 	context "context"
+	io "io"
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
@@ -171,6 +172,68 @@ func (c *Client) Update(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocAnnotationsUpdate200Response, error) {
 	response, err := c.WithRawResponse.Update(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.ExportAppearanceAnnotationsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Pon: 1,
+//	    Body: map[string]any{
+//	        "string": map[string]any{
+//	            "key": "value",
+//	        },
+//	    },
+//	}
+//	client.Doc.Annotations.ExportAppearance(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ExportAppearance(
+	ctx context.Context,
+	request *doc.ExportAppearanceAnnotationsRequest,
+	opts ...option.RequestOption,
+) (io.Reader, error) {
+	response, err := c.WithRawResponse.ExportAppearance(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.FlattenAnnotationsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Pon: 1,
+//	    Body: map[string]any{
+//	        "key": "value",
+//	    },
+//	}
+//	client.Doc.Annotations.Flatten(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Flatten(
+	ctx context.Context,
+	request *doc.FlattenAnnotationsRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocAnnotationsFlatten200Response, error) {
+	response, err := c.WithRawResponse.Flatten(
 		ctx,
 		request,
 		opts...,

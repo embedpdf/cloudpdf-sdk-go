@@ -138,6 +138,140 @@ func (d *DeleteAnnotationsRequest) SetAnnotKey(annotKey string) {
 }
 
 var (
+	exportAppearanceAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	exportAppearanceAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
+	exportAppearanceAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
+	exportAppearanceAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+)
+
+type ExportAppearanceAnnotationsRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string                                  `json:"-" url:"-"`
+	DocID            string                                   `json:"-" url:"-"`
+	LayerName        string                                   `json:"-" url:"-"`
+	Pon              int                                      `json:"-" url:"-"`
+	Body             v3.DocAnnotationsExportAppearanceRequest `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (e *ExportAppearanceAnnotationsRequest) require(field *big.Int) {
+	if e.explicitFields == nil {
+		e.explicitFields = big.NewInt(0)
+	}
+	e.explicitFields.Or(e.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExportAppearanceAnnotationsRequest) SetDocumentPassword(documentPassword *string) {
+	e.DocumentPassword = documentPassword
+	e.require(exportAppearanceAnnotationsRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExportAppearanceAnnotationsRequest) SetDocID(docID string) {
+	e.DocID = docID
+	e.require(exportAppearanceAnnotationsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExportAppearanceAnnotationsRequest) SetLayerName(layerName string) {
+	e.LayerName = layerName
+	e.require(exportAppearanceAnnotationsRequestFieldLayerName)
+}
+
+// SetPon sets the Pon field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (e *ExportAppearanceAnnotationsRequest) SetPon(pon int) {
+	e.Pon = pon
+	e.require(exportAppearanceAnnotationsRequestFieldPon)
+}
+
+func (e *ExportAppearanceAnnotationsRequest) UnmarshalJSON(data []byte) error {
+	var body v3.DocAnnotationsExportAppearanceRequest
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	e.Body = body
+	return nil
+}
+
+func (e *ExportAppearanceAnnotationsRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(e.Body)
+}
+
+var (
+	flattenAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	flattenAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
+	flattenAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
+	flattenAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+)
+
+type FlattenAnnotationsRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string                         `json:"-" url:"-"`
+	DocID            string                          `json:"-" url:"-"`
+	LayerName        string                          `json:"-" url:"-"`
+	Pon              int                             `json:"-" url:"-"`
+	Body             v3.DocAnnotationsFlattenRequest `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (f *FlattenAnnotationsRequest) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenAnnotationsRequest) SetDocumentPassword(documentPassword *string) {
+	f.DocumentPassword = documentPassword
+	f.require(flattenAnnotationsRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenAnnotationsRequest) SetDocID(docID string) {
+	f.DocID = docID
+	f.require(flattenAnnotationsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenAnnotationsRequest) SetLayerName(layerName string) {
+	f.LayerName = layerName
+	f.require(flattenAnnotationsRequestFieldLayerName)
+}
+
+// SetPon sets the Pon field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenAnnotationsRequest) SetPon(pon int) {
+	f.Pon = pon
+	f.require(flattenAnnotationsRequestFieldPon)
+}
+
+func (f *FlattenAnnotationsRequest) UnmarshalJSON(data []byte) error {
+	var body v3.DocAnnotationsFlattenRequest
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	f.Body = body
+	return nil
+}
+
+func (f *FlattenAnnotationsRequest) MarshalJSON() ([]byte, error) {
+	return json.Marshal(f.Body)
+}
+
+var (
 	listAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	listAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	listAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)

@@ -220,6 +220,64 @@ func (c *Client) Move(
 
 // Example:
 //
+//	request := &doc.SetNamePagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Body: map[string]any{
+//	        "key": "value",
+//	    },
+//	}
+//	client.Doc.Pages.SetName(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) SetName(
+	ctx context.Context,
+	request *doc.SetNamePagesRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesSetName200Response, error) {
+	response, err := c.WithRawResponse.SetName(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.RemoveNamePagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Body: map[string]any{
+//	        "key": "value",
+//	    },
+//	}
+//	client.Doc.Pages.RemoveName(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) RemoveName(
+	ctx context.Context,
+	request *doc.RemoveNamePagesRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesRemoveName200Response, error) {
+	response, err := c.WithRawResponse.RemoveName(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
 //	request := &doc.RotatePagesRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
