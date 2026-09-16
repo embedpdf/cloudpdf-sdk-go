@@ -3851,3 +3851,1006 @@ client.Doc.Redactions.Apply(
 </dl>
 </details>
 
+## Doc Signatures
+<details><summary><code>client.Doc.Signatures.List(DocID, LayerName) -> *cloudpdf.DocSignaturesList200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Describes the bytes the layer is over: the base version's signatures plus the layer's own edits as the last revision. Signed bytes (contents, digests, revision prefixes) are served per base version under /versions.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.ListSignaturesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+}
+client.Doc.Signatures.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Signatures.Abort(DocID, LayerName, SigningID) -> *cloudpdf.DocSignaturesAbort200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.AbortSignaturesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    SigningID: "signingId",
+}
+client.Doc.Signatures.Abort(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**signingID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Signatures.Complete(DocID, LayerName, SigningID, request) -> *cloudpdf.DocSignaturesComplete200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+`cms` is the detached CMS over the prepared digest, base64. `expectedVersion` must be what prepare returned. Idempotent by signing id: the same CMS again answers `already-completed`. Every layer of the document then sits over the new version; refetch the manifest after a completion.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocSignaturesCompleteRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    SigningID: "signingId",
+    Cms: "cms",
+    ExpectedVersion: &doc.DocSignaturesCompleteRequestExpectedVersion{
+        BaseSha256: "baseSha256",
+        EditsVersion: 1,
+    },
+}
+client.Doc.Signatures.Complete(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**signingID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cms:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expectedVersion:** `*doc.DocSignaturesCompleteRequestExpectedVersion` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Signatures.Analysis(DocID, LayerName) -> *cloudpdf.DocSignaturesAnalysis200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exactly one of `since.signature=<index>` or `since.revision=<index>`; the layer's pending edits are the end. `level=fill|annotate|lta|none` evaluates exploratorily and never becomes a verdict. For history between two base revisions use the version analysis.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.AnalysisSignaturesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+}
+client.Doc.Signatures.Analysis(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sinceSignature:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sinceRevision:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `*doc.AnalysisSignaturesRequestLevel` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Signatures.Prepare(DocID, LayerName, request) -> *cloudpdf.DocSignaturesPrepare200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The multipart envelope: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock, appearance) and an optional `resource:<key>` PDF part the body's `appearance.resource` names. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is aborted, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.PrepareSignaturesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    File: strings.NewReader(
+        "",
+    ),
+}
+client.Doc.Signatures.Prepare(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Doc Versions
+<details><summary><code>client.Doc.Versions.List(DocID) -> *cloudpdf.DocVersionsList200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Every completed signature publishes a new version. Never cached: the list grows.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.ListVersionsRequest{
+    DocID: "docId",
+}
+client.Doc.Versions.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.Analysis(DocID, Sha) -> *cloudpdf.DocVersionsAnalysis200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every layer and every caller.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.AnalysisVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+}
+client.Doc.Versions.Analysis(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sinceSignature:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sinceRevision:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**level:** `*doc.AnalysisVersionsRequestLevel` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**until:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**policy:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.Download(DocID, Sha) -> string</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DownloadVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+}
+client.Doc.Versions.Download(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.Revision(DocID, Sha, Index) -> string</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.RevisionVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+    Index: 1,
+}
+client.Doc.Versions.Revision(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**index:** `int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.Signatures(DocID, Sha) -> *cloudpdf.DocVersionsSignatures200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.SignaturesVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+}
+client.Doc.Versions.Signatures(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.SignatureContents(DocID, Sha, FieldKey) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+`fieldKey` is the field's fully qualified name, token-text encoded (the same encoding attachment keys use).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.SignatureContentsVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+    FieldKey: "fieldKey",
+}
+client.Doc.Versions.SignatureContents(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fieldKey:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Versions.SignatureDigest(DocID, Sha, FieldKey, Algorithm) -> string</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+What a CMS verifier compares its message digest to.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.SignatureDigestVersionsRequest{
+    DocID: "docId",
+    Sha: "sha",
+    FieldKey: "fieldKey",
+    Algorithm: doc.SignatureDigestVersionsRequestAlgorithmSha1,
+}
+client.Doc.Versions.SignatureDigest(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sha:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fieldKey:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**algorithm:** `*doc.SignatureDigestVersionsRequestAlgorithm` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+

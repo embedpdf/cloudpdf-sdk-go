@@ -929,8 +929,11 @@ var (
 	docManifest200ResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
 	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 6)
 	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 7)
-	docManifest200ResponseFieldScopes             = big.NewInt(1 << 8)
-	docManifest200ResponseFieldPages              = big.NewInt(1 << 9)
+	docManifest200ResponseFieldLayerVersion       = big.NewInt(1 << 8)
+	docManifest200ResponseFieldWorking            = big.NewInt(1 << 9)
+	docManifest200ResponseFieldBaseByteLength     = big.NewInt(1 << 10)
+	docManifest200ResponseFieldScopes             = big.NewInt(1 << 11)
+	docManifest200ResponseFieldPages              = big.NewInt(1 << 12)
 )
 
 type DocManifest200Response struct {
@@ -942,6 +945,9 @@ type DocManifest200Response struct {
 	AnnotationsVersion *int                               `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
 	AuditHead          int                                `json:"auditHead" url:"auditHead"`
 	BaseSha            string                             `json:"baseSha" url:"baseSha"`
+	LayerVersion       *int                               `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
+	Working            *bool                              `json:"working,omitempty" url:"working,omitempty"`
+	BaseByteLength     *int                               `json:"baseByteLength,omitempty" url:"baseByteLength,omitempty"`
 	Scopes             *DocManifest200ResponseScopes      `json:"scopes,omitempty" url:"scopes,omitempty"`
 	Pages              []*DocManifest200ResponsePagesItem `json:"pages" url:"pages"`
 
@@ -1006,6 +1012,27 @@ func (d *DocManifest200Response) GetBaseSha() string {
 		return ""
 	}
 	return d.BaseSha
+}
+
+func (d *DocManifest200Response) GetLayerVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.LayerVersion
+}
+
+func (d *DocManifest200Response) GetWorking() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Working
+}
+
+func (d *DocManifest200Response) GetBaseByteLength() *int {
+	if d == nil {
+		return nil
+	}
+	return d.BaseByteLength
 }
 
 func (d *DocManifest200Response) GetScopes() *DocManifest200ResponseScopes {
@@ -1090,6 +1117,27 @@ func (d *DocManifest200Response) SetAuditHead(auditHead int) {
 func (d *DocManifest200Response) SetBaseSha(baseSha string) {
 	d.BaseSha = baseSha
 	d.require(docManifest200ResponseFieldBaseSha)
+}
+
+// SetLayerVersion sets the LayerVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetLayerVersion(layerVersion *int) {
+	d.LayerVersion = layerVersion
+	d.require(docManifest200ResponseFieldLayerVersion)
+}
+
+// SetWorking sets the Working field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetWorking(working *bool) {
+	d.Working = working
+	d.require(docManifest200ResponseFieldWorking)
+}
+
+// SetBaseByteLength sets the BaseByteLength field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetBaseByteLength(baseByteLength *int) {
+	d.BaseByteLength = baseByteLength
+	d.require(docManifest200ResponseFieldBaseByteLength)
 }
 
 // SetScopes sets the Scopes field and marks it as non-optional;

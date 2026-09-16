@@ -2042,6 +2042,30 @@ func TestSettersDocManifest200Response(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerVersion", func(t *testing.T) {
+		obj := &DocManifest200Response{}
+		var fernTestValueLayerVersion *int
+		obj.SetLayerVersion(fernTestValueLayerVersion)
+		assert.Equal(t, fernTestValueLayerVersion, obj.LayerVersion)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetWorking", func(t *testing.T) {
+		obj := &DocManifest200Response{}
+		var fernTestValueWorking *bool
+		obj.SetWorking(fernTestValueWorking)
+		assert.Equal(t, fernTestValueWorking, obj.Working)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetBaseByteLength", func(t *testing.T) {
+		obj := &DocManifest200Response{}
+		var fernTestValueBaseByteLength *int
+		obj.SetBaseByteLength(fernTestValueBaseByteLength)
+		assert.Equal(t, fernTestValueBaseByteLength, obj.BaseByteLength)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetScopes", func(t *testing.T) {
 		obj := &DocManifest200Response{}
 		var fernTestValueScopes *DocManifest200ResponseScopes
@@ -2273,6 +2297,105 @@ func TestGettersDocManifest200Response(t *testing.T) {
 			}
 		}()
 		_ = obj.GetBaseSha() // Should return zero value
+	})
+
+	t.Run("GetLayerVersion", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var expected *int
+		obj.LayerVersion = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerVersion(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerVersion_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		obj.LayerVersion = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerVersion(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetLayerVersion_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DocManifest200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerVersion() // Should return zero value
+	})
+
+	t.Run("GetWorking", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var expected *bool
+		obj.Working = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetWorking(), "getter should return the property value")
+	})
+
+	t.Run("GetWorking_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		obj.Working = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetWorking(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetWorking_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DocManifest200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetWorking() // Should return zero value
+	})
+
+	t.Run("GetBaseByteLength", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var expected *int
+		obj.BaseByteLength = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetBaseByteLength(), "getter should return the property value")
+	})
+
+	t.Run("GetBaseByteLength_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		obj.BaseByteLength = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetBaseByteLength(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetBaseByteLength_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *DocManifest200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetBaseByteLength() // Should return zero value
 	})
 
 	t.Run("GetScopes", func(t *testing.T) {
@@ -2569,6 +2692,99 @@ func TestSettersMarkExplicitDocManifest200Response(t *testing.T) {
 
 		// Act
 		obj.SetBaseSha(fernTestValueBaseSha)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerVersion_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var fernTestValueLayerVersion *int
+
+		// Act
+		obj.SetLayerVersion(fernTestValueLayerVersion)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetWorking_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var fernTestValueWorking *bool
+
+		// Act
+		obj.SetWorking(fernTestValueWorking)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetBaseByteLength_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DocManifest200Response{}
+		var fernTestValueBaseByteLength *int
+
+		// Act
+		obj.SetBaseByteLength(fernTestValueBaseByteLength)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

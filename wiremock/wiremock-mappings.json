@@ -129,7 +129,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"docVersion\": 1,\n  \"layoutVersion\": 1,\n  \"metadataVersion\": 1,\n  \"actionsVersion\": 1,\n  \"attachmentsVersion\": 1,\n  \"annotationsVersion\": 1,\n  \"auditHead\": 1,\n  \"baseSha\": \"baseSha\",\n  \"scopes\": {\n    \"content\": \"base\",\n    \"annotations\": \"base\",\n    \"layout\": \"base\",\n    \"attachments\": \"base\",\n    \"metadata\": \"base\",\n    \"actions\": \"base\"\n  },\n  \"pages\": [\n    {\n      \"state\": {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      },\n      \"cache\": {\n        \"contentVersion\": 1,\n        \"annotationVersion\": 1\n      }\n    }\n  ]\n}",
+        "body": "{\n  \"docVersion\": 1,\n  \"layoutVersion\": 1,\n  \"metadataVersion\": 1,\n  \"actionsVersion\": 1,\n  \"attachmentsVersion\": 1,\n  \"annotationsVersion\": 1,\n  \"auditHead\": 1,\n  \"baseSha\": \"baseSha\",\n  \"layerVersion\": 1,\n  \"working\": true,\n  \"baseByteLength\": 1,\n  \"scopes\": {\n    \"content\": \"base\",\n    \"annotations\": \"base\",\n    \"layout\": \"base\",\n    \"attachments\": \"base\",\n    \"metadata\": \"base\",\n    \"actions\": \"base\"\n  },\n  \"pages\": [\n    {\n      \"state\": {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      },\n      \"cache\": {\n        \"contentVersion\": 1,\n        \"annotationVersion\": 1\n      }\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1211,7 +1211,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1256,7 +1256,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1301,7 +1301,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1385,7 +1385,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1502,7 +1502,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1544,7 +1544,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1586,7 +1586,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1664,7 +1664,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1742,7 +1742,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1781,7 +1781,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1820,7 +1820,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1859,7 +1859,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1898,7 +1898,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1937,7 +1937,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1976,7 +1976,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2015,7 +2015,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2031,9 +2031,492 @@
           }
         }
       }
+    },
+    {
+      "id": "f8bdf28a-d512-4724-8500-7764be218fda",
+      "name": "The layer view of digital signatures: revisions, every signature field with its signed state, and the protection in force. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"fieldObjectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"annotObjectNumber\": 1,\n        \"pageObjectNumber\": 1\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSize\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"claimedTime\": null\n      },\n      \"docMdp\": 1.1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"requiredFlags\": 1,\n        \"presentFlags\": 1,\n        \"version\": null,\n        \"mdp\": null,\n        \"filter\": null,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f8bdf28a-d512-4724-8500-7764be218fda",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e601676b-3e51-4210-92f0-710f76c6943f",
+      "name": "Discard a pending signing candidate. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/{signingId}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "signingId": {
+            "equalTo": "signingId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": \"aborted\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e601676b-3e51-4210-92f0-710f76c6943f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e008f14a-3ec2-43c1-b192-085b062d0cb0",
+      "name": "Install the CMS into the prepared candidate and publish the sealed bytes as the document's next base version. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/{signingId}/complete",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "signingId": {
+            "equalTo": "signingId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"status\": \"completed\",\n  \"signature\": {\n    \"index\": 1,\n    \"field\": {\n      \"fieldObjectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"fieldName\": \"fieldName\",\n    \"widget\": {\n      \"annotObjectNumber\": 1,\n      \"pageObjectNumber\": 1\n    },\n    \"signed\": true,\n    \"kind\": \"signature\",\n    \"filter\": \"filter\",\n    \"subFilter\": \"subFilter\",\n    \"byteRange\": [\n      {\n        \"key\": \"value\"\n      }\n    ],\n    \"contentsSize\": 1,\n    \"coverage\": \"whole-revision\",\n    \"revisionIndex\": 1,\n    \"signer\": {\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"location\": \"location\",\n      \"contactInfo\": \"contactInfo\",\n      \"claimedTime\": \"claimedTime\"\n    },\n    \"docMdp\": 1.1,\n    \"catalogCertification\": true,\n    \"fieldMdp\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1.1\n    },\n    \"lock\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1.1\n    },\n    \"seedValue\": {\n      \"requiredFlags\": 1,\n      \"presentFlags\": 1,\n      \"version\": 1,\n      \"mdp\": 1.1,\n      \"filter\": \"filter\",\n      \"subFilters\": [\n        \"subFilters\"\n      ],\n      \"digestMethods\": [\n        \"digestMethods\"\n      ],\n      \"reasons\": [\n        \"reasons\"\n      ],\n      \"unsupportedRequired\": true\n    }\n  },\n  \"version\": {\n    \"sha256\": \"sha256\",\n    \"byteLength\": 1\n  },\n  \"previous\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e008f14a-3ec2-43c1-b192-085b062d0cb0",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f8989da0-21fc-4ea9-b538-89fe54dacace",
+      "name": "What the layer changed after a signature (or after any revision), judged against the restrictions in force. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/analysis",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1.1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f8989da0-21fc-4ea9-b538-89fe54dacace",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "00ecc5df-58ad-4298-96f6-64650922baaf",
+      "name": "Author and seal a signing candidate; returns the digest to sign and the version fences. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/prepare",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"signingId\": \"signingId\",\n  \"digest\": \"digest\",\n  \"algorithm\": \"sha256\",\n  \"byteRange\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"contentsSize\": 1,\n  \"subFilter\": \"subFilter\",\n  \"expectedVersion\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"expiresAt\": \"expiresAt\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "00ecc5df-58ad-4298-96f6-64650922baaf",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "41893262-4230-4914-a316-df1d9bdcfd50",
+      "name": "The document's base versions, oldest first, and its head. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"head\": \"head\",\n  \"versions\": [\n    {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1,\n      \"number\": 1,\n      \"parentSha256\": \"parentSha256\",\n      \"producer\": \"upload\",\n      \"signingId\": \"signingId\",\n      \"createdAt\": 1\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "41893262-4230-4914-a316-df1d9bdcfd50",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "f704f58d-78e7-4d6a-9598-4d7b8e9f56f4",
+      "name": "What changed between two revisions of one base version (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/analysis/{sha}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1.1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "f704f58d-78e7-4d6a-9598-4d7b8e9f56f4",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "614d1369-efa8-4a1a-82ae-649758bc2307",
+      "name": "The bytes of one base version (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/download/{sha}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "614d1369-efa8-4a1a-82ae-649758bc2307",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "9538ee89-6904-4312-8017-2d37c213f4d2",
+      "name": "The byte prefix of one revision of a base version: exactly what a signature over it signed (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/revisions/{sha}/{index}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          },
+          "index": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9538ee89-6904-4312-8017-2d37c213f4d2",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "18046923-a1df-4f12-a2c2-c42b19ca866f",
+      "name": "The signature snapshot of one base version (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"fieldObjectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"annotObjectNumber\": 1,\n        \"pageObjectNumber\": 1\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSize\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"claimedTime\": null\n      },\n      \"docMdp\": 1.1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"requiredFlags\": 1,\n        \"presentFlags\": 1,\n        \"version\": null,\n        \"mdp\": null,\n        \"filter\": null,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "18046923-a1df-4f12-a2c2-c42b19ca866f",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "8cb57671-3b0b-40b1-beb5-d5b46b9ec173",
+      "name": "The DER /Contents of a signed field in one base version (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}/{fieldKey}/contents",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          },
+          "fieldKey": {
+            "equalTo": "fieldKey"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "8cb57671-3b0b-40b1-beb5-d5b46b9ec173",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "64c8e978-b2b6-44b2-9261-4df55998041c",
+      "name": "The digest of a signed field's /ByteRange in one base version (immutable). - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}/{fieldKey}/digest/{algorithm}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "sha": {
+            "equalTo": "sha"
+          },
+          "fieldKey": {
+            "equalTo": "fieldKey"
+          },
+          "algorithm": {
+            "equalTo": "sha1"
+          }
+        }
+      },
+      "response": {
+        "status": 404,
+        "body": "{\n  \"key\": \"value\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "64c8e978-b2b6-44b2-9261-4df55998041c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
     }
   ],
   "meta": {
-    "total": 53
+    "total": 65
   }
 }
