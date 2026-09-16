@@ -13,6 +13,8 @@ import (
 	metadata "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata"
 	pages "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/pages"
 	redactions "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/redactions"
+	signatures "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/signatures"
+	versions "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/versions"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
 )
@@ -24,6 +26,8 @@ type Client struct {
 	Metadata        *metadata.Client
 	Pages           *pages.Client
 	Redactions      *redactions.Client
+	Signatures      *signatures.Client
+	Versions        *versions.Client
 
 	options *core.RequestOptions
 	baseURL string
@@ -37,6 +41,8 @@ func NewClient(options *core.RequestOptions) *Client {
 		Metadata:        metadata.NewClient(options),
 		Pages:           pages.NewClient(options),
 		Redactions:      redactions.NewClient(options),
+		Signatures:      signatures.NewClient(options),
+		Versions:        versions.NewClient(options),
 		WithRawResponse: NewRawClient(options),
 		options:         options,
 		baseURL:         options.BaseURL,
