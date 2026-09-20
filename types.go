@@ -22924,38 +22924,46 @@ func (d DocAnnotationsList200ResponseAnnotationsItemInkReplyType) Ptr() *DocAnno
 }
 
 var (
-	docAnnotationsList200ResponseAnnotationsItemLineFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldLinePoints       = big.NewInt(1 << 26)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldLineEndings      = big.NewInt(1 << 27)
-	docAnnotationsList200ResponseAnnotationsItemLineFieldRotation         = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldLeader           = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldRef              = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldPageObjectNumber = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldIndex            = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldIdentityQuality  = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldNm               = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldFlags            = big.NewInt(1 << 9)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldRect             = big.NewInt(1 << 10)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldContents         = big.NewInt(1 << 11)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldSubject          = big.NewInt(1 << 12)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldAuthor           = big.NewInt(1 << 13)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldCreated          = big.NewInt(1 << 14)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldModified         = big.NewInt(1 << 15)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldBlendMode        = big.NewInt(1 << 16)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldInReplyTo        = big.NewInt(1 << 17)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldReplyType        = big.NewInt(1 << 18)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldUserID           = big.NewInt(1 << 19)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldGroupID          = big.NewInt(1 << 20)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldCreatedBy        = big.NewInt(1 << 21)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldUpdatedBy        = big.NewInt(1 << 22)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldActions          = big.NewInt(1 << 23)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldColor            = big.NewInt(1 << 24)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldOpacity          = big.NewInt(1 << 25)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldStrokeWidth      = big.NewInt(1 << 26)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldBorderStyle      = big.NewInt(1 << 27)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldDashArray        = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldInteriorColor    = big.NewInt(1 << 29)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldLinePoints       = big.NewInt(1 << 30)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldLineEndings      = big.NewInt(1 << 31)
+	docAnnotationsList200ResponseAnnotationsItemLineFieldRotation         = big.NewInt(1 << 32)
 )
 
 type DocAnnotationsList200ResponseAnnotationsItemLine struct {
+	Intent           *DocAnnotationsList200ResponseAnnotationsItemLineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsList200ResponseAnnotationsItemLineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsList200ResponseAnnotationsItemLineCaption        `json:"caption,omitempty" url:"caption,omitempty"`
+	Leader           *DocAnnotationsList200ResponseAnnotationsItemLineLeader         `json:"leader,omitempty" url:"leader,omitempty"`
 	Ref              *DocAnnotationsList200ResponseAnnotationsItemLineRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                             `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                             `json:"index" url:"index"`
@@ -22991,6 +22999,34 @@ type DocAnnotationsList200ResponseAnnotationsItemLine struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) GetIntent() *DocAnnotationsList200ResponseAnnotationsItemLineIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) GetMeasure() *DocAnnotationsList200ResponseAnnotationsItemLineMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) GetCaption() *DocAnnotationsList200ResponseAnnotationsItemLineCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) GetLeader() *DocAnnotationsList200ResponseAnnotationsItemLineLeader {
+	if d == nil {
+		return nil
+	}
+	return d.Leader
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemLine) GetRef() *DocAnnotationsList200ResponseAnnotationsItemLineRef {
@@ -23208,6 +23244,34 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemLine) require(field *big.In
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) SetIntent(intent *DocAnnotationsList200ResponseAnnotationsItemLineIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) SetMeasure(measure *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) SetCaption(caption *DocAnnotationsList200ResponseAnnotationsItemLineCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineFieldCaption)
+}
+
+// SetLeader sets the Leader field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLine) SetLeader(leader *DocAnnotationsList200ResponseAnnotationsItemLineLeader) {
+	d.Leader = leader
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineFieldLeader)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -23556,6 +23620,244 @@ func NewDocAnnotationsList200ResponseAnnotationsItemLineBorderStyleFromString(s 
 }
 
 func (d DocAnnotationsList200ResponseAnnotationsItemLineBorderStyle) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineBorderStyle {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldEnabled  = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldPosition = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldOffset   = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineCaption struct {
+	Enabled  bool                                                             `json:"enabled" url:"enabled"`
+	Position *DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition `json:"position,omitempty" url:"position,omitempty"`
+	Offset   *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset   `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) GetPosition() *DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition {
+	if d == nil {
+		return nil
+	}
+	return d.Position
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) GetOffset() *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset {
+	if d == nil {
+		return nil
+	}
+	return d.Offset
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldEnabled)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) SetPosition(position *DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition) {
+	d.Position = position
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldPosition)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) SetOffset(offset *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) {
+	d.Offset = offset
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineCaptionFieldOffset)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineCaptionOffsetFieldAlong         = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineCaptionOffsetFieldPerpendicular = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset struct {
+	Along         float64 `json:"along" url:"along"`
+	Perpendicular float64 `json:"perpendicular" url:"perpendicular"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) GetAlong() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Along
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) GetPerpendicular() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Perpendicular
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAlong sets the Along field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) SetAlong(along float64) {
+	d.Along = along
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineCaptionOffsetFieldAlong)
+}
+
+// SetPerpendicular sets the Perpendicular field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) SetPerpendicular(perpendicular float64) {
+	d.Perpendicular = perpendicular
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineCaptionOffsetFieldPerpendicular)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineCaptionOffset) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineCaptionPositionInline DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition = "inline"
+	DocAnnotationsList200ResponseAnnotationsItemLineCaptionPositionTop    DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition = "top"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineCaptionPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition, error) {
+	switch s {
+	case "inline":
+		return DocAnnotationsList200ResponseAnnotationsItemLineCaptionPositionInline, nil
+	case "top":
+		return DocAnnotationsList200ResponseAnnotationsItemLineCaptionPositionTop, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineCaptionPosition {
 	return &d
 }
 
@@ -24507,6 +24809,28 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemLineInReplyToObjectNumber) 
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsList200ResponseAnnotationsItemLineIntent string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineIntentLineArrow     DocAnnotationsList200ResponseAnnotationsItemLineIntent = "LineArrow"
+	DocAnnotationsList200ResponseAnnotationsItemLineIntentLineDimension DocAnnotationsList200ResponseAnnotationsItemLineIntent = "LineDimension"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineIntentFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineIntent, error) {
+	switch s {
+	case "LineArrow":
+		return DocAnnotationsList200ResponseAnnotationsItemLineIntentLineArrow, nil
+	case "LineDimension":
+		return DocAnnotationsList200ResponseAnnotationsItemLineIntentLineDimension, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineIntent) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineIntent {
+	return &d
+}
+
 var (
 	docAnnotationsList200ResponseAnnotationsItemLineInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsList200ResponseAnnotationsItemLineInteriorColorFieldG = big.NewInt(1 << 1)
@@ -24609,6 +24933,122 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemLineInteriorColor) MarshalJ
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemLineInteriorColor) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldLength    = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldExtension = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldOffset    = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineLeader struct {
+	Length    float64  `json:"length" url:"length"`
+	Extension *float64 `json:"extension,omitempty" url:"extension,omitempty"`
+	Offset    *float64 `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) GetLength() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Length
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) GetExtension() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Extension
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) GetOffset() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Offset
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetLength sets the Length field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) SetLength(length float64) {
+	d.Length = length
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldLength)
+}
+
+// SetExtension sets the Extension field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) SetExtension(extension *float64) {
+	d.Extension = extension
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldExtension)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) SetOffset(offset *float64) {
+	d.Offset = offset
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineLeaderFieldOffset)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineLeader
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineLeader(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineLeader
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineLeader) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -25101,6 +25541,2266 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemLineLinePointsStart) Marsha
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemLineLinePointsStart) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl
+	Geo     *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo
+	Unknown *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) GetRl() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) GetGeo() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) GetUnknown() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureVisitor interface {
+	VisitRl(*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) error
+	VisitGeo(*DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) error
+	VisitUnknown(*DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) error
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) Accept(visitor DocAnnotationsList200ResponseAnnotationsItemLineMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl struct {
+	Ratio    *string                                                                  `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                 `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetX() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetY() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetDistance() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetArea() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetAngle() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetSlope() []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetOrigin() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetX(x []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetY(y []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetDistance(distance []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetArea(area []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetAngle(angle []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetSlope(slope []*DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetOrigin(origin *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem struct {
+	Unit          string                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem struct {
+	Unit          string                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem struct {
+	Unit          string                                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem struct {
+	Unit          string                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem struct {
+	Unit          string                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem struct {
+	Unit          string                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemLineMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemLineMeasureUnknown) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -28696,38 +31396,44 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemLinkTargetURI) String() str
 }
 
 var (
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldVertices         = big.NewInt(1 << 26)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRotation         = big.NewInt(1 << 27)
-	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCloudyIntensity  = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRef              = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldPageObjectNumber = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldIndex            = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldIdentityQuality  = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldNm               = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldFlags            = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRect             = big.NewInt(1 << 9)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldContents         = big.NewInt(1 << 10)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldSubject          = big.NewInt(1 << 11)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldAuthor           = big.NewInt(1 << 12)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCreated          = big.NewInt(1 << 13)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldModified         = big.NewInt(1 << 14)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldBlendMode        = big.NewInt(1 << 15)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldInReplyTo        = big.NewInt(1 << 16)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldReplyType        = big.NewInt(1 << 17)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldUserID           = big.NewInt(1 << 18)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldGroupID          = big.NewInt(1 << 19)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCreatedBy        = big.NewInt(1 << 20)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldUpdatedBy        = big.NewInt(1 << 21)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldActions          = big.NewInt(1 << 22)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldColor            = big.NewInt(1 << 23)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldOpacity          = big.NewInt(1 << 24)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldStrokeWidth      = big.NewInt(1 << 25)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldBorderStyle      = big.NewInt(1 << 26)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldDashArray        = big.NewInt(1 << 27)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldInteriorColor    = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldVertices         = big.NewInt(1 << 29)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldRotation         = big.NewInt(1 << 30)
+	docAnnotationsList200ResponseAnnotationsItemPolygonFieldCloudyIntensity  = big.NewInt(1 << 31)
 )
 
 type DocAnnotationsList200ResponseAnnotationsItemPolygon struct {
+	Intent           *DocAnnotationsList200ResponseAnnotationsItemPolygonIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption        `json:"caption,omitempty" url:"caption,omitempty"`
 	Ref              *DocAnnotationsList200ResponseAnnotationsItemPolygonRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                                `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                                `json:"index" url:"index"`
@@ -28763,6 +31469,27 @@ type DocAnnotationsList200ResponseAnnotationsItemPolygon struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) GetIntent() *DocAnnotationsList200ResponseAnnotationsItemPolygonIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) GetMeasure() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) GetCaption() *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) GetRef() *DocAnnotationsList200ResponseAnnotationsItemPolygonRef {
@@ -28980,6 +31707,27 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) require(field *big
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) SetIntent(intent *DocAnnotationsList200ResponseAnnotationsItemPolygonIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) SetMeasure(measure *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygon) SetCaption(caption *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonFieldCaption)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -29329,6 +32077,206 @@ func NewDocAnnotationsList200ResponseAnnotationsItemPolygonBorderStyleFromString
 
 func (d DocAnnotationsList200ResponseAnnotationsItemPolygonBorderStyle) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonBorderStyle {
 	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonCaptionFieldEnabled = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonCaptionFieldCenter  = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonCaption struct {
+	Enabled bool                                                              `json:"enabled" url:"enabled"`
+	Center  *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter `json:"center,omitempty" url:"center,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) GetCenter() *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter {
+	if d == nil {
+		return nil
+	}
+	return d.Center
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonCaptionFieldEnabled)
+}
+
+// SetCenter sets the Center field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) SetCenter(center *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) {
+	d.Center = center
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonCaptionFieldCenter)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenterFieldX = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenterFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenterFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenterFieldY)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonCaptionCenter) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -30279,6 +33227,28 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonInReplyToObjectNumbe
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsList200ResponseAnnotationsItemPolygonIntent string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonIntentPolygonCloud     DocAnnotationsList200ResponseAnnotationsItemPolygonIntent = "PolygonCloud"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonIntentPolygonDimension DocAnnotationsList200ResponseAnnotationsItemPolygonIntent = "PolygonDimension"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonIntentFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonIntent, error) {
+	switch s {
+	case "PolygonCloud":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonIntentPolygonCloud, nil
+	case "PolygonDimension":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonIntentPolygonDimension, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonIntent) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonIntent {
+	return &d
+}
+
 var (
 	docAnnotationsList200ResponseAnnotationsItemPolygonInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsList200ResponseAnnotationsItemPolygonInteriorColorFieldG = big.NewInt(1 << 1)
@@ -30381,6 +33351,2266 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonInteriorColor) Marsh
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonInteriorColor) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl
+	Geo     *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo
+	Unknown *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) GetRl() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) GetGeo() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) GetUnknown() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureVisitor interface {
+	VisitRl(*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) error
+	VisitGeo(*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) error
+	VisitUnknown(*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) error
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) Accept(visitor DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl struct {
+	Ratio    *string                                                                     `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                    `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetX() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetY() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetDistance() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetArea() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetAngle() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetSlope() []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetOrigin() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetX(x []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetY(y []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetDistance(distance []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetArea(area []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetAngle(angle []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetSlope(slope []*DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetOrigin(origin *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem struct {
+	Unit          string                                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem struct {
+	Unit          string                                                                             `json:"unit" url:"unit"`
+	Conversion    *float64                                                                           `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                               `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                              `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                            `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                            `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                            `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                            `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem struct {
+	Unit          string                                                                                 `json:"unit" url:"unit"`
+	Conversion    *float64                                                                               `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                   `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                  `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem struct {
+	Unit          string                                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem struct {
+	Unit          string                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem struct {
+	Unit          string                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonMeasureUnknown) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -31232,38 +36462,44 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolygonVerticesItem) String
 }
 
 var (
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldVertices         = big.NewInt(1 << 26)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRotation         = big.NewInt(1 << 27)
-	docAnnotationsList200ResponseAnnotationsItemPolylineFieldLineEndings      = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRef              = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldPageObjectNumber = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldIndex            = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldIdentityQuality  = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldNm               = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldFlags            = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRect             = big.NewInt(1 << 9)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldContents         = big.NewInt(1 << 10)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldSubject          = big.NewInt(1 << 11)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldAuthor           = big.NewInt(1 << 12)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldCreated          = big.NewInt(1 << 13)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldModified         = big.NewInt(1 << 14)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldBlendMode        = big.NewInt(1 << 15)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldInReplyTo        = big.NewInt(1 << 16)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldReplyType        = big.NewInt(1 << 17)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldUserID           = big.NewInt(1 << 18)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldGroupID          = big.NewInt(1 << 19)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldCreatedBy        = big.NewInt(1 << 20)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldUpdatedBy        = big.NewInt(1 << 21)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldActions          = big.NewInt(1 << 22)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldColor            = big.NewInt(1 << 23)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldOpacity          = big.NewInt(1 << 24)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldStrokeWidth      = big.NewInt(1 << 25)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldBorderStyle      = big.NewInt(1 << 26)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldDashArray        = big.NewInt(1 << 27)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldInteriorColor    = big.NewInt(1 << 28)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldVertices         = big.NewInt(1 << 29)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldRotation         = big.NewInt(1 << 30)
+	docAnnotationsList200ResponseAnnotationsItemPolylineFieldLineEndings      = big.NewInt(1 << 31)
 )
 
 type DocAnnotationsList200ResponseAnnotationsItemPolyline struct {
+	Intent           *DocAnnotationsList200ResponseAnnotationsItemPolylineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption        `json:"caption,omitempty" url:"caption,omitempty"`
 	Ref              *DocAnnotationsList200ResponseAnnotationsItemPolylineRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                                 `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                                 `json:"index" url:"index"`
@@ -31299,6 +36535,27 @@ type DocAnnotationsList200ResponseAnnotationsItemPolyline struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) GetIntent() *DocAnnotationsList200ResponseAnnotationsItemPolylineIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) GetMeasure() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) GetCaption() *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
 }
 
 func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) GetRef() *DocAnnotationsList200ResponseAnnotationsItemPolylineRef {
@@ -31516,6 +36773,27 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) require(field *bi
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) SetIntent(intent *DocAnnotationsList200ResponseAnnotationsItemPolylineIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) SetMeasure(measure *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolyline) SetCaption(caption *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineFieldCaption)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -31865,6 +37143,206 @@ func NewDocAnnotationsList200ResponseAnnotationsItemPolylineBorderStyleFromStrin
 
 func (d DocAnnotationsList200ResponseAnnotationsItemPolylineBorderStyle) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineBorderStyle {
 	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineCaptionFieldEnabled = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineCaptionFieldCenter  = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineCaption struct {
+	Enabled bool                                                               `json:"enabled" url:"enabled"`
+	Center  *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter `json:"center,omitempty" url:"center,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) GetCenter() *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter {
+	if d == nil {
+		return nil
+	}
+	return d.Center
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineCaptionFieldEnabled)
+}
+
+// SetCenter sets the Center field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) SetCenter(center *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) {
+	d.Center = center
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineCaptionFieldCenter)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenterFieldX = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenterFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenterFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenterFieldY)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineCaptionCenter) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -32815,6 +38293,25 @@ func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineInReplyToObjectNumb
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsList200ResponseAnnotationsItemPolylineIntent string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineIntentPolyLineDimension DocAnnotationsList200ResponseAnnotationsItemPolylineIntent = "PolyLineDimension"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineIntentFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineIntent, error) {
+	switch s {
+	case "PolyLineDimension":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineIntentPolyLineDimension, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineIntent) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineIntent {
+	return &d
+}
+
 var (
 	docAnnotationsList200ResponseAnnotationsItemPolylineInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsList200ResponseAnnotationsItemPolylineInteriorColorFieldG = big.NewInt(1 << 1)
@@ -33121,6 +38618,2266 @@ func NewDocAnnotationsList200ResponseAnnotationsItemPolylineLineEndingsStartFrom
 
 func (d DocAnnotationsList200ResponseAnnotationsItemPolylineLineEndingsStart) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineLineEndingsStart {
 	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl
+	Geo     *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo
+	Unknown *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) GetRl() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) GetGeo() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) GetUnknown() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureVisitor interface {
+	VisitRl(*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) error
+	VisitGeo(*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) error
+	VisitUnknown(*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) error
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) Accept(visitor DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl struct {
+	Ratio    *string                                                                      `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                     `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetX() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetY() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetDistance() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetArea() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetAngle() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetSlope() []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetOrigin() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetX(x []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetY(y []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetDistance(distance []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetArea(area []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetAngle(angle []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetSlope(slope []*DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetOrigin(origin *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem struct {
+	Unit          string                                                                               `json:"unit" url:"unit"`
+	Conversion    *float64                                                                             `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                 `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                              `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                              `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                              `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                              `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem struct {
+	Unit          string                                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem struct {
+	Unit          string                                                                                  `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                    `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                   `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                 `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                 `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                 `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                 `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem struct {
+	Unit          string                                                                               `json:"unit" url:"unit"`
+	Conversion    *float64                                                                             `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                 `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                              `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                              `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                              `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                              `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem struct {
+	Unit          string                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem struct {
+	Unit          string                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetFraction() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetLabelPosition() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetFraction(fraction *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionDecimal  DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction = "decimal"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionFraction DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction = "fraction"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionRound    DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction = "round"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionTruncate DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPositionSuffix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPositionPrefix DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsList200ResponseAnnotationsItemPolylineMeasureUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -75980,38 +83737,46 @@ func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemInkReplyType) Pt
 }
 
 var (
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLinePoints       = big.NewInt(1 << 26)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLineEndings      = big.NewInt(1 << 27)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRotation         = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLeader           = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRef              = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldPageObjectNumber = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIndex            = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIdentityQuality  = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldNm               = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldFlags            = big.NewInt(1 << 9)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRect             = big.NewInt(1 << 10)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldContents         = big.NewInt(1 << 11)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldSubject          = big.NewInt(1 << 12)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldAuthor           = big.NewInt(1 << 13)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCreated          = big.NewInt(1 << 14)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldModified         = big.NewInt(1 << 15)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldBlendMode        = big.NewInt(1 << 16)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldInReplyTo        = big.NewInt(1 << 17)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldReplyType        = big.NewInt(1 << 18)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldUserID           = big.NewInt(1 << 19)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldGroupID          = big.NewInt(1 << 20)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCreatedBy        = big.NewInt(1 << 21)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldUpdatedBy        = big.NewInt(1 << 22)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldActions          = big.NewInt(1 << 23)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldColor            = big.NewInt(1 << 24)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldOpacity          = big.NewInt(1 << 25)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldStrokeWidth      = big.NewInt(1 << 26)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldBorderStyle      = big.NewInt(1 << 27)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldDashArray        = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldInteriorColor    = big.NewInt(1 << 29)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLinePoints       = big.NewInt(1 << 30)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLineEndings      = big.NewInt(1 << 31)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldRotation         = big.NewInt(1 << 32)
 )
 
 type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine struct {
+	Intent           *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption        `json:"caption,omitempty" url:"caption,omitempty"`
+	Leader           *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader         `json:"leader,omitempty" url:"leader,omitempty"`
 	Ref              *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                                         `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                                         `json:"index" url:"index"`
@@ -76047,6 +83812,34 @@ type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) GetIntent() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) GetMeasure() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) GetCaption() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) GetLeader() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader {
+	if d == nil {
+		return nil
+	}
+	return d.Leader
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) GetRef() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineRef {
@@ -76264,6 +84057,34 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) require(f
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) SetIntent(intent *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) SetMeasure(measure *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) SetCaption(caption *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldCaption)
+}
+
+// SetLeader sets the Leader field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLine) SetLeader(leader *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) {
+	d.Leader = leader
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineFieldLeader)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -76612,6 +84433,244 @@ func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineBorderStyleF
 }
 
 func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineBorderStyle) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineBorderStyle {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldEnabled  = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldPosition = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldOffset   = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption struct {
+	Enabled  bool                                                                         `json:"enabled" url:"enabled"`
+	Position *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition `json:"position,omitempty" url:"position,omitempty"`
+	Offset   *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset   `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) GetPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition {
+	if d == nil {
+		return nil
+	}
+	return d.Position
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) GetOffset() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset {
+	if d == nil {
+		return nil
+	}
+	return d.Offset
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldEnabled)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) SetPosition(position *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition) {
+	d.Position = position
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldPosition)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) SetOffset(offset *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) {
+	d.Offset = offset
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionFieldOffset)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffsetFieldAlong         = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffsetFieldPerpendicular = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset struct {
+	Along         float64 `json:"along" url:"along"`
+	Perpendicular float64 `json:"perpendicular" url:"perpendicular"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) GetAlong() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Along
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) GetPerpendicular() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Perpendicular
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAlong sets the Along field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) SetAlong(along float64) {
+	d.Along = along
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffsetFieldAlong)
+}
+
+// SetPerpendicular sets the Perpendicular field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) SetPerpendicular(perpendicular float64) {
+	d.Perpendicular = perpendicular
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffsetFieldPerpendicular)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionOffset) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPositionInline DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition = "inline"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPositionTop    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition = "top"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition, error) {
+	switch s {
+	case "inline":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPositionInline, nil
+	case "top":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPositionTop, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineCaptionPosition {
 	return &d
 }
 
@@ -77563,6 +85622,28 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineInReplyToOb
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntentLineArrow     DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent = "LineArrow"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntentLineDimension DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent = "LineDimension"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntentFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent, error) {
+	switch s {
+	case "LineArrow":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntentLineArrow, nil
+	case "LineDimension":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntentLineDimension, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineIntent {
+	return &d
+}
+
 var (
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineInteriorColorFieldG = big.NewInt(1 << 1)
@@ -77665,6 +85746,122 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineInteriorCol
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineInteriorColor) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldLength    = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldExtension = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldOffset    = big.NewInt(1 << 2)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader struct {
+	Length    float64  `json:"length" url:"length"`
+	Extension *float64 `json:"extension,omitempty" url:"extension,omitempty"`
+	Offset    *float64 `json:"offset,omitempty" url:"offset,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) GetLength() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Length
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) GetExtension() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Extension
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) GetOffset() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Offset
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetLength sets the Length field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) SetLength(length float64) {
+	d.Length = length
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldLength)
+}
+
+// SetExtension sets the Extension field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) SetExtension(extension *float64) {
+	d.Extension = extension
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldExtension)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) SetOffset(offset *float64) {
+	d.Offset = offset
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeaderFieldOffset)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLeader) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -78157,6 +86354,2266 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLinePointsS
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineLinePointsStart) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl
+	Geo     *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo
+	Unknown *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) GetRl() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) GetGeo() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) GetUnknown() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureVisitor interface {
+	VisitRl(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) error
+	VisitGeo(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) error
+	VisitUnknown(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) error
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) Accept(visitor DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl struct {
+	Ratio    *string                                                                              `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                             `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetX() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetY() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetDistance() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetArea() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetAngle() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetSlope() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetOrigin() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetX(x []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetY(y []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetDistance(distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetArea(area []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetAngle(angle []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetSlope(slope []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetOrigin(origin *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem struct {
+	Unit          string                                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem struct {
+	Unit          string                                                                                      `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                    `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                        `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                       `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                     `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                     `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                     `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                     `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem struct {
+	Unit          string                                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem struct {
+	Unit          string                                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem struct {
+	Unit          string                                                                                   `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                 `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                     `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                    `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                  `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                  `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                  `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                  `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem struct {
+	Unit          string                                                                                   `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                 `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                     `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                    `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                  `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                  `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                  `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                  `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLineMeasureUnknown) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -81752,38 +92209,44 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemLinkTargetURI) 
 }
 
 var (
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldVertices         = big.NewInt(1 << 26)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRotation         = big.NewInt(1 << 27)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCloudyIntensity  = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRef              = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldPageObjectNumber = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIndex            = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIdentityQuality  = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldNm               = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldFlags            = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRect             = big.NewInt(1 << 9)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldContents         = big.NewInt(1 << 10)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldSubject          = big.NewInt(1 << 11)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldAuthor           = big.NewInt(1 << 12)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCreated          = big.NewInt(1 << 13)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldModified         = big.NewInt(1 << 14)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldBlendMode        = big.NewInt(1 << 15)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldInReplyTo        = big.NewInt(1 << 16)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldReplyType        = big.NewInt(1 << 17)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldUserID           = big.NewInt(1 << 18)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldGroupID          = big.NewInt(1 << 19)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCreatedBy        = big.NewInt(1 << 20)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldUpdatedBy        = big.NewInt(1 << 21)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldActions          = big.NewInt(1 << 22)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldColor            = big.NewInt(1 << 23)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldOpacity          = big.NewInt(1 << 24)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldStrokeWidth      = big.NewInt(1 << 25)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldBorderStyle      = big.NewInt(1 << 26)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldDashArray        = big.NewInt(1 << 27)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldInteriorColor    = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldVertices         = big.NewInt(1 << 29)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldRotation         = big.NewInt(1 << 30)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCloudyIntensity  = big.NewInt(1 << 31)
 )
 
 type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon struct {
+	Intent           *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption        `json:"caption,omitempty" url:"caption,omitempty"`
 	Ref              *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                                            `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                                            `json:"index" url:"index"`
@@ -81819,6 +92282,27 @@ type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) GetIntent() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) GetMeasure() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) GetCaption() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) GetRef() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonRef {
@@ -82036,6 +92520,27 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) requir
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) SetIntent(intent *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) SetMeasure(measure *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygon) SetCaption(caption *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonFieldCaption)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -82385,6 +92890,206 @@ func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonBorderSty
 
 func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonBorderStyle) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonBorderStyle {
 	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionFieldEnabled = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionFieldCenter  = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption struct {
+	Enabled bool                                                                          `json:"enabled" url:"enabled"`
+	Center  *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter `json:"center,omitempty" url:"center,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) GetCenter() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter {
+	if d == nil {
+		return nil
+	}
+	return d.Center
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionFieldEnabled)
+}
+
+// SetCenter sets the Center field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) SetCenter(center *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) {
+	d.Center = center
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionFieldCenter)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenterFieldX = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenterFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenterFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenterFieldY)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonCaptionCenter) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -83335,6 +94040,28 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonInReplyT
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntentPolygonCloud     DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent = "PolygonCloud"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntentPolygonDimension DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent = "PolygonDimension"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntentFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent, error) {
+	switch s {
+	case "PolygonCloud":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntentPolygonCloud, nil
+	case "PolygonDimension":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntentPolygonDimension, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonIntent {
+	return &d
+}
+
 var (
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonInteriorColorFieldG = big.NewInt(1 << 1)
@@ -83437,6 +94164,2266 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonInterior
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonInteriorColor) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl
+	Geo     *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo
+	Unknown *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) GetRl() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) GetGeo() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) GetUnknown() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureVisitor interface {
+	VisitRl(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) error
+	VisitGeo(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) error
+	VisitUnknown(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) error
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) Accept(visitor DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl struct {
+	Ratio    *string                                                                                 `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                                `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetX() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetY() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetDistance() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetArea() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetAngle() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetSlope() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetOrigin() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetX(x []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetY(y []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetDistance(distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetArea(area []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetAngle(angle []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetSlope(slope []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetOrigin(origin *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem struct {
+	Unit          string                                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem struct {
+	Unit          string                                                                                         `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                       `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                           `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                          `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                        `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                        `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                        `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                        `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem struct {
+	Unit          string                                                                                             `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                           `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                               `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                              `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                            `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                            `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                            `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                            `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem struct {
+	Unit          string                                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem struct {
+	Unit          string                                                                                      `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                    `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                        `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                       `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                     `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                     `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                     `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                     `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem struct {
+	Unit          string                                                                                      `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                    `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                        `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                       `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                     `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                     `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                     `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                     `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonMeasureUnknown) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -84288,38 +97275,44 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolygonVertices
 }
 
 var (
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRef              = big.NewInt(1 << 0)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldPageObjectNumber = big.NewInt(1 << 1)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIndex            = big.NewInt(1 << 2)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIdentityQuality  = big.NewInt(1 << 3)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldNm               = big.NewInt(1 << 4)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldFlags            = big.NewInt(1 << 5)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRect             = big.NewInt(1 << 6)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldContents         = big.NewInt(1 << 7)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldSubject          = big.NewInt(1 << 8)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldAuthor           = big.NewInt(1 << 9)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCreated          = big.NewInt(1 << 10)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldModified         = big.NewInt(1 << 11)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldBlendMode        = big.NewInt(1 << 12)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldInReplyTo        = big.NewInt(1 << 13)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldReplyType        = big.NewInt(1 << 14)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldUserID           = big.NewInt(1 << 15)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldGroupID          = big.NewInt(1 << 16)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCreatedBy        = big.NewInt(1 << 17)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldUpdatedBy        = big.NewInt(1 << 18)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldActions          = big.NewInt(1 << 19)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldColor            = big.NewInt(1 << 20)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldOpacity          = big.NewInt(1 << 21)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldStrokeWidth      = big.NewInt(1 << 22)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldBorderStyle      = big.NewInt(1 << 23)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldDashArray        = big.NewInt(1 << 24)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldInteriorColor    = big.NewInt(1 << 25)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldVertices         = big.NewInt(1 << 26)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRotation         = big.NewInt(1 << 27)
-	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldLineEndings      = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIntent           = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldMeasure          = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCaption          = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRef              = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldPageObjectNumber = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIndex            = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIdentityQuality  = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldNm               = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldFlags            = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRect             = big.NewInt(1 << 9)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldContents         = big.NewInt(1 << 10)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldSubject          = big.NewInt(1 << 11)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldAuthor           = big.NewInt(1 << 12)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCreated          = big.NewInt(1 << 13)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldModified         = big.NewInt(1 << 14)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldBlendMode        = big.NewInt(1 << 15)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldInReplyTo        = big.NewInt(1 << 16)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldReplyType        = big.NewInt(1 << 17)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldUserID           = big.NewInt(1 << 18)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldGroupID          = big.NewInt(1 << 19)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCreatedBy        = big.NewInt(1 << 20)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldUpdatedBy        = big.NewInt(1 << 21)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldActions          = big.NewInt(1 << 22)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldColor            = big.NewInt(1 << 23)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldOpacity          = big.NewInt(1 << 24)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldStrokeWidth      = big.NewInt(1 << 25)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldBorderStyle      = big.NewInt(1 << 26)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldDashArray        = big.NewInt(1 << 27)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldInteriorColor    = big.NewInt(1 << 28)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldVertices         = big.NewInt(1 << 29)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldRotation         = big.NewInt(1 << 30)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldLineEndings      = big.NewInt(1 << 31)
 )
 
 type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline struct {
+	Intent           *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	Caption          *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption        `json:"caption,omitempty" url:"caption,omitempty"`
 	Ref              *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineRef            `json:"ref" url:"ref"`
 	PageObjectNumber int                                                                             `json:"pageObjectNumber" url:"pageObjectNumber"`
 	Index            int                                                                             `json:"index" url:"index"`
@@ -84355,6 +97348,27 @@ type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline struct {
 
 	extraProperties map[string]interface{}
 	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) GetIntent() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent {
+	if d == nil {
+		return nil
+	}
+	return d.Intent
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) GetMeasure() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) GetCaption() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption {
+	if d == nil {
+		return nil
+	}
+	return d.Caption
 }
 
 func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) GetRef() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineRef {
@@ -84572,6 +97586,27 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) requi
 		d.explicitFields = big.NewInt(0)
 	}
 	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetIntent sets the Intent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) SetIntent(intent *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent) {
+	d.Intent = intent
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldIntent)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) SetMeasure(measure *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) {
+	d.Measure = measure
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldMeasure)
+}
+
+// SetCaption sets the Caption field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolyline) SetCaption(caption *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) {
+	d.Caption = caption
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineFieldCaption)
 }
 
 // SetRef sets the Ref field and marks it as non-optional;
@@ -84921,6 +97956,206 @@ func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineBorderSt
 
 func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineBorderStyle) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineBorderStyle {
 	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionFieldEnabled = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionFieldCenter  = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption struct {
+	Enabled bool                                                                           `json:"enabled" url:"enabled"`
+	Center  *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter `json:"center,omitempty" url:"center,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) GetEnabled() bool {
+	if d == nil {
+		return false
+	}
+	return d.Enabled
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) GetCenter() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter {
+	if d == nil {
+		return nil
+	}
+	return d.Center
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetEnabled sets the Enabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) SetEnabled(enabled bool) {
+	d.Enabled = enabled
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionFieldEnabled)
+}
+
+// SetCenter sets the Center field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) SetCenter(center *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) {
+	d.Center = center
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionFieldCenter)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaption) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenterFieldX = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenterFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenterFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenterFieldY)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineCaptionCenter) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -85871,6 +99106,25 @@ func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineInReply
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntentPolyLineDimension DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent = "PolyLineDimension"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntentFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent, error) {
+	switch s {
+	case "PolyLineDimension":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntentPolyLineDimension, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineIntent {
+	return &d
+}
+
 var (
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineInteriorColorFieldR = big.NewInt(1 << 0)
 	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineInteriorColorFieldG = big.NewInt(1 << 1)
@@ -86177,6 +99431,2266 @@ func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineLineEndi
 
 func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineLineEndingsStart) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineLineEndingsStart {
 	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure struct {
+	Subtype string
+	Rl      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl
+	Geo     *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo
+	Unknown *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) GetRl() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) GetGeo() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) GetUnknown() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureVisitor interface {
+	VisitRl(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) error
+	VisitGeo(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) error
+	VisitUnknown(*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) error
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) Accept(visitor DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldX        = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldY        = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl struct {
+	Ratio    *string                                                                                  `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                                                 `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetX() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetY() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetDistance() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetArea() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetAngle() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetSlope() []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetOrigin() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetX(x []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetY(y []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetDistance(distance []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetArea(area []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetAngle(angle []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetSlope(slope []*DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetOrigin(origin *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlFieldCyx)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem struct {
+	Unit          string                                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem struct {
+	Unit          string                                                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem struct {
+	Unit          string                                                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOriginFieldY)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem struct {
+	Unit          string                                                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem struct {
+	Unit          string                                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem struct {
+	Unit          string                                                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetFraction() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetLabelPosition() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetFraction(fraction *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) SetLabelPosition(labelPosition *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionDecimal  DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction = "decimal"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionFraction DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction = "fraction"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionRound    DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction = "round"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionTruncate DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemFraction {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition string
+
+const (
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPositionSuffix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition = "suffix"
+	DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPositionPrefix DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPositionFromString(s string) (DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition) Ptr() *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocAnnotationsListAll200ResponsePagesItemAnnotationsItemPolylineMeasureUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
 }
 
 var (
@@ -147077,6 +162591,4329 @@ func (d DocPagesSetName404ResponseName) Ptr() *DocPagesSetName404ResponseName {
 }
 
 type DocPagesSetNameRequest = map[string]any
+
+var (
+	docPagesSetScale200ResponseFieldPageObjectNumber = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseFieldMeta             = big.NewInt(1 << 1)
+)
+
+type DocPagesSetScale200Response struct {
+	PageObjectNumber int                              `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Meta             *DocPagesSetScale200ResponseMeta `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200Response) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetScale200Response) GetMeta() *DocPagesSetScale200ResponseMeta {
+	if d == nil {
+		return nil
+	}
+	return d.Meta
+}
+
+func (d *DocPagesSetScale200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200Response) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetScale200ResponseFieldPageObjectNumber)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200Response) SetMeta(meta *DocPagesSetScale200ResponseMeta) {
+	d.Meta = meta
+	d.require(docPagesSetScale200ResponseFieldMeta)
+}
+
+func (d *DocPagesSetScale200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaFieldAffectedPages = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaFieldCacheDelta    = big.NewInt(1 << 1)
+)
+
+type DocPagesSetScale200ResponseMeta struct {
+	AffectedPages []*DocPagesSetScale200ResponseMetaAffectedPagesItem `json:"affectedPages" url:"affectedPages"`
+	CacheDelta    *DocPagesSetScale200ResponseMetaCacheDelta          `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMeta) GetAffectedPages() []*DocPagesSetScale200ResponseMetaAffectedPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.AffectedPages
+}
+
+func (d *DocPagesSetScale200ResponseMeta) GetCacheDelta() *DocPagesSetScale200ResponseMetaCacheDelta {
+	if d == nil {
+		return nil
+	}
+	return d.CacheDelta
+}
+
+func (d *DocPagesSetScale200ResponseMeta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMeta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAffectedPages sets the AffectedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMeta) SetAffectedPages(affectedPages []*DocPagesSetScale200ResponseMetaAffectedPagesItem) {
+	d.AffectedPages = affectedPages
+	d.require(docPagesSetScale200ResponseMetaFieldAffectedPages)
+}
+
+// SetCacheDelta sets the CacheDelta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMeta) SetCacheDelta(cacheDelta *DocPagesSetScale200ResponseMetaCacheDelta) {
+	d.CacheDelta = cacheDelta
+	d.require(docPagesSetScale200ResponseMetaFieldCacheDelta)
+}
+
+func (d *DocPagesSetScale200ResponseMeta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMeta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMeta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMeta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMeta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMeta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaAffectedPagesItemFieldPageObjectNumber    = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaAffectedPagesItemFieldRevision            = big.NewInt(1 << 1)
+	docPagesSetScale200ResponseMetaAffectedPagesItemFieldWeakAnnotationState = big.NewInt(1 << 2)
+)
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItem struct {
+	PageObjectNumber    int                                                                  `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Revision            *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision            `json:"revision" url:"revision"`
+	WeakAnnotationState *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState `json:"weakAnnotationState" url:"weakAnnotationState"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) GetRevision() *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision {
+	if d == nil {
+		return nil
+	}
+	return d.Revision
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) GetWeakAnnotationState() *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState {
+	if d == nil {
+		return nil
+	}
+	return d.WeakAnnotationState
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemFieldPageObjectNumber)
+}
+
+// SetRevision sets the Revision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) SetRevision(revision *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) {
+	d.Revision = revision
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemFieldRevision)
+}
+
+// SetWeakAnnotationState sets the WeakAnnotationState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) SetWeakAnnotationState(weakAnnotationState *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) {
+	d.WeakAnnotationState = weakAnnotationState
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemFieldWeakAnnotationState)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaAffectedPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaAffectedPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaAffectedPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID     = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber = big.NewInt(1 << 1)
+	docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldGeneration       = big.NewInt(1 << 2)
+)
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItemRevision struct {
+	DocSessionID     string `json:"docSessionId" url:"docSessionId"`
+	PageObjectNumber int    `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Generation       int    `json:"generation" url:"generation"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) GetDocSessionID() string {
+	if d == nil {
+		return ""
+	}
+	return d.DocSessionID
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) GetGeneration() int {
+	if d == nil {
+		return 0
+	}
+	return d.Generation
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocSessionID sets the DocSessionID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) SetDocSessionID(docSessionID string) {
+	d.DocSessionID = docSessionID
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldDocSessionID)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldPageObjectNumber)
+}
+
+// SetGeneration sets the Generation field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) SetGeneration(generation int) {
+	d.Generation = generation
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemRevisionFieldGeneration)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaAffectedPagesItemRevision
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaAffectedPagesItemRevision(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaAffectedPagesItemRevision
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemRevision) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState struct {
+	Kind    string
+	Unknown *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	Known   *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKind() string {
+	if d == nil {
+		return ""
+	}
+	return d.Kind
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) GetUnknown() *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) GetKnown() *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown {
+	if d == nil {
+		return nil
+	}
+	return d.Known
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", d)
+	}
+	switch unmarshaler.Kind {
+	case "unknown":
+		value := new(DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	case "known":
+		value := new(DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Known = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "kind", "unknown")
+	}
+	if d.Known != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Known, "kind", "known")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor interface {
+	VisitUnknown(*DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) error
+	VisitKnown(*DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) error
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) Accept(visitor DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateVisitor) error {
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	if d.Known != nil {
+		return visitor.VisitKnown(d.Known)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationState) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if d.Known != nil {
+		fields = append(fields, "known")
+	}
+	if len(fields) == 0 {
+		if d.Kind != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Kind != "" {
+		field := fields[0]
+		if d.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Kind,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	docPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations = big.NewInt(1 << 0)
+)
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown struct {
+	HasAnyWeakAnnotations bool `json:"hasAnyWeakAnnotations" url:"hasAnyWeakAnnotations"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetHasAnyWeakAnnotations() bool {
+	if d == nil {
+		return false
+	}
+	return d.HasAnyWeakAnnotations
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetHasAnyWeakAnnotations sets the HasAnyWeakAnnotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) SetHasAnyWeakAnnotations(hasAnyWeakAnnotations bool) {
+	d.HasAnyWeakAnnotations = hasAnyWeakAnnotations
+	d.require(docPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnownFieldHasAnyWeakAnnotations)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateKnown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaAffectedPagesItemWeakAnnotationStateUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaCacheDeltaFieldPreviousDocVersion = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaCacheDeltaFieldDocVersion         = big.NewInt(1 << 1)
+	docPagesSetScale200ResponseMetaCacheDeltaFieldAnnotationsVersion = big.NewInt(1 << 2)
+	docPagesSetScale200ResponseMetaCacheDeltaFieldLayerVersion       = big.NewInt(1 << 3)
+	docPagesSetScale200ResponseMetaCacheDeltaFieldWorking            = big.NewInt(1 << 4)
+	docPagesSetScale200ResponseMetaCacheDeltaFieldPages              = big.NewInt(1 << 5)
+)
+
+type DocPagesSetScale200ResponseMetaCacheDelta struct {
+	PreviousDocVersion int                                                   `json:"previousDocVersion" url:"previousDocVersion"`
+	DocVersion         int                                                   `json:"docVersion" url:"docVersion"`
+	AnnotationsVersion *int                                                  `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
+	LayerVersion       *int                                                  `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
+	Working            *bool                                                 `json:"working,omitempty" url:"working,omitempty"`
+	Pages              []*DocPagesSetScale200ResponseMetaCacheDeltaPagesItem `json:"pages" url:"pages"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetPreviousDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.PreviousDocVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetDocVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.DocVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetAnnotationsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.AnnotationsVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetLayerVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.LayerVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetWorking() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Working
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetPages() []*DocPagesSetScale200ResponseMetaCacheDeltaPagesItem {
+	if d == nil {
+		return nil
+	}
+	return d.Pages
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPreviousDocVersion sets the PreviousDocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetPreviousDocVersion(previousDocVersion int) {
+	d.PreviousDocVersion = previousDocVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldPreviousDocVersion)
+}
+
+// SetDocVersion sets the DocVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetDocVersion(docVersion int) {
+	d.DocVersion = docVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldDocVersion)
+}
+
+// SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetAnnotationsVersion(annotationsVersion *int) {
+	d.AnnotationsVersion = annotationsVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldAnnotationsVersion)
+}
+
+// SetLayerVersion sets the LayerVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetLayerVersion(layerVersion *int) {
+	d.LayerVersion = layerVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldLayerVersion)
+}
+
+// SetWorking sets the Working field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetWorking(working *bool) {
+	d.Working = working
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldWorking)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) SetPages(pages []*DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) {
+	d.Pages = pages
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaFieldPages)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaCacheDelta
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaCacheDelta(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaCacheDelta
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDelta) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaCacheDeltaPagesItemFieldCache            = big.NewInt(1 << 1)
+)
+
+type DocPagesSetScale200ResponseMetaCacheDeltaPagesItem struct {
+	PageObjectNumber int                                                      `json:"pageObjectNumber" url:"pageObjectNumber"`
+	Cache            *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache `json:"cache" url:"cache"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) GetPageObjectNumber() int {
+	if d == nil {
+		return 0
+	}
+	return d.PageObjectNumber
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) GetCache() *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache {
+	if d == nil {
+		return nil
+	}
+	return d.Cache
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetPageObjectNumber sets the PageObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) SetPageObjectNumber(pageObjectNumber int) {
+	d.PageObjectNumber = pageObjectNumber
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaPagesItemFieldPageObjectNumber)
+}
+
+// SetCache sets the Cache field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) SetCache(cache *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) {
+	d.Cache = cache
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaPagesItemFieldCache)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaCacheDeltaPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaCacheDeltaPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaCacheDeltaPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
+	docPagesSetScale200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
+)
+
+type DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache struct {
+	ContentVersion    int `json:"contentVersion" url:"contentVersion"`
+	AnnotationVersion int `json:"annotationVersion" url:"annotationVersion"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) GetContentVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.ContentVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) GetAnnotationVersion() int {
+	if d == nil {
+		return 0
+	}
+	return d.AnnotationVersion
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetContentVersion sets the ContentVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) SetContentVersion(contentVersion int) {
+	d.ContentVersion = contentVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaPagesItemCacheFieldContentVersion)
+}
+
+// SetAnnotationVersion sets the AnnotationVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) SetAnnotationVersion(annotationVersion int) {
+	d.AnnotationVersion = annotationVersion
+	d.require(docPagesSetScale200ResponseMetaCacheDeltaPagesItemCacheFieldAnnotationVersion)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale200ResponseMetaCacheDeltaPagesItemCache) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScale400ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesSetScale400ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesSetScale400ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesSetScale400ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesSetScale400Response struct {
+	Name    DocPagesSetScale400ResponseName `json:"name" url:"name"`
+	Code    DocPagesSetScale400ResponseCode `json:"code" url:"code"`
+	Message string                          `json:"message" url:"message"`
+	Details map[string]any                  `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale400Response) GetName() DocPagesSetScale400ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesSetScale400Response) GetCode() DocPagesSetScale400ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesSetScale400Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesSetScale400Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesSetScale400Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale400Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale400Response) SetName(name DocPagesSetScale400ResponseName) {
+	d.Name = name
+	d.require(docPagesSetScale400ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale400Response) SetCode(code DocPagesSetScale400ResponseCode) {
+	d.Code = code
+	d.require(docPagesSetScale400ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale400Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesSetScale400ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale400Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesSetScale400ResponseFieldDetails)
+}
+
+func (d *DocPagesSetScale400Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale400Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale400Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale400Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale400Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale400Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScale400ResponseCode string
+
+const (
+	DocPagesSetScale400ResponseCodeUnknown                       DocPagesSetScale400ResponseCode = "Unknown"
+	DocPagesSetScale400ResponseCodeInvalidArg                    DocPagesSetScale400ResponseCode = "InvalidArg"
+	DocPagesSetScale400ResponseCodeDocNotOpen                    DocPagesSetScale400ResponseCode = "DocNotOpen"
+	DocPagesSetScale400ResponseCodeDocOpenFailed                 DocPagesSetScale400ResponseCode = "DocOpenFailed"
+	DocPagesSetScale400ResponseCodeDocPasswordRequired           DocPagesSetScale400ResponseCode = "DocPasswordRequired"
+	DocPagesSetScale400ResponseCodeDocPasswordIncorrect          DocPagesSetScale400ResponseCode = "DocPasswordIncorrect"
+	DocPagesSetScale400ResponseCodeSharePasswordRequired         DocPagesSetScale400ResponseCode = "SharePasswordRequired"
+	DocPagesSetScale400ResponseCodeAborted                       DocPagesSetScale400ResponseCode = "Aborted"
+	DocPagesSetScale400ResponseCodeNetwork                       DocPagesSetScale400ResponseCode = "Network"
+	DocPagesSetScale400ResponseCodeUnauthenticated               DocPagesSetScale400ResponseCode = "Unauthenticated"
+	DocPagesSetScale400ResponseCodeForbidden                     DocPagesSetScale400ResponseCode = "Forbidden"
+	DocPagesSetScale400ResponseCodeNotFound                      DocPagesSetScale400ResponseCode = "NotFound"
+	DocPagesSetScale400ResponseCodeWireFormat                    DocPagesSetScale400ResponseCode = "WireFormat"
+	DocPagesSetScale400ResponseCodeRuntimeUnavailable            DocPagesSetScale400ResponseCode = "RuntimeUnavailable"
+	DocPagesSetScale400ResponseCodeInvalidReference              DocPagesSetScale400ResponseCode = "InvalidReference"
+	DocPagesSetScale400ResponseCodeWeakAnnotationSessionConflict DocPagesSetScale400ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesSetScale400ResponseCodeLayerVersionConflict          DocPagesSetScale400ResponseCode = "LayerVersionConflict"
+	DocPagesSetScale400ResponseCodeNotImplemented                DocPagesSetScale400ResponseCode = "NotImplemented"
+	DocPagesSetScale400ResponseCodeMalformedPdf                  DocPagesSetScale400ResponseCode = "MalformedPdf"
+	DocPagesSetScale400ResponseCodeSigningPending                DocPagesSetScale400ResponseCode = "SigningPending"
+	DocPagesSetScale400ResponseCodeSigningExpired                DocPagesSetScale400ResponseCode = "SigningExpired"
+	DocPagesSetScale400ResponseCodeSigningVersionMismatch        DocPagesSetScale400ResponseCode = "SigningVersionMismatch"
+	DocPagesSetScale400ResponseCodeSignatureRefused              DocPagesSetScale400ResponseCode = "SignatureRefused"
+	DocPagesSetScale400ResponseCodeProtectedDocument             DocPagesSetScale400ResponseCode = "ProtectedDocument"
+	DocPagesSetScale400ResponseCodeStaleBase                     DocPagesSetScale400ResponseCode = "StaleBase"
+)
+
+func NewDocPagesSetScale400ResponseCodeFromString(s string) (DocPagesSetScale400ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesSetScale400ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesSetScale400ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesSetScale400ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesSetScale400ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesSetScale400ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesSetScale400ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesSetScale400ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesSetScale400ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesSetScale400ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesSetScale400ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesSetScale400ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesSetScale400ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesSetScale400ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesSetScale400ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesSetScale400ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesSetScale400ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesSetScale400ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesSetScale400ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesSetScale400ResponseCodeMalformedPdf, nil
+	case "SigningPending":
+		return DocPagesSetScale400ResponseCodeSigningPending, nil
+	case "SigningExpired":
+		return DocPagesSetScale400ResponseCodeSigningExpired, nil
+	case "SigningVersionMismatch":
+		return DocPagesSetScale400ResponseCodeSigningVersionMismatch, nil
+	case "SignatureRefused":
+		return DocPagesSetScale400ResponseCodeSignatureRefused, nil
+	case "ProtectedDocument":
+		return DocPagesSetScale400ResponseCodeProtectedDocument, nil
+	case "StaleBase":
+		return DocPagesSetScale400ResponseCodeStaleBase, nil
+	}
+	var t DocPagesSetScale400ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScale400ResponseCode) Ptr() *DocPagesSetScale400ResponseCode {
+	return &d
+}
+
+type DocPagesSetScale400ResponseName string
+
+const (
+	DocPagesSetScale400ResponseNameEngineError DocPagesSetScale400ResponseName = "EngineError"
+)
+
+func NewDocPagesSetScale400ResponseNameFromString(s string) (DocPagesSetScale400ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesSetScale400ResponseNameEngineError, nil
+	}
+	var t DocPagesSetScale400ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScale400ResponseName) Ptr() *DocPagesSetScale400ResponseName {
+	return &d
+}
+
+var (
+	docPagesSetScale404ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesSetScale404ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesSetScale404ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesSetScale404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesSetScale404Response struct {
+	Name    DocPagesSetScale404ResponseName `json:"name" url:"name"`
+	Code    DocPagesSetScale404ResponseCode `json:"code" url:"code"`
+	Message string                          `json:"message" url:"message"`
+	Details map[string]any                  `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScale404Response) GetName() DocPagesSetScale404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesSetScale404Response) GetCode() DocPagesSetScale404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesSetScale404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesSetScale404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesSetScale404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScale404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale404Response) SetName(name DocPagesSetScale404ResponseName) {
+	d.Name = name
+	d.require(docPagesSetScale404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale404Response) SetCode(code DocPagesSetScale404ResponseCode) {
+	d.Code = code
+	d.require(docPagesSetScale404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesSetScale404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScale404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesSetScale404ResponseFieldDetails)
+}
+
+func (d *DocPagesSetScale404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScale404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScale404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScale404Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScale404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScale404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScale404ResponseCode string
+
+const (
+	DocPagesSetScale404ResponseCodeUnknown                       DocPagesSetScale404ResponseCode = "Unknown"
+	DocPagesSetScale404ResponseCodeInvalidArg                    DocPagesSetScale404ResponseCode = "InvalidArg"
+	DocPagesSetScale404ResponseCodeDocNotOpen                    DocPagesSetScale404ResponseCode = "DocNotOpen"
+	DocPagesSetScale404ResponseCodeDocOpenFailed                 DocPagesSetScale404ResponseCode = "DocOpenFailed"
+	DocPagesSetScale404ResponseCodeDocPasswordRequired           DocPagesSetScale404ResponseCode = "DocPasswordRequired"
+	DocPagesSetScale404ResponseCodeDocPasswordIncorrect          DocPagesSetScale404ResponseCode = "DocPasswordIncorrect"
+	DocPagesSetScale404ResponseCodeSharePasswordRequired         DocPagesSetScale404ResponseCode = "SharePasswordRequired"
+	DocPagesSetScale404ResponseCodeAborted                       DocPagesSetScale404ResponseCode = "Aborted"
+	DocPagesSetScale404ResponseCodeNetwork                       DocPagesSetScale404ResponseCode = "Network"
+	DocPagesSetScale404ResponseCodeUnauthenticated               DocPagesSetScale404ResponseCode = "Unauthenticated"
+	DocPagesSetScale404ResponseCodeForbidden                     DocPagesSetScale404ResponseCode = "Forbidden"
+	DocPagesSetScale404ResponseCodeNotFound                      DocPagesSetScale404ResponseCode = "NotFound"
+	DocPagesSetScale404ResponseCodeWireFormat                    DocPagesSetScale404ResponseCode = "WireFormat"
+	DocPagesSetScale404ResponseCodeRuntimeUnavailable            DocPagesSetScale404ResponseCode = "RuntimeUnavailable"
+	DocPagesSetScale404ResponseCodeInvalidReference              DocPagesSetScale404ResponseCode = "InvalidReference"
+	DocPagesSetScale404ResponseCodeWeakAnnotationSessionConflict DocPagesSetScale404ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesSetScale404ResponseCodeLayerVersionConflict          DocPagesSetScale404ResponseCode = "LayerVersionConflict"
+	DocPagesSetScale404ResponseCodeNotImplemented                DocPagesSetScale404ResponseCode = "NotImplemented"
+	DocPagesSetScale404ResponseCodeMalformedPdf                  DocPagesSetScale404ResponseCode = "MalformedPdf"
+	DocPagesSetScale404ResponseCodeSigningPending                DocPagesSetScale404ResponseCode = "SigningPending"
+	DocPagesSetScale404ResponseCodeSigningExpired                DocPagesSetScale404ResponseCode = "SigningExpired"
+	DocPagesSetScale404ResponseCodeSigningVersionMismatch        DocPagesSetScale404ResponseCode = "SigningVersionMismatch"
+	DocPagesSetScale404ResponseCodeSignatureRefused              DocPagesSetScale404ResponseCode = "SignatureRefused"
+	DocPagesSetScale404ResponseCodeProtectedDocument             DocPagesSetScale404ResponseCode = "ProtectedDocument"
+	DocPagesSetScale404ResponseCodeStaleBase                     DocPagesSetScale404ResponseCode = "StaleBase"
+)
+
+func NewDocPagesSetScale404ResponseCodeFromString(s string) (DocPagesSetScale404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesSetScale404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesSetScale404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesSetScale404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesSetScale404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesSetScale404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesSetScale404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesSetScale404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesSetScale404ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesSetScale404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesSetScale404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesSetScale404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesSetScale404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesSetScale404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesSetScale404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesSetScale404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesSetScale404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesSetScale404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesSetScale404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesSetScale404ResponseCodeMalformedPdf, nil
+	case "SigningPending":
+		return DocPagesSetScale404ResponseCodeSigningPending, nil
+	case "SigningExpired":
+		return DocPagesSetScale404ResponseCodeSigningExpired, nil
+	case "SigningVersionMismatch":
+		return DocPagesSetScale404ResponseCodeSigningVersionMismatch, nil
+	case "SignatureRefused":
+		return DocPagesSetScale404ResponseCodeSignatureRefused, nil
+	case "ProtectedDocument":
+		return DocPagesSetScale404ResponseCodeProtectedDocument, nil
+	case "StaleBase":
+		return DocPagesSetScale404ResponseCodeStaleBase, nil
+	}
+	var t DocPagesSetScale404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScale404ResponseCode) Ptr() *DocPagesSetScale404ResponseCode {
+	return &d
+}
+
+type DocPagesSetScale404ResponseName string
+
+const (
+	DocPagesSetScale404ResponseNameEngineError DocPagesSetScale404ResponseName = "EngineError"
+)
+
+func NewDocPagesSetScale404ResponseNameFromString(s string) (DocPagesSetScale404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesSetScale404ResponseNameEngineError, nil
+	}
+	var t DocPagesSetScale404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScale404ResponseName) Ptr() *DocPagesSetScale404ResponseName {
+	return &d
+}
+
+type DocPagesViewports200Response = []*DocPagesViewports200ResponseItem
+
+var (
+	docPagesViewports200ResponseItemFieldBbox    = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemFieldName    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemFieldMeasure = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemFieldOwned   = big.NewInt(1 << 3)
+)
+
+type DocPagesViewports200ResponseItem struct {
+	Bbox    *DocPagesViewports200ResponseItemBbox    `json:"bbox" url:"bbox"`
+	Name    *string                                  `json:"name,omitempty" url:"name,omitempty"`
+	Measure *DocPagesViewports200ResponseItemMeasure `json:"measure,omitempty" url:"measure,omitempty"`
+	Owned   bool                                     `json:"owned" url:"owned"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItem) GetBbox() *DocPagesViewports200ResponseItemBbox {
+	if d == nil {
+		return nil
+	}
+	return d.Bbox
+}
+
+func (d *DocPagesViewports200ResponseItem) GetName() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Name
+}
+
+func (d *DocPagesViewports200ResponseItem) GetMeasure() *DocPagesViewports200ResponseItemMeasure {
+	if d == nil {
+		return nil
+	}
+	return d.Measure
+}
+
+func (d *DocPagesViewports200ResponseItem) GetOwned() bool {
+	if d == nil {
+		return false
+	}
+	return d.Owned
+}
+
+func (d *DocPagesViewports200ResponseItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetBbox sets the Bbox field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItem) SetBbox(bbox *DocPagesViewports200ResponseItemBbox) {
+	d.Bbox = bbox
+	d.require(docPagesViewports200ResponseItemFieldBbox)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItem) SetName(name *string) {
+	d.Name = name
+	d.require(docPagesViewports200ResponseItemFieldName)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItem) SetMeasure(measure *DocPagesViewports200ResponseItemMeasure) {
+	d.Measure = measure
+	d.require(docPagesViewports200ResponseItemFieldMeasure)
+}
+
+// SetOwned sets the Owned field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItem) SetOwned(owned bool) {
+	d.Owned = owned
+	d.require(docPagesViewports200ResponseItemFieldOwned)
+}
+
+func (d *DocPagesViewports200ResponseItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesViewports200ResponseItemBboxFieldLeft   = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemBboxFieldBottom = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemBboxFieldRight  = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemBboxFieldTop    = big.NewInt(1 << 3)
+)
+
+type DocPagesViewports200ResponseItemBbox struct {
+	Left   float64 `json:"left" url:"left"`
+	Bottom float64 `json:"bottom" url:"bottom"`
+	Right  float64 `json:"right" url:"right"`
+	Top    float64 `json:"top" url:"top"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) GetLeft() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Left
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) GetBottom() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Bottom
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) GetRight() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Right
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) GetTop() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Top
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetLeft sets the Left field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemBbox) SetLeft(left float64) {
+	d.Left = left
+	d.require(docPagesViewports200ResponseItemBboxFieldLeft)
+}
+
+// SetBottom sets the Bottom field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemBbox) SetBottom(bottom float64) {
+	d.Bottom = bottom
+	d.require(docPagesViewports200ResponseItemBboxFieldBottom)
+}
+
+// SetRight sets the Right field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemBbox) SetRight(right float64) {
+	d.Right = right
+	d.require(docPagesViewports200ResponseItemBboxFieldRight)
+}
+
+// SetTop sets the Top field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemBbox) SetTop(top float64) {
+	d.Top = top
+	d.require(docPagesViewports200ResponseItemBboxFieldTop)
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemBbox
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemBbox(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemBbox
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemBbox) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasure struct {
+	Subtype string
+	Rl      *DocPagesViewports200ResponseItemMeasureRl
+	Geo     *DocPagesViewports200ResponseItemMeasureGeo
+	Unknown *DocPagesViewports200ResponseItemMeasureUnknown
+
+	rawJSON json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) GetSubtype() string {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) GetRl() *DocPagesViewports200ResponseItemMeasureRl {
+	if d == nil {
+		return nil
+	}
+	return d.Rl
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) GetGeo() *DocPagesViewports200ResponseItemMeasureGeo {
+	if d == nil {
+		return nil
+	}
+	return d.Geo
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) GetUnknown() *DocPagesViewports200ResponseItemMeasureUnknown {
+	if d == nil {
+		return nil
+	}
+	return d.Unknown
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Subtype string `json:"subtype"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	d.Subtype = unmarshaler.Subtype
+	if unmarshaler.Subtype == "" {
+		return fmt.Errorf("%T did not include discriminant subtype", d)
+	}
+	switch unmarshaler.Subtype {
+	case "RL":
+		value := new(DocPagesViewports200ResponseItemMeasureRl)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Rl = value
+	case "GEO":
+		value := new(DocPagesViewports200ResponseItemMeasureGeo)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Geo = value
+	case "unknown":
+		value := new(DocPagesViewports200ResponseItemMeasureUnknown)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		d.Unknown = value
+	}
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d DocPagesViewports200ResponseItemMeasure) MarshalJSON() ([]byte, error) {
+	if err := d.validate(); err != nil {
+		return nil, err
+	}
+	if d.Rl != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Rl, "subtype", "RL")
+	}
+	if d.Geo != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Geo, "subtype", "GEO")
+	}
+	if d.Unknown != nil {
+		return internal.MarshalJSONWithExtraProperty(d.Unknown, "subtype", "unknown")
+	}
+	if len(d.rawJSON) > 0 {
+		return d.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureVisitor interface {
+	VisitRl(*DocPagesViewports200ResponseItemMeasureRl) error
+	VisitGeo(*DocPagesViewports200ResponseItemMeasureGeo) error
+	VisitUnknown(*DocPagesViewports200ResponseItemMeasureUnknown) error
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) Accept(visitor DocPagesViewports200ResponseItemMeasureVisitor) error {
+	if d.Rl != nil {
+		return visitor.VisitRl(d.Rl)
+	}
+	if d.Geo != nil {
+		return visitor.VisitGeo(d.Geo)
+	}
+	if d.Unknown != nil {
+		return visitor.VisitUnknown(d.Unknown)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", d)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasure) validate() error {
+	if d == nil {
+		return fmt.Errorf("type %T is nil", d)
+	}
+	var fields []string
+	if d.Rl != nil {
+		fields = append(fields, "RL")
+	}
+	if d.Geo != nil {
+		fields = append(fields, "GEO")
+	}
+	if d.Unknown != nil {
+		fields = append(fields, "unknown")
+	}
+	if len(fields) == 0 {
+		if d.Subtype != "" {
+			if len(d.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Subtype)
+		}
+		return fmt.Errorf("type %T is empty", d)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
+	}
+	if d.Subtype != "" {
+		field := fields[0]
+		if d.Subtype != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				d,
+				d.Subtype,
+				d,
+			)
+		}
+	}
+	return nil
+}
+
+type DocPagesViewports200ResponseItemMeasureGeo struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureGeo) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureGeo) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureGeo) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureGeo
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureGeo(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureGeo) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureGeo
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureGeo) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlFieldRatio    = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlFieldX        = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlFieldY        = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlFieldDistance = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlFieldArea     = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlFieldAngle    = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlFieldSlope    = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlFieldOrigin   = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlFieldCyx      = big.NewInt(1 << 8)
+)
+
+type DocPagesViewports200ResponseItemMeasureRl struct {
+	Ratio    *string                                                  `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocPagesViewports200ResponseItemMeasureRlXItem        `json:"x" url:"x"`
+	Y        []*DocPagesViewports200ResponseItemMeasureRlYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocPagesViewports200ResponseItemMeasureRlDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocPagesViewports200ResponseItemMeasureRlAreaItem     `json:"area" url:"area"`
+	Angle    []*DocPagesViewports200ResponseItemMeasureRlAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocPagesViewports200ResponseItemMeasureRlSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocPagesViewports200ResponseItemMeasureRlOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                                 `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetX() []*DocPagesViewports200ResponseItemMeasureRlXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetY() []*DocPagesViewports200ResponseItemMeasureRlYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetDistance() []*DocPagesViewports200ResponseItemMeasureRlDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetArea() []*DocPagesViewports200ResponseItemMeasureRlAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetAngle() []*DocPagesViewports200ResponseItemMeasureRlAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetSlope() []*DocPagesViewports200ResponseItemMeasureRlSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetOrigin() *DocPagesViewports200ResponseItemMeasureRlOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetX(x []*DocPagesViewports200ResponseItemMeasureRlXItem) {
+	d.X = x
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetY(y []*DocPagesViewports200ResponseItemMeasureRlYItem) {
+	d.Y = y
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetDistance(distance []*DocPagesViewports200ResponseItemMeasureRlDistanceItem) {
+	d.Distance = distance
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetArea(area []*DocPagesViewports200ResponseItemMeasureRlAreaItem) {
+	d.Area = area
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetAngle(angle []*DocPagesViewports200ResponseItemMeasureRlAngleItem) {
+	d.Angle = angle
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetSlope(slope []*DocPagesViewports200ResponseItemMeasureRlSlopeItem) {
+	d.Slope = slope
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetOrigin(origin *DocPagesViewports200ResponseItemMeasureRlOrigin) {
+	d.Origin = origin
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRl) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docPagesViewports200ResponseItemMeasureRlFieldCyx)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRl
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRl(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRl
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRl) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlAngleItem struct {
+	Unit          string                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlAngleItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlAngleItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlAngleItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlAngleItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlAngleItemFractionFraction DocPagesViewports200ResponseItemMeasureRlAngleItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlAngleItemFractionRound    DocPagesViewports200ResponseItemMeasureRlAngleItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlAngleItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlAngleItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlAngleItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlAngleItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlAngleItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlAngleItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlAreaItem struct {
+	Unit          string                                                          `json:"unit" url:"unit"`
+	Conversion    *float64                                                        `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlAreaItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlAreaItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlAreaItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlAreaItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlAreaItemFractionFraction DocPagesViewports200ResponseItemMeasureRlAreaItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlAreaItemFractionRound    DocPagesViewports200ResponseItemMeasureRlAreaItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlAreaItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlAreaItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlAreaItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlAreaItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlAreaItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlAreaItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlDistanceItem struct {
+	Unit          string                                                              `json:"unit" url:"unit"`
+	Conversion    *float64                                                            `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlDistanceItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionFraction DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionRound    DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlDistanceItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlDistanceItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlOriginFieldX = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docPagesViewports200ResponseItemMeasureRlOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docPagesViewports200ResponseItemMeasureRlOriginFieldY)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlSlopeItem struct {
+	Unit          string                                                           `json:"unit" url:"unit"`
+	Conversion    *float64                                                         `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                             `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                            `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                          `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                          `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                          `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                          `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlSlopeItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionFraction DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionRound    DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlSlopeItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlSlopeItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlSlopeItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlXItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlXItem struct {
+	Unit          string                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlXItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlXItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlXItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlXItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlXItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlXItemFractionFraction DocPagesViewports200ResponseItemMeasureRlXItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlXItemFractionRound    DocPagesViewports200ResponseItemMeasureRlXItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlXItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlXItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlXItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlXItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlXItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlXItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlXItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlXItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlXItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlXItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlXItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlXItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlXItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlXItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesViewports200ResponseItemMeasureRlYItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesViewports200ResponseItemMeasureRlYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesViewports200ResponseItemMeasureRlYItem struct {
+	Unit          string                                                       `json:"unit" url:"unit"`
+	Conversion    *float64                                                     `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *DocPagesViewports200ResponseItemMeasureRlYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                         `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                        `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                      `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                      `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                      `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                      `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetConversion() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetFraction() *DocPagesViewports200ResponseItemMeasureRlYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetLabelPosition() *DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetConversion(conversion *float64) {
+	d.Conversion = conversion
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetFraction(fraction *DocPagesViewports200ResponseItemMeasureRlYItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) SetLabelPosition(labelPosition *DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesViewports200ResponseItemMeasureRlYItemFieldLabelPosition)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureRlYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureRlYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureRlYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureRlYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports200ResponseItemMeasureRlYItemFraction string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlYItemFractionDecimal  DocPagesViewports200ResponseItemMeasureRlYItemFraction = "decimal"
+	DocPagesViewports200ResponseItemMeasureRlYItemFractionFraction DocPagesViewports200ResponseItemMeasureRlYItemFraction = "fraction"
+	DocPagesViewports200ResponseItemMeasureRlYItemFractionRound    DocPagesViewports200ResponseItemMeasureRlYItemFraction = "round"
+	DocPagesViewports200ResponseItemMeasureRlYItemFractionTruncate DocPagesViewports200ResponseItemMeasureRlYItemFraction = "truncate"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlYItemFractionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesViewports200ResponseItemMeasureRlYItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesViewports200ResponseItemMeasureRlYItemFractionFraction, nil
+	case "round":
+		return DocPagesViewports200ResponseItemMeasureRlYItemFractionRound, nil
+	case "truncate":
+		return DocPagesViewports200ResponseItemMeasureRlYItemFractionTruncate, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlYItemFraction) Ptr() *DocPagesViewports200ResponseItemMeasureRlYItemFraction {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition string
+
+const (
+	DocPagesViewports200ResponseItemMeasureRlYItemLabelPositionSuffix DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition = "suffix"
+	DocPagesViewports200ResponseItemMeasureRlYItemLabelPositionPrefix DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition = "prefix"
+)
+
+func NewDocPagesViewports200ResponseItemMeasureRlYItemLabelPositionFromString(s string) (DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesViewports200ResponseItemMeasureRlYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesViewports200ResponseItemMeasureRlYItemLabelPositionPrefix, nil
+	}
+	var t DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition) Ptr() *DocPagesViewports200ResponseItemMeasureRlYItemLabelPosition {
+	return &d
+}
+
+type DocPagesViewports200ResponseItemMeasureUnknown struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureUnknown) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureUnknown) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureUnknown) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports200ResponseItemMeasureUnknown
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports200ResponseItemMeasureUnknown(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureUnknown) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports200ResponseItemMeasureUnknown
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports200ResponseItemMeasureUnknown) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesViewports404ResponseFieldName    = big.NewInt(1 << 0)
+	docPagesViewports404ResponseFieldCode    = big.NewInt(1 << 1)
+	docPagesViewports404ResponseFieldMessage = big.NewInt(1 << 2)
+	docPagesViewports404ResponseFieldDetails = big.NewInt(1 << 3)
+)
+
+type DocPagesViewports404Response struct {
+	Name    DocPagesViewports404ResponseName `json:"name" url:"name"`
+	Code    DocPagesViewports404ResponseCode `json:"code" url:"code"`
+	Message string                           `json:"message" url:"message"`
+	Details map[string]any                   `json:"details,omitempty" url:"details,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesViewports404Response) GetName() DocPagesViewports404ResponseName {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocPagesViewports404Response) GetCode() DocPagesViewports404ResponseCode {
+	if d == nil {
+		return ""
+	}
+	return d.Code
+}
+
+func (d *DocPagesViewports404Response) GetMessage() string {
+	if d == nil {
+		return ""
+	}
+	return d.Message
+}
+
+func (d *DocPagesViewports404Response) GetDetails() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Details
+}
+
+func (d *DocPagesViewports404Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesViewports404Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports404Response) SetName(name DocPagesViewports404ResponseName) {
+	d.Name = name
+	d.require(docPagesViewports404ResponseFieldName)
+}
+
+// SetCode sets the Code field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports404Response) SetCode(code DocPagesViewports404ResponseCode) {
+	d.Code = code
+	d.require(docPagesViewports404ResponseFieldCode)
+}
+
+// SetMessage sets the Message field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports404Response) SetMessage(message string) {
+	d.Message = message
+	d.require(docPagesViewports404ResponseFieldMessage)
+}
+
+// SetDetails sets the Details field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesViewports404Response) SetDetails(details map[string]any) {
+	d.Details = details
+	d.require(docPagesViewports404ResponseFieldDetails)
+}
+
+func (d *DocPagesViewports404Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesViewports404Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesViewports404Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesViewports404Response) MarshalJSON() ([]byte, error) {
+	type embed DocPagesViewports404Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesViewports404Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesViewports404ResponseCode string
+
+const (
+	DocPagesViewports404ResponseCodeUnknown                       DocPagesViewports404ResponseCode = "Unknown"
+	DocPagesViewports404ResponseCodeInvalidArg                    DocPagesViewports404ResponseCode = "InvalidArg"
+	DocPagesViewports404ResponseCodeDocNotOpen                    DocPagesViewports404ResponseCode = "DocNotOpen"
+	DocPagesViewports404ResponseCodeDocOpenFailed                 DocPagesViewports404ResponseCode = "DocOpenFailed"
+	DocPagesViewports404ResponseCodeDocPasswordRequired           DocPagesViewports404ResponseCode = "DocPasswordRequired"
+	DocPagesViewports404ResponseCodeDocPasswordIncorrect          DocPagesViewports404ResponseCode = "DocPasswordIncorrect"
+	DocPagesViewports404ResponseCodeSharePasswordRequired         DocPagesViewports404ResponseCode = "SharePasswordRequired"
+	DocPagesViewports404ResponseCodeAborted                       DocPagesViewports404ResponseCode = "Aborted"
+	DocPagesViewports404ResponseCodeNetwork                       DocPagesViewports404ResponseCode = "Network"
+	DocPagesViewports404ResponseCodeUnauthenticated               DocPagesViewports404ResponseCode = "Unauthenticated"
+	DocPagesViewports404ResponseCodeForbidden                     DocPagesViewports404ResponseCode = "Forbidden"
+	DocPagesViewports404ResponseCodeNotFound                      DocPagesViewports404ResponseCode = "NotFound"
+	DocPagesViewports404ResponseCodeWireFormat                    DocPagesViewports404ResponseCode = "WireFormat"
+	DocPagesViewports404ResponseCodeRuntimeUnavailable            DocPagesViewports404ResponseCode = "RuntimeUnavailable"
+	DocPagesViewports404ResponseCodeInvalidReference              DocPagesViewports404ResponseCode = "InvalidReference"
+	DocPagesViewports404ResponseCodeWeakAnnotationSessionConflict DocPagesViewports404ResponseCode = "WeakAnnotationSessionConflict"
+	DocPagesViewports404ResponseCodeLayerVersionConflict          DocPagesViewports404ResponseCode = "LayerVersionConflict"
+	DocPagesViewports404ResponseCodeNotImplemented                DocPagesViewports404ResponseCode = "NotImplemented"
+	DocPagesViewports404ResponseCodeMalformedPdf                  DocPagesViewports404ResponseCode = "MalformedPdf"
+	DocPagesViewports404ResponseCodeSigningPending                DocPagesViewports404ResponseCode = "SigningPending"
+	DocPagesViewports404ResponseCodeSigningExpired                DocPagesViewports404ResponseCode = "SigningExpired"
+	DocPagesViewports404ResponseCodeSigningVersionMismatch        DocPagesViewports404ResponseCode = "SigningVersionMismatch"
+	DocPagesViewports404ResponseCodeSignatureRefused              DocPagesViewports404ResponseCode = "SignatureRefused"
+	DocPagesViewports404ResponseCodeProtectedDocument             DocPagesViewports404ResponseCode = "ProtectedDocument"
+	DocPagesViewports404ResponseCodeStaleBase                     DocPagesViewports404ResponseCode = "StaleBase"
+)
+
+func NewDocPagesViewports404ResponseCodeFromString(s string) (DocPagesViewports404ResponseCode, error) {
+	switch s {
+	case "Unknown":
+		return DocPagesViewports404ResponseCodeUnknown, nil
+	case "InvalidArg":
+		return DocPagesViewports404ResponseCodeInvalidArg, nil
+	case "DocNotOpen":
+		return DocPagesViewports404ResponseCodeDocNotOpen, nil
+	case "DocOpenFailed":
+		return DocPagesViewports404ResponseCodeDocOpenFailed, nil
+	case "DocPasswordRequired":
+		return DocPagesViewports404ResponseCodeDocPasswordRequired, nil
+	case "DocPasswordIncorrect":
+		return DocPagesViewports404ResponseCodeDocPasswordIncorrect, nil
+	case "SharePasswordRequired":
+		return DocPagesViewports404ResponseCodeSharePasswordRequired, nil
+	case "Aborted":
+		return DocPagesViewports404ResponseCodeAborted, nil
+	case "Network":
+		return DocPagesViewports404ResponseCodeNetwork, nil
+	case "Unauthenticated":
+		return DocPagesViewports404ResponseCodeUnauthenticated, nil
+	case "Forbidden":
+		return DocPagesViewports404ResponseCodeForbidden, nil
+	case "NotFound":
+		return DocPagesViewports404ResponseCodeNotFound, nil
+	case "WireFormat":
+		return DocPagesViewports404ResponseCodeWireFormat, nil
+	case "RuntimeUnavailable":
+		return DocPagesViewports404ResponseCodeRuntimeUnavailable, nil
+	case "InvalidReference":
+		return DocPagesViewports404ResponseCodeInvalidReference, nil
+	case "WeakAnnotationSessionConflict":
+		return DocPagesViewports404ResponseCodeWeakAnnotationSessionConflict, nil
+	case "LayerVersionConflict":
+		return DocPagesViewports404ResponseCodeLayerVersionConflict, nil
+	case "NotImplemented":
+		return DocPagesViewports404ResponseCodeNotImplemented, nil
+	case "MalformedPdf":
+		return DocPagesViewports404ResponseCodeMalformedPdf, nil
+	case "SigningPending":
+		return DocPagesViewports404ResponseCodeSigningPending, nil
+	case "SigningExpired":
+		return DocPagesViewports404ResponseCodeSigningExpired, nil
+	case "SigningVersionMismatch":
+		return DocPagesViewports404ResponseCodeSigningVersionMismatch, nil
+	case "SignatureRefused":
+		return DocPagesViewports404ResponseCodeSignatureRefused, nil
+	case "ProtectedDocument":
+		return DocPagesViewports404ResponseCodeProtectedDocument, nil
+	case "StaleBase":
+		return DocPagesViewports404ResponseCodeStaleBase, nil
+	}
+	var t DocPagesViewports404ResponseCode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports404ResponseCode) Ptr() *DocPagesViewports404ResponseCode {
+	return &d
+}
+
+type DocPagesViewports404ResponseName string
+
+const (
+	DocPagesViewports404ResponseNameEngineError DocPagesViewports404ResponseName = "EngineError"
+)
+
+func NewDocPagesViewports404ResponseNameFromString(s string) (DocPagesViewports404ResponseName, error) {
+	switch s {
+	case "EngineError":
+		return DocPagesViewports404ResponseNameEngineError, nil
+	}
+	var t DocPagesViewports404ResponseName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesViewports404ResponseName) Ptr() *DocPagesViewports404ResponseName {
+	return &d
+}
 
 var (
 	docRedactionsApply200ResponseFieldMeta = big.NewInt(1 << 0)

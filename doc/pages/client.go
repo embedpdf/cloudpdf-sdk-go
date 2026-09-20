@@ -38,6 +38,60 @@ func NewClient(options *core.RequestOptions) *Client {
 
 // Example:
 //
+//	request := &doc.DocPagesSetScaleRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Pon: 1,
+//	}
+//	client.Doc.Pages.SetScale(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) SetScale(
+	ctx context.Context,
+	request *doc.DocPagesSetScaleRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesSetScale200Response, error) {
+	response, err := c.WithRawResponse.SetScale(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.ViewportsPagesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Pon: 1,
+//	}
+//	client.Doc.Pages.Viewports(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Viewports(
+	ctx context.Context,
+	request *doc.ViewportsPagesRequest,
+	opts ...option.RequestOption,
+) (cloudpdf.DocPagesViewports200Response, error) {
+	response, err := c.WithRawResponse.Viewports(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
 //	request := &doc.DeletePagesRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",

@@ -1643,6 +1643,90 @@
       }
     },
     {
+      "id": "5c511340-836c-47f3-915b-df31eb49769a",
+      "name": "Upsert or remove EmbedPDF calibration while preserving foreign viewports. Existing annotation scales are unchanged. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/{pon}/scale",
+        "method": "PUT",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"pageObjectNumber\": 1,\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"pageObjectNumber\": 1,\n        \"revision\": {\n          \"docSessionId\": \"docSessionId\",\n          \"pageObjectNumber\": 1,\n          \"generation\": 1\n        },\n        \"weakAnnotationState\": {\n          \"kind\": \"unknown\"\n        }\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"pageObjectNumber\": 1,\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1\n          }\n        }\n      ]\n    }\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5c511340-836c-47f3-915b-df31eb49769a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "5c404807-0f3d-4d58-93f9-d68e78c377be",
+      "name": "Read page measurement viewports in drawing order from the current layer. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/pages/{pon}/viewports",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          },
+          "pon": {
+            "equalTo": "1"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "[\n  {\n    \"bbox\": {\n      \"left\": 1.1,\n      \"bottom\": 1.1,\n      \"right\": 1.1,\n      \"top\": 1.1\n    },\n    \"name\": \"name\",\n    \"measure\": {\n      \"ratio\": \"ratio\",\n      \"x\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"y\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"distance\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"area\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"angle\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"slope\": [\n        {\n          \"unit\": \"unit\"\n        }\n      ],\n      \"origin\": {\n        \"x\": 1.1,\n        \"y\": 1.1\n      },\n      \"cyx\": 1.1,\n      \"subtype\": \"RL\"\n    },\n    \"owned\": true\n  }\n]",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "5c404807-0f3d-4d58-93f9-d68e78c377be",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "347df1d4-e622-4792-9a68-0cf1ad11b473",
       "name": "Delete pages. - default",
       "request": {
@@ -2517,6 +2601,6 @@
     }
   ],
   "meta": {
-    "total": 65
+    "total": 67
   }
 }
