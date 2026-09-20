@@ -4,6 +4,7 @@ package doc
 
 import (
 	json "encoding/json"
+	fmt "fmt"
 	v3 "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	io "io"
@@ -538,4 +539,2155 @@ func (s *SetNamePagesRequest) UnmarshalJSON(data []byte) error {
 
 func (s *SetNamePagesRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(s.Body)
+}
+
+var (
+	docPagesSetScaleRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docPagesSetScaleRequestFieldDocID            = big.NewInt(1 << 1)
+	docPagesSetScaleRequestFieldLayerName        = big.NewInt(1 << 2)
+	docPagesSetScaleRequestFieldPon              = big.NewInt(1 << 3)
+	docPagesSetScaleRequestFieldMeasure          = big.NewInt(1 << 4)
+)
+
+type DocPagesSetScaleRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string                         `json:"-" url:"-"`
+	DocID            string                          `json:"-" url:"-"`
+	LayerName        string                          `json:"-" url:"-"`
+	Pon              int                             `json:"-" url:"-"`
+	Measure          *DocPagesSetScaleRequestMeasure `json:"measure,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocPagesSetScaleRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docPagesSetScaleRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docPagesSetScaleRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docPagesSetScaleRequestFieldLayerName)
+}
+
+// SetPon sets the Pon field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetPon(pon int) {
+	d.Pon = pon
+	d.require(docPagesSetScaleRequestFieldPon)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetMeasure(measure *DocPagesSetScaleRequestMeasure) {
+	d.Measure = measure
+	d.require(docPagesSetScaleRequestFieldMeasure)
+}
+
+func (d *DocPagesSetScaleRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequest(body)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequest) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	docPagesSetScaleRequestMeasureFieldSubtype  = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureFieldRatio    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureFieldX        = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureFieldY        = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureFieldDistance = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureFieldArea     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureFieldAngle    = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureFieldSlope    = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureFieldOrigin   = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureFieldCyx      = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasure struct {
+	Subtype  DocPagesSetScaleRequestMeasureSubtype         `json:"subtype" url:"subtype"`
+	Ratio    *string                                       `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*DocPagesSetScaleRequestMeasureXItem        `json:"x" url:"x"`
+	Y        []*DocPagesSetScaleRequestMeasureYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*DocPagesSetScaleRequestMeasureDistanceItem `json:"distance" url:"distance"`
+	Area     []*DocPagesSetScaleRequestMeasureAreaItem     `json:"area" url:"area"`
+	Angle    []*DocPagesSetScaleRequestMeasureAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*DocPagesSetScaleRequestMeasureSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *DocPagesSetScaleRequestMeasureOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                      `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetSubtype() DocPagesSetScaleRequestMeasureSubtype {
+	if d == nil {
+		return ""
+	}
+	return d.Subtype
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetRatio() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Ratio
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetX() []*DocPagesSetScaleRequestMeasureXItem {
+	if d == nil {
+		return nil
+	}
+	return d.X
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetY() []*DocPagesSetScaleRequestMeasureYItem {
+	if d == nil {
+		return nil
+	}
+	return d.Y
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetDistance() []*DocPagesSetScaleRequestMeasureDistanceItem {
+	if d == nil {
+		return nil
+	}
+	return d.Distance
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetArea() []*DocPagesSetScaleRequestMeasureAreaItem {
+	if d == nil {
+		return nil
+	}
+	return d.Area
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetAngle() []*DocPagesSetScaleRequestMeasureAngleItem {
+	if d == nil {
+		return nil
+	}
+	return d.Angle
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetSlope() []*DocPagesSetScaleRequestMeasureSlopeItem {
+	if d == nil {
+		return nil
+	}
+	return d.Slope
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetOrigin() *DocPagesSetScaleRequestMeasureOrigin {
+	if d == nil {
+		return nil
+	}
+	return d.Origin
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetCyx() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.Cyx
+}
+
+func (d *DocPagesSetScaleRequestMeasure) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasure) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetSubtype sets the Subtype field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetSubtype(subtype DocPagesSetScaleRequestMeasureSubtype) {
+	d.Subtype = subtype
+	d.require(docPagesSetScaleRequestMeasureFieldSubtype)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetRatio(ratio *string) {
+	d.Ratio = ratio
+	d.require(docPagesSetScaleRequestMeasureFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetX(x []*DocPagesSetScaleRequestMeasureXItem) {
+	d.X = x
+	d.require(docPagesSetScaleRequestMeasureFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetY(y []*DocPagesSetScaleRequestMeasureYItem) {
+	d.Y = y
+	d.require(docPagesSetScaleRequestMeasureFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetDistance(distance []*DocPagesSetScaleRequestMeasureDistanceItem) {
+	d.Distance = distance
+	d.require(docPagesSetScaleRequestMeasureFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetArea(area []*DocPagesSetScaleRequestMeasureAreaItem) {
+	d.Area = area
+	d.require(docPagesSetScaleRequestMeasureFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetAngle(angle []*DocPagesSetScaleRequestMeasureAngleItem) {
+	d.Angle = angle
+	d.require(docPagesSetScaleRequestMeasureFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetSlope(slope []*DocPagesSetScaleRequestMeasureSlopeItem) {
+	d.Slope = slope
+	d.require(docPagesSetScaleRequestMeasureFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetOrigin(origin *DocPagesSetScaleRequestMeasureOrigin) {
+	d.Origin = origin
+	d.require(docPagesSetScaleRequestMeasureFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasure) SetCyx(cyx *float64) {
+	d.Cyx = cyx
+	d.require(docPagesSetScaleRequestMeasureFieldCyx)
+}
+
+func (d *DocPagesSetScaleRequestMeasure) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasure
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasure(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasure) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasure
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasure) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScaleRequestMeasureAngleItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureAngleItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureAngleItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureAngleItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureAngleItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureAngleItem struct {
+	Unit          string                                                `json:"unit" url:"unit"`
+	Conversion    float64                                               `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                  `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                 `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                               `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                               `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                               `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                               `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetFraction() *DocPagesSetScaleRequestMeasureAngleItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureAngleItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureAngleItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAngleItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureAngleItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureAngleItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureAngleItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureAngleItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureAngleItemFractionDecimal  DocPagesSetScaleRequestMeasureAngleItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureAngleItemFractionFraction DocPagesSetScaleRequestMeasureAngleItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureAngleItemFractionRound    DocPagesSetScaleRequestMeasureAngleItemFraction = "round"
+	DocPagesSetScaleRequestMeasureAngleItemFractionTruncate DocPagesSetScaleRequestMeasureAngleItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureAngleItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureAngleItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureAngleItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureAngleItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureAngleItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureAngleItemFraction) Ptr() *DocPagesSetScaleRequestMeasureAngleItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureAngleItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureAngleItemLabelPositionSuffix DocPagesSetScaleRequestMeasureAngleItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureAngleItemLabelPositionPrefix DocPagesSetScaleRequestMeasureAngleItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureAngleItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureAngleItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureAngleItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureAngleItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesSetScaleRequestMeasureAreaItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureAreaItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureAreaItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureAreaItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureAreaItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureAreaItem struct {
+	Unit          string                                               `json:"unit" url:"unit"`
+	Conversion    float64                                              `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                 `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                              `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                              `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                              `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                              `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetFraction() *DocPagesSetScaleRequestMeasureAreaItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureAreaItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureAreaItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureAreaItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureAreaItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureAreaItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureAreaItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureAreaItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureAreaItemFractionDecimal  DocPagesSetScaleRequestMeasureAreaItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureAreaItemFractionFraction DocPagesSetScaleRequestMeasureAreaItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureAreaItemFractionRound    DocPagesSetScaleRequestMeasureAreaItemFraction = "round"
+	DocPagesSetScaleRequestMeasureAreaItemFractionTruncate DocPagesSetScaleRequestMeasureAreaItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureAreaItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureAreaItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureAreaItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureAreaItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureAreaItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureAreaItemFraction) Ptr() *DocPagesSetScaleRequestMeasureAreaItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureAreaItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureAreaItemLabelPositionSuffix DocPagesSetScaleRequestMeasureAreaItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureAreaItemLabelPositionPrefix DocPagesSetScaleRequestMeasureAreaItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureAreaItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureAreaItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureAreaItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureAreaItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesSetScaleRequestMeasureDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureDistanceItem struct {
+	Unit          string                                                   `json:"unit" url:"unit"`
+	Conversion    float64                                                  `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                     `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                    `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                  `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                  `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                  `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                  `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetFraction() *DocPagesSetScaleRequestMeasureDistanceItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureDistanceItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureDistanceItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureDistanceItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureDistanceItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureDistanceItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureDistanceItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureDistanceItemFractionDecimal  DocPagesSetScaleRequestMeasureDistanceItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureDistanceItemFractionFraction DocPagesSetScaleRequestMeasureDistanceItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureDistanceItemFractionRound    DocPagesSetScaleRequestMeasureDistanceItemFraction = "round"
+	DocPagesSetScaleRequestMeasureDistanceItemFractionTruncate DocPagesSetScaleRequestMeasureDistanceItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureDistanceItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureDistanceItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureDistanceItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureDistanceItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureDistanceItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureDistanceItemFraction) Ptr() *DocPagesSetScaleRequestMeasureDistanceItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureDistanceItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureDistanceItemLabelPositionSuffix DocPagesSetScaleRequestMeasureDistanceItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureDistanceItemLabelPositionPrefix DocPagesSetScaleRequestMeasureDistanceItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureDistanceItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureDistanceItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureDistanceItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureDistanceItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesSetScaleRequestMeasureOriginFieldX = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureOriginFieldY = big.NewInt(1 << 1)
+)
+
+type DocPagesSetScaleRequestMeasureOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) GetX() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.X
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) GetY() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Y
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureOrigin) SetX(x float64) {
+	d.X = x
+	d.require(docPagesSetScaleRequestMeasureOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureOrigin) SetY(y float64) {
+	d.Y = y
+	d.require(docPagesSetScaleRequestMeasureOriginFieldY)
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureOrigin) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docPagesSetScaleRequestMeasureSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureSlopeItem struct {
+	Unit          string                                                `json:"unit" url:"unit"`
+	Conversion    float64                                               `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                  `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                 `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                               `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                               `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                               `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                               `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetFraction() *DocPagesSetScaleRequestMeasureSlopeItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureSlopeItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureSlopeItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureSlopeItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureSlopeItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureSlopeItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureSlopeItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureSlopeItemFractionDecimal  DocPagesSetScaleRequestMeasureSlopeItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureSlopeItemFractionFraction DocPagesSetScaleRequestMeasureSlopeItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureSlopeItemFractionRound    DocPagesSetScaleRequestMeasureSlopeItemFraction = "round"
+	DocPagesSetScaleRequestMeasureSlopeItemFractionTruncate DocPagesSetScaleRequestMeasureSlopeItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureSlopeItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureSlopeItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureSlopeItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureSlopeItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureSlopeItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureSlopeItemFraction) Ptr() *DocPagesSetScaleRequestMeasureSlopeItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureSlopeItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureSlopeItemLabelPositionSuffix DocPagesSetScaleRequestMeasureSlopeItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureSlopeItemLabelPositionPrefix DocPagesSetScaleRequestMeasureSlopeItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureSlopeItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureSlopeItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureSlopeItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureSlopeItemLabelPosition {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureSubtype string
+
+const (
+	DocPagesSetScaleRequestMeasureSubtypeRl DocPagesSetScaleRequestMeasureSubtype = "RL"
+)
+
+func NewDocPagesSetScaleRequestMeasureSubtypeFromString(s string) (DocPagesSetScaleRequestMeasureSubtype, error) {
+	switch s {
+	case "RL":
+		return DocPagesSetScaleRequestMeasureSubtypeRl, nil
+	}
+	var t DocPagesSetScaleRequestMeasureSubtype
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureSubtype) Ptr() *DocPagesSetScaleRequestMeasureSubtype {
+	return &d
+}
+
+var (
+	docPagesSetScaleRequestMeasureXItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureXItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureXItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureXItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureXItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureXItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureXItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureXItem struct {
+	Unit          string                                            `json:"unit" url:"unit"`
+	Conversion    float64                                           `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                              `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                             `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                           `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                           `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                           `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                           `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetFraction() *DocPagesSetScaleRequestMeasureXItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureXItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureXItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureXItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureXItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureXItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureXItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureXItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureXItemFractionDecimal  DocPagesSetScaleRequestMeasureXItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureXItemFractionFraction DocPagesSetScaleRequestMeasureXItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureXItemFractionRound    DocPagesSetScaleRequestMeasureXItemFraction = "round"
+	DocPagesSetScaleRequestMeasureXItemFractionTruncate DocPagesSetScaleRequestMeasureXItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureXItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureXItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureXItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureXItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureXItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureXItemFraction) Ptr() *DocPagesSetScaleRequestMeasureXItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureXItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureXItemLabelPositionSuffix DocPagesSetScaleRequestMeasureXItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureXItemLabelPositionPrefix DocPagesSetScaleRequestMeasureXItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureXItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureXItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureXItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureXItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureXItemLabelPosition {
+	return &d
+}
+
+var (
+	docPagesSetScaleRequestMeasureYItemFieldUnit          = big.NewInt(1 << 0)
+	docPagesSetScaleRequestMeasureYItemFieldConversion    = big.NewInt(1 << 1)
+	docPagesSetScaleRequestMeasureYItemFieldFraction      = big.NewInt(1 << 2)
+	docPagesSetScaleRequestMeasureYItemFieldPrecision     = big.NewInt(1 << 3)
+	docPagesSetScaleRequestMeasureYItemFieldFixed         = big.NewInt(1 << 4)
+	docPagesSetScaleRequestMeasureYItemFieldThousands     = big.NewInt(1 << 5)
+	docPagesSetScaleRequestMeasureYItemFieldDecimal       = big.NewInt(1 << 6)
+	docPagesSetScaleRequestMeasureYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	docPagesSetScaleRequestMeasureYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	docPagesSetScaleRequestMeasureYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type DocPagesSetScaleRequestMeasureYItem struct {
+	Unit          string                                            `json:"unit" url:"unit"`
+	Conversion    float64                                           `json:"conversion" url:"conversion"`
+	Fraction      *DocPagesSetScaleRequestMeasureYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                              `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                             `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                           `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                           `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                           `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                           `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *DocPagesSetScaleRequestMeasureYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetUnit() string {
+	if d == nil {
+		return ""
+	}
+	return d.Unit
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetConversion() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.Conversion
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetFraction() *DocPagesSetScaleRequestMeasureYItemFraction {
+	if d == nil {
+		return nil
+	}
+	return d.Fraction
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetPrecision() *int {
+	if d == nil {
+		return nil
+	}
+	return d.Precision
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetFixed() *bool {
+	if d == nil {
+		return nil
+	}
+	return d.Fixed
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetThousands() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Thousands
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetDecimal() *string {
+	if d == nil {
+		return nil
+	}
+	return d.Decimal
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetPrefixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.PrefixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetSuffixSpacing() *string {
+	if d == nil {
+		return nil
+	}
+	return d.SuffixSpacing
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetLabelPosition() *DocPagesSetScaleRequestMeasureYItemLabelPosition {
+	if d == nil {
+		return nil
+	}
+	return d.LabelPosition
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetUnit(unit string) {
+	d.Unit = unit
+	d.require(docPagesSetScaleRequestMeasureYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetConversion(conversion float64) {
+	d.Conversion = conversion
+	d.require(docPagesSetScaleRequestMeasureYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetFraction(fraction *DocPagesSetScaleRequestMeasureYItemFraction) {
+	d.Fraction = fraction
+	d.require(docPagesSetScaleRequestMeasureYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetPrecision(precision *int) {
+	d.Precision = precision
+	d.require(docPagesSetScaleRequestMeasureYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetFixed(fixed *bool) {
+	d.Fixed = fixed
+	d.require(docPagesSetScaleRequestMeasureYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetThousands(thousands *string) {
+	d.Thousands = thousands
+	d.require(docPagesSetScaleRequestMeasureYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetDecimal(decimal *string) {
+	d.Decimal = decimal
+	d.require(docPagesSetScaleRequestMeasureYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetPrefixSpacing(prefixSpacing *string) {
+	d.PrefixSpacing = prefixSpacing
+	d.require(docPagesSetScaleRequestMeasureYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetSuffixSpacing(suffixSpacing *string) {
+	d.SuffixSpacing = suffixSpacing
+	d.require(docPagesSetScaleRequestMeasureYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequestMeasureYItem) SetLabelPosition(labelPosition *DocPagesSetScaleRequestMeasureYItemLabelPosition) {
+	d.LabelPosition = labelPosition
+	d.require(docPagesSetScaleRequestMeasureYItemFieldLabelPosition)
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesSetScaleRequestMeasureYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocPagesSetScaleRequestMeasureYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) MarshalJSON() ([]byte, error) {
+	type embed DocPagesSetScaleRequestMeasureYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocPagesSetScaleRequestMeasureYItem) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocPagesSetScaleRequestMeasureYItemFraction string
+
+const (
+	DocPagesSetScaleRequestMeasureYItemFractionDecimal  DocPagesSetScaleRequestMeasureYItemFraction = "decimal"
+	DocPagesSetScaleRequestMeasureYItemFractionFraction DocPagesSetScaleRequestMeasureYItemFraction = "fraction"
+	DocPagesSetScaleRequestMeasureYItemFractionRound    DocPagesSetScaleRequestMeasureYItemFraction = "round"
+	DocPagesSetScaleRequestMeasureYItemFractionTruncate DocPagesSetScaleRequestMeasureYItemFraction = "truncate"
+)
+
+func NewDocPagesSetScaleRequestMeasureYItemFractionFromString(s string) (DocPagesSetScaleRequestMeasureYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return DocPagesSetScaleRequestMeasureYItemFractionDecimal, nil
+	case "fraction":
+		return DocPagesSetScaleRequestMeasureYItemFractionFraction, nil
+	case "round":
+		return DocPagesSetScaleRequestMeasureYItemFractionRound, nil
+	case "truncate":
+		return DocPagesSetScaleRequestMeasureYItemFractionTruncate, nil
+	}
+	var t DocPagesSetScaleRequestMeasureYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureYItemFraction) Ptr() *DocPagesSetScaleRequestMeasureYItemFraction {
+	return &d
+}
+
+type DocPagesSetScaleRequestMeasureYItemLabelPosition string
+
+const (
+	DocPagesSetScaleRequestMeasureYItemLabelPositionSuffix DocPagesSetScaleRequestMeasureYItemLabelPosition = "suffix"
+	DocPagesSetScaleRequestMeasureYItemLabelPositionPrefix DocPagesSetScaleRequestMeasureYItemLabelPosition = "prefix"
+)
+
+func NewDocPagesSetScaleRequestMeasureYItemLabelPositionFromString(s string) (DocPagesSetScaleRequestMeasureYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return DocPagesSetScaleRequestMeasureYItemLabelPositionSuffix, nil
+	case "prefix":
+		return DocPagesSetScaleRequestMeasureYItemLabelPositionPrefix, nil
+	}
+	var t DocPagesSetScaleRequestMeasureYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocPagesSetScaleRequestMeasureYItemLabelPosition) Ptr() *DocPagesSetScaleRequestMeasureYItemLabelPosition {
+	return &d
+}
+
+var (
+	viewportsPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	viewportsPagesRequestFieldDocID            = big.NewInt(1 << 1)
+	viewportsPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	viewportsPagesRequestFieldPon              = big.NewInt(1 << 3)
+)
+
+type ViewportsPagesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	Pon              int     `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (v *ViewportsPagesRequest) require(field *big.Int) {
+	if v.explicitFields == nil {
+		v.explicitFields = big.NewInt(0)
+	}
+	v.explicitFields.Or(v.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ViewportsPagesRequest) SetDocumentPassword(documentPassword *string) {
+	v.DocumentPassword = documentPassword
+	v.require(viewportsPagesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ViewportsPagesRequest) SetDocID(docID string) {
+	v.DocID = docID
+	v.require(viewportsPagesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ViewportsPagesRequest) SetLayerName(layerName string) {
+	v.LayerName = layerName
+	v.require(viewportsPagesRequestFieldLayerName)
+}
+
+// SetPon sets the Pon field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ViewportsPagesRequest) SetPon(pon int) {
+	v.Pon = pon
+	v.require(viewportsPagesRequestFieldPon)
 }

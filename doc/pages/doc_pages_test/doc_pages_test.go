@@ -78,6 +78,62 @@ func VerifyRequestCount(
 	require.Equal(t, expected, len(result.Requests))
 }
 
+func TestDocPagesSetScaleWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocPagesSetScaleRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Pon:       1,
+	}
+	_, invocationErr := client.Doc.Pages.SetScale(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesSetScaleWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesSetScaleWithWireMock", "PUT", "/v1/docs/docId/layers/layerName/pages/1/scale", nil, 1)
+}
+
+func TestDocPagesViewportsWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.ViewportsPagesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Pon:       1,
+	}
+	_, invocationErr := client.Doc.Pages.Viewports(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesViewportsWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesViewportsWithWireMock", "GET", "/v1/docs/docId/layers/layerName/pages/1/viewports", nil, 1)
+}
+
 func TestDocPagesDeleteWithWireMock(
 	t *testing.T,
 ) {
