@@ -41,7 +41,7 @@ func NewClient(options *core.RequestOptions) *Client {
 //	request := &doc.DocPagesSetScaleRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	}
 //	client.Doc.Pages.SetScale(
 //	    context.TODO(),
@@ -68,7 +68,7 @@ func (c *Client) SetScale(
 //	request := &doc.ViewportsPagesRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	}
 //	client.Doc.Pages.Viewports(
 //	    context.TODO(),
@@ -78,7 +78,7 @@ func (c *Client) Viewports(
 	ctx context.Context,
 	request *doc.ViewportsPagesRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocPagesViewports200Response, error) {
+) (*cloudpdf.DocPagesViewports200Response, error) {
 	response, err := c.WithRawResponse.Viewports(
 		ctx,
 		request,
@@ -119,7 +119,7 @@ func (c *Client) Delete(
 	return response.Body, nil
 }
 
-// A read, not a mutation: the source document is untouched and no event is published. Body is `{"pageObjectNumbers": number[]}`; the response body is the new PDF.
+// A read, not a mutation: the source document is untouched and no event is published. Body is `{"pages": PageRef[]}`; the response body is the new PDF.
 //
 // Example:
 //
@@ -181,7 +181,7 @@ func (c *Client) Flatten(
 	return response.Body, nil
 }
 
-// Multipart mutation envelope: a `body` field holding `{"destIndex"?: number}` (omitted → append) plus a `resource:source` file part carrying the standalone PDF whose pages are copied in. The inserted copies get fresh page object numbers, returned in insertion order.
+// Multipart: a JSON `body` part `{"position"?: PagePosition, "resources": {"source": "<key>"}}` (position omitted → the end), and the standalone PDF whose pages are copied in as the part `resource:<key>`. The inserted copies get fresh page object numbers, returned in insertion order.
 //
 // Example:
 //
@@ -212,7 +212,7 @@ func (c *Client) Insert(
 	return response.Body, nil
 }
 
-// Body is `{"size": {"width", "height"}, "count"?, "destIndex"?}` — size in PDF points, count in [1, 100], destIndex omitted → append.
+// Body is `{"size": {"width", "height"}, "count"?, "position"?}` — size in PDF points, count in [1, 100], `position` a `PagePosition` (omitted → the end).
 //
 // Example:
 //
@@ -233,35 +233,6 @@ func (c *Client) InsertBlank(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocPagesInsertBlank200Response, error) {
 	response, err := c.WithRawResponse.InsertBlank(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Example:
-//
-//	request := &doc.MovePagesRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
-//	    },
-//	}
-//	client.Doc.Pages.Move(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Move(
-	ctx context.Context,
-	request *doc.MovePagesRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesMove200Response, error) {
-	response, err := c.WithRawResponse.Move(
 		ctx,
 		request,
 		opts...,
@@ -320,6 +291,41 @@ func (c *Client) RemoveName(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocPagesRemoveName200Response, error) {
 	response, err := c.WithRawResponse.RemoveName(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DocPagesReorderRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Pages: []*cloudpdf.PageRef{
+//	        &cloudpdf.PageRef{
+//	            Kind: cloudpdf.PageRefKindObjectNumber,
+//	            ObjectNumber: 1,
+//	        },
+//	    },
+//	    Position: &cloudpdf.PagePosition{
+//	        PagePositionZero: cloudpdf.PagePositionZeroStart,
+//	    },
+//	}
+//	client.Doc.Pages.Reorder(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Reorder(
+	ctx context.Context,
+	request *doc.DocPagesReorderRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocPagesReorder200Response, error) {
+	response, err := c.WithRawResponse.Reorder(
 		ctx,
 		request,
 		opts...,

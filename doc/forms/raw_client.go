@@ -3,9 +3,7 @@
 package forms
 
 import (
-	bytes "bytes"
 	context "context"
-	io "io"
 	http "net/http"
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
@@ -35,11 +33,11 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 	}
 }
 
-func (r *RawClient) Get(
+func (r *RawClient) List(
 	ctx context.Context,
-	request *doc.GetFormsRequest,
+	request *doc.ListFormsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsGet200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsList200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -59,7 +57,7 @@ func (r *RawClient) Get(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocFormsGet200Response
+	var response *cloudpdf.DocFormsList200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -78,18 +76,18 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsGet200Response]{
+	return &core.Response[*cloudpdf.DocFormsList200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
 	}, nil
 }
 
-func (r *RawClient) ExportData(
+func (r *RawClient) ReorderCalculations(
 	ctx context.Context,
-	request *doc.ExportDataFormsRequest,
+	request *doc.DocFormsReorderCalculationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[io.Reader], error) {
+) (*core.Response[*cloudpdf.DocFormsReorderCalculations200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -97,64 +95,7 @@ func (r *RawClient) ExportData(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/layers/%v/form/data",
-		request.DocID,
-		request.LayerName,
-	)
-	queryParams, err := internal.QueryValues(request)
-	if err != nil {
-		return nil, err
-	}
-	if len(queryParams) > 0 {
-		endpointURL += "?" + queryParams.Encode()
-	}
-	headers := internal.MergeHeaders(
-		r.options.ToHeader(),
-		options.ToHeader(),
-	)
-	if request.DocumentPassword != nil {
-		headers.Add("X-Document-Password", *request.DocumentPassword)
-	}
-
-	response := bytes.NewBuffer(nil)
-	raw, err := r.caller.Call(
-		ctx,
-		&internal.CallParams{
-			URL:             endpointURL,
-			Method:          http.MethodGet,
-			Headers:         headers,
-			MaxAttempts:     options.MaxAttempts,
-			DisableRetries:  options.DisableRetries,
-			BodyProperties:  options.BodyProperties,
-			QueryParameters: options.QueryParameters,
-			Client:          options.HTTPClient,
-			Response:        response,
-			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &core.Response[io.Reader]{
-		StatusCode: raw.StatusCode,
-		Header:     raw.Header,
-		Body:       response,
-	}, nil
-}
-
-func (r *RawClient) ImportData(
-	ctx context.Context,
-	request *doc.ImportDataFormsRequest,
-	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsImportData200Response], error) {
-	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(
-		options.BaseURL,
-		r.baseURL,
-		"",
-	)
-	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/layers/%v/form/data",
+		baseURL+"/v1/docs/%v/layers/%v/form/calculations/reorder",
 		request.DocID,
 		request.LayerName,
 	)
@@ -164,9 +105,12 @@ func (r *RawClient) ImportData(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsImportData200Response
+	var response *cloudpdf.DocFormsReorderCalculations200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -186,58 +130,7 @@ func (r *RawClient) ImportData(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsImportData200Response]{
-		StatusCode: raw.StatusCode,
-		Header:     raw.Header,
-		Body:       response,
-	}, nil
-}
-
-func (r *RawClient) Reset(
-	ctx context.Context,
-	request *doc.ResetFormsRequest,
-	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsReset200Response], error) {
-	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(
-		options.BaseURL,
-		r.baseURL,
-		"",
-	)
-	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/layers/%v/form/fields/%v/reset",
-		request.DocID,
-		request.LayerName,
-		request.FieldKey,
-	)
-	headers := internal.MergeHeaders(
-		r.options.ToHeader(),
-		options.ToHeader(),
-	)
-	if request.DocumentPassword != nil {
-		headers.Add("X-Document-Password", *request.DocumentPassword)
-	}
-
-	var response *cloudpdf.DocFormsReset200Response
-	raw, err := r.caller.Call(
-		ctx,
-		&internal.CallParams{
-			URL:             endpointURL,
-			Method:          http.MethodPost,
-			Headers:         headers,
-			MaxAttempts:     options.MaxAttempts,
-			DisableRetries:  options.DisableRetries,
-			BodyProperties:  options.BodyProperties,
-			QueryParameters: options.QueryParameters,
-			Client:          options.HTTPClient,
-			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &core.Response[*cloudpdf.DocFormsReset200Response]{
+	return &core.Response[*cloudpdf.DocFormsReorderCalculations200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -268,6 +161,9 @@ func (r *RawClient) SetValue(
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocFormsSetValue200Response
 	raw, err := r.caller.Call(
@@ -290,6 +186,226 @@ func (r *RawClient) SetValue(
 		return nil, err
 	}
 	return &core.Response[*cloudpdf.DocFormsSetValue200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) Reset(
+	ctx context.Context,
+	request *doc.DocFormsResetRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocFormsReset200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/form/reset",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocFormsReset200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocFormsReset200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) DeleteWidget(
+	ctx context.Context,
+	request *doc.DeleteWidgetFormsRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocFormsDeleteWidget200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/%v",
+		request.DocID,
+		request.LayerName,
+		request.PageKey,
+		request.AnnotKey,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+
+	var response *cloudpdf.DocFormsDeleteWidget200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodDelete,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocFormsDeleteWidget200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) UpdateWidget(
+	ctx context.Context,
+	request *doc.DocFormsUpdateWidgetRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocFormsUpdateWidget200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/%v",
+		request.DocID,
+		request.LayerName,
+		request.PageKey,
+		request.AnnotKey,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocFormsUpdateWidget200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPatch,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocFormsUpdateWidget200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) ReorderWidgets(
+	ctx context.Context,
+	request *doc.DocFormsReorderWidgetsRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocFormsReorderWidgets200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/reorder",
+		request.DocID,
+		request.LayerName,
+		request.PageKey,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocFormsReorderWidgets200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocFormsReorderWidgets200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

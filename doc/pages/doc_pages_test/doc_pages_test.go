@@ -11,6 +11,7 @@ import (
 	strings "strings"
 	testing "testing"
 
+	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/client"
 	doc "github.com/embedpdf/cloudpdf-sdk-go/v3/doc"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
@@ -92,7 +93,7 @@ func TestDocPagesSetScaleWithWireMock(
 	request := &doc.DocPagesSetScaleRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 	}
 	_, invocationErr := client.Doc.Pages.SetScale(
 		context.TODO(),
@@ -103,7 +104,7 @@ func TestDocPagesSetScaleWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesSetScaleWithWireMock", "PUT", "/v1/docs/docId/layers/layerName/pages/1/scale", nil, 1)
+	VerifyRequestCount(t, "TestDocPagesSetScaleWithWireMock", "PUT", "/v1/docs/docId/layers/layerName/pages/pageKey/scale", nil, 1)
 }
 
 func TestDocPagesViewportsWithWireMock(
@@ -120,7 +121,7 @@ func TestDocPagesViewportsWithWireMock(
 	request := &doc.ViewportsPagesRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 	}
 	_, invocationErr := client.Doc.Pages.Viewports(
 		context.TODO(),
@@ -131,7 +132,7 @@ func TestDocPagesViewportsWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesViewportsWithWireMock", "GET", "/v1/docs/docId/layers/layerName/pages/1/viewports", nil, 1)
+	VerifyRequestCount(t, "TestDocPagesViewportsWithWireMock", "GET", "/v1/docs/docId/layers/layerName/pages/pageKey/viewports", nil, 1)
 }
 
 func TestDocPagesDeleteWithWireMock(
@@ -254,36 +255,6 @@ func TestDocPagesInsertBlankWithWireMock(
 	VerifyRequestCount(t, "TestDocPagesInsertBlankWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/insert-blank", nil, 1)
 }
 
-func TestDocPagesMoveWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.MovePagesRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
-		},
-	}
-	_, invocationErr := client.Doc.Pages.Move(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesMoveWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesMoveWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/move", nil, 1)
-}
-
 func TestDocPagesSetNameWithWireMock(
 	t *testing.T,
 ) {
@@ -342,6 +313,42 @@ func TestDocPagesRemoveNameWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocPagesRemoveNameWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/names/delete", nil, 1)
+}
+
+func TestDocPagesReorderWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocPagesReorderRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Pages: []*cloudpdf.PageRef{
+			&cloudpdf.PageRef{
+				Kind:         cloudpdf.PageRefKindObjectNumber,
+				ObjectNumber: 1,
+			},
+		},
+		Position: &cloudpdf.PagePosition{
+			PagePositionZero: cloudpdf.PagePositionZeroStart,
+		},
+	}
+	_, invocationErr := client.Doc.Pages.Reorder(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocPagesReorderWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocPagesReorderWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/reorder", nil, 1)
 }
 
 func TestDocPagesRotateWithWireMock(

@@ -189,7 +189,7 @@ var (
 
 type DocumentsImportFromRequest struct {
 	TenantID string `json:"-" url:"-"`
-	// Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
+	// Where CloudPDF pulls the bytes from. The two shapes differ in who supplies the authority to read, not in which storage vendor holds the file.
 	Source *DocumentsImportFromRequestSource `json:"source" url:"-"`
 	// Integrity pins, enforced when present. When absent, the server-observed values become authoritative.
 	Expected *DocumentsImportFromRequestExpected `json:"expected,omitempty" url:"-"`
@@ -4833,7 +4833,7 @@ func (d DocumentsImportFromRequestMode) Ptr() *DocumentsImportFromRequestMode {
 	return &d
 }
 
-// Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
+// Where CloudPDF pulls the bytes from. The two shapes differ in who supplies the authority to read, not in which storage vendor holds the file.
 type DocumentsImportFromRequestSource struct {
 	Kind string
 	// The caller supplies the authority: a presigned S3/GCS/Azure/R2/MinIO GET, or any HTTPS endpoint the deployment import policy allows. The URL is a capability — treat it as a secret. CloudPDF never echoes its query string back in errors, logs, or stored failure reasons.

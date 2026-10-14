@@ -105,7 +105,7 @@ func TestDocSignaturesListWithWireMock(
 	VerifyRequestCount(t, "TestDocSignaturesListWithWireMock", "GET", "/v1/docs/docId/layers/layerName/signatures", nil, 1)
 }
 
-func TestDocSignaturesAbortWithWireMock(
+func TestDocSignaturesCancelWithWireMock(
 	t *testing.T,
 ) {
 	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
@@ -116,21 +116,21 @@ func TestDocSignaturesAbortWithWireMock(
 		option.WithBaseURL(WireMockBaseURL),
 		option.WithToken("test-token"),
 	)
-	request := &doc.AbortSignaturesRequest{
+	request := &doc.CancelSignaturesRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
 		SigningID: "signingId",
 	}
-	_, invocationErr := client.Doc.Signatures.Abort(
+	_, invocationErr := client.Doc.Signatures.Cancel(
 		context.TODO(),
 		request,
 		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocSignaturesAbortWithWireMock"}},
+			http.Header{"X-Test-Id": []string{"TestDocSignaturesCancelWithWireMock"}},
 		),
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocSignaturesAbortWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/signatures/signingId", nil, 1)
+	VerifyRequestCount(t, "TestDocSignaturesCancelWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/signatures/signingId", nil, 1)
 }
 
 func TestDocSignaturesCompleteWithWireMock(

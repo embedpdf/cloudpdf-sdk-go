@@ -50,7 +50,7 @@ func (r *RawClient) SetScale(
 		baseURL+"/v1/docs/%v/layers/%v/pages/%v/scale",
 		request.DocID,
 		request.LayerName,
-		request.Pon,
+		request.PageKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -58,6 +58,9 @@ func (r *RawClient) SetScale(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesSetScale200Response
@@ -91,7 +94,7 @@ func (r *RawClient) Viewports(
 	ctx context.Context,
 	request *doc.ViewportsPagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocPagesViewports200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesViewports200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -102,7 +105,7 @@ func (r *RawClient) Viewports(
 		baseURL+"/v1/docs/%v/layers/%v/pages/%v/viewports",
 		request.DocID,
 		request.LayerName,
-		request.Pon,
+		request.PageKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -112,7 +115,7 @@ func (r *RawClient) Viewports(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocPagesViewports200Response
+	var response *cloudpdf.DocPagesViewports200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -131,7 +134,7 @@ func (r *RawClient) Viewports(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocPagesViewports200Response]{
+	return &core.Response[*cloudpdf.DocPagesViewports200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -160,6 +163,9 @@ func (r *RawClient) Delete(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesDelete200Response
@@ -263,6 +269,9 @@ func (r *RawClient) Flatten(
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesFlatten200Response
 	raw, err := r.caller.Call(
@@ -313,6 +322,9 @@ func (r *RawClient) Insert(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 
 	writer := internal.NewMultipartWriter()
@@ -374,6 +386,9 @@ func (r *RawClient) InsertBlank(
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesInsertBlank200Response
 	raw, err := r.caller.Call(
@@ -402,57 +417,6 @@ func (r *RawClient) InsertBlank(
 	}, nil
 }
 
-func (r *RawClient) Move(
-	ctx context.Context,
-	request *doc.MovePagesRequest,
-	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesMove200Response], error) {
-	options := core.NewRequestOptions(opts...)
-	baseURL := internal.ResolveBaseURL(
-		options.BaseURL,
-		r.baseURL,
-		"",
-	)
-	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/layers/%v/pages/move",
-		request.DocID,
-		request.LayerName,
-	)
-	headers := internal.MergeHeaders(
-		r.options.ToHeader(),
-		options.ToHeader(),
-	)
-	if request.DocumentPassword != nil {
-		headers.Add("X-Document-Password", *request.DocumentPassword)
-	}
-	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocPagesMove200Response
-	raw, err := r.caller.Call(
-		ctx,
-		&internal.CallParams{
-			URL:             endpointURL,
-			Method:          http.MethodPost,
-			Headers:         headers,
-			MaxAttempts:     options.MaxAttempts,
-			DisableRetries:  options.DisableRetries,
-			BodyProperties:  options.BodyProperties,
-			QueryParameters: options.QueryParameters,
-			Client:          options.HTTPClient,
-			Request:         request,
-			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
-		},
-	)
-	if err != nil {
-		return nil, err
-	}
-	return &core.Response[*cloudpdf.DocPagesMove200Response]{
-		StatusCode: raw.StatusCode,
-		Header:     raw.Header,
-		Body:       response,
-	}, nil
-}
-
 func (r *RawClient) SetName(
 	ctx context.Context,
 	request *doc.SetNamePagesRequest,
@@ -475,6 +439,9 @@ func (r *RawClient) SetName(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesSetName200Response
@@ -527,6 +494,9 @@ func (r *RawClient) RemoveName(
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesRemoveName200Response
 	raw, err := r.caller.Call(
@@ -555,6 +525,60 @@ func (r *RawClient) RemoveName(
 	}, nil
 }
 
+func (r *RawClient) Reorder(
+	ctx context.Context,
+	request *doc.DocPagesReorderRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocPagesReorder200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/pages/reorder",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocPagesReorder200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocPagesReorder200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) Rotate(
 	ctx context.Context,
 	request *doc.RotatePagesRequest,
@@ -577,6 +601,9 @@ func (r *RawClient) Rotate(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocPagesRotate200Response

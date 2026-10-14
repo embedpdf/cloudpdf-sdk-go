@@ -43,10 +43,16 @@ func do() {
             "<token>",
         ),
     )
-    request := &cloudpdf.SharesExchangeRequest{
-        ShareToken: "shareToken",
+    request := &cloudpdf.DocChangesRequest{
+        DocID: "docId",
+        LayerName: "layerName",
+        Changes: []*cloudpdf.DocChangesRequestChangesItem{
+            &cloudpdf.DocChangesRequestChangesItem{
+                OpID: "opId",
+            },
+        },
     }
-    client.Shares.Exchange(
+    client.Doc.Changes(
         context.TODO(),
         request,
     )
@@ -70,7 +76,7 @@ Structured error types are returned from API calls that return non-success statu
 with the `errors.Is` and `errors.As` APIs, so you can access the error like so:
 
 ```go
-response, err := client.Shares.Exchange(...)
+response, err := client.Doc.Changes(...)
 if err != nil {
     var apiError *core.APIError
     if errors.As(err, apiError) {
@@ -104,7 +110,7 @@ client := client.NewClient(
 )
 
 // Specify options for an individual request.
-response, err := client.Shares.Exchange(
+response, err := client.Doc.Changes(
     ...,
     option.WithToken("<YOUR_API_KEY>"),
 )
@@ -119,7 +125,7 @@ when you need to examine the response headers received from the API call. (When 
 the raw HTTP response data will be included automatically in the Page response object.)
 
 ```go
-response, err := client.Shares.WithRawResponse.Exchange(...)
+response, err := client.Doc.WithRawResponse.Changes(...)
 if err != nil {
     return err
 }
@@ -157,7 +163,7 @@ client := client.NewClient(
     option.WithMaxAttempts(1),
 )
 
-response, err := client.Shares.Exchange(
+response, err := client.Doc.Changes(
     ...,
     option.WithMaxAttempts(1),
 )
@@ -171,7 +177,7 @@ Setting a timeout for each individual request is as simple as using the standard
 ctx, cancel := context.WithTimeout(ctx, time.Second)
 defer cancel()
 
-response, err := client.Shares.Exchange(ctx, ...)
+response, err := client.Doc.Changes(ctx, ...)
 ```
 
 ### Explicit Null
@@ -193,7 +199,7 @@ type ExampleRequest struct {
 request := &ExampleRequest{}
 request.SetName(nil)
 
-response, err := client.Shares.Exchange(ctx, request, ...)
+response, err := client.Doc.Changes(ctx, request, ...)
 ```
 
 ## Contributing

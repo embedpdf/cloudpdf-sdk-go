@@ -83,6 +83,57 @@ func (r *RawClient) Head(
 	}, nil
 }
 
+func (r *RawClient) Changes(
+	ctx context.Context,
+	request *cloudpdf.DocChangesRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocChanges200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/changes",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocChanges200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(cloudpdf.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocChanges200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) Download(
 	ctx context.Context,
 	request *cloudpdf.DownloadDocRequest,
@@ -198,7 +249,7 @@ func (r *RawClient) Render(
 		baseURL+"/v1/docs/%v/layers/%v/render/pages/%v/data",
 		request.DocID,
 		request.LayerName,
-		request.Pon,
+		request.PageKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -249,7 +300,7 @@ func (r *RawClient) Text(
 		baseURL+"/v1/docs/%v/layers/%v/text/pages/%v/data",
 		request.DocID,
 		request.LayerName,
-		request.Pon,
+		request.PageKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),

@@ -4,7 +4,6 @@ package forms
 
 import (
 	context "context"
-	io "io"
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
@@ -38,20 +37,20 @@ func NewClient(options *core.RequestOptions) *Client {
 
 // Example:
 //
-//	request := &doc.GetFormsRequest{
+//	request := &doc.ListFormsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	}
-//	client.Doc.Forms.Get(
+//	client.Doc.Forms.List(
 //	    context.TODO(),
 //	    request,
 //	)
-func (c *Client) Get(
+func (c *Client) List(
 	ctx context.Context,
-	request *doc.GetFormsRequest,
+	request *doc.ListFormsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsGet200Response, error) {
-	response, err := c.WithRawResponse.Get(
+) (*cloudpdf.DocFormsList200Response, error) {
+	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
 		opts...,
@@ -64,76 +63,30 @@ func (c *Client) Get(
 
 // Example:
 //
-//	request := &doc.ExportDataFormsRequest{
+//	request := &doc.DocFormsReorderCalculationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	}
-//	client.Doc.Forms.ExportData(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) ExportData(
-	ctx context.Context,
-	request *doc.ExportDataFormsRequest,
-	opts ...option.RequestOption,
-) (io.Reader, error) {
-	response, err := c.WithRawResponse.ExportData(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Example:
-//
-//	request := &doc.ImportDataFormsRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
+//	    Fields: []*cloudpdf.FormFieldRef{
+//	        &cloudpdf.FormFieldRef{
+//	            ObjectNumber: &cloudpdf.FormFieldRefObjectNumber{
+//	                ObjectNumber: 1,
+//	            },
+//	        },
+//	    },
+//	    Position: &cloudpdf.FieldPosition{
+//	        FieldPositionZero: cloudpdf.FieldPositionZeroStart,
 //	    },
 //	}
-//	client.Doc.Forms.ImportData(
+//	client.Doc.Forms.ReorderCalculations(
 //	    context.TODO(),
 //	    request,
 //	)
-func (c *Client) ImportData(
+func (c *Client) ReorderCalculations(
 	ctx context.Context,
-	request *doc.ImportDataFormsRequest,
+	request *doc.DocFormsReorderCalculationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsImportData200Response, error) {
-	response, err := c.WithRawResponse.ImportData(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Example:
-//
-//	request := &doc.ResetFormsRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    FieldKey: "fieldKey",
-//	}
-//	client.Doc.Forms.Reset(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Reset(
-	ctx context.Context,
-	request *doc.ResetFormsRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsReset200Response, error) {
-	response, err := c.WithRawResponse.Reset(
+) (*cloudpdf.DocFormsReorderCalculations200Response, error) {
+	response, err := c.WithRawResponse.ReorderCalculations(
 		ctx,
 		request,
 		opts...,
@@ -164,6 +117,130 @@ func (c *Client) SetValue(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocFormsSetValue200Response, error) {
 	response, err := c.WithRawResponse.SetValue(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DocFormsResetRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	}
+//	client.Doc.Forms.Reset(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Reset(
+	ctx context.Context,
+	request *doc.DocFormsResetRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocFormsReset200Response, error) {
+	response, err := c.WithRawResponse.Reset(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DeleteWidgetFormsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    AnnotKey: "annotKey",
+//	}
+//	client.Doc.Forms.DeleteWidget(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) DeleteWidget(
+	ctx context.Context,
+	request *doc.DeleteWidgetFormsRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocFormsDeleteWidget200Response, error) {
+	response, err := c.WithRawResponse.DeleteWidget(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DocFormsUpdateWidgetRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    AnnotKey: "annotKey",
+//	    Patch: &cloudpdf.WidgetPatch{},
+//	}
+//	client.Doc.Forms.UpdateWidget(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) UpdateWidget(
+	ctx context.Context,
+	request *doc.DocFormsUpdateWidgetRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocFormsUpdateWidget200Response, error) {
+	response, err := c.WithRawResponse.UpdateWidget(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DocFormsReorderWidgetsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    Widgets: []*cloudpdf.AnnotationRef{
+//	        &cloudpdf.AnnotationRef{
+//	            ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+//	                Page: &cloudpdf.PageRef{
+//	                    Kind: cloudpdf.PageRefKindObjectNumber,
+//	                    ObjectNumber: 1,
+//	                },
+//	                ObjectNumber: 1,
+//	            },
+//	        },
+//	    },
+//	    Position: &cloudpdf.AnnotationPosition{
+//	        AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
+//	    },
+//	}
+//	client.Doc.Forms.ReorderWidgets(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ReorderWidgets(
+	ctx context.Context,
+	request *doc.DocFormsReorderWidgetsRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocFormsReorderWidgets200Response, error) {
+	response, err := c.WithRawResponse.ReorderWidgets(
 		ctx,
 		request,
 		opts...,

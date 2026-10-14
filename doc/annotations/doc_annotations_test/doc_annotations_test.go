@@ -10,6 +10,7 @@ import (
 	os "os"
 	testing "testing"
 
+	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/client"
 	doc "github.com/embedpdf/cloudpdf-sdk-go/v3/doc"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
@@ -118,7 +119,7 @@ func TestDocAnnotationsListWithWireMock(
 	request := &doc.ListAnnotationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 	}
 	_, invocationErr := client.Doc.Annotations.List(
 		context.TODO(),
@@ -129,7 +130,7 @@ func TestDocAnnotationsListWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsListWithWireMock", "GET", "/v1/docs/docId/layers/layerName/annotations/pages/1/items", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsListWithWireMock", "GET", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items", nil, 1)
 }
 
 func TestDocAnnotationsCreateWithWireMock(
@@ -146,7 +147,7 @@ func TestDocAnnotationsCreateWithWireMock(
 	request := &doc.CreateAnnotationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 		Body: map[string]any{
 			"key": "value",
 		},
@@ -160,7 +161,7 @@ func TestDocAnnotationsCreateWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsCreateWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/1/items", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsCreateWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items", nil, 1)
 }
 
 func TestDocAnnotationsDeleteWithWireMock(
@@ -177,7 +178,7 @@ func TestDocAnnotationsDeleteWithWireMock(
 	request := &doc.DeleteAnnotationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 		AnnotKey:  "annotKey",
 	}
 	_, invocationErr := client.Doc.Annotations.Delete(
@@ -189,7 +190,7 @@ func TestDocAnnotationsDeleteWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsDeleteWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/annotations/pages/1/items/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsDeleteWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotKey", nil, 1)
 }
 
 func TestDocAnnotationsUpdateWithWireMock(
@@ -206,7 +207,7 @@ func TestDocAnnotationsUpdateWithWireMock(
 	request := &doc.UpdateAnnotationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 		AnnotKey:  "annotKey",
 		Body: map[string]any{
 			"key": "value",
@@ -221,7 +222,7 @@ func TestDocAnnotationsUpdateWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsUpdateWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/annotations/pages/1/items/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsUpdateWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotKey", nil, 1)
 }
 
 func TestDocAnnotationsFlattenWithWireMock(
@@ -238,7 +239,7 @@ func TestDocAnnotationsFlattenWithWireMock(
 	request := &doc.FlattenAnnotationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 		Body: map[string]any{
 			"key": "value",
 		},
@@ -252,5 +253,47 @@ func TestDocAnnotationsFlattenWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsFlattenWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/1/items/flatten", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsFlattenWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/flatten", nil, 1)
+}
+
+func TestDocAnnotationsReorderWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocAnnotationsReorderRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		PageKey:   "pageKey",
+		Refs: []*cloudpdf.AnnotationRef{
+			&cloudpdf.AnnotationRef{
+				ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+					Page: &cloudpdf.PageRef{
+						Kind:         cloudpdf.PageRefKindObjectNumber,
+						ObjectNumber: 1,
+					},
+					ObjectNumber: 1,
+				},
+			},
+		},
+		Position: &cloudpdf.AnnotationPosition{
+			AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
+		},
+	}
+	_, invocationErr := client.Doc.Annotations.Reorder(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocAnnotationsReorderWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocAnnotationsReorderWithWireMock", "POST", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/reorder", nil, 1)
 }

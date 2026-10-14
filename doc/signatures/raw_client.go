@@ -83,11 +83,11 @@ func (r *RawClient) List(
 	}, nil
 }
 
-func (r *RawClient) Abort(
+func (r *RawClient) Cancel(
 	ctx context.Context,
-	request *doc.AbortSignaturesRequest,
+	request *doc.CancelSignaturesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesAbort200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesCancel200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -108,7 +108,7 @@ func (r *RawClient) Abort(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocSignaturesAbort200Response
+	var response *cloudpdf.DocSignaturesCancel200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -127,7 +127,7 @@ func (r *RawClient) Abort(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesAbort200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesCancel200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

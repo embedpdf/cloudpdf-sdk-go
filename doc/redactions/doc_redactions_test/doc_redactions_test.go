@@ -88,12 +88,9 @@ func TestDocRedactionsApplyWithWireMock(
 		option.WithBaseURL(WireMockBaseURL),
 		option.WithToken("test-token"),
 	)
-	request := &doc.ApplyRedactionsRequest{
+	request := &doc.DocRedactionsApplyRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
-		},
 	}
 	_, invocationErr := client.Doc.Redactions.Apply(
 		context.TODO(),

@@ -10,11 +10,11 @@ import (
 // Response
 type BadGatewayError struct {
 	*core.APIError
-	Body *DocumentsImportFrom502Response
+	Body DocumentsImportFrom502Response
 }
 
 func (b *BadGatewayError) UnmarshalJSON(data []byte) error {
-	var body *DocumentsImportFrom502Response
+	var body DocumentsImportFrom502Response
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -79,6 +79,30 @@ func (c *ConflictError) Unwrap() error {
 	return c.APIError
 }
 
+// Response
+type ContentTooLargeError struct {
+	*core.APIError
+	Body DocChanges413Response
+}
+
+func (c *ContentTooLargeError) UnmarshalJSON(data []byte) error {
+	var body DocChanges413Response
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	c.StatusCode = 413
+	c.Body = body
+	return nil
+}
+
+func (c *ContentTooLargeError) MarshalJSON() ([]byte, error) {
+	return json.Marshal(c.Body)
+}
+
+func (c *ContentTooLargeError) Unwrap() error {
+	return c.APIError
+}
+
 // Forbidden
 type ForbiddenError struct {
 	*core.APIError
@@ -106,11 +130,11 @@ func (f *ForbiddenError) Unwrap() error {
 // Gone
 type GoneError struct {
 	*core.APIError
-	Body *SharesExchange410Response
+	Body SharesExchange410Response
 }
 
 func (g *GoneError) UnmarshalJSON(data []byte) error {
-	var body *SharesExchange410Response
+	var body SharesExchange410Response
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -154,11 +178,11 @@ func (n *NotFoundError) Unwrap() error {
 // Unprocessable
 type UnprocessableEntityError struct {
 	*core.APIError
-	Body *SharesExchange422Response
+	Body SharesExchange422Response
 }
 
 func (u *UnprocessableEntityError) UnmarshalJSON(data []byte) error {
-	var body *SharesExchange422Response
+	var body SharesExchange422Response
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}

@@ -5,63 +5,99 @@ package doc
 import (
 	json "encoding/json"
 	v3 "github.com/embedpdf/cloudpdf-sdk-go/v3"
+	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
 )
 
 var (
-	applyRedactionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	applyRedactionsRequestFieldDocID            = big.NewInt(1 << 1)
-	applyRedactionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	docRedactionsApplyRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docRedactionsApplyRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docRedactionsApplyRequestFieldDocID            = big.NewInt(1 << 2)
+	docRedactionsApplyRequestFieldLayerName        = big.NewInt(1 << 3)
+	docRedactionsApplyRequestFieldPages            = big.NewInt(1 << 4)
+	docRedactionsApplyRequestFieldAnnotations      = big.NewInt(1 << 5)
 )
 
-type ApplyRedactionsRequest struct {
+type DocRedactionsApplyRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                      `json:"-" url:"-"`
-	DocID            string                       `json:"-" url:"-"`
-	LayerName        string                       `json:"-" url:"-"`
-	Body             v3.DocRedactionsApplyRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string             `json:"-" url:"-"`
+	DocID          string              `json:"-" url:"-"`
+	LayerName      string              `json:"-" url:"-"`
+	Pages          []*v3.PageRef       `json:"pages,omitempty" url:"-"`
+	Annotations    []*v3.AnnotationRef `json:"annotations,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (a *ApplyRedactionsRequest) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
+func (d *DocRedactionsApplyRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
 	}
-	a.explicitFields.Or(a.explicitFields, field)
+	d.explicitFields.Or(d.explicitFields, field)
 }
 
 // SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *ApplyRedactionsRequest) SetDocumentPassword(documentPassword *string) {
-	a.DocumentPassword = documentPassword
-	a.require(applyRedactionsRequestFieldDocumentPassword)
+func (d *DocRedactionsApplyRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docRedactionsApplyRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocRedactionsApplyRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docRedactionsApplyRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *ApplyRedactionsRequest) SetDocID(docID string) {
-	a.DocID = docID
-	a.require(applyRedactionsRequestFieldDocID)
+func (d *DocRedactionsApplyRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docRedactionsApplyRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *ApplyRedactionsRequest) SetLayerName(layerName string) {
-	a.LayerName = layerName
-	a.require(applyRedactionsRequestFieldLayerName)
+func (d *DocRedactionsApplyRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docRedactionsApplyRequestFieldLayerName)
 }
 
-func (a *ApplyRedactionsRequest) UnmarshalJSON(data []byte) error {
-	var body v3.DocRedactionsApplyRequest
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocRedactionsApplyRequest) SetPages(pages []*v3.PageRef) {
+	d.Pages = pages
+	d.require(docRedactionsApplyRequestFieldPages)
+}
+
+// SetAnnotations sets the Annotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocRedactionsApplyRequest) SetAnnotations(annotations []*v3.AnnotationRef) {
+	d.Annotations = annotations
+	d.require(docRedactionsApplyRequestFieldAnnotations)
+}
+
+func (d *DocRedactionsApplyRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocRedactionsApplyRequest
+	var body unmarshaler
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
-	a.Body = body
+	*d = DocRedactionsApplyRequest(body)
 	return nil
 }
 
-func (a *ApplyRedactionsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(a.Body)
+func (d *DocRedactionsApplyRequest) MarshalJSON() ([]byte, error) {
+	type embed DocRedactionsApplyRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }

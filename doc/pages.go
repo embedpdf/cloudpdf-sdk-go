@@ -13,16 +13,19 @@ import (
 
 var (
 	deletePagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	deletePagesRequestFieldDocID            = big.NewInt(1 << 1)
-	deletePagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	deletePagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	deletePagesRequestFieldDocID            = big.NewInt(1 << 2)
+	deletePagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type DeletePagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                  `json:"-" url:"-"`
-	DocID            string                   `json:"-" url:"-"`
-	LayerName        string                   `json:"-" url:"-"`
-	Body             v3.DocPagesDeleteRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                  `json:"-" url:"-"`
+	DocID          string                   `json:"-" url:"-"`
+	LayerName      string                   `json:"-" url:"-"`
+	Body           v3.DocPagesDeleteRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -40,6 +43,13 @@ func (d *DeletePagesRequest) require(field *big.Int) {
 func (d *DeletePagesRequest) SetDocumentPassword(documentPassword *string) {
 	d.DocumentPassword = documentPassword
 	d.require(deletePagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DeletePagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(deletePagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -129,16 +139,19 @@ func (e *ExtractPagesRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	flattenPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	flattenPagesRequestFieldDocID            = big.NewInt(1 << 1)
-	flattenPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	flattenPagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	flattenPagesRequestFieldDocID            = big.NewInt(1 << 2)
+	flattenPagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type FlattenPagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                   `json:"-" url:"-"`
-	DocID            string                    `json:"-" url:"-"`
-	LayerName        string                    `json:"-" url:"-"`
-	Body             v3.DocPagesFlattenRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                   `json:"-" url:"-"`
+	DocID          string                    `json:"-" url:"-"`
+	LayerName      string                    `json:"-" url:"-"`
+	Body           v3.DocPagesFlattenRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -156,6 +169,13 @@ func (f *FlattenPagesRequest) require(field *big.Int) {
 func (f *FlattenPagesRequest) SetDocumentPassword(documentPassword *string) {
 	f.DocumentPassword = documentPassword
 	f.require(flattenPagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenPagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	f.IdempotencyKey = idempotencyKey
+	f.require(flattenPagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -187,16 +207,19 @@ func (f *FlattenPagesRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	insertPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	insertPagesRequestFieldDocID            = big.NewInt(1 << 1)
-	insertPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	insertPagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	insertPagesRequestFieldDocID            = big.NewInt(1 << 2)
+	insertPagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type InsertPagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string   `json:"-" url:"-"`
-	DocID            string    `json:"-" url:"-"`
-	LayerName        string    `json:"-" url:"-"`
-	File             io.Reader `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string   `json:"-" url:"-"`
+	DocID          string    `json:"-" url:"-"`
+	LayerName      string    `json:"-" url:"-"`
+	File           io.Reader `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -214,6 +237,13 @@ func (i *InsertPagesRequest) require(field *big.Int) {
 func (i *InsertPagesRequest) SetDocumentPassword(documentPassword *string) {
 	i.DocumentPassword = documentPassword
 	i.require(insertPagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertPagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	i.IdempotencyKey = idempotencyKey
+	i.require(insertPagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -253,16 +283,19 @@ func (i *InsertPagesRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	insertBlankPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	insertBlankPagesRequestFieldDocID            = big.NewInt(1 << 1)
-	insertBlankPagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	insertBlankPagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	insertBlankPagesRequestFieldDocID            = big.NewInt(1 << 2)
+	insertBlankPagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type InsertBlankPagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                       `json:"-" url:"-"`
-	DocID            string                        `json:"-" url:"-"`
-	LayerName        string                        `json:"-" url:"-"`
-	Body             v3.DocPagesInsertBlankRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                       `json:"-" url:"-"`
+	DocID          string                        `json:"-" url:"-"`
+	LayerName      string                        `json:"-" url:"-"`
+	Body           v3.DocPagesInsertBlankRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -280,6 +313,13 @@ func (i *InsertBlankPagesRequest) require(field *big.Int) {
 func (i *InsertBlankPagesRequest) SetDocumentPassword(documentPassword *string) {
 	i.DocumentPassword = documentPassword
 	i.require(insertBlankPagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *InsertBlankPagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	i.IdempotencyKey = idempotencyKey
+	i.require(insertBlankPagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -310,75 +350,20 @@ func (i *InsertBlankPagesRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
-	movePagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	movePagesRequestFieldDocID            = big.NewInt(1 << 1)
-	movePagesRequestFieldLayerName        = big.NewInt(1 << 2)
-)
-
-type MovePagesRequest struct {
-	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                `json:"-" url:"-"`
-	DocID            string                 `json:"-" url:"-"`
-	LayerName        string                 `json:"-" url:"-"`
-	Body             v3.DocPagesMoveRequest `json:"-" url:"-"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-}
-
-func (m *MovePagesRequest) require(field *big.Int) {
-	if m.explicitFields == nil {
-		m.explicitFields = big.NewInt(0)
-	}
-	m.explicitFields.Or(m.explicitFields, field)
-}
-
-// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MovePagesRequest) SetDocumentPassword(documentPassword *string) {
-	m.DocumentPassword = documentPassword
-	m.require(movePagesRequestFieldDocumentPassword)
-}
-
-// SetDocID sets the DocID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MovePagesRequest) SetDocID(docID string) {
-	m.DocID = docID
-	m.require(movePagesRequestFieldDocID)
-}
-
-// SetLayerName sets the LayerName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (m *MovePagesRequest) SetLayerName(layerName string) {
-	m.LayerName = layerName
-	m.require(movePagesRequestFieldLayerName)
-}
-
-func (m *MovePagesRequest) UnmarshalJSON(data []byte) error {
-	var body v3.DocPagesMoveRequest
-	if err := json.Unmarshal(data, &body); err != nil {
-		return err
-	}
-	m.Body = body
-	return nil
-}
-
-func (m *MovePagesRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(m.Body)
-}
-
-var (
 	removeNamePagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	removeNamePagesRequestFieldDocID            = big.NewInt(1 << 1)
-	removeNamePagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	removeNamePagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	removeNamePagesRequestFieldDocID            = big.NewInt(1 << 2)
+	removeNamePagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type RemoveNamePagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                      `json:"-" url:"-"`
-	DocID            string                       `json:"-" url:"-"`
-	LayerName        string                       `json:"-" url:"-"`
-	Body             v3.DocPagesRemoveNameRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                      `json:"-" url:"-"`
+	DocID          string                       `json:"-" url:"-"`
+	LayerName      string                       `json:"-" url:"-"`
+	Body           v3.DocPagesRemoveNameRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -396,6 +381,13 @@ func (r *RemoveNamePagesRequest) require(field *big.Int) {
 func (r *RemoveNamePagesRequest) SetDocumentPassword(documentPassword *string) {
 	r.DocumentPassword = documentPassword
 	r.require(removeNamePagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RemoveNamePagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	r.IdempotencyKey = idempotencyKey
+	r.require(removeNamePagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -426,17 +418,113 @@ func (r *RemoveNamePagesRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
+	docPagesReorderRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docPagesReorderRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docPagesReorderRequestFieldDocID            = big.NewInt(1 << 2)
+	docPagesReorderRequestFieldLayerName        = big.NewInt(1 << 3)
+	docPagesReorderRequestFieldPages            = big.NewInt(1 << 4)
+	docPagesReorderRequestFieldPosition         = big.NewInt(1 << 5)
+)
+
+type DocPagesReorderRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string          `json:"-" url:"-"`
+	DocID          string           `json:"-" url:"-"`
+	LayerName      string           `json:"-" url:"-"`
+	Pages          []*v3.PageRef    `json:"pages" url:"-"`
+	Position       *v3.PagePosition `json:"position" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocPagesReorderRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docPagesReorderRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docPagesReorderRequestFieldIdempotencyKey)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docPagesReorderRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docPagesReorderRequestFieldLayerName)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetPages(pages []*v3.PageRef) {
+	d.Pages = pages
+	d.require(docPagesReorderRequestFieldPages)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesReorderRequest) SetPosition(position *v3.PagePosition) {
+	d.Position = position
+	d.require(docPagesReorderRequestFieldPosition)
+}
+
+func (d *DocPagesReorderRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocPagesReorderRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocPagesReorderRequest(body)
+	return nil
+}
+
+func (d *DocPagesReorderRequest) MarshalJSON() ([]byte, error) {
+	type embed DocPagesReorderRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	rotatePagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	rotatePagesRequestFieldDocID            = big.NewInt(1 << 1)
-	rotatePagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	rotatePagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	rotatePagesRequestFieldDocID            = big.NewInt(1 << 2)
+	rotatePagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type RotatePagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                  `json:"-" url:"-"`
-	DocID            string                   `json:"-" url:"-"`
-	LayerName        string                   `json:"-" url:"-"`
-	Body             v3.DocPagesRotateRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                  `json:"-" url:"-"`
+	DocID          string                   `json:"-" url:"-"`
+	LayerName      string                   `json:"-" url:"-"`
+	Body           v3.DocPagesRotateRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -454,6 +542,13 @@ func (r *RotatePagesRequest) require(field *big.Int) {
 func (r *RotatePagesRequest) SetDocumentPassword(documentPassword *string) {
 	r.DocumentPassword = documentPassword
 	r.require(rotatePagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RotatePagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	r.IdempotencyKey = idempotencyKey
+	r.require(rotatePagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -485,16 +580,19 @@ func (r *RotatePagesRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	setNamePagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	setNamePagesRequestFieldDocID            = big.NewInt(1 << 1)
-	setNamePagesRequestFieldLayerName        = big.NewInt(1 << 2)
+	setNamePagesRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	setNamePagesRequestFieldDocID            = big.NewInt(1 << 2)
+	setNamePagesRequestFieldLayerName        = big.NewInt(1 << 3)
 )
 
 type SetNamePagesRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                   `json:"-" url:"-"`
-	DocID            string                    `json:"-" url:"-"`
-	LayerName        string                    `json:"-" url:"-"`
-	Body             v3.DocPagesSetNameRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                   `json:"-" url:"-"`
+	DocID          string                    `json:"-" url:"-"`
+	LayerName      string                    `json:"-" url:"-"`
+	Body           v3.DocPagesSetNameRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -512,6 +610,13 @@ func (s *SetNamePagesRequest) require(field *big.Int) {
 func (s *SetNamePagesRequest) SetDocumentPassword(documentPassword *string) {
 	s.DocumentPassword = documentPassword
 	s.require(setNamePagesRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SetNamePagesRequest) SetIdempotencyKey(idempotencyKey *string) {
+	s.IdempotencyKey = idempotencyKey
+	s.require(setNamePagesRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -543,19 +648,23 @@ func (s *SetNamePagesRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	docPagesSetScaleRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	docPagesSetScaleRequestFieldDocID            = big.NewInt(1 << 1)
-	docPagesSetScaleRequestFieldLayerName        = big.NewInt(1 << 2)
-	docPagesSetScaleRequestFieldPon              = big.NewInt(1 << 3)
-	docPagesSetScaleRequestFieldMeasure          = big.NewInt(1 << 4)
+	docPagesSetScaleRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docPagesSetScaleRequestFieldDocID            = big.NewInt(1 << 2)
+	docPagesSetScaleRequestFieldLayerName        = big.NewInt(1 << 3)
+	docPagesSetScaleRequestFieldPageKey          = big.NewInt(1 << 4)
+	docPagesSetScaleRequestFieldMeasure          = big.NewInt(1 << 5)
 )
 
 type DocPagesSetScaleRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                         `json:"-" url:"-"`
-	DocID            string                          `json:"-" url:"-"`
-	LayerName        string                          `json:"-" url:"-"`
-	Pon              int                             `json:"-" url:"-"`
-	Measure          *DocPagesSetScaleRequestMeasure `json:"measure,omitempty" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string                          `json:"-" url:"-"`
+	Measure *DocPagesSetScaleRequestMeasure `json:"measure,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -575,6 +684,13 @@ func (d *DocPagesSetScaleRequest) SetDocumentPassword(documentPassword *string) 
 	d.require(docPagesSetScaleRequestFieldDocumentPassword)
 }
 
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocPagesSetScaleRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docPagesSetScaleRequestFieldIdempotencyKey)
+}
+
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (d *DocPagesSetScaleRequest) SetDocID(docID string) {
@@ -589,11 +705,11 @@ func (d *DocPagesSetScaleRequest) SetLayerName(layerName string) {
 	d.require(docPagesSetScaleRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesSetScaleRequest) SetPon(pon int) {
-	d.Pon = pon
-	d.require(docPagesSetScaleRequestFieldPon)
+func (d *DocPagesSetScaleRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(docPagesSetScaleRequestFieldPageKey)
 }
 
 // SetMeasure sets the Measure field and marks it as non-optional;
@@ -2067,13 +2183,13 @@ func (d DocPagesSetScaleRequestMeasureSlopeItemLabelPosition) Ptr() *DocPagesSet
 type DocPagesSetScaleRequestMeasureSubtype string
 
 const (
-	DocPagesSetScaleRequestMeasureSubtypeRl DocPagesSetScaleRequestMeasureSubtype = "RL"
+	DocPagesSetScaleRequestMeasureSubtypeRectilinear DocPagesSetScaleRequestMeasureSubtype = "rectilinear"
 )
 
 func NewDocPagesSetScaleRequestMeasureSubtypeFromString(s string) (DocPagesSetScaleRequestMeasureSubtype, error) {
 	switch s {
-	case "RL":
-		return DocPagesSetScaleRequestMeasureSubtypeRl, nil
+	case "rectilinear":
+		return DocPagesSetScaleRequestMeasureSubtypeRectilinear, nil
 	}
 	var t DocPagesSetScaleRequestMeasureSubtype
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
@@ -2643,7 +2759,7 @@ var (
 	viewportsPagesRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	viewportsPagesRequestFieldDocID            = big.NewInt(1 << 1)
 	viewportsPagesRequestFieldLayerName        = big.NewInt(1 << 2)
-	viewportsPagesRequestFieldPon              = big.NewInt(1 << 3)
+	viewportsPagesRequestFieldPageKey          = big.NewInt(1 << 3)
 )
 
 type ViewportsPagesRequest struct {
@@ -2651,7 +2767,8 @@ type ViewportsPagesRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Pon              int     `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2685,9 +2802,9 @@ func (v *ViewportsPagesRequest) SetLayerName(layerName string) {
 	v.require(viewportsPagesRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (v *ViewportsPagesRequest) SetPon(pon int) {
-	v.Pon = pon
-	v.require(viewportsPagesRequestFieldPon)
+func (v *ViewportsPagesRequest) SetPageKey(pageKey string) {
+	v.PageKey = pageKey
+	v.require(viewportsPagesRequestFieldPageKey)
 }

@@ -10,7 +10,7 @@ import (
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
 	annotations "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/annotations"
 	forms "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/forms"
-	metadata "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata"
+	client "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata/client"
 	pages "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/pages"
 	redactions "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/redactions"
 	signatures "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/signatures"
@@ -23,7 +23,7 @@ type Client struct {
 	WithRawResponse *RawClient
 	Annotations     *annotations.Client
 	Forms           *forms.Client
-	Metadata        *metadata.Client
+	Metadata        *client.Client
 	Pages           *pages.Client
 	Redactions      *redactions.Client
 	Signatures      *signatures.Client
@@ -38,7 +38,7 @@ func NewClient(options *core.RequestOptions) *Client {
 	return &Client{
 		Annotations:     annotations.NewClient(options),
 		Forms:           forms.NewClient(options),
-		Metadata:        metadata.NewClient(options),
+		Metadata:        client.NewClient(options),
 		Pages:           pages.NewClient(options),
 		Redactions:      redactions.NewClient(options),
 		Signatures:      signatures.NewClient(options),
@@ -71,6 +71,39 @@ func (c *Client) Head(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocHead200Response, error) {
 	response, err := c.WithRawResponse.Head(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Each change stands on its own and names itself by `opId`: a refused change rolls back alone, and the answer lists every change in order, applied with its result or refused with its error. Asked again under its `opId`, a change gets the same answer, refusals included; a different change under an answered `opId` is refused (IdempotencyKeyReused). `{ opId, undoOf }` undoes an earlier change of the caller, here or in an earlier request; an undo leaves alone what was changed since, and the undo of an undo redoes. A redaction, a flatten, a form repair or a completed signature ends undo for the changes before it (UndoUnavailable). Each op is checked against its own capability: annotation ops need `doc.annotate.modify`, form values `doc.forms.fill`, form structure `doc.forms.modify`, metadata `doc.metadata.modify`. Bytes (a stamp's drawing, an attached file, a signature's artwork) travel as multipart: a JSON `body` part, each op naming its files by role as `resources: { <role>: '<key>' }`, and each file as the part `resource:<key>`. At most 64 changes per request and 512 ops per change.
+//
+// Example:
+//
+//	request := &cloudpdf.DocChangesRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    Changes: []*cloudpdf.DocChangesRequestChangesItem{
+//	        &cloudpdf.DocChangesRequestChangesItem{
+//	            OpID: "opId",
+//	        },
+//	    },
+//	}
+//	client.Doc.Changes(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Changes(
+	ctx context.Context,
+	request *cloudpdf.DocChangesRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocChanges200Response, error) {
+	response, err := c.WithRawResponse.Changes(
 		ctx,
 		request,
 		opts...,
@@ -140,7 +173,7 @@ func (c *Client) Manifest(
 //	request := &cloudpdf.RenderDocRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	}
 //	client.Doc.Render(
 //	    context.TODO(),
@@ -167,7 +200,7 @@ func (c *Client) Render(
 //	request := &cloudpdf.TextDocRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	}
 //	client.Doc.Text(
 //	    context.TODO(),
