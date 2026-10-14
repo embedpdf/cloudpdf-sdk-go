@@ -4,71 +4,92 @@ package doc
 
 import (
 	json "encoding/json"
-	fmt "fmt"
 	v3 "github.com/embedpdf/cloudpdf-sdk-go/v3"
+	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
 )
 
 var (
-	exportDataFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	exportDataFormsRequestFieldDocID            = big.NewInt(1 << 1)
-	exportDataFormsRequestFieldLayerName        = big.NewInt(1 << 2)
-	exportDataFormsRequestFieldFormat           = big.NewInt(1 << 3)
+	deleteWidgetFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	deleteWidgetFormsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	deleteWidgetFormsRequestFieldDocID            = big.NewInt(1 << 2)
+	deleteWidgetFormsRequestFieldLayerName        = big.NewInt(1 << 3)
+	deleteWidgetFormsRequestFieldPageKey          = big.NewInt(1 << 4)
+	deleteWidgetFormsRequestFieldAnnotKey         = big.NewInt(1 << 5)
 )
 
-type ExportDataFormsRequest struct {
+type DeleteWidgetFormsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                       `json:"-" url:"-"`
-	DocID            string                        `json:"-" url:"-"`
-	LayerName        string                        `json:"-" url:"-"`
-	Format           *ExportDataFormsRequestFormat `json:"-" url:"format,omitempty"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (e *ExportDataFormsRequest) require(field *big.Int) {
-	if e.explicitFields == nil {
-		e.explicitFields = big.NewInt(0)
+func (d *DeleteWidgetFormsRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
 	}
-	e.explicitFields.Or(e.explicitFields, field)
+	d.explicitFields.Or(d.explicitFields, field)
 }
 
 // SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ExportDataFormsRequest) SetDocumentPassword(documentPassword *string) {
-	e.DocumentPassword = documentPassword
-	e.require(exportDataFormsRequestFieldDocumentPassword)
+func (d *DeleteWidgetFormsRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(deleteWidgetFormsRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DeleteWidgetFormsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(deleteWidgetFormsRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ExportDataFormsRequest) SetDocID(docID string) {
-	e.DocID = docID
-	e.require(exportDataFormsRequestFieldDocID)
+func (d *DeleteWidgetFormsRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(deleteWidgetFormsRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ExportDataFormsRequest) SetLayerName(layerName string) {
-	e.LayerName = layerName
-	e.require(exportDataFormsRequestFieldLayerName)
+func (d *DeleteWidgetFormsRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(deleteWidgetFormsRequestFieldLayerName)
 }
 
-// SetFormat sets the Format field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ExportDataFormsRequest) SetFormat(format *ExportDataFormsRequestFormat) {
-	e.Format = format
-	e.require(exportDataFormsRequestFieldFormat)
+func (d *DeleteWidgetFormsRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(deleteWidgetFormsRequestFieldPageKey)
+}
+
+// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DeleteWidgetFormsRequest) SetAnnotKey(annotKey string) {
+	d.AnnotKey = annotKey
+	d.require(deleteWidgetFormsRequestFieldAnnotKey)
 }
 
 var (
-	getFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	getFormsRequestFieldDocID            = big.NewInt(1 << 1)
-	getFormsRequestFieldLayerName        = big.NewInt(1 << 2)
+	listFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	listFormsRequestFieldDocID            = big.NewInt(1 << 1)
+	listFormsRequestFieldLayerName        = big.NewInt(1 << 2)
 )
 
-type GetFormsRequest struct {
+type ListFormsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
@@ -78,159 +99,331 @@ type GetFormsRequest struct {
 	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (g *GetFormsRequest) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
+func (l *ListFormsRequest) require(field *big.Int) {
+	if l.explicitFields == nil {
+		l.explicitFields = big.NewInt(0)
 	}
-	g.explicitFields.Or(g.explicitFields, field)
+	l.explicitFields.Or(l.explicitFields, field)
 }
 
 // SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetFormsRequest) SetDocumentPassword(documentPassword *string) {
-	g.DocumentPassword = documentPassword
-	g.require(getFormsRequestFieldDocumentPassword)
+func (l *ListFormsRequest) SetDocumentPassword(documentPassword *string) {
+	l.DocumentPassword = documentPassword
+	l.require(listFormsRequestFieldDocumentPassword)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetFormsRequest) SetDocID(docID string) {
-	g.DocID = docID
-	g.require(getFormsRequestFieldDocID)
+func (l *ListFormsRequest) SetDocID(docID string) {
+	l.DocID = docID
+	l.require(listFormsRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetFormsRequest) SetLayerName(layerName string) {
-	g.LayerName = layerName
-	g.require(getFormsRequestFieldLayerName)
+func (l *ListFormsRequest) SetLayerName(layerName string) {
+	l.LayerName = layerName
+	l.require(listFormsRequestFieldLayerName)
 }
 
 var (
-	importDataFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	importDataFormsRequestFieldDocID            = big.NewInt(1 << 1)
-	importDataFormsRequestFieldLayerName        = big.NewInt(1 << 2)
+	docFormsReorderCalculationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docFormsReorderCalculationsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docFormsReorderCalculationsRequestFieldDocID            = big.NewInt(1 << 2)
+	docFormsReorderCalculationsRequestFieldLayerName        = big.NewInt(1 << 3)
+	docFormsReorderCalculationsRequestFieldFields           = big.NewInt(1 << 4)
+	docFormsReorderCalculationsRequestFieldPosition         = big.NewInt(1 << 5)
 )
 
-type ImportDataFormsRequest struct {
+type DocFormsReorderCalculationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                      `json:"-" url:"-"`
-	DocID            string                       `json:"-" url:"-"`
-	LayerName        string                       `json:"-" url:"-"`
-	Body             v3.DocFormsImportDataRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string            `json:"-" url:"-"`
+	DocID          string             `json:"-" url:"-"`
+	LayerName      string             `json:"-" url:"-"`
+	Fields         []*v3.FormFieldRef `json:"fields" url:"-"`
+	Position       *v3.FieldPosition  `json:"position" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (i *ImportDataFormsRequest) require(field *big.Int) {
-	if i.explicitFields == nil {
-		i.explicitFields = big.NewInt(0)
+func (d *DocFormsReorderCalculationsRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
 	}
-	i.explicitFields.Or(i.explicitFields, field)
+	d.explicitFields.Or(d.explicitFields, field)
 }
 
 // SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (i *ImportDataFormsRequest) SetDocumentPassword(documentPassword *string) {
-	i.DocumentPassword = documentPassword
-	i.require(importDataFormsRequestFieldDocumentPassword)
+func (d *DocFormsReorderCalculationsRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docFormsReorderCalculationsRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderCalculationsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docFormsReorderCalculationsRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (i *ImportDataFormsRequest) SetDocID(docID string) {
-	i.DocID = docID
-	i.require(importDataFormsRequestFieldDocID)
+func (d *DocFormsReorderCalculationsRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docFormsReorderCalculationsRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (i *ImportDataFormsRequest) SetLayerName(layerName string) {
-	i.LayerName = layerName
-	i.require(importDataFormsRequestFieldLayerName)
+func (d *DocFormsReorderCalculationsRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docFormsReorderCalculationsRequestFieldLayerName)
 }
 
-func (i *ImportDataFormsRequest) UnmarshalJSON(data []byte) error {
-	var body v3.DocFormsImportDataRequest
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderCalculationsRequest) SetFields(fields []*v3.FormFieldRef) {
+	d.Fields = fields
+	d.require(docFormsReorderCalculationsRequestFieldFields)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderCalculationsRequest) SetPosition(position *v3.FieldPosition) {
+	d.Position = position
+	d.require(docFormsReorderCalculationsRequestFieldPosition)
+}
+
+func (d *DocFormsReorderCalculationsRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocFormsReorderCalculationsRequest
+	var body unmarshaler
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
-	i.Body = body
+	*d = DocFormsReorderCalculationsRequest(body)
 	return nil
 }
 
-func (i *ImportDataFormsRequest) MarshalJSON() ([]byte, error) {
-	return json.Marshal(i.Body)
+func (d *DocFormsReorderCalculationsRequest) MarshalJSON() ([]byte, error) {
+	type embed DocFormsReorderCalculationsRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }
 
 var (
-	resetFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	resetFormsRequestFieldDocID            = big.NewInt(1 << 1)
-	resetFormsRequestFieldLayerName        = big.NewInt(1 << 2)
-	resetFormsRequestFieldFieldKey         = big.NewInt(1 << 3)
+	docFormsReorderWidgetsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docFormsReorderWidgetsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docFormsReorderWidgetsRequestFieldDocID            = big.NewInt(1 << 2)
+	docFormsReorderWidgetsRequestFieldLayerName        = big.NewInt(1 << 3)
+	docFormsReorderWidgetsRequestFieldPageKey          = big.NewInt(1 << 4)
+	docFormsReorderWidgetsRequestFieldWidgets          = big.NewInt(1 << 5)
+	docFormsReorderWidgetsRequestFieldPosition         = big.NewInt(1 << 6)
 )
 
-type ResetFormsRequest struct {
+type DocFormsReorderWidgetsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
-	DocID            string  `json:"-" url:"-"`
-	LayerName        string  `json:"-" url:"-"`
-	FieldKey         string  `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey  string                 `json:"-" url:"-"`
+	Widgets  []*v3.AnnotationRef    `json:"widgets" url:"-"`
+	Position *v3.AnnotationPosition `json:"position" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (r *ResetFormsRequest) require(field *big.Int) {
-	if r.explicitFields == nil {
-		r.explicitFields = big.NewInt(0)
+func (d *DocFormsReorderWidgetsRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
 	}
-	r.explicitFields.Or(r.explicitFields, field)
+	d.explicitFields.Or(d.explicitFields, field)
 }
 
 // SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ResetFormsRequest) SetDocumentPassword(documentPassword *string) {
-	r.DocumentPassword = documentPassword
-	r.require(resetFormsRequestFieldDocumentPassword)
+func (d *DocFormsReorderWidgetsRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docFormsReorderWidgetsRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderWidgetsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docFormsReorderWidgetsRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ResetFormsRequest) SetDocID(docID string) {
-	r.DocID = docID
-	r.require(resetFormsRequestFieldDocID)
+func (d *DocFormsReorderWidgetsRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docFormsReorderWidgetsRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ResetFormsRequest) SetLayerName(layerName string) {
-	r.LayerName = layerName
-	r.require(resetFormsRequestFieldLayerName)
+func (d *DocFormsReorderWidgetsRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docFormsReorderWidgetsRequestFieldLayerName)
 }
 
-// SetFieldKey sets the FieldKey field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ResetFormsRequest) SetFieldKey(fieldKey string) {
-	r.FieldKey = fieldKey
-	r.require(resetFormsRequestFieldFieldKey)
+func (d *DocFormsReorderWidgetsRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(docFormsReorderWidgetsRequestFieldPageKey)
+}
+
+// SetWidgets sets the Widgets field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderWidgetsRequest) SetWidgets(widgets []*v3.AnnotationRef) {
+	d.Widgets = widgets
+	d.require(docFormsReorderWidgetsRequestFieldWidgets)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsReorderWidgetsRequest) SetPosition(position *v3.AnnotationPosition) {
+	d.Position = position
+	d.require(docFormsReorderWidgetsRequestFieldPosition)
+}
+
+func (d *DocFormsReorderWidgetsRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocFormsReorderWidgetsRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocFormsReorderWidgetsRequest(body)
+	return nil
+}
+
+func (d *DocFormsReorderWidgetsRequest) MarshalJSON() ([]byte, error) {
+	type embed DocFormsReorderWidgetsRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
+	docFormsResetRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docFormsResetRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docFormsResetRequestFieldDocID            = big.NewInt(1 << 2)
+	docFormsResetRequestFieldLayerName        = big.NewInt(1 << 3)
+	docFormsResetRequestFieldRefs             = big.NewInt(1 << 4)
+)
+
+type DocFormsResetRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string            `json:"-" url:"-"`
+	DocID          string             `json:"-" url:"-"`
+	LayerName      string             `json:"-" url:"-"`
+	Refs           []*v3.FormFieldRef `json:"refs,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocFormsResetRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsResetRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docFormsResetRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsResetRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docFormsResetRequestFieldIdempotencyKey)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsResetRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docFormsResetRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsResetRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docFormsResetRequestFieldLayerName)
+}
+
+// SetRefs sets the Refs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsResetRequest) SetRefs(refs []*v3.FormFieldRef) {
+	d.Refs = refs
+	d.require(docFormsResetRequestFieldRefs)
+}
+
+func (d *DocFormsResetRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocFormsResetRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocFormsResetRequest(body)
+	return nil
+}
+
+func (d *DocFormsResetRequest) MarshalJSON() ([]byte, error) {
+	type embed DocFormsResetRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }
 
 var (
 	setValueFormsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	setValueFormsRequestFieldDocID            = big.NewInt(1 << 1)
-	setValueFormsRequestFieldLayerName        = big.NewInt(1 << 2)
-	setValueFormsRequestFieldFieldKey         = big.NewInt(1 << 3)
+	setValueFormsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	setValueFormsRequestFieldDocID            = big.NewInt(1 << 2)
+	setValueFormsRequestFieldLayerName        = big.NewInt(1 << 3)
+	setValueFormsRequestFieldFieldKey         = big.NewInt(1 << 4)
 )
 
 type SetValueFormsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                    `json:"-" url:"-"`
-	DocID            string                     `json:"-" url:"-"`
-	LayerName        string                     `json:"-" url:"-"`
-	FieldKey         string                     `json:"-" url:"-"`
-	Body             v3.DocFormsSetValueRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string                    `json:"-" url:"-"`
+	DocID          string                     `json:"-" url:"-"`
+	LayerName      string                     `json:"-" url:"-"`
+	FieldKey       string                     `json:"-" url:"-"`
+	Body           v3.DocFormsSetValueRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -248,6 +441,13 @@ func (s *SetValueFormsRequest) require(field *big.Int) {
 func (s *SetValueFormsRequest) SetDocumentPassword(documentPassword *string) {
 	s.DocumentPassword = documentPassword
 	s.require(setValueFormsRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SetValueFormsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	s.IdempotencyKey = idempotencyKey
+	s.require(setValueFormsRequestFieldIdempotencyKey)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
@@ -284,24 +484,106 @@ func (s *SetValueFormsRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(s.Body)
 }
 
-type ExportDataFormsRequestFormat string
-
-const (
-	ExportDataFormsRequestFormatFdf  ExportDataFormsRequestFormat = "fdf"
-	ExportDataFormsRequestFormatXfdf ExportDataFormsRequestFormat = "xfdf"
+var (
+	docFormsUpdateWidgetRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docFormsUpdateWidgetRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docFormsUpdateWidgetRequestFieldDocID            = big.NewInt(1 << 2)
+	docFormsUpdateWidgetRequestFieldLayerName        = big.NewInt(1 << 3)
+	docFormsUpdateWidgetRequestFieldPageKey          = big.NewInt(1 << 4)
+	docFormsUpdateWidgetRequestFieldAnnotKey         = big.NewInt(1 << 5)
+	docFormsUpdateWidgetRequestFieldPatch            = big.NewInt(1 << 6)
 )
 
-func NewExportDataFormsRequestFormatFromString(s string) (ExportDataFormsRequestFormat, error) {
-	switch s {
-	case "fdf":
-		return ExportDataFormsRequestFormatFdf, nil
-	case "xfdf":
-		return ExportDataFormsRequestFormatXfdf, nil
-	}
-	var t ExportDataFormsRequestFormat
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
+type DocFormsUpdateWidgetRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string          `json:"-" url:"-"`
+	Patch    *v3.WidgetPatch `json:"patch" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
 }
 
-func (e ExportDataFormsRequestFormat) Ptr() *ExportDataFormsRequestFormat {
-	return &e
+func (d *DocFormsUpdateWidgetRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docFormsUpdateWidgetRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docFormsUpdateWidgetRequestFieldIdempotencyKey)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docFormsUpdateWidgetRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docFormsUpdateWidgetRequestFieldLayerName)
+}
+
+// SetPageKey sets the PageKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(docFormsUpdateWidgetRequestFieldPageKey)
+}
+
+// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetAnnotKey(annotKey string) {
+	d.AnnotKey = annotKey
+	d.require(docFormsUpdateWidgetRequestFieldAnnotKey)
+}
+
+// SetPatch sets the Patch field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocFormsUpdateWidgetRequest) SetPatch(patch *v3.WidgetPatch) {
+	d.Patch = patch
+	d.require(docFormsUpdateWidgetRequestFieldPatch)
+}
+
+func (d *DocFormsUpdateWidgetRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocFormsUpdateWidgetRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocFormsUpdateWidgetRequest(body)
+	return nil
+}
+
+func (d *DocFormsUpdateWidgetRequest) MarshalJSON() ([]byte, error) {
+	type embed DocFormsUpdateWidgetRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }

@@ -10,6 +10,7 @@ import (
 	os "os"
 	testing "testing"
 
+	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/client"
 	doc "github.com/embedpdf/cloudpdf-sdk-go/v3/doc"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
@@ -77,7 +78,7 @@ func VerifyRequestCount(
 	require.Equal(t, expected, len(result.Requests))
 }
 
-func TestDocFormsGetWithWireMock(
+func TestDocFormsListWithWireMock(
 	t *testing.T,
 ) {
 	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
@@ -88,23 +89,23 @@ func TestDocFormsGetWithWireMock(
 		option.WithBaseURL(WireMockBaseURL),
 		option.WithToken("test-token"),
 	)
-	request := &doc.GetFormsRequest{
+	request := &doc.ListFormsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
 	}
-	_, invocationErr := client.Doc.Forms.Get(
+	_, invocationErr := client.Doc.Forms.List(
 		context.TODO(),
 		request,
 		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocFormsGetWithWireMock"}},
+			http.Header{"X-Test-Id": []string{"TestDocFormsListWithWireMock"}},
 		),
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFormsGetWithWireMock", "GET", "/v1/docs/docId/layers/layerName/form", nil, 1)
+	VerifyRequestCount(t, "TestDocFormsListWithWireMock", "GET", "/v1/docs/docId/layers/layerName/form", nil, 1)
 }
 
-func TestDocFormsImportDataWithWireMock(
+func TestDocFormsReorderCalculationsWithWireMock(
 	t *testing.T,
 ) {
 	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
@@ -115,51 +116,30 @@ func TestDocFormsImportDataWithWireMock(
 		option.WithBaseURL(WireMockBaseURL),
 		option.WithToken("test-token"),
 	)
-	request := &doc.ImportDataFormsRequest{
+	request := &doc.DocFormsReorderCalculationsRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
+		Fields: []*cloudpdf.FormFieldRef{
+			&cloudpdf.FormFieldRef{
+				ObjectNumber: &cloudpdf.FormFieldRefObjectNumber{
+					ObjectNumber: 1,
+				},
+			},
+		},
+		Position: &cloudpdf.FieldPosition{
+			FieldPositionZero: cloudpdf.FieldPositionZeroStart,
 		},
 	}
-	_, invocationErr := client.Doc.Forms.ImportData(
+	_, invocationErr := client.Doc.Forms.ReorderCalculations(
 		context.TODO(),
 		request,
 		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocFormsImportDataWithWireMock"}},
+			http.Header{"X-Test-Id": []string{"TestDocFormsReorderCalculationsWithWireMock"}},
 		),
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFormsImportDataWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/data", nil, 1)
-}
-
-func TestDocFormsResetWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.ResetFormsRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		FieldKey:  "fieldKey",
-	}
-	_, invocationErr := client.Doc.Forms.Reset(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocFormsResetWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFormsResetWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/fields/fieldKey/reset", nil, 1)
+	VerifyRequestCount(t, "TestDocFormsReorderCalculationsWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/calculations/reorder", nil, 1)
 }
 
 func TestDocFormsSetValueWithWireMock(
@@ -191,4 +171,132 @@ func TestDocFormsSetValueWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocFormsSetValueWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/fields/fieldKey/value", nil, 1)
+}
+
+func TestDocFormsResetWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocFormsResetRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+	}
+	_, invocationErr := client.Doc.Forms.Reset(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocFormsResetWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocFormsResetWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/reset", nil, 1)
+}
+
+func TestDocFormsDeleteWidgetWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DeleteWidgetFormsRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		PageKey:   "pageKey",
+		AnnotKey:  "annotKey",
+	}
+	_, invocationErr := client.Doc.Forms.DeleteWidget(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocFormsDeleteWidgetWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocFormsDeleteWidgetWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotKey", nil, 1)
+}
+
+func TestDocFormsUpdateWidgetWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocFormsUpdateWidgetRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		PageKey:   "pageKey",
+		AnnotKey:  "annotKey",
+		Patch:     &cloudpdf.WidgetPatch{},
+	}
+	_, invocationErr := client.Doc.Forms.UpdateWidget(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocFormsUpdateWidgetWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocFormsUpdateWidgetWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotKey", nil, 1)
+}
+
+func TestDocFormsReorderWidgetsWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocFormsReorderWidgetsRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		PageKey:   "pageKey",
+		Widgets: []*cloudpdf.AnnotationRef{
+			&cloudpdf.AnnotationRef{
+				ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+					Page: &cloudpdf.PageRef{
+						Kind:         cloudpdf.PageRefKindObjectNumber,
+						ObjectNumber: 1,
+					},
+					ObjectNumber: 1,
+				},
+			},
+		},
+		Position: &cloudpdf.AnnotationPosition{
+			AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
+		},
+	}
+	_, invocationErr := client.Doc.Forms.ReorderWidgets(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocFormsReorderWidgetsWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocFormsReorderWidgetsWithWireMock", "POST", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/reorder", nil, 1)
 }

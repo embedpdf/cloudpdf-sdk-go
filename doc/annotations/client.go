@@ -36,7 +36,7 @@ func NewClient(options *core.RequestOptions) *Client {
 	}
 }
 
-// Returns one entry per page plus the audit-log cursor for reconciling subsequent document events. Page order is unspecified; join by `pageState.pageObjectNumber` when display order matters.
+// Returns one entry per page plus the audit-log cursor for reconciling subsequent document events. Page order is unspecified; join by `page` (a `PageRef`) when display order matters.
 //
 // Example:
 //
@@ -52,7 +52,7 @@ func (c *Client) ListAll(
 	ctx context.Context,
 	request *doc.ListAllAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsListAll200Response, error) {
+) (cloudpdf.DocAnnotationsListAll200Response, error) {
 	response, err := c.WithRawResponse.ListAll(
 		ctx,
 		request,
@@ -69,7 +69,7 @@ func (c *Client) ListAll(
 //	request := &doc.ListAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	}
 //	client.Doc.Annotations.List(
 //	    context.TODO(),
@@ -79,7 +79,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsList200Response, error) {
+) (cloudpdf.DocAnnotationsList200Response, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -98,7 +98,7 @@ func (c *Client) List(
 //	request := &doc.CreateAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	    Body: map[string]any{
 //	        "key": "value",
 //	    },
@@ -128,7 +128,7 @@ func (c *Client) Create(
 //	request := &doc.DeleteAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	    AnnotKey: "annotKey",
 //	}
 //	client.Doc.Annotations.Delete(
@@ -156,7 +156,7 @@ func (c *Client) Delete(
 //	request := &doc.UpdateAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	    AnnotKey: "annotKey",
 //	    Body: map[string]any{
 //	        "key": "value",
@@ -184,10 +184,38 @@ func (c *Client) Update(
 
 // Example:
 //
+//	request := &doc.ReadAppearanceAnnotationsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    AnnotKey: "annotKey",
+//	}
+//	client.Doc.Annotations.ReadAppearance(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ReadAppearance(
+	ctx context.Context,
+	request *doc.ReadAppearanceAnnotationsRequest,
+	opts ...option.RequestOption,
+) (io.Reader, error) {
+	response, err := c.WithRawResponse.ReadAppearance(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
 //	request := &doc.ExportAppearanceAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	    Body: map[string]any{
 //	        "string": map[string]any{
 //	            "key": "value",
@@ -219,7 +247,7 @@ func (c *Client) ExportAppearance(
 //	request := &doc.FlattenAnnotationsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Pon: 1,
+//	    PageKey: "pageKey",
 //	    Body: map[string]any{
 //	        "key": "value",
 //	    },
@@ -234,6 +262,47 @@ func (c *Client) Flatten(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocAnnotationsFlatten200Response, error) {
 	response, err := c.WithRawResponse.Flatten(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
+// Example:
+//
+//	request := &doc.DocAnnotationsReorderRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    Refs: []*cloudpdf.AnnotationRef{
+//	        &cloudpdf.AnnotationRef{
+//	            ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+//	                Page: &cloudpdf.PageRef{
+//	                    Kind: cloudpdf.PageRefKindObjectNumber,
+//	                    ObjectNumber: 1,
+//	                },
+//	                ObjectNumber: 1,
+//	            },
+//	        },
+//	    },
+//	    Position: &cloudpdf.AnnotationPosition{
+//	        AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
+//	    },
+//	}
+//	client.Doc.Annotations.Reorder(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Reorder(
+	ctx context.Context,
+	request *doc.DocAnnotationsReorderRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocAnnotationsReorder200Response, error) {
+	response, err := c.WithRawResponse.Reorder(
 		ctx,
 		request,
 		opts...,

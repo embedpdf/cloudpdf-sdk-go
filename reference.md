@@ -82,6 +82,96 @@ client.Doc.Head(
 </dl>
 </details>
 
+<details><summary><code>client.Doc.Changes(DocID, LayerName, request) -> *cloudpdf.DocChanges200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Each change stands on its own and names itself by `opId`: a refused change rolls back alone, and the answer lists every change in order, applied with its result or refused with its error. Asked again under its `opId`, a change gets the same answer, refusals included; a different change under an answered `opId` is refused (IdempotencyKeyReused). `{ opId, undoOf }` undoes an earlier change of the caller, here or in an earlier request; an undo leaves alone what was changed since, and the undo of an undo redoes. A redaction, a flatten, a form repair or a completed signature ends undo for the changes before it (UndoUnavailable). Each op is checked against its own capability: annotation ops need `doc.annotate.modify`, form values `doc.forms.fill`, form structure `doc.forms.modify`, metadata `doc.metadata.modify`. Bytes (a stamp's drawing, an attached file, a signature's artwork) travel as multipart: a JSON `body` part, each op naming its files by role as `resources: { <role>: '<key>' }`, and each file as the part `resource:<key>`. At most 64 changes per request and 512 ops per change.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.DocChangesRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Changes: []*cloudpdf.DocChangesRequestChangesItem{
+        &cloudpdf.DocChangesRequestChangesItem{
+            OpID: "opId",
+        },
+    },
+}
+client.Doc.Changes(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**changes:** `[]*cloudpdf.DocChangesRequestChangesItem` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Doc.Download(DocID, LayerName) -> string</code></summary>
 <dl>
 <dd>
@@ -208,7 +298,7 @@ client.Doc.Manifest(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Render(DocID, LayerName, Pon) -> string</code></summary>
+<details><summary><code>client.Doc.Render(DocID, LayerName, PageKey) -> string</code></summary>
 <dl>
 <dd>
 
@@ -238,7 +328,7 @@ Render parameters (viewport, format) pass as flat dotted query keys, e.g. `?view
 request := &cloudpdf.RenderDocRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
 }
 client.Doc.Render(
     context.TODO(),
@@ -274,7 +364,7 @@ client.Doc.Render(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -294,7 +384,7 @@ client.Doc.Render(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Text(DocID, LayerName, Pon) -> *cloudpdf.DocText200Response</code></summary>
+<details><summary><code>client.Doc.Text(DocID, LayerName, PageKey) -> *cloudpdf.DocText200Response</code></summary>
 <dl>
 <dd>
 
@@ -310,7 +400,7 @@ client.Doc.Render(
 request := &cloudpdf.TextDocRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
 }
 client.Doc.Text(
     context.TODO(),
@@ -346,7 +436,7 @@ client.Doc.Text(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -517,7 +607,7 @@ client.Shares.List(
 <dl>
 <dd>
 
-The returned share id IS the public share token. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
+The returned share id is the public share token. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
 </dd>
 </dl>
 </dd>
@@ -1721,7 +1811,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-**source:** `*cloudpdf.DocumentsImportFromRequestSource` — Where CloudPDF pulls the bytes from. The two shapes differ in WHO supplies the authority to read, not in which storage vendor holds the file.
+**source:** `*cloudpdf.DocumentsImportFromRequestSource` — Where CloudPDF pulls the bytes from. The two shapes differ in who supplies the authority to read, not in which storage vendor holds the file.
     
 </dd>
 </dl>
@@ -2058,7 +2148,7 @@ client.Tokens.Revoke(
 </details>
 
 ## Doc Annotations
-<details><summary><code>client.Doc.Annotations.ListAll(DocID, LayerName) -> *cloudpdf.DocAnnotationsListAll200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.ListAll(DocID, LayerName) -> cloudpdf.DocAnnotationsListAll200Response</code></summary>
 <dl>
 <dd>
 
@@ -2070,7 +2160,7 @@ client.Tokens.Revoke(
 <dl>
 <dd>
 
-Returns one entry per page plus the audit-log cursor for reconciling subsequent document events. Page order is unspecified; join by `pageState.pageObjectNumber` when display order matters.
+Returns one entry per page plus the audit-log cursor for reconciling subsequent document events. Page order is unspecified; join by `page` (a `PageRef`) when display order matters.
 </dd>
 </dl>
 </dd>
@@ -2135,7 +2225,7 @@ client.Doc.Annotations.ListAll(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.List(DocID, LayerName, Pon) -> *cloudpdf.DocAnnotationsList200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.List(DocID, LayerName, PageKey) -> cloudpdf.DocAnnotationsList200Response</code></summary>
 <dl>
 <dd>
 
@@ -2151,7 +2241,7 @@ client.Doc.Annotations.ListAll(
 request := &doc.ListAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
 }
 client.Doc.Annotations.List(
     context.TODO(),
@@ -2187,7 +2277,7 @@ client.Doc.Annotations.List(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2207,7 +2297,7 @@ client.Doc.Annotations.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Create(DocID, LayerName, Pon, request) -> *cloudpdf.DocAnnotationsCreate200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Create(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsCreate200Response</code></summary>
 <dl>
 <dd>
 
@@ -2237,7 +2327,7 @@ Doc JWTs may instead carry collab scopes (annotations:create:self, …) that ref
 request := &doc.CreateAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
     Body: map[string]any{
         "key": "value",
     },
@@ -2276,7 +2366,7 @@ client.Doc.Annotations.Create(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2285,6 +2375,14 @@ client.Doc.Annotations.Create(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
     
 </dd>
 </dl>
@@ -2304,7 +2402,7 @@ client.Doc.Annotations.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Delete(DocID, LayerName, Pon, AnnotKey) -> *cloudpdf.DocAnnotationsDelete200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Delete(DocID, LayerName, PageKey, AnnotKey) -> *cloudpdf.DocAnnotationsDelete200Response</code></summary>
 <dl>
 <dd>
 
@@ -2320,7 +2418,7 @@ client.Doc.Annotations.Create(
 request := &doc.DeleteAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
     AnnotKey: "annotKey",
 }
 client.Doc.Annotations.Delete(
@@ -2357,7 +2455,7 @@ client.Doc.Annotations.Delete(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2365,7 +2463,7 @@ client.Doc.Annotations.Delete(
 <dl>
 <dd>
 
-**annotKey:** `string` 
+**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -2377,6 +2475,14 @@ client.Doc.Annotations.Delete(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -2385,7 +2491,7 @@ client.Doc.Annotations.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Update(DocID, LayerName, Pon, AnnotKey, request) -> *cloudpdf.DocAnnotationsUpdate200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Update(DocID, LayerName, PageKey, AnnotKey, request) -> *cloudpdf.DocAnnotationsUpdate200Response</code></summary>
 <dl>
 <dd>
 
@@ -2401,7 +2507,7 @@ client.Doc.Annotations.Delete(
 request := &doc.UpdateAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
     AnnotKey: "annotKey",
     Body: map[string]any{
         "key": "value",
@@ -2441,7 +2547,7 @@ client.Doc.Annotations.Update(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2449,7 +2555,7 @@ client.Doc.Annotations.Update(
 <dl>
 <dd>
 
-**annotKey:** `string` 
+**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -2458,6 +2564,14 @@ client.Doc.Annotations.Update(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
     
 </dd>
 </dl>
@@ -2477,7 +2591,88 @@ client.Doc.Annotations.Update(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.ExportAppearance(DocID, LayerName, Pon, request) -> string</code></summary>
+<details><summary><code>client.Doc.Annotations.ReadAppearance(DocID, LayerName, PageKey, AnnotKey) -> string</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.ReadAppearanceAnnotationsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    PageKey: "pageKey",
+    AnnotKey: "annotKey",
+}
+client.Doc.Annotations.ReadAppearance(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Annotations.ExportAppearance(DocID, LayerName, PageKey, request) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2493,7 +2688,7 @@ client.Doc.Annotations.Update(
 request := &doc.ExportAppearanceAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
     Body: map[string]any{
         "string": map[string]any{
             "key": "value",
@@ -2534,7 +2729,7 @@ client.Doc.Annotations.ExportAppearance(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2562,7 +2757,7 @@ client.Doc.Annotations.ExportAppearance(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Flatten(DocID, LayerName, Pon, request) -> *cloudpdf.DocAnnotationsFlatten200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Flatten(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsFlatten200Response</code></summary>
 <dl>
 <dd>
 
@@ -2578,7 +2773,7 @@ client.Doc.Annotations.ExportAppearance(
 request := &doc.FlattenAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
     Body: map[string]any{
         "key": "value",
     },
@@ -2617,7 +2812,7 @@ client.Doc.Annotations.Flatten(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -2626,6 +2821,14 @@ client.Doc.Annotations.Flatten(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
     
 </dd>
 </dl>
@@ -2645,8 +2848,7 @@ client.Doc.Annotations.Flatten(
 </dl>
 </details>
 
-## Doc Forms
-<details><summary><code>client.Doc.Forms.Get(DocID, LayerName) -> *cloudpdf.DocFormsGet200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Reorder(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsReorder200Response</code></summary>
 <dl>
 <dd>
 
@@ -2659,148 +2861,26 @@ client.Doc.Annotations.Flatten(
 <dd>
 
 ```go
-request := &doc.GetFormsRequest{
+request := &doc.DocAnnotationsReorderRequest{
     DocID: "docId",
     LayerName: "layerName",
-}
-client.Doc.Forms.Get(
-    context.TODO(),
-    request,
-)
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**docID:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**layerName:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.Doc.Forms.ExportData(DocID, LayerName) -> string</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &doc.ExportDataFormsRequest{
-    DocID: "docId",
-    LayerName: "layerName",
-}
-client.Doc.Forms.ExportData(
-    context.TODO(),
-    request,
-)
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**docID:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**layerName:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**format:** `*doc.ExportDataFormsRequestFormat` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.Doc.Forms.ImportData(DocID, LayerName, request) -> *cloudpdf.DocFormsImportData200Response</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &doc.ImportDataFormsRequest{
-    DocID: "docId",
-    LayerName: "layerName",
-    Body: map[string]any{
-        "key": "value",
+    PageKey: "pageKey",
+    Refs: []*cloudpdf.AnnotationRef{
+        &cloudpdf.AnnotationRef{
+            ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+                Page: &cloudpdf.PageRef{
+                    Kind: cloudpdf.PageRefKindObjectNumber,
+                    ObjectNumber: 1,
+                },
+                ObjectNumber: 1,
+            },
+        },
+    },
+    Position: &cloudpdf.AnnotationPosition{
+        AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
     },
 }
-client.Doc.Forms.ImportData(
+client.Doc.Annotations.Reorder(
     context.TODO(),
     request,
 )
@@ -2834,6 +2914,14 @@ client.Doc.Forms.ImportData(
 <dl>
 <dd>
 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
     
 </dd>
@@ -2842,7 +2930,23 @@ client.Doc.Forms.ImportData(
 <dl>
 <dd>
 
-**request:** `cloudpdf.DocFormsImportDataRequest` 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**refs:** `[]*cloudpdf.AnnotationRef` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `*cloudpdf.AnnotationPosition` 
     
 </dd>
 </dl>
@@ -2854,7 +2958,8 @@ client.Doc.Forms.ImportData(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.Reset(DocID, LayerName, FieldKey) -> *cloudpdf.DocFormsReset200Response</code></summary>
+## Doc Forms
+<details><summary><code>client.Doc.Forms.List(DocID, LayerName) -> *cloudpdf.DocFormsList200Response</code></summary>
 <dl>
 <dd>
 
@@ -2867,12 +2972,11 @@ client.Doc.Forms.ImportData(
 <dd>
 
 ```go
-request := &doc.ResetFormsRequest{
+request := &doc.ListFormsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    FieldKey: "fieldKey",
 }
-client.Doc.Forms.Reset(
+client.Doc.Forms.List(
     context.TODO(),
     request,
 )
@@ -2906,7 +3010,72 @@ client.Doc.Forms.Reset(
 <dl>
 <dd>
 
-**fieldKey:** `string` 
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Forms.ReorderCalculations(DocID, LayerName, request) -> *cloudpdf.DocFormsReorderCalculations200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocFormsReorderCalculationsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Fields: []*cloudpdf.FormFieldRef{
+        &cloudpdf.FormFieldRef{
+            ObjectNumber: &cloudpdf.FormFieldRefObjectNumber{
+                ObjectNumber: 1,
+            },
+        },
+    },
+    Position: &cloudpdf.FieldPosition{
+        FieldPositionZero: cloudpdf.FieldPositionZeroStart,
+    },
+}
+client.Doc.Forms.ReorderCalculations(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>
@@ -2915,6 +3084,30 @@ client.Doc.Forms.Reset(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**fields:** `[]*cloudpdf.FormFieldRef` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `*cloudpdf.FieldPosition` 
     
 </dd>
 </dl>
@@ -2997,6 +3190,14 @@ client.Doc.Forms.SetValue(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocFormsSetValueRequest` 
     
 </dd>
@@ -3009,8 +3210,384 @@ client.Doc.Forms.SetValue(
 </dl>
 </details>
 
+<details><summary><code>client.Doc.Forms.Reset(DocID, LayerName, request) -> *cloudpdf.DocFormsReset200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocFormsResetRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+}
+client.Doc.Forms.Reset(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**refs:** `[]*cloudpdf.FormFieldRef` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Forms.DeleteWidget(DocID, LayerName, PageKey, AnnotKey) -> *cloudpdf.DocFormsDeleteWidget200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DeleteWidgetFormsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    PageKey: "pageKey",
+    AnnotKey: "annotKey",
+}
+client.Doc.Forms.DeleteWidget(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Forms.UpdateWidget(DocID, LayerName, PageKey, AnnotKey, request) -> *cloudpdf.DocFormsUpdateWidget200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocFormsUpdateWidgetRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    PageKey: "pageKey",
+    AnnotKey: "annotKey",
+    Patch: &cloudpdf.WidgetPatch{},
+}
+client.Doc.Forms.UpdateWidget(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**patch:** `*cloudpdf.WidgetPatch` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Forms.ReorderWidgets(DocID, LayerName, PageKey, request) -> *cloudpdf.DocFormsReorderWidgets200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocFormsReorderWidgetsRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    PageKey: "pageKey",
+    Widgets: []*cloudpdf.AnnotationRef{
+        &cloudpdf.AnnotationRef{
+            ObjectNumber: &cloudpdf.AnnotationRefObjectNumber{
+                Page: &cloudpdf.PageRef{
+                    Kind: cloudpdf.PageRefKindObjectNumber,
+                    ObjectNumber: 1,
+                },
+                ObjectNumber: 1,
+            },
+        },
+    },
+    Position: &cloudpdf.AnnotationPosition{
+        AnnotationPositionZero: cloudpdf.AnnotationPositionZeroStart,
+    },
+}
+client.Doc.Forms.ReorderWidgets(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**widgets:** `[]*cloudpdf.AnnotationRef` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `*cloudpdf.AnnotationPosition` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Doc Metadata
-<details><summary><code>client.Doc.Metadata.Get(DocID, LayerName) -> *cloudpdf.DocMetadataGet200Response</code></summary>
+<details><summary><code>client.Doc.Metadata.Get(DocID, LayerName) -> cloudpdf.DocMetadataGet200Response</code></summary>
 <dl>
 <dd>
 
@@ -3074,7 +3651,7 @@ client.Doc.Metadata.Get(
 </details>
 
 ## Doc Pages
-<details><summary><code>client.Doc.Pages.SetScale(DocID, LayerName, Pon, request) -> *cloudpdf.DocPagesSetScale200Response</code></summary>
+<details><summary><code>client.Doc.Pages.SetScale(DocID, LayerName, PageKey, request) -> *cloudpdf.DocPagesSetScale200Response</code></summary>
 <dl>
 <dd>
 
@@ -3090,7 +3667,7 @@ client.Doc.Metadata.Get(
 request := &doc.DocPagesSetScaleRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
 }
 client.Doc.Pages.SetScale(
     context.TODO(),
@@ -3126,7 +3703,7 @@ client.Doc.Pages.SetScale(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3135,6 +3712,14 @@ client.Doc.Pages.SetScale(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
     
 </dd>
 </dl>
@@ -3154,7 +3739,7 @@ client.Doc.Pages.SetScale(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Pages.Viewports(DocID, LayerName, Pon) -> cloudpdf.DocPagesViewports200Response</code></summary>
+<details><summary><code>client.Doc.Pages.Viewports(DocID, LayerName, PageKey) -> *cloudpdf.DocPagesViewports200Response</code></summary>
 <dl>
 <dd>
 
@@ -3170,7 +3755,7 @@ client.Doc.Pages.SetScale(
 request := &doc.ViewportsPagesRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Pon: 1,
+    PageKey: "pageKey",
 }
 client.Doc.Pages.Viewports(
     context.TODO(),
@@ -3206,7 +3791,7 @@ client.Doc.Pages.Viewports(
 <dl>
 <dd>
 
-**pon:** `int` 
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3288,6 +3873,14 @@ client.Doc.Pages.Delete(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocPagesDeleteRequest` 
     
 </dd>
@@ -3312,7 +3905,7 @@ client.Doc.Pages.Delete(
 <dl>
 <dd>
 
-A read, not a mutation: the source document is untouched and no event is published. Body is `{"pageObjectNumbers": number[]}`; the response body is the new PDF.
+A read, not a mutation: the source document is untouched and no event is published. Body is `{"pages": PageRef[]}`; the response body is the new PDF.
 </dd>
 </dl>
 </dd>
@@ -3452,6 +4045,14 @@ client.Doc.Pages.Flatten(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocPagesFlattenRequest` 
     
 </dd>
@@ -3476,7 +4077,7 @@ client.Doc.Pages.Flatten(
 <dl>
 <dd>
 
-Multipart mutation envelope: a `body` field holding `{"destIndex"?: number}` (omitted → append) plus a `resource:source` file part carrying the standalone PDF whose pages are copied in. The inserted copies get fresh page object numbers, returned in insertion order.
+Multipart: a JSON `body` part `{"position"?: PagePosition, "resources": {"source": "<key>"}}` (position omitted → the end), and the standalone PDF whose pages are copied in as the part `resource:<key>`. The inserted copies get fresh page object numbers, returned in insertion order.
 </dd>
 </dl>
 </dd>
@@ -3536,6 +4137,14 @@ client.Doc.Pages.Insert(
     
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
 </dd>
 </dl>
 
@@ -3556,7 +4165,7 @@ client.Doc.Pages.Insert(
 <dl>
 <dd>
 
-Body is `{"size": {"width", "height"}, "count"?, "destIndex"?}` — size in PDF points, count in [1, 100], destIndex omitted → append.
+Body is `{"size": {"width", "height"}, "count"?, "position"?}` — size in PDF points, count in [1, 100], `position` a `PagePosition` (omitted → the end).
 </dd>
 </dl>
 </dd>
@@ -3620,81 +4229,15 @@ client.Doc.Pages.InsertBlank(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocPagesInsertBlankRequest` 
-    
-</dd>
-</dl>
-</dd>
-</dl>
-
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.Doc.Pages.Move(DocID, LayerName, request) -> *cloudpdf.DocPagesMove200Response</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```go
-request := &doc.MovePagesRequest{
-    DocID: "docId",
-    LayerName: "layerName",
-    Body: map[string]any{
-        "key": "value",
-    },
-}
-client.Doc.Pages.Move(
-    context.TODO(),
-    request,
-)
-```
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**docID:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**layerName:** `string` 
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-    
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**request:** `cloudpdf.DocPagesMoveRequest` 
     
 </dd>
 </dl>
@@ -3761,6 +4304,14 @@ client.Doc.Pages.SetName(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
     
 </dd>
 </dl>
@@ -3842,7 +4393,111 @@ client.Doc.Pages.RemoveName(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocPagesRemoveNameRequest` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Doc.Pages.Reorder(DocID, LayerName, request) -> *cloudpdf.DocPagesReorder200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &doc.DocPagesReorderRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+    Pages: []*cloudpdf.PageRef{
+        &cloudpdf.PageRef{
+            Kind: cloudpdf.PageRefKindObjectNumber,
+            ObjectNumber: 1,
+        },
+    },
+    Position: &cloudpdf.PagePosition{
+        PagePositionZero: cloudpdf.PagePositionZeroStart,
+    },
+}
+client.Doc.Pages.Reorder(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `[]*cloudpdf.PageRef` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**position:** `*cloudpdf.PagePosition` 
     
 </dd>
 </dl>
@@ -3916,6 +4571,14 @@ client.Doc.Pages.Rotate(
 <dl>
 <dd>
 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **request:** `cloudpdf.DocPagesRotateRequest` 
     
 </dd>
@@ -3942,12 +4605,9 @@ client.Doc.Pages.Rotate(
 <dd>
 
 ```go
-request := &doc.ApplyRedactionsRequest{
+request := &doc.DocRedactionsApplyRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Body: map[string]any{
-        "key": "value",
-    },
 }
 client.Doc.Redactions.Apply(
     context.TODO(),
@@ -3991,7 +4651,23 @@ client.Doc.Redactions.Apply(
 <dl>
 <dd>
 
-**request:** `cloudpdf.DocRedactionsApplyRequest` 
+**idempotencyKey:** `*string` — Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**pages:** `[]*cloudpdf.PageRef` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**annotations:** `[]*cloudpdf.AnnotationRef` 
     
 </dd>
 </dl>
@@ -4081,7 +4757,7 @@ client.Doc.Signatures.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Signatures.Abort(DocID, LayerName, SigningID) -> *cloudpdf.DocSignaturesAbort200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.Cancel(DocID, LayerName, SigningID) -> *cloudpdf.DocSignaturesCancel200Response</code></summary>
 <dl>
 <dd>
 
@@ -4094,12 +4770,12 @@ client.Doc.Signatures.List(
 <dd>
 
 ```go
-request := &doc.AbortSignaturesRequest{
+request := &doc.CancelSignaturesRequest{
     DocID: "docId",
     LayerName: "layerName",
     SigningID: "signingId",
 }
-client.Doc.Signatures.Abort(
+client.Doc.Signatures.Cancel(
     context.TODO(),
     request,
 )
@@ -4373,7 +5049,7 @@ client.Doc.Signatures.Analysis(
 <dl>
 <dd>
 
-The multipart envelope: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock, appearance) and an optional `resource:<key>` PDF part the body's `appearance.resource` names. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is aborted, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
+Multipart: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock), naming the appearance PDF it may carry as `resources: { appearance: '<key>' }`, and that PDF as the part `resource:<key>`. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is cancelled, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
 </dd>
 </dl>
 </dd>
@@ -4987,6 +5663,70 @@ client.Doc.Versions.SignatureDigest(
 <dd>
 
 **algorithm:** `*doc.SignatureDigestVersionsRequestAlgorithm` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Doc Metadata Custom
+<details><summary><code>client.Doc.Metadata.Custom.Get(DocID, LayerName) -> cloudpdf.DocMetadataCustomGet200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &metadata.GetCustomRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+}
+client.Doc.Metadata.Custom.Get(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>

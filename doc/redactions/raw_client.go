@@ -35,7 +35,7 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) Apply(
 	ctx context.Context,
-	request *doc.ApplyRedactionsRequest,
+	request *doc.DocRedactionsApplyRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[*cloudpdf.DocRedactionsApply200Response], error) {
 	options := core.NewRequestOptions(opts...)
@@ -55,6 +55,9 @@ func (r *RawClient) Apply(
 	)
 	if request.DocumentPassword != nil {
 		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
 	var response *cloudpdf.DocRedactionsApply200Response

@@ -65,21 +65,21 @@ func (c *Client) List(
 
 // Example:
 //
-//	request := &doc.AbortSignaturesRequest{
+//	request := &doc.CancelSignaturesRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    SigningID: "signingId",
 //	}
-//	client.Doc.Signatures.Abort(
+//	client.Doc.Signatures.Cancel(
 //	    context.TODO(),
 //	    request,
 //	)
-func (c *Client) Abort(
+func (c *Client) Cancel(
 	ctx context.Context,
-	request *doc.AbortSignaturesRequest,
+	request *doc.CancelSignaturesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesAbort200Response, error) {
-	response, err := c.WithRawResponse.Abort(
+) (*cloudpdf.DocSignaturesCancel200Response, error) {
+	response, err := c.WithRawResponse.Cancel(
 		ctx,
 		request,
 		opts...,
@@ -152,7 +152,7 @@ func (c *Client) Analysis(
 	return response.Body, nil
 }
 
-// The multipart envelope: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock, appearance) and an optional `resource:<key>` PDF part the body's `appearance.resource` names. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is aborted, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
+// Multipart: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock), naming the appearance PDF it may carry as `resources: { appearance: '<key>' }`, and that PDF as the part `resource:<key>`. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is cancelled, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
 //
 // Example:
 //

@@ -37,12 +37,9 @@ func NewClient(options *core.RequestOptions) *Client {
 
 // Example:
 //
-//	request := &doc.ApplyRedactionsRequest{
+//	request := &doc.DocRedactionsApplyRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
-//	    },
 //	}
 //	client.Doc.Redactions.Apply(
 //	    context.TODO(),
@@ -50,7 +47,7 @@ func NewClient(options *core.RequestOptions) *Client {
 //	)
 func (c *Client) Apply(
 	ctx context.Context,
-	request *doc.ApplyRedactionsRequest,
+	request *doc.DocRedactionsApplyRequest,
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocRedactionsApply200Response, error) {
 	response, err := c.WithRawResponse.Apply(

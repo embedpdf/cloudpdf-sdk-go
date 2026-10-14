@@ -103,6 +103,38 @@ func TestDocHeadWithWireMock(
 	VerifyRequestCount(t, "TestDocHeadWithWireMock", "GET", "/v1/docs/docId/head", nil, 1)
 }
 
+func TestDocChangesWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.DocChangesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+		Changes: []*cloudpdf.DocChangesRequestChangesItem{
+			&cloudpdf.DocChangesRequestChangesItem{
+				OpID: "opId",
+			},
+		},
+	}
+	_, invocationErr := client.Doc.Changes(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocChangesWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocChangesWithWireMock", "POST", "/v1/docs/docId/layers/layerName/changes", nil, 1)
+}
+
 func TestDocManifestWithWireMock(
 	t *testing.T,
 ) {
@@ -144,7 +176,7 @@ func TestDocTextWithWireMock(
 	request := &cloudpdf.TextDocRequest{
 		DocID:     "docId",
 		LayerName: "layerName",
-		Pon:       1,
+		PageKey:   "pageKey",
 	}
 	_, invocationErr := client.Doc.Text(
 		context.TODO(),
@@ -155,5 +187,5 @@ func TestDocTextWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocTextWithWireMock", "GET", "/v1/docs/docId/layers/layerName/text/pages/1/data", nil, 1)
+	VerifyRequestCount(t, "TestDocTextWithWireMock", "GET", "/v1/docs/docId/layers/layerName/text/pages/pageKey/data", nil, 1)
 }

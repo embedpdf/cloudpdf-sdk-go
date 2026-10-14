@@ -5,23 +5,28 @@ package doc
 import (
 	json "encoding/json"
 	v3 "github.com/embedpdf/cloudpdf-sdk-go/v3"
+	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
 )
 
 var (
 	createAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	createAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
-	createAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	createAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+	createAnnotationsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	createAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
+	createAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
+	createAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
 )
 
 type CreateAnnotationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                        `json:"-" url:"-"`
-	DocID            string                         `json:"-" url:"-"`
-	LayerName        string                         `json:"-" url:"-"`
-	Pon              int                            `json:"-" url:"-"`
-	Body             v3.DocAnnotationsCreateRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string                         `json:"-" url:"-"`
+	Body    v3.DocAnnotationsCreateRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -41,6 +46,13 @@ func (c *CreateAnnotationsRequest) SetDocumentPassword(documentPassword *string)
 	c.require(createAnnotationsRequestFieldDocumentPassword)
 }
 
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CreateAnnotationsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	c.IdempotencyKey = idempotencyKey
+	c.require(createAnnotationsRequestFieldIdempotencyKey)
+}
+
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (c *CreateAnnotationsRequest) SetDocID(docID string) {
@@ -55,11 +67,11 @@ func (c *CreateAnnotationsRequest) SetLayerName(layerName string) {
 	c.require(createAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *CreateAnnotationsRequest) SetPon(pon int) {
-	c.Pon = pon
-	c.require(createAnnotationsRequestFieldPon)
+func (c *CreateAnnotationsRequest) SetPageKey(pageKey string) {
+	c.PageKey = pageKey
+	c.require(createAnnotationsRequestFieldPageKey)
 }
 
 func (c *CreateAnnotationsRequest) UnmarshalJSON(data []byte) error {
@@ -77,19 +89,24 @@ func (c *CreateAnnotationsRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	deleteAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	deleteAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
-	deleteAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	deleteAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
-	deleteAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+	deleteAnnotationsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	deleteAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
+	deleteAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
+	deleteAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
+	deleteAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 5)
 )
 
 type DeleteAnnotationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
-	DocID            string  `json:"-" url:"-"`
-	LayerName        string  `json:"-" url:"-"`
-	Pon              int     `json:"-" url:"-"`
-	AnnotKey         string  `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -109,6 +126,13 @@ func (d *DeleteAnnotationsRequest) SetDocumentPassword(documentPassword *string)
 	d.require(deleteAnnotationsRequestFieldDocumentPassword)
 }
 
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DeleteAnnotationsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(deleteAnnotationsRequestFieldIdempotencyKey)
+}
+
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (d *DeleteAnnotationsRequest) SetDocID(docID string) {
@@ -123,11 +147,11 @@ func (d *DeleteAnnotationsRequest) SetLayerName(layerName string) {
 	d.require(deleteAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeleteAnnotationsRequest) SetPon(pon int) {
-	d.Pon = pon
-	d.require(deleteAnnotationsRequestFieldPon)
+func (d *DeleteAnnotationsRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(deleteAnnotationsRequestFieldPageKey)
 }
 
 // SetAnnotKey sets the AnnotKey field and marks it as non-optional;
@@ -141,16 +165,17 @@ var (
 	exportAppearanceAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	exportAppearanceAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	exportAppearanceAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	exportAppearanceAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+	exportAppearanceAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
 )
 
 type ExportAppearanceAnnotationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                                  `json:"-" url:"-"`
-	DocID            string                                   `json:"-" url:"-"`
-	LayerName        string                                   `json:"-" url:"-"`
-	Pon              int                                      `json:"-" url:"-"`
-	Body             v3.DocAnnotationsExportAppearanceRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string                                   `json:"-" url:"-"`
+	Body    v3.DocAnnotationsExportAppearanceRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -184,11 +209,11 @@ func (e *ExportAppearanceAnnotationsRequest) SetLayerName(layerName string) {
 	e.require(exportAppearanceAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *ExportAppearanceAnnotationsRequest) SetPon(pon int) {
-	e.Pon = pon
-	e.require(exportAppearanceAnnotationsRequestFieldPon)
+func (e *ExportAppearanceAnnotationsRequest) SetPageKey(pageKey string) {
+	e.PageKey = pageKey
+	e.require(exportAppearanceAnnotationsRequestFieldPageKey)
 }
 
 func (e *ExportAppearanceAnnotationsRequest) UnmarshalJSON(data []byte) error {
@@ -206,18 +231,22 @@ func (e *ExportAppearanceAnnotationsRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	flattenAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	flattenAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
-	flattenAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	flattenAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+	flattenAnnotationsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	flattenAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
+	flattenAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
+	flattenAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
 )
 
 type FlattenAnnotationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                         `json:"-" url:"-"`
-	DocID            string                          `json:"-" url:"-"`
-	LayerName        string                          `json:"-" url:"-"`
-	Pon              int                             `json:"-" url:"-"`
-	Body             v3.DocAnnotationsFlattenRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string                          `json:"-" url:"-"`
+	Body    v3.DocAnnotationsFlattenRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -237,6 +266,13 @@ func (f *FlattenAnnotationsRequest) SetDocumentPassword(documentPassword *string
 	f.require(flattenAnnotationsRequestFieldDocumentPassword)
 }
 
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FlattenAnnotationsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	f.IdempotencyKey = idempotencyKey
+	f.require(flattenAnnotationsRequestFieldIdempotencyKey)
+}
+
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FlattenAnnotationsRequest) SetDocID(docID string) {
@@ -251,11 +287,11 @@ func (f *FlattenAnnotationsRequest) SetLayerName(layerName string) {
 	f.require(flattenAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FlattenAnnotationsRequest) SetPon(pon int) {
-	f.Pon = pon
-	f.require(flattenAnnotationsRequestFieldPon)
+func (f *FlattenAnnotationsRequest) SetPageKey(pageKey string) {
+	f.PageKey = pageKey
+	f.require(flattenAnnotationsRequestFieldPageKey)
 }
 
 func (f *FlattenAnnotationsRequest) UnmarshalJSON(data []byte) error {
@@ -275,7 +311,7 @@ var (
 	listAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	listAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	listAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	listAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
+	listAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
 )
 
 type ListAnnotationsRequest struct {
@@ -283,7 +319,8 @@ type ListAnnotationsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Pon              int     `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -317,11 +354,11 @@ func (l *ListAnnotationsRequest) SetLayerName(layerName string) {
 	l.require(listAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (l *ListAnnotationsRequest) SetPon(pon int) {
-	l.Pon = pon
-	l.require(listAnnotationsRequestFieldPon)
+func (l *ListAnnotationsRequest) SetPageKey(pageKey string) {
+	l.PageKey = pageKey
+	l.require(listAnnotationsRequestFieldPageKey)
 }
 
 var (
@@ -369,21 +406,193 @@ func (l *ListAllAnnotationsRequest) SetLayerName(layerName string) {
 }
 
 var (
+	readAppearanceAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	readAppearanceAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
+	readAppearanceAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
+	readAppearanceAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
+	readAppearanceAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+)
+
+type ReadAppearanceAnnotationsRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (r *ReadAppearanceAnnotationsRequest) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadAppearanceAnnotationsRequest) SetDocumentPassword(documentPassword *string) {
+	r.DocumentPassword = documentPassword
+	r.require(readAppearanceAnnotationsRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadAppearanceAnnotationsRequest) SetDocID(docID string) {
+	r.DocID = docID
+	r.require(readAppearanceAnnotationsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadAppearanceAnnotationsRequest) SetLayerName(layerName string) {
+	r.LayerName = layerName
+	r.require(readAppearanceAnnotationsRequestFieldLayerName)
+}
+
+// SetPageKey sets the PageKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadAppearanceAnnotationsRequest) SetPageKey(pageKey string) {
+	r.PageKey = pageKey
+	r.require(readAppearanceAnnotationsRequestFieldPageKey)
+}
+
+// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadAppearanceAnnotationsRequest) SetAnnotKey(annotKey string) {
+	r.AnnotKey = annotKey
+	r.require(readAppearanceAnnotationsRequestFieldAnnotKey)
+}
+
+var (
+	docAnnotationsReorderRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docAnnotationsReorderRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docAnnotationsReorderRequestFieldDocID            = big.NewInt(1 << 2)
+	docAnnotationsReorderRequestFieldLayerName        = big.NewInt(1 << 3)
+	docAnnotationsReorderRequestFieldPageKey          = big.NewInt(1 << 4)
+	docAnnotationsReorderRequestFieldRefs             = big.NewInt(1 << 5)
+	docAnnotationsReorderRequestFieldPosition         = big.NewInt(1 << 6)
+)
+
+type DocAnnotationsReorderRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey  string                 `json:"-" url:"-"`
+	Refs     []*v3.AnnotationRef    `json:"refs" url:"-"`
+	Position *v3.AnnotationPosition `json:"position" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocAnnotationsReorderRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docAnnotationsReorderRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docAnnotationsReorderRequestFieldIdempotencyKey)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docAnnotationsReorderRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docAnnotationsReorderRequestFieldLayerName)
+}
+
+// SetPageKey sets the PageKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetPageKey(pageKey string) {
+	d.PageKey = pageKey
+	d.require(docAnnotationsReorderRequestFieldPageKey)
+}
+
+// SetRefs sets the Refs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetRefs(refs []*v3.AnnotationRef) {
+	d.Refs = refs
+	d.require(docAnnotationsReorderRequestFieldRefs)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocAnnotationsReorderRequest) SetPosition(position *v3.AnnotationPosition) {
+	d.Position = position
+	d.require(docAnnotationsReorderRequestFieldPosition)
+}
+
+func (d *DocAnnotationsReorderRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocAnnotationsReorderRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocAnnotationsReorderRequest(body)
+	return nil
+}
+
+func (d *DocAnnotationsReorderRequest) MarshalJSON() ([]byte, error) {
+	type embed DocAnnotationsReorderRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	updateAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	updateAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
-	updateAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
-	updateAnnotationsRequestFieldPon              = big.NewInt(1 << 3)
-	updateAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+	updateAnnotationsRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	updateAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
+	updateAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
+	updateAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
+	updateAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 5)
 )
 
 type UpdateAnnotationsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string                        `json:"-" url:"-"`
-	DocID            string                         `json:"-" url:"-"`
-	LayerName        string                         `json:"-" url:"-"`
-	Pon              int                            `json:"-" url:"-"`
-	AnnotKey         string                         `json:"-" url:"-"`
-	Body             v3.DocAnnotationsUpdateRequest `json:"-" url:"-"`
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string `json:"-" url:"-"`
+	DocID          string  `json:"-" url:"-"`
+	LayerName      string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string                         `json:"-" url:"-"`
+	Body     v3.DocAnnotationsUpdateRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -403,6 +612,13 @@ func (u *UpdateAnnotationsRequest) SetDocumentPassword(documentPassword *string)
 	u.require(updateAnnotationsRequestFieldDocumentPassword)
 }
 
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UpdateAnnotationsRequest) SetIdempotencyKey(idempotencyKey *string) {
+	u.IdempotencyKey = idempotencyKey
+	u.require(updateAnnotationsRequestFieldIdempotencyKey)
+}
+
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (u *UpdateAnnotationsRequest) SetDocID(docID string) {
@@ -417,11 +633,11 @@ func (u *UpdateAnnotationsRequest) SetLayerName(layerName string) {
 	u.require(updateAnnotationsRequestFieldLayerName)
 }
 
-// SetPon sets the Pon field and marks it as non-optional;
+// SetPageKey sets the PageKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (u *UpdateAnnotationsRequest) SetPon(pon int) {
-	u.Pon = pon
-	u.require(updateAnnotationsRequestFieldPon)
+func (u *UpdateAnnotationsRequest) SetPageKey(pageKey string) {
+	u.PageKey = pageKey
+	u.require(updateAnnotationsRequestFieldPageKey)
 }
 
 // SetAnnotKey sets the AnnotKey field and marks it as non-optional;

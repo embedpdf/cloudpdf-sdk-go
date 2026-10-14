@@ -11,59 +11,6 @@ import (
 )
 
 var (
-	abortSignaturesRequestFieldDocumentPassword = big.NewInt(1 << 0)
-	abortSignaturesRequestFieldDocID            = big.NewInt(1 << 1)
-	abortSignaturesRequestFieldLayerName        = big.NewInt(1 << 2)
-	abortSignaturesRequestFieldSigningID        = big.NewInt(1 << 3)
-)
-
-type AbortSignaturesRequest struct {
-	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
-	DocumentPassword *string `json:"-" url:"-"`
-	DocID            string  `json:"-" url:"-"`
-	LayerName        string  `json:"-" url:"-"`
-	SigningID        string  `json:"-" url:"-"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-}
-
-func (a *AbortSignaturesRequest) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AbortSignaturesRequest) SetDocumentPassword(documentPassword *string) {
-	a.DocumentPassword = documentPassword
-	a.require(abortSignaturesRequestFieldDocumentPassword)
-}
-
-// SetDocID sets the DocID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AbortSignaturesRequest) SetDocID(docID string) {
-	a.DocID = docID
-	a.require(abortSignaturesRequestFieldDocID)
-}
-
-// SetLayerName sets the LayerName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AbortSignaturesRequest) SetLayerName(layerName string) {
-	a.LayerName = layerName
-	a.require(abortSignaturesRequestFieldLayerName)
-}
-
-// SetSigningID sets the SigningID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AbortSignaturesRequest) SetSigningID(signingID string) {
-	a.SigningID = signingID
-	a.require(abortSignaturesRequestFieldSigningID)
-}
-
-var (
 	analysisSignaturesRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	analysisSignaturesRequestFieldDocID            = big.NewInt(1 << 1)
 	analysisSignaturesRequestFieldLayerName        = big.NewInt(1 << 2)
@@ -132,6 +79,59 @@ func (a *AnalysisSignaturesRequest) SetSinceRevision(sinceRevision *int) {
 func (a *AnalysisSignaturesRequest) SetLevel(level *AnalysisSignaturesRequestLevel) {
 	a.Level = level
 	a.require(analysisSignaturesRequestFieldLevel)
+}
+
+var (
+	cancelSignaturesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	cancelSignaturesRequestFieldDocID            = big.NewInt(1 << 1)
+	cancelSignaturesRequestFieldLayerName        = big.NewInt(1 << 2)
+	cancelSignaturesRequestFieldSigningID        = big.NewInt(1 << 3)
+)
+
+type CancelSignaturesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	SigningID        string  `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (c *CancelSignaturesRequest) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CancelSignaturesRequest) SetDocumentPassword(documentPassword *string) {
+	c.DocumentPassword = documentPassword
+	c.require(cancelSignaturesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CancelSignaturesRequest) SetDocID(docID string) {
+	c.DocID = docID
+	c.require(cancelSignaturesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CancelSignaturesRequest) SetLayerName(layerName string) {
+	c.LayerName = layerName
+	c.require(cancelSignaturesRequestFieldLayerName)
+}
+
+// SetSigningID sets the SigningID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CancelSignaturesRequest) SetSigningID(signingID string) {
+	c.SigningID = signingID
+	c.require(cancelSignaturesRequestFieldSigningID)
 }
 
 var (
