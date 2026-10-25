@@ -9,8 +9,10 @@ import (
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
 	annotations "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/annotations"
+	attachments "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/attachments"
 	forms "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/forms"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata/client"
+	outline "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/outline"
 	pages "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/pages"
 	redactions "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/redactions"
 	signatures "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/signatures"
@@ -22,8 +24,10 @@ import (
 type Client struct {
 	WithRawResponse *RawClient
 	Annotations     *annotations.Client
+	Attachments     *attachments.Client
 	Forms           *forms.Client
 	Metadata        *client.Client
+	Outline         *outline.Client
 	Pages           *pages.Client
 	Redactions      *redactions.Client
 	Signatures      *signatures.Client
@@ -37,8 +41,10 @@ type Client struct {
 func NewClient(options *core.RequestOptions) *Client {
 	return &Client{
 		Annotations:     annotations.NewClient(options),
+		Attachments:     attachments.NewClient(options),
 		Forms:           forms.NewClient(options),
 		Metadata:        client.NewClient(options),
+		Outline:         outline.NewClient(options),
 		Pages:           pages.NewClient(options),
 		Redactions:      redactions.NewClient(options),
 		Signatures:      signatures.NewClient(options),
@@ -81,7 +87,7 @@ func (c *Client) Head(
 	return response.Body, nil
 }
 
-// Each change stands on its own and names itself by `opId`: a refused change rolls back alone, and the answer lists every change in order, applied with its result or refused with its error. Asked again under its `opId`, a change gets the same answer, refusals included; a different change under an answered `opId` is refused (IdempotencyKeyReused). `{ opId, undoOf }` undoes an earlier change of the caller, here or in an earlier request; an undo leaves alone what was changed since, and the undo of an undo redoes. A redaction, a flatten, a form repair or a completed signature ends undo for the changes before it (UndoUnavailable). Each op is checked against its own capability: annotation ops need `doc.annotate.modify`, form values `doc.forms.fill`, form structure `doc.forms.modify`, metadata `doc.metadata.modify`. Bytes (a stamp's drawing, an attached file, a signature's artwork) travel as multipart: a JSON `body` part, each op naming its files by role as `resources: { <role>: '<key>' }`, and each file as the part `resource:<key>`. At most 64 changes per request and 512 ops per change.
+// Each change stands on its own and names itself by `opId`: a refused change rolls back alone, and the answer lists every change in order, applied with its result or refused with its error. Asked again under its `opId`, a change gets the same answer, refusals included; a different change under an answered `opId` is refused (IdempotencyKeyReused). `{ opId, undoOf }` undoes an earlier change of the caller, here or in an earlier request; an undo leaves alone what was changed since, and the undo of an undo redoes. A redaction, a flatten, a form repair or a completed signature ends undo for the changes before it (UndoUnavailable). Each op is checked against its own capability: annotation ops need `doc.annotate.modify`, form values `doc.forms.fill`, form structure `doc.forms.modify`, metadata `doc.metadata.modify`, outline `doc.outline.modify`, pages `doc.pages.assemble`, embedded files `doc.attachments.modify`. Bytes (a stamp's drawing, an attached file, a signature's artwork, a PDF whose pages come in) travel as multipart: a JSON `body` part, each op naming its files by role as `resources: { <role>: '<key>' }`, and each file as the part `resource:<key>`. At most 64 changes per request and 512 ops per change.
 //
 // Example:
 //

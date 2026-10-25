@@ -210,6 +210,36 @@ func (c *Client) ReadAppearance(
 	return response.Body, nil
 }
 
+// A file that decodes past the server's limit is refused (PayloadTooLarge).
+//
+// Example:
+//
+//	request := &doc.ReadFileAnnotationsRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	    PageKey: "pageKey",
+//	    AnnotKey: "annotKey",
+//	}
+//	client.Doc.Annotations.ReadFile(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) ReadFile(
+	ctx context.Context,
+	request *doc.ReadFileAnnotationsRequest,
+	opts ...option.RequestOption,
+) (io.Reader, error) {
+	response, err := c.WithRawResponse.ReadFile(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &doc.ExportAppearanceAnnotationsRequest{

@@ -90,36 +90,7 @@ func (c *Client) Viewports(
 	return response.Body, nil
 }
 
-// Example:
-//
-//	request := &doc.DeletePagesRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
-//	    },
-//	}
-//	client.Doc.Pages.Delete(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Delete(
-	ctx context.Context,
-	request *doc.DeletePagesRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesDelete200Response, error) {
-	response, err := c.WithRawResponse.Delete(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// A read, not a mutation: the source document is untouched and no event is published. Body is `{"pages": PageRef[]}`; the response body is the new PDF.
+// A read, not a mutation: the source document is untouched and no event is published. Body is `{"pages": PageRef[], "flatten"?: {"usage"?: "display" | "print"}, "includeAnnotations"?: boolean, "includeFormFields"?: boolean}`; the response body is the new PDF. With `flatten` the copy is the pages as they draw for `usage` (`"print"`: a print copy): the annotations and form fields painted in, nothing interactive left, layers in their state for the usage. A flattened copy takes `doc.download` or `doc.download.flattened`, and paints only what the caller may read; `includeAnnotations` and `includeFormFields` choose what it paints, and are refused without `flatten`.
 //
 // Example:
 //
@@ -181,68 +152,6 @@ func (c *Client) Flatten(
 	return response.Body, nil
 }
 
-// Multipart: a JSON `body` part `{"position"?: PagePosition, "resources": {"source": "<key>"}}` (position omitted → the end), and the standalone PDF whose pages are copied in as the part `resource:<key>`. The inserted copies get fresh page object numbers, returned in insertion order.
-//
-// Example:
-//
-//	request := &doc.InsertPagesRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    File: strings.NewReader(
-//	        "",
-//	    ),
-//	}
-//	client.Doc.Pages.Insert(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Insert(
-	ctx context.Context,
-	request *doc.InsertPagesRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesInsert200Response, error) {
-	response, err := c.WithRawResponse.Insert(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Body is `{"size": {"width", "height"}, "count"?, "position"?}` — size in PDF points, count in [1, 100], `position` a `PagePosition` (omitted → the end).
-//
-// Example:
-//
-//	request := &doc.InsertBlankPagesRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
-//	    },
-//	}
-//	client.Doc.Pages.InsertBlank(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) InsertBlank(
-	ctx context.Context,
-	request *doc.InsertBlankPagesRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesInsertBlank200Response, error) {
-	response, err := c.WithRawResponse.InsertBlank(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
 // Example:
 //
 //	request := &doc.SetNamePagesRequest{
@@ -291,70 +200,6 @@ func (c *Client) RemoveName(
 	opts ...option.RequestOption,
 ) (*cloudpdf.DocPagesRemoveName200Response, error) {
 	response, err := c.WithRawResponse.RemoveName(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Example:
-//
-//	request := &doc.DocPagesReorderRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Pages: []*cloudpdf.PageRef{
-//	        &cloudpdf.PageRef{
-//	            Kind: cloudpdf.PageRefKindObjectNumber,
-//	            ObjectNumber: 1,
-//	        },
-//	    },
-//	    Position: &cloudpdf.PagePosition{
-//	        PagePositionZero: cloudpdf.PagePositionZeroStart,
-//	    },
-//	}
-//	client.Doc.Pages.Reorder(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Reorder(
-	ctx context.Context,
-	request *doc.DocPagesReorderRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesReorder200Response, error) {
-	response, err := c.WithRawResponse.Reorder(
-		ctx,
-		request,
-		opts...,
-	)
-	if err != nil {
-		return nil, err
-	}
-	return response.Body, nil
-}
-
-// Example:
-//
-//	request := &doc.RotatePagesRequest{
-//	    DocID: "docId",
-//	    LayerName: "layerName",
-//	    Body: map[string]any{
-//	        "key": "value",
-//	    },
-//	}
-//	client.Doc.Pages.Rotate(
-//	    context.TODO(),
-//	    request,
-//	)
-func (c *Client) Rotate(
-	ctx context.Context,
-	request *doc.RotatePagesRequest,
-	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesRotate200Response, error) {
-	response, err := c.WithRawResponse.Rotate(
 		ctx,
 		request,
 		opts...,

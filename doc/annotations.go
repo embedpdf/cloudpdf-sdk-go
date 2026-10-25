@@ -470,6 +470,70 @@ func (r *ReadAppearanceAnnotationsRequest) SetAnnotKey(annotKey string) {
 }
 
 var (
+	readFileAnnotationsRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	readFileAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
+	readFileAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
+	readFileAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
+	readFileAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+)
+
+type ReadFileAnnotationsRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	PageKey string `json:"-" url:"-"`
+	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+	AnnotKey string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (r *ReadFileAnnotationsRequest) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadFileAnnotationsRequest) SetDocumentPassword(documentPassword *string) {
+	r.DocumentPassword = documentPassword
+	r.require(readFileAnnotationsRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadFileAnnotationsRequest) SetDocID(docID string) {
+	r.DocID = docID
+	r.require(readFileAnnotationsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadFileAnnotationsRequest) SetLayerName(layerName string) {
+	r.LayerName = layerName
+	r.require(readFileAnnotationsRequestFieldLayerName)
+}
+
+// SetPageKey sets the PageKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadFileAnnotationsRequest) SetPageKey(pageKey string) {
+	r.PageKey = pageKey
+	r.require(readFileAnnotationsRequestFieldPageKey)
+}
+
+// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *ReadFileAnnotationsRequest) SetAnnotKey(annotKey string) {
+	r.AnnotKey = annotKey
+	r.require(readFileAnnotationsRequestFieldAnnotKey)
+}
+
+var (
 	docAnnotationsReorderRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	docAnnotationsReorderRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
 	docAnnotationsReorderRequestFieldDocID            = big.NewInt(1 << 2)

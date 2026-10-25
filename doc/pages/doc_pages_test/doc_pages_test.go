@@ -8,10 +8,8 @@ import (
 	json "encoding/json"
 	http "net/http"
 	os "os"
-	strings "strings"
 	testing "testing"
 
-	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/client"
 	doc "github.com/embedpdf/cloudpdf-sdk-go/v3/doc"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
@@ -135,36 +133,6 @@ func TestDocPagesViewportsWithWireMock(
 	VerifyRequestCount(t, "TestDocPagesViewportsWithWireMock", "GET", "/v1/docs/docId/layers/layerName/pages/pageKey/viewports", nil, 1)
 }
 
-func TestDocPagesDeleteWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.DeletePagesRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
-		},
-	}
-	_, invocationErr := client.Doc.Pages.Delete(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesDeleteWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesDeleteWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/delete", nil, 1)
-}
-
 func TestDocPagesFlattenWithWireMock(
 	t *testing.T,
 ) {
@@ -193,66 +161,6 @@ func TestDocPagesFlattenWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocPagesFlattenWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/flatten", nil, 1)
-}
-
-func TestDocPagesInsertWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.InsertPagesRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		File: strings.NewReader(
-			"",
-		),
-	}
-	_, invocationErr := client.Doc.Pages.Insert(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesInsertWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesInsertWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/insert", nil, 1)
-}
-
-func TestDocPagesInsertBlankWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.InsertBlankPagesRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
-		},
-	}
-	_, invocationErr := client.Doc.Pages.InsertBlank(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesInsertBlankWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesInsertBlankWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/insert-blank", nil, 1)
 }
 
 func TestDocPagesSetNameWithWireMock(
@@ -313,70 +221,4 @@ func TestDocPagesRemoveNameWithWireMock(
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocPagesRemoveNameWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/names/delete", nil, 1)
-}
-
-func TestDocPagesReorderWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.DocPagesReorderRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		Pages: []*cloudpdf.PageRef{
-			&cloudpdf.PageRef{
-				Kind:         cloudpdf.PageRefKindObjectNumber,
-				ObjectNumber: 1,
-			},
-		},
-		Position: &cloudpdf.PagePosition{
-			PagePositionZero: cloudpdf.PagePositionZeroStart,
-		},
-	}
-	_, invocationErr := client.Doc.Pages.Reorder(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesReorderWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesReorderWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/reorder", nil, 1)
-}
-
-func TestDocPagesRotateWithWireMock(
-	t *testing.T,
-) {
-	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
-	if WireMockBaseURL == "" {
-		WireMockBaseURL = "http://localhost:8080"
-	}
-	client := client.NewClient(
-		option.WithBaseURL(WireMockBaseURL),
-		option.WithToken("test-token"),
-	)
-	request := &doc.RotatePagesRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		Body: map[string]any{
-			"key": "value",
-		},
-	}
-	_, invocationErr := client.Doc.Pages.Rotate(
-		context.TODO(),
-		request,
-		option.WithHTTPHeader(
-			http.Header{"X-Test-Id": []string{"TestDocPagesRotateWithWireMock"}},
-		),
-	)
-
-	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocPagesRotateWithWireMock", "POST", "/v1/docs/docId/layers/layerName/pages/rotate", nil, 1)
 }
