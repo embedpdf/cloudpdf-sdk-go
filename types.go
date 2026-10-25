@@ -3114,7 +3114,7 @@ type AnnotationFileAttachment struct {
 	Color           string                            `json:"color" url:"color"`
 	Opacity         float64                           `json:"opacity" url:"opacity"`
 	Icon            AnnotationFileAttachmentIcon      `json:"icon" url:"icon"`
-	File            *AnnotationFileAttachmentFile     `json:"file,omitempty" url:"file,omitempty"`
+	File            *AttachmentFileInfo               `json:"file,omitempty" url:"file,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3354,7 +3354,7 @@ func (a *AnnotationFileAttachment) GetIcon() AnnotationFileAttachmentIcon {
 	return a.Icon
 }
 
-func (a *AnnotationFileAttachment) GetFile() *AnnotationFileAttachmentFile {
+func (a *AnnotationFileAttachment) GetFile() *AttachmentFileInfo {
 	if a == nil {
 		return nil
 	}
@@ -3608,7 +3608,7 @@ func (a *AnnotationFileAttachment) SetIcon(icon AnnotationFileAttachmentIcon) {
 
 // SetFile sets the File field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachment) SetFile(file *AnnotationFileAttachmentFile) {
+func (a *AnnotationFileAttachment) SetFile(file *AttachmentFileInfo) {
 	a.File = file
 	a.require(annotationFileAttachmentFieldFile)
 }
@@ -3729,198 +3729,6 @@ func NewAnnotationFileAttachmentBlendModeFromString(s string) (AnnotationFileAtt
 
 func (a AnnotationFileAttachmentBlendMode) Ptr() *AnnotationFileAttachmentBlendMode {
 	return &a
-}
-
-var (
-	annotationFileAttachmentFileFieldName        = big.NewInt(1 << 0)
-	annotationFileAttachmentFileFieldMimeType    = big.NewInt(1 << 1)
-	annotationFileAttachmentFileFieldDescription = big.NewInt(1 << 2)
-	annotationFileAttachmentFileFieldSize        = big.NewInt(1 << 3)
-	annotationFileAttachmentFileFieldChecksum    = big.NewInt(1 << 4)
-	annotationFileAttachmentFileFieldCreatedAt   = big.NewInt(1 << 5)
-	annotationFileAttachmentFileFieldModifiedAt  = big.NewInt(1 << 6)
-)
-
-type AnnotationFileAttachmentFile struct {
-	Name        string     `json:"name" url:"name"`
-	MimeType    *string    `json:"mimeType,omitempty" url:"mimeType,omitempty"`
-	Description *string    `json:"description,omitempty" url:"description,omitempty"`
-	Size        *int       `json:"size,omitempty" url:"size,omitempty"`
-	Checksum    *string    `json:"checksum,omitempty" url:"checksum,omitempty"`
-	CreatedAt   *time.Time `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt  *time.Time `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationFileAttachmentFile) GetName() string {
-	if a == nil {
-		return ""
-	}
-	return a.Name
-}
-
-func (a *AnnotationFileAttachmentFile) GetMimeType() *string {
-	if a == nil {
-		return nil
-	}
-	return a.MimeType
-}
-
-func (a *AnnotationFileAttachmentFile) GetDescription() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Description
-}
-
-func (a *AnnotationFileAttachmentFile) GetSize() *int {
-	if a == nil {
-		return nil
-	}
-	return a.Size
-}
-
-func (a *AnnotationFileAttachmentFile) GetChecksum() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Checksum
-}
-
-func (a *AnnotationFileAttachmentFile) GetCreatedAt() *time.Time {
-	if a == nil {
-		return nil
-	}
-	return a.CreatedAt
-}
-
-func (a *AnnotationFileAttachmentFile) GetModifiedAt() *time.Time {
-	if a == nil {
-		return nil
-	}
-	return a.ModifiedAt
-}
-
-func (a *AnnotationFileAttachmentFile) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationFileAttachmentFile) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetName(name string) {
-	a.Name = name
-	a.require(annotationFileAttachmentFileFieldName)
-}
-
-// SetMimeType sets the MimeType field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetMimeType(mimeType *string) {
-	a.MimeType = mimeType
-	a.require(annotationFileAttachmentFileFieldMimeType)
-}
-
-// SetDescription sets the Description field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetDescription(description *string) {
-	a.Description = description
-	a.require(annotationFileAttachmentFileFieldDescription)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetSize(size *int) {
-	a.Size = size
-	a.require(annotationFileAttachmentFileFieldSize)
-}
-
-// SetChecksum sets the Checksum field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetChecksum(checksum *string) {
-	a.Checksum = checksum
-	a.require(annotationFileAttachmentFileFieldChecksum)
-}
-
-// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetCreatedAt(createdAt *time.Time) {
-	a.CreatedAt = createdAt
-	a.require(annotationFileAttachmentFileFieldCreatedAt)
-}
-
-// SetModifiedAt sets the ModifiedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationFileAttachmentFile) SetModifiedAt(modifiedAt *time.Time) {
-	a.ModifiedAt = modifiedAt
-	a.require(annotationFileAttachmentFileFieldModifiedAt)
-}
-
-func (a *AnnotationFileAttachmentFile) UnmarshalJSON(data []byte) error {
-	type embed AnnotationFileAttachmentFile
-	var unmarshaler = struct {
-		embed
-		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
-		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
-	}{
-		embed: embed(*a),
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	*a = AnnotationFileAttachmentFile(unmarshaler.embed)
-	a.CreatedAt = unmarshaler.CreatedAt.TimePtr()
-	a.ModifiedAt = unmarshaler.ModifiedAt.TimePtr()
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationFileAttachmentFile) MarshalJSON() ([]byte, error) {
-	type embed AnnotationFileAttachmentFile
-	var marshaler = struct {
-		embed
-		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
-		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
-	}{
-		embed:      embed(*a),
-		CreatedAt:  internal.NewOptionalDateTime(a.CreatedAt),
-		ModifiedAt: internal.NewOptionalDateTime(a.ModifiedAt),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationFileAttachmentFile) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
 }
 
 type AnnotationFileAttachmentIcon string
@@ -33986,6 +33794,625 @@ func (a AnnotationUnsupportedReplyType) Ptr() *AnnotationUnsupportedReplyType {
 }
 
 var (
+	attachmentFieldRef         = big.NewInt(1 << 0)
+	attachmentFieldName        = big.NewInt(1 << 1)
+	attachmentFieldMimeType    = big.NewInt(1 << 2)
+	attachmentFieldDescription = big.NewInt(1 << 3)
+	attachmentFieldSize        = big.NewInt(1 << 4)
+	attachmentFieldChecksum    = big.NewInt(1 << 5)
+	attachmentFieldCreatedAt   = big.NewInt(1 << 6)
+	attachmentFieldModifiedAt  = big.NewInt(1 << 7)
+	attachmentFieldIndex       = big.NewInt(1 << 8)
+)
+
+type Attachment struct {
+	Ref         *AttachmentRef `json:"ref" url:"ref"`
+	Name        string         `json:"name" url:"name"`
+	MimeType    *string        `json:"mimeType,omitempty" url:"mimeType,omitempty"`
+	Description *string        `json:"description,omitempty" url:"description,omitempty"`
+	Size        *int           `json:"size,omitempty" url:"size,omitempty"`
+	Checksum    *string        `json:"checksum,omitempty" url:"checksum,omitempty"`
+	CreatedAt   *time.Time     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt  *time.Time     `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	Index       int            `json:"index" url:"index"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (a *Attachment) GetRef() *AttachmentRef {
+	if a == nil {
+		return nil
+	}
+	return a.Ref
+}
+
+func (a *Attachment) GetName() string {
+	if a == nil {
+		return ""
+	}
+	return a.Name
+}
+
+func (a *Attachment) GetMimeType() *string {
+	if a == nil {
+		return nil
+	}
+	return a.MimeType
+}
+
+func (a *Attachment) GetDescription() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Description
+}
+
+func (a *Attachment) GetSize() *int {
+	if a == nil {
+		return nil
+	}
+	return a.Size
+}
+
+func (a *Attachment) GetChecksum() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Checksum
+}
+
+func (a *Attachment) GetCreatedAt() *time.Time {
+	if a == nil {
+		return nil
+	}
+	return a.CreatedAt
+}
+
+func (a *Attachment) GetModifiedAt() *time.Time {
+	if a == nil {
+		return nil
+	}
+	return a.ModifiedAt
+}
+
+func (a *Attachment) GetIndex() int {
+	if a == nil {
+		return 0
+	}
+	return a.Index
+}
+
+func (a *Attachment) GetExtraProperties() map[string]interface{} {
+	if a == nil {
+		return nil
+	}
+	return a.extraProperties
+}
+
+func (a *Attachment) require(field *big.Int) {
+	if a.explicitFields == nil {
+		a.explicitFields = big.NewInt(0)
+	}
+	a.explicitFields.Or(a.explicitFields, field)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetRef(ref *AttachmentRef) {
+	a.Ref = ref
+	a.require(attachmentFieldRef)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetName(name string) {
+	a.Name = name
+	a.require(attachmentFieldName)
+}
+
+// SetMimeType sets the MimeType field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetMimeType(mimeType *string) {
+	a.MimeType = mimeType
+	a.require(attachmentFieldMimeType)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetDescription(description *string) {
+	a.Description = description
+	a.require(attachmentFieldDescription)
+}
+
+// SetSize sets the Size field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetSize(size *int) {
+	a.Size = size
+	a.require(attachmentFieldSize)
+}
+
+// SetChecksum sets the Checksum field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetChecksum(checksum *string) {
+	a.Checksum = checksum
+	a.require(attachmentFieldChecksum)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetCreatedAt(createdAt *time.Time) {
+	a.CreatedAt = createdAt
+	a.require(attachmentFieldCreatedAt)
+}
+
+// SetModifiedAt sets the ModifiedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetModifiedAt(modifiedAt *time.Time) {
+	a.ModifiedAt = modifiedAt
+	a.require(attachmentFieldModifiedAt)
+}
+
+// SetIndex sets the Index field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *Attachment) SetIndex(index int) {
+	a.Index = index
+	a.require(attachmentFieldIndex)
+}
+
+func (a *Attachment) UnmarshalJSON(data []byte) error {
+	type embed Attachment
+	var unmarshaler = struct {
+		embed
+		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
+		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
+	}{
+		embed: embed(*a),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*a = Attachment(unmarshaler.embed)
+	a.CreatedAt = unmarshaler.CreatedAt.TimePtr()
+	a.ModifiedAt = unmarshaler.ModifiedAt.TimePtr()
+	extraProperties, err := internal.ExtractExtraProperties(data, *a)
+	if err != nil {
+		return err
+	}
+	a.extraProperties = extraProperties
+	a.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (a *Attachment) MarshalJSON() ([]byte, error) {
+	type embed Attachment
+	var marshaler = struct {
+		embed
+		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
+		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
+	}{
+		embed:      embed(*a),
+		CreatedAt:  internal.NewOptionalDateTime(a.CreatedAt),
+		ModifiedAt: internal.NewOptionalDateTime(a.ModifiedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (a *Attachment) String() string {
+	if a == nil {
+		return "<nil>"
+	}
+	if len(a.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(a); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", a)
+}
+
+var (
+	attachmentFileInfoFieldName        = big.NewInt(1 << 0)
+	attachmentFileInfoFieldMimeType    = big.NewInt(1 << 1)
+	attachmentFileInfoFieldDescription = big.NewInt(1 << 2)
+	attachmentFileInfoFieldSize        = big.NewInt(1 << 3)
+	attachmentFileInfoFieldChecksum    = big.NewInt(1 << 4)
+	attachmentFileInfoFieldCreatedAt   = big.NewInt(1 << 5)
+	attachmentFileInfoFieldModifiedAt  = big.NewInt(1 << 6)
+)
+
+type AttachmentFileInfo struct {
+	Name        string     `json:"name" url:"name"`
+	MimeType    *string    `json:"mimeType,omitempty" url:"mimeType,omitempty"`
+	Description *string    `json:"description,omitempty" url:"description,omitempty"`
+	Size        *int       `json:"size,omitempty" url:"size,omitempty"`
+	Checksum    *string    `json:"checksum,omitempty" url:"checksum,omitempty"`
+	CreatedAt   *time.Time `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt  *time.Time `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (a *AttachmentFileInfo) GetName() string {
+	if a == nil {
+		return ""
+	}
+	return a.Name
+}
+
+func (a *AttachmentFileInfo) GetMimeType() *string {
+	if a == nil {
+		return nil
+	}
+	return a.MimeType
+}
+
+func (a *AttachmentFileInfo) GetDescription() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Description
+}
+
+func (a *AttachmentFileInfo) GetSize() *int {
+	if a == nil {
+		return nil
+	}
+	return a.Size
+}
+
+func (a *AttachmentFileInfo) GetChecksum() *string {
+	if a == nil {
+		return nil
+	}
+	return a.Checksum
+}
+
+func (a *AttachmentFileInfo) GetCreatedAt() *time.Time {
+	if a == nil {
+		return nil
+	}
+	return a.CreatedAt
+}
+
+func (a *AttachmentFileInfo) GetModifiedAt() *time.Time {
+	if a == nil {
+		return nil
+	}
+	return a.ModifiedAt
+}
+
+func (a *AttachmentFileInfo) GetExtraProperties() map[string]interface{} {
+	if a == nil {
+		return nil
+	}
+	return a.extraProperties
+}
+
+func (a *AttachmentFileInfo) require(field *big.Int) {
+	if a.explicitFields == nil {
+		a.explicitFields = big.NewInt(0)
+	}
+	a.explicitFields.Or(a.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetName(name string) {
+	a.Name = name
+	a.require(attachmentFileInfoFieldName)
+}
+
+// SetMimeType sets the MimeType field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetMimeType(mimeType *string) {
+	a.MimeType = mimeType
+	a.require(attachmentFileInfoFieldMimeType)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetDescription(description *string) {
+	a.Description = description
+	a.require(attachmentFileInfoFieldDescription)
+}
+
+// SetSize sets the Size field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetSize(size *int) {
+	a.Size = size
+	a.require(attachmentFileInfoFieldSize)
+}
+
+// SetChecksum sets the Checksum field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetChecksum(checksum *string) {
+	a.Checksum = checksum
+	a.require(attachmentFileInfoFieldChecksum)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetCreatedAt(createdAt *time.Time) {
+	a.CreatedAt = createdAt
+	a.require(attachmentFileInfoFieldCreatedAt)
+}
+
+// SetModifiedAt sets the ModifiedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentFileInfo) SetModifiedAt(modifiedAt *time.Time) {
+	a.ModifiedAt = modifiedAt
+	a.require(attachmentFileInfoFieldModifiedAt)
+}
+
+func (a *AttachmentFileInfo) UnmarshalJSON(data []byte) error {
+	type embed AttachmentFileInfo
+	var unmarshaler = struct {
+		embed
+		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
+		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
+	}{
+		embed: embed(*a),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*a = AttachmentFileInfo(unmarshaler.embed)
+	a.CreatedAt = unmarshaler.CreatedAt.TimePtr()
+	a.ModifiedAt = unmarshaler.ModifiedAt.TimePtr()
+	extraProperties, err := internal.ExtractExtraProperties(data, *a)
+	if err != nil {
+		return err
+	}
+	a.extraProperties = extraProperties
+	a.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (a *AttachmentFileInfo) MarshalJSON() ([]byte, error) {
+	type embed AttachmentFileInfo
+	var marshaler = struct {
+		embed
+		CreatedAt  *internal.DateTime `json:"createdAt,omitempty"`
+		ModifiedAt *internal.DateTime `json:"modifiedAt,omitempty"`
+	}{
+		embed:      embed(*a),
+		CreatedAt:  internal.NewOptionalDateTime(a.CreatedAt),
+		ModifiedAt: internal.NewOptionalDateTime(a.ModifiedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (a *AttachmentFileInfo) String() string {
+	if a == nil {
+		return "<nil>"
+	}
+	if len(a.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(a); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", a)
+}
+
+var (
+	attachmentListFieldAttachments = big.NewInt(1 << 0)
+)
+
+type AttachmentList struct {
+	Attachments []*Attachment `json:"attachments" url:"attachments"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (a *AttachmentList) GetAttachments() []*Attachment {
+	if a == nil {
+		return nil
+	}
+	return a.Attachments
+}
+
+func (a *AttachmentList) GetExtraProperties() map[string]interface{} {
+	if a == nil {
+		return nil
+	}
+	return a.extraProperties
+}
+
+func (a *AttachmentList) require(field *big.Int) {
+	if a.explicitFields == nil {
+		a.explicitFields = big.NewInt(0)
+	}
+	a.explicitFields.Or(a.explicitFields, field)
+}
+
+// SetAttachments sets the Attachments field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentList) SetAttachments(attachments []*Attachment) {
+	a.Attachments = attachments
+	a.require(attachmentListFieldAttachments)
+}
+
+func (a *AttachmentList) UnmarshalJSON(data []byte) error {
+	type unmarshaler AttachmentList
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*a = AttachmentList(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *a)
+	if err != nil {
+		return err
+	}
+	a.extraProperties = extraProperties
+	a.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (a *AttachmentList) MarshalJSON() ([]byte, error) {
+	type embed AttachmentList
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*a),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (a *AttachmentList) String() string {
+	if a == nil {
+		return "<nil>"
+	}
+	if len(a.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(a); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", a)
+}
+
+var (
+	attachmentRefFieldKind = big.NewInt(1 << 0)
+	attachmentRefFieldKey  = big.NewInt(1 << 1)
+)
+
+type AttachmentRef struct {
+	Kind AttachmentRefKind `json:"kind" url:"kind"`
+	Key  string            `json:"key" url:"key"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (a *AttachmentRef) GetKind() AttachmentRefKind {
+	if a == nil {
+		return ""
+	}
+	return a.Kind
+}
+
+func (a *AttachmentRef) GetKey() string {
+	if a == nil {
+		return ""
+	}
+	return a.Key
+}
+
+func (a *AttachmentRef) GetExtraProperties() map[string]interface{} {
+	if a == nil {
+		return nil
+	}
+	return a.extraProperties
+}
+
+func (a *AttachmentRef) require(field *big.Int) {
+	if a.explicitFields == nil {
+		a.explicitFields = big.NewInt(0)
+	}
+	a.explicitFields.Or(a.explicitFields, field)
+}
+
+// SetKind sets the Kind field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentRef) SetKind(kind AttachmentRefKind) {
+	a.Kind = kind
+	a.require(attachmentRefFieldKind)
+}
+
+// SetKey sets the Key field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentRef) SetKey(key string) {
+	a.Key = key
+	a.require(attachmentRefFieldKey)
+}
+
+func (a *AttachmentRef) UnmarshalJSON(data []byte) error {
+	type unmarshaler AttachmentRef
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*a = AttachmentRef(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *a)
+	if err != nil {
+		return err
+	}
+	a.extraProperties = extraProperties
+	a.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (a *AttachmentRef) MarshalJSON() ([]byte, error) {
+	type embed AttachmentRef
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*a),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (a *AttachmentRef) String() string {
+	if a == nil {
+		return "<nil>"
+	}
+	if len(a.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(a); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", a)
+}
+
+type AttachmentRefKind string
+
+const (
+	AttachmentRefKindKey AttachmentRefKind = "key"
+)
+
+func NewAttachmentRefKindFromString(s string) (AttachmentRefKind, error) {
+	switch s {
+	case "key":
+		return AttachmentRefKindKey, nil
+	}
+	var t AttachmentRefKind
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (a AttachmentRefKind) Ptr() *AttachmentRefKind {
+	return &a
+}
+
+var (
 	cacheDeltaFieldPreviousDocVersion = big.NewInt(1 << 0)
 	cacheDeltaFieldDocVersion         = big.NewInt(1 << 1)
 	cacheDeltaFieldAnnotationsVersion = big.NewInt(1 << 2)
@@ -33993,9 +34420,10 @@ var (
 	cacheDeltaFieldLayoutVersion      = big.NewInt(1 << 4)
 	cacheDeltaFieldMetadataVersion    = big.NewInt(1 << 5)
 	cacheDeltaFieldAttachmentsVersion = big.NewInt(1 << 6)
-	cacheDeltaFieldLayerVersion       = big.NewInt(1 << 7)
-	cacheDeltaFieldWorking            = big.NewInt(1 << 8)
-	cacheDeltaFieldPages              = big.NewInt(1 << 9)
+	cacheDeltaFieldOutlineVersion     = big.NewInt(1 << 7)
+	cacheDeltaFieldLayerVersion       = big.NewInt(1 << 8)
+	cacheDeltaFieldWorking            = big.NewInt(1 << 9)
+	cacheDeltaFieldPages              = big.NewInt(1 << 10)
 )
 
 type CacheDelta struct {
@@ -34006,6 +34434,7 @@ type CacheDelta struct {
 	LayoutVersion      *int                   `json:"layoutVersion,omitempty" url:"layoutVersion,omitempty"`
 	MetadataVersion    *int                   `json:"metadataVersion,omitempty" url:"metadataVersion,omitempty"`
 	AttachmentsVersion *int                   `json:"attachmentsVersion,omitempty" url:"attachmentsVersion,omitempty"`
+	OutlineVersion     *int                   `json:"outlineVersion,omitempty" url:"outlineVersion,omitempty"`
 	LayerVersion       *int                   `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
 	Working            *bool                  `json:"working,omitempty" url:"working,omitempty"`
 	Pages              []*CacheDeltaPagesItem `json:"pages" url:"pages"`
@@ -34064,6 +34493,13 @@ func (c *CacheDelta) GetAttachmentsVersion() *int {
 		return nil
 	}
 	return c.AttachmentsVersion
+}
+
+func (c *CacheDelta) GetOutlineVersion() *int {
+	if c == nil {
+		return nil
+	}
+	return c.OutlineVersion
 }
 
 func (c *CacheDelta) GetLayerVersion() *int {
@@ -34148,6 +34584,13 @@ func (c *CacheDelta) SetMetadataVersion(metadataVersion *int) {
 func (c *CacheDelta) SetAttachmentsVersion(attachmentsVersion *int) {
 	c.AttachmentsVersion = attachmentsVersion
 	c.require(cacheDeltaFieldAttachmentsVersion)
+}
+
+// SetOutlineVersion sets the OutlineVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *CacheDelta) SetOutlineVersion(outlineVersion *int) {
+	c.OutlineVersion = outlineVersion
+	c.require(cacheDeltaFieldOutlineVersion)
 }
 
 // SetLayerVersion sets the LayerVersion field and marks it as non-optional;
@@ -34923,6 +35366,12 @@ type DocAnnotationsReadAppearance400Response = *EngineErrorPayload
 
 type DocAnnotationsReadAppearance404Response = *EngineErrorPayload
 
+type DocAnnotationsReadFile400Response = *EngineErrorPayload
+
+type DocAnnotationsReadFile404Response = *EngineErrorPayload
+
+type DocAnnotationsReadFile413Response = *EngineErrorPayload
+
 var (
 	docAnnotationsReorder200ResponseFieldOrder = big.NewInt(1 << 0)
 	docAnnotationsReorder200ResponseFieldMeta  = big.NewInt(1 << 1)
@@ -35276,6 +35725,16 @@ type DocAnnotationsUpdate400Response = *EngineErrorPayload
 type DocAnnotationsUpdate404Response = *EngineErrorPayload
 
 type DocAnnotationsUpdateRequest = map[string]any
+
+type DocAttachmentsDownload400Response = *EngineErrorPayload
+
+type DocAttachmentsDownload404Response = *EngineErrorPayload
+
+type DocAttachmentsDownload413Response = *EngineErrorPayload
+
+type DocAttachmentsList200Response = *AttachmentList
+
+type DocAttachmentsList404Response = *EngineErrorPayload
 
 type DocChanges400Response = *EngineErrorPayload
 
@@ -36324,2009 +36783,9 @@ type DocMetadataGet200Response = *DocumentMetadata
 
 type DocMetadataGet404Response = *EngineErrorPayload
 
-var (
-	docPagesDelete200ResponseFieldLayout = big.NewInt(1 << 0)
-	docPagesDelete200ResponseFieldMeta   = big.NewInt(1 << 1)
-)
+type DocOutlineGet200Response = *DocumentOutline
 
-type DocPagesDelete200Response struct {
-	Layout *DocPagesDelete200ResponseLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                    `json:"meta" url:"meta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200Response) GetLayout() *DocPagesDelete200ResponseLayout {
-	if d == nil {
-		return nil
-	}
-	return d.Layout
-}
-
-func (d *DocPagesDelete200Response) GetMeta() *MutationMeta {
-	if d == nil {
-		return nil
-	}
-	return d.Meta
-}
-
-func (d *DocPagesDelete200Response) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200Response) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLayout sets the Layout field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200Response) SetLayout(layout *DocPagesDelete200ResponseLayout) {
-	d.Layout = layout
-	d.require(docPagesDelete200ResponseFieldLayout)
-}
-
-// SetMeta sets the Meta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200Response) SetMeta(meta *MutationMeta) {
-	d.Meta = meta
-	d.require(docPagesDelete200ResponseFieldMeta)
-}
-
-func (d *DocPagesDelete200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200Response) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200Response) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutFieldPageCount  = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutFieldPages      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutFieldNamedPages = big.NewInt(1 << 2)
-)
-
-type DocPagesDelete200ResponseLayout struct {
-	PageCount  int                                              `json:"pageCount" url:"pageCount"`
-	Pages      []*DocPagesDelete200ResponseLayoutPagesItem      `json:"pages" url:"pages"`
-	NamedPages []*DocPagesDelete200ResponseLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayout) GetPageCount() int {
-	if d == nil {
-		return 0
-	}
-	return d.PageCount
-}
-
-func (d *DocPagesDelete200ResponseLayout) GetPages() []*DocPagesDelete200ResponseLayoutPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesDelete200ResponseLayout) GetNamedPages() []*DocPagesDelete200ResponseLayoutNamedPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.NamedPages
-}
-
-func (d *DocPagesDelete200ResponseLayout) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayout) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayout) SetPageCount(pageCount int) {
-	d.PageCount = pageCount
-	d.require(docPagesDelete200ResponseLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayout) SetPages(pages []*DocPagesDelete200ResponseLayoutPagesItem) {
-	d.Pages = pages
-	d.require(docPagesDelete200ResponseLayoutFieldPages)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayout) SetNamedPages(namedPages []*DocPagesDelete200ResponseLayoutNamedPagesItem) {
-	d.NamedPages = namedPages
-	d.require(docPagesDelete200ResponseLayoutFieldNamedPages)
-}
-
-func (d *DocPagesDelete200ResponseLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayout) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayout) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type DocPagesDelete200ResponseLayoutNamedPagesItem struct {
-	Name   string                                               `json:"name" url:"name"`
-	Target *DocPagesDelete200ResponseLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) GetName() string {
-	if d == nil {
-		return ""
-	}
-	return d.Name
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) GetTarget() *DocPagesDelete200ResponseLayoutNamedPagesItemTarget {
-	if d == nil {
-		return nil
-	}
-	return d.Target
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) SetName(name string) {
-	d.Name = name
-	d.require(docPagesDelete200ResponseLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) SetTarget(target *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) {
-	d.Target = target
-	d.require(docPagesDelete200ResponseLayoutNamedPagesItemFieldTarget)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesDelete200ResponseLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage
-	Template *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate
-	Dangling *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) GetKind() string {
-	if d == nil {
-		return ""
-	}
-	return d.Kind
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) GetPage() *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) GetTemplate() *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate {
-	if d == nil {
-		return nil
-	}
-	return d.Template
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) GetDangling() *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling {
-	if d == nil {
-		return nil
-	}
-	return d.Dangling
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	d.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", d)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Page = value
-	case "template":
-		value := new(DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Template = value
-	case "dangling":
-		value := new(DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Dangling = value
-	}
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d DocPagesDelete200ResponseLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
-		return nil, err
-	}
-	if d.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Page, "kind", "page")
-	}
-	if d.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Template, "kind", "template")
-	}
-	if d.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Dangling, "kind", "dangling")
-	}
-	if len(d.rawJSON) > 0 {
-		return d.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-type DocPagesDelete200ResponseLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) error
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) Accept(visitor DocPagesDelete200ResponseLayoutNamedPagesItemTargetVisitor) error {
-	if d.Page != nil {
-		return visitor.VisitPage(d.Page)
-	}
-	if d.Template != nil {
-		return visitor.VisitTemplate(d.Template)
-	}
-	if d.Dangling != nil {
-		return visitor.VisitDangling(d.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTarget) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
-	}
-	var fields []string
-	if d.Page != nil {
-		fields = append(fields, "page")
-	}
-	if d.Template != nil {
-		fields = append(fields, "template")
-	}
-	if d.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if d.Kind != "" {
-			if len(d.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
-		}
-		return fmt.Errorf("type %T is empty", d)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
-	}
-	if d.Kind != "" {
-		field := fields[0]
-		if d.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Kind,
-				d,
-			)
-		}
-	}
-	return nil
-}
-
-type DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetDangling) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	d.Page = page
-	d.require(docPagesDelete200ResponseLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetPage) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if d == nil {
-		return 0
-	}
-	return d.ObjectNumber
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	d.ObjectNumber = objectNumber
-	d.require(docPagesDelete200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutNamedPagesItemTargetTemplate) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	docPagesDelete200ResponseLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	docPagesDelete200ResponseLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	docPagesDelete200ResponseLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	docPagesDelete200ResponseLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	docPagesDelete200ResponseLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	docPagesDelete200ResponseLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItem struct {
-	Index      int                                                 `json:"index" url:"index"`
-	Ref        *PageRef                                            `json:"ref" url:"ref"`
-	Label      *string                                             `json:"label,omitempty" url:"label,omitempty"`
-	Size       *DocPagesDelete200ResponseLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                             `json:"userUnit" url:"userUnit"`
-	TabOrder   *DocPagesDelete200ResponseLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *DocPagesDelete200ResponseLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                     `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetIndex() int {
-	if d == nil {
-		return 0
-	}
-	return d.Index
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetRef() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Ref
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetLabel() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Label
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetSize() *DocPagesDelete200ResponseLayoutPagesItemSize {
-	if d == nil {
-		return nil
-	}
-	return d.Size
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetRotation() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Rotation
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetUserUnit() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.UserUnit
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetTabOrder() *DocPagesDelete200ResponseLayoutPagesItemTabOrder {
-	if d == nil {
-		return nil
-	}
-	return d.TabOrder
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetBoxes() *DocPagesDelete200ResponseLayoutPagesItemBoxes {
-	if d == nil {
-		return nil
-	}
-	return d.Boxes
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetPdfCropBox() *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox {
-	if d == nil {
-		return nil
-	}
-	return d.PdfCropBox
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetActions() *PdfPageActions {
-	if d == nil {
-		return nil
-	}
-	return d.Actions
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetIndex(index int) {
-	d.Index = index
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetRef(ref *PageRef) {
-	d.Ref = ref
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetLabel(label *string) {
-	d.Label = label
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetSize(size *DocPagesDelete200ResponseLayoutPagesItemSize) {
-	d.Size = size
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetRotation(rotation float64) {
-	d.Rotation = rotation
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetUserUnit(userUnit float64) {
-	d.UserUnit = userUnit
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetTabOrder(tabOrder *DocPagesDelete200ResponseLayoutPagesItemTabOrder) {
-	d.TabOrder = tabOrder
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetBoxes(boxes *DocPagesDelete200ResponseLayoutPagesItemBoxes) {
-	d.Boxes = boxes
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetPdfCropBox(pdfCropBox *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) {
-	d.PdfCropBox = pdfCropBox
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	d.Actions = actions
-	d.require(docPagesDelete200ResponseLayoutPagesItemFieldActions)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	docPagesDelete200ResponseLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxes struct {
-	Media *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *DocPagesDelete200ResponseLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetMedia() *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia {
-	if d == nil {
-		return nil
-	}
-	return d.Media
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetCrop() *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop {
-	if d == nil {
-		return nil
-	}
-	return d.Crop
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetBleed() *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed {
-	if d == nil {
-		return nil
-	}
-	return d.Bleed
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetTrim() *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim {
-	if d == nil {
-		return nil
-	}
-	return d.Trim
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetArt() *DocPagesDelete200ResponseLayoutPagesItemBoxesArt {
-	if d == nil {
-		return nil
-	}
-	return d.Art
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) SetMedia(media *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) {
-	d.Media = media
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) SetCrop(crop *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) {
-	d.Crop = crop
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) SetBleed(bleed *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) {
-	d.Bleed = bleed
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) SetTrim(trim *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) {
-	d.Trim = trim
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) SetArt(art *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) {
-	d.Art = art
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesFieldArt)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxes) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) SetX(x float64) {
-	d.X = x
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesArt) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) SetX(x float64) {
-	d.X = x
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesBleed) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) SetX(x float64) {
-	d.X = x
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesCrop) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) SetX(x float64) {
-	d.X = x
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesMedia) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) SetX(x float64) {
-	d.X = x
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemBoxesTrim) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Left
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Bottom
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Right
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Top
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	d.Left = left
-	d.require(docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	d.Bottom = bottom
-	d.require(docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	d.Right = right
-	d.require(docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	d.Top = top
-	d.require(docPagesDelete200ResponseLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemPdfCropBox) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesDelete200ResponseLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	docPagesDelete200ResponseLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type DocPagesDelete200ResponseLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesDelete200ResponseLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesDelete200ResponseLayoutPagesItemSizeFieldHeight)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesDelete200ResponseLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesDelete200ResponseLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed DocPagesDelete200ResponseLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesDelete200ResponseLayoutPagesItemSize) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesDelete200ResponseLayoutPagesItemTabOrder string
-
-const (
-	DocPagesDelete200ResponseLayoutPagesItemTabOrderRows        DocPagesDelete200ResponseLayoutPagesItemTabOrder = "rows"
-	DocPagesDelete200ResponseLayoutPagesItemTabOrderColumns     DocPagesDelete200ResponseLayoutPagesItemTabOrder = "columns"
-	DocPagesDelete200ResponseLayoutPagesItemTabOrderStructure   DocPagesDelete200ResponseLayoutPagesItemTabOrder = "structure"
-	DocPagesDelete200ResponseLayoutPagesItemTabOrderAnnotations DocPagesDelete200ResponseLayoutPagesItemTabOrder = "annotations"
-	DocPagesDelete200ResponseLayoutPagesItemTabOrderWidgets     DocPagesDelete200ResponseLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewDocPagesDelete200ResponseLayoutPagesItemTabOrderFromString(s string) (DocPagesDelete200ResponseLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return DocPagesDelete200ResponseLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return DocPagesDelete200ResponseLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return DocPagesDelete200ResponseLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return DocPagesDelete200ResponseLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return DocPagesDelete200ResponseLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t DocPagesDelete200ResponseLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocPagesDelete200ResponseLayoutPagesItemTabOrder) Ptr() *DocPagesDelete200ResponseLayoutPagesItemTabOrder {
-	return &d
-}
-
-type DocPagesDelete400Response = *EngineErrorPayload
-
-type DocPagesDelete404Response = *EngineErrorPayload
-
-type DocPagesDeleteRequest = map[string]any
+type DocOutlineGet404Response = *EngineErrorPayload
 
 type DocPagesExtract400Response = *EngineErrorPayload
 
@@ -38615,4044 +37074,6 @@ type DocPagesFlatten400Response = *EngineErrorPayload
 type DocPagesFlatten404Response = *EngineErrorPayload
 
 type DocPagesFlattenRequest = map[string]any
-
-var (
-	docPagesInsert200ResponseFieldInsertedPages = big.NewInt(1 << 0)
-	docPagesInsert200ResponseFieldLayout        = big.NewInt(1 << 1)
-	docPagesInsert200ResponseFieldMeta          = big.NewInt(1 << 2)
-)
-
-type DocPagesInsert200Response struct {
-	InsertedPages []*PageRef                       `json:"insertedPages" url:"insertedPages"`
-	Layout        *DocPagesInsert200ResponseLayout `json:"layout" url:"layout"`
-	Meta          *MutationMeta                    `json:"meta" url:"meta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200Response) GetInsertedPages() []*PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.InsertedPages
-}
-
-func (d *DocPagesInsert200Response) GetLayout() *DocPagesInsert200ResponseLayout {
-	if d == nil {
-		return nil
-	}
-	return d.Layout
-}
-
-func (d *DocPagesInsert200Response) GetMeta() *MutationMeta {
-	if d == nil {
-		return nil
-	}
-	return d.Meta
-}
-
-func (d *DocPagesInsert200Response) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200Response) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetInsertedPages sets the InsertedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200Response) SetInsertedPages(insertedPages []*PageRef) {
-	d.InsertedPages = insertedPages
-	d.require(docPagesInsert200ResponseFieldInsertedPages)
-}
-
-// SetLayout sets the Layout field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200Response) SetLayout(layout *DocPagesInsert200ResponseLayout) {
-	d.Layout = layout
-	d.require(docPagesInsert200ResponseFieldLayout)
-}
-
-// SetMeta sets the Meta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200Response) SetMeta(meta *MutationMeta) {
-	d.Meta = meta
-	d.require(docPagesInsert200ResponseFieldMeta)
-}
-
-func (d *DocPagesInsert200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200Response) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200Response) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutFieldPageCount  = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutFieldPages      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutFieldNamedPages = big.NewInt(1 << 2)
-)
-
-type DocPagesInsert200ResponseLayout struct {
-	PageCount  int                                              `json:"pageCount" url:"pageCount"`
-	Pages      []*DocPagesInsert200ResponseLayoutPagesItem      `json:"pages" url:"pages"`
-	NamedPages []*DocPagesInsert200ResponseLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayout) GetPageCount() int {
-	if d == nil {
-		return 0
-	}
-	return d.PageCount
-}
-
-func (d *DocPagesInsert200ResponseLayout) GetPages() []*DocPagesInsert200ResponseLayoutPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesInsert200ResponseLayout) GetNamedPages() []*DocPagesInsert200ResponseLayoutNamedPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.NamedPages
-}
-
-func (d *DocPagesInsert200ResponseLayout) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayout) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayout) SetPageCount(pageCount int) {
-	d.PageCount = pageCount
-	d.require(docPagesInsert200ResponseLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayout) SetPages(pages []*DocPagesInsert200ResponseLayoutPagesItem) {
-	d.Pages = pages
-	d.require(docPagesInsert200ResponseLayoutFieldPages)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayout) SetNamedPages(namedPages []*DocPagesInsert200ResponseLayoutNamedPagesItem) {
-	d.NamedPages = namedPages
-	d.require(docPagesInsert200ResponseLayoutFieldNamedPages)
-}
-
-func (d *DocPagesInsert200ResponseLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayout) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayout) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type DocPagesInsert200ResponseLayoutNamedPagesItem struct {
-	Name   string                                               `json:"name" url:"name"`
-	Target *DocPagesInsert200ResponseLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) GetName() string {
-	if d == nil {
-		return ""
-	}
-	return d.Name
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) GetTarget() *DocPagesInsert200ResponseLayoutNamedPagesItemTarget {
-	if d == nil {
-		return nil
-	}
-	return d.Target
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) SetName(name string) {
-	d.Name = name
-	d.require(docPagesInsert200ResponseLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) SetTarget(target *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) {
-	d.Target = target
-	d.require(docPagesInsert200ResponseLayoutNamedPagesItemFieldTarget)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesInsert200ResponseLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage
-	Template *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate
-	Dangling *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) GetKind() string {
-	if d == nil {
-		return ""
-	}
-	return d.Kind
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) GetPage() *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) GetTemplate() *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate {
-	if d == nil {
-		return nil
-	}
-	return d.Template
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) GetDangling() *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling {
-	if d == nil {
-		return nil
-	}
-	return d.Dangling
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	d.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", d)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Page = value
-	case "template":
-		value := new(DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Template = value
-	case "dangling":
-		value := new(DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Dangling = value
-	}
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d DocPagesInsert200ResponseLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
-		return nil, err
-	}
-	if d.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Page, "kind", "page")
-	}
-	if d.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Template, "kind", "template")
-	}
-	if d.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Dangling, "kind", "dangling")
-	}
-	if len(d.rawJSON) > 0 {
-		return d.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-type DocPagesInsert200ResponseLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) error
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) Accept(visitor DocPagesInsert200ResponseLayoutNamedPagesItemTargetVisitor) error {
-	if d.Page != nil {
-		return visitor.VisitPage(d.Page)
-	}
-	if d.Template != nil {
-		return visitor.VisitTemplate(d.Template)
-	}
-	if d.Dangling != nil {
-		return visitor.VisitDangling(d.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTarget) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
-	}
-	var fields []string
-	if d.Page != nil {
-		fields = append(fields, "page")
-	}
-	if d.Template != nil {
-		fields = append(fields, "template")
-	}
-	if d.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if d.Kind != "" {
-			if len(d.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
-		}
-		return fmt.Errorf("type %T is empty", d)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
-	}
-	if d.Kind != "" {
-		field := fields[0]
-		if d.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Kind,
-				d,
-			)
-		}
-	}
-	return nil
-}
-
-type DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetDangling) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	d.Page = page
-	d.require(docPagesInsert200ResponseLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetPage) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if d == nil {
-		return 0
-	}
-	return d.ObjectNumber
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	d.ObjectNumber = objectNumber
-	d.require(docPagesInsert200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutNamedPagesItemTargetTemplate) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	docPagesInsert200ResponseLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	docPagesInsert200ResponseLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	docPagesInsert200ResponseLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	docPagesInsert200ResponseLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	docPagesInsert200ResponseLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	docPagesInsert200ResponseLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItem struct {
-	Index      int                                                 `json:"index" url:"index"`
-	Ref        *PageRef                                            `json:"ref" url:"ref"`
-	Label      *string                                             `json:"label,omitempty" url:"label,omitempty"`
-	Size       *DocPagesInsert200ResponseLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                             `json:"userUnit" url:"userUnit"`
-	TabOrder   *DocPagesInsert200ResponseLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *DocPagesInsert200ResponseLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                     `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetIndex() int {
-	if d == nil {
-		return 0
-	}
-	return d.Index
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetRef() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Ref
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetLabel() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Label
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetSize() *DocPagesInsert200ResponseLayoutPagesItemSize {
-	if d == nil {
-		return nil
-	}
-	return d.Size
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetRotation() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Rotation
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetUserUnit() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.UserUnit
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetTabOrder() *DocPagesInsert200ResponseLayoutPagesItemTabOrder {
-	if d == nil {
-		return nil
-	}
-	return d.TabOrder
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetBoxes() *DocPagesInsert200ResponseLayoutPagesItemBoxes {
-	if d == nil {
-		return nil
-	}
-	return d.Boxes
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetPdfCropBox() *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox {
-	if d == nil {
-		return nil
-	}
-	return d.PdfCropBox
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetActions() *PdfPageActions {
-	if d == nil {
-		return nil
-	}
-	return d.Actions
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetIndex(index int) {
-	d.Index = index
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetRef(ref *PageRef) {
-	d.Ref = ref
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetLabel(label *string) {
-	d.Label = label
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetSize(size *DocPagesInsert200ResponseLayoutPagesItemSize) {
-	d.Size = size
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetRotation(rotation float64) {
-	d.Rotation = rotation
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetUserUnit(userUnit float64) {
-	d.UserUnit = userUnit
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetTabOrder(tabOrder *DocPagesInsert200ResponseLayoutPagesItemTabOrder) {
-	d.TabOrder = tabOrder
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetBoxes(boxes *DocPagesInsert200ResponseLayoutPagesItemBoxes) {
-	d.Boxes = boxes
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetPdfCropBox(pdfCropBox *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) {
-	d.PdfCropBox = pdfCropBox
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	d.Actions = actions
-	d.require(docPagesInsert200ResponseLayoutPagesItemFieldActions)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	docPagesInsert200ResponseLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxes struct {
-	Media *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *DocPagesInsert200ResponseLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetMedia() *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia {
-	if d == nil {
-		return nil
-	}
-	return d.Media
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetCrop() *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop {
-	if d == nil {
-		return nil
-	}
-	return d.Crop
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetBleed() *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed {
-	if d == nil {
-		return nil
-	}
-	return d.Bleed
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetTrim() *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim {
-	if d == nil {
-		return nil
-	}
-	return d.Trim
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetArt() *DocPagesInsert200ResponseLayoutPagesItemBoxesArt {
-	if d == nil {
-		return nil
-	}
-	return d.Art
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) SetMedia(media *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) {
-	d.Media = media
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) SetCrop(crop *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) {
-	d.Crop = crop
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) SetBleed(bleed *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) {
-	d.Bleed = bleed
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) SetTrim(trim *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) {
-	d.Trim = trim
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) SetArt(art *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) {
-	d.Art = art
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesFieldArt)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxes) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesArt) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesBleed) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesCrop) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesMedia) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemBoxesTrim) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Left
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Bottom
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Right
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Top
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	d.Left = left
-	d.require(docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	d.Bottom = bottom
-	d.require(docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	d.Right = right
-	d.require(docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	d.Top = top
-	d.require(docPagesInsert200ResponseLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemPdfCropBox) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsert200ResponseLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	docPagesInsert200ResponseLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type DocPagesInsert200ResponseLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsert200ResponseLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsert200ResponseLayoutPagesItemSizeFieldHeight)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsert200ResponseLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsert200ResponseLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsert200ResponseLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsert200ResponseLayoutPagesItemSize) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesInsert200ResponseLayoutPagesItemTabOrder string
-
-const (
-	DocPagesInsert200ResponseLayoutPagesItemTabOrderRows        DocPagesInsert200ResponseLayoutPagesItemTabOrder = "rows"
-	DocPagesInsert200ResponseLayoutPagesItemTabOrderColumns     DocPagesInsert200ResponseLayoutPagesItemTabOrder = "columns"
-	DocPagesInsert200ResponseLayoutPagesItemTabOrderStructure   DocPagesInsert200ResponseLayoutPagesItemTabOrder = "structure"
-	DocPagesInsert200ResponseLayoutPagesItemTabOrderAnnotations DocPagesInsert200ResponseLayoutPagesItemTabOrder = "annotations"
-	DocPagesInsert200ResponseLayoutPagesItemTabOrderWidgets     DocPagesInsert200ResponseLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewDocPagesInsert200ResponseLayoutPagesItemTabOrderFromString(s string) (DocPagesInsert200ResponseLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return DocPagesInsert200ResponseLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return DocPagesInsert200ResponseLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return DocPagesInsert200ResponseLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return DocPagesInsert200ResponseLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return DocPagesInsert200ResponseLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t DocPagesInsert200ResponseLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocPagesInsert200ResponseLayoutPagesItemTabOrder) Ptr() *DocPagesInsert200ResponseLayoutPagesItemTabOrder {
-	return &d
-}
-
-type DocPagesInsert400Response = *EngineErrorPayload
-
-type DocPagesInsert404Response = *EngineErrorPayload
-
-var (
-	docPagesInsertBlank200ResponseFieldInsertedPages = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseFieldLayout        = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseFieldMeta          = big.NewInt(1 << 2)
-)
-
-type DocPagesInsertBlank200Response struct {
-	InsertedPages []*PageRef                            `json:"insertedPages" url:"insertedPages"`
-	Layout        *DocPagesInsertBlank200ResponseLayout `json:"layout" url:"layout"`
-	Meta          *MutationMeta                         `json:"meta" url:"meta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200Response) GetInsertedPages() []*PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.InsertedPages
-}
-
-func (d *DocPagesInsertBlank200Response) GetLayout() *DocPagesInsertBlank200ResponseLayout {
-	if d == nil {
-		return nil
-	}
-	return d.Layout
-}
-
-func (d *DocPagesInsertBlank200Response) GetMeta() *MutationMeta {
-	if d == nil {
-		return nil
-	}
-	return d.Meta
-}
-
-func (d *DocPagesInsertBlank200Response) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200Response) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetInsertedPages sets the InsertedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200Response) SetInsertedPages(insertedPages []*PageRef) {
-	d.InsertedPages = insertedPages
-	d.require(docPagesInsertBlank200ResponseFieldInsertedPages)
-}
-
-// SetLayout sets the Layout field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200Response) SetLayout(layout *DocPagesInsertBlank200ResponseLayout) {
-	d.Layout = layout
-	d.require(docPagesInsertBlank200ResponseFieldLayout)
-}
-
-// SetMeta sets the Meta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200Response) SetMeta(meta *MutationMeta) {
-	d.Meta = meta
-	d.require(docPagesInsertBlank200ResponseFieldMeta)
-}
-
-func (d *DocPagesInsertBlank200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200Response) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200Response) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutFieldPageCount  = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutFieldPages      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutFieldNamedPages = big.NewInt(1 << 2)
-)
-
-type DocPagesInsertBlank200ResponseLayout struct {
-	PageCount  int                                                   `json:"pageCount" url:"pageCount"`
-	Pages      []*DocPagesInsertBlank200ResponseLayoutPagesItem      `json:"pages" url:"pages"`
-	NamedPages []*DocPagesInsertBlank200ResponseLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) GetPageCount() int {
-	if d == nil {
-		return 0
-	}
-	return d.PageCount
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) GetPages() []*DocPagesInsertBlank200ResponseLayoutPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) GetNamedPages() []*DocPagesInsertBlank200ResponseLayoutNamedPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.NamedPages
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayout) SetPageCount(pageCount int) {
-	d.PageCount = pageCount
-	d.require(docPagesInsertBlank200ResponseLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayout) SetPages(pages []*DocPagesInsertBlank200ResponseLayoutPagesItem) {
-	d.Pages = pages
-	d.require(docPagesInsertBlank200ResponseLayoutFieldPages)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayout) SetNamedPages(namedPages []*DocPagesInsertBlank200ResponseLayoutNamedPagesItem) {
-	d.NamedPages = namedPages
-	d.require(docPagesInsertBlank200ResponseLayoutFieldNamedPages)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayout) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItem struct {
-	Name   string                                                    `json:"name" url:"name"`
-	Target *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) GetName() string {
-	if d == nil {
-		return ""
-	}
-	return d.Name
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) GetTarget() *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget {
-	if d == nil {
-		return nil
-	}
-	return d.Target
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) SetName(name string) {
-	d.Name = name
-	d.require(docPagesInsertBlank200ResponseLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) SetTarget(target *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) {
-	d.Target = target
-	d.require(docPagesInsertBlank200ResponseLayoutNamedPagesItemFieldTarget)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage
-	Template *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate
-	Dangling *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) GetKind() string {
-	if d == nil {
-		return ""
-	}
-	return d.Kind
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) GetPage() *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) GetTemplate() *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate {
-	if d == nil {
-		return nil
-	}
-	return d.Template
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) GetDangling() *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling {
-	if d == nil {
-		return nil
-	}
-	return d.Dangling
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	d.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", d)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Page = value
-	case "template":
-		value := new(DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Template = value
-	case "dangling":
-		value := new(DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Dangling = value
-	}
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
-		return nil, err
-	}
-	if d.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Page, "kind", "page")
-	}
-	if d.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Template, "kind", "template")
-	}
-	if d.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Dangling, "kind", "dangling")
-	}
-	if len(d.rawJSON) > 0 {
-		return d.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) error
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) Accept(visitor DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetVisitor) error {
-	if d.Page != nil {
-		return visitor.VisitPage(d.Page)
-	}
-	if d.Template != nil {
-		return visitor.VisitTemplate(d.Template)
-	}
-	if d.Dangling != nil {
-		return visitor.VisitDangling(d.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTarget) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
-	}
-	var fields []string
-	if d.Page != nil {
-		fields = append(fields, "page")
-	}
-	if d.Template != nil {
-		fields = append(fields, "template")
-	}
-	if d.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if d.Kind != "" {
-			if len(d.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
-		}
-		return fmt.Errorf("type %T is empty", d)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
-	}
-	if d.Kind != "" {
-		field := fields[0]
-		if d.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Kind,
-				d,
-			)
-		}
-	}
-	return nil
-}
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetDangling) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	d.Page = page
-	d.require(docPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetPage) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if d == nil {
-		return 0
-	}
-	return d.ObjectNumber
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	d.ObjectNumber = objectNumber
-	d.require(docPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutNamedPagesItemTargetTemplate) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	docPagesInsertBlank200ResponseLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItem struct {
-	Index      int                                                      `json:"index" url:"index"`
-	Ref        *PageRef                                                 `json:"ref" url:"ref"`
-	Label      *string                                                  `json:"label,omitempty" url:"label,omitempty"`
-	Size       *DocPagesInsertBlank200ResponseLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                                  `json:"rotation" url:"rotation"`
-	UserUnit   float64                                                  `json:"userUnit" url:"userUnit"`
-	TabOrder   *DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                          `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetIndex() int {
-	if d == nil {
-		return 0
-	}
-	return d.Index
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetRef() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Ref
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetLabel() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Label
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetSize() *DocPagesInsertBlank200ResponseLayoutPagesItemSize {
-	if d == nil {
-		return nil
-	}
-	return d.Size
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetRotation() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Rotation
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetUserUnit() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.UserUnit
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetTabOrder() *DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder {
-	if d == nil {
-		return nil
-	}
-	return d.TabOrder
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetBoxes() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes {
-	if d == nil {
-		return nil
-	}
-	return d.Boxes
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetPdfCropBox() *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox {
-	if d == nil {
-		return nil
-	}
-	return d.PdfCropBox
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetActions() *PdfPageActions {
-	if d == nil {
-		return nil
-	}
-	return d.Actions
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetIndex(index int) {
-	d.Index = index
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetRef(ref *PageRef) {
-	d.Ref = ref
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetLabel(label *string) {
-	d.Label = label
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetSize(size *DocPagesInsertBlank200ResponseLayoutPagesItemSize) {
-	d.Size = size
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetRotation(rotation float64) {
-	d.Rotation = rotation
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetUserUnit(userUnit float64) {
-	d.UserUnit = userUnit
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetTabOrder(tabOrder *DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder) {
-	d.TabOrder = tabOrder
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetBoxes(boxes *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) {
-	d.Boxes = boxes
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetPdfCropBox(pdfCropBox *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) {
-	d.PdfCropBox = pdfCropBox
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	d.Actions = actions
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemFieldActions)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxes struct {
-	Media *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetMedia() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia {
-	if d == nil {
-		return nil
-	}
-	return d.Media
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetCrop() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop {
-	if d == nil {
-		return nil
-	}
-	return d.Crop
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetBleed() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed {
-	if d == nil {
-		return nil
-	}
-	return d.Bleed
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetTrim() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim {
-	if d == nil {
-		return nil
-	}
-	return d.Trim
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetArt() *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt {
-	if d == nil {
-		return nil
-	}
-	return d.Art
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) SetMedia(media *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) {
-	d.Media = media
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) SetCrop(crop *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) {
-	d.Crop = crop
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) SetBleed(bleed *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) {
-	d.Bleed = bleed
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) SetTrim(trim *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) {
-	d.Trim = trim
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) SetArt(art *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) {
-	d.Art = art
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesFieldArt)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxes) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesArt) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesBleed) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesCrop) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesMedia) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) SetX(x float64) {
-	d.X = x
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemBoxesTrim) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Left
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Bottom
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Right
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Top
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	d.Left = left
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	d.Bottom = bottom
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	d.Right = right
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	d.Top = top
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemPdfCropBox) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesInsertBlank200ResponseLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	docPagesInsertBlank200ResponseLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesInsertBlank200ResponseLayoutPagesItemSizeFieldHeight)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesInsertBlank200ResponseLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesInsertBlank200ResponseLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed DocPagesInsertBlank200ResponseLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesInsertBlank200ResponseLayoutPagesItemSize) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder string
-
-const (
-	DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderRows        DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder = "rows"
-	DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderColumns     DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder = "columns"
-	DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderStructure   DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder = "structure"
-	DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderAnnotations DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder = "annotations"
-	DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderWidgets     DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewDocPagesInsertBlank200ResponseLayoutPagesItemTabOrderFromString(s string) (DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return DocPagesInsertBlank200ResponseLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder) Ptr() *DocPagesInsertBlank200ResponseLayoutPagesItemTabOrder {
-	return &d
-}
-
-type DocPagesInsertBlank400Response = *EngineErrorPayload
-
-type DocPagesInsertBlank404Response = *EngineErrorPayload
-
-type DocPagesInsertBlankRequest = map[string]any
 
 var (
 	docPagesRemoveName200ResponseFieldLayout = big.NewInt(1 << 0)
@@ -44657,4028 +39078,6 @@ type DocPagesRemoveName400Response = *EngineErrorPayload
 type DocPagesRemoveName404Response = *EngineErrorPayload
 
 type DocPagesRemoveNameRequest = map[string]any
-
-var (
-	docPagesReorder200ResponseFieldPages  = big.NewInt(1 << 0)
-	docPagesReorder200ResponseFieldLayout = big.NewInt(1 << 1)
-	docPagesReorder200ResponseFieldMeta   = big.NewInt(1 << 2)
-)
-
-type DocPagesReorder200Response struct {
-	Pages  []*PageRef                        `json:"pages" url:"pages"`
-	Layout *DocPagesReorder200ResponseLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                     `json:"meta" url:"meta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200Response) GetPages() []*PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesReorder200Response) GetLayout() *DocPagesReorder200ResponseLayout {
-	if d == nil {
-		return nil
-	}
-	return d.Layout
-}
-
-func (d *DocPagesReorder200Response) GetMeta() *MutationMeta {
-	if d == nil {
-		return nil
-	}
-	return d.Meta
-}
-
-func (d *DocPagesReorder200Response) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200Response) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200Response) SetPages(pages []*PageRef) {
-	d.Pages = pages
-	d.require(docPagesReorder200ResponseFieldPages)
-}
-
-// SetLayout sets the Layout field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200Response) SetLayout(layout *DocPagesReorder200ResponseLayout) {
-	d.Layout = layout
-	d.require(docPagesReorder200ResponseFieldLayout)
-}
-
-// SetMeta sets the Meta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200Response) SetMeta(meta *MutationMeta) {
-	d.Meta = meta
-	d.require(docPagesReorder200ResponseFieldMeta)
-}
-
-func (d *DocPagesReorder200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200Response) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200Response) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutFieldPageCount  = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutFieldPages      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutFieldNamedPages = big.NewInt(1 << 2)
-)
-
-type DocPagesReorder200ResponseLayout struct {
-	PageCount  int                                               `json:"pageCount" url:"pageCount"`
-	Pages      []*DocPagesReorder200ResponseLayoutPagesItem      `json:"pages" url:"pages"`
-	NamedPages []*DocPagesReorder200ResponseLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayout) GetPageCount() int {
-	if d == nil {
-		return 0
-	}
-	return d.PageCount
-}
-
-func (d *DocPagesReorder200ResponseLayout) GetPages() []*DocPagesReorder200ResponseLayoutPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesReorder200ResponseLayout) GetNamedPages() []*DocPagesReorder200ResponseLayoutNamedPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.NamedPages
-}
-
-func (d *DocPagesReorder200ResponseLayout) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayout) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayout) SetPageCount(pageCount int) {
-	d.PageCount = pageCount
-	d.require(docPagesReorder200ResponseLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayout) SetPages(pages []*DocPagesReorder200ResponseLayoutPagesItem) {
-	d.Pages = pages
-	d.require(docPagesReorder200ResponseLayoutFieldPages)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayout) SetNamedPages(namedPages []*DocPagesReorder200ResponseLayoutNamedPagesItem) {
-	d.NamedPages = namedPages
-	d.require(docPagesReorder200ResponseLayoutFieldNamedPages)
-}
-
-func (d *DocPagesReorder200ResponseLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayout) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayout) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type DocPagesReorder200ResponseLayoutNamedPagesItem struct {
-	Name   string                                                `json:"name" url:"name"`
-	Target *DocPagesReorder200ResponseLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) GetName() string {
-	if d == nil {
-		return ""
-	}
-	return d.Name
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) GetTarget() *DocPagesReorder200ResponseLayoutNamedPagesItemTarget {
-	if d == nil {
-		return nil
-	}
-	return d.Target
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) SetName(name string) {
-	d.Name = name
-	d.require(docPagesReorder200ResponseLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) SetTarget(target *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) {
-	d.Target = target
-	d.require(docPagesReorder200ResponseLayoutNamedPagesItemFieldTarget)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesReorder200ResponseLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage
-	Template *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate
-	Dangling *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) GetKind() string {
-	if d == nil {
-		return ""
-	}
-	return d.Kind
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) GetPage() *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) GetTemplate() *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate {
-	if d == nil {
-		return nil
-	}
-	return d.Template
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) GetDangling() *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling {
-	if d == nil {
-		return nil
-	}
-	return d.Dangling
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	d.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", d)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Page = value
-	case "template":
-		value := new(DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Template = value
-	case "dangling":
-		value := new(DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Dangling = value
-	}
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d DocPagesReorder200ResponseLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
-		return nil, err
-	}
-	if d.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Page, "kind", "page")
-	}
-	if d.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Template, "kind", "template")
-	}
-	if d.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Dangling, "kind", "dangling")
-	}
-	if len(d.rawJSON) > 0 {
-		return d.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-type DocPagesReorder200ResponseLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) error
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) Accept(visitor DocPagesReorder200ResponseLayoutNamedPagesItemTargetVisitor) error {
-	if d.Page != nil {
-		return visitor.VisitPage(d.Page)
-	}
-	if d.Template != nil {
-		return visitor.VisitTemplate(d.Template)
-	}
-	if d.Dangling != nil {
-		return visitor.VisitDangling(d.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTarget) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
-	}
-	var fields []string
-	if d.Page != nil {
-		fields = append(fields, "page")
-	}
-	if d.Template != nil {
-		fields = append(fields, "template")
-	}
-	if d.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if d.Kind != "" {
-			if len(d.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
-		}
-		return fmt.Errorf("type %T is empty", d)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
-	}
-	if d.Kind != "" {
-		field := fields[0]
-		if d.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Kind,
-				d,
-			)
-		}
-	}
-	return nil
-}
-
-type DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetDangling) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	d.Page = page
-	d.require(docPagesReorder200ResponseLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetPage) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if d == nil {
-		return 0
-	}
-	return d.ObjectNumber
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	d.ObjectNumber = objectNumber
-	d.require(docPagesReorder200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutNamedPagesItemTargetTemplate) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	docPagesReorder200ResponseLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	docPagesReorder200ResponseLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	docPagesReorder200ResponseLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	docPagesReorder200ResponseLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	docPagesReorder200ResponseLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	docPagesReorder200ResponseLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItem struct {
-	Index      int                                                  `json:"index" url:"index"`
-	Ref        *PageRef                                             `json:"ref" url:"ref"`
-	Label      *string                                              `json:"label,omitempty" url:"label,omitempty"`
-	Size       *DocPagesReorder200ResponseLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                              `json:"rotation" url:"rotation"`
-	UserUnit   float64                                              `json:"userUnit" url:"userUnit"`
-	TabOrder   *DocPagesReorder200ResponseLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *DocPagesReorder200ResponseLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                      `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetIndex() int {
-	if d == nil {
-		return 0
-	}
-	return d.Index
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetRef() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Ref
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetLabel() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Label
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetSize() *DocPagesReorder200ResponseLayoutPagesItemSize {
-	if d == nil {
-		return nil
-	}
-	return d.Size
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetRotation() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Rotation
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetUserUnit() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.UserUnit
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetTabOrder() *DocPagesReorder200ResponseLayoutPagesItemTabOrder {
-	if d == nil {
-		return nil
-	}
-	return d.TabOrder
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetBoxes() *DocPagesReorder200ResponseLayoutPagesItemBoxes {
-	if d == nil {
-		return nil
-	}
-	return d.Boxes
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetPdfCropBox() *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox {
-	if d == nil {
-		return nil
-	}
-	return d.PdfCropBox
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetActions() *PdfPageActions {
-	if d == nil {
-		return nil
-	}
-	return d.Actions
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetIndex(index int) {
-	d.Index = index
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetRef(ref *PageRef) {
-	d.Ref = ref
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetLabel(label *string) {
-	d.Label = label
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetSize(size *DocPagesReorder200ResponseLayoutPagesItemSize) {
-	d.Size = size
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetRotation(rotation float64) {
-	d.Rotation = rotation
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetUserUnit(userUnit float64) {
-	d.UserUnit = userUnit
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetTabOrder(tabOrder *DocPagesReorder200ResponseLayoutPagesItemTabOrder) {
-	d.TabOrder = tabOrder
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetBoxes(boxes *DocPagesReorder200ResponseLayoutPagesItemBoxes) {
-	d.Boxes = boxes
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetPdfCropBox(pdfCropBox *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) {
-	d.PdfCropBox = pdfCropBox
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	d.Actions = actions
-	d.require(docPagesReorder200ResponseLayoutPagesItemFieldActions)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	docPagesReorder200ResponseLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxes struct {
-	Media *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *DocPagesReorder200ResponseLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetMedia() *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia {
-	if d == nil {
-		return nil
-	}
-	return d.Media
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetCrop() *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop {
-	if d == nil {
-		return nil
-	}
-	return d.Crop
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetBleed() *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed {
-	if d == nil {
-		return nil
-	}
-	return d.Bleed
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetTrim() *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim {
-	if d == nil {
-		return nil
-	}
-	return d.Trim
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetArt() *DocPagesReorder200ResponseLayoutPagesItemBoxesArt {
-	if d == nil {
-		return nil
-	}
-	return d.Art
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) SetMedia(media *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) {
-	d.Media = media
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) SetCrop(crop *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) {
-	d.Crop = crop
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) SetBleed(bleed *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) {
-	d.Bleed = bleed
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) SetTrim(trim *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) {
-	d.Trim = trim
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) SetArt(art *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) {
-	d.Art = art
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesFieldArt)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxes) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) SetX(x float64) {
-	d.X = x
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesArt) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) SetX(x float64) {
-	d.X = x
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesBleed) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) SetX(x float64) {
-	d.X = x
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesCrop) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) SetX(x float64) {
-	d.X = x
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesMedia) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) SetX(x float64) {
-	d.X = x
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemBoxesTrim) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Left
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Bottom
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Right
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Top
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	d.Left = left
-	d.require(docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	d.Bottom = bottom
-	d.require(docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	d.Right = right
-	d.require(docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	d.Top = top
-	d.require(docPagesReorder200ResponseLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemPdfCropBox) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesReorder200ResponseLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	docPagesReorder200ResponseLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type DocPagesReorder200ResponseLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesReorder200ResponseLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesReorder200ResponseLayoutPagesItemSizeFieldHeight)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesReorder200ResponseLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesReorder200ResponseLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed DocPagesReorder200ResponseLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesReorder200ResponseLayoutPagesItemSize) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesReorder200ResponseLayoutPagesItemTabOrder string
-
-const (
-	DocPagesReorder200ResponseLayoutPagesItemTabOrderRows        DocPagesReorder200ResponseLayoutPagesItemTabOrder = "rows"
-	DocPagesReorder200ResponseLayoutPagesItemTabOrderColumns     DocPagesReorder200ResponseLayoutPagesItemTabOrder = "columns"
-	DocPagesReorder200ResponseLayoutPagesItemTabOrderStructure   DocPagesReorder200ResponseLayoutPagesItemTabOrder = "structure"
-	DocPagesReorder200ResponseLayoutPagesItemTabOrderAnnotations DocPagesReorder200ResponseLayoutPagesItemTabOrder = "annotations"
-	DocPagesReorder200ResponseLayoutPagesItemTabOrderWidgets     DocPagesReorder200ResponseLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewDocPagesReorder200ResponseLayoutPagesItemTabOrderFromString(s string) (DocPagesReorder200ResponseLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return DocPagesReorder200ResponseLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return DocPagesReorder200ResponseLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return DocPagesReorder200ResponseLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return DocPagesReorder200ResponseLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return DocPagesReorder200ResponseLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t DocPagesReorder200ResponseLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocPagesReorder200ResponseLayoutPagesItemTabOrder) Ptr() *DocPagesReorder200ResponseLayoutPagesItemTabOrder {
-	return &d
-}
-
-type DocPagesReorder400Response = *EngineErrorPayload
-
-type DocPagesReorder404Response = *EngineErrorPayload
-
-var (
-	docPagesRotate200ResponseFieldLayout = big.NewInt(1 << 0)
-	docPagesRotate200ResponseFieldMeta   = big.NewInt(1 << 1)
-)
-
-type DocPagesRotate200Response struct {
-	Layout *DocPagesRotate200ResponseLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                    `json:"meta" url:"meta"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200Response) GetLayout() *DocPagesRotate200ResponseLayout {
-	if d == nil {
-		return nil
-	}
-	return d.Layout
-}
-
-func (d *DocPagesRotate200Response) GetMeta() *MutationMeta {
-	if d == nil {
-		return nil
-	}
-	return d.Meta
-}
-
-func (d *DocPagesRotate200Response) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200Response) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLayout sets the Layout field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200Response) SetLayout(layout *DocPagesRotate200ResponseLayout) {
-	d.Layout = layout
-	d.require(docPagesRotate200ResponseFieldLayout)
-}
-
-// SetMeta sets the Meta field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200Response) SetMeta(meta *MutationMeta) {
-	d.Meta = meta
-	d.require(docPagesRotate200ResponseFieldMeta)
-}
-
-func (d *DocPagesRotate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200Response) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200Response) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutFieldPageCount  = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutFieldPages      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutFieldNamedPages = big.NewInt(1 << 2)
-)
-
-type DocPagesRotate200ResponseLayout struct {
-	PageCount  int                                              `json:"pageCount" url:"pageCount"`
-	Pages      []*DocPagesRotate200ResponseLayoutPagesItem      `json:"pages" url:"pages"`
-	NamedPages []*DocPagesRotate200ResponseLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayout) GetPageCount() int {
-	if d == nil {
-		return 0
-	}
-	return d.PageCount
-}
-
-func (d *DocPagesRotate200ResponseLayout) GetPages() []*DocPagesRotate200ResponseLayoutPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.Pages
-}
-
-func (d *DocPagesRotate200ResponseLayout) GetNamedPages() []*DocPagesRotate200ResponseLayoutNamedPagesItem {
-	if d == nil {
-		return nil
-	}
-	return d.NamedPages
-}
-
-func (d *DocPagesRotate200ResponseLayout) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayout) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayout) SetPageCount(pageCount int) {
-	d.PageCount = pageCount
-	d.require(docPagesRotate200ResponseLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayout) SetPages(pages []*DocPagesRotate200ResponseLayoutPagesItem) {
-	d.Pages = pages
-	d.require(docPagesRotate200ResponseLayoutFieldPages)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayout) SetNamedPages(namedPages []*DocPagesRotate200ResponseLayoutNamedPagesItem) {
-	d.NamedPages = namedPages
-	d.require(docPagesRotate200ResponseLayoutFieldNamedPages)
-}
-
-func (d *DocPagesRotate200ResponseLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayout) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayout) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type DocPagesRotate200ResponseLayoutNamedPagesItem struct {
-	Name   string                                               `json:"name" url:"name"`
-	Target *DocPagesRotate200ResponseLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) GetName() string {
-	if d == nil {
-		return ""
-	}
-	return d.Name
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) GetTarget() *DocPagesRotate200ResponseLayoutNamedPagesItemTarget {
-	if d == nil {
-		return nil
-	}
-	return d.Target
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) SetName(name string) {
-	d.Name = name
-	d.require(docPagesRotate200ResponseLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) SetTarget(target *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) {
-	d.Target = target
-	d.require(docPagesRotate200ResponseLayoutNamedPagesItemFieldTarget)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesRotate200ResponseLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage
-	Template *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate
-	Dangling *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) GetKind() string {
-	if d == nil {
-		return ""
-	}
-	return d.Kind
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) GetPage() *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) GetTemplate() *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate {
-	if d == nil {
-		return nil
-	}
-	return d.Template
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) GetDangling() *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling {
-	if d == nil {
-		return nil
-	}
-	return d.Dangling
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	d.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", d)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Page = value
-	case "template":
-		value := new(DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Template = value
-	case "dangling":
-		value := new(DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		d.Dangling = value
-	}
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d DocPagesRotate200ResponseLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := d.validate(); err != nil {
-		return nil, err
-	}
-	if d.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Page, "kind", "page")
-	}
-	if d.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Template, "kind", "template")
-	}
-	if d.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Dangling, "kind", "dangling")
-	}
-	if len(d.rawJSON) > 0 {
-		return d.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-type DocPagesRotate200ResponseLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) error
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) Accept(visitor DocPagesRotate200ResponseLayoutNamedPagesItemTargetVisitor) error {
-	if d.Page != nil {
-		return visitor.VisitPage(d.Page)
-	}
-	if d.Template != nil {
-		return visitor.VisitTemplate(d.Template)
-	}
-	if d.Dangling != nil {
-		return visitor.VisitDangling(d.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", d)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTarget) validate() error {
-	if d == nil {
-		return fmt.Errorf("type %T is nil", d)
-	}
-	var fields []string
-	if d.Page != nil {
-		fields = append(fields, "page")
-	}
-	if d.Template != nil {
-		fields = append(fields, "template")
-	}
-	if d.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if d.Kind != "" {
-			if len(d.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Kind)
-		}
-		return fmt.Errorf("type %T is empty", d)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
-	}
-	if d.Kind != "" {
-		field := fields[0]
-		if d.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				d,
-				d.Kind,
-				d,
-			)
-		}
-	}
-	return nil
-}
-
-type DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetDangling) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Page
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	d.Page = page
-	d.require(docPagesRotate200ResponseLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetPage) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if d == nil {
-		return 0
-	}
-	return d.ObjectNumber
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	d.ObjectNumber = objectNumber
-	d.require(docPagesRotate200ResponseLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutNamedPagesItemTargetTemplate) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	docPagesRotate200ResponseLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	docPagesRotate200ResponseLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	docPagesRotate200ResponseLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	docPagesRotate200ResponseLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	docPagesRotate200ResponseLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	docPagesRotate200ResponseLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItem struct {
-	Index      int                                                 `json:"index" url:"index"`
-	Ref        *PageRef                                            `json:"ref" url:"ref"`
-	Label      *string                                             `json:"label,omitempty" url:"label,omitempty"`
-	Size       *DocPagesRotate200ResponseLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                             `json:"userUnit" url:"userUnit"`
-	TabOrder   *DocPagesRotate200ResponseLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *DocPagesRotate200ResponseLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                     `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetIndex() int {
-	if d == nil {
-		return 0
-	}
-	return d.Index
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetRef() *PageRef {
-	if d == nil {
-		return nil
-	}
-	return d.Ref
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetLabel() *string {
-	if d == nil {
-		return nil
-	}
-	return d.Label
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetSize() *DocPagesRotate200ResponseLayoutPagesItemSize {
-	if d == nil {
-		return nil
-	}
-	return d.Size
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetRotation() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Rotation
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetUserUnit() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.UserUnit
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetTabOrder() *DocPagesRotate200ResponseLayoutPagesItemTabOrder {
-	if d == nil {
-		return nil
-	}
-	return d.TabOrder
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetBoxes() *DocPagesRotate200ResponseLayoutPagesItemBoxes {
-	if d == nil {
-		return nil
-	}
-	return d.Boxes
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetPdfCropBox() *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox {
-	if d == nil {
-		return nil
-	}
-	return d.PdfCropBox
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetActions() *PdfPageActions {
-	if d == nil {
-		return nil
-	}
-	return d.Actions
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetIndex(index int) {
-	d.Index = index
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetRef(ref *PageRef) {
-	d.Ref = ref
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetLabel(label *string) {
-	d.Label = label
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetSize(size *DocPagesRotate200ResponseLayoutPagesItemSize) {
-	d.Size = size
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetRotation(rotation float64) {
-	d.Rotation = rotation
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetUserUnit(userUnit float64) {
-	d.UserUnit = userUnit
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetTabOrder(tabOrder *DocPagesRotate200ResponseLayoutPagesItemTabOrder) {
-	d.TabOrder = tabOrder
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetBoxes(boxes *DocPagesRotate200ResponseLayoutPagesItemBoxes) {
-	d.Boxes = boxes
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetPdfCropBox(pdfCropBox *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) {
-	d.PdfCropBox = pdfCropBox
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	d.Actions = actions
-	d.require(docPagesRotate200ResponseLayoutPagesItemFieldActions)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItem) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	docPagesRotate200ResponseLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxes struct {
-	Media *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *DocPagesRotate200ResponseLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetMedia() *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia {
-	if d == nil {
-		return nil
-	}
-	return d.Media
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetCrop() *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop {
-	if d == nil {
-		return nil
-	}
-	return d.Crop
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetBleed() *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed {
-	if d == nil {
-		return nil
-	}
-	return d.Bleed
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetTrim() *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim {
-	if d == nil {
-		return nil
-	}
-	return d.Trim
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetArt() *DocPagesRotate200ResponseLayoutPagesItemBoxesArt {
-	if d == nil {
-		return nil
-	}
-	return d.Art
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) SetMedia(media *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) {
-	d.Media = media
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) SetCrop(crop *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) {
-	d.Crop = crop
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) SetBleed(bleed *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) {
-	d.Bleed = bleed
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) SetTrim(trim *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) {
-	d.Trim = trim
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) SetArt(art *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) {
-	d.Art = art
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesFieldArt)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxes) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) SetX(x float64) {
-	d.X = x
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesArt) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) SetX(x float64) {
-	d.X = x
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesBleed) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) SetX(x float64) {
-	d.X = x
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesCrop) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) SetX(x float64) {
-	d.X = x
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesMedia) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) GetX() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.X
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) GetY() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Y
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) SetX(x float64) {
-	d.X = x
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) SetY(y float64) {
-	d.Y = y
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemBoxesTrim) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Left
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Bottom
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Right
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Top
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	d.Left = left
-	d.require(docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	d.Bottom = bottom
-	d.require(docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	d.Right = right
-	d.require(docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	d.Top = top
-	d.require(docPagesRotate200ResponseLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemPdfCropBox) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-var (
-	docPagesRotate200ResponseLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	docPagesRotate200ResponseLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type DocPagesRotate200ResponseLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) GetWidth() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Width
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) GetHeight() float64 {
-	if d == nil {
-		return 0
-	}
-	return d.Height
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) SetWidth(width float64) {
-	d.Width = width
-	d.require(docPagesRotate200ResponseLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) SetHeight(height float64) {
-	d.Height = height
-	d.require(docPagesRotate200ResponseLayoutPagesItemSizeFieldHeight)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocPagesRotate200ResponseLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocPagesRotate200ResponseLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed DocPagesRotate200ResponseLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocPagesRotate200ResponseLayoutPagesItemSize) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocPagesRotate200ResponseLayoutPagesItemTabOrder string
-
-const (
-	DocPagesRotate200ResponseLayoutPagesItemTabOrderRows        DocPagesRotate200ResponseLayoutPagesItemTabOrder = "rows"
-	DocPagesRotate200ResponseLayoutPagesItemTabOrderColumns     DocPagesRotate200ResponseLayoutPagesItemTabOrder = "columns"
-	DocPagesRotate200ResponseLayoutPagesItemTabOrderStructure   DocPagesRotate200ResponseLayoutPagesItemTabOrder = "structure"
-	DocPagesRotate200ResponseLayoutPagesItemTabOrderAnnotations DocPagesRotate200ResponseLayoutPagesItemTabOrder = "annotations"
-	DocPagesRotate200ResponseLayoutPagesItemTabOrderWidgets     DocPagesRotate200ResponseLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewDocPagesRotate200ResponseLayoutPagesItemTabOrderFromString(s string) (DocPagesRotate200ResponseLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return DocPagesRotate200ResponseLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return DocPagesRotate200ResponseLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return DocPagesRotate200ResponseLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return DocPagesRotate200ResponseLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return DocPagesRotate200ResponseLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t DocPagesRotate200ResponseLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocPagesRotate200ResponseLayoutPagesItemTabOrder) Ptr() *DocPagesRotate200ResponseLayoutPagesItemTabOrder {
-	return &d
-}
-
-type DocPagesRotate400Response = *EngineErrorPayload
-
-type DocPagesRotate404Response = *EngineErrorPayload
-
-type DocPagesRotateRequest = map[string]any
 
 var (
 	docPagesSetName200ResponseFieldLayout = big.NewInt(1 << 0)
@@ -63977,6 +54376,106 @@ func (d DocumentMetadataTrapped) Ptr() *DocumentMetadataTrapped {
 	return &d
 }
 
+var (
+	documentOutlineFieldItems      = big.NewInt(1 << 0)
+	documentOutlineFieldIncomplete = big.NewInt(1 << 1)
+)
+
+type DocumentOutline struct {
+	Items      []*OutlineItem `json:"items" url:"items"`
+	Incomplete bool           `json:"incomplete" url:"incomplete"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentOutline) GetItems() []*OutlineItem {
+	if d == nil {
+		return nil
+	}
+	return d.Items
+}
+
+func (d *DocumentOutline) GetIncomplete() bool {
+	if d == nil {
+		return false
+	}
+	return d.Incomplete
+}
+
+func (d *DocumentOutline) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentOutline) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetItems sets the Items field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentOutline) SetItems(items []*OutlineItem) {
+	d.Items = items
+	d.require(documentOutlineFieldItems)
+}
+
+// SetIncomplete sets the Incomplete field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentOutline) SetIncomplete(incomplete bool) {
+	d.Incomplete = incomplete
+	d.require(documentOutlineFieldIncomplete)
+}
+
+func (d *DocumentOutline) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentOutline
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentOutline(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentOutline) MarshalJSON() ([]byte, error) {
+	type embed DocumentOutline
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentOutline) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
 type DocumentsCommit400Response = *AdminErrorPayload
 
 type DocumentsCommit404Response = *AdminErrorPayload
@@ -77536,6 +68035,337 @@ func (m *MutationMeta) String() string {
 	return fmt.Sprintf("%#v", m)
 }
 
+var (
+	outlineItemFieldRef    = big.NewInt(1 << 0)
+	outlineItemFieldParent = big.NewInt(1 << 1)
+	outlineItemFieldTitle  = big.NewInt(1 << 2)
+	outlineItemFieldTarget = big.NewInt(1 << 3)
+	outlineItemFieldAction = big.NewInt(1 << 4)
+	outlineItemFieldOpen   = big.NewInt(1 << 5)
+	outlineItemFieldColor  = big.NewInt(1 << 6)
+	outlineItemFieldBold   = big.NewInt(1 << 7)
+	outlineItemFieldItalic = big.NewInt(1 << 8)
+)
+
+type OutlineItem struct {
+	Ref    *OutlineItemRef `json:"ref" url:"ref"`
+	Parent *OutlineItemRef `json:"parent,omitempty" url:"parent,omitempty"`
+	Title  string          `json:"title" url:"title"`
+	Target *PdfLinkTarget  `json:"target,omitempty" url:"target,omitempty"`
+	Action *PdfActionTree  `json:"action,omitempty" url:"action,omitempty"`
+	Open   bool            `json:"open" url:"open"`
+	Color  *string         `json:"color,omitempty" url:"color,omitempty"`
+	Bold   bool            `json:"bold" url:"bold"`
+	Italic bool            `json:"italic" url:"italic"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (o *OutlineItem) GetRef() *OutlineItemRef {
+	if o == nil {
+		return nil
+	}
+	return o.Ref
+}
+
+func (o *OutlineItem) GetParent() *OutlineItemRef {
+	if o == nil {
+		return nil
+	}
+	return o.Parent
+}
+
+func (o *OutlineItem) GetTitle() string {
+	if o == nil {
+		return ""
+	}
+	return o.Title
+}
+
+func (o *OutlineItem) GetTarget() *PdfLinkTarget {
+	if o == nil {
+		return nil
+	}
+	return o.Target
+}
+
+func (o *OutlineItem) GetAction() *PdfActionTree {
+	if o == nil {
+		return nil
+	}
+	return o.Action
+}
+
+func (o *OutlineItem) GetOpen() bool {
+	if o == nil {
+		return false
+	}
+	return o.Open
+}
+
+func (o *OutlineItem) GetColor() *string {
+	if o == nil {
+		return nil
+	}
+	return o.Color
+}
+
+func (o *OutlineItem) GetBold() bool {
+	if o == nil {
+		return false
+	}
+	return o.Bold
+}
+
+func (o *OutlineItem) GetItalic() bool {
+	if o == nil {
+		return false
+	}
+	return o.Italic
+}
+
+func (o *OutlineItem) GetExtraProperties() map[string]interface{} {
+	if o == nil {
+		return nil
+	}
+	return o.extraProperties
+}
+
+func (o *OutlineItem) require(field *big.Int) {
+	if o.explicitFields == nil {
+		o.explicitFields = big.NewInt(0)
+	}
+	o.explicitFields.Or(o.explicitFields, field)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetRef(ref *OutlineItemRef) {
+	o.Ref = ref
+	o.require(outlineItemFieldRef)
+}
+
+// SetParent sets the Parent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetParent(parent *OutlineItemRef) {
+	o.Parent = parent
+	o.require(outlineItemFieldParent)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetTitle(title string) {
+	o.Title = title
+	o.require(outlineItemFieldTitle)
+}
+
+// SetTarget sets the Target field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetTarget(target *PdfLinkTarget) {
+	o.Target = target
+	o.require(outlineItemFieldTarget)
+}
+
+// SetAction sets the Action field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetAction(action *PdfActionTree) {
+	o.Action = action
+	o.require(outlineItemFieldAction)
+}
+
+// SetOpen sets the Open field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetOpen(open bool) {
+	o.Open = open
+	o.require(outlineItemFieldOpen)
+}
+
+// SetColor sets the Color field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetColor(color *string) {
+	o.Color = color
+	o.require(outlineItemFieldColor)
+}
+
+// SetBold sets the Bold field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetBold(bold bool) {
+	o.Bold = bold
+	o.require(outlineItemFieldBold)
+}
+
+// SetItalic sets the Italic field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItem) SetItalic(italic bool) {
+	o.Italic = italic
+	o.require(outlineItemFieldItalic)
+}
+
+func (o *OutlineItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler OutlineItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*o = OutlineItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *o)
+	if err != nil {
+		return err
+	}
+	o.extraProperties = extraProperties
+	o.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (o *OutlineItem) MarshalJSON() ([]byte, error) {
+	type embed OutlineItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*o),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, o.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (o *OutlineItem) String() string {
+	if o == nil {
+		return "<nil>"
+	}
+	if len(o.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(o.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(o); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", o)
+}
+
+var (
+	outlineItemRefFieldKind         = big.NewInt(1 << 0)
+	outlineItemRefFieldObjectNumber = big.NewInt(1 << 1)
+)
+
+type OutlineItemRef struct {
+	Kind         OutlineItemRefKind `json:"kind" url:"kind"`
+	ObjectNumber int                `json:"objectNumber" url:"objectNumber"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (o *OutlineItemRef) GetKind() OutlineItemRefKind {
+	if o == nil {
+		return ""
+	}
+	return o.Kind
+}
+
+func (o *OutlineItemRef) GetObjectNumber() int {
+	if o == nil {
+		return 0
+	}
+	return o.ObjectNumber
+}
+
+func (o *OutlineItemRef) GetExtraProperties() map[string]interface{} {
+	if o == nil {
+		return nil
+	}
+	return o.extraProperties
+}
+
+func (o *OutlineItemRef) require(field *big.Int) {
+	if o.explicitFields == nil {
+		o.explicitFields = big.NewInt(0)
+	}
+	o.explicitFields.Or(o.explicitFields, field)
+}
+
+// SetKind sets the Kind field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItemRef) SetKind(kind OutlineItemRefKind) {
+	o.Kind = kind
+	o.require(outlineItemRefFieldKind)
+}
+
+// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineItemRef) SetObjectNumber(objectNumber int) {
+	o.ObjectNumber = objectNumber
+	o.require(outlineItemRefFieldObjectNumber)
+}
+
+func (o *OutlineItemRef) UnmarshalJSON(data []byte) error {
+	type unmarshaler OutlineItemRef
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*o = OutlineItemRef(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *o)
+	if err != nil {
+		return err
+	}
+	o.extraProperties = extraProperties
+	o.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (o *OutlineItemRef) MarshalJSON() ([]byte, error) {
+	type embed OutlineItemRef
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*o),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, o.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (o *OutlineItemRef) String() string {
+	if o == nil {
+		return "<nil>"
+	}
+	if len(o.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(o.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(o); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", o)
+}
+
+type OutlineItemRefKind string
+
+const (
+	OutlineItemRefKindObjectNumber OutlineItemRefKind = "objectNumber"
+)
+
+func NewOutlineItemRefKindFromString(s string) (OutlineItemRefKind, error) {
+	switch s {
+	case "objectNumber":
+		return OutlineItemRefKindObjectNumber, nil
+	}
+	var t OutlineItemRefKind
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (o OutlineItemRefKind) Ptr() *OutlineItemRefKind {
+	return &o
+}
+
 type PageDestination struct {
 	Kind  string
 	Xyz   *PageDestinationXyz
@@ -78652,190 +69482,6 @@ func (p *PageDestinationXyz) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", p)
-}
-
-type PagePosition struct {
-	PagePositionZero  PagePositionZero
-	PagePositionAfter *PagePositionAfter
-
-	typ string
-}
-
-func (p *PagePosition) GetPagePositionZero() PagePositionZero {
-	if p == nil {
-		return ""
-	}
-	return p.PagePositionZero
-}
-
-func (p *PagePosition) GetPagePositionAfter() *PagePositionAfter {
-	if p == nil {
-		return nil
-	}
-	return p.PagePositionAfter
-}
-
-func (p *PagePosition) UnmarshalJSON(data []byte) error {
-	var valuePagePositionZero PagePositionZero
-	if err := json.Unmarshal(data, &valuePagePositionZero); err == nil {
-		p.typ = "PagePositionZero"
-		p.PagePositionZero = valuePagePositionZero
-		return nil
-	}
-	valuePagePositionAfter := new(PagePositionAfter)
-	if err := json.Unmarshal(data, &valuePagePositionAfter); err == nil {
-		p.typ = "PagePositionAfter"
-		p.PagePositionAfter = valuePagePositionAfter
-		return nil
-	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, p)
-}
-
-func (p PagePosition) MarshalJSON() ([]byte, error) {
-	if p.typ == "PagePositionZero" || p.PagePositionZero != "" {
-		return json.Marshal(p.PagePositionZero)
-	}
-	if p.typ == "PagePositionAfter" || p.PagePositionAfter != nil {
-		return json.Marshal(p.PagePositionAfter)
-	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", p)
-}
-
-type PagePositionVisitor interface {
-	VisitPagePositionZero(PagePositionZero) error
-	VisitPagePositionAfter(*PagePositionAfter) error
-}
-
-func (p *PagePosition) Accept(visitor PagePositionVisitor) error {
-	if p.typ == "PagePositionZero" || p.PagePositionZero != "" {
-		return visitor.VisitPagePositionZero(p.PagePositionZero)
-	}
-	if p.typ == "PagePositionAfter" || p.PagePositionAfter != nil {
-		return visitor.VisitPagePositionAfter(p.PagePositionAfter)
-	}
-	return fmt.Errorf("type %T does not include a non-empty union type", p)
-}
-
-var (
-	pagePositionAfterFieldBefore = big.NewInt(1 << 0)
-	pagePositionAfterFieldAfter  = big.NewInt(1 << 1)
-)
-
-type PagePositionAfter struct {
-	Before *PageRef `json:"before,omitempty" url:"before,omitempty"`
-	After  *PageRef `json:"after,omitempty" url:"after,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (p *PagePositionAfter) GetBefore() *PageRef {
-	if p == nil {
-		return nil
-	}
-	return p.Before
-}
-
-func (p *PagePositionAfter) GetAfter() *PageRef {
-	if p == nil {
-		return nil
-	}
-	return p.After
-}
-
-func (p *PagePositionAfter) GetExtraProperties() map[string]interface{} {
-	if p == nil {
-		return nil
-	}
-	return p.extraProperties
-}
-
-func (p *PagePositionAfter) require(field *big.Int) {
-	if p.explicitFields == nil {
-		p.explicitFields = big.NewInt(0)
-	}
-	p.explicitFields.Or(p.explicitFields, field)
-}
-
-// SetBefore sets the Before field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PagePositionAfter) SetBefore(before *PageRef) {
-	p.Before = before
-	p.require(pagePositionAfterFieldBefore)
-}
-
-// SetAfter sets the After field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (p *PagePositionAfter) SetAfter(after *PageRef) {
-	p.After = after
-	p.require(pagePositionAfterFieldAfter)
-}
-
-func (p *PagePositionAfter) UnmarshalJSON(data []byte) error {
-	type unmarshaler PagePositionAfter
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*p = PagePositionAfter(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *p)
-	if err != nil {
-		return err
-	}
-	p.extraProperties = extraProperties
-	p.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (p *PagePositionAfter) MarshalJSON() ([]byte, error) {
-	type embed PagePositionAfter
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*p),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (p *PagePositionAfter) String() string {
-	if p == nil {
-		return "<nil>"
-	}
-	if len(p.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(p); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", p)
-}
-
-type PagePositionZero string
-
-const (
-	PagePositionZeroStart PagePositionZero = "start"
-	PagePositionZeroEnd   PagePositionZero = "end"
-)
-
-func NewPagePositionZeroFromString(s string) (PagePositionZero, error) {
-	switch s {
-	case "start":
-		return PagePositionZeroStart, nil
-	case "end":
-		return PagePositionZeroEnd, nil
-	}
-	var t PagePositionZero
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (p PagePositionZero) Ptr() *PagePositionZero {
-	return &p
 }
 
 var (

@@ -82,11 +82,11 @@ func (c *ConflictError) Unwrap() error {
 // Response
 type ContentTooLargeError struct {
 	*core.APIError
-	Body DocChanges413Response
+	Body any
 }
 
 func (c *ContentTooLargeError) UnmarshalJSON(data []byte) error {
-	var body DocChanges413Response
+	var body any
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
