@@ -235,6 +235,91 @@ client.Doc.Download(
 </dl>
 </details>
 
+<details><summary><code>client.Doc.DownloadLink(DocID, LayerName, request) -> *cloudpdf.DocDownloadLink200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+The link opens the layer as it is when created: once the layer changes, it answers 404, so create it right before handing it over. It downloads that one file and nothing else, and a password-protected document is checked when the link is created. Deployments that verify tokens with their own keys (JWKS) mint links on their backend: a doc token with `layer_name`, a `download: { docVersion, mode: "incremental" }` claim and a short `exp`, passed as `link` on the versioned download URL.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.DocDownloadLinkRequest{
+    DocID: "docId",
+    LayerName: "layerName",
+}
+client.Doc.DownloadLink(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**expiresIn:** `*int` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Doc.Manifest(DocID, LayerName) -> *cloudpdf.DocManifest200Response</code></summary>
 <dl>
 <dd>
@@ -469,7 +554,7 @@ client.Doc.Text(
 <dl>
 <dd>
 
-Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, revoked, and disabled tokens are indistinguishable (404). Passphrase-protected grants return 422 SharePasswordRequired until `password` is supplied. Mounted only when the deployment can sign (HS256 mode).
+Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, revoked, and disabled tokens are indistinguishable (404). Passphrase-protected grants return 422 SharePasswordRequired until `password` is supplied. A link that asks its visitors who they are on open returns 422 VisitorIdentityRequired until the required answers are given; `error.details` carries `fields` (what the link asks), `missing`, `invalid`, `purpose` and `privacyUrl`. A link that asks before the first change issues the session at once with `visitor.identityRequest`, and writes answer 403 VisitorIdentityRequired with the same details until the visitor exchanges again with their answers. Answers that can not be taken answer 422 on any link. Mounted only when the deployment can sign (HS256 mode).
 </dd>
 </dl>
 </dd>
@@ -514,6 +599,30 @@ client.Shares.Exchange(
 <dd>
 
 **password:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorHandle:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**restart:** `*bool` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorIdentity:** `*cloudpdf.SharesExchangeRequestVisitorIdentity` 
     
 </dd>
 </dl>
@@ -584,6 +693,14 @@ client.Shares.List(
 <dd>
 
 **docID:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**archived:** `*bool` 
     
 </dd>
 </dl>
@@ -663,7 +780,39 @@ client.Shares.Create(
 <dl>
 <dd>
 
+**layerMode:** `*cloudpdf.SharesCreateRequestLayerMode` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **layerName:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**keepVisitorLayers:** `*bool` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorIdleSeconds:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorIdentity:** `*cloudpdf.SharesCreateRequestVisitorIdentity` 
     
 </dd>
 </dl>
@@ -876,6 +1025,46 @@ client.Shares.Update(
 <dl>
 <dd>
 
+**layerMode:** `*cloudpdf.SharesUpdateRequestLayerMode` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**keepVisitorLayers:** `*bool` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorIdleSeconds:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorIdentity:** `*cloudpdf.SharesUpdateRequestVisitorIdentity` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **scope:** `[]string` 
     
 </dd>
@@ -917,6 +1106,75 @@ client.Shares.Update(
 <dd>
 
 **expiresAt:** `*int` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Archive(TenantID, ShareID) -> *cloudpdf.SharesArchive200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Archiving is final: an archived link never exchanges again, and to share again you create a new link. Pausing (`disabled`) is the reversible stop. An archived link no longer counts as using its shared layer, so that layer can be deleted.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.ArchiveSharesRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+}
+client.Shares.Archive(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
     
 </dd>
 </dl>
@@ -5614,6 +5872,314 @@ client.Doc.Metadata.Custom.Get(
 <dd>
 
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Documents Layers
+<details><summary><code>client.Documents.Layers.List(TenantID, ID) -> *cloudpdf.DocumentsLayersList200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &documents.ListLayersRequest{
+    TenantID: "tenantId",
+    ID: "id",
+}
+client.Documents.Layers.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Documents.Layers.Delete(TenantID, ID, LayerName) -> error</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &documents.DeleteLayersRequest{
+    TenantID: "tenantId",
+    ID: "id",
+    LayerName: "layerName",
+}
+client.Documents.Layers.Delete(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Shares Visitors
+<details><summary><code>client.Shares.Visitors.List(TenantID, ShareID) -> *cloudpdf.SharesVisitorsList200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+An archived link's visitors are listed too.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &shares.ListVisitorsRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+}
+client.Shares.Visitors.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `*string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Shares.Visitors.Delete(TenantID, ShareID, VisitorID) -> error</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Their handle brings them back as a new visitor, who is asked again. Deleting a visitor already deleted changes nothing.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &shares.DeleteVisitorsRequest{
+    TenantID: "tenantId",
+    ShareID: "shareId",
+    VisitorID: "visitorId",
+}
+client.Shares.Visitors.Delete(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**shareID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**visitorID:** `string` 
     
 </dd>
 </dl>

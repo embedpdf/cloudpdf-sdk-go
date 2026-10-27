@@ -129,6 +129,80 @@ func (d *DownloadDocRequest) SetLayerName(layerName string) {
 }
 
 var (
+	docDownloadLinkRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docDownloadLinkRequestFieldDocID            = big.NewInt(1 << 1)
+	docDownloadLinkRequestFieldLayerName        = big.NewInt(1 << 2)
+	docDownloadLinkRequestFieldExpiresIn        = big.NewInt(1 << 3)
+)
+
+type DocDownloadLinkRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+	ExpiresIn        *int    `json:"expiresIn,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocDownloadLinkRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLinkRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docDownloadLinkRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLinkRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docDownloadLinkRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLinkRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docDownloadLinkRequestFieldLayerName)
+}
+
+// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLinkRequest) SetExpiresIn(expiresIn *int) {
+	d.ExpiresIn = expiresIn
+	d.require(docDownloadLinkRequestFieldExpiresIn)
+}
+
+func (d *DocDownloadLinkRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocDownloadLinkRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocDownloadLinkRequest(body)
+	return nil
+}
+
+func (d *DocDownloadLinkRequest) MarshalJSON() ([]byte, error) {
+	type embed DocDownloadLinkRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	headDocRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	headDocRequestFieldDocID            = big.NewInt(1 << 1)
 )
@@ -89836,6 +89910,106 @@ func (d *DocChanges200ResponseChangesItemRefused) String() string {
 }
 
 var (
+	docDownloadLink200ResponseFieldURL       = big.NewInt(1 << 0)
+	docDownloadLink200ResponseFieldExpiresAt = big.NewInt(1 << 1)
+)
+
+type DocDownloadLink200Response struct {
+	URL       string  `json:"url" url:"url"`
+	ExpiresAt float64 `json:"expiresAt" url:"expiresAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocDownloadLink200Response) GetURL() string {
+	if d == nil {
+		return ""
+	}
+	return d.URL
+}
+
+func (d *DocDownloadLink200Response) GetExpiresAt() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.ExpiresAt
+}
+
+func (d *DocDownloadLink200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocDownloadLink200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetURL sets the URL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLink200Response) SetURL(url string) {
+	d.URL = url
+	d.require(docDownloadLink200ResponseFieldURL)
+}
+
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocDownloadLink200Response) SetExpiresAt(expiresAt float64) {
+	d.ExpiresAt = expiresAt
+	d.require(docDownloadLink200ResponseFieldExpiresAt)
+}
+
+func (d *DocDownloadLink200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocDownloadLink200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocDownloadLink200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocDownloadLink200Response) MarshalJSON() ([]byte, error) {
+	type embed DocDownloadLink200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocDownloadLink200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
 	docHead200ResponseFieldID               = big.NewInt(1 << 0)
 	docHead200ResponseFieldBaseSha          = big.NewInt(1 << 1)
 	docHead200ResponseFieldStorageSizeBytes = big.NewInt(1 << 2)
@@ -92292,6 +92466,8 @@ const (
 	EngineErrorPayloadCodeChangeConflict          EngineErrorPayloadCode = "ChangeConflict"
 	EngineErrorPayloadCodeUndoUnavailable         EngineErrorPayloadCode = "UndoUnavailable"
 	EngineErrorPayloadCodeIdempotencyKeyReused    EngineErrorPayloadCode = "IdempotencyKeyReused"
+	EngineErrorPayloadCodeLayerDeleted            EngineErrorPayloadCode = "LayerDeleted"
+	EngineErrorPayloadCodeVisitorIdentityRequired EngineErrorPayloadCode = "VisitorIdentityRequired"
 )
 
 func NewEngineErrorPayloadCodeFromString(s string) (EngineErrorPayloadCode, error) {
@@ -92354,6 +92530,10 @@ func NewEngineErrorPayloadCodeFromString(s string) (EngineErrorPayloadCode, erro
 		return EngineErrorPayloadCodeUndoUnavailable, nil
 	case "IdempotencyKeyReused":
 		return EngineErrorPayloadCodeIdempotencyKeyReused, nil
+	case "LayerDeleted":
+		return EngineErrorPayloadCodeLayerDeleted, nil
+	case "VisitorIdentityRequired":
+		return EngineErrorPayloadCodeVisitorIdentityRequired, nil
 	}
 	var t EngineErrorPayloadCode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)

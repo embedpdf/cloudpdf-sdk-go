@@ -184,6 +184,57 @@ func (r *RawClient) Download(
 	}, nil
 }
 
+func (r *RawClient) DownloadLink(
+	ctx context.Context,
+	request *cloudpdf.DocDownloadLinkRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocDownloadLink200Response], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/download-link",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocDownloadLink200Response
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(cloudpdf.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocDownloadLink200Response]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
 func (r *RawClient) Manifest(
 	ctx context.Context,
 	request *cloudpdf.ManifestDocRequest,

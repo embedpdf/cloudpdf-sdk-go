@@ -9,6 +9,90 @@ import (
 	testing "testing"
 )
 
+func TestSettersArchiveSharesRequest(t *testing.T) {
+	t.Run("SetTenantID", func(t *testing.T) {
+		obj := &ArchiveSharesRequest{}
+		var fernTestValueTenantID string
+		obj.SetTenantID(fernTestValueTenantID)
+		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetShareID", func(t *testing.T) {
+		obj := &ArchiveSharesRequest{}
+		var fernTestValueShareID string
+		obj.SetShareID(fernTestValueShareID)
+		assert.Equal(t, fernTestValueShareID, obj.ShareID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestSettersMarkExplicitArchiveSharesRequest(t *testing.T) {
+	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ArchiveSharesRequest{}
+		var fernTestValueTenantID string
+
+		// Act
+		obj.SetTenantID(fernTestValueTenantID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetShareID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ArchiveSharesRequest{}
+		var fernTestValueShareID string
+
+		// Act
+		obj.SetShareID(fernTestValueShareID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersSharesCreateRequest(t *testing.T) {
 	t.Run("SetTenantID", func(t *testing.T) {
 		obj := &SharesCreateRequest{}
@@ -26,11 +110,43 @@ func TestSettersSharesCreateRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesCreateRequest{}
+		var fernTestValueLayerMode *SharesCreateRequestLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetLayerName", func(t *testing.T) {
 		obj := &SharesCreateRequest{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesCreateRequest{}
+		var fernTestValueKeepVisitorLayers *bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesCreateRequest{}
+		var fernTestValueVisitorIdleSeconds *int
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesCreateRequest{}
+		var fernTestValueVisitorIdentity *SharesCreateRequestVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -139,6 +255,37 @@ func TestSettersMarkExplicitSharesCreateRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequest{}
+		var fernTestValueLayerMode *SharesCreateRequestLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
@@ -147,6 +294,99 @@ func TestSettersMarkExplicitSharesCreateRequest(t *testing.T) {
 
 		// Act
 		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequest{}
+		var fernTestValueKeepVisitorLayers *bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequest{}
+		var fernTestValueVisitorIdleSeconds *int
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequest{}
+		var fernTestValueVisitorIdentity *SharesCreateRequestVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -428,6 +668,30 @@ func TestSettersSharesExchangeRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetVisitorHandle", func(t *testing.T) {
+		obj := &SharesExchangeRequest{}
+		var fernTestValueVisitorHandle *string
+		obj.SetVisitorHandle(fernTestValueVisitorHandle)
+		assert.Equal(t, fernTestValueVisitorHandle, obj.VisitorHandle)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetRestart", func(t *testing.T) {
+		obj := &SharesExchangeRequest{}
+		var fernTestValueRestart *bool
+		obj.SetRestart(fernTestValueRestart)
+		assert.Equal(t, fernTestValueRestart, obj.Restart)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesExchangeRequest{}
+		var fernTestValueVisitorIdentity *SharesExchangeRequestVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 }
 
 func TestSettersMarkExplicitSharesExchangeRequest(t *testing.T) {
@@ -470,6 +734,99 @@ func TestSettersMarkExplicitSharesExchangeRequest(t *testing.T) {
 
 		// Act
 		obj.SetPassword(fernTestValuePassword)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorHandle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequest{}
+		var fernTestValueVisitorHandle *string
+
+		// Act
+		obj.SetVisitorHandle(fernTestValueVisitorHandle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetRestart_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequest{}
+		var fernTestValueRestart *bool
+
+		// Act
+		obj.SetRestart(fernTestValueRestart)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequest{}
+		var fernTestValueVisitorIdentity *SharesExchangeRequestVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -612,6 +969,14 @@ func TestSettersListSharesRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetArchived", func(t *testing.T) {
+		obj := &ListSharesRequest{}
+		var fernTestValueArchived *bool
+		obj.SetArchived(fernTestValueArchived)
+		assert.Equal(t, fernTestValueArchived, obj.Archived)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 }
 
 func TestSettersMarkExplicitListSharesRequest(t *testing.T) {
@@ -716,6 +1081,2103 @@ func TestSettersMarkExplicitListSharesRequest(t *testing.T) {
 
 		// Act
 		obj.SetDocID(fernTestValueDocID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchived_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &ListSharesRequest{}
+		var fernTestValueArchived *bool
+
+		// Act
+		obj.SetArchived(fernTestValueArchived)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesArchive200Response(t *testing.T) {
+	t.Run("SetShare", func(t *testing.T) {
+		obj := &SharesArchive200Response{}
+		var fernTestValueShare *SharesArchive200ResponseShare
+		obj.SetShare(fernTestValueShare)
+		assert.Equal(t, fernTestValueShare, obj.Share)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesArchive200Response(t *testing.T) {
+	t.Run("GetShare", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200Response{}
+		var expected *SharesArchive200ResponseShare
+		obj.Share = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetShare(), "getter should return the property value")
+	})
+
+	t.Run("GetShare_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200Response{}
+		obj.Share = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetShare(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetShare_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetShare() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesArchive200Response(t *testing.T) {
+	t.Run("SetShare_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200Response{}
+		var fernTestValueShare *SharesArchive200ResponseShare
+
+		// Act
+		obj.SetShare(fernTestValueShare)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("SetID", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueID string
+		obj.SetID(fernTestValueID)
+		assert.Equal(t, fernTestValueID, obj.ID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTenantID", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueTenantID string
+		obj.SetTenantID(fernTestValueTenantID)
+		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDocID", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLayerMode SharesArchive200ResponseShareLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerName", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLayerName *string
+		obj.SetLayerName(fernTestValueLayerName)
+		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesArchive200ResponseShareVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetScope", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueScope []string
+		obj.SetScope(fernTestValueScope)
+		assert.Equal(t, fernTestValueScope, obj.Scope)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrigins", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueOrigins []string
+		obj.SetOrigins(fernTestValueOrigins)
+		assert.Equal(t, fernTestValueOrigins, obj.Origins)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPasswordProtected", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValuePasswordProtected bool
+		obj.SetPasswordProtected(fernTestValuePasswordProtected)
+		assert.Equal(t, fernTestValuePasswordProtected, obj.PasswordProtected)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueSessionTTLSeconds float64
+		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
+		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetDisabled", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueDisabled bool
+		obj.SetDisabled(fernTestValueDisabled)
+		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetArchivedAt", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetExpiresAt", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueExpiresAt *float64
+		obj.SetExpiresAt(fernTestValueExpiresAt)
+		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetExchangeCount", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueExchangeCount float64
+		obj.SetExchangeCount(fernTestValueExchangeCount)
+		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLastExchangedAt", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLastExchangedAt *float64
+		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
+		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetCreatedBy", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueCreatedBy string
+		obj.SetCreatedBy(fernTestValueCreatedBy)
+		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetCreatedAt", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueCreatedAt float64
+		obj.SetCreatedAt(fernTestValueCreatedAt)
+		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetUpdatedAt", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueUpdatedAt float64
+		obj.SetUpdatedAt(fernTestValueUpdatedAt)
+		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("GetID", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected string
+		obj.ID = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetID(), "getter should return the property value")
+	})
+
+	t.Run("GetID_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetID() // Should return zero value
+	})
+
+	t.Run("GetTenantID", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected string
+		obj.TenantID = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTenantID(), "getter should return the property value")
+	})
+
+	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTenantID() // Should return zero value
+	})
+
+	t.Run("GetDocID", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected string
+		obj.DocID = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDocID(), "getter should return the property value")
+	})
+
+	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDocID() // Should return zero value
+	})
+
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected SharesArchive200ResponseShareLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
+	t.Run("GetLayerName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *string
+		obj.LayerName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerName(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.LayerName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected bool
+		obj.KeepVisitorLayers = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeepVisitorLayers(), "getter should return the property value")
+	})
+
+	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeepVisitorLayers() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *float64
+		obj.VisitorIdleSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdleSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.VisitorIdleSeconds = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdleSeconds(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdleSeconds() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdentity", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *SharesArchive200ResponseShareVisitorIdentity
+		obj.VisitorIdentity = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdentity(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.VisitorIdentity = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdentity(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdentity() // Should return zero value
+	})
+
+	t.Run("GetScope", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected []string
+		obj.Scope = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetScope(), "getter should return the property value")
+	})
+
+	t.Run("GetScope_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.Scope = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetScope(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetScope_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetScope() // Should return zero value
+	})
+
+	t.Run("GetOrigins", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected []string
+		obj.Origins = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrigins(), "getter should return the property value")
+	})
+
+	t.Run("GetOrigins_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.Origins = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrigins(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrigins() // Should return zero value
+	})
+
+	t.Run("GetPasswordProtected", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected bool
+		obj.PasswordProtected = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPasswordProtected(), "getter should return the property value")
+	})
+
+	t.Run("GetPasswordProtected_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPasswordProtected() // Should return zero value
+	})
+
+	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected float64
+		obj.SessionTTLSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetSessionTTLSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetSessionTTLSeconds() // Should return zero value
+	})
+
+	t.Run("GetDisabled", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected bool
+		obj.Disabled = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisabled(), "getter should return the property value")
+	})
+
+	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisabled() // Should return zero value
+	})
+
+	t.Run("GetArchivedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *float64
+		obj.ArchivedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetArchivedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.ArchivedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetArchivedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetArchivedAt() // Should return zero value
+	})
+
+	t.Run("GetExpiresAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *float64
+		obj.ExpiresAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetExpiresAt(), "getter should return the property value")
+	})
+
+	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.ExpiresAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetExpiresAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetExpiresAt() // Should return zero value
+	})
+
+	t.Run("GetExchangeCount", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected float64
+		obj.ExchangeCount = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetExchangeCount(), "getter should return the property value")
+	})
+
+	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetExchangeCount() // Should return zero value
+	})
+
+	t.Run("GetLastExchangedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected *float64
+		obj.LastExchangedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLastExchangedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		obj.LastExchangedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLastExchangedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLastExchangedAt() // Should return zero value
+	})
+
+	t.Run("GetCreatedBy", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected string
+		obj.CreatedBy = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetCreatedBy(), "getter should return the property value")
+	})
+
+	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetCreatedBy() // Should return zero value
+	})
+
+	t.Run("GetCreatedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected float64
+		obj.CreatedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetCreatedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetCreatedAt() // Should return zero value
+	})
+
+	t.Run("GetUpdatedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var expected float64
+		obj.UpdatedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetUpdatedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetUpdatedAt() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueID string
+
+		// Act
+		obj.SetID(fernTestValueID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueTenantID string
+
+		// Act
+		obj.SetTenantID(fernTestValueTenantID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueDocID string
+
+		// Act
+		obj.SetDocID(fernTestValueDocID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLayerMode SharesArchive200ResponseShareLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLayerName *string
+
+		// Act
+		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesArchive200ResponseShareVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueScope []string
+
+		// Act
+		obj.SetScope(fernTestValueScope)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueOrigins []string
+
+		// Act
+		obj.SetOrigins(fernTestValueOrigins)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPasswordProtected_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValuePasswordProtected bool
+
+		// Act
+		obj.SetPasswordProtected(fernTestValuePasswordProtected)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueSessionTTLSeconds float64
+
+		// Act
+		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueDisabled bool
+
+		// Act
+		obj.SetDisabled(fernTestValueDisabled)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+
+		// Act
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueExpiresAt *float64
+
+		// Act
+		obj.SetExpiresAt(fernTestValueExpiresAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueExchangeCount float64
+
+		// Act
+		obj.SetExchangeCount(fernTestValueExchangeCount)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueLastExchangedAt *float64
+
+		// Act
+		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueCreatedBy string
+
+		// Act
+		obj.SetCreatedBy(fernTestValueCreatedBy)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueCreatedAt float64
+
+		// Act
+		obj.SetCreatedAt(fernTestValueCreatedAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+		var fernTestValueUpdatedAt float64
+
+		// Act
+		obj.SetUpdatedAt(fernTestValueUpdatedAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesArchive200ResponseShareVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesArchive200ResponseShareVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var expected SharesArchive200ResponseShareVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesArchive200ResponseShareVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesArchive200ResponseShareVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesArchive200ResponseShareVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesArchive200ResponseShareVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var expected *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesArchive200ResponseShareVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesArchive200ResponseShareVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -847,11 +3309,43 @@ func TestSettersSharesCreate200ResponseShare(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueLayerMode SharesCreate200ResponseShareLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetLayerName", func(t *testing.T) {
 		obj := &SharesCreate200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesCreate200ResponseShareVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -892,6 +3386,14 @@ func TestSettersSharesCreate200ResponseShare(t *testing.T) {
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetArchivedAt", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1015,15 +3517,48 @@ func TestGettersSharesCreate200ResponseShare(t *testing.T) {
 		_ = obj.GetDocID() // Should return zero value
 	})
 
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var expected SharesCreate200ResponseShareLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesCreate200ResponseShare{}
-		var expected string
+		var expected *string
 		obj.LayerName = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetLayerName(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		obj.LayerName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerName(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
@@ -1036,6 +3571,95 @@ func TestGettersSharesCreate200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var expected bool
+		obj.KeepVisitorLayers = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeepVisitorLayers(), "getter should return the property value")
+	})
+
+	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeepVisitorLayers() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var expected *float64
+		obj.VisitorIdleSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdleSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		obj.VisitorIdleSeconds = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdleSeconds(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdleSeconds() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdentity", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var expected *SharesCreate200ResponseShareVisitorIdentity
+		obj.VisitorIdentity = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdentity(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		obj.VisitorIdentity = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdentity(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdentity() // Should return zero value
 	})
 
 	t.Run("GetScope", func(t *testing.T) {
@@ -1171,6 +3795,39 @@ func TestGettersSharesCreate200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetDisabled() // Should return zero value
+	})
+
+	t.Run("GetArchivedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var expected *float64
+		obj.ArchivedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetArchivedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		obj.ArchivedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetArchivedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetArchivedAt() // Should return zero value
 	})
 
 	t.Run("GetExpiresAt", func(t *testing.T) {
@@ -1427,14 +4084,138 @@ func TestSettersMarkExplicitSharesCreate200ResponseShare(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueLayerMode SharesCreate200ResponseShareLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesCreate200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 
 		// Act
 		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesCreate200ResponseShareVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1590,6 +4371,37 @@ func TestSettersMarkExplicitSharesCreate200ResponseShare(t *testing.T) {
 
 		// Act
 		obj.SetDisabled(fernTestValueDisabled)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+
+		// Act
+		obj.SetArchivedAt(fernTestValueArchivedAt)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1801,6 +4613,662 @@ func TestSettersMarkExplicitSharesCreate200ResponseShare(t *testing.T) {
 
 }
 
+func TestSettersSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesCreate200ResponseShareVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesCreate200ResponseShareVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var expected SharesCreate200ResponseShareVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesCreate200ResponseShareVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesCreate200ResponseShareVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesCreate200ResponseShareVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesCreate200ResponseShareVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesCreate200ResponseShareVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesCreate200ResponseShareVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersSharesExchange200Response(t *testing.T) {
 	t.Run("SetToken", func(t *testing.T) {
 		obj := &SharesExchange200Response{}
@@ -1823,6 +5291,22 @@ func TestSettersSharesExchange200Response(t *testing.T) {
 		var fernTestValueLayerName string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesExchange200Response{}
+		var fernTestValueLayerMode SharesExchange200ResponseLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitor", func(t *testing.T) {
+		obj := &SharesExchange200Response{}
+		var fernTestValueVisitor *SharesExchange200ResponseVisitor
+		obj.SetVisitor(fernTestValueVisitor)
+		assert.Equal(t, fernTestValueVisitor, obj.Visitor)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1904,6 +5388,62 @@ func TestGettersSharesExchange200Response(t *testing.T) {
 			}
 		}()
 		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200Response{}
+		var expected SharesExchange200ResponseLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
+	t.Run("GetVisitor", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200Response{}
+		var expected *SharesExchange200ResponseVisitor
+		obj.Visitor = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitor(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitor_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200Response{}
+		obj.Visitor = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitor(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitor_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200Response
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitor() // Should return zero value
 	})
 
 	t.Run("GetExpiresAt", func(t *testing.T) {
@@ -2025,6 +5565,68 @@ func TestSettersMarkExplicitSharesExchange200Response(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200Response{}
+		var fernTestValueLayerMode SharesExchange200ResponseLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitor_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200Response{}
+		var fernTestValueVisitor *SharesExchange200ResponseVisitor
+
+		// Act
+		obj.SetVisitor(fernTestValueVisitor)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
@@ -2033,6 +5635,949 @@ func TestSettersMarkExplicitSharesExchange200Response(t *testing.T) {
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("SetHandle", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueHandle string
+		obj.SetHandle(fernTestValueHandle)
+		assert.Equal(t, fernTestValueHandle, obj.Handle)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeep", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueKeep bool
+		obj.SetKeep(fernTestValueKeep)
+		assert.Equal(t, fernTestValueKeep, obj.Keep)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetIdentityRequest", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueIdentityRequest *SharesExchange200ResponseVisitorIdentityRequest
+		obj.SetIdentityRequest(fernTestValueIdentityRequest)
+		assert.Equal(t, fernTestValueIdentityRequest, obj.IdentityRequest)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("GetHandle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var expected string
+		obj.Handle = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetHandle(), "getter should return the property value")
+	})
+
+	t.Run("GetHandle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitor
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetHandle() // Should return zero value
+	})
+
+	t.Run("GetKeep", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var expected bool
+		obj.Keep = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeep(), "getter should return the property value")
+	})
+
+	t.Run("GetKeep_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitor
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeep() // Should return zero value
+	})
+
+	t.Run("GetIdentityRequest", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequest
+		obj.IdentityRequest = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetIdentityRequest(), "getter should return the property value")
+	})
+
+	t.Run("GetIdentityRequest_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		obj.IdentityRequest = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetIdentityRequest(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetIdentityRequest_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitor
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetIdentityRequest() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("SetHandle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueHandle string
+
+		// Act
+		obj.SetHandle(fernTestValueHandle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeep_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueKeep bool
+
+		// Act
+		obj.SetKeep(fernTestValueKeep)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetIdentityRequest_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+		var fernTestValueIdentityRequest *SharesExchange200ResponseVisitorIdentityRequest
+
+		// Act
+		obj.SetIdentityRequest(fernTestValueIdentityRequest)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueFields *SharesExchange200ResponseVisitorIdentityRequestFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetMissing", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueMissing []SharesExchange200ResponseVisitorIdentityRequestMissingItem
+		obj.SetMissing(fernTestValueMissing)
+		assert.Equal(t, fernTestValueMissing, obj.Missing)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetInvalid", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueInvalid []SharesExchange200ResponseVisitorIdentityRequestInvalidItem
+		obj.SetInvalid(fernTestValueInvalid)
+		assert.Equal(t, fernTestValueInvalid, obj.Invalid)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetMissing", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var expected []SharesExchange200ResponseVisitorIdentityRequestMissingItem
+		obj.Missing = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetMissing(), "getter should return the property value")
+	})
+
+	t.Run("GetMissing_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		obj.Missing = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetMissing(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetMissing_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetMissing() // Should return zero value
+	})
+
+	t.Run("GetInvalid", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var expected []SharesExchange200ResponseVisitorIdentityRequestInvalidItem
+		obj.Invalid = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetInvalid(), "getter should return the property value")
+	})
+
+	t.Run("GetInvalid_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		obj.Invalid = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetInvalid(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetInvalid_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetInvalid() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueFields *SharesExchange200ResponseVisitorIdentityRequestFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetMissing_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueMissing []SharesExchange200ResponseVisitorIdentityRequestMissingItem
+
+		// Act
+		obj.SetMissing(fernTestValueMissing)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetInvalid_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValueInvalid []SharesExchange200ResponseVisitorIdentityRequestInvalidItem
+
+		// Act
+		obj.SetInvalid(fernTestValueInvalid)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueDisplayName *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueEmail *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueTitle *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganization *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganizationalUnit *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var expected *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueDisplayName *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueEmail *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueTitle *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganization *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganizationalUnit *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -2164,11 +6709,43 @@ func TestSettersSharesGet200ResponseShare(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueLayerMode SharesGet200ResponseShareLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetLayerName", func(t *testing.T) {
 		obj := &SharesGet200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesGet200ResponseShareVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -2209,6 +6786,14 @@ func TestSettersSharesGet200ResponseShare(t *testing.T) {
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetArchivedAt", func(t *testing.T) {
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -2332,15 +6917,48 @@ func TestGettersSharesGet200ResponseShare(t *testing.T) {
 		_ = obj.GetDocID() // Should return zero value
 	})
 
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var expected SharesGet200ResponseShareLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesGet200ResponseShare{}
-		var expected string
+		var expected *string
 		obj.LayerName = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetLayerName(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		obj.LayerName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerName(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
@@ -2353,6 +6971,95 @@ func TestGettersSharesGet200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var expected bool
+		obj.KeepVisitorLayers = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeepVisitorLayers(), "getter should return the property value")
+	})
+
+	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeepVisitorLayers() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var expected *float64
+		obj.VisitorIdleSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdleSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		obj.VisitorIdleSeconds = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdleSeconds(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdleSeconds() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdentity", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var expected *SharesGet200ResponseShareVisitorIdentity
+		obj.VisitorIdentity = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdentity(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		obj.VisitorIdentity = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdentity(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdentity() // Should return zero value
 	})
 
 	t.Run("GetScope", func(t *testing.T) {
@@ -2488,6 +7195,39 @@ func TestGettersSharesGet200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetDisabled() // Should return zero value
+	})
+
+	t.Run("GetArchivedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var expected *float64
+		obj.ArchivedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetArchivedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		obj.ArchivedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetArchivedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetArchivedAt() // Should return zero value
 	})
 
 	t.Run("GetExpiresAt", func(t *testing.T) {
@@ -2744,14 +7484,138 @@ func TestSettersMarkExplicitSharesGet200ResponseShare(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueLayerMode SharesGet200ResponseShareLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesGet200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 
 		// Act
 		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesGet200ResponseShareVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -2907,6 +7771,37 @@ func TestSettersMarkExplicitSharesGet200ResponseShare(t *testing.T) {
 
 		// Act
 		obj.SetDisabled(fernTestValueDisabled)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+
+		// Act
+		obj.SetArchivedAt(fernTestValueArchivedAt)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -3118,6 +8013,662 @@ func TestSettersMarkExplicitSharesGet200ResponseShare(t *testing.T) {
 
 }
 
+func TestSettersSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesGet200ResponseShareVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesGet200ResponseShareVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var expected SharesGet200ResponseShareVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesGet200ResponseShareVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesGet200ResponseShareVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesGet200ResponseShareVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesGet200ResponseShareVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesGet200ResponseShareVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var expected *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesGet200ResponseShareVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesGet200ResponseShareVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesGet200ResponseShareVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersSharesList200Response(t *testing.T) {
 	t.Run("SetShares", func(t *testing.T) {
 		obj := &SharesList200Response{}
@@ -3296,11 +8847,43 @@ func TestSettersSharesList200ResponseSharesItem(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueLayerMode SharesList200ResponseSharesItemLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetLayerName", func(t *testing.T) {
 		obj := &SharesList200ResponseSharesItem{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueKeepVisitorLayers bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueVisitorIdleSeconds *float64
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueVisitorIdentity *SharesList200ResponseSharesItemVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -3341,6 +8924,14 @@ func TestSettersSharesList200ResponseSharesItem(t *testing.T) {
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetArchivedAt", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueArchivedAt *float64
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -3464,15 +9055,48 @@ func TestGettersSharesList200ResponseSharesItem(t *testing.T) {
 		_ = obj.GetDocID() // Should return zero value
 	})
 
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var expected SharesList200ResponseSharesItemLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesList200ResponseSharesItem{}
-		var expected string
+		var expected *string
 		obj.LayerName = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetLayerName(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		obj.LayerName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerName(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
@@ -3485,6 +9109,95 @@ func TestGettersSharesList200ResponseSharesItem(t *testing.T) {
 			}
 		}()
 		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var expected bool
+		obj.KeepVisitorLayers = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeepVisitorLayers(), "getter should return the property value")
+	})
+
+	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeepVisitorLayers() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var expected *float64
+		obj.VisitorIdleSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdleSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		obj.VisitorIdleSeconds = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdleSeconds(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdleSeconds() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdentity", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentity
+		obj.VisitorIdentity = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdentity(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		obj.VisitorIdentity = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdentity(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdentity() // Should return zero value
 	})
 
 	t.Run("GetScope", func(t *testing.T) {
@@ -3620,6 +9333,39 @@ func TestGettersSharesList200ResponseSharesItem(t *testing.T) {
 			}
 		}()
 		_ = obj.GetDisabled() // Should return zero value
+	})
+
+	t.Run("GetArchivedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var expected *float64
+		obj.ArchivedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetArchivedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		obj.ArchivedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetArchivedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItem
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetArchivedAt() // Should return zero value
 	})
 
 	t.Run("GetExpiresAt", func(t *testing.T) {
@@ -3876,14 +9622,138 @@ func TestSettersMarkExplicitSharesList200ResponseSharesItem(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueLayerMode SharesList200ResponseSharesItemLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesList200ResponseSharesItem{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 
 		// Act
 		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueKeepVisitorLayers bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueVisitorIdleSeconds *float64
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueVisitorIdentity *SharesList200ResponseSharesItemVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -4039,6 +9909,37 @@ func TestSettersMarkExplicitSharesList200ResponseSharesItem(t *testing.T) {
 
 		// Act
 		obj.SetDisabled(fernTestValueDisabled)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItem{}
+		var fernTestValueArchivedAt *float64
+
+		// Act
+		obj.SetArchivedAt(fernTestValueArchivedAt)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -4250,6 +10151,662 @@ func TestSettersMarkExplicitSharesList200ResponseSharesItem(t *testing.T) {
 
 }
 
+func TestSettersSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValueFields *SharesList200ResponseSharesItemVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValueAsk SharesList200ResponseSharesItemVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var expected SharesList200ResponseSharesItemVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValueFields *SharesList200ResponseSharesItemVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValueAsk SharesList200ResponseSharesItemVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueEmail *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueTitle *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var expected *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueEmail *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueTitle *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersSharesUpdate200Response(t *testing.T) {
 	t.Run("SetShare", func(t *testing.T) {
 		obj := &SharesUpdate200Response{}
@@ -4356,11 +10913,43 @@ func TestSettersSharesUpdate200ResponseShare(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueLayerMode SharesUpdate200ResponseShareLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetLayerName", func(t *testing.T) {
 		obj := &SharesUpdate200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesUpdate200ResponseShareVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -4401,6 +10990,14 @@ func TestSettersSharesUpdate200ResponseShare(t *testing.T) {
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetArchivedAt", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+		obj.SetArchivedAt(fernTestValueArchivedAt)
+		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -4524,15 +11121,48 @@ func TestGettersSharesUpdate200ResponseShare(t *testing.T) {
 		_ = obj.GetDocID() // Should return zero value
 	})
 
+	t.Run("GetLayerMode", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var expected SharesUpdate200ResponseShareLayerMode
+		obj.LayerMode = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetLayerMode(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetLayerMode() // Should return zero value
+	})
+
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesUpdate200ResponseShare{}
-		var expected string
+		var expected *string
 		obj.LayerName = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetLayerName(), "getter should return the property value")
+	})
+
+	t.Run("GetLayerName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		obj.LayerName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLayerName(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
@@ -4545,6 +11175,95 @@ func TestGettersSharesUpdate200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetLayerName() // Should return zero value
+	})
+
+	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var expected bool
+		obj.KeepVisitorLayers = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetKeepVisitorLayers(), "getter should return the property value")
+	})
+
+	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetKeepVisitorLayers() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var expected *float64
+		obj.VisitorIdleSeconds = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdleSeconds(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		obj.VisitorIdleSeconds = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdleSeconds(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdleSeconds() // Should return zero value
+	})
+
+	t.Run("GetVisitorIdentity", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentity
+		obj.VisitorIdentity = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetVisitorIdentity(), "getter should return the property value")
+	})
+
+	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		obj.VisitorIdentity = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetVisitorIdentity(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetVisitorIdentity() // Should return zero value
 	})
 
 	t.Run("GetScope", func(t *testing.T) {
@@ -4680,6 +11399,39 @@ func TestGettersSharesUpdate200ResponseShare(t *testing.T) {
 			}
 		}()
 		_ = obj.GetDisabled() // Should return zero value
+	})
+
+	t.Run("GetArchivedAt", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var expected *float64
+		obj.ArchivedAt = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetArchivedAt(), "getter should return the property value")
+	})
+
+	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		obj.ArchivedAt = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetArchivedAt(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShare
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetArchivedAt() // Should return zero value
 	})
 
 	t.Run("GetExpiresAt", func(t *testing.T) {
@@ -4936,14 +11688,138 @@ func TestSettersMarkExplicitSharesUpdate200ResponseShare(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueLayerMode SharesUpdate200ResponseShareLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SharesUpdate200ResponseShare{}
-		var fernTestValueLayerName string
+		var fernTestValueLayerName *string
 
 		// Act
 		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueKeepVisitorLayers bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueVisitorIdleSeconds *float64
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueVisitorIdentity *SharesUpdate200ResponseShareVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -5099,6 +11975,37 @@ func TestSettersMarkExplicitSharesUpdate200ResponseShare(t *testing.T) {
 
 		// Act
 		obj.SetDisabled(fernTestValueDisabled)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShare{}
+		var fernTestValueArchivedAt *float64
+
+		// Act
+		obj.SetArchivedAt(fernTestValueArchivedAt)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -5310,6 +12217,2343 @@ func TestSettersMarkExplicitSharesUpdate200ResponseShare(t *testing.T) {
 
 }
 
+func TestSettersSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesUpdate200ResponseShareVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesUpdate200ResponseShareVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var expected SharesUpdate200ResponseShareVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValueFields *SharesUpdate200ResponseShareVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValueAsk SharesUpdate200ResponseShareVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var expected *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueEmail *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueTitle *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValueFields *SharesCreateRequestVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValueAsk SharesCreateRequestVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var expected *SharesCreateRequestVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var expected SharesCreateRequestVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValueFields *SharesCreateRequestVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValueAsk SharesCreateRequestVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesCreateRequestVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueEmail *SharesCreateRequestVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueTitle *SharesCreateRequestVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesCreateRequestVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var expected *SharesCreateRequestVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var expected *SharesCreateRequestVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var expected *SharesCreateRequestVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var expected *SharesCreateRequestVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var expected *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesCreateRequestVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueEmail *SharesCreateRequestVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueTitle *SharesCreateRequestVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesCreateRequestVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueDisplayName *string
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueEmail *string
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueTitle *string
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueOrganization *string
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueOrganizationalUnit *string
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var expected *string
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var expected *string
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var expected *string
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var expected *string
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var expected *string
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueDisplayName *string
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueEmail *string
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueTitle *string
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueOrganization *string
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		var fernTestValueOrganizationalUnit *string
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetFields", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValueFields *SharesUpdateRequestVisitorIdentityFields
+		obj.SetFields(fernTestValueFields)
+		assert.Equal(t, fernTestValueFields, obj.Fields)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetAsk", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValueAsk SharesUpdateRequestVisitorIdentityAsk
+		obj.SetAsk(fernTestValueAsk)
+		assert.Equal(t, fernTestValueAsk, obj.Ask)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPurpose", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValuePurpose *string
+		obj.SetPurpose(fernTestValuePurpose)
+		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetPrivacyURL", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetFields", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var expected *SharesUpdateRequestVisitorIdentityFields
+		obj.Fields = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetFields(), "getter should return the property value")
+	})
+
+	t.Run("GetFields_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		obj.Fields = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetFields(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetFields_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetFields() // Should return zero value
+	})
+
+	t.Run("GetAsk", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var expected SharesUpdateRequestVisitorIdentityAsk
+		obj.Ask = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetAsk(), "getter should return the property value")
+	})
+
+	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetAsk() // Should return zero value
+	})
+
+	t.Run("GetPurpose", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var expected *string
+		obj.Purpose = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPurpose(), "getter should return the property value")
+	})
+
+	t.Run("GetPurpose_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		obj.Purpose = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPurpose(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPurpose() // Should return zero value
+	})
+
+	t.Run("GetPrivacyURL", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var expected *string
+		obj.PrivacyURL = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetPrivacyURL(), "getter should return the property value")
+	})
+
+	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		obj.PrivacyURL = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetPrivacyURL(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetPrivacyURL() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValueFields *SharesUpdateRequestVisitorIdentityFields
+
+		// Act
+		obj.SetFields(fernTestValueFields)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValueAsk SharesUpdateRequestVisitorIdentityAsk
+
+		// Act
+		obj.SetAsk(fernTestValueAsk)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValuePurpose *string
+
+		// Act
+		obj.SetPurpose(fernTestValuePurpose)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		var fernTestValuePrivacyURL *string
+
+		// Act
+		obj.SetPrivacyURL(fernTestValuePrivacyURL)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
+func TestSettersSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesUpdateRequestVisitorIdentityFieldsDisplayName
+		obj.SetDisplayName(fernTestValueDisplayName)
+		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetEmail", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueEmail *SharesUpdateRequestVisitorIdentityFieldsEmail
+		obj.SetEmail(fernTestValueEmail)
+		assert.Equal(t, fernTestValueEmail, obj.Email)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetTitle", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueTitle *SharesUpdateRequestVisitorIdentityFieldsTitle
+		obj.SetTitle(fernTestValueTitle)
+		assert.Equal(t, fernTestValueTitle, obj.Title)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganization", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesUpdateRequestVisitorIdentityFieldsOrganization
+		obj.SetOrganization(fernTestValueOrganization)
+		assert.Equal(t, fernTestValueOrganization, obj.Organization)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetOrganizationalUnit", func(t *testing.T) {
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+}
+
+func TestGettersSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("GetDisplayName", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var expected *SharesUpdateRequestVisitorIdentityFieldsDisplayName
+		obj.DisplayName = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetDisplayName(), "getter should return the property value")
+	})
+
+	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		obj.DisplayName = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetDisplayName(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetDisplayName() // Should return zero value
+	})
+
+	t.Run("GetEmail", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var expected *SharesUpdateRequestVisitorIdentityFieldsEmail
+		obj.Email = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetEmail(), "getter should return the property value")
+	})
+
+	t.Run("GetEmail_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		obj.Email = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetEmail(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetEmail() // Should return zero value
+	})
+
+	t.Run("GetTitle", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var expected *SharesUpdateRequestVisitorIdentityFieldsTitle
+		obj.Title = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetTitle(), "getter should return the property value")
+	})
+
+	t.Run("GetTitle_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		obj.Title = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetTitle(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetTitle() // Should return zero value
+	})
+
+	t.Run("GetOrganization", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var expected *SharesUpdateRequestVisitorIdentityFieldsOrganization
+		obj.Organization = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganization(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganization_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		obj.Organization = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganization(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganization() // Should return zero value
+	})
+
+	t.Run("GetOrganizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var expected *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit
+		obj.OrganizationalUnit = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetOrganizationalUnit(), "getter should return the property value")
+	})
+
+	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		obj.OrganizationalUnit = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetOrganizationalUnit(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetOrganizationalUnit() // Should return zero value
+	})
+
+}
+
+func TestSettersMarkExplicitSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueDisplayName *SharesUpdateRequestVisitorIdentityFieldsDisplayName
+
+		// Act
+		obj.SetDisplayName(fernTestValueDisplayName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueEmail *SharesUpdateRequestVisitorIdentityFieldsEmail
+
+		// Act
+		obj.SetEmail(fernTestValueEmail)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueTitle *SharesUpdateRequestVisitorIdentityFieldsTitle
+
+		// Act
+		obj.SetTitle(fernTestValueTitle)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueOrganization *SharesUpdateRequestVisitorIdentityFieldsOrganization
+
+		// Act
+		obj.SetOrganization(fernTestValueOrganization)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit
+
+		// Act
+		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+}
+
 func TestSettersSharesUpdateRequest(t *testing.T) {
 	t.Run("SetTenantID", func(t *testing.T) {
 		obj := &SharesUpdateRequest{}
@@ -5324,6 +14568,46 @@ func TestSettersSharesUpdateRequest(t *testing.T) {
 		var fernTestValueShareID string
 		obj.SetShareID(fernTestValueShareID)
 		assert.Equal(t, fernTestValueShareID, obj.ShareID)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerMode", func(t *testing.T) {
+		obj := &SharesUpdateRequest{}
+		var fernTestValueLayerMode *SharesUpdateRequestLayerMode
+		obj.SetLayerMode(fernTestValueLayerMode)
+		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetLayerName", func(t *testing.T) {
+		obj := &SharesUpdateRequest{}
+		var fernTestValueLayerName *string
+		obj.SetLayerName(fernTestValueLayerName)
+		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
+		obj := &SharesUpdateRequest{}
+		var fernTestValueKeepVisitorLayers *bool
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
+		obj := &SharesUpdateRequest{}
+		var fernTestValueVisitorIdleSeconds *int
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
+	t.Run("SetVisitorIdentity", func(t *testing.T) {
+		obj := &SharesUpdateRequest{}
+		var fernTestValueVisitorIdentity *SharesUpdateRequestVisitorIdentity
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
+		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -5417,6 +14701,161 @@ func TestSettersMarkExplicitSharesUpdateRequest(t *testing.T) {
 
 		// Act
 		obj.SetShareID(fernTestValueShareID)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequest{}
+		var fernTestValueLayerMode *SharesUpdateRequestLayerMode
+
+		// Act
+		obj.SetLayerMode(fernTestValueLayerMode)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequest{}
+		var fernTestValueLayerName *string
+
+		// Act
+		obj.SetLayerName(fernTestValueLayerName)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequest{}
+		var fernTestValueKeepVisitorLayers *bool
+
+		// Act
+		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequest{}
+		var fernTestValueVisitorIdleSeconds *int
+
+		// Act
+		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequest{}
+		var fernTestValueVisitorIdentity *SharesUpdateRequestVisitorIdentity
+
+		// Act
+		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -5628,6 +15067,138 @@ func TestSettersMarkExplicitSharesUpdateRequest(t *testing.T) {
 
 }
 
+func TestJSONMarshalingSharesArchive200Response(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200Response{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesArchive200Response
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200Response
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200Response
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShare{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesArchive200ResponseShare
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShare
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShare
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesArchive200ResponseShareVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesArchive200ResponseShareVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesArchive200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
 func TestJSONMarshalingSharesCreate200Response(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
@@ -5694,6 +15265,138 @@ func TestJSONMarshalingSharesCreate200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestJSONMarshalingSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesCreate200ResponseShareVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreate200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreate200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesCreate200ResponseShareVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreate200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreate200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesCreateRequestVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreateRequestVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreateRequestVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesCreateRequestVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreateRequestVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesCreateRequestVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
 func TestJSONMarshalingSharesExchange200Response(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
@@ -5722,6 +15425,138 @@ func TestJSONMarshalingSharesExchange200Response(t *testing.T) {
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
 		var obj SharesExchange200Response
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitor{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesExchange200ResponseVisitor
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitor
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitor
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesExchange200ResponseVisitorIdentityRequest
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitorIdentityRequest
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitorIdentityRequest
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesExchange200ResponseVisitorIdentityRequestFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitorIdentityRequestFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchange200ResponseVisitorIdentityRequestFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesExchangeRequestVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesExchangeRequestVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchangeRequestVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesExchangeRequestVisitorIdentity
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -5793,6 +15628,72 @@ func TestJSONMarshalingSharesGet200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestJSONMarshalingSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesGet200ResponseShareVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesGet200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesGet200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesGet200ResponseShareVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesGet200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesGet200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
 func TestJSONMarshalingSharesList200Response(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
@@ -5854,6 +15755,72 @@ func TestJSONMarshalingSharesList200ResponseSharesItem(t *testing.T) {
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
 		var obj SharesList200ResponseSharesItem
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesList200ResponseSharesItemVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesList200ResponseSharesItemVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesList200ResponseSharesItemVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesList200ResponseSharesItemVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesList200ResponseSharesItemVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesList200ResponseSharesItemVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -5925,6 +15892,202 @@ func TestJSONMarshalingSharesUpdate200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestJSONMarshalingSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesUpdate200ResponseShareVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdate200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdate200ResponseShareVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesUpdate200ResponseShareVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdate200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdate200ResponseShareVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesUpdateRequestVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdateRequestVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdateRequestVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled SharesUpdateRequestVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdateRequestVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj SharesUpdateRequestVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestStringSharesArchive200Response(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200Response{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200Response
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShare{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
 func TestStringSharesCreate200Response(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
@@ -5957,6 +16120,70 @@ func TestStringSharesCreate200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestStringSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreateRequestVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
 func TestStringSharesExchange200Response(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
@@ -5968,6 +16195,70 @@ func TestStringSharesExchange200Response(t *testing.T) {
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *SharesExchange200Response
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitor{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitor
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -6005,6 +16296,38 @@ func TestStringSharesGet200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestStringSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
 func TestStringSharesList200Response(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
@@ -6032,6 +16355,38 @@ func TestStringSharesList200ResponseSharesItem(t *testing.T) {
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *SharesList200ResponseSharesItem
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -6066,6 +16421,1857 @@ func TestStringSharesUpdate200ResponseShare(t *testing.T) {
 		var obj *SharesUpdate200ResponseShare
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesArchive200ResponseShareVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesArchive200ResponseShareVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesArchive200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreate200ResponseShareVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreate200ResponseShareVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreate200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesCreateRequestVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesCreateRequestVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesCreateRequestVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesCreateRequestVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestInvalidItem(t *testing.T) {
+	t.Run("NewFromString_displayName", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("displayName")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestInvalidItem("displayName"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_email", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("email")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestInvalidItem("email"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_title", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("title")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestInvalidItem("title"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_organization", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("organization")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestInvalidItem("organization"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_organizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("organizationalUnit")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestInvalidItem("organizationalUnit"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString("displayName")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesExchange200ResponseVisitorIdentityRequestMissingItem(t *testing.T) {
+	t.Run("NewFromString_displayName", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("displayName")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestMissingItem("displayName"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_email", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("email")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestMissingItem("email"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_title", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("title")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestMissingItem("title"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_organization", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("organization")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestMissingItem("organization"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_organizationalUnit", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("organizationalUnit")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesExchange200ResponseVisitorIdentityRequestMissingItem("organizationalUnit"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString("displayName")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesGet200ResponseShareVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesGet200ResponseShareVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesGet200ResponseShareVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesGet200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesList200ResponseSharesItemVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesList200ResponseSharesItemVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesList200ResponseSharesItemVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdate200ResponseShareVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdate200ResponseShareVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdate200ResponseShareVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumSharesUpdateRequestVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, SharesUpdateRequestVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewSharesUpdateRequestVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewSharesUpdateRequestVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestExtraPropertiesSharesArchive200Response(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200Response{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200Response
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesArchive200ResponseShare(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShare{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShare
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesArchive200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShareVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesArchive200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesArchive200ResponseShareVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesArchive200ResponseShareVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
@@ -6115,6 +18321,98 @@ func TestExtraPropertiesSharesCreate200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestExtraPropertiesSharesCreate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreate200ResponseShareVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesCreate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreate200ResponseShareVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreate200ResponseShareVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesCreateRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreateRequestVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesCreateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesCreateRequestVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesCreateRequestVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
 func TestExtraPropertiesSharesExchange200Response(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
@@ -6133,6 +18431,98 @@ func TestExtraPropertiesSharesExchange200Response(t *testing.T) {
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *SharesExchange200Response
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesExchange200ResponseVisitor(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitor{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitor
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitorIdentityRequest{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequest
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchange200ResponseVisitorIdentityRequestFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchange200ResponseVisitorIdentityRequestFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesExchangeRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesExchangeRequestVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesExchangeRequestVisitorIdentity
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -6184,6 +18574,52 @@ func TestExtraPropertiesSharesGet200ResponseShare(t *testing.T) {
 	})
 }
 
+func TestExtraPropertiesSharesGet200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesGet200ResponseShareVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesGet200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesGet200ResponseShareVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesGet200ResponseShareVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
 func TestExtraPropertiesSharesList200Response(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
@@ -6230,6 +18666,52 @@ func TestExtraPropertiesSharesList200ResponseSharesItem(t *testing.T) {
 	})
 }
 
+func TestExtraPropertiesSharesList200ResponseSharesItemVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesList200ResponseSharesItemVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesList200ResponseSharesItemVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesList200ResponseSharesItemVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesList200ResponseSharesItemVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
 func TestExtraPropertiesSharesUpdate200Response(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
@@ -6271,6 +18753,98 @@ func TestExtraPropertiesSharesUpdate200ResponseShare(t *testing.T) {
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *SharesUpdate200ResponseShare
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesUpdate200ResponseShareVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdate200ResponseShareVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesUpdate200ResponseShareVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdate200ResponseShareVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdate200ResponseShareVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesUpdateRequestVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdateRequestVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesSharesUpdateRequestVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &SharesUpdateRequestVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *SharesUpdateRequestVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

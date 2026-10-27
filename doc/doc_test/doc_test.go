@@ -135,6 +135,33 @@ func TestDocChangesWithWireMock(
 	VerifyRequestCount(t, "TestDocChangesWithWireMock", "POST", "/v1/docs/docId/layers/layerName/changes", nil, 1)
 }
 
+func TestDocDownloadLinkWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.DocDownloadLinkRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+	}
+	_, invocationErr := client.Doc.DownloadLink(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocDownloadLinkWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocDownloadLinkWithWireMock", "POST", "/v1/docs/docId/layers/layerName/download-link", nil, 1)
+}
+
 func TestDocManifestWithWireMock(
 	t *testing.T,
 ) {
