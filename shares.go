@@ -10,25 +10,67 @@ import (
 )
 
 var (
-	sharesCreateRequestFieldTenantID          = big.NewInt(1 << 0)
-	sharesCreateRequestFieldDocID             = big.NewInt(1 << 1)
-	sharesCreateRequestFieldLayerName         = big.NewInt(1 << 2)
-	sharesCreateRequestFieldScope             = big.NewInt(1 << 3)
-	sharesCreateRequestFieldOrigins           = big.NewInt(1 << 4)
-	sharesCreateRequestFieldPassword          = big.NewInt(1 << 5)
-	sharesCreateRequestFieldSessionTTLSeconds = big.NewInt(1 << 6)
-	sharesCreateRequestFieldExpiresAt         = big.NewInt(1 << 7)
+	archiveSharesRequestFieldTenantID = big.NewInt(1 << 0)
+	archiveSharesRequestFieldShareID  = big.NewInt(1 << 1)
+)
+
+type ArchiveSharesRequest struct {
+	TenantID string `json:"-" url:"-"`
+	ShareID  string `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (a *ArchiveSharesRequest) require(field *big.Int) {
+	if a.explicitFields == nil {
+		a.explicitFields = big.NewInt(0)
+	}
+	a.explicitFields.Or(a.explicitFields, field)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *ArchiveSharesRequest) SetTenantID(tenantID string) {
+	a.TenantID = tenantID
+	a.require(archiveSharesRequestFieldTenantID)
+}
+
+// SetShareID sets the ShareID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *ArchiveSharesRequest) SetShareID(shareID string) {
+	a.ShareID = shareID
+	a.require(archiveSharesRequestFieldShareID)
+}
+
+var (
+	sharesCreateRequestFieldTenantID           = big.NewInt(1 << 0)
+	sharesCreateRequestFieldDocID              = big.NewInt(1 << 1)
+	sharesCreateRequestFieldLayerMode          = big.NewInt(1 << 2)
+	sharesCreateRequestFieldLayerName          = big.NewInt(1 << 3)
+	sharesCreateRequestFieldKeepVisitorLayers  = big.NewInt(1 << 4)
+	sharesCreateRequestFieldVisitorIdleSeconds = big.NewInt(1 << 5)
+	sharesCreateRequestFieldVisitorIdentity    = big.NewInt(1 << 6)
+	sharesCreateRequestFieldScope              = big.NewInt(1 << 7)
+	sharesCreateRequestFieldOrigins            = big.NewInt(1 << 8)
+	sharesCreateRequestFieldPassword           = big.NewInt(1 << 9)
+	sharesCreateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 10)
+	sharesCreateRequestFieldExpiresAt          = big.NewInt(1 << 11)
 )
 
 type SharesCreateRequest struct {
-	TenantID          string   `json:"-" url:"-"`
-	DocID             string   `json:"docId" url:"-"`
-	LayerName         *string  `json:"layerName,omitempty" url:"-"`
-	Scope             []string `json:"scope" url:"-"`
-	Origins           []string `json:"origins,omitempty" url:"-"`
-	Password          *string  `json:"password,omitempty" url:"-"`
-	SessionTTLSeconds *int     `json:"sessionTtlSeconds,omitempty" url:"-"`
-	ExpiresAt         *int     `json:"expiresAt,omitempty" url:"-"`
+	TenantID           string                              `json:"-" url:"-"`
+	DocID              string                              `json:"docId" url:"-"`
+	LayerMode          *SharesCreateRequestLayerMode       `json:"layerMode,omitempty" url:"-"`
+	LayerName          *string                             `json:"layerName,omitempty" url:"-"`
+	KeepVisitorLayers  *bool                               `json:"keepVisitorLayers,omitempty" url:"-"`
+	VisitorIdleSeconds *int                                `json:"visitorIdleSeconds,omitempty" url:"-"`
+	VisitorIdentity    *SharesCreateRequestVisitorIdentity `json:"visitorIdentity,omitempty" url:"-"`
+	Scope              []string                            `json:"scope" url:"-"`
+	Origins            []string                            `json:"origins,omitempty" url:"-"`
+	Password           *string                             `json:"password,omitempty" url:"-"`
+	SessionTTLSeconds  *int                                `json:"sessionTtlSeconds,omitempty" url:"-"`
+	ExpiresAt          *int                                `json:"expiresAt,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -55,11 +97,39 @@ func (s *SharesCreateRequest) SetDocID(docID string) {
 	s.require(sharesCreateRequestFieldDocID)
 }
 
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequest) SetLayerMode(layerMode *SharesCreateRequestLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesCreateRequestFieldLayerMode)
+}
+
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (s *SharesCreateRequest) SetLayerName(layerName *string) {
 	s.LayerName = layerName
 	s.require(sharesCreateRequestFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequest) SetKeepVisitorLayers(keepVisitorLayers *bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesCreateRequestFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequest) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesCreateRequestFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequest) SetVisitorIdentity(visitorIdentity *SharesCreateRequestVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesCreateRequestFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -153,13 +223,19 @@ func (d *DeleteSharesRequest) SetShareID(shareID string) {
 }
 
 var (
-	sharesExchangeRequestFieldShareToken = big.NewInt(1 << 0)
-	sharesExchangeRequestFieldPassword   = big.NewInt(1 << 1)
+	sharesExchangeRequestFieldShareToken      = big.NewInt(1 << 0)
+	sharesExchangeRequestFieldPassword        = big.NewInt(1 << 1)
+	sharesExchangeRequestFieldVisitorHandle   = big.NewInt(1 << 2)
+	sharesExchangeRequestFieldRestart         = big.NewInt(1 << 3)
+	sharesExchangeRequestFieldVisitorIdentity = big.NewInt(1 << 4)
 )
 
 type SharesExchangeRequest struct {
-	ShareToken string  `json:"shareToken" url:"-"`
-	Password   *string `json:"password,omitempty" url:"-"`
+	ShareToken      string                                `json:"shareToken" url:"-"`
+	Password        *string                               `json:"password,omitempty" url:"-"`
+	VisitorHandle   *string                               `json:"visitorHandle,omitempty" url:"-"`
+	Restart         *bool                                 `json:"restart,omitempty" url:"-"`
+	VisitorIdentity *SharesExchangeRequestVisitorIdentity `json:"visitorIdentity,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -184,6 +260,27 @@ func (s *SharesExchangeRequest) SetShareToken(shareToken string) {
 func (s *SharesExchangeRequest) SetPassword(password *string) {
 	s.Password = password
 	s.require(sharesExchangeRequestFieldPassword)
+}
+
+// SetVisitorHandle sets the VisitorHandle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequest) SetVisitorHandle(visitorHandle *string) {
+	s.VisitorHandle = visitorHandle
+	s.require(sharesExchangeRequestFieldVisitorHandle)
+}
+
+// SetRestart sets the Restart field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequest) SetRestart(restart *bool) {
+	s.Restart = restart
+	s.require(sharesExchangeRequestFieldRestart)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequest) SetVisitorIdentity(visitorIdentity *SharesExchangeRequestVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesExchangeRequestFieldVisitorIdentity)
 }
 
 func (s *SharesExchangeRequest) UnmarshalJSON(data []byte) error {
@@ -246,6 +343,7 @@ var (
 	listSharesRequestFieldLimit    = big.NewInt(1 << 1)
 	listSharesRequestFieldCursor   = big.NewInt(1 << 2)
 	listSharesRequestFieldDocID    = big.NewInt(1 << 3)
+	listSharesRequestFieldArchived = big.NewInt(1 << 4)
 )
 
 type ListSharesRequest struct {
@@ -253,6 +351,7 @@ type ListSharesRequest struct {
 	Limit    *int    `json:"-" url:"limit,omitempty"`
 	Cursor   *string `json:"-" url:"cursor,omitempty"`
 	DocID    *string `json:"-" url:"docId,omitempty"`
+	Archived *bool   `json:"-" url:"archived,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -291,6 +390,919 @@ func (l *ListSharesRequest) SetCursor(cursor *string) {
 func (l *ListSharesRequest) SetDocID(docID *string) {
 	l.DocID = docID
 	l.require(listSharesRequestFieldDocID)
+}
+
+// SetArchived sets the Archived field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListSharesRequest) SetArchived(archived *bool) {
+	l.Archived = archived
+	l.require(listSharesRequestFieldArchived)
+}
+
+var (
+	sharesArchive200ResponseFieldShare = big.NewInt(1 << 0)
+)
+
+type SharesArchive200Response struct {
+	Share *SharesArchive200ResponseShare `json:"share" url:"share"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesArchive200Response) GetShare() *SharesArchive200ResponseShare {
+	if s == nil {
+		return nil
+	}
+	return s.Share
+}
+
+func (s *SharesArchive200Response) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesArchive200Response) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetShare sets the Share field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200Response) SetShare(share *SharesArchive200ResponseShare) {
+	s.Share = share
+	s.require(sharesArchive200ResponseFieldShare)
+}
+
+func (s *SharesArchive200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesArchive200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesArchive200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesArchive200Response) MarshalJSON() ([]byte, error) {
+	type embed SharesArchive200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesArchive200Response) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+var (
+	sharesArchive200ResponseShareFieldID                 = big.NewInt(1 << 0)
+	sharesArchive200ResponseShareFieldTenantID           = big.NewInt(1 << 1)
+	sharesArchive200ResponseShareFieldDocID              = big.NewInt(1 << 2)
+	sharesArchive200ResponseShareFieldLayerMode          = big.NewInt(1 << 3)
+	sharesArchive200ResponseShareFieldLayerName          = big.NewInt(1 << 4)
+	sharesArchive200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
+	sharesArchive200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
+	sharesArchive200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
+	sharesArchive200ResponseShareFieldScope              = big.NewInt(1 << 8)
+	sharesArchive200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
+	sharesArchive200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
+	sharesArchive200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesArchive200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
+	sharesArchive200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
+	sharesArchive200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
+	sharesArchive200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
+	sharesArchive200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
+	sharesArchive200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
+	sharesArchive200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
+	sharesArchive200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
+)
+
+type SharesArchive200ResponseShare struct {
+	ID                 string                                        `json:"id" url:"id"`
+	TenantID           string                                        `json:"tenantId" url:"tenantId"`
+	DocID              string                                        `json:"docId" url:"docId"`
+	LayerMode          SharesArchive200ResponseShareLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName          *string                                       `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers  bool                                          `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds *float64                                      `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity    *SharesArchive200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Scope              []string                                      `json:"scope" url:"scope"`
+	Origins            []string                                      `json:"origins,omitempty" url:"origins,omitempty"`
+	PasswordProtected  bool                                          `json:"passwordProtected" url:"passwordProtected"`
+	SessionTTLSeconds  float64                                       `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled           bool                                          `json:"disabled" url:"disabled"`
+	ArchivedAt         *float64                                      `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt          *float64                                      `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount      float64                                       `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt    *float64                                      `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy          string                                        `json:"createdBy" url:"createdBy"`
+	CreatedAt          float64                                       `json:"createdAt" url:"createdAt"`
+	UpdatedAt          float64                                       `json:"updatedAt" url:"updatedAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesArchive200ResponseShare) GetID() string {
+	if s == nil {
+		return ""
+	}
+	return s.ID
+}
+
+func (s *SharesArchive200ResponseShare) GetTenantID() string {
+	if s == nil {
+		return ""
+	}
+	return s.TenantID
+}
+
+func (s *SharesArchive200ResponseShare) GetDocID() string {
+	if s == nil {
+		return ""
+	}
+	return s.DocID
+}
+
+func (s *SharesArchive200ResponseShare) GetLayerMode() SharesArchive200ResponseShareLayerMode {
+	if s == nil {
+		return ""
+	}
+	return s.LayerMode
+}
+
+func (s *SharesArchive200ResponseShare) GetLayerName() *string {
+	if s == nil {
+		return nil
+	}
+	return s.LayerName
+}
+
+func (s *SharesArchive200ResponseShare) GetKeepVisitorLayers() bool {
+	if s == nil {
+		return false
+	}
+	return s.KeepVisitorLayers
+}
+
+func (s *SharesArchive200ResponseShare) GetVisitorIdleSeconds() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdleSeconds
+}
+
+func (s *SharesArchive200ResponseShare) GetVisitorIdentity() *SharesArchive200ResponseShareVisitorIdentity {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdentity
+}
+
+func (s *SharesArchive200ResponseShare) GetScope() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Scope
+}
+
+func (s *SharesArchive200ResponseShare) GetOrigins() []string {
+	if s == nil {
+		return nil
+	}
+	return s.Origins
+}
+
+func (s *SharesArchive200ResponseShare) GetPasswordProtected() bool {
+	if s == nil {
+		return false
+	}
+	return s.PasswordProtected
+}
+
+func (s *SharesArchive200ResponseShare) GetSessionTTLSeconds() float64 {
+	if s == nil {
+		return 0
+	}
+	return s.SessionTTLSeconds
+}
+
+func (s *SharesArchive200ResponseShare) GetDisabled() bool {
+	if s == nil {
+		return false
+	}
+	return s.Disabled
+}
+
+func (s *SharesArchive200ResponseShare) GetArchivedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ArchivedAt
+}
+
+func (s *SharesArchive200ResponseShare) GetExpiresAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ExpiresAt
+}
+
+func (s *SharesArchive200ResponseShare) GetExchangeCount() float64 {
+	if s == nil {
+		return 0
+	}
+	return s.ExchangeCount
+}
+
+func (s *SharesArchive200ResponseShare) GetLastExchangedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.LastExchangedAt
+}
+
+func (s *SharesArchive200ResponseShare) GetCreatedBy() string {
+	if s == nil {
+		return ""
+	}
+	return s.CreatedBy
+}
+
+func (s *SharesArchive200ResponseShare) GetCreatedAt() float64 {
+	if s == nil {
+		return 0
+	}
+	return s.CreatedAt
+}
+
+func (s *SharesArchive200ResponseShare) GetUpdatedAt() float64 {
+	if s == nil {
+		return 0
+	}
+	return s.UpdatedAt
+}
+
+func (s *SharesArchive200ResponseShare) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesArchive200ResponseShare) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetID(id string) {
+	s.ID = id
+	s.require(sharesArchive200ResponseShareFieldID)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetTenantID(tenantID string) {
+	s.TenantID = tenantID
+	s.require(sharesArchive200ResponseShareFieldTenantID)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetDocID(docID string) {
+	s.DocID = docID
+	s.require(sharesArchive200ResponseShareFieldDocID)
+}
+
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetLayerMode(layerMode SharesArchive200ResponseShareLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesArchive200ResponseShareFieldLayerMode)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetLayerName(layerName *string) {
+	s.LayerName = layerName
+	s.require(sharesArchive200ResponseShareFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesArchive200ResponseShareFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesArchive200ResponseShareFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesArchive200ResponseShareVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesArchive200ResponseShareFieldVisitorIdentity)
+}
+
+// SetScope sets the Scope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetScope(scope []string) {
+	s.Scope = scope
+	s.require(sharesArchive200ResponseShareFieldScope)
+}
+
+// SetOrigins sets the Origins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetOrigins(origins []string) {
+	s.Origins = origins
+	s.require(sharesArchive200ResponseShareFieldOrigins)
+}
+
+// SetPasswordProtected sets the PasswordProtected field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetPasswordProtected(passwordProtected bool) {
+	s.PasswordProtected = passwordProtected
+	s.require(sharesArchive200ResponseShareFieldPasswordProtected)
+}
+
+// SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetSessionTTLSeconds(sessionTTLSeconds float64) {
+	s.SessionTTLSeconds = sessionTTLSeconds
+	s.require(sharesArchive200ResponseShareFieldSessionTTLSeconds)
+}
+
+// SetDisabled sets the Disabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetDisabled(disabled bool) {
+	s.Disabled = disabled
+	s.require(sharesArchive200ResponseShareFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetArchivedAt(archivedAt *float64) {
+	s.ArchivedAt = archivedAt
+	s.require(sharesArchive200ResponseShareFieldArchivedAt)
+}
+
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetExpiresAt(expiresAt *float64) {
+	s.ExpiresAt = expiresAt
+	s.require(sharesArchive200ResponseShareFieldExpiresAt)
+}
+
+// SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetExchangeCount(exchangeCount float64) {
+	s.ExchangeCount = exchangeCount
+	s.require(sharesArchive200ResponseShareFieldExchangeCount)
+}
+
+// SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetLastExchangedAt(lastExchangedAt *float64) {
+	s.LastExchangedAt = lastExchangedAt
+	s.require(sharesArchive200ResponseShareFieldLastExchangedAt)
+}
+
+// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetCreatedBy(createdBy string) {
+	s.CreatedBy = createdBy
+	s.require(sharesArchive200ResponseShareFieldCreatedBy)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetCreatedAt(createdAt float64) {
+	s.CreatedAt = createdAt
+	s.require(sharesArchive200ResponseShareFieldCreatedAt)
+}
+
+// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetUpdatedAt(updatedAt float64) {
+	s.UpdatedAt = updatedAt
+	s.require(sharesArchive200ResponseShareFieldUpdatedAt)
+}
+
+func (s *SharesArchive200ResponseShare) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesArchive200ResponseShare
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesArchive200ResponseShare(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesArchive200ResponseShare) MarshalJSON() ([]byte, error) {
+	type embed SharesArchive200ResponseShare
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesArchive200ResponseShare) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesArchive200ResponseShareLayerMode string
+
+const (
+	SharesArchive200ResponseShareLayerModeShared     SharesArchive200ResponseShareLayerMode = "shared"
+	SharesArchive200ResponseShareLayerModePerVisitor SharesArchive200ResponseShareLayerMode = "per-visitor"
+)
+
+func NewSharesArchive200ResponseShareLayerModeFromString(s string) (SharesArchive200ResponseShareLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesArchive200ResponseShareLayerModeShared, nil
+	case "per-visitor":
+		return SharesArchive200ResponseShareLayerModePerVisitor, nil
+	}
+	var t SharesArchive200ResponseShareLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareLayerMode) Ptr() *SharesArchive200ResponseShareLayerMode {
+	return &s
+}
+
+var (
+	sharesArchive200ResponseShareVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesArchive200ResponseShareVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesArchive200ResponseShareVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesArchive200ResponseShareVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesArchive200ResponseShareVisitorIdentity struct {
+	Fields     *SharesArchive200ResponseShareVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesArchive200ResponseShareVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                             `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                             `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) GetFields() *SharesArchive200ResponseShareVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) GetAsk() SharesArchive200ResponseShareVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentity) SetFields(fields *SharesArchive200ResponseShareVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentity) SetAsk(ask SharesArchive200ResponseShareVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesArchive200ResponseShareVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesArchive200ResponseShareVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesArchive200ResponseShareVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesArchive200ResponseShareVisitorIdentityAsk string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityAskOnOpen            SharesArchive200ResponseShareVisitorIdentityAsk = "on-open"
+	SharesArchive200ResponseShareVisitorIdentityAskBeforeFirstChange SharesArchive200ResponseShareVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityAskFromString(s string) (SharesArchive200ResponseShareVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesArchive200ResponseShareVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesArchive200ResponseShareVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityAsk) Ptr() *SharesArchive200ResponseShareVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesArchive200ResponseShareVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesArchive200ResponseShareVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesArchive200ResponseShareVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesArchive200ResponseShareVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesArchive200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesArchive200ResponseShareVisitorIdentityFields struct {
+	DisplayName        *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesArchive200ResponseShareVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesArchive200ResponseShareVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetDisplayName() *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetEmail() *SharesArchive200ResponseShareVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetTitle() *SharesArchive200ResponseShareVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetOrganization() *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetOrganizationalUnit() *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) SetDisplayName(displayName *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) SetEmail(email *SharesArchive200ResponseShareVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) SetTitle(title *SharesArchive200ResponseShareVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) SetOrganization(organization *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesArchive200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesArchive200ResponseShareVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesArchive200ResponseShareVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesArchive200ResponseShareVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesArchive200ResponseShareVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameRequired SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName = "required"
+	SharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameOptional SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameFromString(s string) (SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName) Ptr() *SharesArchive200ResponseShareVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesArchive200ResponseShareVisitorIdentityFieldsEmail string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityFieldsEmailRequired SharesArchive200ResponseShareVisitorIdentityFieldsEmail = "required"
+	SharesArchive200ResponseShareVisitorIdentityFieldsEmailOptional SharesArchive200ResponseShareVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityFieldsEmailFromString(s string) (SharesArchive200ResponseShareVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityFieldsEmail) Ptr() *SharesArchive200ResponseShareVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesArchive200ResponseShareVisitorIdentityFieldsOrganization string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationRequired SharesArchive200ResponseShareVisitorIdentityFieldsOrganization = "required"
+	SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationOptional SharesArchive200ResponseShareVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationFromString(s string) (SharesArchive200ResponseShareVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityFieldsOrganization) Ptr() *SharesArchive200ResponseShareVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesArchive200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesArchive200ResponseShareVisitorIdentityFieldsTitle string
+
+const (
+	SharesArchive200ResponseShareVisitorIdentityFieldsTitleRequired SharesArchive200ResponseShareVisitorIdentityFieldsTitle = "required"
+	SharesArchive200ResponseShareVisitorIdentityFieldsTitleOptional SharesArchive200ResponseShareVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesArchive200ResponseShareVisitorIdentityFieldsTitleFromString(s string) (SharesArchive200ResponseShareVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesArchive200ResponseShareVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesArchive200ResponseShareVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesArchive200ResponseShareVisitorIdentityFieldsTitle) Ptr() *SharesArchive200ResponseShareVisitorIdentityFieldsTitle {
+	return &s
 }
 
 var (
@@ -378,39 +1390,49 @@ func (s *SharesCreate200Response) String() string {
 }
 
 var (
-	sharesCreate200ResponseShareFieldID                = big.NewInt(1 << 0)
-	sharesCreate200ResponseShareFieldTenantID          = big.NewInt(1 << 1)
-	sharesCreate200ResponseShareFieldDocID             = big.NewInt(1 << 2)
-	sharesCreate200ResponseShareFieldLayerName         = big.NewInt(1 << 3)
-	sharesCreate200ResponseShareFieldScope             = big.NewInt(1 << 4)
-	sharesCreate200ResponseShareFieldOrigins           = big.NewInt(1 << 5)
-	sharesCreate200ResponseShareFieldPasswordProtected = big.NewInt(1 << 6)
-	sharesCreate200ResponseShareFieldSessionTTLSeconds = big.NewInt(1 << 7)
-	sharesCreate200ResponseShareFieldDisabled          = big.NewInt(1 << 8)
-	sharesCreate200ResponseShareFieldExpiresAt         = big.NewInt(1 << 9)
-	sharesCreate200ResponseShareFieldExchangeCount     = big.NewInt(1 << 10)
-	sharesCreate200ResponseShareFieldLastExchangedAt   = big.NewInt(1 << 11)
-	sharesCreate200ResponseShareFieldCreatedBy         = big.NewInt(1 << 12)
-	sharesCreate200ResponseShareFieldCreatedAt         = big.NewInt(1 << 13)
-	sharesCreate200ResponseShareFieldUpdatedAt         = big.NewInt(1 << 14)
+	sharesCreate200ResponseShareFieldID                 = big.NewInt(1 << 0)
+	sharesCreate200ResponseShareFieldTenantID           = big.NewInt(1 << 1)
+	sharesCreate200ResponseShareFieldDocID              = big.NewInt(1 << 2)
+	sharesCreate200ResponseShareFieldLayerMode          = big.NewInt(1 << 3)
+	sharesCreate200ResponseShareFieldLayerName          = big.NewInt(1 << 4)
+	sharesCreate200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
+	sharesCreate200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
+	sharesCreate200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
+	sharesCreate200ResponseShareFieldScope              = big.NewInt(1 << 8)
+	sharesCreate200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
+	sharesCreate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
+	sharesCreate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesCreate200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
+	sharesCreate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
+	sharesCreate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
+	sharesCreate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
+	sharesCreate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
+	sharesCreate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
+	sharesCreate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
+	sharesCreate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
 )
 
 type SharesCreate200ResponseShare struct {
-	ID                string   `json:"id" url:"id"`
-	TenantID          string   `json:"tenantId" url:"tenantId"`
-	DocID             string   `json:"docId" url:"docId"`
-	LayerName         string   `json:"layerName" url:"layerName"`
-	Scope             []string `json:"scope" url:"scope"`
-	Origins           []string `json:"origins,omitempty" url:"origins,omitempty"`
-	PasswordProtected bool     `json:"passwordProtected" url:"passwordProtected"`
-	SessionTTLSeconds float64  `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled          bool     `json:"disabled" url:"disabled"`
-	ExpiresAt         *float64 `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount     float64  `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt   *float64 `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy         string   `json:"createdBy" url:"createdBy"`
-	CreatedAt         float64  `json:"createdAt" url:"createdAt"`
-	UpdatedAt         float64  `json:"updatedAt" url:"updatedAt"`
+	ID                 string                                       `json:"id" url:"id"`
+	TenantID           string                                       `json:"tenantId" url:"tenantId"`
+	DocID              string                                       `json:"docId" url:"docId"`
+	LayerMode          SharesCreate200ResponseShareLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName          *string                                      `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers  bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity    *SharesCreate200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Scope              []string                                     `json:"scope" url:"scope"`
+	Origins            []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
+	PasswordProtected  bool                                         `json:"passwordProtected" url:"passwordProtected"`
+	SessionTTLSeconds  float64                                      `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled           bool                                         `json:"disabled" url:"disabled"`
+	ArchivedAt         *float64                                     `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt          *float64                                     `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount      float64                                      `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt    *float64                                     `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy          string                                       `json:"createdBy" url:"createdBy"`
+	CreatedAt          float64                                      `json:"createdAt" url:"createdAt"`
+	UpdatedAt          float64                                      `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -440,11 +1462,39 @@ func (s *SharesCreate200ResponseShare) GetDocID() string {
 	return s.DocID
 }
 
-func (s *SharesCreate200ResponseShare) GetLayerName() string {
+func (s *SharesCreate200ResponseShare) GetLayerMode() SharesCreate200ResponseShareLayerMode {
 	if s == nil {
 		return ""
 	}
+	return s.LayerMode
+}
+
+func (s *SharesCreate200ResponseShare) GetLayerName() *string {
+	if s == nil {
+		return nil
+	}
 	return s.LayerName
+}
+
+func (s *SharesCreate200ResponseShare) GetKeepVisitorLayers() bool {
+	if s == nil {
+		return false
+	}
+	return s.KeepVisitorLayers
+}
+
+func (s *SharesCreate200ResponseShare) GetVisitorIdleSeconds() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdleSeconds
+}
+
+func (s *SharesCreate200ResponseShare) GetVisitorIdentity() *SharesCreate200ResponseShareVisitorIdentity {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdentity
 }
 
 func (s *SharesCreate200ResponseShare) GetScope() []string {
@@ -480,6 +1530,13 @@ func (s *SharesCreate200ResponseShare) GetDisabled() bool {
 		return false
 	}
 	return s.Disabled
+}
+
+func (s *SharesCreate200ResponseShare) GetArchivedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ArchivedAt
 }
 
 func (s *SharesCreate200ResponseShare) GetExpiresAt() *float64 {
@@ -559,11 +1616,39 @@ func (s *SharesCreate200ResponseShare) SetDocID(docID string) {
 	s.require(sharesCreate200ResponseShareFieldDocID)
 }
 
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetLayerMode(layerMode SharesCreate200ResponseShareLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesCreate200ResponseShareFieldLayerMode)
+}
+
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesCreate200ResponseShare) SetLayerName(layerName string) {
+func (s *SharesCreate200ResponseShare) SetLayerName(layerName *string) {
 	s.LayerName = layerName
 	s.require(sharesCreate200ResponseShareFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesCreate200ResponseShareFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesCreate200ResponseShareFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesCreate200ResponseShareVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesCreate200ResponseShareFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -599,6 +1684,13 @@ func (s *SharesCreate200ResponseShare) SetSessionTTLSeconds(sessionTTLSeconds fl
 func (s *SharesCreate200ResponseShare) SetDisabled(disabled bool) {
 	s.Disabled = disabled
 	s.require(sharesCreate200ResponseShareFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetArchivedAt(archivedAt *float64) {
+	s.ArchivedAt = archivedAt
+	s.require(sharesCreate200ResponseShareFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
@@ -685,18 +1777,456 @@ func (s *SharesCreate200ResponseShare) String() string {
 	return fmt.Sprintf("%#v", s)
 }
 
+type SharesCreate200ResponseShareLayerMode string
+
+const (
+	SharesCreate200ResponseShareLayerModeShared     SharesCreate200ResponseShareLayerMode = "shared"
+	SharesCreate200ResponseShareLayerModePerVisitor SharesCreate200ResponseShareLayerMode = "per-visitor"
+)
+
+func NewSharesCreate200ResponseShareLayerModeFromString(s string) (SharesCreate200ResponseShareLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesCreate200ResponseShareLayerModeShared, nil
+	case "per-visitor":
+		return SharesCreate200ResponseShareLayerModePerVisitor, nil
+	}
+	var t SharesCreate200ResponseShareLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareLayerMode) Ptr() *SharesCreate200ResponseShareLayerMode {
+	return &s
+}
+
+var (
+	sharesCreate200ResponseShareVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesCreate200ResponseShareVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesCreate200ResponseShareVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesCreate200ResponseShareVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesCreate200ResponseShareVisitorIdentity struct {
+	Fields     *SharesCreate200ResponseShareVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesCreate200ResponseShareVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                            `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                            `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) GetFields() *SharesCreate200ResponseShareVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) GetAsk() SharesCreate200ResponseShareVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentity) SetFields(fields *SharesCreate200ResponseShareVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentity) SetAsk(ask SharesCreate200ResponseShareVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesCreate200ResponseShareVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesCreate200ResponseShareVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesCreate200ResponseShareVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesCreate200ResponseShareVisitorIdentityAsk string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityAskOnOpen            SharesCreate200ResponseShareVisitorIdentityAsk = "on-open"
+	SharesCreate200ResponseShareVisitorIdentityAskBeforeFirstChange SharesCreate200ResponseShareVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityAskFromString(s string) (SharesCreate200ResponseShareVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesCreate200ResponseShareVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesCreate200ResponseShareVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityAsk) Ptr() *SharesCreate200ResponseShareVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesCreate200ResponseShareVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesCreate200ResponseShareVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesCreate200ResponseShareVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesCreate200ResponseShareVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesCreate200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesCreate200ResponseShareVisitorIdentityFields struct {
+	DisplayName        *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesCreate200ResponseShareVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesCreate200ResponseShareVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetDisplayName() *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetEmail() *SharesCreate200ResponseShareVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetTitle() *SharesCreate200ResponseShareVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetOrganization() *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetOrganizationalUnit() *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) SetDisplayName(displayName *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) SetEmail(email *SharesCreate200ResponseShareVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) SetTitle(title *SharesCreate200ResponseShareVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) SetOrganization(organization *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesCreate200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesCreate200ResponseShareVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesCreate200ResponseShareVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesCreate200ResponseShareVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesCreate200ResponseShareVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameRequired SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName = "required"
+	SharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameOptional SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameFromString(s string) (SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName) Ptr() *SharesCreate200ResponseShareVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesCreate200ResponseShareVisitorIdentityFieldsEmail string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityFieldsEmailRequired SharesCreate200ResponseShareVisitorIdentityFieldsEmail = "required"
+	SharesCreate200ResponseShareVisitorIdentityFieldsEmailOptional SharesCreate200ResponseShareVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityFieldsEmailFromString(s string) (SharesCreate200ResponseShareVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityFieldsEmail) Ptr() *SharesCreate200ResponseShareVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesCreate200ResponseShareVisitorIdentityFieldsOrganization string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationRequired SharesCreate200ResponseShareVisitorIdentityFieldsOrganization = "required"
+	SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationOptional SharesCreate200ResponseShareVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationFromString(s string) (SharesCreate200ResponseShareVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityFieldsOrganization) Ptr() *SharesCreate200ResponseShareVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesCreate200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesCreate200ResponseShareVisitorIdentityFieldsTitle string
+
+const (
+	SharesCreate200ResponseShareVisitorIdentityFieldsTitleRequired SharesCreate200ResponseShareVisitorIdentityFieldsTitle = "required"
+	SharesCreate200ResponseShareVisitorIdentityFieldsTitleOptional SharesCreate200ResponseShareVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesCreate200ResponseShareVisitorIdentityFieldsTitleFromString(s string) (SharesCreate200ResponseShareVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesCreate200ResponseShareVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesCreate200ResponseShareVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreate200ResponseShareVisitorIdentityFieldsTitle) Ptr() *SharesCreate200ResponseShareVisitorIdentityFieldsTitle {
+	return &s
+}
+
 var (
 	sharesExchange200ResponseFieldToken     = big.NewInt(1 << 0)
 	sharesExchange200ResponseFieldDocID     = big.NewInt(1 << 1)
 	sharesExchange200ResponseFieldLayerName = big.NewInt(1 << 2)
-	sharesExchange200ResponseFieldExpiresAt = big.NewInt(1 << 3)
+	sharesExchange200ResponseFieldLayerMode = big.NewInt(1 << 3)
+	sharesExchange200ResponseFieldVisitor   = big.NewInt(1 << 4)
+	sharesExchange200ResponseFieldExpiresAt = big.NewInt(1 << 5)
 )
 
 type SharesExchange200Response struct {
-	Token     string  `json:"token" url:"token"`
-	DocID     string  `json:"docId" url:"docId"`
-	LayerName string  `json:"layerName" url:"layerName"`
-	ExpiresAt float64 `json:"expiresAt" url:"expiresAt"`
+	Token     string                             `json:"token" url:"token"`
+	DocID     string                             `json:"docId" url:"docId"`
+	LayerName string                             `json:"layerName" url:"layerName"`
+	LayerMode SharesExchange200ResponseLayerMode `json:"layerMode" url:"layerMode"`
+	Visitor   *SharesExchange200ResponseVisitor  `json:"visitor" url:"visitor"`
+	ExpiresAt float64                            `json:"expiresAt" url:"expiresAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -724,6 +2254,20 @@ func (s *SharesExchange200Response) GetLayerName() string {
 		return ""
 	}
 	return s.LayerName
+}
+
+func (s *SharesExchange200Response) GetLayerMode() SharesExchange200ResponseLayerMode {
+	if s == nil {
+		return ""
+	}
+	return s.LayerMode
+}
+
+func (s *SharesExchange200Response) GetVisitor() *SharesExchange200ResponseVisitor {
+	if s == nil {
+		return nil
+	}
+	return s.Visitor
 }
 
 func (s *SharesExchange200Response) GetExpiresAt() float64 {
@@ -766,6 +2310,20 @@ func (s *SharesExchange200Response) SetDocID(docID string) {
 func (s *SharesExchange200Response) SetLayerName(layerName string) {
 	s.LayerName = layerName
 	s.require(sharesExchange200ResponseFieldLayerName)
+}
+
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200Response) SetLayerMode(layerMode SharesExchange200ResponseLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesExchange200ResponseFieldLayerMode)
+}
+
+// SetVisitor sets the Visitor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200Response) SetVisitor(visitor *SharesExchange200ResponseVisitor) {
+	s.Visitor = visitor
+	s.require(sharesExchange200ResponseFieldVisitor)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
@@ -815,6 +2373,612 @@ func (s *SharesExchange200Response) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", s)
+}
+
+type SharesExchange200ResponseLayerMode string
+
+const (
+	SharesExchange200ResponseLayerModeShared     SharesExchange200ResponseLayerMode = "shared"
+	SharesExchange200ResponseLayerModePerVisitor SharesExchange200ResponseLayerMode = "per-visitor"
+)
+
+func NewSharesExchange200ResponseLayerModeFromString(s string) (SharesExchange200ResponseLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesExchange200ResponseLayerModeShared, nil
+	case "per-visitor":
+		return SharesExchange200ResponseLayerModePerVisitor, nil
+	}
+	var t SharesExchange200ResponseLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseLayerMode) Ptr() *SharesExchange200ResponseLayerMode {
+	return &s
+}
+
+var (
+	sharesExchange200ResponseVisitorFieldHandle          = big.NewInt(1 << 0)
+	sharesExchange200ResponseVisitorFieldKeep            = big.NewInt(1 << 1)
+	sharesExchange200ResponseVisitorFieldIdentityRequest = big.NewInt(1 << 2)
+)
+
+type SharesExchange200ResponseVisitor struct {
+	Handle          string                                           `json:"handle" url:"handle"`
+	Keep            bool                                             `json:"keep" url:"keep"`
+	IdentityRequest *SharesExchange200ResponseVisitorIdentityRequest `json:"identityRequest,omitempty" url:"identityRequest,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesExchange200ResponseVisitor) GetHandle() string {
+	if s == nil {
+		return ""
+	}
+	return s.Handle
+}
+
+func (s *SharesExchange200ResponseVisitor) GetKeep() bool {
+	if s == nil {
+		return false
+	}
+	return s.Keep
+}
+
+func (s *SharesExchange200ResponseVisitor) GetIdentityRequest() *SharesExchange200ResponseVisitorIdentityRequest {
+	if s == nil {
+		return nil
+	}
+	return s.IdentityRequest
+}
+
+func (s *SharesExchange200ResponseVisitor) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesExchange200ResponseVisitor) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetHandle sets the Handle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitor) SetHandle(handle string) {
+	s.Handle = handle
+	s.require(sharesExchange200ResponseVisitorFieldHandle)
+}
+
+// SetKeep sets the Keep field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitor) SetKeep(keep bool) {
+	s.Keep = keep
+	s.require(sharesExchange200ResponseVisitorFieldKeep)
+}
+
+// SetIdentityRequest sets the IdentityRequest field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitor) SetIdentityRequest(identityRequest *SharesExchange200ResponseVisitorIdentityRequest) {
+	s.IdentityRequest = identityRequest
+	s.require(sharesExchange200ResponseVisitorFieldIdentityRequest)
+}
+
+func (s *SharesExchange200ResponseVisitor) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesExchange200ResponseVisitor
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesExchange200ResponseVisitor(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesExchange200ResponseVisitor) MarshalJSON() ([]byte, error) {
+	type embed SharesExchange200ResponseVisitor
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesExchange200ResponseVisitor) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+var (
+	sharesExchange200ResponseVisitorIdentityRequestFieldFields     = big.NewInt(1 << 0)
+	sharesExchange200ResponseVisitorIdentityRequestFieldMissing    = big.NewInt(1 << 1)
+	sharesExchange200ResponseVisitorIdentityRequestFieldInvalid    = big.NewInt(1 << 2)
+	sharesExchange200ResponseVisitorIdentityRequestFieldPurpose    = big.NewInt(1 << 3)
+	sharesExchange200ResponseVisitorIdentityRequestFieldPrivacyURL = big.NewInt(1 << 4)
+)
+
+type SharesExchange200ResponseVisitorIdentityRequest struct {
+	Fields     *SharesExchange200ResponseVisitorIdentityRequestFields       `json:"fields" url:"fields"`
+	Missing    []SharesExchange200ResponseVisitorIdentityRequestMissingItem `json:"missing" url:"missing"`
+	Invalid    []SharesExchange200ResponseVisitorIdentityRequestInvalidItem `json:"invalid" url:"invalid"`
+	Purpose    *string                                                      `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                                      `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetFields() *SharesExchange200ResponseVisitorIdentityRequestFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetMissing() []SharesExchange200ResponseVisitorIdentityRequestMissingItem {
+	if s == nil {
+		return nil
+	}
+	return s.Missing
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetInvalid() []SharesExchange200ResponseVisitorIdentityRequestInvalidItem {
+	if s == nil {
+		return nil
+	}
+	return s.Invalid
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequest) SetFields(fields *SharesExchange200ResponseVisitorIdentityRequestFields) {
+	s.Fields = fields
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldFields)
+}
+
+// SetMissing sets the Missing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequest) SetMissing(missing []SharesExchange200ResponseVisitorIdentityRequestMissingItem) {
+	s.Missing = missing
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldMissing)
+}
+
+// SetInvalid sets the Invalid field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequest) SetInvalid(invalid []SharesExchange200ResponseVisitorIdentityRequestInvalidItem) {
+	s.Invalid = invalid
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldInvalid)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequest) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequest) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldPrivacyURL)
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesExchange200ResponseVisitorIdentityRequest
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesExchange200ResponseVisitorIdentityRequest(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) MarshalJSON() ([]byte, error) {
+	type embed SharesExchange200ResponseVisitorIdentityRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequest) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+var (
+	sharesExchange200ResponseVisitorIdentityRequestFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesExchange200ResponseVisitorIdentityRequestFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesExchange200ResponseVisitorIdentityRequestFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesExchange200ResponseVisitorIdentityRequestFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesExchange200ResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesExchange200ResponseVisitorIdentityRequestFields struct {
+	DisplayName        *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetDisplayName() *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetEmail() *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetTitle() *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetOrganization() *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetOrganizationalUnit() *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) SetDisplayName(displayName *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) SetEmail(email *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail) {
+	s.Email = email
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) SetTitle(title *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle) {
+	s.Title = title
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) SetOrganization(organization *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) SetOrganizationalUnit(organizationalUnit *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesExchange200ResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesExchange200ResponseVisitorIdentityRequestFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesExchange200ResponseVisitorIdentityRequestFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) MarshalJSON() ([]byte, error) {
+	type embed SharesExchange200ResponseVisitorIdentityRequestFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesExchange200ResponseVisitorIdentityRequestFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameRequired SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName = "required"
+	SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameOptional SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName = "optional"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayNameOptional, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName) Ptr() *SharesExchange200ResponseVisitorIdentityRequestFieldsDisplayName {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestFieldsEmail string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestFieldsEmailRequired SharesExchange200ResponseVisitorIdentityRequestFieldsEmail = "required"
+	SharesExchange200ResponseVisitorIdentityRequestFieldsEmailOptional SharesExchange200ResponseVisitorIdentityRequestFieldsEmail = "optional"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestFieldsEmailFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsEmailRequired, nil
+	case "optional":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsEmailOptional, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestFieldsEmail) Ptr() *SharesExchange200ResponseVisitorIdentityRequestFieldsEmail {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationRequired SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization = "required"
+	SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationOptional SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization = "optional"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationOptional, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization) Ptr() *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganization {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit = "required"
+	SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit) Ptr() *SharesExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestFieldsTitle string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestFieldsTitleRequired SharesExchange200ResponseVisitorIdentityRequestFieldsTitle = "required"
+	SharesExchange200ResponseVisitorIdentityRequestFieldsTitleOptional SharesExchange200ResponseVisitorIdentityRequestFieldsTitle = "optional"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestFieldsTitleFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsTitleRequired, nil
+	case "optional":
+		return SharesExchange200ResponseVisitorIdentityRequestFieldsTitleOptional, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestFieldsTitle) Ptr() *SharesExchange200ResponseVisitorIdentityRequestFieldsTitle {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestInvalidItem string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestInvalidItemDisplayName        SharesExchange200ResponseVisitorIdentityRequestInvalidItem = "displayName"
+	SharesExchange200ResponseVisitorIdentityRequestInvalidItemEmail              SharesExchange200ResponseVisitorIdentityRequestInvalidItem = "email"
+	SharesExchange200ResponseVisitorIdentityRequestInvalidItemTitle              SharesExchange200ResponseVisitorIdentityRequestInvalidItem = "title"
+	SharesExchange200ResponseVisitorIdentityRequestInvalidItemOrganization       SharesExchange200ResponseVisitorIdentityRequestInvalidItem = "organization"
+	SharesExchange200ResponseVisitorIdentityRequestInvalidItemOrganizationalUnit SharesExchange200ResponseVisitorIdentityRequestInvalidItem = "organizationalUnit"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestInvalidItemFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestInvalidItem, error) {
+	switch s {
+	case "displayName":
+		return SharesExchange200ResponseVisitorIdentityRequestInvalidItemDisplayName, nil
+	case "email":
+		return SharesExchange200ResponseVisitorIdentityRequestInvalidItemEmail, nil
+	case "title":
+		return SharesExchange200ResponseVisitorIdentityRequestInvalidItemTitle, nil
+	case "organization":
+		return SharesExchange200ResponseVisitorIdentityRequestInvalidItemOrganization, nil
+	case "organizationalUnit":
+		return SharesExchange200ResponseVisitorIdentityRequestInvalidItemOrganizationalUnit, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestInvalidItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestInvalidItem) Ptr() *SharesExchange200ResponseVisitorIdentityRequestInvalidItem {
+	return &s
+}
+
+type SharesExchange200ResponseVisitorIdentityRequestMissingItem string
+
+const (
+	SharesExchange200ResponseVisitorIdentityRequestMissingItemDisplayName        SharesExchange200ResponseVisitorIdentityRequestMissingItem = "displayName"
+	SharesExchange200ResponseVisitorIdentityRequestMissingItemEmail              SharesExchange200ResponseVisitorIdentityRequestMissingItem = "email"
+	SharesExchange200ResponseVisitorIdentityRequestMissingItemTitle              SharesExchange200ResponseVisitorIdentityRequestMissingItem = "title"
+	SharesExchange200ResponseVisitorIdentityRequestMissingItemOrganization       SharesExchange200ResponseVisitorIdentityRequestMissingItem = "organization"
+	SharesExchange200ResponseVisitorIdentityRequestMissingItemOrganizationalUnit SharesExchange200ResponseVisitorIdentityRequestMissingItem = "organizationalUnit"
+)
+
+func NewSharesExchange200ResponseVisitorIdentityRequestMissingItemFromString(s string) (SharesExchange200ResponseVisitorIdentityRequestMissingItem, error) {
+	switch s {
+	case "displayName":
+		return SharesExchange200ResponseVisitorIdentityRequestMissingItemDisplayName, nil
+	case "email":
+		return SharesExchange200ResponseVisitorIdentityRequestMissingItemEmail, nil
+	case "title":
+		return SharesExchange200ResponseVisitorIdentityRequestMissingItemTitle, nil
+	case "organization":
+		return SharesExchange200ResponseVisitorIdentityRequestMissingItemOrganization, nil
+	case "organizationalUnit":
+		return SharesExchange200ResponseVisitorIdentityRequestMissingItemOrganizationalUnit, nil
+	}
+	var t SharesExchange200ResponseVisitorIdentityRequestMissingItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesExchange200ResponseVisitorIdentityRequestMissingItem) Ptr() *SharesExchange200ResponseVisitorIdentityRequestMissingItem {
+	return &s
 }
 
 var (
@@ -902,39 +3066,49 @@ func (s *SharesGet200Response) String() string {
 }
 
 var (
-	sharesGet200ResponseShareFieldID                = big.NewInt(1 << 0)
-	sharesGet200ResponseShareFieldTenantID          = big.NewInt(1 << 1)
-	sharesGet200ResponseShareFieldDocID             = big.NewInt(1 << 2)
-	sharesGet200ResponseShareFieldLayerName         = big.NewInt(1 << 3)
-	sharesGet200ResponseShareFieldScope             = big.NewInt(1 << 4)
-	sharesGet200ResponseShareFieldOrigins           = big.NewInt(1 << 5)
-	sharesGet200ResponseShareFieldPasswordProtected = big.NewInt(1 << 6)
-	sharesGet200ResponseShareFieldSessionTTLSeconds = big.NewInt(1 << 7)
-	sharesGet200ResponseShareFieldDisabled          = big.NewInt(1 << 8)
-	sharesGet200ResponseShareFieldExpiresAt         = big.NewInt(1 << 9)
-	sharesGet200ResponseShareFieldExchangeCount     = big.NewInt(1 << 10)
-	sharesGet200ResponseShareFieldLastExchangedAt   = big.NewInt(1 << 11)
-	sharesGet200ResponseShareFieldCreatedBy         = big.NewInt(1 << 12)
-	sharesGet200ResponseShareFieldCreatedAt         = big.NewInt(1 << 13)
-	sharesGet200ResponseShareFieldUpdatedAt         = big.NewInt(1 << 14)
+	sharesGet200ResponseShareFieldID                 = big.NewInt(1 << 0)
+	sharesGet200ResponseShareFieldTenantID           = big.NewInt(1 << 1)
+	sharesGet200ResponseShareFieldDocID              = big.NewInt(1 << 2)
+	sharesGet200ResponseShareFieldLayerMode          = big.NewInt(1 << 3)
+	sharesGet200ResponseShareFieldLayerName          = big.NewInt(1 << 4)
+	sharesGet200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
+	sharesGet200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
+	sharesGet200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
+	sharesGet200ResponseShareFieldScope              = big.NewInt(1 << 8)
+	sharesGet200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
+	sharesGet200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
+	sharesGet200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesGet200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
+	sharesGet200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
+	sharesGet200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
+	sharesGet200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
+	sharesGet200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
+	sharesGet200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
+	sharesGet200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
+	sharesGet200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
 )
 
 type SharesGet200ResponseShare struct {
-	ID                string   `json:"id" url:"id"`
-	TenantID          string   `json:"tenantId" url:"tenantId"`
-	DocID             string   `json:"docId" url:"docId"`
-	LayerName         string   `json:"layerName" url:"layerName"`
-	Scope             []string `json:"scope" url:"scope"`
-	Origins           []string `json:"origins,omitempty" url:"origins,omitempty"`
-	PasswordProtected bool     `json:"passwordProtected" url:"passwordProtected"`
-	SessionTTLSeconds float64  `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled          bool     `json:"disabled" url:"disabled"`
-	ExpiresAt         *float64 `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount     float64  `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt   *float64 `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy         string   `json:"createdBy" url:"createdBy"`
-	CreatedAt         float64  `json:"createdAt" url:"createdAt"`
-	UpdatedAt         float64  `json:"updatedAt" url:"updatedAt"`
+	ID                 string                                    `json:"id" url:"id"`
+	TenantID           string                                    `json:"tenantId" url:"tenantId"`
+	DocID              string                                    `json:"docId" url:"docId"`
+	LayerMode          SharesGet200ResponseShareLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName          *string                                   `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers  bool                                      `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds *float64                                  `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity    *SharesGet200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Scope              []string                                  `json:"scope" url:"scope"`
+	Origins            []string                                  `json:"origins,omitempty" url:"origins,omitempty"`
+	PasswordProtected  bool                                      `json:"passwordProtected" url:"passwordProtected"`
+	SessionTTLSeconds  float64                                   `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled           bool                                      `json:"disabled" url:"disabled"`
+	ArchivedAt         *float64                                  `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt          *float64                                  `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount      float64                                   `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt    *float64                                  `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy          string                                    `json:"createdBy" url:"createdBy"`
+	CreatedAt          float64                                   `json:"createdAt" url:"createdAt"`
+	UpdatedAt          float64                                   `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -964,11 +3138,39 @@ func (s *SharesGet200ResponseShare) GetDocID() string {
 	return s.DocID
 }
 
-func (s *SharesGet200ResponseShare) GetLayerName() string {
+func (s *SharesGet200ResponseShare) GetLayerMode() SharesGet200ResponseShareLayerMode {
 	if s == nil {
 		return ""
 	}
+	return s.LayerMode
+}
+
+func (s *SharesGet200ResponseShare) GetLayerName() *string {
+	if s == nil {
+		return nil
+	}
 	return s.LayerName
+}
+
+func (s *SharesGet200ResponseShare) GetKeepVisitorLayers() bool {
+	if s == nil {
+		return false
+	}
+	return s.KeepVisitorLayers
+}
+
+func (s *SharesGet200ResponseShare) GetVisitorIdleSeconds() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdleSeconds
+}
+
+func (s *SharesGet200ResponseShare) GetVisitorIdentity() *SharesGet200ResponseShareVisitorIdentity {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdentity
 }
 
 func (s *SharesGet200ResponseShare) GetScope() []string {
@@ -1004,6 +3206,13 @@ func (s *SharesGet200ResponseShare) GetDisabled() bool {
 		return false
 	}
 	return s.Disabled
+}
+
+func (s *SharesGet200ResponseShare) GetArchivedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ArchivedAt
 }
 
 func (s *SharesGet200ResponseShare) GetExpiresAt() *float64 {
@@ -1083,11 +3292,39 @@ func (s *SharesGet200ResponseShare) SetDocID(docID string) {
 	s.require(sharesGet200ResponseShareFieldDocID)
 }
 
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetLayerMode(layerMode SharesGet200ResponseShareLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesGet200ResponseShareFieldLayerMode)
+}
+
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesGet200ResponseShare) SetLayerName(layerName string) {
+func (s *SharesGet200ResponseShare) SetLayerName(layerName *string) {
 	s.LayerName = layerName
 	s.require(sharesGet200ResponseShareFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesGet200ResponseShareFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesGet200ResponseShareFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesGet200ResponseShareVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesGet200ResponseShareFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -1123,6 +3360,13 @@ func (s *SharesGet200ResponseShare) SetSessionTTLSeconds(sessionTTLSeconds float
 func (s *SharesGet200ResponseShare) SetDisabled(disabled bool) {
 	s.Disabled = disabled
 	s.require(sharesGet200ResponseShareFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetArchivedAt(archivedAt *float64) {
+	s.ArchivedAt = archivedAt
+	s.require(sharesGet200ResponseShareFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
@@ -1207,6 +3451,440 @@ func (s *SharesGet200ResponseShare) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", s)
+}
+
+type SharesGet200ResponseShareLayerMode string
+
+const (
+	SharesGet200ResponseShareLayerModeShared     SharesGet200ResponseShareLayerMode = "shared"
+	SharesGet200ResponseShareLayerModePerVisitor SharesGet200ResponseShareLayerMode = "per-visitor"
+)
+
+func NewSharesGet200ResponseShareLayerModeFromString(s string) (SharesGet200ResponseShareLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesGet200ResponseShareLayerModeShared, nil
+	case "per-visitor":
+		return SharesGet200ResponseShareLayerModePerVisitor, nil
+	}
+	var t SharesGet200ResponseShareLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareLayerMode) Ptr() *SharesGet200ResponseShareLayerMode {
+	return &s
+}
+
+var (
+	sharesGet200ResponseShareVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesGet200ResponseShareVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesGet200ResponseShareVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesGet200ResponseShareVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesGet200ResponseShareVisitorIdentity struct {
+	Fields     *SharesGet200ResponseShareVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesGet200ResponseShareVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                         `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                         `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) GetFields() *SharesGet200ResponseShareVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) GetAsk() SharesGet200ResponseShareVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentity) SetFields(fields *SharesGet200ResponseShareVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentity) SetAsk(ask SharesGet200ResponseShareVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesGet200ResponseShareVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesGet200ResponseShareVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesGet200ResponseShareVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesGet200ResponseShareVisitorIdentityAsk string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityAskOnOpen            SharesGet200ResponseShareVisitorIdentityAsk = "on-open"
+	SharesGet200ResponseShareVisitorIdentityAskBeforeFirstChange SharesGet200ResponseShareVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityAskFromString(s string) (SharesGet200ResponseShareVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesGet200ResponseShareVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesGet200ResponseShareVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityAsk) Ptr() *SharesGet200ResponseShareVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesGet200ResponseShareVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesGet200ResponseShareVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesGet200ResponseShareVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesGet200ResponseShareVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesGet200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesGet200ResponseShareVisitorIdentityFields struct {
+	DisplayName        *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesGet200ResponseShareVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesGet200ResponseShareVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesGet200ResponseShareVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetDisplayName() *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetEmail() *SharesGet200ResponseShareVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetTitle() *SharesGet200ResponseShareVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetOrganization() *SharesGet200ResponseShareVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetOrganizationalUnit() *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentityFields) SetDisplayName(displayName *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentityFields) SetEmail(email *SharesGet200ResponseShareVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentityFields) SetTitle(title *SharesGet200ResponseShareVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentityFields) SetOrganization(organization *SharesGet200ResponseShareVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShareVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesGet200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesGet200ResponseShareVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesGet200ResponseShareVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesGet200ResponseShareVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesGet200ResponseShareVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesGet200ResponseShareVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityFieldsDisplayNameRequired SharesGet200ResponseShareVisitorIdentityFieldsDisplayName = "required"
+	SharesGet200ResponseShareVisitorIdentityFieldsDisplayNameOptional SharesGet200ResponseShareVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityFieldsDisplayNameFromString(s string) (SharesGet200ResponseShareVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesGet200ResponseShareVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesGet200ResponseShareVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityFieldsDisplayName) Ptr() *SharesGet200ResponseShareVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesGet200ResponseShareVisitorIdentityFieldsEmail string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityFieldsEmailRequired SharesGet200ResponseShareVisitorIdentityFieldsEmail = "required"
+	SharesGet200ResponseShareVisitorIdentityFieldsEmailOptional SharesGet200ResponseShareVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityFieldsEmailFromString(s string) (SharesGet200ResponseShareVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesGet200ResponseShareVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesGet200ResponseShareVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityFieldsEmail) Ptr() *SharesGet200ResponseShareVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesGet200ResponseShareVisitorIdentityFieldsOrganization string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityFieldsOrganizationRequired SharesGet200ResponseShareVisitorIdentityFieldsOrganization = "required"
+	SharesGet200ResponseShareVisitorIdentityFieldsOrganizationOptional SharesGet200ResponseShareVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationFromString(s string) (SharesGet200ResponseShareVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesGet200ResponseShareVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesGet200ResponseShareVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityFieldsOrganization) Ptr() *SharesGet200ResponseShareVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesGet200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesGet200ResponseShareVisitorIdentityFieldsTitle string
+
+const (
+	SharesGet200ResponseShareVisitorIdentityFieldsTitleRequired SharesGet200ResponseShareVisitorIdentityFieldsTitle = "required"
+	SharesGet200ResponseShareVisitorIdentityFieldsTitleOptional SharesGet200ResponseShareVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesGet200ResponseShareVisitorIdentityFieldsTitleFromString(s string) (SharesGet200ResponseShareVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesGet200ResponseShareVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesGet200ResponseShareVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesGet200ResponseShareVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesGet200ResponseShareVisitorIdentityFieldsTitle) Ptr() *SharesGet200ResponseShareVisitorIdentityFieldsTitle {
+	return &s
 }
 
 var (
@@ -1310,39 +3988,49 @@ func (s *SharesList200Response) String() string {
 }
 
 var (
-	sharesList200ResponseSharesItemFieldID                = big.NewInt(1 << 0)
-	sharesList200ResponseSharesItemFieldTenantID          = big.NewInt(1 << 1)
-	sharesList200ResponseSharesItemFieldDocID             = big.NewInt(1 << 2)
-	sharesList200ResponseSharesItemFieldLayerName         = big.NewInt(1 << 3)
-	sharesList200ResponseSharesItemFieldScope             = big.NewInt(1 << 4)
-	sharesList200ResponseSharesItemFieldOrigins           = big.NewInt(1 << 5)
-	sharesList200ResponseSharesItemFieldPasswordProtected = big.NewInt(1 << 6)
-	sharesList200ResponseSharesItemFieldSessionTTLSeconds = big.NewInt(1 << 7)
-	sharesList200ResponseSharesItemFieldDisabled          = big.NewInt(1 << 8)
-	sharesList200ResponseSharesItemFieldExpiresAt         = big.NewInt(1 << 9)
-	sharesList200ResponseSharesItemFieldExchangeCount     = big.NewInt(1 << 10)
-	sharesList200ResponseSharesItemFieldLastExchangedAt   = big.NewInt(1 << 11)
-	sharesList200ResponseSharesItemFieldCreatedBy         = big.NewInt(1 << 12)
-	sharesList200ResponseSharesItemFieldCreatedAt         = big.NewInt(1 << 13)
-	sharesList200ResponseSharesItemFieldUpdatedAt         = big.NewInt(1 << 14)
+	sharesList200ResponseSharesItemFieldID                 = big.NewInt(1 << 0)
+	sharesList200ResponseSharesItemFieldTenantID           = big.NewInt(1 << 1)
+	sharesList200ResponseSharesItemFieldDocID              = big.NewInt(1 << 2)
+	sharesList200ResponseSharesItemFieldLayerMode          = big.NewInt(1 << 3)
+	sharesList200ResponseSharesItemFieldLayerName          = big.NewInt(1 << 4)
+	sharesList200ResponseSharesItemFieldKeepVisitorLayers  = big.NewInt(1 << 5)
+	sharesList200ResponseSharesItemFieldVisitorIdleSeconds = big.NewInt(1 << 6)
+	sharesList200ResponseSharesItemFieldVisitorIdentity    = big.NewInt(1 << 7)
+	sharesList200ResponseSharesItemFieldScope              = big.NewInt(1 << 8)
+	sharesList200ResponseSharesItemFieldOrigins            = big.NewInt(1 << 9)
+	sharesList200ResponseSharesItemFieldPasswordProtected  = big.NewInt(1 << 10)
+	sharesList200ResponseSharesItemFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesList200ResponseSharesItemFieldDisabled           = big.NewInt(1 << 12)
+	sharesList200ResponseSharesItemFieldArchivedAt         = big.NewInt(1 << 13)
+	sharesList200ResponseSharesItemFieldExpiresAt          = big.NewInt(1 << 14)
+	sharesList200ResponseSharesItemFieldExchangeCount      = big.NewInt(1 << 15)
+	sharesList200ResponseSharesItemFieldLastExchangedAt    = big.NewInt(1 << 16)
+	sharesList200ResponseSharesItemFieldCreatedBy          = big.NewInt(1 << 17)
+	sharesList200ResponseSharesItemFieldCreatedAt          = big.NewInt(1 << 18)
+	sharesList200ResponseSharesItemFieldUpdatedAt          = big.NewInt(1 << 19)
 )
 
 type SharesList200ResponseSharesItem struct {
-	ID                string   `json:"id" url:"id"`
-	TenantID          string   `json:"tenantId" url:"tenantId"`
-	DocID             string   `json:"docId" url:"docId"`
-	LayerName         string   `json:"layerName" url:"layerName"`
-	Scope             []string `json:"scope" url:"scope"`
-	Origins           []string `json:"origins,omitempty" url:"origins,omitempty"`
-	PasswordProtected bool     `json:"passwordProtected" url:"passwordProtected"`
-	SessionTTLSeconds float64  `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled          bool     `json:"disabled" url:"disabled"`
-	ExpiresAt         *float64 `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount     float64  `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt   *float64 `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy         string   `json:"createdBy" url:"createdBy"`
-	CreatedAt         float64  `json:"createdAt" url:"createdAt"`
-	UpdatedAt         float64  `json:"updatedAt" url:"updatedAt"`
+	ID                 string                                          `json:"id" url:"id"`
+	TenantID           string                                          `json:"tenantId" url:"tenantId"`
+	DocID              string                                          `json:"docId" url:"docId"`
+	LayerMode          SharesList200ResponseSharesItemLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName          *string                                         `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers  bool                                            `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds *float64                                        `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity    *SharesList200ResponseSharesItemVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Scope              []string                                        `json:"scope" url:"scope"`
+	Origins            []string                                        `json:"origins,omitempty" url:"origins,omitempty"`
+	PasswordProtected  bool                                            `json:"passwordProtected" url:"passwordProtected"`
+	SessionTTLSeconds  float64                                         `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled           bool                                            `json:"disabled" url:"disabled"`
+	ArchivedAt         *float64                                        `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt          *float64                                        `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount      float64                                         `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt    *float64                                        `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy          string                                          `json:"createdBy" url:"createdBy"`
+	CreatedAt          float64                                         `json:"createdAt" url:"createdAt"`
+	UpdatedAt          float64                                         `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1372,11 +4060,39 @@ func (s *SharesList200ResponseSharesItem) GetDocID() string {
 	return s.DocID
 }
 
-func (s *SharesList200ResponseSharesItem) GetLayerName() string {
+func (s *SharesList200ResponseSharesItem) GetLayerMode() SharesList200ResponseSharesItemLayerMode {
 	if s == nil {
 		return ""
 	}
+	return s.LayerMode
+}
+
+func (s *SharesList200ResponseSharesItem) GetLayerName() *string {
+	if s == nil {
+		return nil
+	}
 	return s.LayerName
+}
+
+func (s *SharesList200ResponseSharesItem) GetKeepVisitorLayers() bool {
+	if s == nil {
+		return false
+	}
+	return s.KeepVisitorLayers
+}
+
+func (s *SharesList200ResponseSharesItem) GetVisitorIdleSeconds() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdleSeconds
+}
+
+func (s *SharesList200ResponseSharesItem) GetVisitorIdentity() *SharesList200ResponseSharesItemVisitorIdentity {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdentity
 }
 
 func (s *SharesList200ResponseSharesItem) GetScope() []string {
@@ -1412,6 +4128,13 @@ func (s *SharesList200ResponseSharesItem) GetDisabled() bool {
 		return false
 	}
 	return s.Disabled
+}
+
+func (s *SharesList200ResponseSharesItem) GetArchivedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ArchivedAt
 }
 
 func (s *SharesList200ResponseSharesItem) GetExpiresAt() *float64 {
@@ -1491,11 +4214,39 @@ func (s *SharesList200ResponseSharesItem) SetDocID(docID string) {
 	s.require(sharesList200ResponseSharesItemFieldDocID)
 }
 
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetLayerMode(layerMode SharesList200ResponseSharesItemLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesList200ResponseSharesItemFieldLayerMode)
+}
+
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesList200ResponseSharesItem) SetLayerName(layerName string) {
+func (s *SharesList200ResponseSharesItem) SetLayerName(layerName *string) {
 	s.LayerName = layerName
 	s.require(sharesList200ResponseSharesItemFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesList200ResponseSharesItemFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesList200ResponseSharesItemFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetVisitorIdentity(visitorIdentity *SharesList200ResponseSharesItemVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesList200ResponseSharesItemFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -1531,6 +4282,13 @@ func (s *SharesList200ResponseSharesItem) SetSessionTTLSeconds(sessionTTLSeconds
 func (s *SharesList200ResponseSharesItem) SetDisabled(disabled bool) {
 	s.Disabled = disabled
 	s.require(sharesList200ResponseSharesItemFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetArchivedAt(archivedAt *float64) {
+	s.ArchivedAt = archivedAt
+	s.require(sharesList200ResponseSharesItemFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
@@ -1615,6 +4373,440 @@ func (s *SharesList200ResponseSharesItem) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", s)
+}
+
+type SharesList200ResponseSharesItemLayerMode string
+
+const (
+	SharesList200ResponseSharesItemLayerModeShared     SharesList200ResponseSharesItemLayerMode = "shared"
+	SharesList200ResponseSharesItemLayerModePerVisitor SharesList200ResponseSharesItemLayerMode = "per-visitor"
+)
+
+func NewSharesList200ResponseSharesItemLayerModeFromString(s string) (SharesList200ResponseSharesItemLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesList200ResponseSharesItemLayerModeShared, nil
+	case "per-visitor":
+		return SharesList200ResponseSharesItemLayerModePerVisitor, nil
+	}
+	var t SharesList200ResponseSharesItemLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemLayerMode) Ptr() *SharesList200ResponseSharesItemLayerMode {
+	return &s
+}
+
+var (
+	sharesList200ResponseSharesItemVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesList200ResponseSharesItemVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesList200ResponseSharesItemVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesList200ResponseSharesItemVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesList200ResponseSharesItemVisitorIdentity struct {
+	Fields     *SharesList200ResponseSharesItemVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesList200ResponseSharesItemVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                               `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                               `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) GetFields() *SharesList200ResponseSharesItemVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) GetAsk() SharesList200ResponseSharesItemVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentity) SetFields(fields *SharesList200ResponseSharesItemVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentity) SetAsk(ask SharesList200ResponseSharesItemVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesList200ResponseSharesItemVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesList200ResponseSharesItemVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesList200ResponseSharesItemVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityAsk string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityAskOnOpen            SharesList200ResponseSharesItemVisitorIdentityAsk = "on-open"
+	SharesList200ResponseSharesItemVisitorIdentityAskBeforeFirstChange SharesList200ResponseSharesItemVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityAskFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesList200ResponseSharesItemVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesList200ResponseSharesItemVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityAsk) Ptr() *SharesList200ResponseSharesItemVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesList200ResponseSharesItemVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesList200ResponseSharesItemVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesList200ResponseSharesItemVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesList200ResponseSharesItemVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesList200ResponseSharesItemVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesList200ResponseSharesItemVisitorIdentityFields struct {
+	DisplayName        *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetDisplayName() *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetEmail() *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetTitle() *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetOrganization() *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetOrganizationalUnit() *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) SetDisplayName(displayName *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) SetEmail(email *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) SetTitle(title *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) SetOrganization(organization *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesList200ResponseSharesItemVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesList200ResponseSharesItemVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesList200ResponseSharesItemVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesList200ResponseSharesItemVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesList200ResponseSharesItemVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameRequired SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName = "required"
+	SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameOptional SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName) Ptr() *SharesList200ResponseSharesItemVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityFieldsEmail string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityFieldsEmailRequired SharesList200ResponseSharesItemVisitorIdentityFieldsEmail = "required"
+	SharesList200ResponseSharesItemVisitorIdentityFieldsEmailOptional SharesList200ResponseSharesItemVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityFieldsEmailFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityFieldsEmail) Ptr() *SharesList200ResponseSharesItemVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationRequired SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization = "required"
+	SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationOptional SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization) Ptr() *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitRequired SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitOptional SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesList200ResponseSharesItemVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesList200ResponseSharesItemVisitorIdentityFieldsTitle string
+
+const (
+	SharesList200ResponseSharesItemVisitorIdentityFieldsTitleRequired SharesList200ResponseSharesItemVisitorIdentityFieldsTitle = "required"
+	SharesList200ResponseSharesItemVisitorIdentityFieldsTitleOptional SharesList200ResponseSharesItemVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesList200ResponseSharesItemVisitorIdentityFieldsTitleFromString(s string) (SharesList200ResponseSharesItemVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesList200ResponseSharesItemVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesList200ResponseSharesItemVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesList200ResponseSharesItemVisitorIdentityFieldsTitle) Ptr() *SharesList200ResponseSharesItemVisitorIdentityFieldsTitle {
+	return &s
 }
 
 var (
@@ -1702,39 +4894,49 @@ func (s *SharesUpdate200Response) String() string {
 }
 
 var (
-	sharesUpdate200ResponseShareFieldID                = big.NewInt(1 << 0)
-	sharesUpdate200ResponseShareFieldTenantID          = big.NewInt(1 << 1)
-	sharesUpdate200ResponseShareFieldDocID             = big.NewInt(1 << 2)
-	sharesUpdate200ResponseShareFieldLayerName         = big.NewInt(1 << 3)
-	sharesUpdate200ResponseShareFieldScope             = big.NewInt(1 << 4)
-	sharesUpdate200ResponseShareFieldOrigins           = big.NewInt(1 << 5)
-	sharesUpdate200ResponseShareFieldPasswordProtected = big.NewInt(1 << 6)
-	sharesUpdate200ResponseShareFieldSessionTTLSeconds = big.NewInt(1 << 7)
-	sharesUpdate200ResponseShareFieldDisabled          = big.NewInt(1 << 8)
-	sharesUpdate200ResponseShareFieldExpiresAt         = big.NewInt(1 << 9)
-	sharesUpdate200ResponseShareFieldExchangeCount     = big.NewInt(1 << 10)
-	sharesUpdate200ResponseShareFieldLastExchangedAt   = big.NewInt(1 << 11)
-	sharesUpdate200ResponseShareFieldCreatedBy         = big.NewInt(1 << 12)
-	sharesUpdate200ResponseShareFieldCreatedAt         = big.NewInt(1 << 13)
-	sharesUpdate200ResponseShareFieldUpdatedAt         = big.NewInt(1 << 14)
+	sharesUpdate200ResponseShareFieldID                 = big.NewInt(1 << 0)
+	sharesUpdate200ResponseShareFieldTenantID           = big.NewInt(1 << 1)
+	sharesUpdate200ResponseShareFieldDocID              = big.NewInt(1 << 2)
+	sharesUpdate200ResponseShareFieldLayerMode          = big.NewInt(1 << 3)
+	sharesUpdate200ResponseShareFieldLayerName          = big.NewInt(1 << 4)
+	sharesUpdate200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
+	sharesUpdate200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
+	sharesUpdate200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
+	sharesUpdate200ResponseShareFieldScope              = big.NewInt(1 << 8)
+	sharesUpdate200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
+	sharesUpdate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
+	sharesUpdate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesUpdate200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
+	sharesUpdate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
+	sharesUpdate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
+	sharesUpdate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
+	sharesUpdate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
+	sharesUpdate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
+	sharesUpdate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
+	sharesUpdate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
 )
 
 type SharesUpdate200ResponseShare struct {
-	ID                string   `json:"id" url:"id"`
-	TenantID          string   `json:"tenantId" url:"tenantId"`
-	DocID             string   `json:"docId" url:"docId"`
-	LayerName         string   `json:"layerName" url:"layerName"`
-	Scope             []string `json:"scope" url:"scope"`
-	Origins           []string `json:"origins,omitempty" url:"origins,omitempty"`
-	PasswordProtected bool     `json:"passwordProtected" url:"passwordProtected"`
-	SessionTTLSeconds float64  `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled          bool     `json:"disabled" url:"disabled"`
-	ExpiresAt         *float64 `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount     float64  `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt   *float64 `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy         string   `json:"createdBy" url:"createdBy"`
-	CreatedAt         float64  `json:"createdAt" url:"createdAt"`
-	UpdatedAt         float64  `json:"updatedAt" url:"updatedAt"`
+	ID                 string                                       `json:"id" url:"id"`
+	TenantID           string                                       `json:"tenantId" url:"tenantId"`
+	DocID              string                                       `json:"docId" url:"docId"`
+	LayerMode          SharesUpdate200ResponseShareLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName          *string                                      `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers  bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity    *SharesUpdate200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Scope              []string                                     `json:"scope" url:"scope"`
+	Origins            []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
+	PasswordProtected  bool                                         `json:"passwordProtected" url:"passwordProtected"`
+	SessionTTLSeconds  float64                                      `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled           bool                                         `json:"disabled" url:"disabled"`
+	ArchivedAt         *float64                                     `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt          *float64                                     `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount      float64                                      `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt    *float64                                     `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy          string                                       `json:"createdBy" url:"createdBy"`
+	CreatedAt          float64                                      `json:"createdAt" url:"createdAt"`
+	UpdatedAt          float64                                      `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1764,11 +4966,39 @@ func (s *SharesUpdate200ResponseShare) GetDocID() string {
 	return s.DocID
 }
 
-func (s *SharesUpdate200ResponseShare) GetLayerName() string {
+func (s *SharesUpdate200ResponseShare) GetLayerMode() SharesUpdate200ResponseShareLayerMode {
 	if s == nil {
 		return ""
 	}
+	return s.LayerMode
+}
+
+func (s *SharesUpdate200ResponseShare) GetLayerName() *string {
+	if s == nil {
+		return nil
+	}
 	return s.LayerName
+}
+
+func (s *SharesUpdate200ResponseShare) GetKeepVisitorLayers() bool {
+	if s == nil {
+		return false
+	}
+	return s.KeepVisitorLayers
+}
+
+func (s *SharesUpdate200ResponseShare) GetVisitorIdleSeconds() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdleSeconds
+}
+
+func (s *SharesUpdate200ResponseShare) GetVisitorIdentity() *SharesUpdate200ResponseShareVisitorIdentity {
+	if s == nil {
+		return nil
+	}
+	return s.VisitorIdentity
 }
 
 func (s *SharesUpdate200ResponseShare) GetScope() []string {
@@ -1804,6 +5034,13 @@ func (s *SharesUpdate200ResponseShare) GetDisabled() bool {
 		return false
 	}
 	return s.Disabled
+}
+
+func (s *SharesUpdate200ResponseShare) GetArchivedAt() *float64 {
+	if s == nil {
+		return nil
+	}
+	return s.ArchivedAt
 }
 
 func (s *SharesUpdate200ResponseShare) GetExpiresAt() *float64 {
@@ -1883,11 +5120,39 @@ func (s *SharesUpdate200ResponseShare) SetDocID(docID string) {
 	s.require(sharesUpdate200ResponseShareFieldDocID)
 }
 
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetLayerMode(layerMode SharesUpdate200ResponseShareLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesUpdate200ResponseShareFieldLayerMode)
+}
+
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesUpdate200ResponseShare) SetLayerName(layerName string) {
+func (s *SharesUpdate200ResponseShare) SetLayerName(layerName *string) {
 	s.LayerName = layerName
 	s.require(sharesUpdate200ResponseShareFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesUpdate200ResponseShareFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesUpdate200ResponseShareFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesUpdate200ResponseShareVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesUpdate200ResponseShareFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -1923,6 +5188,13 @@ func (s *SharesUpdate200ResponseShare) SetSessionTTLSeconds(sessionTTLSeconds fl
 func (s *SharesUpdate200ResponseShare) SetDisabled(disabled bool) {
 	s.Disabled = disabled
 	s.require(sharesUpdate200ResponseShareFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetArchivedAt(archivedAt *float64) {
+	s.ArchivedAt = archivedAt
+	s.require(sharesUpdate200ResponseShareFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
@@ -2009,26 +5281,1486 @@ func (s *SharesUpdate200ResponseShare) String() string {
 	return fmt.Sprintf("%#v", s)
 }
 
+type SharesUpdate200ResponseShareLayerMode string
+
+const (
+	SharesUpdate200ResponseShareLayerModeShared     SharesUpdate200ResponseShareLayerMode = "shared"
+	SharesUpdate200ResponseShareLayerModePerVisitor SharesUpdate200ResponseShareLayerMode = "per-visitor"
+)
+
+func NewSharesUpdate200ResponseShareLayerModeFromString(s string) (SharesUpdate200ResponseShareLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesUpdate200ResponseShareLayerModeShared, nil
+	case "per-visitor":
+		return SharesUpdate200ResponseShareLayerModePerVisitor, nil
+	}
+	var t SharesUpdate200ResponseShareLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareLayerMode) Ptr() *SharesUpdate200ResponseShareLayerMode {
+	return &s
+}
+
 var (
-	sharesUpdateRequestFieldTenantID          = big.NewInt(1 << 0)
-	sharesUpdateRequestFieldShareID           = big.NewInt(1 << 1)
-	sharesUpdateRequestFieldScope             = big.NewInt(1 << 2)
-	sharesUpdateRequestFieldOrigins           = big.NewInt(1 << 3)
-	sharesUpdateRequestFieldPassword          = big.NewInt(1 << 4)
-	sharesUpdateRequestFieldSessionTTLSeconds = big.NewInt(1 << 5)
-	sharesUpdateRequestFieldDisabled          = big.NewInt(1 << 6)
-	sharesUpdateRequestFieldExpiresAt         = big.NewInt(1 << 7)
+	sharesUpdate200ResponseShareVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesUpdate200ResponseShareVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesUpdate200ResponseShareVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesUpdate200ResponseShareVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesUpdate200ResponseShareVisitorIdentity struct {
+	Fields     *SharesUpdate200ResponseShareVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesUpdate200ResponseShareVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                            `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                            `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) GetFields() *SharesUpdate200ResponseShareVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) GetAsk() SharesUpdate200ResponseShareVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentity) SetFields(fields *SharesUpdate200ResponseShareVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentity) SetAsk(ask SharesUpdate200ResponseShareVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesUpdate200ResponseShareVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesUpdate200ResponseShareVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesUpdate200ResponseShareVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityAsk string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityAskOnOpen            SharesUpdate200ResponseShareVisitorIdentityAsk = "on-open"
+	SharesUpdate200ResponseShareVisitorIdentityAskBeforeFirstChange SharesUpdate200ResponseShareVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityAskFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesUpdate200ResponseShareVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesUpdate200ResponseShareVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityAsk) Ptr() *SharesUpdate200ResponseShareVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesUpdate200ResponseShareVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesUpdate200ResponseShareVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesUpdate200ResponseShareVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesUpdate200ResponseShareVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesUpdate200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesUpdate200ResponseShareVisitorIdentityFields struct {
+	DisplayName        *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetDisplayName() *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetEmail() *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetTitle() *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetOrganization() *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetOrganizationalUnit() *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) SetDisplayName(displayName *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) SetEmail(email *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) SetTitle(title *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) SetOrganization(organization *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesUpdate200ResponseShareVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesUpdate200ResponseShareVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesUpdate200ResponseShareVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesUpdate200ResponseShareVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesUpdate200ResponseShareVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameRequired SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName = "required"
+	SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameOptional SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName) Ptr() *SharesUpdate200ResponseShareVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityFieldsEmail string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityFieldsEmailRequired SharesUpdate200ResponseShareVisitorIdentityFieldsEmail = "required"
+	SharesUpdate200ResponseShareVisitorIdentityFieldsEmailOptional SharesUpdate200ResponseShareVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityFieldsEmailFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityFieldsEmail) Ptr() *SharesUpdate200ResponseShareVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationRequired SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization = "required"
+	SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationOptional SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization) Ptr() *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesUpdate200ResponseShareVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesUpdate200ResponseShareVisitorIdentityFieldsTitle string
+
+const (
+	SharesUpdate200ResponseShareVisitorIdentityFieldsTitleRequired SharesUpdate200ResponseShareVisitorIdentityFieldsTitle = "required"
+	SharesUpdate200ResponseShareVisitorIdentityFieldsTitleOptional SharesUpdate200ResponseShareVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesUpdate200ResponseShareVisitorIdentityFieldsTitleFromString(s string) (SharesUpdate200ResponseShareVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesUpdate200ResponseShareVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesUpdate200ResponseShareVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdate200ResponseShareVisitorIdentityFieldsTitle) Ptr() *SharesUpdate200ResponseShareVisitorIdentityFieldsTitle {
+	return &s
+}
+
+type SharesCreateRequestLayerMode string
+
+const (
+	SharesCreateRequestLayerModeShared     SharesCreateRequestLayerMode = "shared"
+	SharesCreateRequestLayerModePerVisitor SharesCreateRequestLayerMode = "per-visitor"
+)
+
+func NewSharesCreateRequestLayerModeFromString(s string) (SharesCreateRequestLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesCreateRequestLayerModeShared, nil
+	case "per-visitor":
+		return SharesCreateRequestLayerModePerVisitor, nil
+	}
+	var t SharesCreateRequestLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestLayerMode) Ptr() *SharesCreateRequestLayerMode {
+	return &s
+}
+
+var (
+	sharesCreateRequestVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesCreateRequestVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesCreateRequestVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesCreateRequestVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesCreateRequestVisitorIdentity struct {
+	Fields     *SharesCreateRequestVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesCreateRequestVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                   `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                   `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesCreateRequestVisitorIdentity) GetFields() *SharesCreateRequestVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesCreateRequestVisitorIdentity) GetAsk() SharesCreateRequestVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesCreateRequestVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesCreateRequestVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesCreateRequestVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesCreateRequestVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentity) SetFields(fields *SharesCreateRequestVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesCreateRequestVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentity) SetAsk(ask SharesCreateRequestVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesCreateRequestVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesCreateRequestVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesCreateRequestVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesCreateRequestVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesCreateRequestVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesCreateRequestVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesCreateRequestVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesCreateRequestVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesCreateRequestVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesCreateRequestVisitorIdentityAsk string
+
+const (
+	SharesCreateRequestVisitorIdentityAskOnOpen            SharesCreateRequestVisitorIdentityAsk = "on-open"
+	SharesCreateRequestVisitorIdentityAskBeforeFirstChange SharesCreateRequestVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesCreateRequestVisitorIdentityAskFromString(s string) (SharesCreateRequestVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesCreateRequestVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesCreateRequestVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesCreateRequestVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityAsk) Ptr() *SharesCreateRequestVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesCreateRequestVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesCreateRequestVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesCreateRequestVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesCreateRequestVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesCreateRequestVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesCreateRequestVisitorIdentityFields struct {
+	DisplayName        *SharesCreateRequestVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesCreateRequestVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesCreateRequestVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesCreateRequestVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetDisplayName() *SharesCreateRequestVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetEmail() *SharesCreateRequestVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetTitle() *SharesCreateRequestVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetOrganization() *SharesCreateRequestVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetOrganizationalUnit() *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentityFields) SetDisplayName(displayName *SharesCreateRequestVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesCreateRequestVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentityFields) SetEmail(email *SharesCreateRequestVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesCreateRequestVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentityFields) SetTitle(title *SharesCreateRequestVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesCreateRequestVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentityFields) SetOrganization(organization *SharesCreateRequestVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesCreateRequestVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequestVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesCreateRequestVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesCreateRequestVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesCreateRequestVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesCreateRequestVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesCreateRequestVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesCreateRequestVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesCreateRequestVisitorIdentityFieldsDisplayNameRequired SharesCreateRequestVisitorIdentityFieldsDisplayName = "required"
+	SharesCreateRequestVisitorIdentityFieldsDisplayNameOptional SharesCreateRequestVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesCreateRequestVisitorIdentityFieldsDisplayNameFromString(s string) (SharesCreateRequestVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesCreateRequestVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesCreateRequestVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesCreateRequestVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityFieldsDisplayName) Ptr() *SharesCreateRequestVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesCreateRequestVisitorIdentityFieldsEmail string
+
+const (
+	SharesCreateRequestVisitorIdentityFieldsEmailRequired SharesCreateRequestVisitorIdentityFieldsEmail = "required"
+	SharesCreateRequestVisitorIdentityFieldsEmailOptional SharesCreateRequestVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesCreateRequestVisitorIdentityFieldsEmailFromString(s string) (SharesCreateRequestVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesCreateRequestVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesCreateRequestVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesCreateRequestVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityFieldsEmail) Ptr() *SharesCreateRequestVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesCreateRequestVisitorIdentityFieldsOrganization string
+
+const (
+	SharesCreateRequestVisitorIdentityFieldsOrganizationRequired SharesCreateRequestVisitorIdentityFieldsOrganization = "required"
+	SharesCreateRequestVisitorIdentityFieldsOrganizationOptional SharesCreateRequestVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesCreateRequestVisitorIdentityFieldsOrganizationFromString(s string) (SharesCreateRequestVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesCreateRequestVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesCreateRequestVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesCreateRequestVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityFieldsOrganization) Ptr() *SharesCreateRequestVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesCreateRequestVisitorIdentityFieldsOrganizationalUnitRequired SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesCreateRequestVisitorIdentityFieldsOrganizationalUnitOptional SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesCreateRequestVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesCreateRequestVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesCreateRequestVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesCreateRequestVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesCreateRequestVisitorIdentityFieldsTitle string
+
+const (
+	SharesCreateRequestVisitorIdentityFieldsTitleRequired SharesCreateRequestVisitorIdentityFieldsTitle = "required"
+	SharesCreateRequestVisitorIdentityFieldsTitleOptional SharesCreateRequestVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesCreateRequestVisitorIdentityFieldsTitleFromString(s string) (SharesCreateRequestVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesCreateRequestVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesCreateRequestVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesCreateRequestVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesCreateRequestVisitorIdentityFieldsTitle) Ptr() *SharesCreateRequestVisitorIdentityFieldsTitle {
+	return &s
+}
+
+var (
+	sharesExchangeRequestVisitorIdentityFieldDisplayName        = big.NewInt(1 << 0)
+	sharesExchangeRequestVisitorIdentityFieldEmail              = big.NewInt(1 << 1)
+	sharesExchangeRequestVisitorIdentityFieldTitle              = big.NewInt(1 << 2)
+	sharesExchangeRequestVisitorIdentityFieldOrganization       = big.NewInt(1 << 3)
+	sharesExchangeRequestVisitorIdentityFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesExchangeRequestVisitorIdentity struct {
+	DisplayName        *string `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *string `json:"email,omitempty" url:"email,omitempty"`
+	Title              *string `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetDisplayName() *string {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetEmail() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetTitle() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetOrganization() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetOrganizationalUnit() *string {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequestVisitorIdentity) SetDisplayName(displayName *string) {
+	s.DisplayName = displayName
+	s.require(sharesExchangeRequestVisitorIdentityFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequestVisitorIdentity) SetEmail(email *string) {
+	s.Email = email
+	s.require(sharesExchangeRequestVisitorIdentityFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequestVisitorIdentity) SetTitle(title *string) {
+	s.Title = title
+	s.require(sharesExchangeRequestVisitorIdentityFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequestVisitorIdentity) SetOrganization(organization *string) {
+	s.Organization = organization
+	s.require(sharesExchangeRequestVisitorIdentityFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesExchangeRequestVisitorIdentity) SetOrganizationalUnit(organizationalUnit *string) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesExchangeRequestVisitorIdentityFieldOrganizationalUnit)
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesExchangeRequestVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesExchangeRequestVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesExchangeRequestVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesExchangeRequestVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesUpdateRequestLayerMode string
+
+const (
+	SharesUpdateRequestLayerModeShared     SharesUpdateRequestLayerMode = "shared"
+	SharesUpdateRequestLayerModePerVisitor SharesUpdateRequestLayerMode = "per-visitor"
+)
+
+func NewSharesUpdateRequestLayerModeFromString(s string) (SharesUpdateRequestLayerMode, error) {
+	switch s {
+	case "shared":
+		return SharesUpdateRequestLayerModeShared, nil
+	case "per-visitor":
+		return SharesUpdateRequestLayerModePerVisitor, nil
+	}
+	var t SharesUpdateRequestLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestLayerMode) Ptr() *SharesUpdateRequestLayerMode {
+	return &s
+}
+
+var (
+	sharesUpdateRequestVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	sharesUpdateRequestVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	sharesUpdateRequestVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	sharesUpdateRequestVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type SharesUpdateRequestVisitorIdentity struct {
+	Fields     *SharesUpdateRequestVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        SharesUpdateRequestVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                   `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                   `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) GetFields() *SharesUpdateRequestVisitorIdentityFields {
+	if s == nil {
+		return nil
+	}
+	return s.Fields
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) GetAsk() SharesUpdateRequestVisitorIdentityAsk {
+	if s == nil {
+		return ""
+	}
+	return s.Ask
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) GetPurpose() *string {
+	if s == nil {
+		return nil
+	}
+	return s.Purpose
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) GetPrivacyURL() *string {
+	if s == nil {
+		return nil
+	}
+	return s.PrivacyURL
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentity) SetFields(fields *SharesUpdateRequestVisitorIdentityFields) {
+	s.Fields = fields
+	s.require(sharesUpdateRequestVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentity) SetAsk(ask SharesUpdateRequestVisitorIdentityAsk) {
+	s.Ask = ask
+	s.require(sharesUpdateRequestVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentity) SetPurpose(purpose *string) {
+	s.Purpose = purpose
+	s.require(sharesUpdateRequestVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	s.PrivacyURL = privacyURL
+	s.require(sharesUpdateRequestVisitorIdentityFieldPrivacyURL)
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesUpdateRequestVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesUpdateRequestVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed SharesUpdateRequestVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesUpdateRequestVisitorIdentity) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesUpdateRequestVisitorIdentityAsk string
+
+const (
+	SharesUpdateRequestVisitorIdentityAskOnOpen            SharesUpdateRequestVisitorIdentityAsk = "on-open"
+	SharesUpdateRequestVisitorIdentityAskBeforeFirstChange SharesUpdateRequestVisitorIdentityAsk = "before-first-change"
+)
+
+func NewSharesUpdateRequestVisitorIdentityAskFromString(s string) (SharesUpdateRequestVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return SharesUpdateRequestVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return SharesUpdateRequestVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityAsk) Ptr() *SharesUpdateRequestVisitorIdentityAsk {
+	return &s
+}
+
+var (
+	sharesUpdateRequestVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	sharesUpdateRequestVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	sharesUpdateRequestVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	sharesUpdateRequestVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	sharesUpdateRequestVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type SharesUpdateRequestVisitorIdentityFields struct {
+	DisplayName        *SharesUpdateRequestVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *SharesUpdateRequestVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *SharesUpdateRequestVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *SharesUpdateRequestVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetDisplayName() *SharesUpdateRequestVisitorIdentityFieldsDisplayName {
+	if s == nil {
+		return nil
+	}
+	return s.DisplayName
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetEmail() *SharesUpdateRequestVisitorIdentityFieldsEmail {
+	if s == nil {
+		return nil
+	}
+	return s.Email
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetTitle() *SharesUpdateRequestVisitorIdentityFieldsTitle {
+	if s == nil {
+		return nil
+	}
+	return s.Title
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetOrganization() *SharesUpdateRequestVisitorIdentityFieldsOrganization {
+	if s == nil {
+		return nil
+	}
+	return s.Organization
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetOrganizationalUnit() *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit {
+	if s == nil {
+		return nil
+	}
+	return s.OrganizationalUnit
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if s == nil {
+		return nil
+	}
+	return s.extraProperties
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) require(field *big.Int) {
+	if s.explicitFields == nil {
+		s.explicitFields = big.NewInt(0)
+	}
+	s.explicitFields.Or(s.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentityFields) SetDisplayName(displayName *SharesUpdateRequestVisitorIdentityFieldsDisplayName) {
+	s.DisplayName = displayName
+	s.require(sharesUpdateRequestVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentityFields) SetEmail(email *SharesUpdateRequestVisitorIdentityFieldsEmail) {
+	s.Email = email
+	s.require(sharesUpdateRequestVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentityFields) SetTitle(title *SharesUpdateRequestVisitorIdentityFieldsTitle) {
+	s.Title = title
+	s.require(sharesUpdateRequestVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentityFields) SetOrganization(organization *SharesUpdateRequestVisitorIdentityFieldsOrganization) {
+	s.Organization = organization
+	s.require(sharesUpdateRequestVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequestVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit) {
+	s.OrganizationalUnit = organizationalUnit
+	s.require(sharesUpdateRequestVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler SharesUpdateRequestVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*s = SharesUpdateRequestVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *s)
+	if err != nil {
+		return err
+	}
+	s.extraProperties = extraProperties
+	s.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed SharesUpdateRequestVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*s),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (s *SharesUpdateRequestVisitorIdentityFields) String() string {
+	if s == nil {
+		return "<nil>"
+	}
+	if len(s.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(s); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", s)
+}
+
+type SharesUpdateRequestVisitorIdentityFieldsDisplayName string
+
+const (
+	SharesUpdateRequestVisitorIdentityFieldsDisplayNameRequired SharesUpdateRequestVisitorIdentityFieldsDisplayName = "required"
+	SharesUpdateRequestVisitorIdentityFieldsDisplayNameOptional SharesUpdateRequestVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewSharesUpdateRequestVisitorIdentityFieldsDisplayNameFromString(s string) (SharesUpdateRequestVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return SharesUpdateRequestVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return SharesUpdateRequestVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityFieldsDisplayName) Ptr() *SharesUpdateRequestVisitorIdentityFieldsDisplayName {
+	return &s
+}
+
+type SharesUpdateRequestVisitorIdentityFieldsEmail string
+
+const (
+	SharesUpdateRequestVisitorIdentityFieldsEmailRequired SharesUpdateRequestVisitorIdentityFieldsEmail = "required"
+	SharesUpdateRequestVisitorIdentityFieldsEmailOptional SharesUpdateRequestVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewSharesUpdateRequestVisitorIdentityFieldsEmailFromString(s string) (SharesUpdateRequestVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return SharesUpdateRequestVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return SharesUpdateRequestVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityFieldsEmail) Ptr() *SharesUpdateRequestVisitorIdentityFieldsEmail {
+	return &s
+}
+
+type SharesUpdateRequestVisitorIdentityFieldsOrganization string
+
+const (
+	SharesUpdateRequestVisitorIdentityFieldsOrganizationRequired SharesUpdateRequestVisitorIdentityFieldsOrganization = "required"
+	SharesUpdateRequestVisitorIdentityFieldsOrganizationOptional SharesUpdateRequestVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewSharesUpdateRequestVisitorIdentityFieldsOrganizationFromString(s string) (SharesUpdateRequestVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return SharesUpdateRequestVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return SharesUpdateRequestVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityFieldsOrganization) Ptr() *SharesUpdateRequestVisitorIdentityFieldsOrganization {
+	return &s
+}
+
+type SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitRequired SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit = "required"
+	SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitOptional SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewSharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitFromString(s string) (SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit) Ptr() *SharesUpdateRequestVisitorIdentityFieldsOrganizationalUnit {
+	return &s
+}
+
+type SharesUpdateRequestVisitorIdentityFieldsTitle string
+
+const (
+	SharesUpdateRequestVisitorIdentityFieldsTitleRequired SharesUpdateRequestVisitorIdentityFieldsTitle = "required"
+	SharesUpdateRequestVisitorIdentityFieldsTitleOptional SharesUpdateRequestVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewSharesUpdateRequestVisitorIdentityFieldsTitleFromString(s string) (SharesUpdateRequestVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return SharesUpdateRequestVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return SharesUpdateRequestVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t SharesUpdateRequestVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (s SharesUpdateRequestVisitorIdentityFieldsTitle) Ptr() *SharesUpdateRequestVisitorIdentityFieldsTitle {
+	return &s
+}
+
+var (
+	sharesUpdateRequestFieldTenantID           = big.NewInt(1 << 0)
+	sharesUpdateRequestFieldShareID            = big.NewInt(1 << 1)
+	sharesUpdateRequestFieldLayerMode          = big.NewInt(1 << 2)
+	sharesUpdateRequestFieldLayerName          = big.NewInt(1 << 3)
+	sharesUpdateRequestFieldKeepVisitorLayers  = big.NewInt(1 << 4)
+	sharesUpdateRequestFieldVisitorIdleSeconds = big.NewInt(1 << 5)
+	sharesUpdateRequestFieldVisitorIdentity    = big.NewInt(1 << 6)
+	sharesUpdateRequestFieldScope              = big.NewInt(1 << 7)
+	sharesUpdateRequestFieldOrigins            = big.NewInt(1 << 8)
+	sharesUpdateRequestFieldPassword           = big.NewInt(1 << 9)
+	sharesUpdateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 10)
+	sharesUpdateRequestFieldDisabled           = big.NewInt(1 << 11)
+	sharesUpdateRequestFieldExpiresAt          = big.NewInt(1 << 12)
 )
 
 type SharesUpdateRequest struct {
-	TenantID          string   `json:"-" url:"-"`
-	ShareID           string   `json:"-" url:"-"`
-	Scope             []string `json:"scope,omitempty" url:"-"`
-	Origins           []string `json:"origins,omitempty" url:"-"`
-	Password          *string  `json:"password,omitempty" url:"-"`
-	SessionTTLSeconds *int     `json:"sessionTtlSeconds,omitempty" url:"-"`
-	Disabled          *bool    `json:"disabled,omitempty" url:"-"`
-	ExpiresAt         *int     `json:"expiresAt,omitempty" url:"-"`
+	TenantID           string                              `json:"-" url:"-"`
+	ShareID            string                              `json:"-" url:"-"`
+	LayerMode          *SharesUpdateRequestLayerMode       `json:"layerMode,omitempty" url:"-"`
+	LayerName          *string                             `json:"layerName,omitempty" url:"-"`
+	KeepVisitorLayers  *bool                               `json:"keepVisitorLayers,omitempty" url:"-"`
+	VisitorIdleSeconds *int                                `json:"visitorIdleSeconds,omitempty" url:"-"`
+	VisitorIdentity    *SharesUpdateRequestVisitorIdentity `json:"visitorIdentity,omitempty" url:"-"`
+	Scope              []string                            `json:"scope,omitempty" url:"-"`
+	Origins            []string                            `json:"origins,omitempty" url:"-"`
+	Password           *string                             `json:"password,omitempty" url:"-"`
+	SessionTTLSeconds  *int                                `json:"sessionTtlSeconds,omitempty" url:"-"`
+	Disabled           *bool                               `json:"disabled,omitempty" url:"-"`
+	ExpiresAt          *int                                `json:"expiresAt,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2053,6 +6785,41 @@ func (s *SharesUpdateRequest) SetTenantID(tenantID string) {
 func (s *SharesUpdateRequest) SetShareID(shareID string) {
 	s.ShareID = shareID
 	s.require(sharesUpdateRequestFieldShareID)
+}
+
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetLayerMode(layerMode *SharesUpdateRequestLayerMode) {
+	s.LayerMode = layerMode
+	s.require(sharesUpdateRequestFieldLayerMode)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetLayerName(layerName *string) {
+	s.LayerName = layerName
+	s.require(sharesUpdateRequestFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetKeepVisitorLayers(keepVisitorLayers *bool) {
+	s.KeepVisitorLayers = keepVisitorLayers
+	s.require(sharesUpdateRequestFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
+	s.VisitorIdleSeconds = visitorIdleSeconds
+	s.require(sharesUpdateRequestFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetVisitorIdentity(visitorIdentity *SharesUpdateRequestVisitorIdentity) {
+	s.VisitorIdentity = visitorIdentity
+	s.require(sharesUpdateRequestFieldVisitorIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;

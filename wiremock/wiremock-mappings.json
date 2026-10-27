@@ -147,6 +147,45 @@
       }
     },
     {
+      "id": "872f0a12-334e-4a35-9a99-9c355c5964f3",
+      "name": "A short-lived URL that downloads the layer's current PDF without an Authorization header, for services that only take a plain URL. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/download-link",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"url\": \"url\",\n  \"expiresAt\": 1.1\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "872f0a12-334e-4a35-9a99-9c355c5964f3",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "f15ad081-ba33-4481-8301-59d43d63332e",
       "name": "Full layer manifest at the layer's current version. - default",
       "request": {
@@ -278,7 +317,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"token\": \"token\",\n  \"docId\": \"docId\",\n  \"layerName\": \"layerName\",\n  \"expiresAt\": 1.1\n}",
+        "body": "{\n  \"token\": \"token\",\n  \"docId\": \"docId\",\n  \"layerName\": \"layerName\",\n  \"layerMode\": \"shared\",\n  \"visitor\": {\n    \"handle\": \"handle\",\n    \"keep\": true,\n    \"identityRequest\": {\n      \"fields\": {},\n      \"missing\": [\n        \"displayName\"\n      ],\n      \"invalid\": [\n        \"displayName\"\n      ],\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    }\n  },\n  \"expiresAt\": 1.1\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -314,7 +353,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -350,7 +389,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -389,7 +428,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -407,8 +446,8 @@
       }
     },
     {
-      "id": "66492131-2094-409e-9047-a56ec6165f0f",
-      "name": "Delete a grant; exchange stops immediately, live sessions lapse at their exp. - default",
+      "id": "0abb8210-bb6b-4afc-9689-835eb5577798",
+      "name": "Delete a link that has no visitors; exchange stops immediately, live sessions lapse at their exp. A link whose visitors answered its questions or have layers is archived instead (409). - default",
       "request": {
         "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
         "method": "DELETE",
@@ -433,7 +472,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "66492131-2094-409e-9047-a56ec6165f0f",
+      "uuid": "0abb8210-bb6b-4afc-9689-835eb5577798",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -467,12 +506,51 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerName\": \"layerName\",\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
       "uuid": "ff0ab44d-02bc-42c0-8e5b-346f4bf223c7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "223f7bfd-392e-484f-a97b-3a83f9cafb58",
+      "name": "End a link for good and keep what its visitors made: exchange stops immediately, live sessions lapse at their exp, and its visitors' layers stay listed. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/archive",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "223f7bfd-392e-484f-a97b-3a83f9cafb58",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2823,9 +2901,171 @@
           }
         }
       }
+    },
+    {
+      "id": "64e62853-f22d-40f8-96f8-25a7d109337c",
+      "name": "A document's layers that hold changes, newest first, cursor-paginated: the ones links and your tokens name, and each share-link visitor's own. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/layers",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"layers\": [\n    {\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"shareId\": \"shareId\",\n      \"visitorId\": \"visitorId\",\n      \"storageSizeBytes\": 1.1,\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"lastSeenAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "64e62853-f22d-40f8-96f8-25a7d109337c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "4505b31c-de6e-4008-ba47-1d36a692c428",
+      "name": "Delete a layer and everything it stored. A layer that was written can't be used again under its name; one nobody wrote stays usable. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/layers/{layerName}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "4505b31c-de6e-4008-ba47-1d36a692c428",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "d043f81c-2224-4e34-88fa-3cee18e1c8ef",
+      "name": "A share link's visitors who answered its questions or made a change, newest first, cursor-paginated: their answers and their layer. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/visitors",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"visitors\": [\n    {\n      \"visitorId\": \"visitorId\",\n      \"answers\": {},\n      \"emailVerified\": true,\n      \"consentedAt\": 1.1,\n      \"firstSeenAt\": 1.1,\n      \"lastSeenAt\": 1.1,\n      \"layer\": {\n        \"layerName\": \"layerName\",\n        \"storageSizeBytes\": null\n      }\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d043f81c-2224-4e34-88fa-3cee18e1c8ef",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b5d7349b-212b-4b2b-882c-f45acc0a67da",
+      "name": "Erase a share link's visitor: their answers and their own layer. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/visitors/{visitorId}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "shareId": {
+            "equalTo": "shareId"
+          },
+          "visitorId": {
+            "equalTo": "visitorId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b5d7349b-212b-4b2b-882c-f45acc0a67da",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
     }
   ],
   "meta": {
-    "total": 72
+    "total": 78
   }
 }

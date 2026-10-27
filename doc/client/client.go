@@ -146,6 +146,34 @@ func (c *Client) Download(
 	return response.Body, nil
 }
 
+// The link opens the layer as it is when created: once the layer changes, it answers 404, so create it right before handing it over. It downloads that one file and nothing else, and a password-protected document is checked when the link is created. Deployments that verify tokens with their own keys (JWKS) mint links on their backend: a doc token with `layer_name`, a `download: { docVersion, mode: "incremental" }` claim and a short `exp`, passed as `link` on the versioned download URL.
+//
+// Example:
+//
+//	request := &cloudpdf.DocDownloadLinkRequest{
+//	    DocID: "docId",
+//	    LayerName: "layerName",
+//	}
+//	client.Doc.DownloadLink(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) DownloadLink(
+	ctx context.Context,
+	request *cloudpdf.DocDownloadLinkRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocDownloadLink200Response, error) {
+	response, err := c.WithRawResponse.DownloadLink(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &cloudpdf.ManifestDocRequest{

@@ -238,3 +238,30 @@ func TestSharesUpdateWithWireMock(
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestSharesUpdateWithWireMock", "PATCH", "/v1/tenants/tenantId/shares/shareId", nil, 1)
 }
+
+func TestSharesArchiveWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.ArchiveSharesRequest{
+		TenantID: "tenantId",
+		ShareID:  "shareId",
+	}
+	_, invocationErr := client.Shares.Archive(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestSharesArchiveWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestSharesArchiveWithWireMock", "POST", "/v1/tenants/tenantId/shares/shareId/archive", nil, 1)
+}
