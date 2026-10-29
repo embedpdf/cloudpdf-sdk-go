@@ -353,7 +353,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"identity\": {},\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -389,7 +389,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -428,7 +428,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -506,7 +506,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -545,7 +545,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -806,8 +806,8 @@
       }
     },
     {
-      "id": "829d2307-6f88-4949-b9a7-90da4814e35a",
-      "name": "List documents in the tenant, newest first, cursor-paginated. - default",
+      "id": "a3851c32-edcc-49eb-a217-25e36d9e6d57",
+      "name": "List documents in the tenant, cursor-paginated: newest first by default, or searched by name and sorted by name or size. - default",
       "request": {
         "urlPathTemplate": "/v1/tenants/{tenantId}/documents",
         "method": "GET",
@@ -824,12 +824,12 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"documents\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"state\": \"pending\",\n      \"baseSha\": \"baseSha\",\n      \"storageSizeBytes\": 1.1,\n      \"metadata\": {\n        \"key\": \"value\"\n      },\n      \"idempotencyKey\": \"idempotencyKey\",\n      \"failureReason\": \"failureReason\",\n      \"thumbnailState\": \"pending\",\n      \"thumbnailUrl\": \"thumbnailUrl\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"documents\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"name\": \"name\",\n      \"folderId\": \"folderId\",\n      \"state\": \"pending\",\n      \"baseSha\": \"baseSha\",\n      \"storageSizeBytes\": 1.1,\n      \"metadata\": {\n        \"key\": \"value\"\n      },\n      \"idempotencyKey\": \"idempotencyKey\",\n      \"failureReason\": \"failureReason\",\n      \"thumbnailState\": \"pending\",\n      \"thumbnailUrl\": \"thumbnailUrl\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "829d2307-6f88-4949-b9a7-90da4814e35a",
+      "uuid": "a3851c32-edcc-49eb-a217-25e36d9e6d57",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -863,7 +863,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -920,6 +920,45 @@
       }
     },
     {
+      "id": "d36ffc5c-0d3a-4251-9e07-a4c25a8a6d9a",
+      "name": "Rename a document. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "id": {
+            "equalTo": "id"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "d36ffc5c-0d3a-4251-9e07-a4c25a8a6d9a",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
       "id": "7900e323-666f-4656-97d4-49fa2a712d25",
       "name": "Finish an upload: verify the SHA-256 and promote the document to ready. - default",
       "request": {
@@ -941,7 +980,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1094,7 +1133,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tag\": \"imported\",\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"tag\": \"imported\",\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1130,12 +1169,240 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"upload\": {\n    \"presigned\": {\n      \"url\": \"url\",\n      \"headers\": {\n        \"key\": \"value\"\n      },\n      \"method\": \"PUT\",\n      \"expiresAt\": 1.1\n    },\n    \"key\": \"key\",\n    \"kind\": \"presigned\"\n  },\n  \"tag\": \"created\"\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"upload\": {\n    \"presigned\": {\n      \"url\": \"url\",\n      \"headers\": {\n        \"key\": \"value\"\n      },\n      \"method\": \"PUT\",\n      \"expiresAt\": 1.1\n    },\n    \"key\": \"key\",\n    \"kind\": \"presigned\"\n  },\n  \"tag\": \"created\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
       "uuid": "52722630-c23c-4ef6-9600-e4dbad2d5dda",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "a2963d97-8975-4b39-a324-703a63ccf930",
+      "name": "List folders by name, cursor-paginated: every folder, or those directly in one folder. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"folders\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"parentId\": \"parentId\",\n      \"name\": \"name\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "a2963d97-8975-4b39-a324-703a63ccf930",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "2218d684-0a26-4c6e-8f8a-13df19546db6",
+      "name": "Create a folder at the top level or inside another folder. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "2218d684-0a26-4c6e-8f8a-13df19546db6",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "547d3050-1617-4f8b-b531-53444207d4fb",
+      "name": "Fetch one folder and the folders above it. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders/{folderId}",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "folderId": {
+            "equalTo": "folderId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"path\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\"\n    }\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "547d3050-1617-4f8b-b531-53444207d4fb",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "1fb977af-d74b-45db-bb76-6bb570650e2c",
+      "name": "Delete an empty folder, or with recursive=true a folder and everything in it. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders/{folderId}",
+        "method": "DELETE",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "folderId": {
+            "equalTo": "folderId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "1fb977af-d74b-45db-bb76-6bb570650e2c",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "b7995703-fb31-4dfd-9370-8a35a20755b7",
+      "name": "Rename a folder. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders/{folderId}",
+        "method": "PATCH",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "folderId": {
+            "equalTo": "folderId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "b7995703-fb31-4dfd-9370-8a35a20755b7",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "9af1567c-cf39-45ad-a1bb-26c2a74c3b48",
+      "name": "Move documents and folders into a folder, or to the top level with root. All of them move, or none do. - default",
+      "request": {
+        "urlPathTemplate": "/v1/tenants/{tenantId}/folders/{folderId}/move-into",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "tenantId": {
+            "equalTo": "tenantId"
+          },
+          "folderId": {
+            "equalTo": "folderId"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "\"\"",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "9af1567c-cf39-45ad-a1bb-26c2a74c3b48",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2582,10 +2849,10 @@
       }
     },
     {
-      "id": "41893262-4230-4914-a316-df1d9bdcfd50",
-      "name": "The document's base versions, oldest first, and its head. - default",
+      "id": "73598aa0-4265-4c15-8fd4-cce2650a4f20",
+      "name": "A layer's versions, oldest first: the upload, then the ones its signatures made; and its base. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2595,17 +2862,20 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"head\": \"head\",\n  \"versions\": [\n    {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1,\n      \"number\": 1,\n      \"parentSha256\": \"parentSha256\",\n      \"producer\": \"upload\",\n      \"signingId\": \"signingId\",\n      \"createdAt\": 1\n    }\n  ]\n}",
+        "body": "{\n  \"baseSha\": \"baseSha\",\n  \"versions\": [\n    {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1,\n      \"number\": 1,\n      \"parentSha256\": \"parentSha256\",\n      \"producer\": \"upload\",\n      \"signingId\": \"signingId\",\n      \"createdAt\": 1\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "41893262-4230-4914-a316-df1d9bdcfd50",
+      "uuid": "73598aa0-4265-4c15-8fd4-cce2650a4f20",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2618,10 +2888,10 @@
       }
     },
     {
-      "id": "f704f58d-78e7-4d6a-9598-4d7b8e9f56f4",
-      "name": "What changed between two revisions of one base version (immutable). - default",
+      "id": "7b832a05-89f5-4f6f-8bcd-06af91ef6cc2",
+      "name": "What changed between two revisions of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/analysis/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/analysis/{sha}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2631,6 +2901,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2644,7 +2917,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "f704f58d-78e7-4d6a-9598-4d7b8e9f56f4",
+      "uuid": "7b832a05-89f5-4f6f-8bcd-06af91ef6cc2",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2657,10 +2930,10 @@
       }
     },
     {
-      "id": "614d1369-efa8-4a1a-82ae-649758bc2307",
-      "name": "The bytes of one base version (immutable). - default",
+      "id": "8327e642-5e2c-473f-b602-1b7a2fa42085",
+      "name": "The bytes of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/download/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/download/{sha}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2670,6 +2943,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2683,7 +2959,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "614d1369-efa8-4a1a-82ae-649758bc2307",
+      "uuid": "8327e642-5e2c-473f-b602-1b7a2fa42085",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2696,10 +2972,10 @@
       }
     },
     {
-      "id": "9538ee89-6904-4312-8017-2d37c213f4d2",
-      "name": "The byte prefix of one revision of a base version: exactly what a signature over it signed (immutable). - default",
+      "id": "e8ffad79-b84f-4840-9677-44aed09c1cb5",
+      "name": "The byte prefix of one revision of a layer's version: exactly what a signature over it signed (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/revisions/{sha}/{index}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/revisions/{sha}/{index}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2709,6 +2985,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2725,7 +3004,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "9538ee89-6904-4312-8017-2d37c213f4d2",
+      "uuid": "e8ffad79-b84f-4840-9677-44aed09c1cb5",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2738,10 +3017,10 @@
       }
     },
     {
-      "id": "18046923-a1df-4f12-a2c2-c42b19ca866f",
-      "name": "The signature snapshot of one base version (immutable). - default",
+      "id": "9274ab9a-c8b5-43d8-9c85-d0608ad866fb",
+      "name": "The signature snapshot of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2751,6 +3030,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2764,7 +3046,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "18046923-a1df-4f12-a2c2-c42b19ca866f",
+      "uuid": "9274ab9a-c8b5-43d8-9c85-d0608ad866fb",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2777,10 +3059,10 @@
       }
     },
     {
-      "id": "8cb57671-3b0b-40b1-beb5-d5b46b9ec173",
-      "name": "The DER /Contents of a signed field in one base version (immutable). - default",
+      "id": "09b09dbf-a1e7-412d-8b20-fdfcb397d5d7",
+      "name": "The DER /Contents of a signed field in one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}/{fieldKey}/contents",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}/{fieldKey}/contents",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2790,6 +3072,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2806,7 +3091,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "8cb57671-3b0b-40b1-beb5-d5b46b9ec173",
+      "uuid": "09b09dbf-a1e7-412d-8b20-fdfcb397d5d7",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2819,10 +3104,10 @@
       }
     },
     {
-      "id": "64c8e978-b2b6-44b2-9261-4df55998041c",
-      "name": "The digest of a signed field's /ByteRange in one base version (immutable). - default",
+      "id": "e0798858-e066-4e6e-8b8d-ef4a17cc4bcc",
+      "name": "The digest of a signed field's /ByteRange in one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/versions/signatures/{sha}/{fieldKey}/digest/{algorithm}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}/{fieldKey}/digest/{algorithm}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -2832,6 +3117,9 @@
         "pathParameters": {
           "docId": {
             "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
           },
           "sha": {
             "equalTo": "sha"
@@ -2851,7 +3139,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "64c8e978-b2b6-44b2-9261-4df55998041c",
+      "uuid": "e0798858-e066-4e6e-8b8d-ef4a17cc4bcc",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3066,6 +3354,6 @@
     }
   ],
   "meta": {
-    "total": 78
+    "total": 85
   }
 }

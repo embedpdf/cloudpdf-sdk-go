@@ -10,18 +10,20 @@ import (
 var (
 	analysisVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	analysisVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	analysisVersionsRequestFieldSha              = big.NewInt(1 << 2)
-	analysisVersionsRequestFieldSinceSignature   = big.NewInt(1 << 3)
-	analysisVersionsRequestFieldSinceRevision    = big.NewInt(1 << 4)
-	analysisVersionsRequestFieldLevel            = big.NewInt(1 << 5)
-	analysisVersionsRequestFieldUntil            = big.NewInt(1 << 6)
-	analysisVersionsRequestFieldPolicy           = big.NewInt(1 << 7)
+	analysisVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	analysisVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	analysisVersionsRequestFieldSinceSignature   = big.NewInt(1 << 4)
+	analysisVersionsRequestFieldSinceRevision    = big.NewInt(1 << 5)
+	analysisVersionsRequestFieldLevel            = big.NewInt(1 << 6)
+	analysisVersionsRequestFieldUntil            = big.NewInt(1 << 7)
+	analysisVersionsRequestFieldPolicy           = big.NewInt(1 << 8)
 )
 
 type AnalysisVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string                       `json:"-" url:"-"`
 	DocID            string                        `json:"-" url:"-"`
+	LayerName        string                        `json:"-" url:"-"`
 	Sha              string                        `json:"-" url:"-"`
 	SinceSignature   *int                          `json:"-" url:"since.signature,omitempty"`
 	SinceRevision    *int                          `json:"-" url:"since.revision,omitempty"`
@@ -52,6 +54,13 @@ func (a *AnalysisVersionsRequest) SetDocumentPassword(documentPassword *string) 
 func (a *AnalysisVersionsRequest) SetDocID(docID string) {
 	a.DocID = docID
 	a.require(analysisVersionsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnalysisVersionsRequest) SetLayerName(layerName string) {
+	a.LayerName = layerName
+	a.require(analysisVersionsRequestFieldLayerName)
 }
 
 // SetSha sets the Sha field and marks it as non-optional;
@@ -99,13 +108,15 @@ func (a *AnalysisVersionsRequest) SetPolicy(policy *int) {
 var (
 	downloadVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	downloadVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	downloadVersionsRequestFieldSha              = big.NewInt(1 << 2)
+	downloadVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	downloadVersionsRequestFieldSha              = big.NewInt(1 << 3)
 )
 
 type DownloadVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
 	Sha              string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -133,6 +144,13 @@ func (d *DownloadVersionsRequest) SetDocID(docID string) {
 	d.require(downloadVersionsRequestFieldDocID)
 }
 
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DownloadVersionsRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(downloadVersionsRequestFieldLayerName)
+}
+
 // SetSha sets the Sha field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (d *DownloadVersionsRequest) SetSha(sha string) {
@@ -143,12 +161,14 @@ func (d *DownloadVersionsRequest) SetSha(sha string) {
 var (
 	listVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	listVersionsRequestFieldDocID            = big.NewInt(1 << 1)
+	listVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
 )
 
 type ListVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -175,17 +195,26 @@ func (l *ListVersionsRequest) SetDocID(docID string) {
 	l.require(listVersionsRequestFieldDocID)
 }
 
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListVersionsRequest) SetLayerName(layerName string) {
+	l.LayerName = layerName
+	l.require(listVersionsRequestFieldLayerName)
+}
+
 var (
 	revisionVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	revisionVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	revisionVersionsRequestFieldSha              = big.NewInt(1 << 2)
-	revisionVersionsRequestFieldIndex            = big.NewInt(1 << 3)
+	revisionVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	revisionVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	revisionVersionsRequestFieldIndex            = big.NewInt(1 << 4)
 )
 
 type RevisionVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
 	Sha              string  `json:"-" url:"-"`
 	Index            int     `json:"-" url:"-"`
 
@@ -214,6 +243,13 @@ func (r *RevisionVersionsRequest) SetDocID(docID string) {
 	r.require(revisionVersionsRequestFieldDocID)
 }
 
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RevisionVersionsRequest) SetLayerName(layerName string) {
+	r.LayerName = layerName
+	r.require(revisionVersionsRequestFieldLayerName)
+}
+
 // SetSha sets the Sha field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (r *RevisionVersionsRequest) SetSha(sha string) {
@@ -231,14 +267,16 @@ func (r *RevisionVersionsRequest) SetIndex(index int) {
 var (
 	signatureContentsVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signatureContentsVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	signatureContentsVersionsRequestFieldSha              = big.NewInt(1 << 2)
-	signatureContentsVersionsRequestFieldFieldKey         = big.NewInt(1 << 3)
+	signatureContentsVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	signatureContentsVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	signatureContentsVersionsRequestFieldFieldKey         = big.NewInt(1 << 4)
 )
 
 type SignatureContentsVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
 	Sha              string  `json:"-" url:"-"`
 	FieldKey         string  `json:"-" url:"-"`
 
@@ -267,6 +305,13 @@ func (s *SignatureContentsVersionsRequest) SetDocID(docID string) {
 	s.require(signatureContentsVersionsRequestFieldDocID)
 }
 
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SignatureContentsVersionsRequest) SetLayerName(layerName string) {
+	s.LayerName = layerName
+	s.require(signatureContentsVersionsRequestFieldLayerName)
+}
+
 // SetSha sets the Sha field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (s *SignatureContentsVersionsRequest) SetSha(sha string) {
@@ -284,15 +329,17 @@ func (s *SignatureContentsVersionsRequest) SetFieldKey(fieldKey string) {
 var (
 	signatureDigestVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signatureDigestVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	signatureDigestVersionsRequestFieldSha              = big.NewInt(1 << 2)
-	signatureDigestVersionsRequestFieldFieldKey         = big.NewInt(1 << 3)
-	signatureDigestVersionsRequestFieldAlgorithm        = big.NewInt(1 << 4)
+	signatureDigestVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	signatureDigestVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	signatureDigestVersionsRequestFieldFieldKey         = big.NewInt(1 << 4)
+	signatureDigestVersionsRequestFieldAlgorithm        = big.NewInt(1 << 5)
 )
 
 type SignatureDigestVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string                                 `json:"-" url:"-"`
 	DocID            string                                  `json:"-" url:"-"`
+	LayerName        string                                  `json:"-" url:"-"`
 	Sha              string                                  `json:"-" url:"-"`
 	FieldKey         string                                  `json:"-" url:"-"`
 	Algorithm        SignatureDigestVersionsRequestAlgorithm `json:"-" url:"-"`
@@ -322,6 +369,13 @@ func (s *SignatureDigestVersionsRequest) SetDocID(docID string) {
 	s.require(signatureDigestVersionsRequestFieldDocID)
 }
 
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SignatureDigestVersionsRequest) SetLayerName(layerName string) {
+	s.LayerName = layerName
+	s.require(signatureDigestVersionsRequestFieldLayerName)
+}
+
 // SetSha sets the Sha field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (s *SignatureDigestVersionsRequest) SetSha(sha string) {
@@ -346,13 +400,15 @@ func (s *SignatureDigestVersionsRequest) SetAlgorithm(algorithm SignatureDigestV
 var (
 	signaturesVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signaturesVersionsRequestFieldDocID            = big.NewInt(1 << 1)
-	signaturesVersionsRequestFieldSha              = big.NewInt(1 << 2)
+	signaturesVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
+	signaturesVersionsRequestFieldSha              = big.NewInt(1 << 3)
 )
 
 type SignaturesVersionsRequest struct {
 	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
 	Sha              string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -378,6 +434,13 @@ func (s *SignaturesVersionsRequest) SetDocumentPassword(documentPassword *string
 func (s *SignaturesVersionsRequest) SetDocID(docID string) {
 	s.DocID = docID
 	s.require(signaturesVersionsRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SignaturesVersionsRequest) SetLayerName(layerName string) {
+	s.LayerName = layerName
+	s.require(signaturesVersionsRequestFieldLayerName)
 }
 
 // SetSha sets the Sha field and marks it as non-optional;

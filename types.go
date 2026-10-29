@@ -51640,12 +51640,12 @@ type DocVersionsAnalysis404Response = *EngineErrorPayload
 type DocVersionsDownloadResponse = *EngineErrorPayload
 
 var (
-	docVersionsList200ResponseFieldHead     = big.NewInt(1 << 0)
+	docVersionsList200ResponseFieldBaseSha  = big.NewInt(1 << 0)
 	docVersionsList200ResponseFieldVersions = big.NewInt(1 << 1)
 )
 
 type DocVersionsList200Response struct {
-	Head     string                                    `json:"head" url:"head"`
+	BaseSha  string                                    `json:"baseSha" url:"baseSha"`
 	Versions []*DocVersionsList200ResponseVersionsItem `json:"versions" url:"versions"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -51655,11 +51655,11 @@ type DocVersionsList200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocVersionsList200Response) GetHead() string {
+func (d *DocVersionsList200Response) GetBaseSha() string {
 	if d == nil {
 		return ""
 	}
-	return d.Head
+	return d.BaseSha
 }
 
 func (d *DocVersionsList200Response) GetVersions() []*DocVersionsList200ResponseVersionsItem {
@@ -51683,11 +51683,11 @@ func (d *DocVersionsList200Response) require(field *big.Int) {
 	d.explicitFields.Or(d.explicitFields, field)
 }
 
-// SetHead sets the Head field and marks it as non-optional;
+// SetBaseSha sets the BaseSha field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocVersionsList200Response) SetHead(head string) {
-	d.Head = head
-	d.require(docVersionsList200ResponseFieldHead)
+func (d *DocVersionsList200Response) SetBaseSha(baseSha string) {
+	d.BaseSha = baseSha
+	d.require(docVersionsList200ResponseFieldBaseSha)
 }
 
 // SetVersions sets the Versions field and marks it as non-optional;
@@ -54615,22 +54615,27 @@ func (d *DocumentsImportFrom202Response) String() string {
 var (
 	documentsImportFrom202ResponseDocumentFieldID               = big.NewInt(1 << 0)
 	documentsImportFrom202ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsImportFrom202ResponseDocumentFieldState            = big.NewInt(1 << 2)
-	documentsImportFrom202ResponseDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsImportFrom202ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsImportFrom202ResponseDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsImportFrom202ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsImportFrom202ResponseDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsImportFrom202ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsImportFrom202ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsImportFrom202ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsImportFrom202ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsImportFrom202ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsImportFrom202ResponseDocumentFieldName             = big.NewInt(1 << 2)
+	documentsImportFrom202ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsImportFrom202ResponseDocumentFieldState            = big.NewInt(1 << 4)
+	documentsImportFrom202ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsImportFrom202ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsImportFrom202ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsImportFrom202ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsImportFrom202ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsImportFrom202ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsImportFrom202ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsImportFrom202ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsImportFrom202ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsImportFrom202ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsImportFrom202ResponseDocument struct {
-	ID               string                                                `json:"id" url:"id"`
-	TenantID         string                                                `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                                `json:"folderId" url:"folderId"`
 	State            DocumentsImportFrom202ResponseDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                               `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                              `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -54662,6 +54667,20 @@ func (d *DocumentsImportFrom202ResponseDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsImportFrom202ResponseDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsImportFrom202ResponseDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsImportFrom202ResponseDocument) GetState() DocumentsImportFrom202ResponseDocumentState {
@@ -54767,6 +54786,20 @@ func (d *DocumentsImportFrom202ResponseDocument) SetID(id string) {
 func (d *DocumentsImportFrom202ResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsImportFrom202ResponseDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom202ResponseDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsImportFrom202ResponseDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom202ResponseDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsImportFrom202ResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -55487,6 +55520,12 @@ func (d *DocumentsThumbnailResponseError) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
+type DocumentsUpdate400Response = *AdminErrorPayload
+
+type DocumentsUpdate403Response = *AdminErrorPayload
+
+type DocumentsUpdate404Response = *AdminErrorPayload
+
 type DocumentsUploadProxy400Response = *AdminErrorPayload
 
 type DocumentsUploadProxy409Response = *AdminErrorPayload
@@ -55674,6 +55713,46 @@ func NewFieldPositionZeroFromString(s string) (FieldPositionZero, error) {
 func (f FieldPositionZero) Ptr() *FieldPositionZero {
 	return &f
 }
+
+type FoldersCreate400Response = *AdminErrorPayload
+
+type FoldersCreate403Response = *AdminErrorPayload
+
+type FoldersCreate404Response = *AdminErrorPayload
+
+type FoldersCreate409Response = *AdminErrorPayload
+
+type FoldersDelete403Response = *AdminErrorPayload
+
+type FoldersDelete404Response = *AdminErrorPayload
+
+type FoldersDelete409Response = *AdminErrorPayload
+
+type FoldersGet403Response = *AdminErrorPayload
+
+type FoldersGet404Response = *AdminErrorPayload
+
+type FoldersList400Response = *AdminErrorPayload
+
+type FoldersList403Response = *AdminErrorPayload
+
+type FoldersList404Response = *AdminErrorPayload
+
+type FoldersMoveInto400Response = *AdminErrorPayload
+
+type FoldersMoveInto403Response = *AdminErrorPayload
+
+type FoldersMoveInto404Response = *AdminErrorPayload
+
+type FoldersMoveInto409Response = *AdminErrorPayload
+
+type FoldersUpdate400Response = *AdminErrorPayload
+
+type FoldersUpdate403Response = *AdminErrorPayload
+
+type FoldersUpdate404Response = *AdminErrorPayload
+
+type FoldersUpdate409Response = *AdminErrorPayload
 
 type FormField struct {
 	Family     string
@@ -68229,6 +68308,186 @@ func (f *FormWidget) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", f)
+}
+
+var (
+	identityFieldUserID             = big.NewInt(1 << 0)
+	identityFieldDisplayName        = big.NewInt(1 << 1)
+	identityFieldEmail              = big.NewInt(1 << 2)
+	identityFieldTitle              = big.NewInt(1 << 3)
+	identityFieldOrganization       = big.NewInt(1 << 4)
+	identityFieldOrganizationalUnit = big.NewInt(1 << 5)
+	identityFieldGroupID            = big.NewInt(1 << 6)
+)
+
+type Identity struct {
+	UserID             *string `json:"userId,omitempty" url:"userId,omitempty"`
+	DisplayName        *string `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *string `json:"email,omitempty" url:"email,omitempty"`
+	Title              *string `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+	GroupID            *string `json:"groupId,omitempty" url:"groupId,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (i *Identity) GetUserID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.UserID
+}
+
+func (i *Identity) GetDisplayName() *string {
+	if i == nil {
+		return nil
+	}
+	return i.DisplayName
+}
+
+func (i *Identity) GetEmail() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Email
+}
+
+func (i *Identity) GetTitle() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Title
+}
+
+func (i *Identity) GetOrganization() *string {
+	if i == nil {
+		return nil
+	}
+	return i.Organization
+}
+
+func (i *Identity) GetOrganizationalUnit() *string {
+	if i == nil {
+		return nil
+	}
+	return i.OrganizationalUnit
+}
+
+func (i *Identity) GetGroupID() *string {
+	if i == nil {
+		return nil
+	}
+	return i.GroupID
+}
+
+func (i *Identity) GetExtraProperties() map[string]interface{} {
+	if i == nil {
+		return nil
+	}
+	return i.extraProperties
+}
+
+func (i *Identity) require(field *big.Int) {
+	if i.explicitFields == nil {
+		i.explicitFields = big.NewInt(0)
+	}
+	i.explicitFields.Or(i.explicitFields, field)
+}
+
+// SetUserID sets the UserID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetUserID(userID *string) {
+	i.UserID = userID
+	i.require(identityFieldUserID)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetDisplayName(displayName *string) {
+	i.DisplayName = displayName
+	i.require(identityFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetEmail(email *string) {
+	i.Email = email
+	i.require(identityFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetTitle(title *string) {
+	i.Title = title
+	i.require(identityFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetOrganization(organization *string) {
+	i.Organization = organization
+	i.require(identityFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetOrganizationalUnit(organizationalUnit *string) {
+	i.OrganizationalUnit = organizationalUnit
+	i.require(identityFieldOrganizationalUnit)
+}
+
+// SetGroupID sets the GroupID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (i *Identity) SetGroupID(groupID *string) {
+	i.GroupID = groupID
+	i.require(identityFieldGroupID)
+}
+
+func (i *Identity) UnmarshalJSON(data []byte) error {
+	type unmarshaler Identity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*i = Identity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *i)
+	if err != nil {
+		return err
+	}
+	i.extraProperties = extraProperties
+	i.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (i *Identity) MarshalJSON() ([]byte, error) {
+	type embed Identity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*i),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, i.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (i *Identity) String() string {
+	if i == nil {
+		return "<nil>"
+	}
+	if len(i.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(i.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(i); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", i)
 }
 
 var (

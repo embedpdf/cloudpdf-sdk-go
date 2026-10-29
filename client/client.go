@@ -7,6 +7,7 @@ import (
 	deployment "github.com/embedpdf/cloudpdf-sdk-go/v3/deployment"
 	client "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/client"
 	documentsclient "github.com/embedpdf/cloudpdf-sdk-go/v3/documents/client"
+	folders "github.com/embedpdf/cloudpdf-sdk-go/v3/folders"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
 	sharesclient "github.com/embedpdf/cloudpdf-sdk-go/v3/shares/client"
@@ -20,6 +21,7 @@ type Client struct {
 	Shares     *sharesclient.Client
 	Tenants    *tenants.Client
 	Documents  *documentsclient.Client
+	Folders    *folders.Client
 	Tokens     *tokens.Client
 
 	options *core.RequestOptions
@@ -35,6 +37,7 @@ func NewClient(opts ...option.RequestOption) *Client {
 		Shares:     sharesclient.NewClient(options),
 		Tenants:    tenants.NewClient(options),
 		Documents:  documentsclient.NewClient(options),
+		Folders:    folders.NewClient(options),
 		Tokens:     tokens.NewClient(options),
 		options:    options,
 		baseURL:    options.BaseURL,

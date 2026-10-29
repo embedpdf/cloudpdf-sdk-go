@@ -115,6 +115,35 @@ func (c *Client) Delete(
 	return nil
 }
 
+// A document that is being deleted answers 404.
+//
+// Example:
+//
+//	request := &cloudpdf.DocumentsUpdateRequest{
+//	    TenantID: "tenantId",
+//	    ID: "id",
+//	    Name: "name",
+//	}
+//	client.Documents.Update(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Update(
+	ctx context.Context,
+	request *cloudpdf.DocumentsUpdateRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.DocumentsUpdate200Response, error) {
+	response, err := c.WithRawResponse.Update(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &cloudpdf.DocumentsCommitRequest{

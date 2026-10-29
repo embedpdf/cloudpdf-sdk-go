@@ -820,6 +820,14 @@ client.Shares.Create(
 <dl>
 <dd>
 
+**identity:** `*cloudpdf.Identity` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **scope:** `[]string` 
     
 </dd>
@@ -1058,6 +1066,14 @@ client.Shares.Update(
 <dd>
 
 **visitorIdentity:** `*cloudpdf.SharesUpdateRequestVisitorIdentity` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**identity:** `*cloudpdf.Identity` 
     
 </dd>
 </dl>
@@ -1640,7 +1656,39 @@ client.Documents.List(
 <dl>
 <dd>
 
-**state:** `*cloudpdf.ListDocumentsRequestState` 
+**state:** `*cloudpdf.ListDocumentsRequestState` — Only documents in this state. Without it, every state except deleting.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**q:** `*string` — Only documents whose name contains this text, ignoring case.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `*string` — Only documents directly in this folder (root: the top level). Without it, documents in every folder.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sort:** `*cloudpdf.ListDocumentsRequestSort` — createdAt (default), name (ignoring case), or size (stored bytes; 0 while pending).
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**order:** `*cloudpdf.ListDocumentsRequestOrder` — Defaults to the reading order of the sort: A to Z for name, newest and largest first otherwise.
     
 </dd>
 </dl>
@@ -1751,6 +1799,84 @@ client.Documents.Delete(
 <dd>
 
 **id:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Documents.Update(TenantID, ID, request) -> *cloudpdf.DocumentsUpdate200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+A document that is being deleted answers 404.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.DocumentsUpdateRequest{
+    TenantID: "tenantId",
+    ID: "id",
+    Name: "name",
+}
+client.Documents.Update(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**id:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `string` — What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
     
 </dd>
 </dl>
@@ -2085,6 +2211,22 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
+**name:** `*string` — What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `*string` — A folder id, or root for the top level.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `map[string]any` 
     
 </dd>
@@ -2189,6 +2331,22 @@ client.Documents.Init(
 <dl>
 <dd>
 
+**name:** `*string` — What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `*string` — A folder id, or root for the top level.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **metadata:** `map[string]any` 
     
 </dd>
@@ -2230,6 +2388,449 @@ client.Documents.Init(
 <dd>
 
 **uploadPreference:** `*cloudpdf.DocumentsInitRequestUploadPreference` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+## Folders
+<details><summary><code>client.Folders.List(TenantID) -> *cloudpdf.FoldersList200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.ListFoldersRequest{
+    TenantID: "tenantId",
+}
+client.Folders.List(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**limit:** `*int` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**cursor:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parentID:** `*string` — Only the folders directly in this folder (root: the top level). Without it, every folder.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Folders.Create(TenantID, request) -> *cloudpdf.FoldersCreate200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+409 Conflict carries `details.reason`: `name-taken` (a sibling has the name, ignoring case; `details.name`) or `too-deep` (folders nest at most 100 levels; `details.maxDepth`). 404 when the parent folder does not exist.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.FoldersCreateRequest{
+    TenantID: "tenantId",
+    Name: "name",
+}
+client.Folders.Create(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `string` — What people call the folder: 1 to 255 characters, no control characters, no leading or trailing whitespace, and unique among the folder's siblings, ignoring case.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**parentID:** `*string` — A folder id, or root for the top level.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Folders.Get(TenantID, FolderID) -> *cloudpdf.FoldersGet200Response</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.GetFoldersRequest{
+    TenantID: "tenantId",
+    FolderID: "folderId",
+}
+client.Folders.Get(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `string` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Folders.Delete(TenantID, FolderID) -> error</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Without recursive, a folder with anything inside is refused: 409 Conflict with `details.reason` `not-empty` and what it holds, counted over every level below, in `details.folders` and `details.documents`. With recursive=true, the folder and every folder under it go at once, and every document in them stops opening, leaves every list and stops answering its share links at once; their stored files and links are removed in the background. Uploads into those folders that have not committed cannot commit.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.DeleteFoldersRequest{
+    TenantID: "tenantId",
+    FolderID: "folderId",
+}
+client.Folders.Delete(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**recursive:** `*bool` — true deletes everything in the folder too. Never the default.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Folders.Update(TenantID, FolderID, request) -> *cloudpdf.FoldersUpdate200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+409 Conflict with `details.reason` `name-taken` when a sibling has the name, ignoring case.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.FoldersUpdateRequest{
+    TenantID: "tenantId",
+    FolderID: "folderId",
+    Name: "name",
+}
+client.Folders.Update(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**name:** `string` — What people call the folder: 1 to 255 characters, no control characters, no leading or trailing whitespace, and unique among the folder's siblings, ignoring case.
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.Folders.MoveInto(TenantID, FolderID, request) -> error</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Up to 1,000 ids in total. A folder moves with everything in it. 404 NotFound names the ids that do not exist or are being deleted in `details.documentIds` and `details.folderIds`. 409 Conflict carries `details.reason`: `cycle` (the destination is a moved folder or inside one; `details.folderId`), `too-deep` (the move would nest folders deeper than 100 levels; `details.maxDepth`) or `name-taken` (a moved folder's name is taken in the destination, ignoring case; `details.name`).
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.FoldersMoveIntoRequest{
+    TenantID: "tenantId",
+    FolderID: "folderId",
+}
+client.Folders.MoveInto(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderID:** `string` — A folder id, or root for the top level.
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**documentIDs:** `[]string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**folderIDs:** `[]string` 
     
 </dd>
 </dl>
@@ -4978,7 +5579,7 @@ client.Doc.Signatures.Cancel(
 <dl>
 <dd>
 
-`cms` is the detached CMS over the prepared digest, base64. `expectedVersion` must be what prepare returned. Idempotent by signing id: the same CMS again answers `already-completed`. Every layer of the document then sits over the new version; refetch the manifest after a completion.
+`cms` is the detached CMS over the prepared digest, base64. `expectedVersion` must be what prepare returned. Idempotent by signing id: the same CMS again answers `already-completed`. The new version is the layer's own: only this layer moves to it, and the document and every other layer stay as they were. Refetch the manifest after a completion.
 </dd>
 </dl>
 </dd>
@@ -5186,7 +5787,7 @@ client.Doc.Signatures.Analysis(
 <dl>
 <dd>
 
-Multipart: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock), naming the appearance PDF it may carry as `resources: { appearance: '<key>' }`, and that PDF as the part `resource:<key>`. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is cancelled, or expires (15 minutes). A layer behind the document head cannot sign (StaleBase).
+Multipart: a JSON `body` part (field, subFilter, digest, contentsSize, signer, certify, lock), naming the appearance PDF it may carry as `resources: { appearance: '<key>' }`, and that PDF as the part `resource:<key>`. A certification (`certify.permission`) additionally requires `doc.sign.certify`. The layer is read-only until the signing completes, is cancelled, or expires (15 minutes). The signature is made over the layer's own base: the upload, or the version its last signature made.
 </dd>
 </dl>
 </dd>
@@ -5255,7 +5856,7 @@ client.Doc.Signatures.Prepare(
 </details>
 
 ## Doc Versions
-<details><summary><code>client.Doc.Versions.List(DocID) -> *cloudpdf.DocVersionsList200Response</code></summary>
+<details><summary><code>client.Doc.Versions.List(DocID, LayerName) -> *cloudpdf.DocVersionsList200Response</code></summary>
 <dl>
 <dd>
 
@@ -5267,7 +5868,7 @@ client.Doc.Signatures.Prepare(
 <dl>
 <dd>
 
-Every completed signature publishes a new version. Never cached: the list grows.
+Every completed signature makes a new version of its layer; another layer's versions are never listed. Never cached: the list grows.
 </dd>
 </dl>
 </dd>
@@ -5284,6 +5885,7 @@ Every completed signature publishes a new version. Never cached: the list grows.
 ```go
 request := &doc.ListVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
 }
 client.Doc.Versions.List(
     context.TODO(),
@@ -5311,6 +5913,14 @@ client.Doc.Versions.List(
 <dl>
 <dd>
 
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **documentPassword:** `*string` — Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
     
 </dd>
@@ -5323,7 +5933,7 @@ client.Doc.Versions.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Analysis(DocID, Sha) -> *cloudpdf.DocVersionsAnalysis200Response</code></summary>
+<details><summary><code>client.Doc.Versions.Analysis(DocID, LayerName, Sha) -> *cloudpdf.DocVersionsAnalysis200Response</code></summary>
 <dl>
 <dd>
 
@@ -5335,7 +5945,7 @@ client.Doc.Versions.List(
 <dl>
 <dd>
 
-Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every layer and every caller.
+Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every caller.
 </dd>
 </dl>
 </dd>
@@ -5352,6 +5962,7 @@ Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults
 ```go
 request := &doc.AnalysisVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
 }
 client.Doc.Versions.Analysis(
@@ -5373,6 +5984,14 @@ client.Doc.Versions.Analysis(
 <dd>
 
 **docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>
@@ -5440,7 +6059,7 @@ client.Doc.Versions.Analysis(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Download(DocID, Sha) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.Download(DocID, LayerName, Sha) -> string</code></summary>
 <dl>
 <dd>
 
@@ -5455,6 +6074,7 @@ client.Doc.Versions.Analysis(
 ```go
 request := &doc.DownloadVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
 }
 client.Doc.Versions.Download(
@@ -5483,6 +6103,14 @@ client.Doc.Versions.Download(
 <dl>
 <dd>
 
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **sha:** `string` 
     
 </dd>
@@ -5503,7 +6131,7 @@ client.Doc.Versions.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Revision(DocID, Sha, Index) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.Revision(DocID, LayerName, Sha, Index) -> string</code></summary>
 <dl>
 <dd>
 
@@ -5518,6 +6146,7 @@ client.Doc.Versions.Download(
 ```go
 request := &doc.RevisionVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
     Index: 1,
 }
@@ -5540,6 +6169,14 @@ client.Doc.Versions.Revision(
 <dd>
 
 **docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>
@@ -5575,7 +6212,7 @@ client.Doc.Versions.Revision(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Signatures(DocID, Sha) -> *cloudpdf.DocVersionsSignatures200Response</code></summary>
+<details><summary><code>client.Doc.Versions.Signatures(DocID, LayerName, Sha) -> *cloudpdf.DocVersionsSignatures200Response</code></summary>
 <dl>
 <dd>
 
@@ -5590,6 +6227,7 @@ client.Doc.Versions.Revision(
 ```go
 request := &doc.SignaturesVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
 }
 client.Doc.Versions.Signatures(
@@ -5618,6 +6256,14 @@ client.Doc.Versions.Signatures(
 <dl>
 <dd>
 
+**layerName:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
 **sha:** `string` 
     
 </dd>
@@ -5638,7 +6284,7 @@ client.Doc.Versions.Signatures(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.SignatureContents(DocID, Sha, FieldKey) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.SignatureContents(DocID, LayerName, Sha, FieldKey) -> string</code></summary>
 <dl>
 <dd>
 
@@ -5667,6 +6313,7 @@ client.Doc.Versions.Signatures(
 ```go
 request := &doc.SignatureContentsVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
     FieldKey: "fieldKey",
 }
@@ -5689,6 +6336,14 @@ client.Doc.Versions.SignatureContents(
 <dd>
 
 **docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>
@@ -5724,7 +6379,7 @@ client.Doc.Versions.SignatureContents(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.SignatureDigest(DocID, Sha, FieldKey, Algorithm) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.SignatureDigest(DocID, LayerName, Sha, FieldKey, Algorithm) -> string</code></summary>
 <dl>
 <dd>
 
@@ -5753,6 +6408,7 @@ What a CMS verifier compares its message digest to.
 ```go
 request := &doc.SignatureDigestVersionsRequest{
     DocID: "docId",
+    LayerName: "layerName",
     Sha: "sha",
     FieldKey: "fieldKey",
     Algorithm: doc.SignatureDigestVersionsRequestAlgorithmSha1,
@@ -5776,6 +6432,14 @@ client.Doc.Versions.SignatureDigest(
 <dd>
 
 **docID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerName:** `string` 
     
 </dd>
 </dl>

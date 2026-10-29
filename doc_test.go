@@ -260181,13 +260181,6 @@ func TestEnumEngineErrorPayloadCode(t *testing.T) {
 		assert.Equal(t, EngineErrorPayloadCode("ProtectedDocument"), val, "enum value should match expected wire value")
 	})
 
-	t.Run("NewFromString_StaleBase", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewEngineErrorPayloadCodeFromString("StaleBase")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, EngineErrorPayloadCode("StaleBase"), val, "enum value should match expected wire value")
-	})
-
 	t.Run("NewFromString_PayloadTooLarge", func(t *testing.T) {
 		t.Parallel()
 		val, err := NewEngineErrorPayloadCodeFromString("PayloadTooLarge")

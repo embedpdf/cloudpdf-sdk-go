@@ -92459,7 +92459,6 @@ const (
 	EngineErrorPayloadCodeSigningVersionMismatch  EngineErrorPayloadCode = "SigningVersionMismatch"
 	EngineErrorPayloadCodeSignatureRefused        EngineErrorPayloadCode = "SignatureRefused"
 	EngineErrorPayloadCodeProtectedDocument       EngineErrorPayloadCode = "ProtectedDocument"
-	EngineErrorPayloadCodeStaleBase               EngineErrorPayloadCode = "StaleBase"
 	EngineErrorPayloadCodePayloadTooLarge         EngineErrorPayloadCode = "PayloadTooLarge"
 	EngineErrorPayloadCodeObjectNumberUnavailable EngineErrorPayloadCode = "ObjectNumberUnavailable"
 	EngineErrorPayloadCodeLayerFull               EngineErrorPayloadCode = "LayerFull"
@@ -92516,8 +92515,6 @@ func NewEngineErrorPayloadCodeFromString(s string) (EngineErrorPayloadCode, erro
 		return EngineErrorPayloadCodeSignatureRefused, nil
 	case "ProtectedDocument":
 		return EngineErrorPayloadCodeProtectedDocument, nil
-	case "StaleBase":
-		return EngineErrorPayloadCodeStaleBase, nil
 	case "PayloadTooLarge":
 		return EngineErrorPayloadCodePayloadTooLarge, nil
 	case "ObjectNumberUnavailable":

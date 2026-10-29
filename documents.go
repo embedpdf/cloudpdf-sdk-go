@@ -180,11 +180,13 @@ var (
 	documentsImportFromRequestFieldTenantID       = big.NewInt(1 << 0)
 	documentsImportFromRequestFieldSource         = big.NewInt(1 << 1)
 	documentsImportFromRequestFieldExpected       = big.NewInt(1 << 2)
-	documentsImportFromRequestFieldMetadata       = big.NewInt(1 << 3)
-	documentsImportFromRequestFieldIdempotencyKey = big.NewInt(1 << 4)
-	documentsImportFromRequestFieldDedupMode      = big.NewInt(1 << 5)
-	documentsImportFromRequestFieldDocID          = big.NewInt(1 << 6)
-	documentsImportFromRequestFieldMode           = big.NewInt(1 << 7)
+	documentsImportFromRequestFieldName           = big.NewInt(1 << 3)
+	documentsImportFromRequestFieldFolderID       = big.NewInt(1 << 4)
+	documentsImportFromRequestFieldMetadata       = big.NewInt(1 << 5)
+	documentsImportFromRequestFieldIdempotencyKey = big.NewInt(1 << 6)
+	documentsImportFromRequestFieldDedupMode      = big.NewInt(1 << 7)
+	documentsImportFromRequestFieldDocID          = big.NewInt(1 << 8)
+	documentsImportFromRequestFieldMode           = big.NewInt(1 << 9)
 )
 
 type DocumentsImportFromRequest struct {
@@ -193,7 +195,11 @@ type DocumentsImportFromRequest struct {
 	Source *DocumentsImportFromRequestSource `json:"source" url:"-"`
 	// Integrity pins, enforced when present. When absent, the server-observed values become authoritative.
 	Expected *DocumentsImportFromRequestExpected `json:"expected,omitempty" url:"-"`
-	Metadata map[string]any                      `json:"metadata,omitempty" url:"-"`
+	// What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
+	Name *string `json:"name,omitempty" url:"-"`
+	// A folder id, or root for the top level.
+	FolderID *string        `json:"folderId,omitempty" url:"-"`
+	Metadata map[string]any `json:"metadata,omitempty" url:"-"`
 	// Retrying with the same key resumes the same document rather than importing a second copy — including after a 502.
 	IdempotencyKey *string `json:"idempotencyKey,omitempty" url:"-"`
 	// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
@@ -232,6 +238,20 @@ func (d *DocumentsImportFromRequest) SetSource(source *DocumentsImportFromReques
 func (d *DocumentsImportFromRequest) SetExpected(expected *DocumentsImportFromRequestExpected) {
 	d.Expected = expected
 	d.require(documentsImportFromRequestFieldExpected)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetName(name *string) {
+	d.Name = name
+	d.require(documentsImportFromRequestFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFromRequest) SetFolderID(folderID *string) {
+	d.FolderID = folderID
+	d.require(documentsImportFromRequestFieldFolderID)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -294,18 +314,24 @@ var (
 	documentsInitRequestFieldTenantID         = big.NewInt(1 << 0)
 	documentsInitRequestFieldContentLength    = big.NewInt(1 << 1)
 	documentsInitRequestFieldContentSha256    = big.NewInt(1 << 2)
-	documentsInitRequestFieldMetadata         = big.NewInt(1 << 3)
-	documentsInitRequestFieldIdempotencyKey   = big.NewInt(1 << 4)
-	documentsInitRequestFieldDedupMode        = big.NewInt(1 << 5)
-	documentsInitRequestFieldDocID            = big.NewInt(1 << 6)
-	documentsInitRequestFieldUploadTTLSec     = big.NewInt(1 << 7)
-	documentsInitRequestFieldUploadPreference = big.NewInt(1 << 8)
+	documentsInitRequestFieldName             = big.NewInt(1 << 3)
+	documentsInitRequestFieldFolderID         = big.NewInt(1 << 4)
+	documentsInitRequestFieldMetadata         = big.NewInt(1 << 5)
+	documentsInitRequestFieldIdempotencyKey   = big.NewInt(1 << 6)
+	documentsInitRequestFieldDedupMode        = big.NewInt(1 << 7)
+	documentsInitRequestFieldDocID            = big.NewInt(1 << 8)
+	documentsInitRequestFieldUploadTTLSec     = big.NewInt(1 << 9)
+	documentsInitRequestFieldUploadPreference = big.NewInt(1 << 10)
 )
 
 type DocumentsInitRequest struct {
-	TenantID       string         `json:"-" url:"-"`
-	ContentLength  float64        `json:"contentLength" url:"-"`
-	ContentSha256  string         `json:"contentSha256" url:"-"`
+	TenantID      string  `json:"-" url:"-"`
+	ContentLength float64 `json:"contentLength" url:"-"`
+	ContentSha256 string  `json:"contentSha256" url:"-"`
+	// What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
+	Name *string `json:"name,omitempty" url:"-"`
+	// A folder id, or root for the top level.
+	FolderID       *string        `json:"folderId,omitempty" url:"-"`
 	Metadata       map[string]any `json:"metadata,omitempty" url:"-"`
 	IdempotencyKey *string        `json:"idempotencyKey,omitempty" url:"-"`
 	// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
@@ -344,6 +370,20 @@ func (d *DocumentsInitRequest) SetContentLength(contentLength float64) {
 func (d *DocumentsInitRequest) SetContentSha256(contentSha256 string) {
 	d.ContentSha256 = contentSha256
 	d.require(documentsInitRequestFieldContentSha256)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInitRequest) SetName(name *string) {
+	d.Name = name
+	d.require(documentsInitRequestFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInitRequest) SetFolderID(folderID *string) {
+	d.FolderID = folderID
+	d.require(documentsInitRequestFieldFolderID)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -414,13 +454,26 @@ var (
 	listDocumentsRequestFieldLimit    = big.NewInt(1 << 1)
 	listDocumentsRequestFieldCursor   = big.NewInt(1 << 2)
 	listDocumentsRequestFieldState    = big.NewInt(1 << 3)
+	listDocumentsRequestFieldQ        = big.NewInt(1 << 4)
+	listDocumentsRequestFieldFolderID = big.NewInt(1 << 5)
+	listDocumentsRequestFieldSort     = big.NewInt(1 << 6)
+	listDocumentsRequestFieldOrder    = big.NewInt(1 << 7)
 )
 
 type ListDocumentsRequest struct {
-	TenantID string                     `json:"-" url:"-"`
-	Limit    *int                       `json:"-" url:"limit,omitempty"`
-	Cursor   *string                    `json:"-" url:"cursor,omitempty"`
-	State    *ListDocumentsRequestState `json:"-" url:"state,omitempty"`
+	TenantID string  `json:"-" url:"-"`
+	Limit    *int    `json:"-" url:"limit,omitempty"`
+	Cursor   *string `json:"-" url:"cursor,omitempty"`
+	// Only documents in this state. Without it, every state except deleting.
+	State *ListDocumentsRequestState `json:"-" url:"state,omitempty"`
+	// Only documents whose name contains this text, ignoring case.
+	Q *string `json:"-" url:"q,omitempty"`
+	// Only documents directly in this folder (root: the top level). Without it, documents in every folder.
+	FolderID *string `json:"-" url:"folderId,omitempty"`
+	// createdAt (default), name (ignoring case), or size (stored bytes; 0 while pending).
+	Sort *ListDocumentsRequestSort `json:"-" url:"sort,omitempty"`
+	// Defaults to the reading order of the sort: A to Z for name, newest and largest first otherwise.
+	Order *ListDocumentsRequestOrder `json:"-" url:"order,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -459,6 +512,34 @@ func (l *ListDocumentsRequest) SetCursor(cursor *string) {
 func (l *ListDocumentsRequest) SetState(state *ListDocumentsRequestState) {
 	l.State = state
 	l.require(listDocumentsRequestFieldState)
+}
+
+// SetQ sets the Q field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListDocumentsRequest) SetQ(q *string) {
+	l.Q = q
+	l.require(listDocumentsRequestFieldQ)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListDocumentsRequest) SetFolderID(folderID *string) {
+	l.FolderID = folderID
+	l.require(listDocumentsRequestFieldFolderID)
+}
+
+// SetSort sets the Sort field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListDocumentsRequest) SetSort(sort *ListDocumentsRequestSort) {
+	l.Sort = sort
+	l.require(listDocumentsRequestFieldSort)
+}
+
+// SetOrder sets the Order field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (l *ListDocumentsRequest) SetOrder(order *ListDocumentsRequestOrder) {
+	l.Order = order
+	l.require(listDocumentsRequestFieldOrder)
 }
 
 var (
@@ -582,22 +663,27 @@ func (d *DocumentsCommit200Response) String() string {
 var (
 	documentsCommit200ResponseDocumentFieldID               = big.NewInt(1 << 0)
 	documentsCommit200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsCommit200ResponseDocumentFieldState            = big.NewInt(1 << 2)
-	documentsCommit200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsCommit200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsCommit200ResponseDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsCommit200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsCommit200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsCommit200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsCommit200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsCommit200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsCommit200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsCommit200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsCommit200ResponseDocumentFieldName             = big.NewInt(1 << 2)
+	documentsCommit200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsCommit200ResponseDocumentFieldState            = big.NewInt(1 << 4)
+	documentsCommit200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsCommit200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsCommit200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsCommit200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsCommit200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsCommit200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsCommit200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsCommit200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsCommit200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsCommit200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsCommit200ResponseDocument struct {
-	ID               string                                            `json:"id" url:"id"`
-	TenantID         string                                            `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                            `json:"folderId" url:"folderId"`
 	State            DocumentsCommit200ResponseDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                           `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                          `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -629,6 +715,20 @@ func (d *DocumentsCommit200ResponseDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsCommit200ResponseDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsCommit200ResponseDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsCommit200ResponseDocument) GetState() DocumentsCommit200ResponseDocumentState {
@@ -734,6 +834,20 @@ func (d *DocumentsCommit200ResponseDocument) SetID(id string) {
 func (d *DocumentsCommit200ResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsCommit200ResponseDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsCommit200ResponseDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsCommit200ResponseDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsCommit200ResponseDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsCommit200ResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -998,22 +1112,27 @@ func (d *DocumentsGet200Response) String() string {
 var (
 	documentsGet200ResponseDocumentFieldID               = big.NewInt(1 << 0)
 	documentsGet200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsGet200ResponseDocumentFieldState            = big.NewInt(1 << 2)
-	documentsGet200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsGet200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsGet200ResponseDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsGet200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsGet200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsGet200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsGet200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsGet200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsGet200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsGet200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsGet200ResponseDocumentFieldName             = big.NewInt(1 << 2)
+	documentsGet200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsGet200ResponseDocumentFieldState            = big.NewInt(1 << 4)
+	documentsGet200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsGet200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsGet200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsGet200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsGet200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsGet200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsGet200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsGet200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsGet200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsGet200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsGet200ResponseDocument struct {
-	ID               string                                         `json:"id" url:"id"`
-	TenantID         string                                         `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                         `json:"folderId" url:"folderId"`
 	State            DocumentsGet200ResponseDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                        `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                       `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -1045,6 +1164,20 @@ func (d *DocumentsGet200ResponseDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsGet200ResponseDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsGet200ResponseDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsGet200ResponseDocument) GetState() DocumentsGet200ResponseDocumentState {
@@ -1150,6 +1283,20 @@ func (d *DocumentsGet200ResponseDocument) SetID(id string) {
 func (d *DocumentsGet200ResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsGet200ResponseDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsGet200ResponseDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsGet200ResponseDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsGet200ResponseDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsGet200ResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -1430,22 +1577,27 @@ func (d *DocumentsImportFrom200Response) String() string {
 var (
 	documentsImportFrom200ResponseDocumentFieldID               = big.NewInt(1 << 0)
 	documentsImportFrom200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsImportFrom200ResponseDocumentFieldState            = big.NewInt(1 << 2)
-	documentsImportFrom200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsImportFrom200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsImportFrom200ResponseDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsImportFrom200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsImportFrom200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsImportFrom200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsImportFrom200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsImportFrom200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsImportFrom200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsImportFrom200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsImportFrom200ResponseDocumentFieldName             = big.NewInt(1 << 2)
+	documentsImportFrom200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsImportFrom200ResponseDocumentFieldState            = big.NewInt(1 << 4)
+	documentsImportFrom200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsImportFrom200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsImportFrom200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsImportFrom200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsImportFrom200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsImportFrom200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsImportFrom200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsImportFrom200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsImportFrom200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsImportFrom200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsImportFrom200ResponseDocument struct {
-	ID               string                                                `json:"id" url:"id"`
-	TenantID         string                                                `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                                `json:"folderId" url:"folderId"`
 	State            DocumentsImportFrom200ResponseDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                               `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                              `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -1477,6 +1629,20 @@ func (d *DocumentsImportFrom200ResponseDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsImportFrom200ResponseDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsImportFrom200ResponseDocument) GetState() DocumentsImportFrom200ResponseDocumentState {
@@ -1582,6 +1748,20 @@ func (d *DocumentsImportFrom200ResponseDocument) SetID(id string) {
 func (d *DocumentsImportFrom200ResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsImportFrom200ResponseDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsImportFrom200ResponseDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsImportFrom200ResponseDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsImportFrom200ResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -2037,22 +2217,27 @@ func (d *DocumentsInit200ResponseCreated) String() string {
 var (
 	documentsInit200ResponseCreatedDocumentFieldID               = big.NewInt(1 << 0)
 	documentsInit200ResponseCreatedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseCreatedDocumentFieldState            = big.NewInt(1 << 2)
-	documentsInit200ResponseCreatedDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsInit200ResponseCreatedDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsInit200ResponseCreatedDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsInit200ResponseCreatedDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsInit200ResponseCreatedDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsInit200ResponseCreatedDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsInit200ResponseCreatedDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsInit200ResponseCreatedDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsInit200ResponseCreatedDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsInit200ResponseCreatedDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsInit200ResponseCreatedDocumentFieldName             = big.NewInt(1 << 2)
+	documentsInit200ResponseCreatedDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsInit200ResponseCreatedDocumentFieldState            = big.NewInt(1 << 4)
+	documentsInit200ResponseCreatedDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsInit200ResponseCreatedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsInit200ResponseCreatedDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsInit200ResponseCreatedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsInit200ResponseCreatedDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsInit200ResponseCreatedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsInit200ResponseCreatedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsInit200ResponseCreatedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsInit200ResponseCreatedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsInit200ResponseCreatedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsInit200ResponseCreatedDocument struct {
-	ID               string                                                 `json:"id" url:"id"`
-	TenantID         string                                                 `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                                 `json:"folderId" url:"folderId"`
 	State            DocumentsInit200ResponseCreatedDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -2084,6 +2269,20 @@ func (d *DocumentsInit200ResponseCreatedDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsInit200ResponseCreatedDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsInit200ResponseCreatedDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsInit200ResponseCreatedDocument) GetState() DocumentsInit200ResponseCreatedDocumentState {
@@ -2189,6 +2388,20 @@ func (d *DocumentsInit200ResponseCreatedDocument) SetID(id string) {
 func (d *DocumentsInit200ResponseCreatedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsInit200ResponseCreatedDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseCreatedDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsInit200ResponseCreatedDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseCreatedDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsInit200ResponseCreatedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -2930,22 +3143,27 @@ func (d *DocumentsInit200ResponseDeduped) String() string {
 var (
 	documentsInit200ResponseDedupedDocumentFieldID               = big.NewInt(1 << 0)
 	documentsInit200ResponseDedupedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseDedupedDocumentFieldState            = big.NewInt(1 << 2)
-	documentsInit200ResponseDedupedDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsInit200ResponseDedupedDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsInit200ResponseDedupedDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsInit200ResponseDedupedDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsInit200ResponseDedupedDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsInit200ResponseDedupedDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsInit200ResponseDedupedDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsInit200ResponseDedupedDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsInit200ResponseDedupedDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsInit200ResponseDedupedDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsInit200ResponseDedupedDocumentFieldName             = big.NewInt(1 << 2)
+	documentsInit200ResponseDedupedDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsInit200ResponseDedupedDocumentFieldState            = big.NewInt(1 << 4)
+	documentsInit200ResponseDedupedDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsInit200ResponseDedupedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsInit200ResponseDedupedDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsInit200ResponseDedupedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsInit200ResponseDedupedDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsInit200ResponseDedupedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsInit200ResponseDedupedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsInit200ResponseDedupedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsInit200ResponseDedupedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsInit200ResponseDedupedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsInit200ResponseDedupedDocument struct {
-	ID               string                                                 `json:"id" url:"id"`
-	TenantID         string                                                 `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                                 `json:"folderId" url:"folderId"`
 	State            DocumentsInit200ResponseDedupedDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -2977,6 +3195,20 @@ func (d *DocumentsInit200ResponseDedupedDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsInit200ResponseDedupedDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsInit200ResponseDedupedDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsInit200ResponseDedupedDocument) GetState() DocumentsInit200ResponseDedupedDocumentState {
@@ -3082,6 +3314,20 @@ func (d *DocumentsInit200ResponseDedupedDocument) SetID(id string) {
 func (d *DocumentsInit200ResponseDedupedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsInit200ResponseDedupedDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseDedupedDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsInit200ResponseDedupedDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseDedupedDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsInit200ResponseDedupedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -3362,22 +3608,27 @@ func (d *DocumentsInit200ResponseResumed) String() string {
 var (
 	documentsInit200ResponseResumedDocumentFieldID               = big.NewInt(1 << 0)
 	documentsInit200ResponseResumedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseResumedDocumentFieldState            = big.NewInt(1 << 2)
-	documentsInit200ResponseResumedDocumentFieldBaseSha          = big.NewInt(1 << 3)
-	documentsInit200ResponseResumedDocumentFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsInit200ResponseResumedDocumentFieldMetadata         = big.NewInt(1 << 5)
-	documentsInit200ResponseResumedDocumentFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsInit200ResponseResumedDocumentFieldFailureReason    = big.NewInt(1 << 7)
-	documentsInit200ResponseResumedDocumentFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsInit200ResponseResumedDocumentFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsInit200ResponseResumedDocumentFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsInit200ResponseResumedDocumentFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsInit200ResponseResumedDocumentFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsInit200ResponseResumedDocumentFieldName             = big.NewInt(1 << 2)
+	documentsInit200ResponseResumedDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsInit200ResponseResumedDocumentFieldState            = big.NewInt(1 << 4)
+	documentsInit200ResponseResumedDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsInit200ResponseResumedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsInit200ResponseResumedDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsInit200ResponseResumedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsInit200ResponseResumedDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsInit200ResponseResumedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsInit200ResponseResumedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsInit200ResponseResumedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsInit200ResponseResumedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsInit200ResponseResumedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsInit200ResponseResumedDocument struct {
-	ID               string                                                 `json:"id" url:"id"`
-	TenantID         string                                                 `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                                 `json:"folderId" url:"folderId"`
 	State            DocumentsInit200ResponseResumedDocumentState           `json:"state" url:"state"`
 	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -3409,6 +3660,20 @@ func (d *DocumentsInit200ResponseResumedDocument) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsInit200ResponseResumedDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsInit200ResponseResumedDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsInit200ResponseResumedDocument) GetState() DocumentsInit200ResponseResumedDocumentState {
@@ -3514,6 +3779,20 @@ func (d *DocumentsInit200ResponseResumedDocument) SetID(id string) {
 func (d *DocumentsInit200ResponseResumedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsInit200ResponseResumedDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseResumedDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsInit200ResponseResumedDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsInit200ResponseResumedDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsInit200ResponseResumedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -4271,22 +4550,27 @@ func (d *DocumentsList200Response) String() string {
 var (
 	documentsList200ResponseDocumentsItemFieldID               = big.NewInt(1 << 0)
 	documentsList200ResponseDocumentsItemFieldTenantID         = big.NewInt(1 << 1)
-	documentsList200ResponseDocumentsItemFieldState            = big.NewInt(1 << 2)
-	documentsList200ResponseDocumentsItemFieldBaseSha          = big.NewInt(1 << 3)
-	documentsList200ResponseDocumentsItemFieldStorageSizeBytes = big.NewInt(1 << 4)
-	documentsList200ResponseDocumentsItemFieldMetadata         = big.NewInt(1 << 5)
-	documentsList200ResponseDocumentsItemFieldIdempotencyKey   = big.NewInt(1 << 6)
-	documentsList200ResponseDocumentsItemFieldFailureReason    = big.NewInt(1 << 7)
-	documentsList200ResponseDocumentsItemFieldThumbnailState   = big.NewInt(1 << 8)
-	documentsList200ResponseDocumentsItemFieldThumbnailURL     = big.NewInt(1 << 9)
-	documentsList200ResponseDocumentsItemFieldCreatedAt        = big.NewInt(1 << 10)
-	documentsList200ResponseDocumentsItemFieldUpdatedAt        = big.NewInt(1 << 11)
-	documentsList200ResponseDocumentsItemFieldCreatedBy        = big.NewInt(1 << 12)
+	documentsList200ResponseDocumentsItemFieldName             = big.NewInt(1 << 2)
+	documentsList200ResponseDocumentsItemFieldFolderID         = big.NewInt(1 << 3)
+	documentsList200ResponseDocumentsItemFieldState            = big.NewInt(1 << 4)
+	documentsList200ResponseDocumentsItemFieldBaseSha          = big.NewInt(1 << 5)
+	documentsList200ResponseDocumentsItemFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsList200ResponseDocumentsItemFieldMetadata         = big.NewInt(1 << 7)
+	documentsList200ResponseDocumentsItemFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsList200ResponseDocumentsItemFieldFailureReason    = big.NewInt(1 << 9)
+	documentsList200ResponseDocumentsItemFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsList200ResponseDocumentsItemFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsList200ResponseDocumentsItemFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsList200ResponseDocumentsItemFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsList200ResponseDocumentsItemFieldCreatedBy        = big.NewInt(1 << 14)
 )
 
 type DocumentsList200ResponseDocumentsItem struct {
-	ID               string                                               `json:"id" url:"id"`
-	TenantID         string                                               `json:"tenantId" url:"tenantId"`
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                               `json:"folderId" url:"folderId"`
 	State            DocumentsList200ResponseDocumentsItemState           `json:"state" url:"state"`
 	BaseSha          *string                                              `json:"baseSha,omitempty" url:"baseSha,omitempty"`
 	StorageSizeBytes *float64                                             `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
@@ -4318,6 +4602,20 @@ func (d *DocumentsList200ResponseDocumentsItem) GetTenantID() string {
 		return ""
 	}
 	return d.TenantID
+}
+
+func (d *DocumentsList200ResponseDocumentsItem) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsList200ResponseDocumentsItem) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
 }
 
 func (d *DocumentsList200ResponseDocumentsItem) GetState() DocumentsList200ResponseDocumentsItemState {
@@ -4423,6 +4721,20 @@ func (d *DocumentsList200ResponseDocumentsItem) SetID(id string) {
 func (d *DocumentsList200ResponseDocumentsItem) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
 	d.require(documentsList200ResponseDocumentsItemFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsList200ResponseDocumentsItem) SetName(name string) {
+	d.Name = name
+	d.require(documentsList200ResponseDocumentsItemFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsList200ResponseDocumentsItem) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsList200ResponseDocumentsItemFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
@@ -4597,6 +4909,455 @@ func NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString(s string) 
 }
 
 func (d DocumentsList200ResponseDocumentsItemThumbnailState) Ptr() *DocumentsList200ResponseDocumentsItemThumbnailState {
+	return &d
+}
+
+var (
+	documentsUpdate200ResponseFieldDocument = big.NewInt(1 << 0)
+)
+
+type DocumentsUpdate200Response struct {
+	Document *DocumentsUpdate200ResponseDocument `json:"document" url:"document"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsUpdate200Response) GetDocument() *DocumentsUpdate200ResponseDocument {
+	if d == nil {
+		return nil
+	}
+	return d.Document
+}
+
+func (d *DocumentsUpdate200Response) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsUpdate200Response) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocument sets the Document field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200Response) SetDocument(document *DocumentsUpdate200ResponseDocument) {
+	d.Document = document
+	d.require(documentsUpdate200ResponseFieldDocument)
+}
+
+func (d *DocumentsUpdate200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUpdate200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsUpdate200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsUpdate200Response) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUpdate200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsUpdate200Response) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	documentsUpdate200ResponseDocumentFieldID               = big.NewInt(1 << 0)
+	documentsUpdate200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
+	documentsUpdate200ResponseDocumentFieldName             = big.NewInt(1 << 2)
+	documentsUpdate200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
+	documentsUpdate200ResponseDocumentFieldState            = big.NewInt(1 << 4)
+	documentsUpdate200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
+	documentsUpdate200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
+	documentsUpdate200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
+	documentsUpdate200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
+	documentsUpdate200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
+	documentsUpdate200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
+	documentsUpdate200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
+	documentsUpdate200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
+	documentsUpdate200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
+	documentsUpdate200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+)
+
+type DocumentsUpdate200ResponseDocument struct {
+	ID       string `json:"id" url:"id"`
+	TenantID string `json:"tenantId" url:"tenantId"`
+	Name     string `json:"name" url:"name"`
+	// The folder the document is in, or root.
+	FolderID         string                                            `json:"folderId" url:"folderId"`
+	State            DocumentsUpdate200ResponseDocumentState           `json:"state" url:"state"`
+	BaseSha          *string                                           `json:"baseSha,omitempty" url:"baseSha,omitempty"`
+	StorageSizeBytes *float64                                          `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
+	Metadata         map[string]any                                    `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey   *string                                           `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason    *string                                           `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState   *DocumentsUpdate200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
+	ThumbnailURL     *string                                           `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt        float64                                           `json:"createdAt" url:"createdAt"`
+	UpdatedAt        float64                                           `json:"updatedAt" url:"updatedAt"`
+	CreatedBy        *string                                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetID() string {
+	if d == nil {
+		return ""
+	}
+	return d.ID
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetTenantID() string {
+	if d == nil {
+		return ""
+	}
+	return d.TenantID
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetName() string {
+	if d == nil {
+		return ""
+	}
+	return d.Name
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetFolderID() string {
+	if d == nil {
+		return ""
+	}
+	return d.FolderID
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetState() DocumentsUpdate200ResponseDocumentState {
+	if d == nil {
+		return ""
+	}
+	return d.State
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetBaseSha() *string {
+	if d == nil {
+		return nil
+	}
+	return d.BaseSha
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetStorageSizeBytes() *float64 {
+	if d == nil {
+		return nil
+	}
+	return d.StorageSizeBytes
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetMetadata() map[string]any {
+	if d == nil {
+		return nil
+	}
+	return d.Metadata
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetIdempotencyKey() *string {
+	if d == nil {
+		return nil
+	}
+	return d.IdempotencyKey
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetFailureReason() *string {
+	if d == nil {
+		return nil
+	}
+	return d.FailureReason
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetThumbnailState() *DocumentsUpdate200ResponseDocumentThumbnailState {
+	if d == nil {
+		return nil
+	}
+	return d.ThumbnailState
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetThumbnailURL() *string {
+	if d == nil {
+		return nil
+	}
+	return d.ThumbnailURL
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetCreatedAt() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.CreatedAt
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetUpdatedAt() float64 {
+	if d == nil {
+		return 0
+	}
+	return d.UpdatedAt
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetCreatedBy() *string {
+	if d == nil {
+		return nil
+	}
+	return d.CreatedBy
+}
+
+func (d *DocumentsUpdate200ResponseDocument) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocumentsUpdate200ResponseDocument) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetID(id string) {
+	d.ID = id
+	d.require(documentsUpdate200ResponseDocumentFieldID)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetTenantID(tenantID string) {
+	d.TenantID = tenantID
+	d.require(documentsUpdate200ResponseDocumentFieldTenantID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetName(name string) {
+	d.Name = name
+	d.require(documentsUpdate200ResponseDocumentFieldName)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetFolderID(folderID string) {
+	d.FolderID = folderID
+	d.require(documentsUpdate200ResponseDocumentFieldFolderID)
+}
+
+// SetState sets the State field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetState(state DocumentsUpdate200ResponseDocumentState) {
+	d.State = state
+	d.require(documentsUpdate200ResponseDocumentFieldState)
+}
+
+// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetBaseSha(baseSha *string) {
+	d.BaseSha = baseSha
+	d.require(documentsUpdate200ResponseDocumentFieldBaseSha)
+}
+
+// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
+	d.StorageSizeBytes = storageSizeBytes
+	d.require(documentsUpdate200ResponseDocumentFieldStorageSizeBytes)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetMetadata(metadata map[string]any) {
+	d.Metadata = metadata
+	d.require(documentsUpdate200ResponseDocumentFieldMetadata)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(documentsUpdate200ResponseDocumentFieldIdempotencyKey)
+}
+
+// SetFailureReason sets the FailureReason field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetFailureReason(failureReason *string) {
+	d.FailureReason = failureReason
+	d.require(documentsUpdate200ResponseDocumentFieldFailureReason)
+}
+
+// SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsUpdate200ResponseDocumentThumbnailState) {
+	d.ThumbnailState = thumbnailState
+	d.require(documentsUpdate200ResponseDocumentFieldThumbnailState)
+}
+
+// SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetThumbnailURL(thumbnailURL *string) {
+	d.ThumbnailURL = thumbnailURL
+	d.require(documentsUpdate200ResponseDocumentFieldThumbnailURL)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetCreatedAt(createdAt float64) {
+	d.CreatedAt = createdAt
+	d.require(documentsUpdate200ResponseDocumentFieldCreatedAt)
+}
+
+// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+	d.UpdatedAt = updatedAt
+	d.require(documentsUpdate200ResponseDocumentFieldUpdatedAt)
+}
+
+// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdate200ResponseDocument) SetCreatedBy(createdBy *string) {
+	d.CreatedBy = createdBy
+	d.require(documentsUpdate200ResponseDocumentFieldCreatedBy)
+}
+
+func (d *DocumentsUpdate200ResponseDocument) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUpdate200ResponseDocument
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocumentsUpdate200ResponseDocument(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocumentsUpdate200ResponseDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUpdate200ResponseDocument
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocumentsUpdate200ResponseDocument) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+type DocumentsUpdate200ResponseDocumentState string
+
+const (
+	DocumentsUpdate200ResponseDocumentStatePending  DocumentsUpdate200ResponseDocumentState = "pending"
+	DocumentsUpdate200ResponseDocumentStateReady    DocumentsUpdate200ResponseDocumentState = "ready"
+	DocumentsUpdate200ResponseDocumentStateFailed   DocumentsUpdate200ResponseDocumentState = "failed"
+	DocumentsUpdate200ResponseDocumentStateDeleting DocumentsUpdate200ResponseDocumentState = "deleting"
+)
+
+func NewDocumentsUpdate200ResponseDocumentStateFromString(s string) (DocumentsUpdate200ResponseDocumentState, error) {
+	switch s {
+	case "pending":
+		return DocumentsUpdate200ResponseDocumentStatePending, nil
+	case "ready":
+		return DocumentsUpdate200ResponseDocumentStateReady, nil
+	case "failed":
+		return DocumentsUpdate200ResponseDocumentStateFailed, nil
+	case "deleting":
+		return DocumentsUpdate200ResponseDocumentStateDeleting, nil
+	}
+	var t DocumentsUpdate200ResponseDocumentState
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsUpdate200ResponseDocumentState) Ptr() *DocumentsUpdate200ResponseDocumentState {
+	return &d
+}
+
+type DocumentsUpdate200ResponseDocumentThumbnailState string
+
+const (
+	DocumentsUpdate200ResponseDocumentThumbnailStatePending DocumentsUpdate200ResponseDocumentThumbnailState = "pending"
+	DocumentsUpdate200ResponseDocumentThumbnailStateReady   DocumentsUpdate200ResponseDocumentThumbnailState = "ready"
+	DocumentsUpdate200ResponseDocumentThumbnailStateLocked  DocumentsUpdate200ResponseDocumentThumbnailState = "locked"
+	DocumentsUpdate200ResponseDocumentThumbnailStateFailed  DocumentsUpdate200ResponseDocumentThumbnailState = "failed"
+)
+
+func NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString(s string) (DocumentsUpdate200ResponseDocumentThumbnailState, error) {
+	switch s {
+	case "pending":
+		return DocumentsUpdate200ResponseDocumentThumbnailStatePending, nil
+	case "ready":
+		return DocumentsUpdate200ResponseDocumentThumbnailStateReady, nil
+	case "locked":
+		return DocumentsUpdate200ResponseDocumentThumbnailStateLocked, nil
+	case "failed":
+		return DocumentsUpdate200ResponseDocumentThumbnailStateFailed, nil
+	}
+	var t DocumentsUpdate200ResponseDocumentThumbnailState
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (d DocumentsUpdate200ResponseDocumentThumbnailState) Ptr() *DocumentsUpdate200ResponseDocumentThumbnailState {
 	return &d
 }
 
@@ -5216,6 +5977,56 @@ func (d DocumentsInitRequestUploadPreference) Ptr() *DocumentsInitRequestUploadP
 	return &d
 }
 
+// Defaults to the reading order of the sort: A to Z for name, newest and largest first otherwise.
+type ListDocumentsRequestOrder string
+
+const (
+	ListDocumentsRequestOrderAsc  ListDocumentsRequestOrder = "asc"
+	ListDocumentsRequestOrderDesc ListDocumentsRequestOrder = "desc"
+)
+
+func NewListDocumentsRequestOrderFromString(s string) (ListDocumentsRequestOrder, error) {
+	switch s {
+	case "asc":
+		return ListDocumentsRequestOrderAsc, nil
+	case "desc":
+		return ListDocumentsRequestOrderDesc, nil
+	}
+	var t ListDocumentsRequestOrder
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (l ListDocumentsRequestOrder) Ptr() *ListDocumentsRequestOrder {
+	return &l
+}
+
+// createdAt (default), name (ignoring case), or size (stored bytes; 0 while pending).
+type ListDocumentsRequestSort string
+
+const (
+	ListDocumentsRequestSortCreatedAt ListDocumentsRequestSort = "createdAt"
+	ListDocumentsRequestSortName      ListDocumentsRequestSort = "name"
+	ListDocumentsRequestSortSize      ListDocumentsRequestSort = "size"
+)
+
+func NewListDocumentsRequestSortFromString(s string) (ListDocumentsRequestSort, error) {
+	switch s {
+	case "createdAt":
+		return ListDocumentsRequestSortCreatedAt, nil
+	case "name":
+		return ListDocumentsRequestSortName, nil
+	case "size":
+		return ListDocumentsRequestSortSize, nil
+	}
+	var t ListDocumentsRequestSort
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (l ListDocumentsRequestSort) Ptr() *ListDocumentsRequestSort {
+	return &l
+}
+
+// Only documents in this state. Without it, every state except deleting.
 type ListDocumentsRequestState string
 
 const (
@@ -5242,6 +6053,71 @@ func NewListDocumentsRequestStateFromString(s string) (ListDocumentsRequestState
 
 func (l ListDocumentsRequestState) Ptr() *ListDocumentsRequestState {
 	return &l
+}
+
+var (
+	documentsUpdateRequestFieldTenantID = big.NewInt(1 << 0)
+	documentsUpdateRequestFieldID       = big.NewInt(1 << 1)
+	documentsUpdateRequestFieldName     = big.NewInt(1 << 2)
+)
+
+type DocumentsUpdateRequest struct {
+	TenantID string `json:"-" url:"-"`
+	ID       string `json:"-" url:"-"`
+	// What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
+	Name string `json:"name" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocumentsUpdateRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdateRequest) SetTenantID(tenantID string) {
+	d.TenantID = tenantID
+	d.require(documentsUpdateRequestFieldTenantID)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdateRequest) SetID(id string) {
+	d.ID = id
+	d.require(documentsUpdateRequestFieldID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocumentsUpdateRequest) SetName(name string) {
+	d.Name = name
+	d.require(documentsUpdateRequestFieldName)
+}
+
+func (d *DocumentsUpdateRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUpdateRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocumentsUpdateRequest(body)
+	return nil
+}
+
+func (d *DocumentsUpdateRequest) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUpdateRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }
 
 var (
