@@ -374,13 +374,13 @@ var (
 )
 
 type TokensIssueRequestDoc struct {
-	Sub       string                         `json:"sub" url:"sub"`
-	DocID     string                         `json:"docId" url:"docId"`
-	LayerName *string                        `json:"layerName,omitempty" url:"layerName,omitempty"`
-	Scope     []string                       `json:"scope" url:"scope"`
-	Identity  *TokensIssueRequestDocIdentity `json:"identity,omitempty" url:"identity,omitempty"`
-	Origins   []string                       `json:"origins,omitempty" url:"origins,omitempty"`
-	ExpiresIn int                            `json:"expiresIn" url:"expiresIn"`
+	Sub       string    `json:"sub" url:"sub"`
+	DocID     string    `json:"docId" url:"docId"`
+	LayerName *string   `json:"layerName,omitempty" url:"layerName,omitempty"`
+	Scope     []string  `json:"scope" url:"scope"`
+	Identity  *Identity `json:"identity,omitempty" url:"identity,omitempty"`
+	Origins   []string  `json:"origins,omitempty" url:"origins,omitempty"`
+	ExpiresIn int       `json:"expiresIn" url:"expiresIn"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -417,7 +417,7 @@ func (t *TokensIssueRequestDoc) GetScope() []string {
 	return t.Scope
 }
 
-func (t *TokensIssueRequestDoc) GetIdentity() *TokensIssueRequestDocIdentity {
+func (t *TokensIssueRequestDoc) GetIdentity() *Identity {
 	if t == nil {
 		return nil
 	}
@@ -482,7 +482,7 @@ func (t *TokensIssueRequestDoc) SetScope(scope []string) {
 
 // SetIdentity sets the Identity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDoc) SetIdentity(identity *TokensIssueRequestDocIdentity) {
+func (t *TokensIssueRequestDoc) SetIdentity(identity *Identity) {
 	t.Identity = identity
 	t.require(tokensIssueRequestDocFieldIdentity)
 }
@@ -544,195 +544,15 @@ func (t *TokensIssueRequestDoc) String() string {
 }
 
 var (
-	tokensIssueRequestDocIdentityFieldUserID             = big.NewInt(1 << 0)
-	tokensIssueRequestDocIdentityFieldDisplayName        = big.NewInt(1 << 1)
-	tokensIssueRequestDocIdentityFieldEmail              = big.NewInt(1 << 2)
-	tokensIssueRequestDocIdentityFieldTitle              = big.NewInt(1 << 3)
-	tokensIssueRequestDocIdentityFieldOrganization       = big.NewInt(1 << 4)
-	tokensIssueRequestDocIdentityFieldOrganizationalUnit = big.NewInt(1 << 5)
-	tokensIssueRequestDocIdentityFieldGroupID            = big.NewInt(1 << 6)
-)
-
-type TokensIssueRequestDocIdentity struct {
-	UserID             *string `json:"userId,omitempty" url:"userId,omitempty"`
-	DisplayName        *string `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *string `json:"email,omitempty" url:"email,omitempty"`
-	Title              *string `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
-	GroupID            *string `json:"groupId,omitempty" url:"groupId,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (t *TokensIssueRequestDocIdentity) GetUserID() *string {
-	if t == nil {
-		return nil
-	}
-	return t.UserID
-}
-
-func (t *TokensIssueRequestDocIdentity) GetDisplayName() *string {
-	if t == nil {
-		return nil
-	}
-	return t.DisplayName
-}
-
-func (t *TokensIssueRequestDocIdentity) GetEmail() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Email
-}
-
-func (t *TokensIssueRequestDocIdentity) GetTitle() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Title
-}
-
-func (t *TokensIssueRequestDocIdentity) GetOrganization() *string {
-	if t == nil {
-		return nil
-	}
-	return t.Organization
-}
-
-func (t *TokensIssueRequestDocIdentity) GetOrganizationalUnit() *string {
-	if t == nil {
-		return nil
-	}
-	return t.OrganizationalUnit
-}
-
-func (t *TokensIssueRequestDocIdentity) GetGroupID() *string {
-	if t == nil {
-		return nil
-	}
-	return t.GroupID
-}
-
-func (t *TokensIssueRequestDocIdentity) GetExtraProperties() map[string]interface{} {
-	if t == nil {
-		return nil
-	}
-	return t.extraProperties
-}
-
-func (t *TokensIssueRequestDocIdentity) require(field *big.Int) {
-	if t.explicitFields == nil {
-		t.explicitFields = big.NewInt(0)
-	}
-	t.explicitFields.Or(t.explicitFields, field)
-}
-
-// SetUserID sets the UserID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetUserID(userID *string) {
-	t.UserID = userID
-	t.require(tokensIssueRequestDocIdentityFieldUserID)
-}
-
-// SetDisplayName sets the DisplayName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetDisplayName(displayName *string) {
-	t.DisplayName = displayName
-	t.require(tokensIssueRequestDocIdentityFieldDisplayName)
-}
-
-// SetEmail sets the Email field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetEmail(email *string) {
-	t.Email = email
-	t.require(tokensIssueRequestDocIdentityFieldEmail)
-}
-
-// SetTitle sets the Title field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetTitle(title *string) {
-	t.Title = title
-	t.require(tokensIssueRequestDocIdentityFieldTitle)
-}
-
-// SetOrganization sets the Organization field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetOrganization(organization *string) {
-	t.Organization = organization
-	t.require(tokensIssueRequestDocIdentityFieldOrganization)
-}
-
-// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetOrganizationalUnit(organizationalUnit *string) {
-	t.OrganizationalUnit = organizationalUnit
-	t.require(tokensIssueRequestDocIdentityFieldOrganizationalUnit)
-}
-
-// SetGroupID sets the GroupID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDocIdentity) SetGroupID(groupID *string) {
-	t.GroupID = groupID
-	t.require(tokensIssueRequestDocIdentityFieldGroupID)
-}
-
-func (t *TokensIssueRequestDocIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler TokensIssueRequestDocIdentity
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*t = TokensIssueRequestDocIdentity(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *t)
-	if err != nil {
-		return err
-	}
-	t.extraProperties = extraProperties
-	t.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (t *TokensIssueRequestDocIdentity) MarshalJSON() ([]byte, error) {
-	type embed TokensIssueRequestDocIdentity
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*t),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (t *TokensIssueRequestDocIdentity) String() string {
-	if t == nil {
-		return "<nil>"
-	}
-	if len(t.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(t); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", t)
-}
-
-var (
 	tokensIssueRequestTenantFieldSub       = big.NewInt(1 << 0)
 	tokensIssueRequestTenantFieldScope     = big.NewInt(1 << 1)
 	tokensIssueRequestTenantFieldExpiresIn = big.NewInt(1 << 2)
 )
 
 type TokensIssueRequestTenant struct {
-	Sub       string                               `json:"sub" url:"sub"`
-	Scope     []*TokensIssueRequestTenantScopeItem `json:"scope" url:"scope"`
-	ExpiresIn int                                  `json:"expiresIn" url:"expiresIn"`
+	Sub       string   `json:"sub" url:"sub"`
+	Scope     []string `json:"scope" url:"scope"`
+	ExpiresIn int      `json:"expiresIn" url:"expiresIn"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -748,7 +568,7 @@ func (t *TokensIssueRequestTenant) GetSub() string {
 	return t.Sub
 }
 
-func (t *TokensIssueRequestTenant) GetScope() []*TokensIssueRequestTenantScopeItem {
+func (t *TokensIssueRequestTenant) GetScope() []string {
 	if t == nil {
 		return nil
 	}
@@ -785,7 +605,7 @@ func (t *TokensIssueRequestTenant) SetSub(sub string) {
 
 // SetScope sets the Scope field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestTenant) SetScope(scope []*TokensIssueRequestTenantScopeItem) {
+func (t *TokensIssueRequestTenant) SetScope(scope []string) {
 	t.Scope = scope
 	t.require(tokensIssueRequestTenantFieldScope)
 }
@@ -837,119 +657,4 @@ func (t *TokensIssueRequestTenant) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", t)
-}
-
-type TokensIssueRequestTenantScopeItem struct {
-	TokensIssueRequestTenantScopeItemZero TokensIssueRequestTenantScopeItemZero
-	TokensIssueRequestTenantScopeItemOne  TokensIssueRequestTenantScopeItemOne
-
-	typ string
-}
-
-func (t *TokensIssueRequestTenantScopeItem) GetTokensIssueRequestTenantScopeItemZero() TokensIssueRequestTenantScopeItemZero {
-	if t == nil {
-		return ""
-	}
-	return t.TokensIssueRequestTenantScopeItemZero
-}
-
-func (t *TokensIssueRequestTenantScopeItem) GetTokensIssueRequestTenantScopeItemOne() TokensIssueRequestTenantScopeItemOne {
-	if t == nil {
-		return ""
-	}
-	return t.TokensIssueRequestTenantScopeItemOne
-}
-
-func (t *TokensIssueRequestTenantScopeItem) UnmarshalJSON(data []byte) error {
-	var valueTokensIssueRequestTenantScopeItemZero TokensIssueRequestTenantScopeItemZero
-	if err := json.Unmarshal(data, &valueTokensIssueRequestTenantScopeItemZero); err == nil {
-		t.typ = "TokensIssueRequestTenantScopeItemZero"
-		t.TokensIssueRequestTenantScopeItemZero = valueTokensIssueRequestTenantScopeItemZero
-		return nil
-	}
-	var valueTokensIssueRequestTenantScopeItemOne TokensIssueRequestTenantScopeItemOne
-	if err := json.Unmarshal(data, &valueTokensIssueRequestTenantScopeItemOne); err == nil {
-		t.typ = "TokensIssueRequestTenantScopeItemOne"
-		t.TokensIssueRequestTenantScopeItemOne = valueTokensIssueRequestTenantScopeItemOne
-		return nil
-	}
-	return fmt.Errorf("%s cannot be deserialized as a %T", data, t)
-}
-
-func (t TokensIssueRequestTenantScopeItem) MarshalJSON() ([]byte, error) {
-	if t.typ == "TokensIssueRequestTenantScopeItemZero" || t.TokensIssueRequestTenantScopeItemZero != "" {
-		return json.Marshal(t.TokensIssueRequestTenantScopeItemZero)
-	}
-	if t.typ == "TokensIssueRequestTenantScopeItemOne" || t.TokensIssueRequestTenantScopeItemOne != "" {
-		return json.Marshal(t.TokensIssueRequestTenantScopeItemOne)
-	}
-	return nil, fmt.Errorf("type %T does not include a non-empty union type", t)
-}
-
-type TokensIssueRequestTenantScopeItemVisitor interface {
-	VisitTokensIssueRequestTenantScopeItemZero(TokensIssueRequestTenantScopeItemZero) error
-	VisitTokensIssueRequestTenantScopeItemOne(TokensIssueRequestTenantScopeItemOne) error
-}
-
-func (t *TokensIssueRequestTenantScopeItem) Accept(visitor TokensIssueRequestTenantScopeItemVisitor) error {
-	if t.typ == "TokensIssueRequestTenantScopeItemZero" || t.TokensIssueRequestTenantScopeItemZero != "" {
-		return visitor.VisitTokensIssueRequestTenantScopeItemZero(t.TokensIssueRequestTenantScopeItemZero)
-	}
-	if t.typ == "TokensIssueRequestTenantScopeItemOne" || t.TokensIssueRequestTenantScopeItemOne != "" {
-		return visitor.VisitTokensIssueRequestTenantScopeItemOne(t.TokensIssueRequestTenantScopeItemOne)
-	}
-	return fmt.Errorf("type %T does not include a non-empty union type", t)
-}
-
-type TokensIssueRequestTenantScopeItemOne string
-
-const (
-	TokensIssueRequestTenantScopeItemOneDocsCreate     TokensIssueRequestTenantScopeItemOne = "docs.create"
-	TokensIssueRequestTenantScopeItemOneDocsRead       TokensIssueRequestTenantScopeItemOne = "docs.read"
-	TokensIssueRequestTenantScopeItemOneDocsDelete     TokensIssueRequestTenantScopeItemOne = "docs.delete"
-	TokensIssueRequestTenantScopeItemOneTokensIssueDoc TokensIssueRequestTenantScopeItemOne = "tokens.issue-doc"
-	TokensIssueRequestTenantScopeItemOneTokensRevoke   TokensIssueRequestTenantScopeItemOne = "tokens.revoke"
-	TokensIssueRequestTenantScopeItemOneSharesManage   TokensIssueRequestTenantScopeItemOne = "shares.manage"
-)
-
-func NewTokensIssueRequestTenantScopeItemOneFromString(s string) (TokensIssueRequestTenantScopeItemOne, error) {
-	switch s {
-	case "docs.create":
-		return TokensIssueRequestTenantScopeItemOneDocsCreate, nil
-	case "docs.read":
-		return TokensIssueRequestTenantScopeItemOneDocsRead, nil
-	case "docs.delete":
-		return TokensIssueRequestTenantScopeItemOneDocsDelete, nil
-	case "tokens.issue-doc":
-		return TokensIssueRequestTenantScopeItemOneTokensIssueDoc, nil
-	case "tokens.revoke":
-		return TokensIssueRequestTenantScopeItemOneTokensRevoke, nil
-	case "shares.manage":
-		return TokensIssueRequestTenantScopeItemOneSharesManage, nil
-	}
-	var t TokensIssueRequestTenantScopeItemOne
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (t TokensIssueRequestTenantScopeItemOne) Ptr() *TokensIssueRequestTenantScopeItemOne {
-	return &t
-}
-
-type TokensIssueRequestTenantScopeItemZero string
-
-const (
-	TokensIssueRequestTenantScopeItemZeroAll TokensIssueRequestTenantScopeItemZero = "*"
-)
-
-func NewTokensIssueRequestTenantScopeItemZeroFromString(s string) (TokensIssueRequestTenantScopeItemZero, error) {
-	switch s {
-	case "*":
-		return TokensIssueRequestTenantScopeItemZeroAll, nil
-	}
-	var t TokensIssueRequestTenantScopeItemZero
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (t TokensIssueRequestTenantScopeItemZero) Ptr() *TokensIssueRequestTenantScopeItemZero {
-	return &t
 }

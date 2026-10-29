@@ -47,8 +47,9 @@ func (r *RawClient) List(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions",
+		baseURL+"/v1/docs/%v/layers/%v/versions",
 		request.DocID,
+		request.LayerName,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -96,8 +97,9 @@ func (r *RawClient) Analysis(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/analysis/%v",
+		baseURL+"/v1/docs/%v/layers/%v/versions/analysis/%v",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 	)
 	queryParams, err := internal.QueryValues(request)
@@ -153,8 +155,9 @@ func (r *RawClient) Download(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/download/%v",
+		baseURL+"/v1/docs/%v/layers/%v/versions/download/%v",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 	)
 	headers := internal.MergeHeaders(
@@ -203,8 +206,9 @@ func (r *RawClient) Revision(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/revisions/%v/%v",
+		baseURL+"/v1/docs/%v/layers/%v/versions/revisions/%v/%v",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 		request.Index,
 	)
@@ -254,8 +258,9 @@ func (r *RawClient) Signatures(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/signatures/%v",
+		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 	)
 	headers := internal.MergeHeaders(
@@ -304,8 +309,9 @@ func (r *RawClient) SignatureContents(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/signatures/%v/%v/contents",
+		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v/%v/contents",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 		request.FieldKey,
 	)
@@ -355,8 +361,9 @@ func (r *RawClient) SignatureDigest(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/docs/%v/versions/signatures/%v/%v/digest/%v",
+		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v/%v/digest/%v",
 		request.DocID,
+		request.LayerName,
 		request.Sha,
 		request.FieldKey,
 		request.Algorithm,

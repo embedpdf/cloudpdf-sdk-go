@@ -158,6 +158,34 @@ func TestDocumentsDeleteWithWireMock(
 	VerifyRequestCount(t, "TestDocumentsDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId/documents/id", nil, 1)
 }
 
+func TestDocumentsUpdateWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &cloudpdf.DocumentsUpdateRequest{
+		TenantID: "tenantId",
+		ID:       "id",
+		Name:     "name",
+	}
+	_, invocationErr := client.Documents.Update(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocumentsUpdateWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocumentsUpdateWithWireMock", "PATCH", "/v1/tenants/tenantId/documents/id", nil, 1)
+}
+
 func TestDocumentsCommitWithWireMock(
 	t *testing.T,
 ) {

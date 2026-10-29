@@ -89,7 +89,8 @@ func TestDocVersionsListWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.ListVersionsRequest{
-		DocID: "docId",
+		DocID:     "docId",
+		LayerName: "layerName",
 	}
 	_, invocationErr := client.Doc.Versions.List(
 		context.TODO(),
@@ -100,7 +101,7 @@ func TestDocVersionsListWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocVersionsListWithWireMock", "GET", "/v1/docs/docId/versions", nil, 1)
+	VerifyRequestCount(t, "TestDocVersionsListWithWireMock", "GET", "/v1/docs/docId/layers/layerName/versions", nil, 1)
 }
 
 func TestDocVersionsAnalysisWithWireMock(
@@ -115,8 +116,9 @@ func TestDocVersionsAnalysisWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.AnalysisVersionsRequest{
-		DocID: "docId",
-		Sha:   "sha",
+		DocID:     "docId",
+		LayerName: "layerName",
+		Sha:       "sha",
 	}
 	_, invocationErr := client.Doc.Versions.Analysis(
 		context.TODO(),
@@ -127,7 +129,7 @@ func TestDocVersionsAnalysisWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocVersionsAnalysisWithWireMock", "GET", "/v1/docs/docId/versions/analysis/sha", nil, 1)
+	VerifyRequestCount(t, "TestDocVersionsAnalysisWithWireMock", "GET", "/v1/docs/docId/layers/layerName/versions/analysis/sha", nil, 1)
 }
 
 func TestDocVersionsSignaturesWithWireMock(
@@ -142,8 +144,9 @@ func TestDocVersionsSignaturesWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.SignaturesVersionsRequest{
-		DocID: "docId",
-		Sha:   "sha",
+		DocID:     "docId",
+		LayerName: "layerName",
+		Sha:       "sha",
 	}
 	_, invocationErr := client.Doc.Versions.Signatures(
 		context.TODO(),
@@ -154,5 +157,5 @@ func TestDocVersionsSignaturesWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocVersionsSignaturesWithWireMock", "GET", "/v1/docs/docId/versions/signatures/sha", nil, 1)
+	VerifyRequestCount(t, "TestDocVersionsSignaturesWithWireMock", "GET", "/v1/docs/docId/layers/layerName/versions/signatures/sha", nil, 1)
 }

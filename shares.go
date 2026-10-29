@@ -51,11 +51,12 @@ var (
 	sharesCreateRequestFieldKeepVisitorLayers  = big.NewInt(1 << 4)
 	sharesCreateRequestFieldVisitorIdleSeconds = big.NewInt(1 << 5)
 	sharesCreateRequestFieldVisitorIdentity    = big.NewInt(1 << 6)
-	sharesCreateRequestFieldScope              = big.NewInt(1 << 7)
-	sharesCreateRequestFieldOrigins            = big.NewInt(1 << 8)
-	sharesCreateRequestFieldPassword           = big.NewInt(1 << 9)
-	sharesCreateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 10)
-	sharesCreateRequestFieldExpiresAt          = big.NewInt(1 << 11)
+	sharesCreateRequestFieldIdentity           = big.NewInt(1 << 7)
+	sharesCreateRequestFieldScope              = big.NewInt(1 << 8)
+	sharesCreateRequestFieldOrigins            = big.NewInt(1 << 9)
+	sharesCreateRequestFieldPassword           = big.NewInt(1 << 10)
+	sharesCreateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesCreateRequestFieldExpiresAt          = big.NewInt(1 << 12)
 )
 
 type SharesCreateRequest struct {
@@ -66,6 +67,7 @@ type SharesCreateRequest struct {
 	KeepVisitorLayers  *bool                               `json:"keepVisitorLayers,omitempty" url:"-"`
 	VisitorIdleSeconds *int                                `json:"visitorIdleSeconds,omitempty" url:"-"`
 	VisitorIdentity    *SharesCreateRequestVisitorIdentity `json:"visitorIdentity,omitempty" url:"-"`
+	Identity           *Identity                           `json:"identity,omitempty" url:"-"`
 	Scope              []string                            `json:"scope" url:"-"`
 	Origins            []string                            `json:"origins,omitempty" url:"-"`
 	Password           *string                             `json:"password,omitempty" url:"-"`
@@ -130,6 +132,13 @@ func (s *SharesCreateRequest) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
 func (s *SharesCreateRequest) SetVisitorIdentity(visitorIdentity *SharesCreateRequestVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesCreateRequestFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreateRequest) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesCreateRequestFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -492,18 +501,19 @@ var (
 	sharesArchive200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
 	sharesArchive200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
 	sharesArchive200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
-	sharesArchive200ResponseShareFieldScope              = big.NewInt(1 << 8)
-	sharesArchive200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
-	sharesArchive200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
-	sharesArchive200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
-	sharesArchive200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
-	sharesArchive200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
-	sharesArchive200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
-	sharesArchive200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
-	sharesArchive200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
-	sharesArchive200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
-	sharesArchive200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
-	sharesArchive200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
+	sharesArchive200ResponseShareFieldIdentity           = big.NewInt(1 << 8)
+	sharesArchive200ResponseShareFieldScope              = big.NewInt(1 << 9)
+	sharesArchive200ResponseShareFieldOrigins            = big.NewInt(1 << 10)
+	sharesArchive200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 11)
+	sharesArchive200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 12)
+	sharesArchive200ResponseShareFieldDisabled           = big.NewInt(1 << 13)
+	sharesArchive200ResponseShareFieldArchivedAt         = big.NewInt(1 << 14)
+	sharesArchive200ResponseShareFieldExpiresAt          = big.NewInt(1 << 15)
+	sharesArchive200ResponseShareFieldExchangeCount      = big.NewInt(1 << 16)
+	sharesArchive200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 17)
+	sharesArchive200ResponseShareFieldCreatedBy          = big.NewInt(1 << 18)
+	sharesArchive200ResponseShareFieldCreatedAt          = big.NewInt(1 << 19)
+	sharesArchive200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 20)
 )
 
 type SharesArchive200ResponseShare struct {
@@ -515,6 +525,7 @@ type SharesArchive200ResponseShare struct {
 	KeepVisitorLayers  bool                                          `json:"keepVisitorLayers" url:"keepVisitorLayers"`
 	VisitorIdleSeconds *float64                                      `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
 	VisitorIdentity    *SharesArchive200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity           *Identity                                     `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope              []string                                      `json:"scope" url:"scope"`
 	Origins            []string                                      `json:"origins,omitempty" url:"origins,omitempty"`
 	PasswordProtected  bool                                          `json:"passwordProtected" url:"passwordProtected"`
@@ -589,6 +600,13 @@ func (s *SharesArchive200ResponseShare) GetVisitorIdentity() *SharesArchive200Re
 		return nil
 	}
 	return s.VisitorIdentity
+}
+
+func (s *SharesArchive200ResponseShare) GetIdentity() *Identity {
+	if s == nil {
+		return nil
+	}
+	return s.Identity
 }
 
 func (s *SharesArchive200ResponseShare) GetScope() []string {
@@ -743,6 +761,13 @@ func (s *SharesArchive200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds
 func (s *SharesArchive200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesArchive200ResponseShareVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesArchive200ResponseShareFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesArchive200ResponseShare) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesArchive200ResponseShareFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -1398,18 +1423,19 @@ var (
 	sharesCreate200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
 	sharesCreate200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
 	sharesCreate200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
-	sharesCreate200ResponseShareFieldScope              = big.NewInt(1 << 8)
-	sharesCreate200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
-	sharesCreate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
-	sharesCreate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
-	sharesCreate200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
-	sharesCreate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
-	sharesCreate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
-	sharesCreate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
-	sharesCreate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
-	sharesCreate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
-	sharesCreate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
-	sharesCreate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
+	sharesCreate200ResponseShareFieldIdentity           = big.NewInt(1 << 8)
+	sharesCreate200ResponseShareFieldScope              = big.NewInt(1 << 9)
+	sharesCreate200ResponseShareFieldOrigins            = big.NewInt(1 << 10)
+	sharesCreate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 11)
+	sharesCreate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 12)
+	sharesCreate200ResponseShareFieldDisabled           = big.NewInt(1 << 13)
+	sharesCreate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 14)
+	sharesCreate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 15)
+	sharesCreate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 16)
+	sharesCreate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 17)
+	sharesCreate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 18)
+	sharesCreate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 19)
+	sharesCreate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 20)
 )
 
 type SharesCreate200ResponseShare struct {
@@ -1421,6 +1447,7 @@ type SharesCreate200ResponseShare struct {
 	KeepVisitorLayers  bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
 	VisitorIdleSeconds *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
 	VisitorIdentity    *SharesCreate200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity           *Identity                                    `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope              []string                                     `json:"scope" url:"scope"`
 	Origins            []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
 	PasswordProtected  bool                                         `json:"passwordProtected" url:"passwordProtected"`
@@ -1495,6 +1522,13 @@ func (s *SharesCreate200ResponseShare) GetVisitorIdentity() *SharesCreate200Resp
 		return nil
 	}
 	return s.VisitorIdentity
+}
+
+func (s *SharesCreate200ResponseShare) GetIdentity() *Identity {
+	if s == nil {
+		return nil
+	}
+	return s.Identity
 }
 
 func (s *SharesCreate200ResponseShare) GetScope() []string {
@@ -1649,6 +1683,13 @@ func (s *SharesCreate200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds 
 func (s *SharesCreate200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesCreate200ResponseShareVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesCreate200ResponseShareFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesCreate200ResponseShare) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesCreate200ResponseShareFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -3074,18 +3115,19 @@ var (
 	sharesGet200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
 	sharesGet200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
 	sharesGet200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
-	sharesGet200ResponseShareFieldScope              = big.NewInt(1 << 8)
-	sharesGet200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
-	sharesGet200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
-	sharesGet200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
-	sharesGet200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
-	sharesGet200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
-	sharesGet200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
-	sharesGet200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
-	sharesGet200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
-	sharesGet200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
-	sharesGet200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
-	sharesGet200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
+	sharesGet200ResponseShareFieldIdentity           = big.NewInt(1 << 8)
+	sharesGet200ResponseShareFieldScope              = big.NewInt(1 << 9)
+	sharesGet200ResponseShareFieldOrigins            = big.NewInt(1 << 10)
+	sharesGet200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 11)
+	sharesGet200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 12)
+	sharesGet200ResponseShareFieldDisabled           = big.NewInt(1 << 13)
+	sharesGet200ResponseShareFieldArchivedAt         = big.NewInt(1 << 14)
+	sharesGet200ResponseShareFieldExpiresAt          = big.NewInt(1 << 15)
+	sharesGet200ResponseShareFieldExchangeCount      = big.NewInt(1 << 16)
+	sharesGet200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 17)
+	sharesGet200ResponseShareFieldCreatedBy          = big.NewInt(1 << 18)
+	sharesGet200ResponseShareFieldCreatedAt          = big.NewInt(1 << 19)
+	sharesGet200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 20)
 )
 
 type SharesGet200ResponseShare struct {
@@ -3097,6 +3139,7 @@ type SharesGet200ResponseShare struct {
 	KeepVisitorLayers  bool                                      `json:"keepVisitorLayers" url:"keepVisitorLayers"`
 	VisitorIdleSeconds *float64                                  `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
 	VisitorIdentity    *SharesGet200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity           *Identity                                 `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope              []string                                  `json:"scope" url:"scope"`
 	Origins            []string                                  `json:"origins,omitempty" url:"origins,omitempty"`
 	PasswordProtected  bool                                      `json:"passwordProtected" url:"passwordProtected"`
@@ -3171,6 +3214,13 @@ func (s *SharesGet200ResponseShare) GetVisitorIdentity() *SharesGet200ResponseSh
 		return nil
 	}
 	return s.VisitorIdentity
+}
+
+func (s *SharesGet200ResponseShare) GetIdentity() *Identity {
+	if s == nil {
+		return nil
+	}
+	return s.Identity
 }
 
 func (s *SharesGet200ResponseShare) GetScope() []string {
@@ -3325,6 +3375,13 @@ func (s *SharesGet200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds *fl
 func (s *SharesGet200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesGet200ResponseShareVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesGet200ResponseShareFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesGet200ResponseShare) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesGet200ResponseShareFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -3996,18 +4053,19 @@ var (
 	sharesList200ResponseSharesItemFieldKeepVisitorLayers  = big.NewInt(1 << 5)
 	sharesList200ResponseSharesItemFieldVisitorIdleSeconds = big.NewInt(1 << 6)
 	sharesList200ResponseSharesItemFieldVisitorIdentity    = big.NewInt(1 << 7)
-	sharesList200ResponseSharesItemFieldScope              = big.NewInt(1 << 8)
-	sharesList200ResponseSharesItemFieldOrigins            = big.NewInt(1 << 9)
-	sharesList200ResponseSharesItemFieldPasswordProtected  = big.NewInt(1 << 10)
-	sharesList200ResponseSharesItemFieldSessionTTLSeconds  = big.NewInt(1 << 11)
-	sharesList200ResponseSharesItemFieldDisabled           = big.NewInt(1 << 12)
-	sharesList200ResponseSharesItemFieldArchivedAt         = big.NewInt(1 << 13)
-	sharesList200ResponseSharesItemFieldExpiresAt          = big.NewInt(1 << 14)
-	sharesList200ResponseSharesItemFieldExchangeCount      = big.NewInt(1 << 15)
-	sharesList200ResponseSharesItemFieldLastExchangedAt    = big.NewInt(1 << 16)
-	sharesList200ResponseSharesItemFieldCreatedBy          = big.NewInt(1 << 17)
-	sharesList200ResponseSharesItemFieldCreatedAt          = big.NewInt(1 << 18)
-	sharesList200ResponseSharesItemFieldUpdatedAt          = big.NewInt(1 << 19)
+	sharesList200ResponseSharesItemFieldIdentity           = big.NewInt(1 << 8)
+	sharesList200ResponseSharesItemFieldScope              = big.NewInt(1 << 9)
+	sharesList200ResponseSharesItemFieldOrigins            = big.NewInt(1 << 10)
+	sharesList200ResponseSharesItemFieldPasswordProtected  = big.NewInt(1 << 11)
+	sharesList200ResponseSharesItemFieldSessionTTLSeconds  = big.NewInt(1 << 12)
+	sharesList200ResponseSharesItemFieldDisabled           = big.NewInt(1 << 13)
+	sharesList200ResponseSharesItemFieldArchivedAt         = big.NewInt(1 << 14)
+	sharesList200ResponseSharesItemFieldExpiresAt          = big.NewInt(1 << 15)
+	sharesList200ResponseSharesItemFieldExchangeCount      = big.NewInt(1 << 16)
+	sharesList200ResponseSharesItemFieldLastExchangedAt    = big.NewInt(1 << 17)
+	sharesList200ResponseSharesItemFieldCreatedBy          = big.NewInt(1 << 18)
+	sharesList200ResponseSharesItemFieldCreatedAt          = big.NewInt(1 << 19)
+	sharesList200ResponseSharesItemFieldUpdatedAt          = big.NewInt(1 << 20)
 )
 
 type SharesList200ResponseSharesItem struct {
@@ -4019,6 +4077,7 @@ type SharesList200ResponseSharesItem struct {
 	KeepVisitorLayers  bool                                            `json:"keepVisitorLayers" url:"keepVisitorLayers"`
 	VisitorIdleSeconds *float64                                        `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
 	VisitorIdentity    *SharesList200ResponseSharesItemVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity           *Identity                                       `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope              []string                                        `json:"scope" url:"scope"`
 	Origins            []string                                        `json:"origins,omitempty" url:"origins,omitempty"`
 	PasswordProtected  bool                                            `json:"passwordProtected" url:"passwordProtected"`
@@ -4093,6 +4152,13 @@ func (s *SharesList200ResponseSharesItem) GetVisitorIdentity() *SharesList200Res
 		return nil
 	}
 	return s.VisitorIdentity
+}
+
+func (s *SharesList200ResponseSharesItem) GetIdentity() *Identity {
+	if s == nil {
+		return nil
+	}
+	return s.Identity
 }
 
 func (s *SharesList200ResponseSharesItem) GetScope() []string {
@@ -4247,6 +4313,13 @@ func (s *SharesList200ResponseSharesItem) SetVisitorIdleSeconds(visitorIdleSecon
 func (s *SharesList200ResponseSharesItem) SetVisitorIdentity(visitorIdentity *SharesList200ResponseSharesItemVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesList200ResponseSharesItemFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesList200ResponseSharesItem) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesList200ResponseSharesItemFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -4902,18 +4975,19 @@ var (
 	sharesUpdate200ResponseShareFieldKeepVisitorLayers  = big.NewInt(1 << 5)
 	sharesUpdate200ResponseShareFieldVisitorIdleSeconds = big.NewInt(1 << 6)
 	sharesUpdate200ResponseShareFieldVisitorIdentity    = big.NewInt(1 << 7)
-	sharesUpdate200ResponseShareFieldScope              = big.NewInt(1 << 8)
-	sharesUpdate200ResponseShareFieldOrigins            = big.NewInt(1 << 9)
-	sharesUpdate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 10)
-	sharesUpdate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 11)
-	sharesUpdate200ResponseShareFieldDisabled           = big.NewInt(1 << 12)
-	sharesUpdate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 13)
-	sharesUpdate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 14)
-	sharesUpdate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 15)
-	sharesUpdate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 16)
-	sharesUpdate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 17)
-	sharesUpdate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 18)
-	sharesUpdate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 19)
+	sharesUpdate200ResponseShareFieldIdentity           = big.NewInt(1 << 8)
+	sharesUpdate200ResponseShareFieldScope              = big.NewInt(1 << 9)
+	sharesUpdate200ResponseShareFieldOrigins            = big.NewInt(1 << 10)
+	sharesUpdate200ResponseShareFieldPasswordProtected  = big.NewInt(1 << 11)
+	sharesUpdate200ResponseShareFieldSessionTTLSeconds  = big.NewInt(1 << 12)
+	sharesUpdate200ResponseShareFieldDisabled           = big.NewInt(1 << 13)
+	sharesUpdate200ResponseShareFieldArchivedAt         = big.NewInt(1 << 14)
+	sharesUpdate200ResponseShareFieldExpiresAt          = big.NewInt(1 << 15)
+	sharesUpdate200ResponseShareFieldExchangeCount      = big.NewInt(1 << 16)
+	sharesUpdate200ResponseShareFieldLastExchangedAt    = big.NewInt(1 << 17)
+	sharesUpdate200ResponseShareFieldCreatedBy          = big.NewInt(1 << 18)
+	sharesUpdate200ResponseShareFieldCreatedAt          = big.NewInt(1 << 19)
+	sharesUpdate200ResponseShareFieldUpdatedAt          = big.NewInt(1 << 20)
 )
 
 type SharesUpdate200ResponseShare struct {
@@ -4925,6 +4999,7 @@ type SharesUpdate200ResponseShare struct {
 	KeepVisitorLayers  bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
 	VisitorIdleSeconds *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
 	VisitorIdentity    *SharesUpdate200ResponseShareVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity           *Identity                                    `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope              []string                                     `json:"scope" url:"scope"`
 	Origins            []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
 	PasswordProtected  bool                                         `json:"passwordProtected" url:"passwordProtected"`
@@ -4999,6 +5074,13 @@ func (s *SharesUpdate200ResponseShare) GetVisitorIdentity() *SharesUpdate200Resp
 		return nil
 	}
 	return s.VisitorIdentity
+}
+
+func (s *SharesUpdate200ResponseShare) GetIdentity() *Identity {
+	if s == nil {
+		return nil
+	}
+	return s.Identity
 }
 
 func (s *SharesUpdate200ResponseShare) GetScope() []string {
@@ -5153,6 +5235,13 @@ func (s *SharesUpdate200ResponseShare) SetVisitorIdleSeconds(visitorIdleSeconds 
 func (s *SharesUpdate200ResponseShare) SetVisitorIdentity(visitorIdentity *SharesUpdate200ResponseShareVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesUpdate200ResponseShareFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdate200ResponseShare) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesUpdate200ResponseShareFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
@@ -6739,12 +6828,13 @@ var (
 	sharesUpdateRequestFieldKeepVisitorLayers  = big.NewInt(1 << 4)
 	sharesUpdateRequestFieldVisitorIdleSeconds = big.NewInt(1 << 5)
 	sharesUpdateRequestFieldVisitorIdentity    = big.NewInt(1 << 6)
-	sharesUpdateRequestFieldScope              = big.NewInt(1 << 7)
-	sharesUpdateRequestFieldOrigins            = big.NewInt(1 << 8)
-	sharesUpdateRequestFieldPassword           = big.NewInt(1 << 9)
-	sharesUpdateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 10)
-	sharesUpdateRequestFieldDisabled           = big.NewInt(1 << 11)
-	sharesUpdateRequestFieldExpiresAt          = big.NewInt(1 << 12)
+	sharesUpdateRequestFieldIdentity           = big.NewInt(1 << 7)
+	sharesUpdateRequestFieldScope              = big.NewInt(1 << 8)
+	sharesUpdateRequestFieldOrigins            = big.NewInt(1 << 9)
+	sharesUpdateRequestFieldPassword           = big.NewInt(1 << 10)
+	sharesUpdateRequestFieldSessionTTLSeconds  = big.NewInt(1 << 11)
+	sharesUpdateRequestFieldDisabled           = big.NewInt(1 << 12)
+	sharesUpdateRequestFieldExpiresAt          = big.NewInt(1 << 13)
 )
 
 type SharesUpdateRequest struct {
@@ -6755,6 +6845,7 @@ type SharesUpdateRequest struct {
 	KeepVisitorLayers  *bool                               `json:"keepVisitorLayers,omitempty" url:"-"`
 	VisitorIdleSeconds *int                                `json:"visitorIdleSeconds,omitempty" url:"-"`
 	VisitorIdentity    *SharesUpdateRequestVisitorIdentity `json:"visitorIdentity,omitempty" url:"-"`
+	Identity           *Identity                           `json:"identity,omitempty" url:"-"`
 	Scope              []string                            `json:"scope,omitempty" url:"-"`
 	Origins            []string                            `json:"origins,omitempty" url:"-"`
 	Password           *string                             `json:"password,omitempty" url:"-"`
@@ -6820,6 +6911,13 @@ func (s *SharesUpdateRequest) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
 func (s *SharesUpdateRequest) SetVisitorIdentity(visitorIdentity *SharesUpdateRequestVisitorIdentity) {
 	s.VisitorIdentity = visitorIdentity
 	s.require(sharesUpdateRequestFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SharesUpdateRequest) SetIdentity(identity *Identity) {
+	s.Identity = identity
+	s.require(sharesUpdateRequestFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;

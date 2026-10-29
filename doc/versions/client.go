@@ -36,12 +36,13 @@ func NewClient(options *core.RequestOptions) *Client {
 	}
 }
 
-// Every completed signature publishes a new version. Never cached: the list grows.
+// Every completed signature makes a new version of its layer; another layer's versions are never listed. Never cached: the list grows.
 //
 // Example:
 //
 //	request := &doc.ListVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	}
 //	client.Doc.Versions.List(
 //	    context.TODO(),
@@ -63,12 +64,13 @@ func (c *Client) List(
 	return response.Body, nil
 }
 
-// Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every layer and every caller.
+// Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every caller.
 //
 // Example:
 //
 //	request := &doc.AnalysisVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	}
 //	client.Doc.Versions.Analysis(
@@ -95,6 +97,7 @@ func (c *Client) Analysis(
 //
 //	request := &doc.DownloadVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	}
 //	client.Doc.Versions.Download(
@@ -121,6 +124,7 @@ func (c *Client) Download(
 //
 //	request := &doc.RevisionVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	    Index: 1,
 //	}
@@ -148,6 +152,7 @@ func (c *Client) Revision(
 //
 //	request := &doc.SignaturesVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	}
 //	client.Doc.Versions.Signatures(
@@ -176,6 +181,7 @@ func (c *Client) Signatures(
 //
 //	request := &doc.SignatureContentsVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	    FieldKey: "fieldKey",
 //	}
@@ -205,6 +211,7 @@ func (c *Client) SignatureContents(
 //
 //	request := &doc.SignatureDigestVersionsRequest{
 //	    DocID: "docId",
+//	    LayerName: "layerName",
 //	    Sha: "sha",
 //	    FieldKey: "fieldKey",
 //	    Algorithm: doc.SignatureDigestVersionsRequestAlgorithmSha1,
