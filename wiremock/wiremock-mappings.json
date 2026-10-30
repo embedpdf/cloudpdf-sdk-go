@@ -309,10 +309,10 @@
       }
     },
     {
-      "id": "59b8a94e-d1b3-49ea-a4f6-d146a14bfcc3",
-      "name": "Trade a public share token for a short-lived document session JWT. - default",
+      "id": "bbb9821f-8945-4eb6-8faa-81b200ac1ca7",
+      "name": "Trade a grant for a short-lived document session JWT. - default",
       "request": {
-        "urlPathTemplate": "/v1/share-sessions",
+        "urlPathTemplate": "/v1/grant-sessions",
         "method": "POST"
       },
       "response": {
@@ -322,7 +322,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "59b8a94e-d1b3-49ea-a4f6-d146a14bfcc3",
+      "uuid": "bbb9821f-8945-4eb6-8faa-81b200ac1ca7",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -335,10 +335,10 @@
       }
     },
     {
-      "id": "d309f161-d8f6-4f54-9560-ba5d7abf9c4d",
-      "name": "List share grants in the tenant, newest first, cursor-paginated. - default",
+      "id": "9972d859-7ba7-40f2-a999-4d9e98bd1c61",
+      "name": "List grants in the tenant, newest first, cursor-paginated. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -353,12 +353,12 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"shares\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"identity\": {},\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passwordProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"grants\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"name\": \"name\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"identity\": {},\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passphraseProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "d309f161-d8f6-4f54-9560-ba5d7abf9c4d",
+      "uuid": "9972d859-7ba7-40f2-a999-4d9e98bd1c61",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -371,10 +371,10 @@
       }
     },
     {
-      "id": "c0e4f57a-7acc-4237-880f-3d64ce9b7dc4",
-      "name": "Create a standing share grant for one document — the no-backend embed credential. - default",
+      "id": "f6f41599-4845-4344-9303-dbdce681ffc0",
+      "name": "Create a standing grant for one document — the no-backend embed credential. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants",
         "method": "POST",
         "headers": {
           "Authorization": {
@@ -389,12 +389,12 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "c0e4f57a-7acc-4237-880f-3d64ce9b7dc4",
+      "uuid": "f6f41599-4845-4344-9303-dbdce681ffc0",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -407,10 +407,10 @@
       }
     },
     {
-      "id": "b8b58a73-7832-44af-9621-cc8bccb5e7db",
-      "name": "Fetch one share grant. - default",
+      "id": "49bdc11f-bbd4-47f9-9a98-d958edba1e81",
+      "name": "Fetch one grant. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -421,19 +421,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "b8b58a73-7832-44af-9621-cc8bccb5e7db",
+      "uuid": "49bdc11f-bbd4-47f9-9a98-d958edba1e81",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -446,10 +446,10 @@
       }
     },
     {
-      "id": "0abb8210-bb6b-4afc-9689-835eb5577798",
-      "name": "Delete a link that has no visitors; exchange stops immediately, live sessions lapse at their exp. A link whose visitors answered its questions or have layers is archived instead (409). - default",
+      "id": "563c29dc-92e6-457a-8d24-0954816fbfea",
+      "name": "Delete a grant that has no visitors; exchange stops immediately, live sessions lapse at their exp. A grant whose visitors answered its questions or have layers is archived instead (409). - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -460,8 +460,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           }
         }
       },
@@ -472,7 +472,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "0abb8210-bb6b-4afc-9689-835eb5577798",
+      "uuid": "563c29dc-92e6-457a-8d24-0954816fbfea",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -485,10 +485,10 @@
       }
     },
     {
-      "id": "ff0ab44d-02bc-42c0-8e5b-346f4bf223c7",
-      "name": "Edit a grant in place — every embedded copy of the token follows the row. - default",
+      "id": "c427a4c3-97b4-4118-b63f-320d42224f24",
+      "name": "Edit a grant in place — every link and embed of it follows. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}",
         "method": "PATCH",
         "headers": {
           "Authorization": {
@@ -499,19 +499,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "ff0ab44d-02bc-42c0-8e5b-346f4bf223c7",
+      "uuid": "c427a4c3-97b4-4118-b63f-320d42224f24",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -524,10 +524,10 @@
       }
     },
     {
-      "id": "223f7bfd-392e-484f-a97b-3a83f9cafb58",
-      "name": "End a link for good and keep what its visitors made: exchange stops immediately, live sessions lapse at their exp, and its visitors' layers stay listed. - default",
+      "id": "5a36d27f-300b-458b-ab07-2067ef65f11f",
+      "name": "End a grant for good and keep what its visitors made: exchange stops immediately, live sessions lapse at their exp, and its visitors' layers stay listed. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/archive",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}/archive",
         "method": "POST",
         "headers": {
           "Authorization": {
@@ -538,19 +538,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"share\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passwordProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "223f7bfd-392e-484f-a97b-3a83f9cafb58",
+      "uuid": "5a36d27f-300b-458b-ab07-2067ef65f11f",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -734,8 +734,8 @@
       }
     },
     {
-      "id": "599361ed-d017-40b7-aa62-718c99b66bd0",
-      "name": "Fail the tenant closed: refuse every tenant JWT, doc JWT, and share exchange. - default",
+      "id": "e30508d7-d4e4-4ff2-bbfb-53d7daf93dcc",
+      "name": "Fail the tenant closed: refuse every tenant JWT, doc JWT, and grant exchange. - default",
       "request": {
         "urlPathTemplate": "/v1/tenants/{tenantId}/suspend",
         "method": "POST",
@@ -757,7 +757,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "599361ed-d017-40b7-aa62-718c99b66bd0",
+      "uuid": "e30508d7-d4e4-4ff2-bbfb-53d7daf93dcc",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3191,8 +3191,8 @@
       }
     },
     {
-      "id": "64e62853-f22d-40f8-96f8-25a7d109337c",
-      "name": "A document's layers that hold changes, newest first, cursor-paginated: the ones links and your tokens name, and each share-link visitor's own. - default",
+      "id": "c556c7d4-072b-461e-9ebc-9d33028b236f",
+      "name": "A document's layers that hold changes, newest first, cursor-paginated: the ones grants and your tokens name, and each grant visitor's own. - default",
       "request": {
         "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/layers",
         "method": "GET",
@@ -3212,12 +3212,12 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"layers\": [\n    {\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"shareId\": \"shareId\",\n      \"visitorId\": \"visitorId\",\n      \"storageSizeBytes\": 1.1,\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"lastSeenAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"layers\": [\n    {\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"grantId\": \"grantId\",\n      \"visitorId\": \"visitorId\",\n      \"storageSizeBytes\": 1.1,\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"lastSeenAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "64e62853-f22d-40f8-96f8-25a7d109337c",
+      "uuid": "c556c7d4-072b-461e-9ebc-9d33028b236f",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3272,10 +3272,10 @@
       }
     },
     {
-      "id": "d043f81c-2224-4e34-88fa-3cee18e1c8ef",
-      "name": "A share link's visitors who answered its questions or made a change, newest first, cursor-paginated: their answers and their layer. - default",
+      "id": "2da48469-7b24-4a0a-8604-c4cbf76068c5",
+      "name": "A grant's visitors who answered its questions or made a change, newest first, cursor-paginated: their answers and their layer. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/visitors",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}/visitors",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3286,8 +3286,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           }
         }
       },
@@ -3298,7 +3298,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "d043f81c-2224-4e34-88fa-3cee18e1c8ef",
+      "uuid": "2da48469-7b24-4a0a-8604-c4cbf76068c5",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3311,10 +3311,10 @@
       }
     },
     {
-      "id": "b5d7349b-212b-4b2b-882c-f45acc0a67da",
-      "name": "Erase a share link's visitor: their answers and their own layer. - default",
+      "id": "af8d3f14-ec41-41d4-bf3c-598edba6e202",
+      "name": "Erase a grant's visitor: their answers and their own layer. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/shares/{shareId}/visitors/{visitorId}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/grants/{grantId}/visitors/{visitorId}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -3325,8 +3325,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "shareId": {
-            "equalTo": "shareId"
+          "grantId": {
+            "equalTo": "grantId"
           },
           "visitorId": {
             "equalTo": "visitorId"
@@ -3340,7 +3340,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "b5d7349b-212b-4b2b-882c-f45acc0a67da",
+      "uuid": "af8d3f14-ec41-41d4-bf3c-598edba6e202",
       "persistent": true,
       "priority": 3,
       "metadata": {

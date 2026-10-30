@@ -541,8 +541,8 @@ client.Doc.Text(
 </dl>
 </details>
 
-## Shares
-<details><summary><code>client.Shares.Exchange(request) -> *cloudpdf.SharesExchange200Response</code></summary>
+## Grants
+<details><summary><code>client.Grants.Exchange(request) -> *cloudpdf.GrantsExchange200Response</code></summary>
 <dl>
 <dd>
 
@@ -554,7 +554,7 @@ client.Doc.Text(
 <dl>
 <dd>
 
-Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, revoked, and disabled tokens are indistinguishable (404). Passphrase-protected grants return 422 SharePasswordRequired until `password` is supplied. A link that asks its visitors who they are on open returns 422 VisitorIdentityRequired until the required answers are given; `error.details` carries `fields` (what the link asks), `missing`, `invalid`, `purpose` and `privacyUrl`. A link that asks before the first change issues the session at once with `visitor.identityRequest`, and writes answer 403 VisitorIdentityRequired with the same details until the visitor exchanges again with their answers. Answers that can not be taken answer 422 on any link. Mounted only when the deployment can sign (HS256 mode).
+Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, deleted, paused and archived grants are indistinguishable (404). Passphrase-protected grants return 422 GrantPassphraseRequired until `passphrase` is supplied. A grant that asks its visitors who they are on open returns 422 VisitorIdentityRequired until the required answers are given; `error.details` carries `fields` (what the grant asks), `missing`, `invalid`, `purpose` and `privacyUrl`. A grant that asks before the first change issues the session at once with `visitor.identityRequest`, and writes answer 403 VisitorIdentityRequired with the same details until the visitor exchanges again with their answers. Answers that can not be taken answer 422 on any grant. Mounted only when the deployment can sign (HS256 mode).
 </dd>
 </dl>
 </dd>
@@ -569,10 +569,10 @@ Unauthenticated, but requires a browser Origin header, checked against the grant
 <dd>
 
 ```go
-request := &cloudpdf.SharesExchangeRequest{
-    ShareToken: "shareToken",
+request := &cloudpdf.GrantsExchangeRequest{
+    Grant: "grant",
 }
-client.Shares.Exchange(
+client.Grants.Exchange(
     context.TODO(),
     request,
 )
@@ -590,7 +590,7 @@ client.Shares.Exchange(
 <dl>
 <dd>
 
-**shareToken:** `string` 
+**grant:** `string` 
     
 </dd>
 </dl>
@@ -598,7 +598,7 @@ client.Shares.Exchange(
 <dl>
 <dd>
 
-**password:** `*string` 
+**passphrase:** `*string` 
     
 </dd>
 </dl>
@@ -622,7 +622,7 @@ client.Shares.Exchange(
 <dl>
 <dd>
 
-**visitorIdentity:** `*cloudpdf.SharesExchangeRequestVisitorIdentity` 
+**visitorIdentity:** `*cloudpdf.GrantsExchangeRequestVisitorIdentity` 
     
 </dd>
 </dl>
@@ -634,7 +634,7 @@ client.Shares.Exchange(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.List(TenantID) -> *cloudpdf.SharesList200Response</code></summary>
+<details><summary><code>client.Grants.List(TenantID) -> *cloudpdf.GrantsList200Response</code></summary>
 <dl>
 <dd>
 
@@ -647,10 +647,10 @@ client.Shares.Exchange(
 <dd>
 
 ```go
-request := &cloudpdf.ListSharesRequest{
+request := &cloudpdf.ListGrantsRequest{
     TenantID: "tenantId",
 }
-client.Shares.List(
+client.Grants.List(
     context.TODO(),
     request,
 )
@@ -712,7 +712,7 @@ client.Shares.List(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Create(TenantID, request) -> *cloudpdf.SharesCreate200Response</code></summary>
+<details><summary><code>client.Grants.Create(TenantID, request) -> *cloudpdf.GrantsCreate200Response</code></summary>
 <dl>
 <dd>
 
@@ -724,7 +724,7 @@ client.Shares.List(
 <dl>
 <dd>
 
-The returned share id is the public share token. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
+The returned id is what a link page or an embed opens. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
 </dd>
 </dl>
 </dd>
@@ -739,14 +739,14 @@ The returned share id is the public share token. Mounted only when the deploymen
 <dd>
 
 ```go
-request := &cloudpdf.SharesCreateRequest{
+request := &cloudpdf.GrantsCreateRequest{
     TenantID: "tenantId",
     DocID: "docId",
     Scope: []string{
         "scope",
     },
 }
-client.Shares.Create(
+client.Grants.Create(
     context.TODO(),
     request,
 )
@@ -780,7 +780,15 @@ client.Shares.Create(
 <dl>
 <dd>
 
-**layerMode:** `*cloudpdf.SharesCreateRequestLayerMode` 
+**name:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerMode:** `*cloudpdf.GrantsCreateRequestLayerMode` 
     
 </dd>
 </dl>
@@ -812,7 +820,7 @@ client.Shares.Create(
 <dl>
 <dd>
 
-**visitorIdentity:** `*cloudpdf.SharesCreateRequestVisitorIdentity` 
+**visitorIdentity:** `*cloudpdf.GrantsCreateRequestVisitorIdentity` 
     
 </dd>
 </dl>
@@ -844,7 +852,7 @@ client.Shares.Create(
 <dl>
 <dd>
 
-**password:** `*string` 
+**passphrase:** `*string` 
     
 </dd>
 </dl>
@@ -872,7 +880,7 @@ client.Shares.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Get(TenantID, ShareID) -> *cloudpdf.SharesGet200Response</code></summary>
+<details><summary><code>client.Grants.Get(TenantID, GrantID) -> *cloudpdf.GrantsGet200Response</code></summary>
 <dl>
 <dd>
 
@@ -885,11 +893,11 @@ client.Shares.Create(
 <dd>
 
 ```go
-request := &cloudpdf.GetSharesRequest{
+request := &cloudpdf.GetGrantsRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
 }
-client.Shares.Get(
+client.Grants.Get(
     context.TODO(),
     request,
 )
@@ -915,7 +923,7 @@ client.Shares.Get(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>
@@ -927,7 +935,7 @@ client.Shares.Get(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Delete(TenantID, ShareID) -> error</code></summary>
+<details><summary><code>client.Grants.Delete(TenantID, GrantID) -> error</code></summary>
 <dl>
 <dd>
 
@@ -940,11 +948,11 @@ client.Shares.Get(
 <dd>
 
 ```go
-request := &cloudpdf.DeleteSharesRequest{
+request := &cloudpdf.DeleteGrantsRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
 }
-client.Shares.Delete(
+client.Grants.Delete(
     context.TODO(),
     request,
 )
@@ -970,7 +978,7 @@ client.Shares.Delete(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>
@@ -982,7 +990,7 @@ client.Shares.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Update(TenantID, ShareID, request) -> *cloudpdf.SharesUpdate200Response</code></summary>
+<details><summary><code>client.Grants.Update(TenantID, GrantID, request) -> *cloudpdf.GrantsUpdate200Response</code></summary>
 <dl>
 <dd>
 
@@ -995,11 +1003,11 @@ client.Shares.Delete(
 <dd>
 
 ```go
-request := &cloudpdf.SharesUpdateRequest{
+request := &cloudpdf.GrantsUpdateRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
 }
-client.Shares.Update(
+client.Grants.Update(
     context.TODO(),
     request,
 )
@@ -1025,7 +1033,7 @@ client.Shares.Update(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>
@@ -1033,7 +1041,15 @@ client.Shares.Update(
 <dl>
 <dd>
 
-**layerMode:** `*cloudpdf.SharesUpdateRequestLayerMode` 
+**name:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**layerMode:** `*cloudpdf.GrantsUpdateRequestLayerMode` 
     
 </dd>
 </dl>
@@ -1065,7 +1081,7 @@ client.Shares.Update(
 <dl>
 <dd>
 
-**visitorIdentity:** `*cloudpdf.SharesUpdateRequestVisitorIdentity` 
+**visitorIdentity:** `*cloudpdf.GrantsUpdateRequestVisitorIdentity` 
     
 </dd>
 </dl>
@@ -1097,7 +1113,7 @@ client.Shares.Update(
 <dl>
 <dd>
 
-**password:** `*string` 
+**passphrase:** `*string` 
     
 </dd>
 </dl>
@@ -1133,7 +1149,7 @@ client.Shares.Update(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Archive(TenantID, ShareID) -> *cloudpdf.SharesArchive200Response</code></summary>
+<details><summary><code>client.Grants.Archive(TenantID, GrantID) -> *cloudpdf.GrantsArchive200Response</code></summary>
 <dl>
 <dd>
 
@@ -1145,7 +1161,7 @@ client.Shares.Update(
 <dl>
 <dd>
 
-Archiving is final: an archived link never exchanges again, and to share again you create a new link. Pausing (`disabled`) is the reversible stop. An archived link no longer counts as using its shared layer, so that layer can be deleted.
+Archiving is final: an archived grant never exchanges again, and to give access again you create a new grant. Pausing (`disabled`) is the reversible stop. An archived grant no longer counts as using its shared layer, so that layer can be deleted.
 </dd>
 </dl>
 </dd>
@@ -1160,11 +1176,11 @@ Archiving is final: an archived link never exchanges again, and to share again y
 <dd>
 
 ```go
-request := &cloudpdf.ArchiveSharesRequest{
+request := &cloudpdf.ArchiveGrantsRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
 }
-client.Shares.Archive(
+client.Grants.Archive(
     context.TODO(),
     request,
 )
@@ -1190,7 +1206,7 @@ client.Shares.Archive(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>
@@ -1541,7 +1557,7 @@ client.Tenants.Suspend(
 <dl>
 <dd>
 
-Facts only — no limits or billing state. Views count share exchanges plus authorized /v1/access grants, deduplicated across the two.
+Facts only — no limits or billing state. Views count grant exchanges plus authorized /v1/access requests, deduplicated across the two.
 </dd>
 </dl>
 </dd>
@@ -2614,7 +2630,7 @@ client.Folders.Get(
 <dl>
 <dd>
 
-Without recursive, a folder with anything inside is refused: 409 Conflict with `details.reason` `not-empty` and what it holds, counted over every level below, in `details.folders` and `details.documents`. With recursive=true, the folder and every folder under it go at once, and every document in them stops opening, leaves every list and stops answering its share links at once; their stored files and links are removed in the background. Uploads into those folders that have not committed cannot commit.
+Without recursive, a folder with anything inside is refused: 409 Conflict with `details.reason` `not-empty` and what it holds, counted over every level below, in `details.folders` and `details.documents`. With recursive=true, the folder and every folder under it go at once, and every document in them stops opening, leaves every list and stops answering its grants at once; their stored files and grants are removed in the background. Uploads into those folders that have not committed cannot commit.
 </dd>
 </dl>
 </dd>
@@ -6615,7 +6631,7 @@ client.Documents.Layers.List(
 <dl>
 <dd>
 
-**shareID:** `*string` 
+**grantID:** `*string` 
     
 </dd>
 </dl>
@@ -6691,8 +6707,8 @@ client.Documents.Layers.Delete(
 </dl>
 </details>
 
-## Shares Visitors
-<details><summary><code>client.Shares.Visitors.List(TenantID, ShareID) -> *cloudpdf.SharesVisitorsList200Response</code></summary>
+## Grants Visitors
+<details><summary><code>client.Grants.Visitors.List(TenantID, GrantID) -> *cloudpdf.GrantsVisitorsList200Response</code></summary>
 <dl>
 <dd>
 
@@ -6704,7 +6720,7 @@ client.Documents.Layers.Delete(
 <dl>
 <dd>
 
-An archived link's visitors are listed too.
+An archived grant's visitors are listed too.
 </dd>
 </dl>
 </dd>
@@ -6719,11 +6735,11 @@ An archived link's visitors are listed too.
 <dd>
 
 ```go
-request := &shares.ListVisitorsRequest{
+request := &grants.ListVisitorsRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
 }
-client.Shares.Visitors.List(
+client.Grants.Visitors.List(
     context.TODO(),
     request,
 )
@@ -6749,7 +6765,7 @@ client.Shares.Visitors.List(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>
@@ -6777,7 +6793,7 @@ client.Shares.Visitors.List(
 </dl>
 </details>
 
-<details><summary><code>client.Shares.Visitors.Delete(TenantID, ShareID, VisitorID) -> error</code></summary>
+<details><summary><code>client.Grants.Visitors.Delete(TenantID, GrantID, VisitorID) -> error</code></summary>
 <dl>
 <dd>
 
@@ -6804,12 +6820,12 @@ Their handle brings them back as a new visitor, who is asked again. Deleting a v
 <dd>
 
 ```go
-request := &shares.DeleteVisitorsRequest{
+request := &grants.DeleteVisitorsRequest{
     TenantID: "tenantId",
-    ShareID: "shareId",
+    GrantID: "grantId",
     VisitorID: "visitorId",
 }
-client.Shares.Visitors.Delete(
+client.Grants.Visitors.Delete(
     context.TODO(),
     request,
 )
@@ -6835,7 +6851,7 @@ client.Shares.Visitors.Delete(
 <dl>
 <dd>
 
-**shareID:** `string` 
+**grantID:** `string` 
     
 </dd>
 </dl>

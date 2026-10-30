@@ -92443,7 +92443,7 @@ const (
 	EngineErrorPayloadCodeDocOpenFailed           EngineErrorPayloadCode = "DocOpenFailed"
 	EngineErrorPayloadCodeDocPasswordRequired     EngineErrorPayloadCode = "DocPasswordRequired"
 	EngineErrorPayloadCodeDocPasswordIncorrect    EngineErrorPayloadCode = "DocPasswordIncorrect"
-	EngineErrorPayloadCodeSharePasswordRequired   EngineErrorPayloadCode = "SharePasswordRequired"
+	EngineErrorPayloadCodeGrantPassphraseRequired EngineErrorPayloadCode = "GrantPassphraseRequired"
 	EngineErrorPayloadCodeAborted                 EngineErrorPayloadCode = "Aborted"
 	EngineErrorPayloadCodeNetwork                 EngineErrorPayloadCode = "Network"
 	EngineErrorPayloadCodeUnauthenticated         EngineErrorPayloadCode = "Unauthenticated"
@@ -92483,8 +92483,8 @@ func NewEngineErrorPayloadCodeFromString(s string) (EngineErrorPayloadCode, erro
 		return EngineErrorPayloadCodeDocPasswordRequired, nil
 	case "DocPasswordIncorrect":
 		return EngineErrorPayloadCodeDocPasswordIncorrect, nil
-	case "SharePasswordRequired":
-		return EngineErrorPayloadCodeSharePasswordRequired, nil
+	case "GrantPassphraseRequired":
+		return EngineErrorPayloadCodeGrantPassphraseRequired, nil
 	case "Aborted":
 		return EngineErrorPayloadCodeAborted, nil
 	case "Network":

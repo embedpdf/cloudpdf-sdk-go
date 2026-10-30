@@ -8,9 +8,9 @@ import (
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
+	grants "github.com/embedpdf/cloudpdf-sdk-go/v3/grants"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
-	shares "github.com/embedpdf/cloudpdf-sdk-go/v3/shares"
 )
 
 type RawClient struct {
@@ -35,9 +35,9 @@ func NewRawClient(options *core.RequestOptions) *RawClient {
 
 func (r *RawClient) List(
 	ctx context.Context,
-	request *shares.ListVisitorsRequest,
+	request *grants.ListVisitorsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.SharesVisitorsList200Response], error) {
+) (*core.Response[*cloudpdf.GrantsVisitorsList200Response], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -45,9 +45,9 @@ func (r *RawClient) List(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/tenants/%v/shares/%v/visitors",
+		baseURL+"/v1/tenants/%v/grants/%v/visitors",
 		request.TenantID,
-		request.ShareID,
+		request.GrantID,
 	)
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {
@@ -60,7 +60,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.SharesVisitorsList200Response
+	var response *cloudpdf.GrantsVisitorsList200Response
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -73,13 +73,13 @@ func (r *RawClient) List(
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
 			Response:        &response,
-			ErrorDecoder:    internal.NewErrorDecoder(shares.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(grants.ErrorCodes),
 		},
 	)
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.SharesVisitorsList200Response]{
+	return &core.Response[*cloudpdf.GrantsVisitorsList200Response]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -88,7 +88,7 @@ func (r *RawClient) List(
 
 func (r *RawClient) Delete(
 	ctx context.Context,
-	request *shares.DeleteVisitorsRequest,
+	request *grants.DeleteVisitorsRequest,
 	opts ...option.RequestOption,
 ) (*core.Response[any], error) {
 	options := core.NewRequestOptions(opts...)
@@ -98,9 +98,9 @@ func (r *RawClient) Delete(
 		"",
 	)
 	endpointURL := internal.EncodeURL(
-		baseURL+"/v1/tenants/%v/shares/%v/visitors/%v",
+		baseURL+"/v1/tenants/%v/grants/%v/visitors/%v",
 		request.TenantID,
-		request.ShareID,
+		request.GrantID,
 		request.VisitorID,
 	)
 	headers := internal.MergeHeaders(
@@ -118,7 +118,7 @@ func (r *RawClient) Delete(
 			BodyProperties:  options.BodyProperties,
 			QueryParameters: options.QueryParameters,
 			Client:          options.HTTPClient,
-			ErrorDecoder:    internal.NewErrorDecoder(shares.ErrorCodes),
+			ErrorDecoder:    internal.NewErrorDecoder(grants.ErrorCodes),
 		},
 	)
 	if err != nil {

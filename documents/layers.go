@@ -54,7 +54,7 @@ var (
 	listLayersRequestFieldID       = big.NewInt(1 << 1)
 	listLayersRequestFieldLimit    = big.NewInt(1 << 2)
 	listLayersRequestFieldCursor   = big.NewInt(1 << 3)
-	listLayersRequestFieldShareID  = big.NewInt(1 << 4)
+	listLayersRequestFieldGrantID  = big.NewInt(1 << 4)
 )
 
 type ListLayersRequest struct {
@@ -62,7 +62,7 @@ type ListLayersRequest struct {
 	ID       string  `json:"-" url:"-"`
 	Limit    *int    `json:"-" url:"limit,omitempty"`
 	Cursor   *string `json:"-" url:"cursor,omitempty"`
-	ShareID  *string `json:"-" url:"shareId,omitempty"`
+	GrantID  *string `json:"-" url:"grantId,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -103,9 +103,9 @@ func (l *ListLayersRequest) SetCursor(cursor *string) {
 	l.require(listLayersRequestFieldCursor)
 }
 
-// SetShareID sets the ShareID field and marks it as non-optional;
+// SetGrantID sets the GrantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (l *ListLayersRequest) SetShareID(shareID *string) {
-	l.ShareID = shareID
-	l.require(listLayersRequestFieldShareID)
+func (l *ListLayersRequest) SetGrantID(grantID *string) {
+	l.GrantID = grantID
+	l.require(listLayersRequestFieldGrantID)
 }

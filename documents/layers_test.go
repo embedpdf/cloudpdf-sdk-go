@@ -165,11 +165,11 @@ func TestSettersListLayersRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetShareID", func(t *testing.T) {
+	t.Run("SetGrantID", func(t *testing.T) {
 		obj := &ListLayersRequest{}
-		var fernTestValueShareID *string
-		obj.SetShareID(fernTestValueShareID)
-		assert.Equal(t, fernTestValueShareID, obj.ShareID)
+		var fernTestValueGrantID *string
+		obj.SetGrantID(fernTestValueGrantID)
+		assert.Equal(t, fernTestValueGrantID, obj.GrantID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -300,14 +300,14 @@ func TestSettersMarkExplicitListLayersRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetShareID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetGrantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ListLayersRequest{}
-		var fernTestValueShareID *string
+		var fernTestValueGrantID *string
 
 		// Act
-		obj.SetShareID(fernTestValueShareID)
+		obj.SetGrantID(fernTestValueGrantID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

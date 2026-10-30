@@ -65,8 +65,8 @@ func (r *RequestOptions) cloneHeader() http.Header {
 	headers := r.HTTPHeader.Clone()
 	headers.Set("X-Fern-Language", "Go")
 	headers.Set("X-Fern-SDK-Name", "github.com/embedpdf/cloudpdf-sdk-go/v3")
-	headers.Set("X-Fern-SDK-Version", "v3.0.0-next.18")
-	headers.Set("User-Agent", "github.com/embedpdf/cloudpdf-sdk-go/v3/3.0.0-next.18")
+	headers.Set("X-Fern-SDK-Version", "v3.0.0-next.19")
+	headers.Set("User-Agent", "github.com/embedpdf/cloudpdf-sdk-go/v3/3.0.0-next.19")
 	return headers
 }
 

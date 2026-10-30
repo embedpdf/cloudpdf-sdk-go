@@ -7,9 +7,9 @@ import (
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
+	grants "github.com/embedpdf/cloudpdf-sdk-go/v3/grants"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
-	shares "github.com/embedpdf/cloudpdf-sdk-go/v3/shares"
 )
 
 type Client struct {
@@ -35,23 +35,23 @@ func NewClient(options *core.RequestOptions) *Client {
 	}
 }
 
-// An archived link's visitors are listed too.
+// An archived grant's visitors are listed too.
 //
 // Example:
 //
-//	request := &shares.ListVisitorsRequest{
+//	request := &grants.ListVisitorsRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	}
-//	client.Shares.Visitors.List(
+//	client.Grants.Visitors.List(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) List(
 	ctx context.Context,
-	request *shares.ListVisitorsRequest,
+	request *grants.ListVisitorsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesVisitorsList200Response, error) {
+) (*cloudpdf.GrantsVisitorsList200Response, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -67,18 +67,18 @@ func (c *Client) List(
 //
 // Example:
 //
-//	request := &shares.DeleteVisitorsRequest{
+//	request := &grants.DeleteVisitorsRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	    VisitorID: "visitorId",
 //	}
-//	client.Shares.Visitors.Delete(
+//	client.Grants.Visitors.Delete(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Delete(
 	ctx context.Context,
-	request *shares.DeleteVisitorsRequest,
+	request *grants.DeleteVisitorsRequest,
 	opts ...option.RequestOption,
 ) error {
 	_, err := c.WithRawResponse.Delete(

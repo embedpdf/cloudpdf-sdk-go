@@ -130,11 +130,11 @@ func (f *ForbiddenError) Unwrap() error {
 // Gone
 type GoneError struct {
 	*core.APIError
-	Body SharesExchange410Response
+	Body GrantsExchange410Response
 }
 
 func (g *GoneError) UnmarshalJSON(data []byte) error {
-	var body SharesExchange410Response
+	var body GrantsExchange410Response
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -202,11 +202,11 @@ func (n *NotImplementedError) Unwrap() error {
 // Unprocessable
 type UnprocessableEntityError struct {
 	*core.APIError
-	Body SharesExchange422Response
+	Body GrantsExchange422Response
 }
 
 func (u *UnprocessableEntityError) UnmarshalJSON(data []byte) error {
-	var body SharesExchange422Response
+	var body GrantsExchange422Response
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
