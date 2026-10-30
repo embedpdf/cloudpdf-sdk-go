@@ -260069,11 +260069,11 @@ func TestEnumEngineErrorPayloadCode(t *testing.T) {
 		assert.Equal(t, EngineErrorPayloadCode("DocPasswordIncorrect"), val, "enum value should match expected wire value")
 	})
 
-	t.Run("NewFromString_SharePasswordRequired", func(t *testing.T) {
+	t.Run("NewFromString_GrantPassphraseRequired", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewEngineErrorPayloadCodeFromString("SharePasswordRequired")
+		val, err := NewEngineErrorPayloadCodeFromString("GrantPassphraseRequired")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, EngineErrorPayloadCode("SharePasswordRequired"), val, "enum value should match expected wire value")
+		assert.Equal(t, EngineErrorPayloadCode("GrantPassphraseRequired"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Aborted", func(t *testing.T) {

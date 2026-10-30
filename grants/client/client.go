@@ -7,9 +7,9 @@ import (
 
 	cloudpdf "github.com/embedpdf/cloudpdf-sdk-go/v3"
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
+	visitors "github.com/embedpdf/cloudpdf-sdk-go/v3/grants/visitors"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	option "github.com/embedpdf/cloudpdf-sdk-go/v3/option"
-	visitors "github.com/embedpdf/cloudpdf-sdk-go/v3/shares/visitors"
 )
 
 type Client struct {
@@ -37,22 +37,22 @@ func NewClient(options *core.RequestOptions) *Client {
 	}
 }
 
-// Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, revoked, and disabled tokens are indistinguishable (404). Passphrase-protected grants return 422 SharePasswordRequired until `password` is supplied. A link that asks its visitors who they are on open returns 422 VisitorIdentityRequired until the required answers are given; `error.details` carries `fields` (what the link asks), `missing`, `invalid`, `purpose` and `privacyUrl`. A link that asks before the first change issues the session at once with `visitor.identityRequest`, and writes answer 403 VisitorIdentityRequired with the same details until the visitor exchanges again with their answers. Answers that can not be taken answer 422 on any link. Mounted only when the deployment can sign (HS256 mode).
+// Unauthenticated, but requires a browser Origin header, checked against the grant allowlist. Unknown, deleted, paused and archived grants are indistinguishable (404). Passphrase-protected grants return 422 GrantPassphraseRequired until `passphrase` is supplied. A grant that asks its visitors who they are on open returns 422 VisitorIdentityRequired until the required answers are given; `error.details` carries `fields` (what the grant asks), `missing`, `invalid`, `purpose` and `privacyUrl`. A grant that asks before the first change issues the session at once with `visitor.identityRequest`, and writes answer 403 VisitorIdentityRequired with the same details until the visitor exchanges again with their answers. Answers that can not be taken answer 422 on any grant. Mounted only when the deployment can sign (HS256 mode).
 //
 // Example:
 //
-//	request := &cloudpdf.SharesExchangeRequest{
-//	    ShareToken: "shareToken",
+//	request := &cloudpdf.GrantsExchangeRequest{
+//	    Grant: "grant",
 //	}
-//	client.Shares.Exchange(
+//	client.Grants.Exchange(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Exchange(
 	ctx context.Context,
-	request *cloudpdf.SharesExchangeRequest,
+	request *cloudpdf.GrantsExchangeRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesExchange200Response, error) {
+) (*cloudpdf.GrantsExchange200Response, error) {
 	response, err := c.WithRawResponse.Exchange(
 		ctx,
 		request,
@@ -66,18 +66,18 @@ func (c *Client) Exchange(
 
 // Example:
 //
-//	request := &cloudpdf.ListSharesRequest{
+//	request := &cloudpdf.ListGrantsRequest{
 //	    TenantID: "tenantId",
 //	}
-//	client.Shares.List(
+//	client.Grants.List(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) List(
 	ctx context.Context,
-	request *cloudpdf.ListSharesRequest,
+	request *cloudpdf.ListGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesList200Response, error) {
+) (*cloudpdf.GrantsList200Response, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -89,26 +89,26 @@ func (c *Client) List(
 	return response.Body, nil
 }
 
-// The returned share id is the public share token. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
+// The returned id is what a link page or an embed opens. Mounted only when the deployment can sign (HS256 mode) — exchange mints session JWTs, so grants exist only where minting does.
 //
 // Example:
 //
-//	request := &cloudpdf.SharesCreateRequest{
+//	request := &cloudpdf.GrantsCreateRequest{
 //	    TenantID: "tenantId",
 //	    DocID: "docId",
 //	    Scope: []string{
 //	        "scope",
 //	    },
 //	}
-//	client.Shares.Create(
+//	client.Grants.Create(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Create(
 	ctx context.Context,
-	request *cloudpdf.SharesCreateRequest,
+	request *cloudpdf.GrantsCreateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesCreate200Response, error) {
+) (*cloudpdf.GrantsCreate200Response, error) {
 	response, err := c.WithRawResponse.Create(
 		ctx,
 		request,
@@ -122,19 +122,19 @@ func (c *Client) Create(
 
 // Example:
 //
-//	request := &cloudpdf.GetSharesRequest{
+//	request := &cloudpdf.GetGrantsRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	}
-//	client.Shares.Get(
+//	client.Grants.Get(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Get(
 	ctx context.Context,
-	request *cloudpdf.GetSharesRequest,
+	request *cloudpdf.GetGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesGet200Response, error) {
+) (*cloudpdf.GrantsGet200Response, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,
@@ -148,17 +148,17 @@ func (c *Client) Get(
 
 // Example:
 //
-//	request := &cloudpdf.DeleteSharesRequest{
+//	request := &cloudpdf.DeleteGrantsRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	}
-//	client.Shares.Delete(
+//	client.Grants.Delete(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Delete(
 	ctx context.Context,
-	request *cloudpdf.DeleteSharesRequest,
+	request *cloudpdf.DeleteGrantsRequest,
 	opts ...option.RequestOption,
 ) error {
 	_, err := c.WithRawResponse.Delete(
@@ -174,19 +174,19 @@ func (c *Client) Delete(
 
 // Example:
 //
-//	request := &cloudpdf.SharesUpdateRequest{
+//	request := &cloudpdf.GrantsUpdateRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	}
-//	client.Shares.Update(
+//	client.Grants.Update(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Update(
 	ctx context.Context,
-	request *cloudpdf.SharesUpdateRequest,
+	request *cloudpdf.GrantsUpdateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesUpdate200Response, error) {
+) (*cloudpdf.GrantsUpdate200Response, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -198,23 +198,23 @@ func (c *Client) Update(
 	return response.Body, nil
 }
 
-// Archiving is final: an archived link never exchanges again, and to share again you create a new link. Pausing (`disabled`) is the reversible stop. An archived link no longer counts as using its shared layer, so that layer can be deleted.
+// Archiving is final: an archived grant never exchanges again, and to give access again you create a new grant. Pausing (`disabled`) is the reversible stop. An archived grant no longer counts as using its shared layer, so that layer can be deleted.
 //
 // Example:
 //
-//	request := &cloudpdf.ArchiveSharesRequest{
+//	request := &cloudpdf.ArchiveGrantsRequest{
 //	    TenantID: "tenantId",
-//	    ShareID: "shareId",
+//	    GrantID: "grantId",
 //	}
-//	client.Shares.Archive(
+//	client.Grants.Archive(
 //	    context.TODO(),
 //	    request,
 //	)
 func (c *Client) Archive(
 	ctx context.Context,
-	request *cloudpdf.ArchiveSharesRequest,
+	request *cloudpdf.ArchiveGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.SharesArchive200Response, error) {
+) (*cloudpdf.GrantsArchive200Response, error) {
 	response, err := c.WithRawResponse.Archive(
 		ctx,
 		request,

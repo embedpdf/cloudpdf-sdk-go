@@ -55119,7 +55119,7 @@ func (d *DocumentsLayersList200Response) String() string {
 var (
 	documentsLayersList200ResponseLayersItemFieldDocID            = big.NewInt(1 << 0)
 	documentsLayersList200ResponseLayersItemFieldLayerName        = big.NewInt(1 << 1)
-	documentsLayersList200ResponseLayersItemFieldShareID          = big.NewInt(1 << 2)
+	documentsLayersList200ResponseLayersItemFieldGrantID          = big.NewInt(1 << 2)
 	documentsLayersList200ResponseLayersItemFieldVisitorID        = big.NewInt(1 << 3)
 	documentsLayersList200ResponseLayersItemFieldStorageSizeBytes = big.NewInt(1 << 4)
 	documentsLayersList200ResponseLayersItemFieldCreatedAt        = big.NewInt(1 << 5)
@@ -55130,7 +55130,7 @@ var (
 type DocumentsLayersList200ResponseLayersItem struct {
 	DocID            string   `json:"docId" url:"docId"`
 	LayerName        string   `json:"layerName" url:"layerName"`
-	ShareID          *string  `json:"shareId,omitempty" url:"shareId,omitempty"`
+	GrantID          *string  `json:"grantId,omitempty" url:"grantId,omitempty"`
 	VisitorID        *string  `json:"visitorId,omitempty" url:"visitorId,omitempty"`
 	StorageSizeBytes *float64 `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
 	CreatedAt        float64  `json:"createdAt" url:"createdAt"`
@@ -55158,11 +55158,11 @@ func (d *DocumentsLayersList200ResponseLayersItem) GetLayerName() string {
 	return d.LayerName
 }
 
-func (d *DocumentsLayersList200ResponseLayersItem) GetShareID() *string {
+func (d *DocumentsLayersList200ResponseLayersItem) GetGrantID() *string {
 	if d == nil {
 		return nil
 	}
-	return d.ShareID
+	return d.GrantID
 }
 
 func (d *DocumentsLayersList200ResponseLayersItem) GetVisitorID() *string {
@@ -55228,11 +55228,11 @@ func (d *DocumentsLayersList200ResponseLayersItem) SetLayerName(layerName string
 	d.require(documentsLayersList200ResponseLayersItemFieldLayerName)
 }
 
-// SetShareID sets the ShareID field and marks it as non-optional;
+// SetGrantID sets the GrantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsLayersList200ResponseLayersItem) SetShareID(shareID *string) {
-	d.ShareID = shareID
-	d.require(documentsLayersList200ResponseLayersItemFieldShareID)
+func (d *DocumentsLayersList200ResponseLayersItem) SetGrantID(grantID *string) {
+	d.GrantID = grantID
+	d.require(documentsLayersList200ResponseLayersItemFieldGrantID)
 }
 
 // SetVisitorID sets the VisitorID field and marks it as non-optional;
@@ -68310,6 +68310,572 @@ func (f *FormWidget) String() string {
 	return fmt.Sprintf("%#v", f)
 }
 
+type GrantsArchive404Response = *AdminErrorPayload
+
+type GrantsCreate400Response = *AdminErrorPayload
+
+type GrantsCreate403Response = *AdminErrorPayload
+
+type GrantsCreate404Response = *AdminErrorPayload
+
+type GrantsDelete404Response = *AdminErrorPayload
+
+type GrantsDelete409Response = *AdminErrorPayload
+
+type GrantsExchange400Response = *AdminErrorPayload
+
+type GrantsExchange403Response = *AdminErrorPayload
+
+type GrantsExchange404Response = *AdminErrorPayload
+
+type GrantsExchange410Response = *AdminErrorPayload
+
+type GrantsExchange422Response = *AdminErrorPayload
+
+type GrantsGet404Response = *AdminErrorPayload
+
+type GrantsList400Response = *AdminErrorPayload
+
+type GrantsUpdate400Response = *AdminErrorPayload
+
+type GrantsUpdate404Response = *AdminErrorPayload
+
+type GrantsUpdate409Response = *AdminErrorPayload
+
+type GrantsVisitorsDeleteResponse = *AdminErrorPayload
+
+var (
+	grantsVisitorsList200ResponseFieldVisitors   = big.NewInt(1 << 0)
+	grantsVisitorsList200ResponseFieldNextCursor = big.NewInt(1 << 1)
+)
+
+type GrantsVisitorsList200Response struct {
+	Visitors   []*GrantsVisitorsList200ResponseVisitorsItem `json:"visitors" url:"visitors"`
+	NextCursor *string                                      `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsVisitorsList200Response) GetVisitors() []*GrantsVisitorsList200ResponseVisitorsItem {
+	if g == nil {
+		return nil
+	}
+	return g.Visitors
+}
+
+func (g *GrantsVisitorsList200Response) GetNextCursor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.NextCursor
+}
+
+func (g *GrantsVisitorsList200Response) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsVisitorsList200Response) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetVisitors sets the Visitors field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200Response) SetVisitors(visitors []*GrantsVisitorsList200ResponseVisitorsItem) {
+	g.Visitors = visitors
+	g.require(grantsVisitorsList200ResponseFieldVisitors)
+}
+
+// SetNextCursor sets the NextCursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200Response) SetNextCursor(nextCursor *string) {
+	g.NextCursor = nextCursor
+	g.require(grantsVisitorsList200ResponseFieldNextCursor)
+}
+
+func (g *GrantsVisitorsList200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsVisitorsList200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsVisitorsList200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsVisitorsList200Response) MarshalJSON() ([]byte, error) {
+	type embed GrantsVisitorsList200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsVisitorsList200Response) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsVisitorsList200ResponseVisitorsItemFieldVisitorID     = big.NewInt(1 << 0)
+	grantsVisitorsList200ResponseVisitorsItemFieldAnswers       = big.NewInt(1 << 1)
+	grantsVisitorsList200ResponseVisitorsItemFieldEmailVerified = big.NewInt(1 << 2)
+	grantsVisitorsList200ResponseVisitorsItemFieldConsentedAt   = big.NewInt(1 << 3)
+	grantsVisitorsList200ResponseVisitorsItemFieldFirstSeenAt   = big.NewInt(1 << 4)
+	grantsVisitorsList200ResponseVisitorsItemFieldLastSeenAt    = big.NewInt(1 << 5)
+	grantsVisitorsList200ResponseVisitorsItemFieldLayer         = big.NewInt(1 << 6)
+)
+
+type GrantsVisitorsList200ResponseVisitorsItem struct {
+	VisitorID     string                                            `json:"visitorId" url:"visitorId"`
+	Answers       *GrantsVisitorsList200ResponseVisitorsItemAnswers `json:"answers" url:"answers"`
+	EmailVerified bool                                              `json:"emailVerified" url:"emailVerified"`
+	ConsentedAt   *float64                                          `json:"consentedAt,omitempty" url:"consentedAt,omitempty"`
+	FirstSeenAt   float64                                           `json:"firstSeenAt" url:"firstSeenAt"`
+	LastSeenAt    float64                                           `json:"lastSeenAt" url:"lastSeenAt"`
+	Layer         *GrantsVisitorsList200ResponseVisitorsItemLayer   `json:"layer,omitempty" url:"layer,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetVisitorID() string {
+	if g == nil {
+		return ""
+	}
+	return g.VisitorID
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetAnswers() *GrantsVisitorsList200ResponseVisitorsItemAnswers {
+	if g == nil {
+		return nil
+	}
+	return g.Answers
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetEmailVerified() bool {
+	if g == nil {
+		return false
+	}
+	return g.EmailVerified
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetConsentedAt() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.ConsentedAt
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetFirstSeenAt() float64 {
+	if g == nil {
+		return 0
+	}
+	return g.FirstSeenAt
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetLastSeenAt() float64 {
+	if g == nil {
+		return 0
+	}
+	return g.LastSeenAt
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetLayer() *GrantsVisitorsList200ResponseVisitorsItemLayer {
+	if g == nil {
+		return nil
+	}
+	return g.Layer
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetVisitorID sets the VisitorID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetVisitorID(visitorID string) {
+	g.VisitorID = visitorID
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldVisitorID)
+}
+
+// SetAnswers sets the Answers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetAnswers(answers *GrantsVisitorsList200ResponseVisitorsItemAnswers) {
+	g.Answers = answers
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldAnswers)
+}
+
+// SetEmailVerified sets the EmailVerified field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetEmailVerified(emailVerified bool) {
+	g.EmailVerified = emailVerified
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldEmailVerified)
+}
+
+// SetConsentedAt sets the ConsentedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetConsentedAt(consentedAt *float64) {
+	g.ConsentedAt = consentedAt
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldConsentedAt)
+}
+
+// SetFirstSeenAt sets the FirstSeenAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetFirstSeenAt(firstSeenAt float64) {
+	g.FirstSeenAt = firstSeenAt
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldFirstSeenAt)
+}
+
+// SetLastSeenAt sets the LastSeenAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetLastSeenAt(lastSeenAt float64) {
+	g.LastSeenAt = lastSeenAt
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldLastSeenAt)
+}
+
+// SetLayer sets the Layer field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItem) SetLayer(layer *GrantsVisitorsList200ResponseVisitorsItemLayer) {
+	g.Layer = layer
+	g.require(grantsVisitorsList200ResponseVisitorsItemFieldLayer)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsVisitorsList200ResponseVisitorsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsVisitorsList200ResponseVisitorsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) MarshalJSON() ([]byte, error) {
+	type embed GrantsVisitorsList200ResponseVisitorsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItem) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsVisitorsList200ResponseVisitorsItemAnswersFieldDisplayName        = big.NewInt(1 << 0)
+	grantsVisitorsList200ResponseVisitorsItemAnswersFieldEmail              = big.NewInt(1 << 1)
+	grantsVisitorsList200ResponseVisitorsItemAnswersFieldTitle              = big.NewInt(1 << 2)
+	grantsVisitorsList200ResponseVisitorsItemAnswersFieldOrganization       = big.NewInt(1 << 3)
+	grantsVisitorsList200ResponseVisitorsItemAnswersFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type GrantsVisitorsList200ResponseVisitorsItemAnswers struct {
+	DisplayName        *string `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *string `json:"email,omitempty" url:"email,omitempty"`
+	Title              *string `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetDisplayName() *string {
+	if g == nil {
+		return nil
+	}
+	return g.DisplayName
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetEmail() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Email
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetTitle() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Title
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetOrganization() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Organization
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetOrganizationalUnit() *string {
+	if g == nil {
+		return nil
+	}
+	return g.OrganizationalUnit
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) SetDisplayName(displayName *string) {
+	g.DisplayName = displayName
+	g.require(grantsVisitorsList200ResponseVisitorsItemAnswersFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) SetEmail(email *string) {
+	g.Email = email
+	g.require(grantsVisitorsList200ResponseVisitorsItemAnswersFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) SetTitle(title *string) {
+	g.Title = title
+	g.require(grantsVisitorsList200ResponseVisitorsItemAnswersFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) SetOrganization(organization *string) {
+	g.Organization = organization
+	g.require(grantsVisitorsList200ResponseVisitorsItemAnswersFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) SetOrganizationalUnit(organizationalUnit *string) {
+	g.OrganizationalUnit = organizationalUnit
+	g.require(grantsVisitorsList200ResponseVisitorsItemAnswersFieldOrganizationalUnit)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsVisitorsList200ResponseVisitorsItemAnswers
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsVisitorsList200ResponseVisitorsItemAnswers(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) MarshalJSON() ([]byte, error) {
+	type embed GrantsVisitorsList200ResponseVisitorsItemAnswers
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemAnswers) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsVisitorsList200ResponseVisitorsItemLayerFieldLayerName        = big.NewInt(1 << 0)
+	grantsVisitorsList200ResponseVisitorsItemLayerFieldStorageSizeBytes = big.NewInt(1 << 1)
+)
+
+type GrantsVisitorsList200ResponseVisitorsItemLayer struct {
+	LayerName        string   `json:"layerName" url:"layerName"`
+	StorageSizeBytes *float64 `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) GetLayerName() string {
+	if g == nil {
+		return ""
+	}
+	return g.LayerName
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) GetStorageSizeBytes() *float64 {
+	if g == nil {
+		return nil
+	}
+	return g.StorageSizeBytes
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) SetLayerName(layerName string) {
+	g.LayerName = layerName
+	g.require(grantsVisitorsList200ResponseVisitorsItemLayerFieldLayerName)
+}
+
+// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) SetStorageSizeBytes(storageSizeBytes *float64) {
+	g.StorageSizeBytes = storageSizeBytes
+	g.require(grantsVisitorsList200ResponseVisitorsItemLayerFieldStorageSizeBytes)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsVisitorsList200ResponseVisitorsItemLayer
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsVisitorsList200ResponseVisitorsItemLayer(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) MarshalJSON() ([]byte, error) {
+	type embed GrantsVisitorsList200ResponseVisitorsItemLayer
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsVisitorsList200ResponseVisitorsItemLayer) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsVisitorsList400Response = *AdminErrorPayload
+
+type GrantsVisitorsList404Response = *AdminErrorPayload
+
 var (
 	identityFieldUserID             = big.NewInt(1 << 0)
 	identityFieldDisplayName        = big.NewInt(1 << 1)
@@ -76025,572 +76591,6 @@ func (p *PdfPageActions) String() string {
 	}
 	return fmt.Sprintf("%#v", p)
 }
-
-type SharesArchive404Response = *AdminErrorPayload
-
-type SharesCreate400Response = *AdminErrorPayload
-
-type SharesCreate403Response = *AdminErrorPayload
-
-type SharesCreate404Response = *AdminErrorPayload
-
-type SharesDelete404Response = *AdminErrorPayload
-
-type SharesDelete409Response = *AdminErrorPayload
-
-type SharesExchange400Response = *AdminErrorPayload
-
-type SharesExchange403Response = *AdminErrorPayload
-
-type SharesExchange404Response = *AdminErrorPayload
-
-type SharesExchange410Response = *AdminErrorPayload
-
-type SharesExchange422Response = *AdminErrorPayload
-
-type SharesGet404Response = *AdminErrorPayload
-
-type SharesList400Response = *AdminErrorPayload
-
-type SharesUpdate400Response = *AdminErrorPayload
-
-type SharesUpdate404Response = *AdminErrorPayload
-
-type SharesUpdate409Response = *AdminErrorPayload
-
-type SharesVisitorsDeleteResponse = *AdminErrorPayload
-
-var (
-	sharesVisitorsList200ResponseFieldVisitors   = big.NewInt(1 << 0)
-	sharesVisitorsList200ResponseFieldNextCursor = big.NewInt(1 << 1)
-)
-
-type SharesVisitorsList200Response struct {
-	Visitors   []*SharesVisitorsList200ResponseVisitorsItem `json:"visitors" url:"visitors"`
-	NextCursor *string                                      `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SharesVisitorsList200Response) GetVisitors() []*SharesVisitorsList200ResponseVisitorsItem {
-	if s == nil {
-		return nil
-	}
-	return s.Visitors
-}
-
-func (s *SharesVisitorsList200Response) GetNextCursor() *string {
-	if s == nil {
-		return nil
-	}
-	return s.NextCursor
-}
-
-func (s *SharesVisitorsList200Response) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SharesVisitorsList200Response) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetVisitors sets the Visitors field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200Response) SetVisitors(visitors []*SharesVisitorsList200ResponseVisitorsItem) {
-	s.Visitors = visitors
-	s.require(sharesVisitorsList200ResponseFieldVisitors)
-}
-
-// SetNextCursor sets the NextCursor field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200Response) SetNextCursor(nextCursor *string) {
-	s.NextCursor = nextCursor
-	s.require(sharesVisitorsList200ResponseFieldNextCursor)
-}
-
-func (s *SharesVisitorsList200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler SharesVisitorsList200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SharesVisitorsList200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SharesVisitorsList200Response) MarshalJSON() ([]byte, error) {
-	type embed SharesVisitorsList200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SharesVisitorsList200Response) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	sharesVisitorsList200ResponseVisitorsItemFieldVisitorID     = big.NewInt(1 << 0)
-	sharesVisitorsList200ResponseVisitorsItemFieldAnswers       = big.NewInt(1 << 1)
-	sharesVisitorsList200ResponseVisitorsItemFieldEmailVerified = big.NewInt(1 << 2)
-	sharesVisitorsList200ResponseVisitorsItemFieldConsentedAt   = big.NewInt(1 << 3)
-	sharesVisitorsList200ResponseVisitorsItemFieldFirstSeenAt   = big.NewInt(1 << 4)
-	sharesVisitorsList200ResponseVisitorsItemFieldLastSeenAt    = big.NewInt(1 << 5)
-	sharesVisitorsList200ResponseVisitorsItemFieldLayer         = big.NewInt(1 << 6)
-)
-
-type SharesVisitorsList200ResponseVisitorsItem struct {
-	VisitorID     string                                            `json:"visitorId" url:"visitorId"`
-	Answers       *SharesVisitorsList200ResponseVisitorsItemAnswers `json:"answers" url:"answers"`
-	EmailVerified bool                                              `json:"emailVerified" url:"emailVerified"`
-	ConsentedAt   *float64                                          `json:"consentedAt,omitempty" url:"consentedAt,omitempty"`
-	FirstSeenAt   float64                                           `json:"firstSeenAt" url:"firstSeenAt"`
-	LastSeenAt    float64                                           `json:"lastSeenAt" url:"lastSeenAt"`
-	Layer         *SharesVisitorsList200ResponseVisitorsItemLayer   `json:"layer,omitempty" url:"layer,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetVisitorID() string {
-	if s == nil {
-		return ""
-	}
-	return s.VisitorID
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetAnswers() *SharesVisitorsList200ResponseVisitorsItemAnswers {
-	if s == nil {
-		return nil
-	}
-	return s.Answers
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetEmailVerified() bool {
-	if s == nil {
-		return false
-	}
-	return s.EmailVerified
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetConsentedAt() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.ConsentedAt
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetFirstSeenAt() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.FirstSeenAt
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetLastSeenAt() float64 {
-	if s == nil {
-		return 0
-	}
-	return s.LastSeenAt
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetLayer() *SharesVisitorsList200ResponseVisitorsItemLayer {
-	if s == nil {
-		return nil
-	}
-	return s.Layer
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetVisitorID sets the VisitorID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetVisitorID(visitorID string) {
-	s.VisitorID = visitorID
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldVisitorID)
-}
-
-// SetAnswers sets the Answers field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetAnswers(answers *SharesVisitorsList200ResponseVisitorsItemAnswers) {
-	s.Answers = answers
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldAnswers)
-}
-
-// SetEmailVerified sets the EmailVerified field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetEmailVerified(emailVerified bool) {
-	s.EmailVerified = emailVerified
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldEmailVerified)
-}
-
-// SetConsentedAt sets the ConsentedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetConsentedAt(consentedAt *float64) {
-	s.ConsentedAt = consentedAt
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldConsentedAt)
-}
-
-// SetFirstSeenAt sets the FirstSeenAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetFirstSeenAt(firstSeenAt float64) {
-	s.FirstSeenAt = firstSeenAt
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldFirstSeenAt)
-}
-
-// SetLastSeenAt sets the LastSeenAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetLastSeenAt(lastSeenAt float64) {
-	s.LastSeenAt = lastSeenAt
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldLastSeenAt)
-}
-
-// SetLayer sets the Layer field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItem) SetLayer(layer *SharesVisitorsList200ResponseVisitorsItemLayer) {
-	s.Layer = layer
-	s.require(sharesVisitorsList200ResponseVisitorsItemFieldLayer)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler SharesVisitorsList200ResponseVisitorsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SharesVisitorsList200ResponseVisitorsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) MarshalJSON() ([]byte, error) {
-	type embed SharesVisitorsList200ResponseVisitorsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItem) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	sharesVisitorsList200ResponseVisitorsItemAnswersFieldDisplayName        = big.NewInt(1 << 0)
-	sharesVisitorsList200ResponseVisitorsItemAnswersFieldEmail              = big.NewInt(1 << 1)
-	sharesVisitorsList200ResponseVisitorsItemAnswersFieldTitle              = big.NewInt(1 << 2)
-	sharesVisitorsList200ResponseVisitorsItemAnswersFieldOrganization       = big.NewInt(1 << 3)
-	sharesVisitorsList200ResponseVisitorsItemAnswersFieldOrganizationalUnit = big.NewInt(1 << 4)
-)
-
-type SharesVisitorsList200ResponseVisitorsItemAnswers struct {
-	DisplayName        *string `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *string `json:"email,omitempty" url:"email,omitempty"`
-	Title              *string `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *string `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *string `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetDisplayName() *string {
-	if s == nil {
-		return nil
-	}
-	return s.DisplayName
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetEmail() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Email
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetTitle() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Title
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetOrganization() *string {
-	if s == nil {
-		return nil
-	}
-	return s.Organization
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetOrganizationalUnit() *string {
-	if s == nil {
-		return nil
-	}
-	return s.OrganizationalUnit
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetDisplayName sets the DisplayName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) SetDisplayName(displayName *string) {
-	s.DisplayName = displayName
-	s.require(sharesVisitorsList200ResponseVisitorsItemAnswersFieldDisplayName)
-}
-
-// SetEmail sets the Email field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) SetEmail(email *string) {
-	s.Email = email
-	s.require(sharesVisitorsList200ResponseVisitorsItemAnswersFieldEmail)
-}
-
-// SetTitle sets the Title field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) SetTitle(title *string) {
-	s.Title = title
-	s.require(sharesVisitorsList200ResponseVisitorsItemAnswersFieldTitle)
-}
-
-// SetOrganization sets the Organization field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) SetOrganization(organization *string) {
-	s.Organization = organization
-	s.require(sharesVisitorsList200ResponseVisitorsItemAnswersFieldOrganization)
-}
-
-// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) SetOrganizationalUnit(organizationalUnit *string) {
-	s.OrganizationalUnit = organizationalUnit
-	s.require(sharesVisitorsList200ResponseVisitorsItemAnswersFieldOrganizationalUnit)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) UnmarshalJSON(data []byte) error {
-	type unmarshaler SharesVisitorsList200ResponseVisitorsItemAnswers
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SharesVisitorsList200ResponseVisitorsItemAnswers(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) MarshalJSON() ([]byte, error) {
-	type embed SharesVisitorsList200ResponseVisitorsItemAnswers
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemAnswers) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-var (
-	sharesVisitorsList200ResponseVisitorsItemLayerFieldLayerName        = big.NewInt(1 << 0)
-	sharesVisitorsList200ResponseVisitorsItemLayerFieldStorageSizeBytes = big.NewInt(1 << 1)
-)
-
-type SharesVisitorsList200ResponseVisitorsItemLayer struct {
-	LayerName        string   `json:"layerName" url:"layerName"`
-	StorageSizeBytes *float64 `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) GetLayerName() string {
-	if s == nil {
-		return ""
-	}
-	return s.LayerName
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) GetStorageSizeBytes() *float64 {
-	if s == nil {
-		return nil
-	}
-	return s.StorageSizeBytes
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) GetExtraProperties() map[string]interface{} {
-	if s == nil {
-		return nil
-	}
-	return s.extraProperties
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) require(field *big.Int) {
-	if s.explicitFields == nil {
-		s.explicitFields = big.NewInt(0)
-	}
-	s.explicitFields.Or(s.explicitFields, field)
-}
-
-// SetLayerName sets the LayerName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) SetLayerName(layerName string) {
-	s.LayerName = layerName
-	s.require(sharesVisitorsList200ResponseVisitorsItemLayerFieldLayerName)
-}
-
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) SetStorageSizeBytes(storageSizeBytes *float64) {
-	s.StorageSizeBytes = storageSizeBytes
-	s.require(sharesVisitorsList200ResponseVisitorsItemLayerFieldStorageSizeBytes)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) UnmarshalJSON(data []byte) error {
-	type unmarshaler SharesVisitorsList200ResponseVisitorsItemLayer
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*s = SharesVisitorsList200ResponseVisitorsItemLayer(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *s)
-	if err != nil {
-		return err
-	}
-	s.extraProperties = extraProperties
-	s.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) MarshalJSON() ([]byte, error) {
-	type embed SharesVisitorsList200ResponseVisitorsItemLayer
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*s),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, s.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (s *SharesVisitorsList200ResponseVisitorsItemLayer) String() string {
-	if s == nil {
-		return "<nil>"
-	}
-	if len(s.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(s.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(s); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", s)
-}
-
-type SharesVisitorsList400Response = *AdminErrorPayload
-
-type SharesVisitorsList404Response = *AdminErrorPayload
 
 type TenantsCreate400Response = *AdminErrorPayload
 
