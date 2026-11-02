@@ -924,79 +924,81 @@ func (a *AnnotationDraft) validate() error {
 }
 
 var (
-	annotationDraftCaretFieldRef             = big.NewInt(1 << 0)
-	annotationDraftCaretFieldPage            = big.NewInt(1 << 1)
-	annotationDraftCaretFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftCaretFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftCaretFieldNm              = big.NewInt(1 << 4)
-	annotationDraftCaretFieldRect            = big.NewInt(1 << 5)
-	annotationDraftCaretFieldContents        = big.NewInt(1 << 6)
-	annotationDraftCaretFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftCaretFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftCaretFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftCaretFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftCaretFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftCaretFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftCaretFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftCaretFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftCaretFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftCaretFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftCaretFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftCaretFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftCaretFieldReply           = big.NewInt(1 << 19)
-	annotationDraftCaretFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftCaretFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftCaretFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftCaretFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftCaretFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftCaretFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftCaretFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftCaretFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftCaretFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftCaretFieldActions         = big.NewInt(1 << 29)
-	annotationDraftCaretFieldColor           = big.NewInt(1 << 30)
-	annotationDraftCaretFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftCaretFieldBox             = big.NewInt(1 << 32)
-	annotationDraftCaretFieldRotation        = big.NewInt(1 << 33)
-	annotationDraftCaretFieldIntent          = big.NewInt(1 << 34)
+	annotationDraftCaretFieldRef               = big.NewInt(1 << 0)
+	annotationDraftCaretFieldPage              = big.NewInt(1 << 1)
+	annotationDraftCaretFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftCaretFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftCaretFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftCaretFieldNm                = big.NewInt(1 << 5)
+	annotationDraftCaretFieldRect              = big.NewInt(1 << 6)
+	annotationDraftCaretFieldContents          = big.NewInt(1 << 7)
+	annotationDraftCaretFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftCaretFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftCaretFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftCaretFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftCaretFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftCaretFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftCaretFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftCaretFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftCaretFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftCaretFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftCaretFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftCaretFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftCaretFieldReply             = big.NewInt(1 << 20)
+	annotationDraftCaretFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftCaretFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftCaretFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftCaretFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftCaretFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftCaretFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftCaretFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftCaretFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftCaretFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftCaretFieldActions           = big.NewInt(1 << 30)
+	annotationDraftCaretFieldColor             = big.NewInt(1 << 31)
+	annotationDraftCaretFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftCaretFieldBox               = big.NewInt(1 << 33)
+	annotationDraftCaretFieldRotation          = big.NewInt(1 << 34)
+	annotationDraftCaretFieldIntent            = big.NewInt(1 << 35)
 )
 
 type AnnotationDraftCaret struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftCaretRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftCaretBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftCaretReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                        `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Box             *AnnotationDraftCaretBox       `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationDraftCaretIntent    `json:"intent,omitempty" url:"intent,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftCaretRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftCaretBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftCaretReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Box               *AnnotationDraftCaretBox       `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationDraftCaretIntent    `json:"intent,omitempty" url:"intent,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1031,6 +1033,13 @@ func (a *AnnotationDraftCaret) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftCaret) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftCaret) GetNm() *string {
@@ -1290,6 +1299,13 @@ func (a *AnnotationDraftCaret) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftCaret) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftCaretFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftCaret) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftCaretFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -2021,87 +2037,89 @@ func (a AnnotationDraftCaretReplyType) Ptr() *AnnotationDraftCaretReplyType {
 }
 
 var (
-	annotationDraftCircleFieldRef             = big.NewInt(1 << 0)
-	annotationDraftCircleFieldPage            = big.NewInt(1 << 1)
-	annotationDraftCircleFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftCircleFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftCircleFieldNm              = big.NewInt(1 << 4)
-	annotationDraftCircleFieldRect            = big.NewInt(1 << 5)
-	annotationDraftCircleFieldContents        = big.NewInt(1 << 6)
-	annotationDraftCircleFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftCircleFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftCircleFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftCircleFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftCircleFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftCircleFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftCircleFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftCircleFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftCircleFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftCircleFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftCircleFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftCircleFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftCircleFieldReply           = big.NewInt(1 << 19)
-	annotationDraftCircleFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftCircleFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftCircleFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftCircleFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftCircleFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftCircleFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftCircleFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftCircleFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftCircleFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftCircleFieldActions         = big.NewInt(1 << 29)
-	annotationDraftCircleFieldColor           = big.NewInt(1 << 30)
-	annotationDraftCircleFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftCircleFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftCircleFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftCircleFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftCircleFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationDraftCircleFieldBox             = big.NewInt(1 << 36)
-	annotationDraftCircleFieldRotation        = big.NewInt(1 << 37)
-	annotationDraftCircleFieldCloudyIntensity = big.NewInt(1 << 38)
+	annotationDraftCircleFieldRef               = big.NewInt(1 << 0)
+	annotationDraftCircleFieldPage              = big.NewInt(1 << 1)
+	annotationDraftCircleFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftCircleFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftCircleFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftCircleFieldNm                = big.NewInt(1 << 5)
+	annotationDraftCircleFieldRect              = big.NewInt(1 << 6)
+	annotationDraftCircleFieldContents          = big.NewInt(1 << 7)
+	annotationDraftCircleFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftCircleFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftCircleFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftCircleFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftCircleFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftCircleFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftCircleFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftCircleFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftCircleFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftCircleFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftCircleFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftCircleFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftCircleFieldReply             = big.NewInt(1 << 20)
+	annotationDraftCircleFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftCircleFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftCircleFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftCircleFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftCircleFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftCircleFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftCircleFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftCircleFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftCircleFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftCircleFieldActions           = big.NewInt(1 << 30)
+	annotationDraftCircleFieldColor             = big.NewInt(1 << 31)
+	annotationDraftCircleFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftCircleFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftCircleFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftCircleFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftCircleFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationDraftCircleFieldBox               = big.NewInt(1 << 37)
+	annotationDraftCircleFieldRotation          = big.NewInt(1 << 38)
+	annotationDraftCircleFieldCloudyIntensity   = big.NewInt(1 << 39)
 )
 
 type AnnotationDraftCircle struct {
-	Ref             any                               `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                               `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                           `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftCircleRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                           `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                           `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftCircleBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                             `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftCircleReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                               `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                               `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                               `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                               `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                           `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftCircleBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Box             *AnnotationDraftCircleBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CloudyIntensity *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                               `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                               `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                               `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                           `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftCircleRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                           `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                           `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftCircleBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                             `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftCircleReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                               `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                               `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                               `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftCircleBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Box               *AnnotationDraftCircleBox         `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CloudyIntensity   *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2136,6 +2154,13 @@ func (a *AnnotationDraftCircle) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftCircle) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftCircle) GetNm() *string {
@@ -2423,6 +2448,13 @@ func (a *AnnotationDraftCircle) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftCircle) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftCircleFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftCircle) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftCircleFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -3185,77 +3217,79 @@ func (a AnnotationDraftCircleReplyType) Ptr() *AnnotationDraftCircleReplyType {
 }
 
 var (
-	annotationDraftFileAttachmentFieldRef             = big.NewInt(1 << 0)
-	annotationDraftFileAttachmentFieldPage            = big.NewInt(1 << 1)
-	annotationDraftFileAttachmentFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftFileAttachmentFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftFileAttachmentFieldNm              = big.NewInt(1 << 4)
-	annotationDraftFileAttachmentFieldRect            = big.NewInt(1 << 5)
-	annotationDraftFileAttachmentFieldContents        = big.NewInt(1 << 6)
-	annotationDraftFileAttachmentFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftFileAttachmentFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftFileAttachmentFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftFileAttachmentFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftFileAttachmentFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftFileAttachmentFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftFileAttachmentFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftFileAttachmentFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftFileAttachmentFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftFileAttachmentFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftFileAttachmentFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftFileAttachmentFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftFileAttachmentFieldReply           = big.NewInt(1 << 19)
-	annotationDraftFileAttachmentFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftFileAttachmentFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftFileAttachmentFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftFileAttachmentFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftFileAttachmentFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftFileAttachmentFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftFileAttachmentFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftFileAttachmentFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftFileAttachmentFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftFileAttachmentFieldActions         = big.NewInt(1 << 29)
-	annotationDraftFileAttachmentFieldColor           = big.NewInt(1 << 30)
-	annotationDraftFileAttachmentFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftFileAttachmentFieldIcon            = big.NewInt(1 << 32)
-	annotationDraftFileAttachmentFieldFile            = big.NewInt(1 << 33)
+	annotationDraftFileAttachmentFieldRef               = big.NewInt(1 << 0)
+	annotationDraftFileAttachmentFieldPage              = big.NewInt(1 << 1)
+	annotationDraftFileAttachmentFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftFileAttachmentFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftFileAttachmentFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftFileAttachmentFieldNm                = big.NewInt(1 << 5)
+	annotationDraftFileAttachmentFieldRect              = big.NewInt(1 << 6)
+	annotationDraftFileAttachmentFieldContents          = big.NewInt(1 << 7)
+	annotationDraftFileAttachmentFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftFileAttachmentFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftFileAttachmentFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftFileAttachmentFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftFileAttachmentFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftFileAttachmentFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftFileAttachmentFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftFileAttachmentFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftFileAttachmentFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftFileAttachmentFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftFileAttachmentFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftFileAttachmentFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftFileAttachmentFieldReply             = big.NewInt(1 << 20)
+	annotationDraftFileAttachmentFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftFileAttachmentFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftFileAttachmentFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftFileAttachmentFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftFileAttachmentFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftFileAttachmentFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftFileAttachmentFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftFileAttachmentFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftFileAttachmentFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftFileAttachmentFieldActions           = big.NewInt(1 << 30)
+	annotationDraftFileAttachmentFieldColor             = big.NewInt(1 << 31)
+	annotationDraftFileAttachmentFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftFileAttachmentFieldIcon              = big.NewInt(1 << 33)
+	annotationDraftFileAttachmentFieldFile              = big.NewInt(1 << 34)
 )
 
 type AnnotationDraftFileAttachment struct {
-	Ref             any                                     `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                     `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                     `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                     `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                 `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftFileAttachmentRect      `json:"rect" url:"rect"`
-	Contents        *string                                 `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                 `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftFileAttachmentBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                   `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                   `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                   `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                   `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                   `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                   `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                   `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                   `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                   `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                   `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftFileAttachmentReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                     `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                 `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                     `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                     `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                     `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                     `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                     `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                 `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Icon            *AnnotationDraftFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
-	File            *AnnotationDraftFileAttachmentFile      `json:"file,omitempty" url:"file,omitempty"`
+	Ref               any                                     `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                     `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                     `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                     `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                     `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                 `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftFileAttachmentRect      `json:"rect" url:"rect"`
+	Contents          *string                                 `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                 `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftFileAttachmentBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                   `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                   `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                   `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                   `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                   `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                   `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                   `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                   `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                   `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                   `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftFileAttachmentReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                     `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                 `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                     `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                     `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                     `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                     `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                     `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                 `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Icon              *AnnotationDraftFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
+	File              *AnnotationDraftFileAttachmentFile      `json:"file,omitempty" url:"file,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3290,6 +3324,13 @@ func (a *AnnotationDraftFileAttachment) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftFileAttachment) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftFileAttachment) GetNm() *string {
@@ -3542,6 +3583,13 @@ func (a *AnnotationDraftFileAttachment) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftFileAttachment) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftFileAttachmentFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftFileAttachment) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftFileAttachmentFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -4259,105 +4307,107 @@ func (a AnnotationDraftFileAttachmentReplyType) Ptr() *AnnotationDraftFileAttach
 }
 
 var (
-	annotationDraftFreeTextFieldRef             = big.NewInt(1 << 0)
-	annotationDraftFreeTextFieldPage            = big.NewInt(1 << 1)
-	annotationDraftFreeTextFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftFreeTextFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftFreeTextFieldNm              = big.NewInt(1 << 4)
-	annotationDraftFreeTextFieldRect            = big.NewInt(1 << 5)
-	annotationDraftFreeTextFieldContents        = big.NewInt(1 << 6)
-	annotationDraftFreeTextFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftFreeTextFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftFreeTextFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftFreeTextFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftFreeTextFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftFreeTextFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftFreeTextFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftFreeTextFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftFreeTextFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftFreeTextFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftFreeTextFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftFreeTextFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftFreeTextFieldReply           = big.NewInt(1 << 19)
-	annotationDraftFreeTextFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftFreeTextFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftFreeTextFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftFreeTextFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftFreeTextFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftFreeTextFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftFreeTextFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftFreeTextFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftFreeTextFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftFreeTextFieldActions         = big.NewInt(1 << 29)
-	annotationDraftFreeTextFieldBox             = big.NewInt(1 << 30)
-	annotationDraftFreeTextFieldRotation        = big.NewInt(1 << 31)
-	annotationDraftFreeTextFieldIntent          = big.NewInt(1 << 32)
-	annotationDraftFreeTextFieldFontFamily      = big.NewInt(1 << 33)
-	annotationDraftFreeTextFieldFontSize        = big.NewInt(1 << 34)
-	annotationDraftFreeTextFieldTextAlign       = big.NewInt(1 << 35)
-	annotationDraftFreeTextFieldVerticalAlign   = big.NewInt(1 << 36)
-	annotationDraftFreeTextFieldRichText        = big.NewInt(1 << 37)
-	annotationDraftFreeTextFieldColor           = big.NewInt(1 << 38)
-	annotationDraftFreeTextFieldFontColor       = big.NewInt(1 << 39)
-	annotationDraftFreeTextFieldInteriorColor   = big.NewInt(1 << 40)
-	annotationDraftFreeTextFieldOpacity         = big.NewInt(1 << 41)
-	annotationDraftFreeTextFieldStrokeWidth     = big.NewInt(1 << 42)
-	annotationDraftFreeTextFieldBorderStyle     = big.NewInt(1 << 43)
-	annotationDraftFreeTextFieldDashArray       = big.NewInt(1 << 44)
-	annotationDraftFreeTextFieldCloudyIntensity = big.NewInt(1 << 45)
-	annotationDraftFreeTextFieldCalloutLine     = big.NewInt(1 << 46)
-	annotationDraftFreeTextFieldLineEnding      = big.NewInt(1 << 47)
+	annotationDraftFreeTextFieldRef               = big.NewInt(1 << 0)
+	annotationDraftFreeTextFieldPage              = big.NewInt(1 << 1)
+	annotationDraftFreeTextFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftFreeTextFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftFreeTextFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftFreeTextFieldNm                = big.NewInt(1 << 5)
+	annotationDraftFreeTextFieldRect              = big.NewInt(1 << 6)
+	annotationDraftFreeTextFieldContents          = big.NewInt(1 << 7)
+	annotationDraftFreeTextFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftFreeTextFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftFreeTextFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftFreeTextFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftFreeTextFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftFreeTextFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftFreeTextFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftFreeTextFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftFreeTextFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftFreeTextFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftFreeTextFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftFreeTextFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftFreeTextFieldReply             = big.NewInt(1 << 20)
+	annotationDraftFreeTextFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftFreeTextFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftFreeTextFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftFreeTextFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftFreeTextFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftFreeTextFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftFreeTextFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftFreeTextFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftFreeTextFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftFreeTextFieldActions           = big.NewInt(1 << 30)
+	annotationDraftFreeTextFieldBox               = big.NewInt(1 << 31)
+	annotationDraftFreeTextFieldRotation          = big.NewInt(1 << 32)
+	annotationDraftFreeTextFieldIntent            = big.NewInt(1 << 33)
+	annotationDraftFreeTextFieldFontFamily        = big.NewInt(1 << 34)
+	annotationDraftFreeTextFieldFontSize          = big.NewInt(1 << 35)
+	annotationDraftFreeTextFieldTextAlign         = big.NewInt(1 << 36)
+	annotationDraftFreeTextFieldVerticalAlign     = big.NewInt(1 << 37)
+	annotationDraftFreeTextFieldRichText          = big.NewInt(1 << 38)
+	annotationDraftFreeTextFieldColor             = big.NewInt(1 << 39)
+	annotationDraftFreeTextFieldFontColor         = big.NewInt(1 << 40)
+	annotationDraftFreeTextFieldInteriorColor     = big.NewInt(1 << 41)
+	annotationDraftFreeTextFieldOpacity           = big.NewInt(1 << 42)
+	annotationDraftFreeTextFieldStrokeWidth       = big.NewInt(1 << 43)
+	annotationDraftFreeTextFieldBorderStyle       = big.NewInt(1 << 44)
+	annotationDraftFreeTextFieldDashArray         = big.NewInt(1 << 45)
+	annotationDraftFreeTextFieldCloudyIntensity   = big.NewInt(1 << 46)
+	annotationDraftFreeTextFieldCalloutLine       = big.NewInt(1 << 47)
+	annotationDraftFreeTextFieldLineEnding        = big.NewInt(1 << 48)
 )
 
 type AnnotationDraftFreeText struct {
-	Ref             any                                   `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                   `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                               `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftFreeTextRect          `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                               `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                               `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftFreeTextBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                 `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftFreeTextReply         `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                   `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                   `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                   `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                   `json:"actions,omitempty" url:"actions,omitempty"`
-	Box             *AnnotationDraftFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationDraftFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
-	FontFamily      *string                               `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
-	FontSize        *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
-	TextAlign       *AnnotationDraftFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
-	VerticalAlign   *AnnotationDraftFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
-	RichText        *AnnotationDraftFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
-	Color           *string                               `json:"color,omitempty" url:"color,omitempty"`
-	FontColor       *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
-	InteriorColor   *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Opacity         *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftFreeTextBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	CloudyIntensity *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
-	CalloutLine     []any                                 `json:"calloutLine,omitempty" url:"calloutLine,omitempty"`
-	LineEnding      *AnnotationDraftFreeTextLineEnding    `json:"lineEnding,omitempty" url:"lineEnding,omitempty"`
+	Ref               any                                   `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                   `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                   `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                               `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftFreeTextRect          `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                               `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                               `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftFreeTextBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                 `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftFreeTextReply         `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                   `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                   `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                   `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	Box               *AnnotationDraftFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationDraftFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
+	FontFamily        *string                               `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
+	FontSize          *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
+	TextAlign         *AnnotationDraftFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
+	VerticalAlign     *AnnotationDraftFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
+	RichText          *AnnotationDraftFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
+	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
+	FontColor         *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
+	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftFreeTextBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	CloudyIntensity   *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	CalloutLine       []any                                 `json:"calloutLine,omitempty" url:"calloutLine,omitempty"`
+	LineEnding        *AnnotationDraftFreeTextLineEnding    `json:"lineEnding,omitempty" url:"lineEnding,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4392,6 +4442,13 @@ func (a *AnnotationDraftFreeText) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftFreeText) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftFreeText) GetNm() *string {
@@ -4742,6 +4799,13 @@ func (a *AnnotationDraftFreeText) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftFreeText) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftFreeTextFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftFreeText) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftFreeTextFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -7068,75 +7132,77 @@ func (a AnnotationDraftFreeTextVerticalAlign) Ptr() *AnnotationDraftFreeTextVert
 }
 
 var (
-	annotationDraftHighlightFieldRef             = big.NewInt(1 << 0)
-	annotationDraftHighlightFieldPage            = big.NewInt(1 << 1)
-	annotationDraftHighlightFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftHighlightFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftHighlightFieldNm              = big.NewInt(1 << 4)
-	annotationDraftHighlightFieldRect            = big.NewInt(1 << 5)
-	annotationDraftHighlightFieldContents        = big.NewInt(1 << 6)
-	annotationDraftHighlightFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftHighlightFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftHighlightFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftHighlightFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftHighlightFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftHighlightFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftHighlightFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftHighlightFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftHighlightFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftHighlightFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftHighlightFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftHighlightFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftHighlightFieldReply           = big.NewInt(1 << 19)
-	annotationDraftHighlightFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftHighlightFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftHighlightFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftHighlightFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftHighlightFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftHighlightFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftHighlightFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftHighlightFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftHighlightFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftHighlightFieldActions         = big.NewInt(1 << 29)
-	annotationDraftHighlightFieldColor           = big.NewInt(1 << 30)
-	annotationDraftHighlightFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftHighlightFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationDraftHighlightFieldRef               = big.NewInt(1 << 0)
+	annotationDraftHighlightFieldPage              = big.NewInt(1 << 1)
+	annotationDraftHighlightFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftHighlightFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftHighlightFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftHighlightFieldNm                = big.NewInt(1 << 5)
+	annotationDraftHighlightFieldRect              = big.NewInt(1 << 6)
+	annotationDraftHighlightFieldContents          = big.NewInt(1 << 7)
+	annotationDraftHighlightFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftHighlightFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftHighlightFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftHighlightFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftHighlightFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftHighlightFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftHighlightFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftHighlightFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftHighlightFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftHighlightFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftHighlightFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftHighlightFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftHighlightFieldReply             = big.NewInt(1 << 20)
+	annotationDraftHighlightFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftHighlightFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftHighlightFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftHighlightFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftHighlightFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftHighlightFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftHighlightFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftHighlightFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftHighlightFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftHighlightFieldActions           = big.NewInt(1 << 30)
+	annotationDraftHighlightFieldColor             = big.NewInt(1 << 31)
+	annotationDraftHighlightFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftHighlightFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationDraftHighlight struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftHighlightRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftHighlightBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftHighlightReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationDraftHighlightQuadPointsItem `json:"quadPoints" url:"quadPoints"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftHighlightRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftHighlightBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftHighlightReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationDraftHighlightQuadPointsItem `json:"quadPoints" url:"quadPoints"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -7171,6 +7237,13 @@ func (a *AnnotationDraftHighlight) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftHighlight) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftHighlight) GetNm() *string {
@@ -7416,6 +7489,13 @@ func (a *AnnotationDraftHighlight) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftHighlight) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftHighlightFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftHighlight) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftHighlightFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -8514,85 +8594,87 @@ func (a AnnotationDraftHighlightReplyType) Ptr() *AnnotationDraftHighlightReplyT
 }
 
 var (
-	annotationDraftInkFieldRef             = big.NewInt(1 << 0)
-	annotationDraftInkFieldPage            = big.NewInt(1 << 1)
-	annotationDraftInkFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftInkFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftInkFieldNm              = big.NewInt(1 << 4)
-	annotationDraftInkFieldRect            = big.NewInt(1 << 5)
-	annotationDraftInkFieldContents        = big.NewInt(1 << 6)
-	annotationDraftInkFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftInkFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftInkFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftInkFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftInkFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftInkFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftInkFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftInkFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftInkFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftInkFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftInkFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftInkFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftInkFieldReply           = big.NewInt(1 << 19)
-	annotationDraftInkFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftInkFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftInkFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftInkFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftInkFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftInkFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftInkFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftInkFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftInkFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftInkFieldActions         = big.NewInt(1 << 29)
-	annotationDraftInkFieldColor           = big.NewInt(1 << 30)
-	annotationDraftInkFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftInkFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftInkFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftInkFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftInkFieldInkList         = big.NewInt(1 << 35)
-	annotationDraftInkFieldIntent          = big.NewInt(1 << 36)
-	annotationDraftInkFieldRotation        = big.NewInt(1 << 37)
+	annotationDraftInkFieldRef               = big.NewInt(1 << 0)
+	annotationDraftInkFieldPage              = big.NewInt(1 << 1)
+	annotationDraftInkFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftInkFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftInkFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftInkFieldNm                = big.NewInt(1 << 5)
+	annotationDraftInkFieldRect              = big.NewInt(1 << 6)
+	annotationDraftInkFieldContents          = big.NewInt(1 << 7)
+	annotationDraftInkFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftInkFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftInkFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftInkFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftInkFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftInkFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftInkFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftInkFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftInkFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftInkFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftInkFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftInkFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftInkFieldReply             = big.NewInt(1 << 20)
+	annotationDraftInkFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftInkFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftInkFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftInkFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftInkFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftInkFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftInkFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftInkFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftInkFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftInkFieldActions           = big.NewInt(1 << 30)
+	annotationDraftInkFieldColor             = big.NewInt(1 << 31)
+	annotationDraftInkFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftInkFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftInkFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftInkFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftInkFieldInkList           = big.NewInt(1 << 36)
+	annotationDraftInkFieldIntent            = big.NewInt(1 << 37)
+	annotationDraftInkFieldRotation          = big.NewInt(1 << 38)
 )
 
 type AnnotationDraftInk struct {
-	Ref             any                                    `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                    `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftInkRect                `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftInkBlendMode           `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                  `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftInkReply               `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                    `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                    `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                    `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                    `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftInkBorderStyle         `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                              `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InkList         [][]*AnnotationDraftInkInkListItemItem `json:"inkList" url:"inkList"`
-	Intent          *AnnotationDraftInkIntent              `json:"intent,omitempty" url:"intent,omitempty"`
-	Rotation        *float64                               `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Ref               any                                    `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                    `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                    `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftInkRect                `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftInkBlendMode           `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                  `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftInkReply               `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                    `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                    `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                    `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftInkBorderStyle         `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                              `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InkList           [][]*AnnotationDraftInkInkListItemItem `json:"inkList" url:"inkList"`
+	Intent            *AnnotationDraftInkIntent              `json:"intent,omitempty" url:"intent,omitempty"`
+	Rotation          *float64                               `json:"rotation,omitempty" url:"rotation,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -8627,6 +8709,13 @@ func (a *AnnotationDraftInk) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftInk) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftInk) GetNm() *string {
@@ -8907,6 +8996,13 @@ func (a *AnnotationDraftInk) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftInk) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftInkFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftInk) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftInkFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -9649,99 +9745,101 @@ func (a AnnotationDraftInkReplyType) Ptr() *AnnotationDraftInkReplyType {
 }
 
 var (
-	annotationDraftLineFieldRef             = big.NewInt(1 << 0)
-	annotationDraftLineFieldPage            = big.NewInt(1 << 1)
-	annotationDraftLineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftLineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftLineFieldNm              = big.NewInt(1 << 4)
-	annotationDraftLineFieldRect            = big.NewInt(1 << 5)
-	annotationDraftLineFieldContents        = big.NewInt(1 << 6)
-	annotationDraftLineFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftLineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftLineFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftLineFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftLineFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftLineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftLineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftLineFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftLineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftLineFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftLineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftLineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftLineFieldReply           = big.NewInt(1 << 19)
-	annotationDraftLineFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftLineFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftLineFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftLineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftLineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftLineFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftLineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftLineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftLineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftLineFieldActions         = big.NewInt(1 << 29)
-	annotationDraftLineFieldColor           = big.NewInt(1 << 30)
-	annotationDraftLineFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftLineFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftLineFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftLineFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftLineFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationDraftLineFieldLinePoints      = big.NewInt(1 << 36)
-	annotationDraftLineFieldLineEndings     = big.NewInt(1 << 37)
-	annotationDraftLineFieldRotation        = big.NewInt(1 << 38)
-	annotationDraftLineFieldIntent          = big.NewInt(1 << 39)
-	annotationDraftLineFieldMeasure         = big.NewInt(1 << 40)
-	annotationDraftLineFieldCaptionEnabled  = big.NewInt(1 << 41)
-	annotationDraftLineFieldCaptionPosition = big.NewInt(1 << 42)
-	annotationDraftLineFieldCaptionOffset   = big.NewInt(1 << 43)
-	annotationDraftLineFieldLeader          = big.NewInt(1 << 44)
+	annotationDraftLineFieldRef               = big.NewInt(1 << 0)
+	annotationDraftLineFieldPage              = big.NewInt(1 << 1)
+	annotationDraftLineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftLineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftLineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftLineFieldNm                = big.NewInt(1 << 5)
+	annotationDraftLineFieldRect              = big.NewInt(1 << 6)
+	annotationDraftLineFieldContents          = big.NewInt(1 << 7)
+	annotationDraftLineFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftLineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftLineFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftLineFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftLineFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftLineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftLineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftLineFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftLineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftLineFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftLineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftLineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftLineFieldReply             = big.NewInt(1 << 20)
+	annotationDraftLineFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftLineFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftLineFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftLineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftLineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftLineFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftLineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftLineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftLineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftLineFieldActions           = big.NewInt(1 << 30)
+	annotationDraftLineFieldColor             = big.NewInt(1 << 31)
+	annotationDraftLineFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftLineFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftLineFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftLineFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftLineFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationDraftLineFieldLinePoints        = big.NewInt(1 << 37)
+	annotationDraftLineFieldLineEndings       = big.NewInt(1 << 38)
+	annotationDraftLineFieldRotation          = big.NewInt(1 << 39)
+	annotationDraftLineFieldIntent            = big.NewInt(1 << 40)
+	annotationDraftLineFieldMeasure           = big.NewInt(1 << 41)
+	annotationDraftLineFieldCaptionEnabled    = big.NewInt(1 << 42)
+	annotationDraftLineFieldCaptionPosition   = big.NewInt(1 << 43)
+	annotationDraftLineFieldCaptionOffset     = big.NewInt(1 << 44)
+	annotationDraftLineFieldLeader            = big.NewInt(1 << 45)
 )
 
 type AnnotationDraftLine struct {
-	Ref             any                                 `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                 `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                 `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                 `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                             `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftLineRect            `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                             `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                             `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftLineBlendMode       `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                               `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                               `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                               `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                               `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                               `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                               `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                               `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                               `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                               `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                               `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftLineReply           `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                 `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                             `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                 `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                 `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                 `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                 `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                 `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                 `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                             `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftLineBorderStyle     `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                           `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                             `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	LinePoints      *AnnotationDraftLineLinePoints      `json:"linePoints" url:"linePoints"`
-	LineEndings     *AnnotationDraftLineLineEndings     `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
-	Rotation        *float64                            `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationDraftLineIntent          `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationDraftLineMeasure         `json:"measure,omitempty" url:"measure,omitempty"`
-	CaptionEnabled  *bool                               `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionPosition *AnnotationDraftLineCaptionPosition `json:"captionPosition,omitempty" url:"captionPosition,omitempty"`
-	CaptionOffset   *AnnotationDraftLineCaptionOffset   `json:"captionOffset,omitempty" url:"captionOffset,omitempty"`
-	Leader          *AnnotationDraftLineLeader          `json:"leader,omitempty" url:"leader,omitempty"`
+	Ref               any                                 `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                 `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                 `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                 `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                 `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                             `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftLineRect            `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                             `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                             `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftLineBlendMode       `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                               `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                               `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                               `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                               `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                               `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                               `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                               `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                               `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                               `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                               `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftLineReply           `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                 `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                             `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                 `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                 `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                 `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                 `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                 `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                 `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                             `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftLineBorderStyle     `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                           `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                             `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	LinePoints        *AnnotationDraftLineLinePoints      `json:"linePoints" url:"linePoints"`
+	LineEndings       *AnnotationDraftLineLineEndings     `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
+	Rotation          *float64                            `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationDraftLineIntent          `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationDraftLineMeasure         `json:"measure,omitempty" url:"measure,omitempty"`
+	CaptionEnabled    *bool                               `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionPosition   *AnnotationDraftLineCaptionPosition `json:"captionPosition,omitempty" url:"captionPosition,omitempty"`
+	CaptionOffset     *AnnotationDraftLineCaptionOffset   `json:"captionOffset,omitempty" url:"captionOffset,omitempty"`
+	Leader            *AnnotationDraftLineLeader          `json:"leader,omitempty" url:"leader,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -9776,6 +9874,13 @@ func (a *AnnotationDraftLine) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftLine) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftLine) GetNm() *string {
@@ -10105,6 +10210,13 @@ func (a *AnnotationDraftLine) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftLine) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftLineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftLine) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftLineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -13900,71 +14012,73 @@ func (a AnnotationDraftLineReplyType) Ptr() *AnnotationDraftLineReplyType {
 }
 
 var (
-	annotationDraftLinkFieldRef             = big.NewInt(1 << 0)
-	annotationDraftLinkFieldPage            = big.NewInt(1 << 1)
-	annotationDraftLinkFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftLinkFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftLinkFieldNm              = big.NewInt(1 << 4)
-	annotationDraftLinkFieldRect            = big.NewInt(1 << 5)
-	annotationDraftLinkFieldContents        = big.NewInt(1 << 6)
-	annotationDraftLinkFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftLinkFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftLinkFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftLinkFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftLinkFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftLinkFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftLinkFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftLinkFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftLinkFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftLinkFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftLinkFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftLinkFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftLinkFieldReply           = big.NewInt(1 << 19)
-	annotationDraftLinkFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftLinkFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftLinkFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftLinkFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftLinkFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftLinkFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftLinkFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftLinkFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftLinkFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftLinkFieldActions         = big.NewInt(1 << 29)
-	annotationDraftLinkFieldTarget          = big.NewInt(1 << 30)
+	annotationDraftLinkFieldRef               = big.NewInt(1 << 0)
+	annotationDraftLinkFieldPage              = big.NewInt(1 << 1)
+	annotationDraftLinkFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftLinkFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftLinkFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftLinkFieldNm                = big.NewInt(1 << 5)
+	annotationDraftLinkFieldRect              = big.NewInt(1 << 6)
+	annotationDraftLinkFieldContents          = big.NewInt(1 << 7)
+	annotationDraftLinkFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftLinkFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftLinkFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftLinkFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftLinkFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftLinkFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftLinkFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftLinkFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftLinkFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftLinkFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftLinkFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftLinkFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftLinkFieldReply             = big.NewInt(1 << 20)
+	annotationDraftLinkFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftLinkFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftLinkFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftLinkFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftLinkFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftLinkFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftLinkFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftLinkFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftLinkFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftLinkFieldActions           = big.NewInt(1 << 30)
+	annotationDraftLinkFieldTarget            = big.NewInt(1 << 31)
 )
 
 type AnnotationDraftLink struct {
-	Ref             any                           `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                           `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                       `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftLinkRect      `json:"rect" url:"rect"`
-	Contents        *string                       `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                       `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftLinkBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                         `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftLinkReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                           `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                           `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                           `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                           `json:"actions,omitempty" url:"actions,omitempty"`
-	Target          *PdfLinkTargetWritable        `json:"target,omitempty" url:"target,omitempty"`
+	Ref               any                           `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                           `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                           `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                       `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftLinkRect      `json:"rect" url:"rect"`
+	Contents          *string                       `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                       `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftLinkBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                         `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftLinkReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                           `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                           `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                           `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	Target            *PdfLinkTargetWritable        `json:"target,omitempty" url:"target,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -13999,6 +14113,13 @@ func (a *AnnotationDraftLink) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftLink) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftLink) GetNm() *string {
@@ -14230,6 +14351,13 @@ func (a *AnnotationDraftLink) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftLink) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftLinkFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftLink) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftLinkFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -14782,95 +14910,97 @@ func (a AnnotationDraftLinkReplyType) Ptr() *AnnotationDraftLinkReplyType {
 }
 
 var (
-	annotationDraftPolygonFieldRef             = big.NewInt(1 << 0)
-	annotationDraftPolygonFieldPage            = big.NewInt(1 << 1)
-	annotationDraftPolygonFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftPolygonFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftPolygonFieldNm              = big.NewInt(1 << 4)
-	annotationDraftPolygonFieldRect            = big.NewInt(1 << 5)
-	annotationDraftPolygonFieldContents        = big.NewInt(1 << 6)
-	annotationDraftPolygonFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftPolygonFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftPolygonFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftPolygonFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftPolygonFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftPolygonFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftPolygonFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftPolygonFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftPolygonFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftPolygonFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftPolygonFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftPolygonFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftPolygonFieldReply           = big.NewInt(1 << 19)
-	annotationDraftPolygonFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftPolygonFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftPolygonFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftPolygonFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftPolygonFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftPolygonFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftPolygonFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftPolygonFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftPolygonFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftPolygonFieldActions         = big.NewInt(1 << 29)
-	annotationDraftPolygonFieldColor           = big.NewInt(1 << 30)
-	annotationDraftPolygonFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftPolygonFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftPolygonFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftPolygonFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftPolygonFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationDraftPolygonFieldVertices        = big.NewInt(1 << 36)
-	annotationDraftPolygonFieldRotation        = big.NewInt(1 << 37)
-	annotationDraftPolygonFieldCaptionEnabled  = big.NewInt(1 << 38)
-	annotationDraftPolygonFieldCaptionCenter   = big.NewInt(1 << 39)
-	annotationDraftPolygonFieldIntent          = big.NewInt(1 << 40)
-	annotationDraftPolygonFieldMeasure         = big.NewInt(1 << 41)
-	annotationDraftPolygonFieldCloudyIntensity = big.NewInt(1 << 42)
+	annotationDraftPolygonFieldRef               = big.NewInt(1 << 0)
+	annotationDraftPolygonFieldPage              = big.NewInt(1 << 1)
+	annotationDraftPolygonFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftPolygonFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftPolygonFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftPolygonFieldNm                = big.NewInt(1 << 5)
+	annotationDraftPolygonFieldRect              = big.NewInt(1 << 6)
+	annotationDraftPolygonFieldContents          = big.NewInt(1 << 7)
+	annotationDraftPolygonFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftPolygonFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftPolygonFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftPolygonFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftPolygonFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftPolygonFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftPolygonFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftPolygonFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftPolygonFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftPolygonFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftPolygonFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftPolygonFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftPolygonFieldReply             = big.NewInt(1 << 20)
+	annotationDraftPolygonFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftPolygonFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftPolygonFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftPolygonFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftPolygonFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftPolygonFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftPolygonFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftPolygonFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftPolygonFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftPolygonFieldActions           = big.NewInt(1 << 30)
+	annotationDraftPolygonFieldColor             = big.NewInt(1 << 31)
+	annotationDraftPolygonFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftPolygonFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftPolygonFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftPolygonFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftPolygonFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationDraftPolygonFieldVertices          = big.NewInt(1 << 37)
+	annotationDraftPolygonFieldRotation          = big.NewInt(1 << 38)
+	annotationDraftPolygonFieldCaptionEnabled    = big.NewInt(1 << 39)
+	annotationDraftPolygonFieldCaptionCenter     = big.NewInt(1 << 40)
+	annotationDraftPolygonFieldIntent            = big.NewInt(1 << 41)
+	annotationDraftPolygonFieldMeasure           = big.NewInt(1 << 42)
+	annotationDraftPolygonFieldCloudyIntensity   = big.NewInt(1 << 43)
 )
 
 type AnnotationDraftPolygon struct {
-	Ref             any                                   `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                   `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                               `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftPolygonRect           `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                               `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                               `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftPolygonBlendMode      `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                 `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftPolygonReply          `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                   `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                   `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                   `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                   `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                               `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftPolygonBorderStyle    `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Vertices        []*AnnotationDraftPolygonVerticesItem `json:"vertices" url:"vertices"`
-	Rotation        *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CaptionEnabled  *bool                                 `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionCenter   *AnnotationDraftPolygonCaptionCenter  `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
-	Intent          *AnnotationDraftPolygonIntent         `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationDraftPolygonMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
-	CloudyIntensity *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                                   `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                   `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                   `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                               `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftPolygonRect           `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                               `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                               `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftPolygonBlendMode      `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                 `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftPolygonReply          `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                   `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                   `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                   `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftPolygonBorderStyle    `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Vertices          []*AnnotationDraftPolygonVerticesItem `json:"vertices" url:"vertices"`
+	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CaptionEnabled    *bool                                 `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionCenter     *AnnotationDraftPolygonCaptionCenter  `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
+	Intent            *AnnotationDraftPolygonIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationDraftPolygonMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	CloudyIntensity   *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -14905,6 +15035,13 @@ func (a *AnnotationDraftPolygon) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftPolygon) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftPolygon) GetNm() *string {
@@ -15220,6 +15357,13 @@ func (a *AnnotationDraftPolygon) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftPolygon) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftPolygonFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftPolygon) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftPolygonFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -18471,95 +18615,97 @@ func (a *AnnotationDraftPolygonVerticesItem) String() string {
 }
 
 var (
-	annotationDraftPolylineFieldRef             = big.NewInt(1 << 0)
-	annotationDraftPolylineFieldPage            = big.NewInt(1 << 1)
-	annotationDraftPolylineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftPolylineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftPolylineFieldNm              = big.NewInt(1 << 4)
-	annotationDraftPolylineFieldRect            = big.NewInt(1 << 5)
-	annotationDraftPolylineFieldContents        = big.NewInt(1 << 6)
-	annotationDraftPolylineFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftPolylineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftPolylineFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftPolylineFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftPolylineFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftPolylineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftPolylineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftPolylineFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftPolylineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftPolylineFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftPolylineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftPolylineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftPolylineFieldReply           = big.NewInt(1 << 19)
-	annotationDraftPolylineFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftPolylineFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftPolylineFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftPolylineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftPolylineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftPolylineFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftPolylineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftPolylineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftPolylineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftPolylineFieldActions         = big.NewInt(1 << 29)
-	annotationDraftPolylineFieldColor           = big.NewInt(1 << 30)
-	annotationDraftPolylineFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftPolylineFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftPolylineFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftPolylineFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftPolylineFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationDraftPolylineFieldVertices        = big.NewInt(1 << 36)
-	annotationDraftPolylineFieldRotation        = big.NewInt(1 << 37)
-	annotationDraftPolylineFieldCaptionEnabled  = big.NewInt(1 << 38)
-	annotationDraftPolylineFieldCaptionCenter   = big.NewInt(1 << 39)
-	annotationDraftPolylineFieldIntent          = big.NewInt(1 << 40)
-	annotationDraftPolylineFieldMeasure         = big.NewInt(1 << 41)
-	annotationDraftPolylineFieldLineEndings     = big.NewInt(1 << 42)
+	annotationDraftPolylineFieldRef               = big.NewInt(1 << 0)
+	annotationDraftPolylineFieldPage              = big.NewInt(1 << 1)
+	annotationDraftPolylineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftPolylineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftPolylineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftPolylineFieldNm                = big.NewInt(1 << 5)
+	annotationDraftPolylineFieldRect              = big.NewInt(1 << 6)
+	annotationDraftPolylineFieldContents          = big.NewInt(1 << 7)
+	annotationDraftPolylineFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftPolylineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftPolylineFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftPolylineFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftPolylineFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftPolylineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftPolylineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftPolylineFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftPolylineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftPolylineFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftPolylineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftPolylineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftPolylineFieldReply             = big.NewInt(1 << 20)
+	annotationDraftPolylineFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftPolylineFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftPolylineFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftPolylineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftPolylineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftPolylineFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftPolylineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftPolylineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftPolylineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftPolylineFieldActions           = big.NewInt(1 << 30)
+	annotationDraftPolylineFieldColor             = big.NewInt(1 << 31)
+	annotationDraftPolylineFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftPolylineFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftPolylineFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftPolylineFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftPolylineFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationDraftPolylineFieldVertices          = big.NewInt(1 << 37)
+	annotationDraftPolylineFieldRotation          = big.NewInt(1 << 38)
+	annotationDraftPolylineFieldCaptionEnabled    = big.NewInt(1 << 39)
+	annotationDraftPolylineFieldCaptionCenter     = big.NewInt(1 << 40)
+	annotationDraftPolylineFieldIntent            = big.NewInt(1 << 41)
+	annotationDraftPolylineFieldMeasure           = big.NewInt(1 << 42)
+	annotationDraftPolylineFieldLineEndings       = big.NewInt(1 << 43)
 )
 
 type AnnotationDraftPolyline struct {
-	Ref             any                                    `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                    `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftPolylineRect           `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftPolylineBlendMode      `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                  `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftPolylineReply          `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                    `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                    `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                    `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                    `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftPolylineBorderStyle    `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                              `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Vertices        []*AnnotationDraftPolylineVerticesItem `json:"vertices" url:"vertices"`
-	Rotation        *float64                               `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CaptionEnabled  *bool                                  `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionCenter   *AnnotationDraftPolylineCaptionCenter  `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
-	Intent          *AnnotationDraftPolylineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationDraftPolylineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
-	LineEndings     *AnnotationDraftPolylineLineEndings    `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
+	Ref               any                                    `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                    `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                    `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftPolylineRect           `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftPolylineBlendMode      `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                  `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftPolylineReply          `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                    `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                    `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                    `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftPolylineBorderStyle    `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                              `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Vertices          []*AnnotationDraftPolylineVerticesItem `json:"vertices" url:"vertices"`
+	Rotation          *float64                               `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CaptionEnabled    *bool                                  `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionCenter     *AnnotationDraftPolylineCaptionCenter  `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
+	Intent            *AnnotationDraftPolylineIntent         `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationDraftPolylineMeasure        `json:"measure,omitempty" url:"measure,omitempty"`
+	LineEndings       *AnnotationDraftPolylineLineEndings    `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -18594,6 +18740,13 @@ func (a *AnnotationDraftPolyline) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftPolyline) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftPolyline) GetNm() *string {
@@ -18909,6 +19062,13 @@ func (a *AnnotationDraftPolyline) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftPolyline) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftPolylineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftPolyline) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftPolylineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -22349,73 +22509,75 @@ func (a *AnnotationDraftPolylineVerticesItem) String() string {
 }
 
 var (
-	annotationDraftPopupFieldRef             = big.NewInt(1 << 0)
-	annotationDraftPopupFieldPage            = big.NewInt(1 << 1)
-	annotationDraftPopupFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftPopupFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftPopupFieldNm              = big.NewInt(1 << 4)
-	annotationDraftPopupFieldRect            = big.NewInt(1 << 5)
-	annotationDraftPopupFieldContents        = big.NewInt(1 << 6)
-	annotationDraftPopupFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftPopupFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftPopupFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftPopupFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftPopupFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftPopupFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftPopupFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftPopupFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftPopupFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftPopupFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftPopupFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftPopupFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftPopupFieldReply           = big.NewInt(1 << 19)
-	annotationDraftPopupFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftPopupFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftPopupFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftPopupFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftPopupFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftPopupFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftPopupFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftPopupFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftPopupFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftPopupFieldActions         = big.NewInt(1 << 29)
-	annotationDraftPopupFieldParent          = big.NewInt(1 << 30)
-	annotationDraftPopupFieldOpen            = big.NewInt(1 << 31)
+	annotationDraftPopupFieldRef               = big.NewInt(1 << 0)
+	annotationDraftPopupFieldPage              = big.NewInt(1 << 1)
+	annotationDraftPopupFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftPopupFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftPopupFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftPopupFieldNm                = big.NewInt(1 << 5)
+	annotationDraftPopupFieldRect              = big.NewInt(1 << 6)
+	annotationDraftPopupFieldContents          = big.NewInt(1 << 7)
+	annotationDraftPopupFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftPopupFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftPopupFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftPopupFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftPopupFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftPopupFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftPopupFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftPopupFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftPopupFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftPopupFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftPopupFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftPopupFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftPopupFieldReply             = big.NewInt(1 << 20)
+	annotationDraftPopupFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftPopupFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftPopupFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftPopupFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftPopupFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftPopupFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftPopupFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftPopupFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftPopupFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftPopupFieldActions           = big.NewInt(1 << 30)
+	annotationDraftPopupFieldParent            = big.NewInt(1 << 31)
+	annotationDraftPopupFieldOpen              = big.NewInt(1 << 32)
 )
 
 type AnnotationDraftPopup struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftPopupRect      `json:"rect" url:"rect"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftPopupBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftPopupReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Parent          *AnnotationRef                 `json:"parent" url:"parent"`
-	Open            *bool                          `json:"open,omitempty" url:"open,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftPopupRect      `json:"rect" url:"rect"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftPopupBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftPopupReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Parent            *AnnotationRef                 `json:"parent" url:"parent"`
+	Open              *bool                          `json:"open,omitempty" url:"open,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -22450,6 +22612,13 @@ func (a *AnnotationDraftPopup) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftPopup) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftPopup) GetNm() *string {
@@ -22688,6 +22857,13 @@ func (a *AnnotationDraftPopup) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftPopup) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftPopupFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftPopup) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftPopupFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -23247,89 +23423,91 @@ func (a AnnotationDraftPopupReplyType) Ptr() *AnnotationDraftPopupReplyType {
 }
 
 var (
-	annotationDraftRedactFieldRef             = big.NewInt(1 << 0)
-	annotationDraftRedactFieldPage            = big.NewInt(1 << 1)
-	annotationDraftRedactFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftRedactFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftRedactFieldNm              = big.NewInt(1 << 4)
-	annotationDraftRedactFieldRect            = big.NewInt(1 << 5)
-	annotationDraftRedactFieldContents        = big.NewInt(1 << 6)
-	annotationDraftRedactFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftRedactFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftRedactFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftRedactFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftRedactFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftRedactFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftRedactFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftRedactFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftRedactFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftRedactFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftRedactFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftRedactFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftRedactFieldReply           = big.NewInt(1 << 19)
-	annotationDraftRedactFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftRedactFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftRedactFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftRedactFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftRedactFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftRedactFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftRedactFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftRedactFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftRedactFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftRedactFieldActions         = big.NewInt(1 << 29)
-	annotationDraftRedactFieldColor           = big.NewInt(1 << 30)
-	annotationDraftRedactFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftRedactFieldQuadPoints      = big.NewInt(1 << 32)
-	annotationDraftRedactFieldInteriorColor   = big.NewInt(1 << 33)
-	annotationDraftRedactFieldOverlayText     = big.NewInt(1 << 34)
-	annotationDraftRedactFieldRepeat          = big.NewInt(1 << 35)
-	annotationDraftRedactFieldFontFamily      = big.NewInt(1 << 36)
-	annotationDraftRedactFieldFontSize        = big.NewInt(1 << 37)
-	annotationDraftRedactFieldFontColor       = big.NewInt(1 << 38)
-	annotationDraftRedactFieldTextAlign       = big.NewInt(1 << 39)
+	annotationDraftRedactFieldRef               = big.NewInt(1 << 0)
+	annotationDraftRedactFieldPage              = big.NewInt(1 << 1)
+	annotationDraftRedactFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftRedactFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftRedactFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftRedactFieldNm                = big.NewInt(1 << 5)
+	annotationDraftRedactFieldRect              = big.NewInt(1 << 6)
+	annotationDraftRedactFieldContents          = big.NewInt(1 << 7)
+	annotationDraftRedactFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftRedactFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftRedactFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftRedactFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftRedactFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftRedactFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftRedactFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftRedactFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftRedactFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftRedactFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftRedactFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftRedactFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftRedactFieldReply             = big.NewInt(1 << 20)
+	annotationDraftRedactFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftRedactFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftRedactFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftRedactFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftRedactFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftRedactFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftRedactFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftRedactFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftRedactFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftRedactFieldActions           = big.NewInt(1 << 30)
+	annotationDraftRedactFieldColor             = big.NewInt(1 << 31)
+	annotationDraftRedactFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftRedactFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationDraftRedactFieldInteriorColor     = big.NewInt(1 << 34)
+	annotationDraftRedactFieldOverlayText       = big.NewInt(1 << 35)
+	annotationDraftRedactFieldRepeat            = big.NewInt(1 << 36)
+	annotationDraftRedactFieldFontFamily        = big.NewInt(1 << 37)
+	annotationDraftRedactFieldFontSize          = big.NewInt(1 << 38)
+	annotationDraftRedactFieldFontColor         = big.NewInt(1 << 39)
+	annotationDraftRedactFieldTextAlign         = big.NewInt(1 << 40)
 )
 
 type AnnotationDraftRedact struct {
-	Ref             any                                    `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                    `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftRedactRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftRedactBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                  `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftRedactReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                    `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                    `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                    `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                    `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationDraftRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
-	InteriorColor   *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	OverlayText     *string                                `json:"overlayText,omitempty" url:"overlayText,omitempty"`
-	Repeat          *bool                                  `json:"repeat,omitempty" url:"repeat,omitempty"`
-	FontFamily      *string                                `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
-	FontSize        *float64                               `json:"fontSize,omitempty" url:"fontSize,omitempty"`
-	FontColor       *string                                `json:"fontColor,omitempty" url:"fontColor,omitempty"`
-	TextAlign       *AnnotationDraftRedactTextAlign        `json:"textAlign,omitempty" url:"textAlign,omitempty"`
+	Ref               any                                    `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                    `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                    `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftRedactRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftRedactBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                  `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftRedactReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                    `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                    `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                    `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationDraftRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	InteriorColor     *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	OverlayText       *string                                `json:"overlayText,omitempty" url:"overlayText,omitempty"`
+	Repeat            *bool                                  `json:"repeat,omitempty" url:"repeat,omitempty"`
+	FontFamily        *string                                `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
+	FontSize          *float64                               `json:"fontSize,omitempty" url:"fontSize,omitempty"`
+	FontColor         *string                                `json:"fontColor,omitempty" url:"fontColor,omitempty"`
+	TextAlign         *AnnotationDraftRedactTextAlign        `json:"textAlign,omitempty" url:"textAlign,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -23364,6 +23542,13 @@ func (a *AnnotationDraftRedact) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftRedact) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftRedact) GetNm() *string {
@@ -23658,6 +23843,13 @@ func (a *AnnotationDraftRedact) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftRedact) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftRedactFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftRedact) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftRedactFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -24830,87 +25022,89 @@ func (a AnnotationDraftRedactTextAlign) Ptr() *AnnotationDraftRedactTextAlign {
 }
 
 var (
-	annotationDraftSquareFieldRef             = big.NewInt(1 << 0)
-	annotationDraftSquareFieldPage            = big.NewInt(1 << 1)
-	annotationDraftSquareFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftSquareFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftSquareFieldNm              = big.NewInt(1 << 4)
-	annotationDraftSquareFieldRect            = big.NewInt(1 << 5)
-	annotationDraftSquareFieldContents        = big.NewInt(1 << 6)
-	annotationDraftSquareFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftSquareFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftSquareFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftSquareFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftSquareFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftSquareFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftSquareFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftSquareFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftSquareFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftSquareFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftSquareFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftSquareFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftSquareFieldReply           = big.NewInt(1 << 19)
-	annotationDraftSquareFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftSquareFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftSquareFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftSquareFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftSquareFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftSquareFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftSquareFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftSquareFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftSquareFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftSquareFieldActions         = big.NewInt(1 << 29)
-	annotationDraftSquareFieldColor           = big.NewInt(1 << 30)
-	annotationDraftSquareFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftSquareFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationDraftSquareFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationDraftSquareFieldDashArray       = big.NewInt(1 << 34)
-	annotationDraftSquareFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationDraftSquareFieldBox             = big.NewInt(1 << 36)
-	annotationDraftSquareFieldRotation        = big.NewInt(1 << 37)
-	annotationDraftSquareFieldCloudyIntensity = big.NewInt(1 << 38)
+	annotationDraftSquareFieldRef               = big.NewInt(1 << 0)
+	annotationDraftSquareFieldPage              = big.NewInt(1 << 1)
+	annotationDraftSquareFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftSquareFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftSquareFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftSquareFieldNm                = big.NewInt(1 << 5)
+	annotationDraftSquareFieldRect              = big.NewInt(1 << 6)
+	annotationDraftSquareFieldContents          = big.NewInt(1 << 7)
+	annotationDraftSquareFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftSquareFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftSquareFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftSquareFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftSquareFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftSquareFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftSquareFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftSquareFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftSquareFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftSquareFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftSquareFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftSquareFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftSquareFieldReply             = big.NewInt(1 << 20)
+	annotationDraftSquareFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftSquareFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftSquareFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftSquareFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftSquareFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftSquareFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftSquareFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftSquareFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftSquareFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftSquareFieldActions           = big.NewInt(1 << 30)
+	annotationDraftSquareFieldColor             = big.NewInt(1 << 31)
+	annotationDraftSquareFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftSquareFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationDraftSquareFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationDraftSquareFieldDashArray         = big.NewInt(1 << 35)
+	annotationDraftSquareFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationDraftSquareFieldBox               = big.NewInt(1 << 37)
+	annotationDraftSquareFieldRotation          = big.NewInt(1 << 38)
+	annotationDraftSquareFieldCloudyIntensity   = big.NewInt(1 << 39)
 )
 
 type AnnotationDraftSquare struct {
-	Ref             any                               `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                               `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                           `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftSquareRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                           `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                           `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftSquareBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                             `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftSquareReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                               `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                               `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                               `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                               `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                           `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftSquareBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Box             *AnnotationDraftSquareBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CloudyIntensity *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                               `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                               `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                               `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                           `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftSquareRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                           `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                           `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftSquareBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                             `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftSquareReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                               `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                               `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                               `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftSquareBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Box               *AnnotationDraftSquareBox         `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CloudyIntensity   *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -24945,6 +25139,13 @@ func (a *AnnotationDraftSquare) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftSquare) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftSquare) GetNm() *string {
@@ -25232,6 +25433,13 @@ func (a *AnnotationDraftSquare) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftSquare) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftSquareFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftSquare) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftSquareFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -25994,75 +26202,77 @@ func (a AnnotationDraftSquareReplyType) Ptr() *AnnotationDraftSquareReplyType {
 }
 
 var (
-	annotationDraftSquigglyFieldRef             = big.NewInt(1 << 0)
-	annotationDraftSquigglyFieldPage            = big.NewInt(1 << 1)
-	annotationDraftSquigglyFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftSquigglyFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftSquigglyFieldNm              = big.NewInt(1 << 4)
-	annotationDraftSquigglyFieldRect            = big.NewInt(1 << 5)
-	annotationDraftSquigglyFieldContents        = big.NewInt(1 << 6)
-	annotationDraftSquigglyFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftSquigglyFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftSquigglyFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftSquigglyFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftSquigglyFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftSquigglyFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftSquigglyFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftSquigglyFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftSquigglyFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftSquigglyFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftSquigglyFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftSquigglyFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftSquigglyFieldReply           = big.NewInt(1 << 19)
-	annotationDraftSquigglyFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftSquigglyFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftSquigglyFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftSquigglyFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftSquigglyFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftSquigglyFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftSquigglyFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftSquigglyFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftSquigglyFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftSquigglyFieldActions         = big.NewInt(1 << 29)
-	annotationDraftSquigglyFieldColor           = big.NewInt(1 << 30)
-	annotationDraftSquigglyFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftSquigglyFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationDraftSquigglyFieldRef               = big.NewInt(1 << 0)
+	annotationDraftSquigglyFieldPage              = big.NewInt(1 << 1)
+	annotationDraftSquigglyFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftSquigglyFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftSquigglyFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftSquigglyFieldNm                = big.NewInt(1 << 5)
+	annotationDraftSquigglyFieldRect              = big.NewInt(1 << 6)
+	annotationDraftSquigglyFieldContents          = big.NewInt(1 << 7)
+	annotationDraftSquigglyFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftSquigglyFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftSquigglyFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftSquigglyFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftSquigglyFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftSquigglyFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftSquigglyFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftSquigglyFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftSquigglyFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftSquigglyFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftSquigglyFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftSquigglyFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftSquigglyFieldReply             = big.NewInt(1 << 20)
+	annotationDraftSquigglyFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftSquigglyFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftSquigglyFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftSquigglyFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftSquigglyFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftSquigglyFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftSquigglyFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftSquigglyFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftSquigglyFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftSquigglyFieldActions           = big.NewInt(1 << 30)
+	annotationDraftSquigglyFieldColor             = big.NewInt(1 << 31)
+	annotationDraftSquigglyFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftSquigglyFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationDraftSquiggly struct {
-	Ref             any                                      `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                      `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                      `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                      `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                  `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftSquigglyRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                  `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                  `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftSquigglyBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                    `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                    `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                    `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                    `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                    `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                    `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                    `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                    `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                    `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                    `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftSquigglyReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                      `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                  `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                      `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                      `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                      `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                      `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                      `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                  `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationDraftSquigglyQuadPointsItem `json:"quadPoints" url:"quadPoints"`
+	Ref               any                                      `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                      `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                      `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                      `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                      `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                  `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftSquigglyRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                  `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                  `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftSquigglyBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                    `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                    `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                    `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                    `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                    `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                    `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                    `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                    `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                    `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                    `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftSquigglyReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                      `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                  `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                      `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                      `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                      `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                      `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                      `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                  `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationDraftSquigglyQuadPointsItem `json:"quadPoints" url:"quadPoints"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -26097,6 +26307,13 @@ func (a *AnnotationDraftSquiggly) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftSquiggly) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftSquiggly) GetNm() *string {
@@ -26342,6 +26559,13 @@ func (a *AnnotationDraftSquiggly) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftSquiggly) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftSquigglyFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftSquiggly) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftSquigglyFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -27440,79 +27664,81 @@ func (a AnnotationDraftSquigglyReplyType) Ptr() *AnnotationDraftSquigglyReplyTyp
 }
 
 var (
-	annotationDraftStampFieldRef             = big.NewInt(1 << 0)
-	annotationDraftStampFieldPage            = big.NewInt(1 << 1)
-	annotationDraftStampFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftStampFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftStampFieldNm              = big.NewInt(1 << 4)
-	annotationDraftStampFieldRect            = big.NewInt(1 << 5)
-	annotationDraftStampFieldContents        = big.NewInt(1 << 6)
-	annotationDraftStampFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftStampFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftStampFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftStampFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftStampFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftStampFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftStampFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftStampFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftStampFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftStampFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftStampFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftStampFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftStampFieldReply           = big.NewInt(1 << 19)
-	annotationDraftStampFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftStampFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftStampFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftStampFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftStampFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftStampFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftStampFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftStampFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftStampFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftStampFieldActions         = big.NewInt(1 << 29)
-	annotationDraftStampFieldBox             = big.NewInt(1 << 30)
-	annotationDraftStampFieldRotation        = big.NewInt(1 << 31)
-	annotationDraftStampFieldName            = big.NewInt(1 << 32)
-	annotationDraftStampFieldFit             = big.NewInt(1 << 33)
-	annotationDraftStampFieldOpacity         = big.NewInt(1 << 34)
+	annotationDraftStampFieldRef               = big.NewInt(1 << 0)
+	annotationDraftStampFieldPage              = big.NewInt(1 << 1)
+	annotationDraftStampFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftStampFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftStampFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftStampFieldNm                = big.NewInt(1 << 5)
+	annotationDraftStampFieldRect              = big.NewInt(1 << 6)
+	annotationDraftStampFieldContents          = big.NewInt(1 << 7)
+	annotationDraftStampFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftStampFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftStampFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftStampFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftStampFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftStampFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftStampFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftStampFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftStampFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftStampFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftStampFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftStampFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftStampFieldReply             = big.NewInt(1 << 20)
+	annotationDraftStampFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftStampFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftStampFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftStampFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftStampFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftStampFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftStampFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftStampFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftStampFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftStampFieldActions           = big.NewInt(1 << 30)
+	annotationDraftStampFieldBox               = big.NewInt(1 << 31)
+	annotationDraftStampFieldRotation          = big.NewInt(1 << 32)
+	annotationDraftStampFieldName              = big.NewInt(1 << 33)
+	annotationDraftStampFieldFit               = big.NewInt(1 << 34)
+	annotationDraftStampFieldOpacity           = big.NewInt(1 << 35)
 )
 
 type AnnotationDraftStamp struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftStampRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftStampBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftStampReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Box             *AnnotationDraftStampBox       `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Name            *string                        `json:"name,omitempty" url:"name,omitempty"`
-	Fit             *AnnotationDraftStampFit       `json:"fit,omitempty" url:"fit,omitempty"`
-	Opacity         *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftStampRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftStampBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftStampReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Box               *AnnotationDraftStampBox       `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Name              *string                        `json:"name,omitempty" url:"name,omitempty"`
+	Fit               *AnnotationDraftStampFit       `json:"fit,omitempty" url:"fit,omitempty"`
+	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -27547,6 +27773,13 @@ func (a *AnnotationDraftStamp) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftStamp) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftStamp) GetNm() *string {
@@ -27806,6 +28039,13 @@ func (a *AnnotationDraftStamp) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftStamp) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftStampFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftStamp) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftStampFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -28543,77 +28783,79 @@ func (a AnnotationDraftStampReplyType) Ptr() *AnnotationDraftStampReplyType {
 }
 
 var (
-	annotationDraftStrikeoutFieldRef             = big.NewInt(1 << 0)
-	annotationDraftStrikeoutFieldPage            = big.NewInt(1 << 1)
-	annotationDraftStrikeoutFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftStrikeoutFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftStrikeoutFieldNm              = big.NewInt(1 << 4)
-	annotationDraftStrikeoutFieldRect            = big.NewInt(1 << 5)
-	annotationDraftStrikeoutFieldContents        = big.NewInt(1 << 6)
-	annotationDraftStrikeoutFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftStrikeoutFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftStrikeoutFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftStrikeoutFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftStrikeoutFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftStrikeoutFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftStrikeoutFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftStrikeoutFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftStrikeoutFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftStrikeoutFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftStrikeoutFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftStrikeoutFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftStrikeoutFieldReply           = big.NewInt(1 << 19)
-	annotationDraftStrikeoutFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftStrikeoutFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftStrikeoutFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftStrikeoutFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftStrikeoutFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftStrikeoutFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftStrikeoutFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftStrikeoutFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftStrikeoutFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftStrikeoutFieldActions         = big.NewInt(1 << 29)
-	annotationDraftStrikeoutFieldColor           = big.NewInt(1 << 30)
-	annotationDraftStrikeoutFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftStrikeoutFieldQuadPoints      = big.NewInt(1 << 32)
-	annotationDraftStrikeoutFieldIntent          = big.NewInt(1 << 33)
+	annotationDraftStrikeoutFieldRef               = big.NewInt(1 << 0)
+	annotationDraftStrikeoutFieldPage              = big.NewInt(1 << 1)
+	annotationDraftStrikeoutFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftStrikeoutFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftStrikeoutFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftStrikeoutFieldNm                = big.NewInt(1 << 5)
+	annotationDraftStrikeoutFieldRect              = big.NewInt(1 << 6)
+	annotationDraftStrikeoutFieldContents          = big.NewInt(1 << 7)
+	annotationDraftStrikeoutFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftStrikeoutFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftStrikeoutFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftStrikeoutFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftStrikeoutFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftStrikeoutFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftStrikeoutFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftStrikeoutFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftStrikeoutFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftStrikeoutFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftStrikeoutFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftStrikeoutFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftStrikeoutFieldReply             = big.NewInt(1 << 20)
+	annotationDraftStrikeoutFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftStrikeoutFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftStrikeoutFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftStrikeoutFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftStrikeoutFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftStrikeoutFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftStrikeoutFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftStrikeoutFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftStrikeoutFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftStrikeoutFieldActions           = big.NewInt(1 << 30)
+	annotationDraftStrikeoutFieldColor             = big.NewInt(1 << 31)
+	annotationDraftStrikeoutFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftStrikeoutFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationDraftStrikeoutFieldIntent            = big.NewInt(1 << 34)
 )
 
 type AnnotationDraftStrikeout struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftStrikeoutRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftStrikeoutBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftStrikeoutReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationDraftStrikeoutQuadPointsItem `json:"quadPoints" url:"quadPoints"`
-	Intent          *AnnotationDraftStrikeoutIntent           `json:"intent,omitempty" url:"intent,omitempty"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftStrikeoutRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftStrikeoutBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftStrikeoutReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationDraftStrikeoutQuadPointsItem `json:"quadPoints" url:"quadPoints"`
+	Intent            *AnnotationDraftStrikeoutIntent           `json:"intent,omitempty" url:"intent,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -28648,6 +28890,13 @@ func (a *AnnotationDraftStrikeout) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftStrikeout) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftStrikeout) GetNm() *string {
@@ -28900,6 +29149,13 @@ func (a *AnnotationDraftStrikeout) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftStrikeout) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftStrikeoutFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftStrikeout) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftStrikeoutFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -30024,81 +30280,83 @@ func (a AnnotationDraftStrikeoutReplyType) Ptr() *AnnotationDraftStrikeoutReplyT
 }
 
 var (
-	annotationDraftTextFieldRef             = big.NewInt(1 << 0)
-	annotationDraftTextFieldPage            = big.NewInt(1 << 1)
-	annotationDraftTextFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftTextFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftTextFieldNm              = big.NewInt(1 << 4)
-	annotationDraftTextFieldRect            = big.NewInt(1 << 5)
-	annotationDraftTextFieldContents        = big.NewInt(1 << 6)
-	annotationDraftTextFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftTextFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftTextFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftTextFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftTextFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftTextFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftTextFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftTextFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftTextFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftTextFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftTextFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftTextFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftTextFieldReply           = big.NewInt(1 << 19)
-	annotationDraftTextFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftTextFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftTextFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftTextFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftTextFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftTextFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftTextFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftTextFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftTextFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftTextFieldActions         = big.NewInt(1 << 29)
-	annotationDraftTextFieldColor           = big.NewInt(1 << 30)
-	annotationDraftTextFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftTextFieldIcon            = big.NewInt(1 << 32)
-	annotationDraftTextFieldOpen            = big.NewInt(1 << 33)
-	annotationDraftTextFieldState           = big.NewInt(1 << 34)
-	annotationDraftTextFieldStateModel      = big.NewInt(1 << 35)
+	annotationDraftTextFieldRef               = big.NewInt(1 << 0)
+	annotationDraftTextFieldPage              = big.NewInt(1 << 1)
+	annotationDraftTextFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftTextFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftTextFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftTextFieldNm                = big.NewInt(1 << 5)
+	annotationDraftTextFieldRect              = big.NewInt(1 << 6)
+	annotationDraftTextFieldContents          = big.NewInt(1 << 7)
+	annotationDraftTextFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftTextFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftTextFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftTextFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftTextFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftTextFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftTextFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftTextFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftTextFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftTextFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftTextFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftTextFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftTextFieldReply             = big.NewInt(1 << 20)
+	annotationDraftTextFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftTextFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftTextFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftTextFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftTextFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftTextFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftTextFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftTextFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftTextFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftTextFieldActions           = big.NewInt(1 << 30)
+	annotationDraftTextFieldColor             = big.NewInt(1 << 31)
+	annotationDraftTextFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftTextFieldIcon              = big.NewInt(1 << 33)
+	annotationDraftTextFieldOpen              = big.NewInt(1 << 34)
+	annotationDraftTextFieldState             = big.NewInt(1 << 35)
+	annotationDraftTextFieldStateModel        = big.NewInt(1 << 36)
 )
 
 type AnnotationDraftText struct {
-	Ref             any                           `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                           `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                       `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftTextRect      `json:"rect" url:"rect"`
-	Contents        *string                       `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                       `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftTextBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                         `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftTextReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                           `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                           `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                           `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                           `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                       `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Icon            *AnnotationDraftTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
-	Open            *bool                         `json:"open,omitempty" url:"open,omitempty"`
-	State           *string                       `json:"state,omitempty" url:"state,omitempty"`
-	StateModel      *string                       `json:"stateModel,omitempty" url:"stateModel,omitempty"`
+	Ref               any                           `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                           `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                           `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                       `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftTextRect      `json:"rect" url:"rect"`
+	Contents          *string                       `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                       `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftTextBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                         `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftTextReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                           `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                           `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                           `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                       `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Icon              *AnnotationDraftTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
+	Open              *bool                         `json:"open,omitempty" url:"open,omitempty"`
+	State             *string                       `json:"state,omitempty" url:"state,omitempty"`
+	StateModel        *string                       `json:"stateModel,omitempty" url:"stateModel,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -30133,6 +30391,13 @@ func (a *AnnotationDraftText) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftText) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftText) GetNm() *string {
@@ -30399,6 +30664,13 @@ func (a *AnnotationDraftText) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftText) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftTextFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftText) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftTextFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -31023,75 +31295,77 @@ func (a AnnotationDraftTextReplyType) Ptr() *AnnotationDraftTextReplyType {
 }
 
 var (
-	annotationDraftUnderlineFieldRef             = big.NewInt(1 << 0)
-	annotationDraftUnderlineFieldPage            = big.NewInt(1 << 1)
-	annotationDraftUnderlineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftUnderlineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftUnderlineFieldNm              = big.NewInt(1 << 4)
-	annotationDraftUnderlineFieldRect            = big.NewInt(1 << 5)
-	annotationDraftUnderlineFieldContents        = big.NewInt(1 << 6)
-	annotationDraftUnderlineFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftUnderlineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftUnderlineFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftUnderlineFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftUnderlineFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftUnderlineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftUnderlineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftUnderlineFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftUnderlineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftUnderlineFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftUnderlineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftUnderlineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftUnderlineFieldReply           = big.NewInt(1 << 19)
-	annotationDraftUnderlineFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftUnderlineFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftUnderlineFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftUnderlineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftUnderlineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftUnderlineFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftUnderlineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftUnderlineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftUnderlineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftUnderlineFieldActions         = big.NewInt(1 << 29)
-	annotationDraftUnderlineFieldColor           = big.NewInt(1 << 30)
-	annotationDraftUnderlineFieldOpacity         = big.NewInt(1 << 31)
-	annotationDraftUnderlineFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationDraftUnderlineFieldRef               = big.NewInt(1 << 0)
+	annotationDraftUnderlineFieldPage              = big.NewInt(1 << 1)
+	annotationDraftUnderlineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftUnderlineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftUnderlineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftUnderlineFieldNm                = big.NewInt(1 << 5)
+	annotationDraftUnderlineFieldRect              = big.NewInt(1 << 6)
+	annotationDraftUnderlineFieldContents          = big.NewInt(1 << 7)
+	annotationDraftUnderlineFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftUnderlineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftUnderlineFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftUnderlineFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftUnderlineFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftUnderlineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftUnderlineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftUnderlineFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftUnderlineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftUnderlineFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftUnderlineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftUnderlineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftUnderlineFieldReply             = big.NewInt(1 << 20)
+	annotationDraftUnderlineFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftUnderlineFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftUnderlineFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftUnderlineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftUnderlineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftUnderlineFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftUnderlineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftUnderlineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftUnderlineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftUnderlineFieldActions           = big.NewInt(1 << 30)
+	annotationDraftUnderlineFieldColor             = big.NewInt(1 << 31)
+	annotationDraftUnderlineFieldOpacity           = big.NewInt(1 << 32)
+	annotationDraftUnderlineFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationDraftUnderline struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftUnderlineRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftUnderlineBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftUnderlineReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationDraftUnderlineQuadPointsItem `json:"quadPoints" url:"quadPoints"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftUnderlineRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftUnderlineBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftUnderlineReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationDraftUnderlineQuadPointsItem `json:"quadPoints" url:"quadPoints"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -31126,6 +31400,13 @@ func (a *AnnotationDraftUnderline) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftUnderline) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftUnderline) GetNm() *string {
@@ -31371,6 +31652,13 @@ func (a *AnnotationDraftUnderline) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftUnderline) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftUnderlineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftUnderline) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftUnderlineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -32469,99 +32757,101 @@ func (a AnnotationDraftUnderlineReplyType) Ptr() *AnnotationDraftUnderlineReplyT
 }
 
 var (
-	annotationDraftWidgetFieldRef             = big.NewInt(1 << 0)
-	annotationDraftWidgetFieldPage            = big.NewInt(1 << 1)
-	annotationDraftWidgetFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationDraftWidgetFieldAppearanceState = big.NewInt(1 << 3)
-	annotationDraftWidgetFieldNm              = big.NewInt(1 << 4)
-	annotationDraftWidgetFieldRect            = big.NewInt(1 << 5)
-	annotationDraftWidgetFieldContents        = big.NewInt(1 << 6)
-	annotationDraftWidgetFieldSubject         = big.NewInt(1 << 7)
-	annotationDraftWidgetFieldBlendMode       = big.NewInt(1 << 8)
-	annotationDraftWidgetFieldInvisible       = big.NewInt(1 << 9)
-	annotationDraftWidgetFieldHidden          = big.NewInt(1 << 10)
-	annotationDraftWidgetFieldPrint           = big.NewInt(1 << 11)
-	annotationDraftWidgetFieldNoZoom          = big.NewInt(1 << 12)
-	annotationDraftWidgetFieldNoRotate        = big.NewInt(1 << 13)
-	annotationDraftWidgetFieldNoView          = big.NewInt(1 << 14)
-	annotationDraftWidgetFieldReadOnly        = big.NewInt(1 << 15)
-	annotationDraftWidgetFieldLocked          = big.NewInt(1 << 16)
-	annotationDraftWidgetFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationDraftWidgetFieldLockedContents  = big.NewInt(1 << 18)
-	annotationDraftWidgetFieldReply           = big.NewInt(1 << 19)
-	annotationDraftWidgetFieldPopup           = big.NewInt(1 << 20)
-	annotationDraftWidgetFieldGroupID         = big.NewInt(1 << 21)
-	annotationDraftWidgetFieldAuthor          = big.NewInt(1 << 22)
-	annotationDraftWidgetFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationDraftWidgetFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationDraftWidgetFieldUserID          = big.NewInt(1 << 25)
-	annotationDraftWidgetFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationDraftWidgetFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationDraftWidgetFieldImportedBy      = big.NewInt(1 << 28)
-	annotationDraftWidgetFieldActions         = big.NewInt(1 << 29)
-	annotationDraftWidgetFieldBox             = big.NewInt(1 << 30)
-	annotationDraftWidgetFieldRotation        = big.NewInt(1 << 31)
-	annotationDraftWidgetFieldColor           = big.NewInt(1 << 32)
-	annotationDraftWidgetFieldInteriorColor   = big.NewInt(1 << 33)
-	annotationDraftWidgetFieldStrokeWidth     = big.NewInt(1 << 34)
-	annotationDraftWidgetFieldBorderStyle     = big.NewInt(1 << 35)
-	annotationDraftWidgetFieldDashArray       = big.NewInt(1 << 36)
-	annotationDraftWidgetFieldFontFamily      = big.NewInt(1 << 37)
-	annotationDraftWidgetFieldFontSize        = big.NewInt(1 << 38)
-	annotationDraftWidgetFieldFontColor       = big.NewInt(1 << 39)
-	annotationDraftWidgetFieldTextAlign       = big.NewInt(1 << 40)
-	annotationDraftWidgetFieldCaption         = big.NewInt(1 << 41)
-	annotationDraftWidgetFieldCheckStyle      = big.NewInt(1 << 42)
-	annotationDraftWidgetFieldField           = big.NewInt(1 << 43)
-	annotationDraftWidgetFieldFieldFamily     = big.NewInt(1 << 44)
+	annotationDraftWidgetFieldRef               = big.NewInt(1 << 0)
+	annotationDraftWidgetFieldPage              = big.NewInt(1 << 1)
+	annotationDraftWidgetFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationDraftWidgetFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationDraftWidgetFieldStructurePosition = big.NewInt(1 << 4)
+	annotationDraftWidgetFieldNm                = big.NewInt(1 << 5)
+	annotationDraftWidgetFieldRect              = big.NewInt(1 << 6)
+	annotationDraftWidgetFieldContents          = big.NewInt(1 << 7)
+	annotationDraftWidgetFieldSubject           = big.NewInt(1 << 8)
+	annotationDraftWidgetFieldBlendMode         = big.NewInt(1 << 9)
+	annotationDraftWidgetFieldInvisible         = big.NewInt(1 << 10)
+	annotationDraftWidgetFieldHidden            = big.NewInt(1 << 11)
+	annotationDraftWidgetFieldPrint             = big.NewInt(1 << 12)
+	annotationDraftWidgetFieldNoZoom            = big.NewInt(1 << 13)
+	annotationDraftWidgetFieldNoRotate          = big.NewInt(1 << 14)
+	annotationDraftWidgetFieldNoView            = big.NewInt(1 << 15)
+	annotationDraftWidgetFieldReadOnly          = big.NewInt(1 << 16)
+	annotationDraftWidgetFieldLocked            = big.NewInt(1 << 17)
+	annotationDraftWidgetFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationDraftWidgetFieldLockedContents    = big.NewInt(1 << 19)
+	annotationDraftWidgetFieldReply             = big.NewInt(1 << 20)
+	annotationDraftWidgetFieldPopup             = big.NewInt(1 << 21)
+	annotationDraftWidgetFieldGroupID           = big.NewInt(1 << 22)
+	annotationDraftWidgetFieldAuthor            = big.NewInt(1 << 23)
+	annotationDraftWidgetFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationDraftWidgetFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationDraftWidgetFieldUserID            = big.NewInt(1 << 26)
+	annotationDraftWidgetFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationDraftWidgetFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationDraftWidgetFieldImportedBy        = big.NewInt(1 << 29)
+	annotationDraftWidgetFieldActions           = big.NewInt(1 << 30)
+	annotationDraftWidgetFieldBox               = big.NewInt(1 << 31)
+	annotationDraftWidgetFieldRotation          = big.NewInt(1 << 32)
+	annotationDraftWidgetFieldColor             = big.NewInt(1 << 33)
+	annotationDraftWidgetFieldInteriorColor     = big.NewInt(1 << 34)
+	annotationDraftWidgetFieldStrokeWidth       = big.NewInt(1 << 35)
+	annotationDraftWidgetFieldBorderStyle       = big.NewInt(1 << 36)
+	annotationDraftWidgetFieldDashArray         = big.NewInt(1 << 37)
+	annotationDraftWidgetFieldFontFamily        = big.NewInt(1 << 38)
+	annotationDraftWidgetFieldFontSize          = big.NewInt(1 << 39)
+	annotationDraftWidgetFieldFontColor         = big.NewInt(1 << 40)
+	annotationDraftWidgetFieldTextAlign         = big.NewInt(1 << 41)
+	annotationDraftWidgetFieldCaption           = big.NewInt(1 << 42)
+	annotationDraftWidgetFieldCheckStyle        = big.NewInt(1 << 43)
+	annotationDraftWidgetFieldField             = big.NewInt(1 << 44)
+	annotationDraftWidgetFieldFieldFamily       = big.NewInt(1 << 45)
 )
 
 type AnnotationDraftWidget struct {
-	Ref             any                               `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                               `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                           `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationDraftWidgetRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                           `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                           `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationDraftWidgetBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                             `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationDraftWidgetReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                               `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                               `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                               `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         *WidgetActionsPatch               `json:"actions,omitempty" url:"actions,omitempty"`
-	Box             *AnnotationDraftWidgetBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Color           *string                           `json:"color,omitempty" url:"color,omitempty"`
-	InteriorColor   *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	StrokeWidth     *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationDraftWidgetBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	FontFamily      *string                           `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
-	FontSize        *float64                          `json:"fontSize,omitempty" url:"fontSize,omitempty"`
-	FontColor       *string                           `json:"fontColor,omitempty" url:"fontColor,omitempty"`
-	TextAlign       *AnnotationDraftWidgetTextAlign   `json:"textAlign,omitempty" url:"textAlign,omitempty"`
-	Caption         *string                           `json:"caption,omitempty" url:"caption,omitempty"`
-	CheckStyle      *AnnotationDraftWidgetCheckStyle  `json:"checkStyle,omitempty" url:"checkStyle,omitempty"`
-	Field           any                               `json:"field,omitempty" url:"field,omitempty"`
-	FieldFamily     any                               `json:"fieldFamily,omitempty" url:"fieldFamily,omitempty"`
+	Ref               any                               `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                               `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                               `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                           `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationDraftWidgetRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                           `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                           `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationDraftWidgetBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                             `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationDraftWidgetReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                               `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                               `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                               `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           *WidgetActionsPatch               `json:"actions,omitempty" url:"actions,omitempty"`
+	Box               *AnnotationDraftWidgetBox         `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
+	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationDraftWidgetBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	FontFamily        *string                           `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
+	FontSize          *float64                          `json:"fontSize,omitempty" url:"fontSize,omitempty"`
+	FontColor         *string                           `json:"fontColor,omitempty" url:"fontColor,omitempty"`
+	TextAlign         *AnnotationDraftWidgetTextAlign   `json:"textAlign,omitempty" url:"textAlign,omitempty"`
+	Caption           *string                           `json:"caption,omitempty" url:"caption,omitempty"`
+	CheckStyle        *AnnotationDraftWidgetCheckStyle  `json:"checkStyle,omitempty" url:"checkStyle,omitempty"`
+	Field             any                               `json:"field,omitempty" url:"field,omitempty"`
+	FieldFamily       any                               `json:"fieldFamily,omitempty" url:"fieldFamily,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -32596,6 +32886,13 @@ func (a *AnnotationDraftWidget) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationDraftWidget) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationDraftWidget) GetNm() *string {
@@ -32925,6 +33222,13 @@ func (a *AnnotationDraftWidget) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationDraftWidget) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationDraftWidgetFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftWidget) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationDraftWidgetFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -34331,79 +34635,81 @@ func (a *AnnotationPatch) validate() error {
 }
 
 var (
-	annotationPatchCaretFieldRef             = big.NewInt(1 << 0)
-	annotationPatchCaretFieldPage            = big.NewInt(1 << 1)
-	annotationPatchCaretFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchCaretFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchCaretFieldNm              = big.NewInt(1 << 4)
-	annotationPatchCaretFieldRect            = big.NewInt(1 << 5)
-	annotationPatchCaretFieldContents        = big.NewInt(1 << 6)
-	annotationPatchCaretFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchCaretFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchCaretFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchCaretFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchCaretFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchCaretFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchCaretFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchCaretFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchCaretFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchCaretFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchCaretFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchCaretFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchCaretFieldReply           = big.NewInt(1 << 19)
-	annotationPatchCaretFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchCaretFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchCaretFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchCaretFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchCaretFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchCaretFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchCaretFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchCaretFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchCaretFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchCaretFieldActions         = big.NewInt(1 << 29)
-	annotationPatchCaretFieldColor           = big.NewInt(1 << 30)
-	annotationPatchCaretFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchCaretFieldBox             = big.NewInt(1 << 32)
-	annotationPatchCaretFieldRotation        = big.NewInt(1 << 33)
-	annotationPatchCaretFieldIntent          = big.NewInt(1 << 34)
+	annotationPatchCaretFieldRef               = big.NewInt(1 << 0)
+	annotationPatchCaretFieldPage              = big.NewInt(1 << 1)
+	annotationPatchCaretFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchCaretFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchCaretFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchCaretFieldNm                = big.NewInt(1 << 5)
+	annotationPatchCaretFieldRect              = big.NewInt(1 << 6)
+	annotationPatchCaretFieldContents          = big.NewInt(1 << 7)
+	annotationPatchCaretFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchCaretFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchCaretFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchCaretFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchCaretFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchCaretFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchCaretFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchCaretFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchCaretFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchCaretFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchCaretFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchCaretFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchCaretFieldReply             = big.NewInt(1 << 20)
+	annotationPatchCaretFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchCaretFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchCaretFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchCaretFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchCaretFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchCaretFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchCaretFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchCaretFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchCaretFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchCaretFieldActions           = big.NewInt(1 << 30)
+	annotationPatchCaretFieldColor             = big.NewInt(1 << 31)
+	annotationPatchCaretFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchCaretFieldBox               = big.NewInt(1 << 33)
+	annotationPatchCaretFieldRotation          = big.NewInt(1 << 34)
+	annotationPatchCaretFieldIntent            = big.NewInt(1 << 35)
 )
 
 type AnnotationPatchCaret struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchCaretRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchCaretBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchCaretReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                        `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Box             *AnnotationPatchCaretBox       `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationPatchCaretIntent    `json:"intent,omitempty" url:"intent,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchCaretRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchCaretBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchCaretReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Box               *AnnotationPatchCaretBox       `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationPatchCaretIntent    `json:"intent,omitempty" url:"intent,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -34438,6 +34744,13 @@ func (a *AnnotationPatchCaret) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchCaret) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchCaret) GetNm() *string {
@@ -34697,6 +35010,13 @@ func (a *AnnotationPatchCaret) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchCaret) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchCaretFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchCaret) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchCaretFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -35428,87 +35748,89 @@ func (a AnnotationPatchCaretReplyType) Ptr() *AnnotationPatchCaretReplyType {
 }
 
 var (
-	annotationPatchCircleFieldRef             = big.NewInt(1 << 0)
-	annotationPatchCircleFieldPage            = big.NewInt(1 << 1)
-	annotationPatchCircleFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchCircleFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchCircleFieldNm              = big.NewInt(1 << 4)
-	annotationPatchCircleFieldRect            = big.NewInt(1 << 5)
-	annotationPatchCircleFieldContents        = big.NewInt(1 << 6)
-	annotationPatchCircleFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchCircleFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchCircleFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchCircleFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchCircleFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchCircleFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchCircleFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchCircleFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchCircleFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchCircleFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchCircleFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchCircleFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchCircleFieldReply           = big.NewInt(1 << 19)
-	annotationPatchCircleFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchCircleFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchCircleFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchCircleFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchCircleFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchCircleFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchCircleFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchCircleFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchCircleFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchCircleFieldActions         = big.NewInt(1 << 29)
-	annotationPatchCircleFieldColor           = big.NewInt(1 << 30)
-	annotationPatchCircleFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchCircleFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchCircleFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchCircleFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchCircleFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationPatchCircleFieldBox             = big.NewInt(1 << 36)
-	annotationPatchCircleFieldRotation        = big.NewInt(1 << 37)
-	annotationPatchCircleFieldCloudyIntensity = big.NewInt(1 << 38)
+	annotationPatchCircleFieldRef               = big.NewInt(1 << 0)
+	annotationPatchCircleFieldPage              = big.NewInt(1 << 1)
+	annotationPatchCircleFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchCircleFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchCircleFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchCircleFieldNm                = big.NewInt(1 << 5)
+	annotationPatchCircleFieldRect              = big.NewInt(1 << 6)
+	annotationPatchCircleFieldContents          = big.NewInt(1 << 7)
+	annotationPatchCircleFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchCircleFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchCircleFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchCircleFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchCircleFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchCircleFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchCircleFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchCircleFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchCircleFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchCircleFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchCircleFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchCircleFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchCircleFieldReply             = big.NewInt(1 << 20)
+	annotationPatchCircleFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchCircleFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchCircleFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchCircleFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchCircleFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchCircleFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchCircleFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchCircleFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchCircleFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchCircleFieldActions           = big.NewInt(1 << 30)
+	annotationPatchCircleFieldColor             = big.NewInt(1 << 31)
+	annotationPatchCircleFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchCircleFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchCircleFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchCircleFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchCircleFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationPatchCircleFieldBox               = big.NewInt(1 << 37)
+	annotationPatchCircleFieldRotation          = big.NewInt(1 << 38)
+	annotationPatchCircleFieldCloudyIntensity   = big.NewInt(1 << 39)
 )
 
 type AnnotationPatchCircle struct {
-	Ref             any                               `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                               `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                           `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchCircleRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                           `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                           `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchCircleBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                             `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchCircleReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                               `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                               `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                               `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                               `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                           `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchCircleBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Box             *AnnotationPatchCircleBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CloudyIntensity *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                               `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                               `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                               `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                           `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchCircleRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                           `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                           `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchCircleBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                             `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchCircleReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                               `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                               `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                               `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchCircleBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Box               *AnnotationPatchCircleBox         `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CloudyIntensity   *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -35543,6 +35865,13 @@ func (a *AnnotationPatchCircle) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchCircle) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchCircle) GetNm() *string {
@@ -35830,6 +36159,13 @@ func (a *AnnotationPatchCircle) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchCircle) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchCircleFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchCircle) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchCircleFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -36682,77 +37018,79 @@ func (a AnnotationPatchCircleReplyType) Ptr() *AnnotationPatchCircleReplyType {
 }
 
 var (
-	annotationPatchFileAttachmentFieldRef             = big.NewInt(1 << 0)
-	annotationPatchFileAttachmentFieldPage            = big.NewInt(1 << 1)
-	annotationPatchFileAttachmentFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchFileAttachmentFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchFileAttachmentFieldNm              = big.NewInt(1 << 4)
-	annotationPatchFileAttachmentFieldRect            = big.NewInt(1 << 5)
-	annotationPatchFileAttachmentFieldContents        = big.NewInt(1 << 6)
-	annotationPatchFileAttachmentFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchFileAttachmentFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchFileAttachmentFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchFileAttachmentFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchFileAttachmentFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchFileAttachmentFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchFileAttachmentFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchFileAttachmentFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchFileAttachmentFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchFileAttachmentFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchFileAttachmentFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchFileAttachmentFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchFileAttachmentFieldReply           = big.NewInt(1 << 19)
-	annotationPatchFileAttachmentFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchFileAttachmentFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchFileAttachmentFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchFileAttachmentFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchFileAttachmentFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchFileAttachmentFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchFileAttachmentFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchFileAttachmentFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchFileAttachmentFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchFileAttachmentFieldActions         = big.NewInt(1 << 29)
-	annotationPatchFileAttachmentFieldColor           = big.NewInt(1 << 30)
-	annotationPatchFileAttachmentFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchFileAttachmentFieldIcon            = big.NewInt(1 << 32)
-	annotationPatchFileAttachmentFieldFile            = big.NewInt(1 << 33)
+	annotationPatchFileAttachmentFieldRef               = big.NewInt(1 << 0)
+	annotationPatchFileAttachmentFieldPage              = big.NewInt(1 << 1)
+	annotationPatchFileAttachmentFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchFileAttachmentFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchFileAttachmentFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchFileAttachmentFieldNm                = big.NewInt(1 << 5)
+	annotationPatchFileAttachmentFieldRect              = big.NewInt(1 << 6)
+	annotationPatchFileAttachmentFieldContents          = big.NewInt(1 << 7)
+	annotationPatchFileAttachmentFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchFileAttachmentFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchFileAttachmentFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchFileAttachmentFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchFileAttachmentFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchFileAttachmentFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchFileAttachmentFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchFileAttachmentFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchFileAttachmentFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchFileAttachmentFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchFileAttachmentFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchFileAttachmentFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchFileAttachmentFieldReply             = big.NewInt(1 << 20)
+	annotationPatchFileAttachmentFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchFileAttachmentFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchFileAttachmentFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchFileAttachmentFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchFileAttachmentFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchFileAttachmentFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchFileAttachmentFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchFileAttachmentFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchFileAttachmentFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchFileAttachmentFieldActions           = big.NewInt(1 << 30)
+	annotationPatchFileAttachmentFieldColor             = big.NewInt(1 << 31)
+	annotationPatchFileAttachmentFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchFileAttachmentFieldIcon              = big.NewInt(1 << 33)
+	annotationPatchFileAttachmentFieldFile              = big.NewInt(1 << 34)
 )
 
 type AnnotationPatchFileAttachment struct {
-	Ref             any                                     `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                     `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                     `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                     `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                 `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchFileAttachmentRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                 `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                 `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchFileAttachmentBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                   `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                   `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                   `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                   `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                   `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                   `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                   `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                   `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                   `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                   `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchFileAttachmentReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                     `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                 `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                     `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                     `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                     `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                     `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                     `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                 `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Icon            *AnnotationPatchFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
-	File            *AnnotationPatchFileAttachmentFile      `json:"file,omitempty" url:"file,omitempty"`
+	Ref               any                                     `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                     `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                     `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                     `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                     `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                 `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchFileAttachmentRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                 `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                 `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchFileAttachmentBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                   `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                   `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                   `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                   `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                   `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                   `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                   `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                   `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                   `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                   `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchFileAttachmentReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                     `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                 `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                     `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                     `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                     `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                     `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                     `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                 `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Icon              *AnnotationPatchFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
+	File              *AnnotationPatchFileAttachmentFile      `json:"file,omitempty" url:"file,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -36787,6 +37125,13 @@ func (a *AnnotationPatchFileAttachment) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchFileAttachment) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchFileAttachment) GetNm() *string {
@@ -37039,6 +37384,13 @@ func (a *AnnotationPatchFileAttachment) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchFileAttachment) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchFileAttachmentFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchFileAttachment) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchFileAttachmentFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -37756,105 +38108,107 @@ func (a AnnotationPatchFileAttachmentReplyType) Ptr() *AnnotationPatchFileAttach
 }
 
 var (
-	annotationPatchFreeTextFieldRef             = big.NewInt(1 << 0)
-	annotationPatchFreeTextFieldPage            = big.NewInt(1 << 1)
-	annotationPatchFreeTextFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchFreeTextFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchFreeTextFieldNm              = big.NewInt(1 << 4)
-	annotationPatchFreeTextFieldRect            = big.NewInt(1 << 5)
-	annotationPatchFreeTextFieldContents        = big.NewInt(1 << 6)
-	annotationPatchFreeTextFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchFreeTextFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchFreeTextFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchFreeTextFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchFreeTextFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchFreeTextFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchFreeTextFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchFreeTextFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchFreeTextFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchFreeTextFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchFreeTextFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchFreeTextFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchFreeTextFieldReply           = big.NewInt(1 << 19)
-	annotationPatchFreeTextFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchFreeTextFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchFreeTextFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchFreeTextFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchFreeTextFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchFreeTextFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchFreeTextFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchFreeTextFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchFreeTextFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchFreeTextFieldActions         = big.NewInt(1 << 29)
-	annotationPatchFreeTextFieldBox             = big.NewInt(1 << 30)
-	annotationPatchFreeTextFieldRotation        = big.NewInt(1 << 31)
-	annotationPatchFreeTextFieldIntent          = big.NewInt(1 << 32)
-	annotationPatchFreeTextFieldFontFamily      = big.NewInt(1 << 33)
-	annotationPatchFreeTextFieldFontSize        = big.NewInt(1 << 34)
-	annotationPatchFreeTextFieldTextAlign       = big.NewInt(1 << 35)
-	annotationPatchFreeTextFieldVerticalAlign   = big.NewInt(1 << 36)
-	annotationPatchFreeTextFieldRichText        = big.NewInt(1 << 37)
-	annotationPatchFreeTextFieldColor           = big.NewInt(1 << 38)
-	annotationPatchFreeTextFieldFontColor       = big.NewInt(1 << 39)
-	annotationPatchFreeTextFieldInteriorColor   = big.NewInt(1 << 40)
-	annotationPatchFreeTextFieldOpacity         = big.NewInt(1 << 41)
-	annotationPatchFreeTextFieldStrokeWidth     = big.NewInt(1 << 42)
-	annotationPatchFreeTextFieldBorderStyle     = big.NewInt(1 << 43)
-	annotationPatchFreeTextFieldDashArray       = big.NewInt(1 << 44)
-	annotationPatchFreeTextFieldCloudyIntensity = big.NewInt(1 << 45)
-	annotationPatchFreeTextFieldCalloutLine     = big.NewInt(1 << 46)
-	annotationPatchFreeTextFieldLineEnding      = big.NewInt(1 << 47)
+	annotationPatchFreeTextFieldRef               = big.NewInt(1 << 0)
+	annotationPatchFreeTextFieldPage              = big.NewInt(1 << 1)
+	annotationPatchFreeTextFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchFreeTextFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchFreeTextFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchFreeTextFieldNm                = big.NewInt(1 << 5)
+	annotationPatchFreeTextFieldRect              = big.NewInt(1 << 6)
+	annotationPatchFreeTextFieldContents          = big.NewInt(1 << 7)
+	annotationPatchFreeTextFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchFreeTextFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchFreeTextFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchFreeTextFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchFreeTextFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchFreeTextFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchFreeTextFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchFreeTextFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchFreeTextFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchFreeTextFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchFreeTextFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchFreeTextFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchFreeTextFieldReply             = big.NewInt(1 << 20)
+	annotationPatchFreeTextFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchFreeTextFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchFreeTextFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchFreeTextFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchFreeTextFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchFreeTextFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchFreeTextFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchFreeTextFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchFreeTextFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchFreeTextFieldActions           = big.NewInt(1 << 30)
+	annotationPatchFreeTextFieldBox               = big.NewInt(1 << 31)
+	annotationPatchFreeTextFieldRotation          = big.NewInt(1 << 32)
+	annotationPatchFreeTextFieldIntent            = big.NewInt(1 << 33)
+	annotationPatchFreeTextFieldFontFamily        = big.NewInt(1 << 34)
+	annotationPatchFreeTextFieldFontSize          = big.NewInt(1 << 35)
+	annotationPatchFreeTextFieldTextAlign         = big.NewInt(1 << 36)
+	annotationPatchFreeTextFieldVerticalAlign     = big.NewInt(1 << 37)
+	annotationPatchFreeTextFieldRichText          = big.NewInt(1 << 38)
+	annotationPatchFreeTextFieldColor             = big.NewInt(1 << 39)
+	annotationPatchFreeTextFieldFontColor         = big.NewInt(1 << 40)
+	annotationPatchFreeTextFieldInteriorColor     = big.NewInt(1 << 41)
+	annotationPatchFreeTextFieldOpacity           = big.NewInt(1 << 42)
+	annotationPatchFreeTextFieldStrokeWidth       = big.NewInt(1 << 43)
+	annotationPatchFreeTextFieldBorderStyle       = big.NewInt(1 << 44)
+	annotationPatchFreeTextFieldDashArray         = big.NewInt(1 << 45)
+	annotationPatchFreeTextFieldCloudyIntensity   = big.NewInt(1 << 46)
+	annotationPatchFreeTextFieldCalloutLine       = big.NewInt(1 << 47)
+	annotationPatchFreeTextFieldLineEnding        = big.NewInt(1 << 48)
 )
 
 type AnnotationPatchFreeText struct {
-	Ref             any                                   `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                   `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                               `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchFreeTextRect          `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                               `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                               `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchFreeTextBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                 `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchFreeTextReply         `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                   `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                   `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                   `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                   `json:"actions,omitempty" url:"actions,omitempty"`
-	Box             *AnnotationPatchFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationPatchFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
-	FontFamily      *string                               `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
-	FontSize        *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
-	TextAlign       *AnnotationPatchFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
-	VerticalAlign   *AnnotationPatchFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
-	RichText        *AnnotationPatchFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
-	Color           *string                               `json:"color,omitempty" url:"color,omitempty"`
-	FontColor       *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
-	InteriorColor   *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Opacity         *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchFreeTextBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	CloudyIntensity *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
-	CalloutLine     []any                                 `json:"calloutLine,omitempty" url:"calloutLine,omitempty"`
-	LineEnding      *AnnotationPatchFreeTextLineEnding    `json:"lineEnding,omitempty" url:"lineEnding,omitempty"`
+	Ref               any                                   `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                   `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                   `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                               `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchFreeTextRect          `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                               `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                               `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchFreeTextBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                 `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchFreeTextReply         `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                   `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                   `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                   `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	Box               *AnnotationPatchFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationPatchFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
+	FontFamily        *string                               `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
+	FontSize          *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
+	TextAlign         *AnnotationPatchFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
+	VerticalAlign     *AnnotationPatchFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
+	RichText          *AnnotationPatchFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
+	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
+	FontColor         *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
+	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchFreeTextBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	CloudyIntensity   *float64                              `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	CalloutLine       []any                                 `json:"calloutLine,omitempty" url:"calloutLine,omitempty"`
+	LineEnding        *AnnotationPatchFreeTextLineEnding    `json:"lineEnding,omitempty" url:"lineEnding,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -37889,6 +38243,13 @@ func (a *AnnotationPatchFreeText) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchFreeText) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchFreeText) GetNm() *string {
@@ -38239,6 +38600,13 @@ func (a *AnnotationPatchFreeText) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchFreeText) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchFreeTextFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchFreeText) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchFreeTextFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -40742,75 +41110,77 @@ func (a AnnotationPatchFreeTextVerticalAlign) Ptr() *AnnotationPatchFreeTextVert
 }
 
 var (
-	annotationPatchHighlightFieldRef             = big.NewInt(1 << 0)
-	annotationPatchHighlightFieldPage            = big.NewInt(1 << 1)
-	annotationPatchHighlightFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchHighlightFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchHighlightFieldNm              = big.NewInt(1 << 4)
-	annotationPatchHighlightFieldRect            = big.NewInt(1 << 5)
-	annotationPatchHighlightFieldContents        = big.NewInt(1 << 6)
-	annotationPatchHighlightFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchHighlightFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchHighlightFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchHighlightFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchHighlightFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchHighlightFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchHighlightFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchHighlightFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchHighlightFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchHighlightFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchHighlightFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchHighlightFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchHighlightFieldReply           = big.NewInt(1 << 19)
-	annotationPatchHighlightFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchHighlightFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchHighlightFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchHighlightFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchHighlightFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchHighlightFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchHighlightFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchHighlightFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchHighlightFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchHighlightFieldActions         = big.NewInt(1 << 29)
-	annotationPatchHighlightFieldColor           = big.NewInt(1 << 30)
-	annotationPatchHighlightFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchHighlightFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationPatchHighlightFieldRef               = big.NewInt(1 << 0)
+	annotationPatchHighlightFieldPage              = big.NewInt(1 << 1)
+	annotationPatchHighlightFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchHighlightFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchHighlightFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchHighlightFieldNm                = big.NewInt(1 << 5)
+	annotationPatchHighlightFieldRect              = big.NewInt(1 << 6)
+	annotationPatchHighlightFieldContents          = big.NewInt(1 << 7)
+	annotationPatchHighlightFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchHighlightFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchHighlightFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchHighlightFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchHighlightFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchHighlightFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchHighlightFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchHighlightFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchHighlightFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchHighlightFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchHighlightFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchHighlightFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchHighlightFieldReply             = big.NewInt(1 << 20)
+	annotationPatchHighlightFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchHighlightFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchHighlightFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchHighlightFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchHighlightFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchHighlightFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchHighlightFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchHighlightFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchHighlightFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchHighlightFieldActions           = big.NewInt(1 << 30)
+	annotationPatchHighlightFieldColor             = big.NewInt(1 << 31)
+	annotationPatchHighlightFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchHighlightFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationPatchHighlight struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchHighlightRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchHighlightBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchHighlightReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationPatchHighlightQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchHighlightRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchHighlightBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchHighlightReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationPatchHighlightQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -40845,6 +41215,13 @@ func (a *AnnotationPatchHighlight) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchHighlight) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchHighlight) GetNm() *string {
@@ -41090,6 +41467,13 @@ func (a *AnnotationPatchHighlight) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchHighlight) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchHighlightFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchHighlight) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchHighlightFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -42188,85 +42572,87 @@ func (a AnnotationPatchHighlightReplyType) Ptr() *AnnotationPatchHighlightReplyT
 }
 
 var (
-	annotationPatchInkFieldRef             = big.NewInt(1 << 0)
-	annotationPatchInkFieldPage            = big.NewInt(1 << 1)
-	annotationPatchInkFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchInkFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchInkFieldNm              = big.NewInt(1 << 4)
-	annotationPatchInkFieldRect            = big.NewInt(1 << 5)
-	annotationPatchInkFieldContents        = big.NewInt(1 << 6)
-	annotationPatchInkFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchInkFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchInkFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchInkFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchInkFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchInkFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchInkFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchInkFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchInkFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchInkFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchInkFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchInkFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchInkFieldReply           = big.NewInt(1 << 19)
-	annotationPatchInkFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchInkFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchInkFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchInkFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchInkFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchInkFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchInkFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchInkFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchInkFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchInkFieldActions         = big.NewInt(1 << 29)
-	annotationPatchInkFieldColor           = big.NewInt(1 << 30)
-	annotationPatchInkFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchInkFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchInkFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchInkFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchInkFieldInkList         = big.NewInt(1 << 35)
-	annotationPatchInkFieldIntent          = big.NewInt(1 << 36)
-	annotationPatchInkFieldRotation        = big.NewInt(1 << 37)
+	annotationPatchInkFieldRef               = big.NewInt(1 << 0)
+	annotationPatchInkFieldPage              = big.NewInt(1 << 1)
+	annotationPatchInkFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchInkFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchInkFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchInkFieldNm                = big.NewInt(1 << 5)
+	annotationPatchInkFieldRect              = big.NewInt(1 << 6)
+	annotationPatchInkFieldContents          = big.NewInt(1 << 7)
+	annotationPatchInkFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchInkFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchInkFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchInkFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchInkFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchInkFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchInkFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchInkFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchInkFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchInkFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchInkFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchInkFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchInkFieldReply             = big.NewInt(1 << 20)
+	annotationPatchInkFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchInkFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchInkFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchInkFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchInkFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchInkFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchInkFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchInkFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchInkFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchInkFieldActions           = big.NewInt(1 << 30)
+	annotationPatchInkFieldColor             = big.NewInt(1 << 31)
+	annotationPatchInkFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchInkFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchInkFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchInkFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchInkFieldInkList           = big.NewInt(1 << 36)
+	annotationPatchInkFieldIntent            = big.NewInt(1 << 37)
+	annotationPatchInkFieldRotation          = big.NewInt(1 << 38)
 )
 
 type AnnotationPatchInk struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchInkRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchInkBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchInkReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                        `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                       `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchInkBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                      `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InkList         *AnnotationPatchInkInkList     `json:"inkList,omitempty" url:"inkList,omitempty"`
-	Intent          *AnnotationPatchInkIntent      `json:"intent,omitempty" url:"intent,omitempty"`
-	Rotation        *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchInkRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchInkBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchInkReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                       `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchInkBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                      `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InkList           *AnnotationPatchInkInkList     `json:"inkList,omitempty" url:"inkList,omitempty"`
+	Intent            *AnnotationPatchInkIntent      `json:"intent,omitempty" url:"intent,omitempty"`
+	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -42301,6 +42687,13 @@ func (a *AnnotationPatchInk) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchInk) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchInk) GetNm() *string {
@@ -42581,6 +42974,13 @@ func (a *AnnotationPatchInk) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchInk) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchInkFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchInk) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchInkFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -43575,99 +43975,101 @@ func (a AnnotationPatchInkReplyType) Ptr() *AnnotationPatchInkReplyType {
 }
 
 var (
-	annotationPatchLineFieldRef             = big.NewInt(1 << 0)
-	annotationPatchLineFieldPage            = big.NewInt(1 << 1)
-	annotationPatchLineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchLineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchLineFieldNm              = big.NewInt(1 << 4)
-	annotationPatchLineFieldRect            = big.NewInt(1 << 5)
-	annotationPatchLineFieldContents        = big.NewInt(1 << 6)
-	annotationPatchLineFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchLineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchLineFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchLineFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchLineFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchLineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchLineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchLineFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchLineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchLineFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchLineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchLineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchLineFieldReply           = big.NewInt(1 << 19)
-	annotationPatchLineFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchLineFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchLineFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchLineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchLineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchLineFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchLineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchLineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchLineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchLineFieldActions         = big.NewInt(1 << 29)
-	annotationPatchLineFieldColor           = big.NewInt(1 << 30)
-	annotationPatchLineFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchLineFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchLineFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchLineFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchLineFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationPatchLineFieldLinePoints      = big.NewInt(1 << 36)
-	annotationPatchLineFieldLineEndings     = big.NewInt(1 << 37)
-	annotationPatchLineFieldRotation        = big.NewInt(1 << 38)
-	annotationPatchLineFieldIntent          = big.NewInt(1 << 39)
-	annotationPatchLineFieldMeasure         = big.NewInt(1 << 40)
-	annotationPatchLineFieldCaptionEnabled  = big.NewInt(1 << 41)
-	annotationPatchLineFieldCaptionPosition = big.NewInt(1 << 42)
-	annotationPatchLineFieldCaptionOffset   = big.NewInt(1 << 43)
-	annotationPatchLineFieldLeader          = big.NewInt(1 << 44)
+	annotationPatchLineFieldRef               = big.NewInt(1 << 0)
+	annotationPatchLineFieldPage              = big.NewInt(1 << 1)
+	annotationPatchLineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchLineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchLineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchLineFieldNm                = big.NewInt(1 << 5)
+	annotationPatchLineFieldRect              = big.NewInt(1 << 6)
+	annotationPatchLineFieldContents          = big.NewInt(1 << 7)
+	annotationPatchLineFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchLineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchLineFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchLineFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchLineFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchLineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchLineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchLineFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchLineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchLineFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchLineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchLineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchLineFieldReply             = big.NewInt(1 << 20)
+	annotationPatchLineFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchLineFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchLineFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchLineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchLineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchLineFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchLineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchLineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchLineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchLineFieldActions           = big.NewInt(1 << 30)
+	annotationPatchLineFieldColor             = big.NewInt(1 << 31)
+	annotationPatchLineFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchLineFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchLineFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchLineFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchLineFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationPatchLineFieldLinePoints        = big.NewInt(1 << 37)
+	annotationPatchLineFieldLineEndings       = big.NewInt(1 << 38)
+	annotationPatchLineFieldRotation          = big.NewInt(1 << 39)
+	annotationPatchLineFieldIntent            = big.NewInt(1 << 40)
+	annotationPatchLineFieldMeasure           = big.NewInt(1 << 41)
+	annotationPatchLineFieldCaptionEnabled    = big.NewInt(1 << 42)
+	annotationPatchLineFieldCaptionPosition   = big.NewInt(1 << 43)
+	annotationPatchLineFieldCaptionOffset     = big.NewInt(1 << 44)
+	annotationPatchLineFieldLeader            = big.NewInt(1 << 45)
 )
 
 type AnnotationPatchLine struct {
-	Ref             any                                 `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                 `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                 `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                 `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                             `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchLineRect            `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                             `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                             `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchLineBlendMode       `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                               `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                               `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                               `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                               `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                               `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                               `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                               `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                               `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                               `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                               `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchLineReply           `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                 `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                             `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                 `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                 `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                 `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                 `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                 `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                 `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                             `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchLineBorderStyle     `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                           `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                             `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	LinePoints      *AnnotationPatchLineLinePoints      `json:"linePoints,omitempty" url:"linePoints,omitempty"`
-	LineEndings     *AnnotationPatchLineLineEndings     `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
-	Rotation        *float64                            `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Intent          *AnnotationPatchLineIntent          `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationPatchLineMeasure         `json:"measure,omitempty" url:"measure,omitempty"`
-	CaptionEnabled  *bool                               `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionPosition *AnnotationPatchLineCaptionPosition `json:"captionPosition,omitempty" url:"captionPosition,omitempty"`
-	CaptionOffset   *AnnotationPatchLineCaptionOffset   `json:"captionOffset,omitempty" url:"captionOffset,omitempty"`
-	Leader          *AnnotationPatchLineLeader          `json:"leader,omitempty" url:"leader,omitempty"`
+	Ref               any                                 `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                 `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                 `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                 `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                 `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                             `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchLineRect            `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                             `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                             `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchLineBlendMode       `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                               `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                               `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                               `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                               `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                               `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                               `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                               `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                               `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                               `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                               `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchLineReply           `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                 `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                             `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                 `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                 `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                 `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                 `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                 `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                 `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                             `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchLineBorderStyle     `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                           `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                             `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	LinePoints        *AnnotationPatchLineLinePoints      `json:"linePoints,omitempty" url:"linePoints,omitempty"`
+	LineEndings       *AnnotationPatchLineLineEndings     `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
+	Rotation          *float64                            `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Intent            *AnnotationPatchLineIntent          `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationPatchLineMeasure         `json:"measure,omitempty" url:"measure,omitempty"`
+	CaptionEnabled    *bool                               `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionPosition   *AnnotationPatchLineCaptionPosition `json:"captionPosition,omitempty" url:"captionPosition,omitempty"`
+	CaptionOffset     *AnnotationPatchLineCaptionOffset   `json:"captionOffset,omitempty" url:"captionOffset,omitempty"`
+	Leader            *AnnotationPatchLineLeader          `json:"leader,omitempty" url:"leader,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -43702,6 +44104,13 @@ func (a *AnnotationPatchLine) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchLine) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchLine) GetNm() *string {
@@ -44031,6 +44440,13 @@ func (a *AnnotationPatchLine) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchLine) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchLineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchLine) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchLineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -47916,71 +48332,73 @@ func (a AnnotationPatchLineReplyType) Ptr() *AnnotationPatchLineReplyType {
 }
 
 var (
-	annotationPatchLinkFieldRef             = big.NewInt(1 << 0)
-	annotationPatchLinkFieldPage            = big.NewInt(1 << 1)
-	annotationPatchLinkFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchLinkFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchLinkFieldNm              = big.NewInt(1 << 4)
-	annotationPatchLinkFieldRect            = big.NewInt(1 << 5)
-	annotationPatchLinkFieldContents        = big.NewInt(1 << 6)
-	annotationPatchLinkFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchLinkFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchLinkFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchLinkFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchLinkFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchLinkFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchLinkFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchLinkFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchLinkFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchLinkFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchLinkFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchLinkFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchLinkFieldReply           = big.NewInt(1 << 19)
-	annotationPatchLinkFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchLinkFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchLinkFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchLinkFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchLinkFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchLinkFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchLinkFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchLinkFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchLinkFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchLinkFieldActions         = big.NewInt(1 << 29)
-	annotationPatchLinkFieldTarget          = big.NewInt(1 << 30)
+	annotationPatchLinkFieldRef               = big.NewInt(1 << 0)
+	annotationPatchLinkFieldPage              = big.NewInt(1 << 1)
+	annotationPatchLinkFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchLinkFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchLinkFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchLinkFieldNm                = big.NewInt(1 << 5)
+	annotationPatchLinkFieldRect              = big.NewInt(1 << 6)
+	annotationPatchLinkFieldContents          = big.NewInt(1 << 7)
+	annotationPatchLinkFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchLinkFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchLinkFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchLinkFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchLinkFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchLinkFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchLinkFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchLinkFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchLinkFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchLinkFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchLinkFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchLinkFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchLinkFieldReply             = big.NewInt(1 << 20)
+	annotationPatchLinkFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchLinkFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchLinkFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchLinkFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchLinkFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchLinkFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchLinkFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchLinkFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchLinkFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchLinkFieldActions           = big.NewInt(1 << 30)
+	annotationPatchLinkFieldTarget            = big.NewInt(1 << 31)
 )
 
 type AnnotationPatchLink struct {
-	Ref             any                           `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                           `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                       `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchLinkRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                       `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                       `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchLinkBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                         `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchLinkReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                           `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                           `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                           `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                           `json:"actions,omitempty" url:"actions,omitempty"`
-	Target          *AnnotationPatchLinkTarget    `json:"target,omitempty" url:"target,omitempty"`
+	Ref               any                           `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                           `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                           `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                       `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchLinkRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                       `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                       `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchLinkBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                         `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchLinkReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                           `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                           `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                           `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	Target            *AnnotationPatchLinkTarget    `json:"target,omitempty" url:"target,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -48015,6 +48433,13 @@ func (a *AnnotationPatchLink) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchLink) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchLink) GetNm() *string {
@@ -48246,6 +48671,13 @@ func (a *AnnotationPatchLink) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchLink) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchLinkFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchLink) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchLinkFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -48860,95 +49292,97 @@ func (a *AnnotationPatchLinkTarget) Accept(visitor AnnotationPatchLinkTargetVisi
 }
 
 var (
-	annotationPatchPolygonFieldRef             = big.NewInt(1 << 0)
-	annotationPatchPolygonFieldPage            = big.NewInt(1 << 1)
-	annotationPatchPolygonFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchPolygonFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchPolygonFieldNm              = big.NewInt(1 << 4)
-	annotationPatchPolygonFieldRect            = big.NewInt(1 << 5)
-	annotationPatchPolygonFieldContents        = big.NewInt(1 << 6)
-	annotationPatchPolygonFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchPolygonFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchPolygonFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchPolygonFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchPolygonFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchPolygonFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchPolygonFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchPolygonFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchPolygonFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchPolygonFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchPolygonFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchPolygonFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchPolygonFieldReply           = big.NewInt(1 << 19)
-	annotationPatchPolygonFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchPolygonFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchPolygonFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchPolygonFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchPolygonFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchPolygonFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchPolygonFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchPolygonFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchPolygonFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchPolygonFieldActions         = big.NewInt(1 << 29)
-	annotationPatchPolygonFieldColor           = big.NewInt(1 << 30)
-	annotationPatchPolygonFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchPolygonFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchPolygonFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchPolygonFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchPolygonFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationPatchPolygonFieldVertices        = big.NewInt(1 << 36)
-	annotationPatchPolygonFieldRotation        = big.NewInt(1 << 37)
-	annotationPatchPolygonFieldCaptionEnabled  = big.NewInt(1 << 38)
-	annotationPatchPolygonFieldCaptionCenter   = big.NewInt(1 << 39)
-	annotationPatchPolygonFieldIntent          = big.NewInt(1 << 40)
-	annotationPatchPolygonFieldMeasure         = big.NewInt(1 << 41)
-	annotationPatchPolygonFieldCloudyIntensity = big.NewInt(1 << 42)
+	annotationPatchPolygonFieldRef               = big.NewInt(1 << 0)
+	annotationPatchPolygonFieldPage              = big.NewInt(1 << 1)
+	annotationPatchPolygonFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchPolygonFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchPolygonFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchPolygonFieldNm                = big.NewInt(1 << 5)
+	annotationPatchPolygonFieldRect              = big.NewInt(1 << 6)
+	annotationPatchPolygonFieldContents          = big.NewInt(1 << 7)
+	annotationPatchPolygonFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchPolygonFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchPolygonFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchPolygonFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchPolygonFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchPolygonFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchPolygonFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchPolygonFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchPolygonFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchPolygonFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchPolygonFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchPolygonFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchPolygonFieldReply             = big.NewInt(1 << 20)
+	annotationPatchPolygonFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchPolygonFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchPolygonFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchPolygonFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchPolygonFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchPolygonFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchPolygonFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchPolygonFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchPolygonFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchPolygonFieldActions           = big.NewInt(1 << 30)
+	annotationPatchPolygonFieldColor             = big.NewInt(1 << 31)
+	annotationPatchPolygonFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchPolygonFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchPolygonFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchPolygonFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchPolygonFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationPatchPolygonFieldVertices          = big.NewInt(1 << 37)
+	annotationPatchPolygonFieldRotation          = big.NewInt(1 << 38)
+	annotationPatchPolygonFieldCaptionEnabled    = big.NewInt(1 << 39)
+	annotationPatchPolygonFieldCaptionCenter     = big.NewInt(1 << 40)
+	annotationPatchPolygonFieldIntent            = big.NewInt(1 << 41)
+	annotationPatchPolygonFieldMeasure           = big.NewInt(1 << 42)
+	annotationPatchPolygonFieldCloudyIntensity   = big.NewInt(1 << 43)
 )
 
 type AnnotationPatchPolygon struct {
-	Ref             any                                  `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                  `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                  `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                  `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                              `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchPolygonRect          `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                              `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                              `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchPolygonBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchPolygonReply         `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                  `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                              `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                  `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                  `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                  `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                  `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                  `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                  `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                  `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                  `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                              `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                             `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                             `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchPolygonBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                            `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                              `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Vertices        *AnnotationPatchPolygonVertices      `json:"vertices,omitempty" url:"vertices,omitempty"`
-	Rotation        *float64                             `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CaptionEnabled  *bool                                `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionCenter   *AnnotationPatchPolygonCaptionCenter `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
-	Intent          *AnnotationPatchPolygonIntent        `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationPatchPolygonMeasure       `json:"measure,omitempty" url:"measure,omitempty"`
-	CloudyIntensity *float64                             `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                                  `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                  `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                  `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                  `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                  `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                              `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchPolygonRect          `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                              `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                              `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchPolygonBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchPolygonReply         `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                  `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                              `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                  `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                  `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                  `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                  `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                  `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                  `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                  `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                  `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                              `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                             `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                             `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchPolygonBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                            `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                              `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Vertices          *AnnotationPatchPolygonVertices      `json:"vertices,omitempty" url:"vertices,omitempty"`
+	Rotation          *float64                             `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CaptionEnabled    *bool                                `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionCenter     *AnnotationPatchPolygonCaptionCenter `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
+	Intent            *AnnotationPatchPolygonIntent        `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationPatchPolygonMeasure       `json:"measure,omitempty" url:"measure,omitempty"`
+	CloudyIntensity   *float64                             `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -48983,6 +49417,13 @@ func (a *AnnotationPatchPolygon) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchPolygon) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchPolygon) GetNm() *string {
@@ -49298,6 +49739,13 @@ func (a *AnnotationPatchPolygon) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchPolygon) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchPolygonFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchPolygon) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchPolygonFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -52801,95 +53249,97 @@ func (a *AnnotationPatchPolygonVerticesZeroItem) String() string {
 }
 
 var (
-	annotationPatchPolylineFieldRef             = big.NewInt(1 << 0)
-	annotationPatchPolylineFieldPage            = big.NewInt(1 << 1)
-	annotationPatchPolylineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchPolylineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchPolylineFieldNm              = big.NewInt(1 << 4)
-	annotationPatchPolylineFieldRect            = big.NewInt(1 << 5)
-	annotationPatchPolylineFieldContents        = big.NewInt(1 << 6)
-	annotationPatchPolylineFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchPolylineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchPolylineFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchPolylineFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchPolylineFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchPolylineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchPolylineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchPolylineFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchPolylineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchPolylineFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchPolylineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchPolylineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchPolylineFieldReply           = big.NewInt(1 << 19)
-	annotationPatchPolylineFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchPolylineFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchPolylineFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchPolylineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchPolylineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchPolylineFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchPolylineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchPolylineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchPolylineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchPolylineFieldActions         = big.NewInt(1 << 29)
-	annotationPatchPolylineFieldColor           = big.NewInt(1 << 30)
-	annotationPatchPolylineFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchPolylineFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchPolylineFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchPolylineFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchPolylineFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationPatchPolylineFieldVertices        = big.NewInt(1 << 36)
-	annotationPatchPolylineFieldRotation        = big.NewInt(1 << 37)
-	annotationPatchPolylineFieldCaptionEnabled  = big.NewInt(1 << 38)
-	annotationPatchPolylineFieldCaptionCenter   = big.NewInt(1 << 39)
-	annotationPatchPolylineFieldIntent          = big.NewInt(1 << 40)
-	annotationPatchPolylineFieldMeasure         = big.NewInt(1 << 41)
-	annotationPatchPolylineFieldLineEndings     = big.NewInt(1 << 42)
+	annotationPatchPolylineFieldRef               = big.NewInt(1 << 0)
+	annotationPatchPolylineFieldPage              = big.NewInt(1 << 1)
+	annotationPatchPolylineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchPolylineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchPolylineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchPolylineFieldNm                = big.NewInt(1 << 5)
+	annotationPatchPolylineFieldRect              = big.NewInt(1 << 6)
+	annotationPatchPolylineFieldContents          = big.NewInt(1 << 7)
+	annotationPatchPolylineFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchPolylineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchPolylineFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchPolylineFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchPolylineFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchPolylineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchPolylineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchPolylineFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchPolylineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchPolylineFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchPolylineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchPolylineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchPolylineFieldReply             = big.NewInt(1 << 20)
+	annotationPatchPolylineFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchPolylineFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchPolylineFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchPolylineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchPolylineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchPolylineFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchPolylineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchPolylineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchPolylineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchPolylineFieldActions           = big.NewInt(1 << 30)
+	annotationPatchPolylineFieldColor             = big.NewInt(1 << 31)
+	annotationPatchPolylineFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchPolylineFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchPolylineFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchPolylineFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchPolylineFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationPatchPolylineFieldVertices          = big.NewInt(1 << 37)
+	annotationPatchPolylineFieldRotation          = big.NewInt(1 << 38)
+	annotationPatchPolylineFieldCaptionEnabled    = big.NewInt(1 << 39)
+	annotationPatchPolylineFieldCaptionCenter     = big.NewInt(1 << 40)
+	annotationPatchPolylineFieldIntent            = big.NewInt(1 << 41)
+	annotationPatchPolylineFieldMeasure           = big.NewInt(1 << 42)
+	annotationPatchPolylineFieldLineEndings       = big.NewInt(1 << 43)
 )
 
 type AnnotationPatchPolyline struct {
-	Ref             any                                   `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                   `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                               `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchPolylineRect          `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                               `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                               `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchPolylineBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                 `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchPolylineReply         `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                   `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                   `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                   `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                   `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                               `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchPolylineBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Vertices        *AnnotationPatchPolylineVertices      `json:"vertices,omitempty" url:"vertices,omitempty"`
-	Rotation        *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CaptionEnabled  *bool                                 `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
-	CaptionCenter   *AnnotationPatchPolylineCaptionCenter `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
-	Intent          *AnnotationPatchPolylineIntent        `json:"intent,omitempty" url:"intent,omitempty"`
-	Measure         *AnnotationPatchPolylineMeasure       `json:"measure,omitempty" url:"measure,omitempty"`
-	LineEndings     *AnnotationPatchPolylineLineEndings   `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
+	Ref               any                                   `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                   `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                   `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                   `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                   `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                               `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchPolylineRect          `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                               `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                               `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchPolylineBlendMode     `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                 `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                 `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                 `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                 `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                 `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                 `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                 `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                 `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                 `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                 `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchPolylineReply         `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                   `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                               `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                   `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                   `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                   `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchPolylineBorderStyle   `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                             `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Vertices          *AnnotationPatchPolylineVertices      `json:"vertices,omitempty" url:"vertices,omitempty"`
+	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CaptionEnabled    *bool                                 `json:"captionEnabled,omitempty" url:"captionEnabled,omitempty"`
+	CaptionCenter     *AnnotationPatchPolylineCaptionCenter `json:"captionCenter,omitempty" url:"captionCenter,omitempty"`
+	Intent            *AnnotationPatchPolylineIntent        `json:"intent,omitempty" url:"intent,omitempty"`
+	Measure           *AnnotationPatchPolylineMeasure       `json:"measure,omitempty" url:"measure,omitempty"`
+	LineEndings       *AnnotationPatchPolylineLineEndings   `json:"lineEndings,omitempty" url:"lineEndings,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -52924,6 +53374,13 @@ func (a *AnnotationPatchPolyline) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchPolyline) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchPolyline) GetNm() *string {
@@ -53239,6 +53696,13 @@ func (a *AnnotationPatchPolyline) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchPolyline) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchPolylineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchPolyline) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchPolylineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -56931,73 +57395,75 @@ func (a *AnnotationPatchPolylineVerticesZeroItem) String() string {
 }
 
 var (
-	annotationPatchPopupFieldRef             = big.NewInt(1 << 0)
-	annotationPatchPopupFieldPage            = big.NewInt(1 << 1)
-	annotationPatchPopupFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchPopupFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchPopupFieldNm              = big.NewInt(1 << 4)
-	annotationPatchPopupFieldRect            = big.NewInt(1 << 5)
-	annotationPatchPopupFieldContents        = big.NewInt(1 << 6)
-	annotationPatchPopupFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchPopupFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchPopupFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchPopupFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchPopupFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchPopupFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchPopupFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchPopupFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchPopupFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchPopupFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchPopupFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchPopupFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchPopupFieldReply           = big.NewInt(1 << 19)
-	annotationPatchPopupFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchPopupFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchPopupFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchPopupFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchPopupFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchPopupFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchPopupFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchPopupFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchPopupFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchPopupFieldActions         = big.NewInt(1 << 29)
-	annotationPatchPopupFieldParent          = big.NewInt(1 << 30)
-	annotationPatchPopupFieldOpen            = big.NewInt(1 << 31)
+	annotationPatchPopupFieldRef               = big.NewInt(1 << 0)
+	annotationPatchPopupFieldPage              = big.NewInt(1 << 1)
+	annotationPatchPopupFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchPopupFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchPopupFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchPopupFieldNm                = big.NewInt(1 << 5)
+	annotationPatchPopupFieldRect              = big.NewInt(1 << 6)
+	annotationPatchPopupFieldContents          = big.NewInt(1 << 7)
+	annotationPatchPopupFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchPopupFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchPopupFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchPopupFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchPopupFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchPopupFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchPopupFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchPopupFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchPopupFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchPopupFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchPopupFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchPopupFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchPopupFieldReply             = big.NewInt(1 << 20)
+	annotationPatchPopupFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchPopupFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchPopupFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchPopupFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchPopupFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchPopupFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchPopupFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchPopupFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchPopupFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchPopupFieldActions           = big.NewInt(1 << 30)
+	annotationPatchPopupFieldParent            = big.NewInt(1 << 31)
+	annotationPatchPopupFieldOpen              = big.NewInt(1 << 32)
 )
 
 type AnnotationPatchPopup struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchPopupRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchPopupBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchPopupReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Parent          *AnnotationRef                 `json:"parent,omitempty" url:"parent,omitempty"`
-	Open            *bool                          `json:"open,omitempty" url:"open,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchPopupRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchPopupBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchPopupReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Parent            *AnnotationRef                 `json:"parent,omitempty" url:"parent,omitempty"`
+	Open              *bool                          `json:"open,omitempty" url:"open,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -57032,6 +57498,13 @@ func (a *AnnotationPatchPopup) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchPopup) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchPopup) GetNm() *string {
@@ -57270,6 +57743,13 @@ func (a *AnnotationPatchPopup) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchPopup) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchPopupFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchPopup) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchPopupFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -57829,89 +58309,91 @@ func (a AnnotationPatchPopupReplyType) Ptr() *AnnotationPatchPopupReplyType {
 }
 
 var (
-	annotationPatchRedactFieldRef             = big.NewInt(1 << 0)
-	annotationPatchRedactFieldPage            = big.NewInt(1 << 1)
-	annotationPatchRedactFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchRedactFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchRedactFieldNm              = big.NewInt(1 << 4)
-	annotationPatchRedactFieldRect            = big.NewInt(1 << 5)
-	annotationPatchRedactFieldContents        = big.NewInt(1 << 6)
-	annotationPatchRedactFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchRedactFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchRedactFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchRedactFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchRedactFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchRedactFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchRedactFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchRedactFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchRedactFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchRedactFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchRedactFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchRedactFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchRedactFieldReply           = big.NewInt(1 << 19)
-	annotationPatchRedactFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchRedactFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchRedactFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchRedactFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchRedactFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchRedactFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchRedactFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchRedactFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchRedactFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchRedactFieldActions         = big.NewInt(1 << 29)
-	annotationPatchRedactFieldColor           = big.NewInt(1 << 30)
-	annotationPatchRedactFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchRedactFieldQuadPoints      = big.NewInt(1 << 32)
-	annotationPatchRedactFieldInteriorColor   = big.NewInt(1 << 33)
-	annotationPatchRedactFieldOverlayText     = big.NewInt(1 << 34)
-	annotationPatchRedactFieldRepeat          = big.NewInt(1 << 35)
-	annotationPatchRedactFieldFontFamily      = big.NewInt(1 << 36)
-	annotationPatchRedactFieldFontSize        = big.NewInt(1 << 37)
-	annotationPatchRedactFieldFontColor       = big.NewInt(1 << 38)
-	annotationPatchRedactFieldTextAlign       = big.NewInt(1 << 39)
+	annotationPatchRedactFieldRef               = big.NewInt(1 << 0)
+	annotationPatchRedactFieldPage              = big.NewInt(1 << 1)
+	annotationPatchRedactFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchRedactFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchRedactFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchRedactFieldNm                = big.NewInt(1 << 5)
+	annotationPatchRedactFieldRect              = big.NewInt(1 << 6)
+	annotationPatchRedactFieldContents          = big.NewInt(1 << 7)
+	annotationPatchRedactFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchRedactFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchRedactFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchRedactFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchRedactFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchRedactFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchRedactFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchRedactFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchRedactFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchRedactFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchRedactFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchRedactFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchRedactFieldReply             = big.NewInt(1 << 20)
+	annotationPatchRedactFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchRedactFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchRedactFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchRedactFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchRedactFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchRedactFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchRedactFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchRedactFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchRedactFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchRedactFieldActions           = big.NewInt(1 << 30)
+	annotationPatchRedactFieldColor             = big.NewInt(1 << 31)
+	annotationPatchRedactFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchRedactFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationPatchRedactFieldInteriorColor     = big.NewInt(1 << 34)
+	annotationPatchRedactFieldOverlayText       = big.NewInt(1 << 35)
+	annotationPatchRedactFieldRepeat            = big.NewInt(1 << 36)
+	annotationPatchRedactFieldFontFamily        = big.NewInt(1 << 37)
+	annotationPatchRedactFieldFontSize          = big.NewInt(1 << 38)
+	annotationPatchRedactFieldFontColor         = big.NewInt(1 << 39)
+	annotationPatchRedactFieldTextAlign         = big.NewInt(1 << 40)
 )
 
 type AnnotationPatchRedact struct {
-	Ref             any                                    `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                    `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchRedactRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchRedactBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                  `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchRedactReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                    `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                    `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                    `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                    `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationPatchRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
-	InteriorColor   *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	OverlayText     *string                                `json:"overlayText,omitempty" url:"overlayText,omitempty"`
-	Repeat          *bool                                  `json:"repeat,omitempty" url:"repeat,omitempty"`
-	FontFamily      *string                                `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
-	FontSize        *float64                               `json:"fontSize,omitempty" url:"fontSize,omitempty"`
-	FontColor       *string                                `json:"fontColor,omitempty" url:"fontColor,omitempty"`
-	TextAlign       *AnnotationPatchRedactTextAlign        `json:"textAlign,omitempty" url:"textAlign,omitempty"`
+	Ref               any                                    `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                    `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                    `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                    `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                    `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchRedactRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchRedactBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                  `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                  `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                  `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                  `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                  `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                  `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                  `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                  `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                  `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                  `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchRedactReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                    `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                    `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                    `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                    `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                    `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationPatchRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	InteriorColor     *string                                `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	OverlayText       *string                                `json:"overlayText,omitempty" url:"overlayText,omitempty"`
+	Repeat            *bool                                  `json:"repeat,omitempty" url:"repeat,omitempty"`
+	FontFamily        *string                                `json:"fontFamily,omitempty" url:"fontFamily,omitempty"`
+	FontSize          *float64                               `json:"fontSize,omitempty" url:"fontSize,omitempty"`
+	FontColor         *string                                `json:"fontColor,omitempty" url:"fontColor,omitempty"`
+	TextAlign         *AnnotationPatchRedactTextAlign        `json:"textAlign,omitempty" url:"textAlign,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -57946,6 +58428,13 @@ func (a *AnnotationPatchRedact) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchRedact) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchRedact) GetNm() *string {
@@ -58240,6 +58729,13 @@ func (a *AnnotationPatchRedact) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchRedact) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchRedactFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchRedact) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchRedactFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -59412,87 +59908,89 @@ func (a AnnotationPatchRedactTextAlign) Ptr() *AnnotationPatchRedactTextAlign {
 }
 
 var (
-	annotationPatchSquareFieldRef             = big.NewInt(1 << 0)
-	annotationPatchSquareFieldPage            = big.NewInt(1 << 1)
-	annotationPatchSquareFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchSquareFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchSquareFieldNm              = big.NewInt(1 << 4)
-	annotationPatchSquareFieldRect            = big.NewInt(1 << 5)
-	annotationPatchSquareFieldContents        = big.NewInt(1 << 6)
-	annotationPatchSquareFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchSquareFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchSquareFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchSquareFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchSquareFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchSquareFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchSquareFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchSquareFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchSquareFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchSquareFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchSquareFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchSquareFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchSquareFieldReply           = big.NewInt(1 << 19)
-	annotationPatchSquareFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchSquareFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchSquareFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchSquareFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchSquareFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchSquareFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchSquareFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchSquareFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchSquareFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchSquareFieldActions         = big.NewInt(1 << 29)
-	annotationPatchSquareFieldColor           = big.NewInt(1 << 30)
-	annotationPatchSquareFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchSquareFieldStrokeWidth     = big.NewInt(1 << 32)
-	annotationPatchSquareFieldBorderStyle     = big.NewInt(1 << 33)
-	annotationPatchSquareFieldDashArray       = big.NewInt(1 << 34)
-	annotationPatchSquareFieldInteriorColor   = big.NewInt(1 << 35)
-	annotationPatchSquareFieldBox             = big.NewInt(1 << 36)
-	annotationPatchSquareFieldRotation        = big.NewInt(1 << 37)
-	annotationPatchSquareFieldCloudyIntensity = big.NewInt(1 << 38)
+	annotationPatchSquareFieldRef               = big.NewInt(1 << 0)
+	annotationPatchSquareFieldPage              = big.NewInt(1 << 1)
+	annotationPatchSquareFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchSquareFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchSquareFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchSquareFieldNm                = big.NewInt(1 << 5)
+	annotationPatchSquareFieldRect              = big.NewInt(1 << 6)
+	annotationPatchSquareFieldContents          = big.NewInt(1 << 7)
+	annotationPatchSquareFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchSquareFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchSquareFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchSquareFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchSquareFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchSquareFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchSquareFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchSquareFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchSquareFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchSquareFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchSquareFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchSquareFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchSquareFieldReply             = big.NewInt(1 << 20)
+	annotationPatchSquareFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchSquareFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchSquareFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchSquareFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchSquareFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchSquareFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchSquareFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchSquareFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchSquareFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchSquareFieldActions           = big.NewInt(1 << 30)
+	annotationPatchSquareFieldColor             = big.NewInt(1 << 31)
+	annotationPatchSquareFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchSquareFieldStrokeWidth       = big.NewInt(1 << 33)
+	annotationPatchSquareFieldBorderStyle       = big.NewInt(1 << 34)
+	annotationPatchSquareFieldDashArray         = big.NewInt(1 << 35)
+	annotationPatchSquareFieldInteriorColor     = big.NewInt(1 << 36)
+	annotationPatchSquareFieldBox               = big.NewInt(1 << 37)
+	annotationPatchSquareFieldRotation          = big.NewInt(1 << 38)
+	annotationPatchSquareFieldCloudyIntensity   = big.NewInt(1 << 39)
 )
 
 type AnnotationPatchSquare struct {
-	Ref             any                               `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                               `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                           `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchSquareRect        `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                           `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                           `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchSquareBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                             `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchSquareReply       `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                               `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                               `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                               `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                               `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                           `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
-	StrokeWidth     *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
-	BorderStyle     *AnnotationPatchSquareBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
-	DashArray       []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
-	InteriorColor   *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
-	Box             *AnnotationPatchSquareBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
-	CloudyIntensity *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
+	Ref               any                               `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                               `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                               `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                               `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                               `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                           `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchSquareRect        `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                           `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                           `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchSquareBlendMode   `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                             `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                             `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                             `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                             `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                             `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                             `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                             `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                             `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                             `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                             `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchSquareReply       `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                               `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                           `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                               `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                               `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                               `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
+	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
+	BorderStyle       *AnnotationPatchSquareBorderStyle `json:"borderStyle,omitempty" url:"borderStyle,omitempty"`
+	DashArray         []float64                         `json:"dashArray,omitempty" url:"dashArray,omitempty"`
+	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
+	Box               *AnnotationPatchSquareBox         `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	CloudyIntensity   *float64                          `json:"cloudyIntensity,omitempty" url:"cloudyIntensity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -59527,6 +60025,13 @@ func (a *AnnotationPatchSquare) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchSquare) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchSquare) GetNm() *string {
@@ -59814,6 +60319,13 @@ func (a *AnnotationPatchSquare) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchSquare) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchSquareFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchSquare) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchSquareFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -60666,75 +61178,77 @@ func (a AnnotationPatchSquareReplyType) Ptr() *AnnotationPatchSquareReplyType {
 }
 
 var (
-	annotationPatchSquigglyFieldRef             = big.NewInt(1 << 0)
-	annotationPatchSquigglyFieldPage            = big.NewInt(1 << 1)
-	annotationPatchSquigglyFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchSquigglyFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchSquigglyFieldNm              = big.NewInt(1 << 4)
-	annotationPatchSquigglyFieldRect            = big.NewInt(1 << 5)
-	annotationPatchSquigglyFieldContents        = big.NewInt(1 << 6)
-	annotationPatchSquigglyFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchSquigglyFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchSquigglyFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchSquigglyFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchSquigglyFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchSquigglyFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchSquigglyFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchSquigglyFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchSquigglyFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchSquigglyFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchSquigglyFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchSquigglyFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchSquigglyFieldReply           = big.NewInt(1 << 19)
-	annotationPatchSquigglyFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchSquigglyFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchSquigglyFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchSquigglyFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchSquigglyFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchSquigglyFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchSquigglyFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchSquigglyFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchSquigglyFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchSquigglyFieldActions         = big.NewInt(1 << 29)
-	annotationPatchSquigglyFieldColor           = big.NewInt(1 << 30)
-	annotationPatchSquigglyFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchSquigglyFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationPatchSquigglyFieldRef               = big.NewInt(1 << 0)
+	annotationPatchSquigglyFieldPage              = big.NewInt(1 << 1)
+	annotationPatchSquigglyFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchSquigglyFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchSquigglyFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchSquigglyFieldNm                = big.NewInt(1 << 5)
+	annotationPatchSquigglyFieldRect              = big.NewInt(1 << 6)
+	annotationPatchSquigglyFieldContents          = big.NewInt(1 << 7)
+	annotationPatchSquigglyFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchSquigglyFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchSquigglyFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchSquigglyFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchSquigglyFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchSquigglyFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchSquigglyFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchSquigglyFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchSquigglyFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchSquigglyFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchSquigglyFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchSquigglyFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchSquigglyFieldReply             = big.NewInt(1 << 20)
+	annotationPatchSquigglyFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchSquigglyFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchSquigglyFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchSquigglyFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchSquigglyFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchSquigglyFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchSquigglyFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchSquigglyFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchSquigglyFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchSquigglyFieldActions           = big.NewInt(1 << 30)
+	annotationPatchSquigglyFieldColor             = big.NewInt(1 << 31)
+	annotationPatchSquigglyFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchSquigglyFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationPatchSquiggly struct {
-	Ref             any                                      `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                      `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                      `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                      `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                  `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchSquigglyRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                  `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                  `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchSquigglyBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                    `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                    `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                    `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                    `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                    `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                    `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                    `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                    `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                    `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                    `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchSquigglyReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                      `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                  `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                      `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                      `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                      `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                      `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                      `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                  `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationPatchSquigglyQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	Ref               any                                      `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                      `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                      `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                      `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                      `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                  `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchSquigglyRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                  `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                  `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchSquigglyBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                    `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                    `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                    `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                    `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                    `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                    `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                    `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                    `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                    `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                    `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchSquigglyReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                      `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                  `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                      `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                      `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                      `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                      `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                      `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                  `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationPatchSquigglyQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -60769,6 +61283,13 @@ func (a *AnnotationPatchSquiggly) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchSquiggly) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchSquiggly) GetNm() *string {
@@ -61014,6 +61535,13 @@ func (a *AnnotationPatchSquiggly) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchSquiggly) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchSquigglyFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchSquiggly) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchSquigglyFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -62112,79 +62640,81 @@ func (a AnnotationPatchSquigglyReplyType) Ptr() *AnnotationPatchSquigglyReplyTyp
 }
 
 var (
-	annotationPatchStampFieldRef             = big.NewInt(1 << 0)
-	annotationPatchStampFieldPage            = big.NewInt(1 << 1)
-	annotationPatchStampFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchStampFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchStampFieldNm              = big.NewInt(1 << 4)
-	annotationPatchStampFieldRect            = big.NewInt(1 << 5)
-	annotationPatchStampFieldContents        = big.NewInt(1 << 6)
-	annotationPatchStampFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchStampFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchStampFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchStampFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchStampFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchStampFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchStampFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchStampFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchStampFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchStampFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchStampFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchStampFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchStampFieldReply           = big.NewInt(1 << 19)
-	annotationPatchStampFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchStampFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchStampFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchStampFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchStampFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchStampFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchStampFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchStampFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchStampFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchStampFieldActions         = big.NewInt(1 << 29)
-	annotationPatchStampFieldBox             = big.NewInt(1 << 30)
-	annotationPatchStampFieldRotation        = big.NewInt(1 << 31)
-	annotationPatchStampFieldName            = big.NewInt(1 << 32)
-	annotationPatchStampFieldFit             = big.NewInt(1 << 33)
-	annotationPatchStampFieldOpacity         = big.NewInt(1 << 34)
+	annotationPatchStampFieldRef               = big.NewInt(1 << 0)
+	annotationPatchStampFieldPage              = big.NewInt(1 << 1)
+	annotationPatchStampFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchStampFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchStampFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchStampFieldNm                = big.NewInt(1 << 5)
+	annotationPatchStampFieldRect              = big.NewInt(1 << 6)
+	annotationPatchStampFieldContents          = big.NewInt(1 << 7)
+	annotationPatchStampFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchStampFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchStampFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchStampFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchStampFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchStampFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchStampFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchStampFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchStampFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchStampFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchStampFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchStampFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchStampFieldReply             = big.NewInt(1 << 20)
+	annotationPatchStampFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchStampFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchStampFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchStampFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchStampFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchStampFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchStampFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchStampFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchStampFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchStampFieldActions           = big.NewInt(1 << 30)
+	annotationPatchStampFieldBox               = big.NewInt(1 << 31)
+	annotationPatchStampFieldRotation          = big.NewInt(1 << 32)
+	annotationPatchStampFieldName              = big.NewInt(1 << 33)
+	annotationPatchStampFieldFit               = big.NewInt(1 << 34)
+	annotationPatchStampFieldOpacity           = big.NewInt(1 << 35)
 )
 
 type AnnotationPatchStamp struct {
-	Ref             any                            `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                            `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                        `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchStampRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                        `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                        `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchStampBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                          `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchStampReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                            `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                            `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                            `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                            `json:"actions,omitempty" url:"actions,omitempty"`
-	Box             *AnnotationPatchStampBox       `json:"box,omitempty" url:"box,omitempty"`
-	Rotation        *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
-	Name            *string                        `json:"name,omitempty" url:"name,omitempty"`
-	Fit             *AnnotationPatchStampFit       `json:"fit,omitempty" url:"fit,omitempty"`
-	Opacity         *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Ref               any                            `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                            `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                            `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                            `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                            `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                        `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchStampRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                        `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                        `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchStampBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                          `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                          `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                          `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                          `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                          `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                          `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                          `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                          `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                          `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                          `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchStampReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                            `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                            `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                            `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                            `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                            `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	Box               *AnnotationPatchStampBox       `json:"box,omitempty" url:"box,omitempty"`
+	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Name              *string                        `json:"name,omitempty" url:"name,omitempty"`
+	Fit               *AnnotationPatchStampFit       `json:"fit,omitempty" url:"fit,omitempty"`
+	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -62219,6 +62749,13 @@ func (a *AnnotationPatchStamp) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchStamp) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchStamp) GetNm() *string {
@@ -62478,6 +63015,13 @@ func (a *AnnotationPatchStamp) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchStamp) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchStampFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchStamp) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchStampFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -63215,77 +63759,79 @@ func (a AnnotationPatchStampReplyType) Ptr() *AnnotationPatchStampReplyType {
 }
 
 var (
-	annotationPatchStrikeoutFieldRef             = big.NewInt(1 << 0)
-	annotationPatchStrikeoutFieldPage            = big.NewInt(1 << 1)
-	annotationPatchStrikeoutFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchStrikeoutFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchStrikeoutFieldNm              = big.NewInt(1 << 4)
-	annotationPatchStrikeoutFieldRect            = big.NewInt(1 << 5)
-	annotationPatchStrikeoutFieldContents        = big.NewInt(1 << 6)
-	annotationPatchStrikeoutFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchStrikeoutFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchStrikeoutFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchStrikeoutFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchStrikeoutFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchStrikeoutFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchStrikeoutFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchStrikeoutFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchStrikeoutFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchStrikeoutFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchStrikeoutFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchStrikeoutFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchStrikeoutFieldReply           = big.NewInt(1 << 19)
-	annotationPatchStrikeoutFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchStrikeoutFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchStrikeoutFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchStrikeoutFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchStrikeoutFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchStrikeoutFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchStrikeoutFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchStrikeoutFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchStrikeoutFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchStrikeoutFieldActions         = big.NewInt(1 << 29)
-	annotationPatchStrikeoutFieldColor           = big.NewInt(1 << 30)
-	annotationPatchStrikeoutFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchStrikeoutFieldQuadPoints      = big.NewInt(1 << 32)
-	annotationPatchStrikeoutFieldIntent          = big.NewInt(1 << 33)
+	annotationPatchStrikeoutFieldRef               = big.NewInt(1 << 0)
+	annotationPatchStrikeoutFieldPage              = big.NewInt(1 << 1)
+	annotationPatchStrikeoutFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchStrikeoutFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchStrikeoutFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchStrikeoutFieldNm                = big.NewInt(1 << 5)
+	annotationPatchStrikeoutFieldRect              = big.NewInt(1 << 6)
+	annotationPatchStrikeoutFieldContents          = big.NewInt(1 << 7)
+	annotationPatchStrikeoutFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchStrikeoutFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchStrikeoutFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchStrikeoutFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchStrikeoutFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchStrikeoutFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchStrikeoutFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchStrikeoutFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchStrikeoutFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchStrikeoutFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchStrikeoutFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchStrikeoutFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchStrikeoutFieldReply             = big.NewInt(1 << 20)
+	annotationPatchStrikeoutFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchStrikeoutFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchStrikeoutFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchStrikeoutFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchStrikeoutFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchStrikeoutFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchStrikeoutFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchStrikeoutFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchStrikeoutFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchStrikeoutFieldActions           = big.NewInt(1 << 30)
+	annotationPatchStrikeoutFieldColor             = big.NewInt(1 << 31)
+	annotationPatchStrikeoutFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchStrikeoutFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationPatchStrikeoutFieldIntent            = big.NewInt(1 << 34)
 )
 
 type AnnotationPatchStrikeout struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchStrikeoutRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchStrikeoutBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchStrikeoutReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationPatchStrikeoutQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
-	Intent          *AnnotationPatchStrikeoutIntent           `json:"intent,omitempty" url:"intent,omitempty"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchStrikeoutRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchStrikeoutBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchStrikeoutReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationPatchStrikeoutQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	Intent            *AnnotationPatchStrikeoutIntent           `json:"intent,omitempty" url:"intent,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -63320,6 +63866,13 @@ func (a *AnnotationPatchStrikeout) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchStrikeout) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchStrikeout) GetNm() *string {
@@ -63572,6 +64125,13 @@ func (a *AnnotationPatchStrikeout) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchStrikeout) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchStrikeoutFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchStrikeout) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchStrikeoutFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -64696,81 +65256,83 @@ func (a AnnotationPatchStrikeoutReplyType) Ptr() *AnnotationPatchStrikeoutReplyT
 }
 
 var (
-	annotationPatchTextFieldRef             = big.NewInt(1 << 0)
-	annotationPatchTextFieldPage            = big.NewInt(1 << 1)
-	annotationPatchTextFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchTextFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchTextFieldNm              = big.NewInt(1 << 4)
-	annotationPatchTextFieldRect            = big.NewInt(1 << 5)
-	annotationPatchTextFieldContents        = big.NewInt(1 << 6)
-	annotationPatchTextFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchTextFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchTextFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchTextFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchTextFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchTextFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchTextFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchTextFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchTextFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchTextFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchTextFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchTextFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchTextFieldReply           = big.NewInt(1 << 19)
-	annotationPatchTextFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchTextFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchTextFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchTextFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchTextFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchTextFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchTextFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchTextFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchTextFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchTextFieldActions         = big.NewInt(1 << 29)
-	annotationPatchTextFieldColor           = big.NewInt(1 << 30)
-	annotationPatchTextFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchTextFieldIcon            = big.NewInt(1 << 32)
-	annotationPatchTextFieldOpen            = big.NewInt(1 << 33)
-	annotationPatchTextFieldState           = big.NewInt(1 << 34)
-	annotationPatchTextFieldStateModel      = big.NewInt(1 << 35)
+	annotationPatchTextFieldRef               = big.NewInt(1 << 0)
+	annotationPatchTextFieldPage              = big.NewInt(1 << 1)
+	annotationPatchTextFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchTextFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchTextFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchTextFieldNm                = big.NewInt(1 << 5)
+	annotationPatchTextFieldRect              = big.NewInt(1 << 6)
+	annotationPatchTextFieldContents          = big.NewInt(1 << 7)
+	annotationPatchTextFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchTextFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchTextFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchTextFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchTextFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchTextFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchTextFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchTextFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchTextFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchTextFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchTextFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchTextFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchTextFieldReply             = big.NewInt(1 << 20)
+	annotationPatchTextFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchTextFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchTextFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchTextFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchTextFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchTextFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchTextFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchTextFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchTextFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchTextFieldActions           = big.NewInt(1 << 30)
+	annotationPatchTextFieldColor             = big.NewInt(1 << 31)
+	annotationPatchTextFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchTextFieldIcon              = big.NewInt(1 << 33)
+	annotationPatchTextFieldOpen              = big.NewInt(1 << 34)
+	annotationPatchTextFieldState             = big.NewInt(1 << 35)
+	annotationPatchTextFieldStateModel        = big.NewInt(1 << 36)
 )
 
 type AnnotationPatchText struct {
-	Ref             any                           `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                           `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                       `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchTextRect      `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                       `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                       `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchTextBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                         `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchTextReply     `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                           `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                           `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                           `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                           `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                       `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
-	Icon            *AnnotationPatchTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
-	Open            *bool                         `json:"open,omitempty" url:"open,omitempty"`
-	State           *string                       `json:"state,omitempty" url:"state,omitempty"`
-	StateModel      *string                       `json:"stateModel,omitempty" url:"stateModel,omitempty"`
+	Ref               any                           `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                           `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                           `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                           `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                           `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                       `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchTextRect      `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                       `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                       `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchTextBlendMode `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                         `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                         `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                         `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                         `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                         `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                         `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                         `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                         `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                         `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                         `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchTextReply     `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                           `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                       `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                           `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                           `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                           `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                           `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                       `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
+	Icon              *AnnotationPatchTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
+	Open              *bool                         `json:"open,omitempty" url:"open,omitempty"`
+	State             *string                       `json:"state,omitempty" url:"state,omitempty"`
+	StateModel        *string                       `json:"stateModel,omitempty" url:"stateModel,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -64805,6 +65367,13 @@ func (a *AnnotationPatchText) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchText) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchText) GetNm() *string {
@@ -65071,6 +65640,13 @@ func (a *AnnotationPatchText) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchText) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchTextFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchText) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchTextFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -65695,75 +66271,77 @@ func (a AnnotationPatchTextReplyType) Ptr() *AnnotationPatchTextReplyType {
 }
 
 var (
-	annotationPatchUnderlineFieldRef             = big.NewInt(1 << 0)
-	annotationPatchUnderlineFieldPage            = big.NewInt(1 << 1)
-	annotationPatchUnderlineFieldHasAppearance   = big.NewInt(1 << 2)
-	annotationPatchUnderlineFieldAppearanceState = big.NewInt(1 << 3)
-	annotationPatchUnderlineFieldNm              = big.NewInt(1 << 4)
-	annotationPatchUnderlineFieldRect            = big.NewInt(1 << 5)
-	annotationPatchUnderlineFieldContents        = big.NewInt(1 << 6)
-	annotationPatchUnderlineFieldSubject         = big.NewInt(1 << 7)
-	annotationPatchUnderlineFieldBlendMode       = big.NewInt(1 << 8)
-	annotationPatchUnderlineFieldInvisible       = big.NewInt(1 << 9)
-	annotationPatchUnderlineFieldHidden          = big.NewInt(1 << 10)
-	annotationPatchUnderlineFieldPrint           = big.NewInt(1 << 11)
-	annotationPatchUnderlineFieldNoZoom          = big.NewInt(1 << 12)
-	annotationPatchUnderlineFieldNoRotate        = big.NewInt(1 << 13)
-	annotationPatchUnderlineFieldNoView          = big.NewInt(1 << 14)
-	annotationPatchUnderlineFieldReadOnly        = big.NewInt(1 << 15)
-	annotationPatchUnderlineFieldLocked          = big.NewInt(1 << 16)
-	annotationPatchUnderlineFieldToggleNoView    = big.NewInt(1 << 17)
-	annotationPatchUnderlineFieldLockedContents  = big.NewInt(1 << 18)
-	annotationPatchUnderlineFieldReply           = big.NewInt(1 << 19)
-	annotationPatchUnderlineFieldPopup           = big.NewInt(1 << 20)
-	annotationPatchUnderlineFieldGroupID         = big.NewInt(1 << 21)
-	annotationPatchUnderlineFieldAuthor          = big.NewInt(1 << 22)
-	annotationPatchUnderlineFieldCreatedAt       = big.NewInt(1 << 23)
-	annotationPatchUnderlineFieldModifiedAt      = big.NewInt(1 << 24)
-	annotationPatchUnderlineFieldUserID          = big.NewInt(1 << 25)
-	annotationPatchUnderlineFieldCreatedBy       = big.NewInt(1 << 26)
-	annotationPatchUnderlineFieldModifiedBy      = big.NewInt(1 << 27)
-	annotationPatchUnderlineFieldImportedBy      = big.NewInt(1 << 28)
-	annotationPatchUnderlineFieldActions         = big.NewInt(1 << 29)
-	annotationPatchUnderlineFieldColor           = big.NewInt(1 << 30)
-	annotationPatchUnderlineFieldOpacity         = big.NewInt(1 << 31)
-	annotationPatchUnderlineFieldQuadPoints      = big.NewInt(1 << 32)
+	annotationPatchUnderlineFieldRef               = big.NewInt(1 << 0)
+	annotationPatchUnderlineFieldPage              = big.NewInt(1 << 1)
+	annotationPatchUnderlineFieldHasAppearance     = big.NewInt(1 << 2)
+	annotationPatchUnderlineFieldAppearanceState   = big.NewInt(1 << 3)
+	annotationPatchUnderlineFieldStructurePosition = big.NewInt(1 << 4)
+	annotationPatchUnderlineFieldNm                = big.NewInt(1 << 5)
+	annotationPatchUnderlineFieldRect              = big.NewInt(1 << 6)
+	annotationPatchUnderlineFieldContents          = big.NewInt(1 << 7)
+	annotationPatchUnderlineFieldSubject           = big.NewInt(1 << 8)
+	annotationPatchUnderlineFieldBlendMode         = big.NewInt(1 << 9)
+	annotationPatchUnderlineFieldInvisible         = big.NewInt(1 << 10)
+	annotationPatchUnderlineFieldHidden            = big.NewInt(1 << 11)
+	annotationPatchUnderlineFieldPrint             = big.NewInt(1 << 12)
+	annotationPatchUnderlineFieldNoZoom            = big.NewInt(1 << 13)
+	annotationPatchUnderlineFieldNoRotate          = big.NewInt(1 << 14)
+	annotationPatchUnderlineFieldNoView            = big.NewInt(1 << 15)
+	annotationPatchUnderlineFieldReadOnly          = big.NewInt(1 << 16)
+	annotationPatchUnderlineFieldLocked            = big.NewInt(1 << 17)
+	annotationPatchUnderlineFieldToggleNoView      = big.NewInt(1 << 18)
+	annotationPatchUnderlineFieldLockedContents    = big.NewInt(1 << 19)
+	annotationPatchUnderlineFieldReply             = big.NewInt(1 << 20)
+	annotationPatchUnderlineFieldPopup             = big.NewInt(1 << 21)
+	annotationPatchUnderlineFieldGroupID           = big.NewInt(1 << 22)
+	annotationPatchUnderlineFieldAuthor            = big.NewInt(1 << 23)
+	annotationPatchUnderlineFieldCreatedAt         = big.NewInt(1 << 24)
+	annotationPatchUnderlineFieldModifiedAt        = big.NewInt(1 << 25)
+	annotationPatchUnderlineFieldUserID            = big.NewInt(1 << 26)
+	annotationPatchUnderlineFieldCreatedBy         = big.NewInt(1 << 27)
+	annotationPatchUnderlineFieldModifiedBy        = big.NewInt(1 << 28)
+	annotationPatchUnderlineFieldImportedBy        = big.NewInt(1 << 29)
+	annotationPatchUnderlineFieldActions           = big.NewInt(1 << 30)
+	annotationPatchUnderlineFieldColor             = big.NewInt(1 << 31)
+	annotationPatchUnderlineFieldOpacity           = big.NewInt(1 << 32)
+	annotationPatchUnderlineFieldQuadPoints        = big.NewInt(1 << 33)
 )
 
 type AnnotationPatchUnderline struct {
-	Ref             any                                       `json:"ref,omitempty" url:"ref,omitempty"`
-	Page            any                                       `json:"page,omitempty" url:"page,omitempty"`
-	HasAppearance   any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
-	AppearanceState any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
-	Nm              *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
-	Rect            *AnnotationPatchUnderlineRect             `json:"rect,omitempty" url:"rect,omitempty"`
-	Contents        *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
-	Subject         *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
-	BlendMode       *AnnotationPatchUnderlineBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
-	Invisible       *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
-	Hidden          *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
-	Print           *bool                                     `json:"print,omitempty" url:"print,omitempty"`
-	NoZoom          *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
-	NoRotate        *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
-	NoView          *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
-	ReadOnly        *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Locked          *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
-	ToggleNoView    *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
-	LockedContents  *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
-	Reply           *AnnotationPatchUnderlineReply            `json:"reply,omitempty" url:"reply,omitempty"`
-	Popup           any                                       `json:"popup,omitempty" url:"popup,omitempty"`
-	GroupID         *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Author          any                                       `json:"author,omitempty" url:"author,omitempty"`
-	CreatedAt       any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
-	ModifiedAt      any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
-	UserID          any                                       `json:"userId,omitempty" url:"userId,omitempty"`
-	CreatedBy       any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
-	ModifiedBy      any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
-	ImportedBy      any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
-	Actions         any                                       `json:"actions,omitempty" url:"actions,omitempty"`
-	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
-	Opacity         *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
-	QuadPoints      []*AnnotationPatchUnderlineQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
+	Ref               any                                       `json:"ref,omitempty" url:"ref,omitempty"`
+	Page              any                                       `json:"page,omitempty" url:"page,omitempty"`
+	HasAppearance     any                                       `json:"hasAppearance,omitempty" url:"hasAppearance,omitempty"`
+	AppearanceState   any                                       `json:"appearanceState,omitempty" url:"appearanceState,omitempty"`
+	StructurePosition any                                       `json:"structurePosition,omitempty" url:"structurePosition,omitempty"`
+	Nm                *string                                   `json:"nm,omitempty" url:"nm,omitempty"`
+	Rect              *AnnotationPatchUnderlineRect             `json:"rect,omitempty" url:"rect,omitempty"`
+	Contents          *string                                   `json:"contents,omitempty" url:"contents,omitempty"`
+	Subject           *string                                   `json:"subject,omitempty" url:"subject,omitempty"`
+	BlendMode         *AnnotationPatchUnderlineBlendMode        `json:"blendMode,omitempty" url:"blendMode,omitempty"`
+	Invisible         *bool                                     `json:"invisible,omitempty" url:"invisible,omitempty"`
+	Hidden            *bool                                     `json:"hidden,omitempty" url:"hidden,omitempty"`
+	Print             *bool                                     `json:"print,omitempty" url:"print,omitempty"`
+	NoZoom            *bool                                     `json:"noZoom,omitempty" url:"noZoom,omitempty"`
+	NoRotate          *bool                                     `json:"noRotate,omitempty" url:"noRotate,omitempty"`
+	NoView            *bool                                     `json:"noView,omitempty" url:"noView,omitempty"`
+	ReadOnly          *bool                                     `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Locked            *bool                                     `json:"locked,omitempty" url:"locked,omitempty"`
+	ToggleNoView      *bool                                     `json:"toggleNoView,omitempty" url:"toggleNoView,omitempty"`
+	LockedContents    *bool                                     `json:"lockedContents,omitempty" url:"lockedContents,omitempty"`
+	Reply             *AnnotationPatchUnderlineReply            `json:"reply,omitempty" url:"reply,omitempty"`
+	Popup             any                                       `json:"popup,omitempty" url:"popup,omitempty"`
+	GroupID           *string                                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Author            any                                       `json:"author,omitempty" url:"author,omitempty"`
+	CreatedAt         any                                       `json:"createdAt,omitempty" url:"createdAt,omitempty"`
+	ModifiedAt        any                                       `json:"modifiedAt,omitempty" url:"modifiedAt,omitempty"`
+	UserID            any                                       `json:"userId,omitempty" url:"userId,omitempty"`
+	CreatedBy         any                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
+	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
+	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
+	QuadPoints        []*AnnotationPatchUnderlineQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -65798,6 +66376,13 @@ func (a *AnnotationPatchUnderline) GetAppearanceState() any {
 		return nil
 	}
 	return a.AppearanceState
+}
+
+func (a *AnnotationPatchUnderline) GetStructurePosition() any {
+	if a == nil {
+		return nil
+	}
+	return a.StructurePosition
 }
 
 func (a *AnnotationPatchUnderline) GetNm() *string {
@@ -66043,6 +66628,13 @@ func (a *AnnotationPatchUnderline) SetHasAppearance(hasAppearance any) {
 func (a *AnnotationPatchUnderline) SetAppearanceState(appearanceState any) {
 	a.AppearanceState = appearanceState
 	a.require(annotationPatchUnderlineFieldAppearanceState)
+}
+
+// SetStructurePosition sets the StructurePosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchUnderline) SetStructurePosition(structurePosition any) {
+	a.StructurePosition = structurePosition
+	a.require(annotationPatchUnderlineFieldStructurePosition)
 }
 
 // SetNm sets the Nm field and marks it as non-optional;
@@ -67257,19 +67849,21 @@ func (a *AttachmentFileBase) String() string {
 }
 
 var (
-	attachmentMutationMetaFieldAffectedPages = big.NewInt(1 << 0)
-	attachmentMutationMetaFieldCacheDelta    = big.NewInt(1 << 1)
-	attachmentMutationMetaFieldOpID          = big.NewInt(1 << 2)
-	attachmentMutationMetaFieldUndoable      = big.NewInt(1 << 3)
-	attachmentMutationMetaFieldChanged       = big.NewInt(1 << 4)
+	attachmentMutationMetaFieldAffectedPages     = big.NewInt(1 << 0)
+	attachmentMutationMetaFieldCacheDelta        = big.NewInt(1 << 1)
+	attachmentMutationMetaFieldOpID              = big.NewInt(1 << 2)
+	attachmentMutationMetaFieldUndoable          = big.NewInt(1 << 3)
+	attachmentMutationMetaFieldMissingCharacters = big.NewInt(1 << 4)
+	attachmentMutationMetaFieldChanged           = big.NewInt(1 << 5)
 )
 
 type AttachmentMutationMeta struct {
-	AffectedPages []*PageRef       `json:"affectedPages" url:"affectedPages"`
-	CacheDelta    *CacheDelta      `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
-	OpID          string           `json:"opId" url:"opId"`
-	Undoable      bool             `json:"undoable" url:"undoable"`
-	Changed       []*AttachmentRef `json:"changed" url:"changed"`
+	AffectedPages     []*PageRef       `json:"affectedPages" url:"affectedPages"`
+	CacheDelta        *CacheDelta      `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+	OpID              string           `json:"opId" url:"opId"`
+	Undoable          bool             `json:"undoable" url:"undoable"`
+	MissingCharacters []string         `json:"missingCharacters,omitempty" url:"missingCharacters,omitempty"`
+	Changed           []*AttachmentRef `json:"changed" url:"changed"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -67304,6 +67898,13 @@ func (a *AttachmentMutationMeta) GetUndoable() bool {
 		return false
 	}
 	return a.Undoable
+}
+
+func (a *AttachmentMutationMeta) GetMissingCharacters() []string {
+	if a == nil {
+		return nil
+	}
+	return a.MissingCharacters
 }
 
 func (a *AttachmentMutationMeta) GetChanged() []*AttachmentRef {
@@ -67353,6 +67954,13 @@ func (a *AttachmentMutationMeta) SetOpID(opID string) {
 func (a *AttachmentMutationMeta) SetUndoable(undoable bool) {
 	a.Undoable = undoable
 	a.require(attachmentMutationMetaFieldUndoable)
+}
+
+// SetMissingCharacters sets the MissingCharacters field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AttachmentMutationMeta) SetMissingCharacters(missingCharacters []string) {
+	a.MissingCharacters = missingCharacters
+	a.require(attachmentMutationMetaFieldMissingCharacters)
 }
 
 // SetChanged sets the Changed field and marks it as non-optional;
@@ -67440,6 +68048,7 @@ type ChangeItem struct {
 	PagesDelete                 *ChangeItemPagesDelete
 	PagesInsertBlank            *ChangeItemPagesInsertBlank
 	PagesInsert                 *ChangeItemPagesInsert
+	PagesCopy                   *ChangeItemPagesCopy
 	PagesRestore                *ChangeItemPagesRestore
 	AttachmentsCreate           *ChangeItemAttachmentsCreate
 	AttachmentsDelete           *ChangeItemAttachmentsDelete
@@ -67693,6 +68302,13 @@ func (c *ChangeItem) GetPagesInsert() *ChangeItemPagesInsert {
 	return c.PagesInsert
 }
 
+func (c *ChangeItem) GetPagesCopy() *ChangeItemPagesCopy {
+	if c == nil {
+		return nil
+	}
+	return c.PagesCopy
+}
+
 func (c *ChangeItem) GetPagesRestore() *ChangeItemPagesRestore {
 	if c == nil {
 		return nil
@@ -67937,6 +68553,12 @@ func (c *ChangeItem) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.PagesInsert = value
+	case "pages.copy":
+		value := new(ChangeItemPagesCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.PagesCopy = value
 	case "pages.restore":
 		value := new(ChangeItemPagesRestore)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -68072,6 +68694,9 @@ func (c ChangeItem) MarshalJSON() ([]byte, error) {
 	if c.PagesInsert != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesInsert, "type", "pages.insert")
 	}
+	if c.PagesCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.PagesCopy, "type", "pages.copy")
+	}
 	if c.PagesRestore != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesRestore, "type", "pages.restore")
 	}
@@ -68125,6 +68750,7 @@ type ChangeItemVisitor interface {
 	VisitPagesDelete(*ChangeItemPagesDelete) error
 	VisitPagesInsertBlank(*ChangeItemPagesInsertBlank) error
 	VisitPagesInsert(*ChangeItemPagesInsert) error
+	VisitPagesCopy(*ChangeItemPagesCopy) error
 	VisitPagesRestore(*ChangeItemPagesRestore) error
 	VisitAttachmentsCreate(*ChangeItemAttachmentsCreate) error
 	VisitAttachmentsDelete(*ChangeItemAttachmentsDelete) error
@@ -68233,6 +68859,9 @@ func (c *ChangeItem) Accept(visitor ChangeItemVisitor) error {
 	}
 	if c.PagesInsert != nil {
 		return visitor.VisitPagesInsert(c.PagesInsert)
+	}
+	if c.PagesCopy != nil {
+		return visitor.VisitPagesCopy(c.PagesCopy)
 	}
 	if c.PagesRestore != nil {
 		return visitor.VisitPagesRestore(c.PagesRestore)
@@ -68355,6 +68984,9 @@ func (c *ChangeItem) validate() error {
 	}
 	if c.PagesInsert != nil {
 		fields = append(fields, "pages.insert")
+	}
+	if c.PagesCopy != nil {
+		fields = append(fields, "pages.copy")
 	}
 	if c.PagesRestore != nil {
 		fields = append(fields, "pages.restore")
@@ -72263,6 +72895,2199 @@ func (c *ChangeItemOutlineUpdate) String() string {
 }
 
 var (
+	changeItemPagesCopyFieldInsertedPages = big.NewInt(1 << 0)
+	changeItemPagesCopyFieldLayout        = big.NewInt(1 << 1)
+	changeItemPagesCopyFieldMeta          = big.NewInt(1 << 2)
+)
+
+type ChangeItemPagesCopy struct {
+	InsertedPages []*PageRef                 `json:"insertedPages" url:"insertedPages"`
+	Layout        *ChangeItemPagesCopyLayout `json:"layout" url:"layout"`
+	Meta          *MutationMeta              `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopy) GetInsertedPages() []*PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.InsertedPages
+}
+
+func (c *ChangeItemPagesCopy) GetLayout() *ChangeItemPagesCopyLayout {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *ChangeItemPagesCopy) GetMeta() *MutationMeta {
+	if c == nil {
+		return nil
+	}
+	return c.Meta
+}
+
+func (c *ChangeItemPagesCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetInsertedPages sets the InsertedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopy) SetInsertedPages(insertedPages []*PageRef) {
+	c.InsertedPages = insertedPages
+	c.require(changeItemPagesCopyFieldInsertedPages)
+}
+
+// SetLayout sets the Layout field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopy) SetLayout(layout *ChangeItemPagesCopyLayout) {
+	c.Layout = layout
+	c.require(changeItemPagesCopyFieldLayout)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopy) SetMeta(meta *MutationMeta) {
+	c.Meta = meta
+	c.require(changeItemPagesCopyFieldMeta)
+}
+
+func (c *ChangeItemPagesCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutFieldPageCount  = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutFieldPages      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutFieldNamedPages = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayout struct {
+	PageCount  int                                        `json:"pageCount" url:"pageCount"`
+	Pages      []*ChangeItemPagesCopyLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesCopyLayoutLabelsItem     `json:"labels" url:"labels"`
+	NamedPages []*ChangeItemPagesCopyLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayout) GetPageCount() int {
+	if c == nil {
+		return 0
+	}
+	return c.PageCount
+}
+
+func (c *ChangeItemPagesCopyLayout) GetPages() []*ChangeItemPagesCopyLayoutPagesItem {
+	if c == nil {
+		return nil
+	}
+	return c.Pages
+}
+
+func (c *ChangeItemPagesCopyLayout) GetLabels() []*ChangeItemPagesCopyLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
+}
+
+func (c *ChangeItemPagesCopyLayout) GetNamedPages() []*ChangeItemPagesCopyLayoutNamedPagesItem {
+	if c == nil {
+		return nil
+	}
+	return c.NamedPages
+}
+
+func (c *ChangeItemPagesCopyLayout) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayout) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetPageCount sets the PageCount field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayout) SetPageCount(pageCount int) {
+	c.PageCount = pageCount
+	c.require(changeItemPagesCopyLayoutFieldPageCount)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayout) SetPages(pages []*ChangeItemPagesCopyLayoutPagesItem) {
+	c.Pages = pages
+	c.require(changeItemPagesCopyLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayout) SetLabels(labels []*ChangeItemPagesCopyLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesCopyLayoutFieldLabels)
+}
+
+// SetNamedPages sets the NamedPages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayout) SetNamedPages(namedPages []*ChangeItemPagesCopyLayoutNamedPagesItem) {
+	c.NamedPages = namedPages
+	c.require(changeItemPagesCopyLayoutFieldNamedPages)
+}
+
+func (c *ChangeItemPagesCopyLayout) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayout
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayout(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayout) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayout
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayout) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutLabelsItem struct {
+	FirstPage   int                                       `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesCopyLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                       `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                    `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) GetStyle() *ChangeItemPagesCopyLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesCopyLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutLabelsItem) SetStyle(style *ChangeItemPagesCopyLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesCopyLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesCopyLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesCopyLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesCopyLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesCopyLayoutLabelsItemStyleDecimal      ChangeItemPagesCopyLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesCopyLayoutLabelsItemStyleUpperRoman   ChangeItemPagesCopyLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesCopyLayoutLabelsItemStyleLowerRoman   ChangeItemPagesCopyLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesCopyLayoutLabelsItemStyleUpperLetters ChangeItemPagesCopyLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesCopyLayoutLabelsItemStyleLowerLetters ChangeItemPagesCopyLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesCopyLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesCopyLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesCopyLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesCopyLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesCopyLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesCopyLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesCopyLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesCopyLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesCopyLayoutLabelsItemStyle) Ptr() *ChangeItemPagesCopyLayoutLabelsItemStyle {
+	return &c
+}
+
+var (
+	changeItemPagesCopyLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
+)
+
+type ChangeItemPagesCopyLayoutNamedPagesItem struct {
+	Name   string                                         `json:"name" url:"name"`
+	Target *ChangeItemPagesCopyLayoutNamedPagesItemTarget `json:"target" url:"target"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetName() string {
+	if c == nil {
+		return ""
+	}
+	return c.Name
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetTarget() *ChangeItemPagesCopyLayoutNamedPagesItemTarget {
+	if c == nil {
+		return nil
+	}
+	return c.Target
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) SetName(name string) {
+	c.Name = name
+	c.require(changeItemPagesCopyLayoutNamedPagesItemFieldName)
+}
+
+// SetTarget sets the Target field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesCopyLayoutNamedPagesItemTarget) {
+	c.Target = target
+	c.require(changeItemPagesCopyLayoutNamedPagesItemFieldTarget)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutNamedPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutNamedPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesCopyLayoutNamedPagesItemTarget struct {
+	Kind     string
+	Page     *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
+	Template *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
+	Dangling *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
+
+	rawJSON json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetKind() string {
+	if c == nil {
+		return ""
+	}
+	return c.Kind
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage {
+	if c == nil {
+		return nil
+	}
+	return c.Page
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate {
+	if c == nil {
+		return nil
+	}
+	return c.Template
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling {
+	if c == nil {
+		return nil
+	}
+	return c.Dangling
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	c.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", c)
+	}
+	switch unmarshaler.Kind {
+	case "page":
+		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetPage)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.Page = value
+	case "template":
+		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.Template = value
+	case "dangling":
+		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.Dangling = value
+	}
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c ChangeItemPagesCopyLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
+	if err := c.validate(); err != nil {
+		return nil, err
+	}
+	if c.Page != nil {
+		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
+	}
+	if c.Template != nil {
+		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
+	}
+	if c.Dangling != nil {
+		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
+	}
+	if len(c.rawJSON) > 0 {
+		return c.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
+}
+
+type ChangeItemPagesCopyLayoutNamedPagesItemTargetVisitor interface {
+	VisitPage(*ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) error
+	VisitTemplate(*ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) error
+	VisitDangling(*ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) error
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesCopyLayoutNamedPagesItemTargetVisitor) error {
+	if c.Page != nil {
+		return visitor.VisitPage(c.Page)
+	}
+	if c.Template != nil {
+		return visitor.VisitTemplate(c.Template)
+	}
+	if c.Dangling != nil {
+		return visitor.VisitDangling(c.Dangling)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", c)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) validate() error {
+	if c == nil {
+		return fmt.Errorf("type %T is nil", c)
+	}
+	var fields []string
+	if c.Page != nil {
+		fields = append(fields, "page")
+	}
+	if c.Template != nil {
+		fields = append(fields, "template")
+	}
+	if c.Dangling != nil {
+		fields = append(fields, "dangling")
+	}
+	if len(fields) == 0 {
+		if c.Kind != "" {
+			if len(c.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
+		}
+		return fmt.Errorf("type %T is empty", c)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
+	}
+	if c.Kind != "" {
+		field := fields[0]
+		if c.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				c,
+				c.Kind,
+				c,
+			)
+		}
+	}
+	return nil
+}
+
+type ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
+)
+
+type ChangeItemPagesCopyLayoutNamedPagesItemTargetPage struct {
+	Page *PageRef `json:"page" url:"page"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Page
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetPage sets the Page field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
+	c.Page = page
+	c.require(changeItemPagesCopyLayoutNamedPagesItemTargetPageFieldPage)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetPage(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
+)
+
+type ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate struct {
+	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.ObjectNumber
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
+	c.ObjectNumber = objectNumber
+	c.require(changeItemPagesCopyLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
+	changeItemPagesCopyLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
+	changeItemPagesCopyLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
+	changeItemPagesCopyLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
+	changeItemPagesCopyLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
+	changeItemPagesCopyLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
+	changeItemPagesCopyLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesCopyLayoutPagesItem struct {
+	Index      int                                           `json:"index" url:"index"`
+	Ref        *PageRef                                      `json:"ref" url:"ref"`
+	Label      *string                                       `json:"label,omitempty" url:"label,omitempty"`
+	Size       *ChangeItemPagesCopyLayoutPagesItemSize       `json:"size" url:"size"`
+	Rotation   float64                                       `json:"rotation" url:"rotation"`
+	UserUnit   float64                                       `json:"userUnit" url:"userUnit"`
+	TabOrder   *ChangeItemPagesCopyLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
+	Boxes      *ChangeItemPagesCopyLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
+	PdfCropBox *ChangeItemPagesCopyLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
+	Actions    *PdfPageActions                               `json:"actions,omitempty" url:"actions,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetIndex() int {
+	if c == nil {
+		return 0
+	}
+	return c.Index
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetRef() *PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Ref
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetLabel() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Label
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetSize() *ChangeItemPagesCopyLayoutPagesItemSize {
+	if c == nil {
+		return nil
+	}
+	return c.Size
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetRotation() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Rotation
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetUserUnit() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.UserUnit
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetTabOrder() *ChangeItemPagesCopyLayoutPagesItemTabOrder {
+	if c == nil {
+		return nil
+	}
+	return c.TabOrder
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetBoxes() *ChangeItemPagesCopyLayoutPagesItemBoxes {
+	if c == nil {
+		return nil
+	}
+	return c.Boxes
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesCopyLayoutPagesItemPdfCropBox {
+	if c == nil {
+		return nil
+	}
+	return c.PdfCropBox
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetActions() *PdfPageActions {
+	if c == nil {
+		return nil
+	}
+	return c.Actions
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetIndex sets the Index field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetIndex(index int) {
+	c.Index = index
+	c.require(changeItemPagesCopyLayoutPagesItemFieldIndex)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetRef(ref *PageRef) {
+	c.Ref = ref
+	c.require(changeItemPagesCopyLayoutPagesItemFieldRef)
+}
+
+// SetLabel sets the Label field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetLabel(label *string) {
+	c.Label = label
+	c.require(changeItemPagesCopyLayoutPagesItemFieldLabel)
+}
+
+// SetSize sets the Size field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetSize(size *ChangeItemPagesCopyLayoutPagesItemSize) {
+	c.Size = size
+	c.require(changeItemPagesCopyLayoutPagesItemFieldSize)
+}
+
+// SetRotation sets the Rotation field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetRotation(rotation float64) {
+	c.Rotation = rotation
+	c.require(changeItemPagesCopyLayoutPagesItemFieldRotation)
+}
+
+// SetUserUnit sets the UserUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetUserUnit(userUnit float64) {
+	c.UserUnit = userUnit
+	c.require(changeItemPagesCopyLayoutPagesItemFieldUserUnit)
+}
+
+// SetTabOrder sets the TabOrder field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesCopyLayoutPagesItemTabOrder) {
+	c.TabOrder = tabOrder
+	c.require(changeItemPagesCopyLayoutPagesItemFieldTabOrder)
+}
+
+// SetBoxes sets the Boxes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesCopyLayoutPagesItemBoxes) {
+	c.Boxes = boxes
+	c.require(changeItemPagesCopyLayoutPagesItemFieldBoxes)
+}
+
+// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) {
+	c.PdfCropBox = pdfCropBox
+	c.require(changeItemPagesCopyLayoutPagesItemFieldPdfCropBox)
+}
+
+// SetActions sets the Actions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetActions(actions *PdfPageActions) {
+	c.Actions = actions
+	c.require(changeItemPagesCopyLayoutPagesItemFieldActions)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
+	changeItemPagesCopyLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxes struct {
+	Media *ChangeItemPagesCopyLayoutPagesItemBoxesMedia `json:"media" url:"media"`
+	Crop  *ChangeItemPagesCopyLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
+	Bleed *ChangeItemPagesCopyLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
+	Trim  *ChangeItemPagesCopyLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
+	Art   *ChangeItemPagesCopyLayoutPagesItemBoxesArt   `json:"art" url:"art"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesCopyLayoutPagesItemBoxesMedia {
+	if c == nil {
+		return nil
+	}
+	return c.Media
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesCopyLayoutPagesItemBoxesCrop {
+	if c == nil {
+		return nil
+	}
+	return c.Crop
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesCopyLayoutPagesItemBoxesBleed {
+	if c == nil {
+		return nil
+	}
+	return c.Bleed
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesCopyLayoutPagesItemBoxesTrim {
+	if c == nil {
+		return nil
+	}
+	return c.Trim
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetArt() *ChangeItemPagesCopyLayoutPagesItemBoxesArt {
+	if c == nil {
+		return nil
+	}
+	return c.Art
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetMedia sets the Media field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) {
+	c.Media = media
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldMedia)
+}
+
+// SetCrop sets the Crop field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) {
+	c.Crop = crop
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldCrop)
+}
+
+// SetBleed sets the Bleed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) {
+	c.Bleed = bleed
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldBleed)
+}
+
+// SetTrim sets the Trim field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) {
+	c.Trim = trim
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldTrim)
+}
+
+// SetArt sets the Art field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesCopyLayoutPagesItemBoxesArt) {
+	c.Art = art
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldArt)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxes
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxes(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxes
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxesArt struct {
+	X      float64 `json:"x" url:"x"`
+	Y      float64 `json:"y" url:"y"`
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldY)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesArt
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxesArt(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxesArt
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxesBleed struct {
+	X      float64 `json:"x" url:"x"`
+	Y      float64 `json:"y" url:"y"`
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldY)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesBleed
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxesBleed(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxesBleed
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxesCrop struct {
+	X      float64 `json:"x" url:"x"`
+	Y      float64 `json:"y" url:"y"`
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldY)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesCrop
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxesCrop(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxesCrop
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxesMedia struct {
+	X      float64 `json:"x" url:"x"`
+	Y      float64 `json:"y" url:"y"`
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldY)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesMedia
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxesMedia(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxesMedia
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemBoxesTrim struct {
+	X      float64 `json:"x" url:"x"`
+	Y      float64 `json:"y" url:"y"`
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldY)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesTrim
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemBoxesTrim(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemBoxesTrim
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
+	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
+	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemPdfCropBox struct {
+	Left   float64 `json:"left" url:"left"`
+	Bottom float64 `json:"bottom" url:"bottom"`
+	Right  float64 `json:"right" url:"right"`
+	Top    float64 `json:"top" url:"top"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetLeft() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Left
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetBottom() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Bottom
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetRight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Right
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetTop() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Top
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetLeft sets the Left field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetLeft(left float64) {
+	c.Left = left
+	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldLeft)
+}
+
+// SetBottom sets the Bottom field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
+	c.Bottom = bottom
+	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldBottom)
+}
+
+// SetRight sets the Right field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetRight(right float64) {
+	c.Right = right
+	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldRight)
+}
+
+// SetTop sets the Top field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetTop(top float64) {
+	c.Top = top
+	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldTop)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemPdfCropBox
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemPdfCropBox(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemPdfCropBox
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesCopyLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
+	changeItemPagesCopyLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
+)
+
+type ChangeItemPagesCopyLayoutPagesItemSize struct {
+	Width  float64 `json:"width" url:"width"`
+	Height float64 `json:"height" url:"height"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetWidth() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Width
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetHeight() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Height
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetWidth sets the Width field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) SetWidth(width float64) {
+	c.Width = width
+	c.require(changeItemPagesCopyLayoutPagesItemSizeFieldWidth)
+}
+
+// SetHeight sets the Height field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) SetHeight(height float64) {
+	c.Height = height
+	c.require(changeItemPagesCopyLayoutPagesItemSizeFieldHeight)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesCopyLayoutPagesItemSize
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesCopyLayoutPagesItemSize(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesCopyLayoutPagesItemSize
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesCopyLayoutPagesItemSize) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesCopyLayoutPagesItemTabOrder string
+
+const (
+	ChangeItemPagesCopyLayoutPagesItemTabOrderRows        ChangeItemPagesCopyLayoutPagesItemTabOrder = "rows"
+	ChangeItemPagesCopyLayoutPagesItemTabOrderColumns     ChangeItemPagesCopyLayoutPagesItemTabOrder = "columns"
+	ChangeItemPagesCopyLayoutPagesItemTabOrderStructure   ChangeItemPagesCopyLayoutPagesItemTabOrder = "structure"
+	ChangeItemPagesCopyLayoutPagesItemTabOrderAnnotations ChangeItemPagesCopyLayoutPagesItemTabOrder = "annotations"
+	ChangeItemPagesCopyLayoutPagesItemTabOrderWidgets     ChangeItemPagesCopyLayoutPagesItemTabOrder = "widgets"
+)
+
+func NewChangeItemPagesCopyLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesCopyLayoutPagesItemTabOrder, error) {
+	switch s {
+	case "rows":
+		return ChangeItemPagesCopyLayoutPagesItemTabOrderRows, nil
+	case "columns":
+		return ChangeItemPagesCopyLayoutPagesItemTabOrderColumns, nil
+	case "structure":
+		return ChangeItemPagesCopyLayoutPagesItemTabOrderStructure, nil
+	case "annotations":
+		return ChangeItemPagesCopyLayoutPagesItemTabOrderAnnotations, nil
+	case "widgets":
+		return ChangeItemPagesCopyLayoutPagesItemTabOrderWidgets, nil
+	}
+	var t ChangeItemPagesCopyLayoutPagesItemTabOrder
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesCopyLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesCopyLayoutPagesItemTabOrder {
+	return &c
+}
+
+var (
 	changeItemPagesDeleteFieldPages  = big.NewInt(1 << 0)
 	changeItemPagesDeleteFieldLayout = big.NewInt(1 << 1)
 	changeItemPagesDeleteFieldMeta   = big.NewInt(1 << 2)
@@ -72381,12 +75206,14 @@ func (c *ChangeItemPagesDelete) String() string {
 var (
 	changeItemPagesDeleteLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesDeleteLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesDeleteLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesDeleteLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesDeleteLayout struct {
 	PageCount  int                                          `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesDeleteLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesDeleteLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesDeleteLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -72408,6 +75235,13 @@ func (c *ChangeItemPagesDeleteLayout) GetPages() []*ChangeItemPagesDeleteLayoutP
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesDeleteLayout) GetLabels() []*ChangeItemPagesDeleteLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesDeleteLayout) GetNamedPages() []*ChangeItemPagesDeleteLayoutNamedPagesItem {
@@ -72443,6 +75277,13 @@ func (c *ChangeItemPagesDeleteLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesDeleteLayout) SetPages(pages []*ChangeItemPagesDeleteLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesDeleteLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesDeleteLayout) SetLabels(labels []*ChangeItemPagesDeleteLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesDeleteLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -72492,6 +75333,169 @@ func (c *ChangeItemPagesDeleteLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesDeleteLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesDeleteLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesDeleteLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesDeleteLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesDeleteLayoutLabelsItem struct {
+	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesDeleteLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                      `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetStyle() *ChangeItemPagesDeleteLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesDeleteLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetStyle(style *ChangeItemPagesDeleteLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesDeleteLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesDeleteLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesDeleteLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesDeleteLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesDeleteLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesDeleteLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesDeleteLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesDeleteLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesDeleteLayoutLabelsItemStyleDecimal      ChangeItemPagesDeleteLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesDeleteLayoutLabelsItemStyleUpperRoman   ChangeItemPagesDeleteLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesDeleteLayoutLabelsItemStyleLowerRoman   ChangeItemPagesDeleteLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesDeleteLayoutLabelsItemStyleUpperLetters ChangeItemPagesDeleteLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesDeleteLayoutLabelsItemStyleLowerLetters ChangeItemPagesDeleteLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesDeleteLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesDeleteLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesDeleteLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesDeleteLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesDeleteLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesDeleteLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesDeleteLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesDeleteLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesDeleteLayoutLabelsItemStyle) Ptr() *ChangeItemPagesDeleteLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -74511,12 +77515,14 @@ func (c *ChangeItemPagesInsertBlank) String() string {
 var (
 	changeItemPagesInsertBlankLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesInsertBlankLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesInsertBlankLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesInsertBlankLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesInsertBlankLayout struct {
 	PageCount  int                                               `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesInsertBlankLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesInsertBlankLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesInsertBlankLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -74538,6 +77544,13 @@ func (c *ChangeItemPagesInsertBlankLayout) GetPages() []*ChangeItemPagesInsertBl
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesInsertBlankLayout) GetLabels() []*ChangeItemPagesInsertBlankLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesInsertBlankLayout) GetNamedPages() []*ChangeItemPagesInsertBlankLayoutNamedPagesItem {
@@ -74573,6 +77586,13 @@ func (c *ChangeItemPagesInsertBlankLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesInsertBlankLayout) SetPages(pages []*ChangeItemPagesInsertBlankLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesInsertBlankLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertBlankLayout) SetLabels(labels []*ChangeItemPagesInsertBlankLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesInsertBlankLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -74622,6 +77642,169 @@ func (c *ChangeItemPagesInsertBlankLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesInsertBlankLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesInsertBlankLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesInsertBlankLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesInsertBlankLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesInsertBlankLayoutLabelsItem struct {
+	FirstPage   int                                              `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesInsertBlankLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                              `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                           `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetStyle() *ChangeItemPagesInsertBlankLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetStyle(style *ChangeItemPagesInsertBlankLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesInsertBlankLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesInsertBlankLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesInsertBlankLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesInsertBlankLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesInsertBlankLayoutLabelsItemStyleDecimal      ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperRoman   ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerRoman   ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperLetters ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerLetters ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesInsertBlankLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesInsertBlankLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesInsertBlankLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesInsertBlankLayoutLabelsItemStyle) Ptr() *ChangeItemPagesInsertBlankLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -76409,12 +79592,14 @@ func (c ChangeItemPagesInsertBlankLayoutPagesItemTabOrder) Ptr() *ChangeItemPage
 var (
 	changeItemPagesInsertLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesInsertLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesInsertLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesInsertLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesInsertLayout struct {
 	PageCount  int                                          `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesInsertLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesInsertLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesInsertLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -76436,6 +79621,13 @@ func (c *ChangeItemPagesInsertLayout) GetPages() []*ChangeItemPagesInsertLayoutP
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesInsertLayout) GetLabels() []*ChangeItemPagesInsertLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesInsertLayout) GetNamedPages() []*ChangeItemPagesInsertLayoutNamedPagesItem {
@@ -76471,6 +79663,13 @@ func (c *ChangeItemPagesInsertLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesInsertLayout) SetPages(pages []*ChangeItemPagesInsertLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesInsertLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertLayout) SetLabels(labels []*ChangeItemPagesInsertLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesInsertLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -76520,6 +79719,169 @@ func (c *ChangeItemPagesInsertLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesInsertLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesInsertLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesInsertLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesInsertLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesInsertLayoutLabelsItem struct {
+	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesInsertLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                      `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) GetStyle() *ChangeItemPagesInsertLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesInsertLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertLayoutLabelsItem) SetStyle(style *ChangeItemPagesInsertLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesInsertLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesInsertLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesInsertLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesInsertLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesInsertLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesInsertLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesInsertLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesInsertLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesInsertLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesInsertLayoutLabelsItemStyleDecimal      ChangeItemPagesInsertLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesInsertLayoutLabelsItemStyleUpperRoman   ChangeItemPagesInsertLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesInsertLayoutLabelsItemStyleLowerRoman   ChangeItemPagesInsertLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesInsertLayoutLabelsItemStyleUpperLetters ChangeItemPagesInsertLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesInsertLayoutLabelsItemStyleLowerLetters ChangeItemPagesInsertLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesInsertLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesInsertLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesInsertLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesInsertLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesInsertLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesInsertLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesInsertLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesInsertLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesInsertLayoutLabelsItemStyle) Ptr() *ChangeItemPagesInsertLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -78423,12 +81785,14 @@ func (c *ChangeItemPagesReorder) String() string {
 var (
 	changeItemPagesReorderLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesReorderLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesReorderLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesReorderLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesReorderLayout struct {
 	PageCount  int                                           `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesReorderLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesReorderLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesReorderLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -78450,6 +81814,13 @@ func (c *ChangeItemPagesReorderLayout) GetPages() []*ChangeItemPagesReorderLayou
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesReorderLayout) GetLabels() []*ChangeItemPagesReorderLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesReorderLayout) GetNamedPages() []*ChangeItemPagesReorderLayoutNamedPagesItem {
@@ -78485,6 +81856,13 @@ func (c *ChangeItemPagesReorderLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesReorderLayout) SetPages(pages []*ChangeItemPagesReorderLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesReorderLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesReorderLayout) SetLabels(labels []*ChangeItemPagesReorderLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesReorderLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -78534,6 +81912,169 @@ func (c *ChangeItemPagesReorderLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesReorderLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesReorderLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesReorderLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesReorderLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesReorderLayoutLabelsItem struct {
+	FirstPage   int                                          `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesReorderLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                          `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                       `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) GetStyle() *ChangeItemPagesReorderLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesReorderLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesReorderLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesReorderLayoutLabelsItem) SetStyle(style *ChangeItemPagesReorderLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesReorderLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesReorderLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesReorderLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesReorderLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesReorderLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesReorderLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesReorderLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesReorderLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesReorderLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesReorderLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesReorderLayoutLabelsItemStyleDecimal      ChangeItemPagesReorderLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesReorderLayoutLabelsItemStyleUpperRoman   ChangeItemPagesReorderLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesReorderLayoutLabelsItemStyleLowerRoman   ChangeItemPagesReorderLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesReorderLayoutLabelsItemStyleUpperLetters ChangeItemPagesReorderLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesReorderLayoutLabelsItemStyleLowerLetters ChangeItemPagesReorderLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesReorderLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesReorderLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesReorderLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesReorderLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesReorderLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesReorderLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesReorderLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesReorderLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesReorderLayoutLabelsItemStyle) Ptr() *ChangeItemPagesReorderLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -80437,12 +83978,14 @@ func (c *ChangeItemPagesRestore) String() string {
 var (
 	changeItemPagesRestoreLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesRestoreLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesRestoreLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesRestoreLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesRestoreLayout struct {
 	PageCount  int                                           `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesRestoreLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesRestoreLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesRestoreLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -80464,6 +84007,13 @@ func (c *ChangeItemPagesRestoreLayout) GetPages() []*ChangeItemPagesRestoreLayou
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesRestoreLayout) GetLabels() []*ChangeItemPagesRestoreLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesRestoreLayout) GetNamedPages() []*ChangeItemPagesRestoreLayoutNamedPagesItem {
@@ -80499,6 +84049,13 @@ func (c *ChangeItemPagesRestoreLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesRestoreLayout) SetPages(pages []*ChangeItemPagesRestoreLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesRestoreLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRestoreLayout) SetLabels(labels []*ChangeItemPagesRestoreLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesRestoreLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -80548,6 +84105,169 @@ func (c *ChangeItemPagesRestoreLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesRestoreLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesRestoreLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesRestoreLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesRestoreLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesRestoreLayoutLabelsItem struct {
+	FirstPage   int                                          `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesRestoreLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                          `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                       `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetStyle() *ChangeItemPagesRestoreLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesRestoreLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetStyle(style *ChangeItemPagesRestoreLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesRestoreLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesRestoreLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesRestoreLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesRestoreLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesRestoreLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesRestoreLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesRestoreLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesRestoreLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesRestoreLayoutLabelsItemStyleDecimal      ChangeItemPagesRestoreLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesRestoreLayoutLabelsItemStyleUpperRoman   ChangeItemPagesRestoreLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesRestoreLayoutLabelsItemStyleLowerRoman   ChangeItemPagesRestoreLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesRestoreLayoutLabelsItemStyleUpperLetters ChangeItemPagesRestoreLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesRestoreLayoutLabelsItemStyleLowerLetters ChangeItemPagesRestoreLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesRestoreLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesRestoreLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesRestoreLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesRestoreLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesRestoreLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesRestoreLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesRestoreLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesRestoreLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesRestoreLayoutLabelsItemStyle) Ptr() *ChangeItemPagesRestoreLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -82467,12 +86187,14 @@ func (c *ChangeItemPagesRotate) String() string {
 var (
 	changeItemPagesRotateLayoutFieldPageCount  = big.NewInt(1 << 0)
 	changeItemPagesRotateLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutFieldNamedPages = big.NewInt(1 << 2)
+	changeItemPagesRotateLayoutFieldLabels     = big.NewInt(1 << 2)
+	changeItemPagesRotateLayoutFieldNamedPages = big.NewInt(1 << 3)
 )
 
 type ChangeItemPagesRotateLayout struct {
 	PageCount  int                                          `json:"pageCount" url:"pageCount"`
 	Pages      []*ChangeItemPagesRotateLayoutPagesItem      `json:"pages" url:"pages"`
+	Labels     []*ChangeItemPagesRotateLayoutLabelsItem     `json:"labels" url:"labels"`
 	NamedPages []*ChangeItemPagesRotateLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -82494,6 +86216,13 @@ func (c *ChangeItemPagesRotateLayout) GetPages() []*ChangeItemPagesRotateLayoutP
 		return nil
 	}
 	return c.Pages
+}
+
+func (c *ChangeItemPagesRotateLayout) GetLabels() []*ChangeItemPagesRotateLayoutLabelsItem {
+	if c == nil {
+		return nil
+	}
+	return c.Labels
 }
 
 func (c *ChangeItemPagesRotateLayout) GetNamedPages() []*ChangeItemPagesRotateLayoutNamedPagesItem {
@@ -82529,6 +86258,13 @@ func (c *ChangeItemPagesRotateLayout) SetPageCount(pageCount int) {
 func (c *ChangeItemPagesRotateLayout) SetPages(pages []*ChangeItemPagesRotateLayoutPagesItem) {
 	c.Pages = pages
 	c.require(changeItemPagesRotateLayoutFieldPages)
+}
+
+// SetLabels sets the Labels field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRotateLayout) SetLabels(labels []*ChangeItemPagesRotateLayoutLabelsItem) {
+	c.Labels = labels
+	c.require(changeItemPagesRotateLayoutFieldLabels)
 }
 
 // SetNamedPages sets the NamedPages field and marks it as non-optional;
@@ -82578,6 +86314,169 @@ func (c *ChangeItemPagesRotateLayout) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesRotateLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
+	changeItemPagesRotateLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
+	changeItemPagesRotateLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
+	changeItemPagesRotateLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
+)
+
+type ChangeItemPagesRotateLayoutLabelsItem struct {
+	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
+	Style       *ChangeItemPagesRotateLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
+	Prefix      string                                      `json:"prefix" url:"prefix"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) GetFirstPage() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstPage
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) GetStyle() *ChangeItemPagesRotateLayoutLabelsItemStyle {
+	if c == nil {
+		return nil
+	}
+	return c.Style
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) GetFirstNumber() int {
+	if c == nil {
+		return 0
+	}
+	return c.FirstNumber
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) GetPrefix() string {
+	if c == nil {
+		return ""
+	}
+	return c.Prefix
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFirstPage sets the FirstPage field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRotateLayoutLabelsItem) SetFirstPage(firstPage int) {
+	c.FirstPage = firstPage
+	c.require(changeItemPagesRotateLayoutLabelsItemFieldFirstPage)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRotateLayoutLabelsItem) SetStyle(style *ChangeItemPagesRotateLayoutLabelsItemStyle) {
+	c.Style = style
+	c.require(changeItemPagesRotateLayoutLabelsItemFieldStyle)
+}
+
+// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRotateLayoutLabelsItem) SetFirstNumber(firstNumber int) {
+	c.FirstNumber = firstNumber
+	c.require(changeItemPagesRotateLayoutLabelsItemFieldFirstNumber)
+}
+
+// SetPrefix sets the Prefix field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesRotateLayoutLabelsItem) SetPrefix(prefix string) {
+	c.Prefix = prefix
+	c.require(changeItemPagesRotateLayoutLabelsItemFieldPrefix)
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesRotateLayoutLabelsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesRotateLayoutLabelsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesRotateLayoutLabelsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesRotateLayoutLabelsItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesRotateLayoutLabelsItemStyle string
+
+const (
+	ChangeItemPagesRotateLayoutLabelsItemStyleDecimal      ChangeItemPagesRotateLayoutLabelsItemStyle = "decimal"
+	ChangeItemPagesRotateLayoutLabelsItemStyleUpperRoman   ChangeItemPagesRotateLayoutLabelsItemStyle = "upperRoman"
+	ChangeItemPagesRotateLayoutLabelsItemStyleLowerRoman   ChangeItemPagesRotateLayoutLabelsItemStyle = "lowerRoman"
+	ChangeItemPagesRotateLayoutLabelsItemStyleUpperLetters ChangeItemPagesRotateLayoutLabelsItemStyle = "upperLetters"
+	ChangeItemPagesRotateLayoutLabelsItemStyleLowerLetters ChangeItemPagesRotateLayoutLabelsItemStyle = "lowerLetters"
+)
+
+func NewChangeItemPagesRotateLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesRotateLayoutLabelsItemStyle, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesRotateLayoutLabelsItemStyleDecimal, nil
+	case "upperRoman":
+		return ChangeItemPagesRotateLayoutLabelsItemStyleUpperRoman, nil
+	case "lowerRoman":
+		return ChangeItemPagesRotateLayoutLabelsItemStyleLowerRoman, nil
+	case "upperLetters":
+		return ChangeItemPagesRotateLayoutLabelsItemStyleUpperLetters, nil
+	case "lowerLetters":
+		return ChangeItemPagesRotateLayoutLabelsItemStyleLowerLetters, nil
+	}
+	var t ChangeItemPagesRotateLayoutLabelsItemStyle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesRotateLayoutLabelsItemStyle) Ptr() *ChangeItemPagesRotateLayoutLabelsItemStyle {
+	return &c
 }
 
 var (
@@ -84494,6 +88393,7 @@ const (
 	ChangeItemSkippedOpPagesDelete                 ChangeItemSkippedOp = "pages.delete"
 	ChangeItemSkippedOpPagesInsertBlank            ChangeItemSkippedOp = "pages.insertBlank"
 	ChangeItemSkippedOpPagesInsert                 ChangeItemSkippedOp = "pages.insert"
+	ChangeItemSkippedOpPagesCopy                   ChangeItemSkippedOp = "pages.copy"
 	ChangeItemSkippedOpAttachmentsCreate           ChangeItemSkippedOp = "attachments.create"
 	ChangeItemSkippedOpAttachmentsDelete           ChangeItemSkippedOp = "attachments.delete"
 	ChangeItemSkippedOpAnnotationsRestore          ChangeItemSkippedOp = "annotations.restore"
@@ -84564,6 +88464,8 @@ func NewChangeItemSkippedOpFromString(s string) (ChangeItemSkippedOp, error) {
 		return ChangeItemSkippedOpPagesInsertBlank, nil
 	case "pages.insert":
 		return ChangeItemSkippedOpPagesInsert, nil
+	case "pages.copy":
+		return ChangeItemSkippedOpPagesCopy, nil
 	case "attachments.create":
 		return ChangeItemSkippedOpAttachmentsCreate, nil
 	case "attachments.delete":
@@ -84620,6 +88522,7 @@ type ChangeOp struct {
 	PagesDelete                 *ChangeOpPagesDelete
 	PagesInsertBlank            *ChangeOpPagesInsertBlank
 	PagesInsert                 *ChangeOpPagesInsert
+	PagesCopy                   *ChangeOpPagesCopy
 	AttachmentsCreate           *ChangeOpAttachmentsCreate
 	AttachmentsDelete           *ChangeOpAttachmentsDelete
 
@@ -84836,6 +88739,13 @@ func (c *ChangeOp) GetPagesInsert() *ChangeOpPagesInsert {
 	return c.PagesInsert
 }
 
+func (c *ChangeOp) GetPagesCopy() *ChangeOpPagesCopy {
+	if c == nil {
+		return nil
+	}
+	return c.PagesCopy
+}
+
 func (c *ChangeOp) GetAttachmentsCreate() *ChangeOpAttachmentsCreate {
 	if c == nil {
 		return nil
@@ -85036,6 +88946,12 @@ func (c *ChangeOp) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.PagesInsert = value
+	case "pages.copy":
+		value := new(ChangeOpPagesCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.PagesCopy = value
 	case "attachments.create":
 		value := new(ChangeOpAttachmentsCreate)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -85144,6 +89060,9 @@ func (c ChangeOp) MarshalJSON() ([]byte, error) {
 	if c.PagesInsert != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesInsert, "type", "pages.insert")
 	}
+	if c.PagesCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.PagesCopy, "type", "pages.copy")
+	}
 	if c.AttachmentsCreate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.AttachmentsCreate, "type", "attachments.create")
 	}
@@ -85186,6 +89105,7 @@ type ChangeOpVisitor interface {
 	VisitPagesDelete(*ChangeOpPagesDelete) error
 	VisitPagesInsertBlank(*ChangeOpPagesInsertBlank) error
 	VisitPagesInsert(*ChangeOpPagesInsert) error
+	VisitPagesCopy(*ChangeOpPagesCopy) error
 	VisitAttachmentsCreate(*ChangeOpAttachmentsCreate) error
 	VisitAttachmentsDelete(*ChangeOpAttachmentsDelete) error
 }
@@ -85277,6 +89197,9 @@ func (c *ChangeOp) Accept(visitor ChangeOpVisitor) error {
 	}
 	if c.PagesInsert != nil {
 		return visitor.VisitPagesInsert(c.PagesInsert)
+	}
+	if c.PagesCopy != nil {
+		return visitor.VisitPagesCopy(c.PagesCopy)
 	}
 	if c.AttachmentsCreate != nil {
 		return visitor.VisitAttachmentsCreate(c.AttachmentsCreate)
@@ -85378,6 +89301,9 @@ func (c *ChangeOp) validate() error {
 	}
 	if c.PagesInsert != nil {
 		fields = append(fields, "pages.insert")
+	}
+	if c.PagesCopy != nil {
+		fields = append(fields, "pages.copy")
 	}
 	if c.AttachmentsCreate != nil {
 		fields = append(fields, "attachments.create")
@@ -88616,6 +92542,122 @@ func (c *ChangeOpOutlineUpdate) String() string {
 }
 
 var (
+	changeOpPagesCopyFieldPages         = big.NewInt(1 << 0)
+	changeOpPagesCopyFieldPosition      = big.NewInt(1 << 1)
+	changeOpPagesCopyFieldObjectNumbers = big.NewInt(1 << 2)
+)
+
+type ChangeOpPagesCopy struct {
+	Pages         []*PageRef    `json:"pages" url:"pages"`
+	Position      *PagePosition `json:"position,omitempty" url:"position,omitempty"`
+	ObjectNumbers []int         `json:"objectNumbers,omitempty" url:"objectNumbers,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesCopy) GetPages() []*PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Pages
+}
+
+func (c *ChangeOpPagesCopy) GetPosition() *PagePosition {
+	if c == nil {
+		return nil
+	}
+	return c.Position
+}
+
+func (c *ChangeOpPagesCopy) GetObjectNumbers() []int {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectNumbers
+}
+
+func (c *ChangeOpPagesCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesCopy) SetPages(pages []*PageRef) {
+	c.Pages = pages
+	c.require(changeOpPagesCopyFieldPages)
+}
+
+// SetPosition sets the Position field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesCopy) SetPosition(position *PagePosition) {
+	c.Position = position
+	c.require(changeOpPagesCopyFieldPosition)
+}
+
+// SetObjectNumbers sets the ObjectNumbers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesCopy) SetObjectNumbers(objectNumbers []int) {
+	c.ObjectNumbers = objectNumbers
+	c.require(changeOpPagesCopyFieldObjectNumbers)
+}
+
+func (c *ChangeOpPagesCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
 	changeOpPagesDeleteFieldPages = big.NewInt(1 << 0)
 )
 
@@ -88700,13 +92742,15 @@ func (c *ChangeOpPagesDelete) String() string {
 }
 
 var (
-	changeOpPagesInsertFieldResources = big.NewInt(1 << 0)
-	changeOpPagesInsertFieldPosition  = big.NewInt(1 << 1)
+	changeOpPagesInsertFieldResources     = big.NewInt(1 << 0)
+	changeOpPagesInsertFieldPosition      = big.NewInt(1 << 1)
+	changeOpPagesInsertFieldObjectNumbers = big.NewInt(1 << 2)
 )
 
 type ChangeOpPagesInsert struct {
-	Resources *ChangeOpPagesInsertResources `json:"resources" url:"resources"`
-	Position  *PagePosition                 `json:"position,omitempty" url:"position,omitempty"`
+	Resources     *ChangeOpPagesInsertResources `json:"resources" url:"resources"`
+	Position      *PagePosition                 `json:"position,omitempty" url:"position,omitempty"`
+	ObjectNumbers []int                         `json:"objectNumbers,omitempty" url:"objectNumbers,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -88727,6 +92771,13 @@ func (c *ChangeOpPagesInsert) GetPosition() *PagePosition {
 		return nil
 	}
 	return c.Position
+}
+
+func (c *ChangeOpPagesInsert) GetObjectNumbers() []int {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectNumbers
 }
 
 func (c *ChangeOpPagesInsert) GetExtraProperties() map[string]interface{} {
@@ -88755,6 +92806,13 @@ func (c *ChangeOpPagesInsert) SetResources(resources *ChangeOpPagesInsertResourc
 func (c *ChangeOpPagesInsert) SetPosition(position *PagePosition) {
 	c.Position = position
 	c.require(changeOpPagesInsertFieldPosition)
+}
+
+// SetObjectNumbers sets the ObjectNumbers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesInsert) SetObjectNumbers(objectNumbers []int) {
+	c.ObjectNumbers = objectNumbers
+	c.require(changeOpPagesInsertFieldObjectNumbers)
 }
 
 func (c *ChangeOpPagesInsert) UnmarshalJSON(data []byte) error {
@@ -90700,14 +94758,16 @@ var (
 	docManifest200ResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
 	docManifest200ResponseFieldFormsVersion       = big.NewInt(1 << 6)
 	docManifest200ResponseFieldOutlineVersion     = big.NewInt(1 << 7)
-	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 8)
-	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 9)
-	docManifest200ResponseFieldLayerVersion       = big.NewInt(1 << 10)
-	docManifest200ResponseFieldWorking            = big.NewInt(1 << 11)
-	docManifest200ResponseFieldBaseByteLength     = big.NewInt(1 << 12)
-	docManifest200ResponseFieldScopes             = big.NewInt(1 << 13)
-	docManifest200ResponseFieldProtection         = big.NewInt(1 << 14)
-	docManifest200ResponseFieldPages              = big.NewInt(1 << 15)
+	docManifest200ResponseFieldFontsVersion       = big.NewInt(1 << 8)
+	docManifest200ResponseFieldServerFonts        = big.NewInt(1 << 9)
+	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 10)
+	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 11)
+	docManifest200ResponseFieldLayerVersion       = big.NewInt(1 << 12)
+	docManifest200ResponseFieldWorking            = big.NewInt(1 << 13)
+	docManifest200ResponseFieldBaseByteLength     = big.NewInt(1 << 14)
+	docManifest200ResponseFieldScopes             = big.NewInt(1 << 15)
+	docManifest200ResponseFieldProtection         = big.NewInt(1 << 16)
+	docManifest200ResponseFieldPages              = big.NewInt(1 << 17)
 )
 
 type DocManifest200Response struct {
@@ -90719,6 +94779,8 @@ type DocManifest200Response struct {
 	AnnotationsVersion *int                               `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
 	FormsVersion       *int                               `json:"formsVersion,omitempty" url:"formsVersion,omitempty"`
 	OutlineVersion     *int                               `json:"outlineVersion,omitempty" url:"outlineVersion,omitempty"`
+	FontsVersion       *int                               `json:"fontsVersion,omitempty" url:"fontsVersion,omitempty"`
+	ServerFonts        string                             `json:"serverFonts" url:"serverFonts"`
 	AuditHead          int                                `json:"auditHead" url:"auditHead"`
 	BaseSha            string                             `json:"baseSha" url:"baseSha"`
 	LayerVersion       *int                               `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
@@ -90789,6 +94851,20 @@ func (d *DocManifest200Response) GetOutlineVersion() *int {
 		return nil
 	}
 	return d.OutlineVersion
+}
+
+func (d *DocManifest200Response) GetFontsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.FontsVersion
+}
+
+func (d *DocManifest200Response) GetServerFonts() string {
+	if d == nil {
+		return ""
+	}
+	return d.ServerFonts
 }
 
 func (d *DocManifest200Response) GetAuditHead() int {
@@ -90915,6 +94991,20 @@ func (d *DocManifest200Response) SetFormsVersion(formsVersion *int) {
 func (d *DocManifest200Response) SetOutlineVersion(outlineVersion *int) {
 	d.OutlineVersion = outlineVersion
 	d.require(docManifest200ResponseFieldOutlineVersion)
+}
+
+// SetFontsVersion sets the FontsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetFontsVersion(fontsVersion *int) {
+	d.FontsVersion = fontsVersion
+	d.require(docManifest200ResponseFieldFontsVersion)
+}
+
+// SetServerFonts sets the ServerFonts field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifest200Response) SetServerFonts(serverFonts string) {
+	d.ServerFonts = serverFonts
+	d.require(docManifest200ResponseFieldServerFonts)
 }
 
 // SetAuditHead sets the AuditHead field and marks it as non-optional;
@@ -96213,19 +100303,21 @@ func (o *OutlineItemPatch) String() string {
 }
 
 var (
-	outlineMutationMetaFieldAffectedPages = big.NewInt(1 << 0)
-	outlineMutationMetaFieldCacheDelta    = big.NewInt(1 << 1)
-	outlineMutationMetaFieldOpID          = big.NewInt(1 << 2)
-	outlineMutationMetaFieldUndoable      = big.NewInt(1 << 3)
-	outlineMutationMetaFieldChanged       = big.NewInt(1 << 4)
+	outlineMutationMetaFieldAffectedPages     = big.NewInt(1 << 0)
+	outlineMutationMetaFieldCacheDelta        = big.NewInt(1 << 1)
+	outlineMutationMetaFieldOpID              = big.NewInt(1 << 2)
+	outlineMutationMetaFieldUndoable          = big.NewInt(1 << 3)
+	outlineMutationMetaFieldMissingCharacters = big.NewInt(1 << 4)
+	outlineMutationMetaFieldChanged           = big.NewInt(1 << 5)
 )
 
 type OutlineMutationMeta struct {
-	AffectedPages []*PageRef        `json:"affectedPages" url:"affectedPages"`
-	CacheDelta    *CacheDelta       `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
-	OpID          string            `json:"opId" url:"opId"`
-	Undoable      bool              `json:"undoable" url:"undoable"`
-	Changed       []*OutlineItemRef `json:"changed" url:"changed"`
+	AffectedPages     []*PageRef        `json:"affectedPages" url:"affectedPages"`
+	CacheDelta        *CacheDelta       `json:"cacheDelta,omitempty" url:"cacheDelta,omitempty"`
+	OpID              string            `json:"opId" url:"opId"`
+	Undoable          bool              `json:"undoable" url:"undoable"`
+	MissingCharacters []string          `json:"missingCharacters,omitempty" url:"missingCharacters,omitempty"`
+	Changed           []*OutlineItemRef `json:"changed" url:"changed"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -96260,6 +100352,13 @@ func (o *OutlineMutationMeta) GetUndoable() bool {
 		return false
 	}
 	return o.Undoable
+}
+
+func (o *OutlineMutationMeta) GetMissingCharacters() []string {
+	if o == nil {
+		return nil
+	}
+	return o.MissingCharacters
 }
 
 func (o *OutlineMutationMeta) GetChanged() []*OutlineItemRef {
@@ -96309,6 +100408,13 @@ func (o *OutlineMutationMeta) SetOpID(opID string) {
 func (o *OutlineMutationMeta) SetUndoable(undoable bool) {
 	o.Undoable = undoable
 	o.require(outlineMutationMetaFieldUndoable)
+}
+
+// SetMissingCharacters sets the MissingCharacters field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (o *OutlineMutationMeta) SetMissingCharacters(missingCharacters []string) {
+	o.MissingCharacters = missingCharacters
+	o.require(outlineMutationMetaFieldMissingCharacters)
 }
 
 // SetChanged sets the Changed field and marks it as non-optional;
