@@ -40,7 +40,7 @@ func (r *RawClient) LicenseStatus(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := baseURL + "/v1/deployment/license/status"
 	headers := internal.MergeHeaders(

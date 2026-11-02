@@ -41,7 +41,7 @@ func (r *RawClient) Issue(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/tokens",
@@ -88,7 +88,7 @@ func (r *RawClient) Revoke(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/tokens/%v/revoke",

@@ -41,7 +41,7 @@ func (r *RawClient) List(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := baseURL + "/v1/tenants"
 	queryParams, err := internal.QueryValues(request)
@@ -90,7 +90,7 @@ func (r *RawClient) Create(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := baseURL + "/v1/tenants"
 	headers := internal.MergeHeaders(
@@ -134,7 +134,7 @@ func (r *RawClient) Get(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v",
@@ -179,7 +179,7 @@ func (r *RawClient) Delete(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v",
@@ -222,7 +222,7 @@ func (r *RawClient) Resume(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/resume",
@@ -265,7 +265,7 @@ func (r *RawClient) Suspend(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/suspend",
@@ -310,7 +310,7 @@ func (r *RawClient) Usage(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/usage",

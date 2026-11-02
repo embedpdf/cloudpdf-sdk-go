@@ -41,7 +41,7 @@ func (r *RawClient) List(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders",
@@ -93,7 +93,7 @@ func (r *RawClient) Create(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders",
@@ -140,7 +140,7 @@ func (r *RawClient) Get(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders/%v",
@@ -186,7 +186,7 @@ func (r *RawClient) Delete(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders/%v",
@@ -237,7 +237,7 @@ func (r *RawClient) Update(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders/%v",
@@ -285,7 +285,7 @@ func (r *RawClient) MoveInto(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/folders/%v/move-into",

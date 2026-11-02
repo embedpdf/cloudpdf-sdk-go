@@ -10,8 +10,9 @@ import (
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
 	annotations "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/annotations"
 	attachments "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/attachments"
+	client "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/fonts/client"
 	forms "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/forms"
-	client "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata/client"
+	metadataclient "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/metadata/client"
 	outline "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/outline"
 	pages "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/pages"
 	redactions "github.com/embedpdf/cloudpdf-sdk-go/v3/doc/redactions"
@@ -25,8 +26,9 @@ type Client struct {
 	WithRawResponse *RawClient
 	Annotations     *annotations.Client
 	Attachments     *attachments.Client
+	Fonts           *client.Client
 	Forms           *forms.Client
-	Metadata        *client.Client
+	Metadata        *metadataclient.Client
 	Outline         *outline.Client
 	Pages           *pages.Client
 	Redactions      *redactions.Client
@@ -42,8 +44,9 @@ func NewClient(options *core.RequestOptions) *Client {
 	return &Client{
 		Annotations:     annotations.NewClient(options),
 		Attachments:     attachments.NewClient(options),
+		Fonts:           client.NewClient(options),
 		Forms:           forms.NewClient(options),
-		Metadata:        client.NewClient(options),
+		Metadata:        metadataclient.NewClient(options),
 		Outline:         outline.NewClient(options),
 		Pages:           pages.NewClient(options),
 		Redactions:      redactions.NewClient(options),

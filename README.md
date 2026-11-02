@@ -66,7 +66,7 @@ URL, which is particularly useful in test environments.
 
 ```go
 client := client.NewClient(
-    option.WithBaseURL("https://example.com"),
+    option.WithBaseURL(cloudpdf.Environments.Saas),
 )
 ```
 

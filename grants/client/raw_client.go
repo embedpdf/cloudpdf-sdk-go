@@ -41,7 +41,7 @@ func (r *RawClient) Exchange(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := baseURL + "/v1/grant-sessions"
 	headers := internal.MergeHeaders(
@@ -85,7 +85,7 @@ func (r *RawClient) List(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants",
@@ -137,7 +137,7 @@ func (r *RawClient) Create(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants",
@@ -184,7 +184,7 @@ func (r *RawClient) Get(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants/%v",
@@ -230,7 +230,7 @@ func (r *RawClient) Delete(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants/%v",
@@ -274,7 +274,7 @@ func (r *RawClient) Update(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants/%v",
@@ -322,7 +322,7 @@ func (r *RawClient) Archive(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/grants/%v/archive",

@@ -241,6 +241,7 @@ type TokensIssueRequest struct {
 	Kind   string
 	Doc    *TokensIssueRequestDoc
 	Tenant *TokensIssueRequestTenant
+	Upload *TokensIssueRequestUpload
 
 	rawJSON json.RawMessage
 }
@@ -264,6 +265,13 @@ func (t *TokensIssueRequest) GetTenant() *TokensIssueRequestTenant {
 		return nil
 	}
 	return t.Tenant
+}
+
+func (t *TokensIssueRequest) GetUpload() *TokensIssueRequestUpload {
+	if t == nil {
+		return nil
+	}
+	return t.Upload
 }
 
 func (t *TokensIssueRequest) UnmarshalJSON(data []byte) error {
@@ -290,6 +298,12 @@ func (t *TokensIssueRequest) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		t.Tenant = value
+	case "upload":
+		value := new(TokensIssueRequestUpload)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		t.Upload = value
 	}
 	t.rawJSON = json.RawMessage(data)
 	return nil
@@ -305,6 +319,9 @@ func (t TokensIssueRequest) MarshalJSON() ([]byte, error) {
 	if t.Tenant != nil {
 		return internal.MarshalJSONWithExtraProperty(t.Tenant, "kind", "tenant")
 	}
+	if t.Upload != nil {
+		return internal.MarshalJSONWithExtraProperty(t.Upload, "kind", "upload")
+	}
 	if len(t.rawJSON) > 0 {
 		return t.rawJSON, nil
 	}
@@ -314,6 +331,7 @@ func (t TokensIssueRequest) MarshalJSON() ([]byte, error) {
 type TokensIssueRequestVisitor interface {
 	VisitDoc(*TokensIssueRequestDoc) error
 	VisitTenant(*TokensIssueRequestTenant) error
+	VisitUpload(*TokensIssueRequestUpload) error
 }
 
 func (t *TokensIssueRequest) Accept(visitor TokensIssueRequestVisitor) error {
@@ -322,6 +340,9 @@ func (t *TokensIssueRequest) Accept(visitor TokensIssueRequestVisitor) error {
 	}
 	if t.Tenant != nil {
 		return visitor.VisitTenant(t.Tenant)
+	}
+	if t.Upload != nil {
+		return visitor.VisitUpload(t.Upload)
 	}
 	return fmt.Errorf("type %T does not define a non-empty union type", t)
 }
@@ -336,6 +357,9 @@ func (t *TokensIssueRequest) validate() error {
 	}
 	if t.Tenant != nil {
 		fields = append(fields, "tenant")
+	}
+	if t.Upload != nil {
+		fields = append(fields, "upload")
 	}
 	if len(fields) == 0 {
 		if t.Kind != "" {
@@ -645,6 +669,187 @@ func (t *TokensIssueRequestTenant) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TokensIssueRequestTenant) String() string {
+	if t == nil {
+		return "<nil>"
+	}
+	if len(t.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(t); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", t)
+}
+
+var (
+	tokensIssueRequestUploadFieldSub       = big.NewInt(1 << 0)
+	tokensIssueRequestUploadFieldFolderID  = big.NewInt(1 << 1)
+	tokensIssueRequestUploadFieldMetadata  = big.NewInt(1 << 2)
+	tokensIssueRequestUploadFieldMaxFiles  = big.NewInt(1 << 3)
+	tokensIssueRequestUploadFieldMaxBytes  = big.NewInt(1 << 4)
+	tokensIssueRequestUploadFieldOrigins   = big.NewInt(1 << 5)
+	tokensIssueRequestUploadFieldExpiresIn = big.NewInt(1 << 6)
+)
+
+type TokensIssueRequestUpload struct {
+	Sub string `json:"sub" url:"sub"`
+	// A folder id, or root for the top level.
+	FolderID  *string        `json:"folderId,omitempty" url:"folderId,omitempty"`
+	Metadata  map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
+	MaxFiles  *int           `json:"maxFiles,omitempty" url:"maxFiles,omitempty"`
+	MaxBytes  *int           `json:"maxBytes,omitempty" url:"maxBytes,omitempty"`
+	Origins   []string       `json:"origins,omitempty" url:"origins,omitempty"`
+	ExpiresIn int            `json:"expiresIn" url:"expiresIn"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (t *TokensIssueRequestUpload) GetSub() string {
+	if t == nil {
+		return ""
+	}
+	return t.Sub
+}
+
+func (t *TokensIssueRequestUpload) GetFolderID() *string {
+	if t == nil {
+		return nil
+	}
+	return t.FolderID
+}
+
+func (t *TokensIssueRequestUpload) GetMetadata() map[string]any {
+	if t == nil {
+		return nil
+	}
+	return t.Metadata
+}
+
+func (t *TokensIssueRequestUpload) GetMaxFiles() *int {
+	if t == nil {
+		return nil
+	}
+	return t.MaxFiles
+}
+
+func (t *TokensIssueRequestUpload) GetMaxBytes() *int {
+	if t == nil {
+		return nil
+	}
+	return t.MaxBytes
+}
+
+func (t *TokensIssueRequestUpload) GetOrigins() []string {
+	if t == nil {
+		return nil
+	}
+	return t.Origins
+}
+
+func (t *TokensIssueRequestUpload) GetExpiresIn() int {
+	if t == nil {
+		return 0
+	}
+	return t.ExpiresIn
+}
+
+func (t *TokensIssueRequestUpload) GetExtraProperties() map[string]interface{} {
+	if t == nil {
+		return nil
+	}
+	return t.extraProperties
+}
+
+func (t *TokensIssueRequestUpload) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetSub sets the Sub field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetSub(sub string) {
+	t.Sub = sub
+	t.require(tokensIssueRequestUploadFieldSub)
+}
+
+// SetFolderID sets the FolderID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetFolderID(folderID *string) {
+	t.FolderID = folderID
+	t.require(tokensIssueRequestUploadFieldFolderID)
+}
+
+// SetMetadata sets the Metadata field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetMetadata(metadata map[string]any) {
+	t.Metadata = metadata
+	t.require(tokensIssueRequestUploadFieldMetadata)
+}
+
+// SetMaxFiles sets the MaxFiles field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetMaxFiles(maxFiles *int) {
+	t.MaxFiles = maxFiles
+	t.require(tokensIssueRequestUploadFieldMaxFiles)
+}
+
+// SetMaxBytes sets the MaxBytes field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetMaxBytes(maxBytes *int) {
+	t.MaxBytes = maxBytes
+	t.require(tokensIssueRequestUploadFieldMaxBytes)
+}
+
+// SetOrigins sets the Origins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetOrigins(origins []string) {
+	t.Origins = origins
+	t.require(tokensIssueRequestUploadFieldOrigins)
+}
+
+// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueRequestUpload) SetExpiresIn(expiresIn int) {
+	t.ExpiresIn = expiresIn
+	t.require(tokensIssueRequestUploadFieldExpiresIn)
+}
+
+func (t *TokensIssueRequestUpload) UnmarshalJSON(data []byte) error {
+	type unmarshaler TokensIssueRequestUpload
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*t = TokensIssueRequestUpload(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *t)
+	if err != nil {
+		return err
+	}
+	t.extraProperties = extraProperties
+	t.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (t *TokensIssueRequestUpload) MarshalJSON() ([]byte, error) {
+	type embed TokensIssueRequestUpload
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*t),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (t *TokensIssueRequestUpload) String() string {
 	if t == nil {
 		return "<nil>"
 	}

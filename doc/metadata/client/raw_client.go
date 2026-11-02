@@ -42,7 +42,7 @@ func (r *RawClient) Get(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/metadata",

@@ -144,6 +144,8 @@ func (c *Client) Update(
 	return response.Body, nil
 }
 
+// An upload token commits only the documents it started; any other document answers 404.
+//
 // Example:
 //
 //	request := &cloudpdf.DocumentsCommitRequest{
@@ -223,7 +225,7 @@ func (c *Client) Thumbnail(
 	return response.Body, nil
 }
 
-// This bounded origin-mediated fallback must only be used after documents.init returns upload.kind=proxy. Auto mode prefers a presigned object-store PUT whenever available.
+// This bounded origin-mediated fallback must only be used after documents.init returns upload.kind=proxy. Auto mode prefers a presigned object-store PUT whenever available. An upload token sends files only to the documents it started.
 //
 // Example:
 //
@@ -286,6 +288,8 @@ func (c *Client) ImportFrom(
 	return response.Body, nil
 }
 
+// With an upload token, the document goes into the token's folder with the token's metadata, whatever the request says; contentLength must be within the token's maxBytes, and the token makes at most maxFiles documents (403 after). docId, idempotencyKey and dedupMode reuse-existing are refused (400): each could reach a document the token didn't make.
+//
 // Example:
 //
 //	request := &cloudpdf.DocumentsInitRequest{

@@ -42,7 +42,7 @@ func (r *RawClient) List(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/signatures",
@@ -92,7 +92,7 @@ func (r *RawClient) Cancel(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/signatures/%v",
@@ -143,7 +143,7 @@ func (r *RawClient) Complete(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/signatures/%v/complete",
@@ -195,7 +195,7 @@ func (r *RawClient) Analysis(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/signatures/analysis",
@@ -252,7 +252,7 @@ func (r *RawClient) Prepare(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/signatures/prepare",

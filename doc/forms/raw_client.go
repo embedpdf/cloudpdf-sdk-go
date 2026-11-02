@@ -42,7 +42,7 @@ func (r *RawClient) List(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form",
@@ -92,7 +92,7 @@ func (r *RawClient) ReorderCalculations(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/calculations/reorder",
@@ -146,7 +146,7 @@ func (r *RawClient) SetValue(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/fields/%v/value",
@@ -201,7 +201,7 @@ func (r *RawClient) Reset(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/reset",
@@ -255,7 +255,7 @@ func (r *RawClient) DeleteWidget(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/%v",
@@ -310,7 +310,7 @@ func (r *RawClient) UpdateWidget(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/%v",
@@ -366,7 +366,7 @@ func (r *RawClient) ReorderWidgets(
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
 		r.baseURL,
-		"",
+		"https://engine.cloudpdf.com",
 	)
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/docs/%v/layers/%v/form/widgets/%v/reorder",
