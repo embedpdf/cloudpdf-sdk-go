@@ -134,6 +134,38 @@ func (c *Client) Delete(
 	return nil
 }
 
+// A feature names an installed module; any other id is a 400. A module route answers a tenant without its feature 403 FeatureNotEnabled, and one whose feature is stopped 402 FeatureStopped (details.feature, details.stopped). Other replicas apply a change within 30 seconds.
+//
+// Example:
+//
+//	request := &cloudpdf.TenantsUpdateRequest{
+//	    TenantID: "tenantId",
+//	    Features: []*cloudpdf.TenantFeature{
+//	        &cloudpdf.TenantFeature{
+//	            ID: "id",
+//	        },
+//	    },
+//	}
+//	client.Tenants.Update(
+//	    context.TODO(),
+//	    request,
+//	)
+func (c *Client) Update(
+	ctx context.Context,
+	request *cloudpdf.TenantsUpdateRequest,
+	opts ...option.RequestOption,
+) (*cloudpdf.TenantsUpdate200Response, error) {
+	response, err := c.WithRawResponse.Update(
+		ctx,
+		request,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}
+
 // Example:
 //
 //	request := &cloudpdf.ResumeTenantsRequest{

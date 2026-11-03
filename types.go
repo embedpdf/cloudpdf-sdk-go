@@ -78893,6 +78893,10 @@ type TenantsResumeResponse = *AdminErrorPayload
 
 type TenantsSuspendResponse = *AdminErrorPayload
 
+type TenantsUpdate400Response = *AdminErrorPayload
+
+type TenantsUpdate404Response = *AdminErrorPayload
+
 type TenantsUsage400Response = *AdminErrorPayload
 
 type TenantsUsage404Response = *AdminErrorPayload
