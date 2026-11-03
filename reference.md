@@ -1431,6 +1431,79 @@ client.Tenants.Delete(
 </dl>
 </details>
 
+<details><summary><code>client.Tenants.Update(TenantID, request) -> *cloudpdf.TenantsUpdate200Response</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+A feature names an installed module; any other id is a 400. A module route answers a tenant without its feature 403 FeatureNotEnabled, and one whose feature is stopped 402 FeatureStopped (details.feature, details.stopped). Other replicas apply a change within 30 seconds.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+request := &cloudpdf.TenantsUpdateRequest{
+    TenantID: "tenantId",
+    Features: []*cloudpdf.TenantFeature{
+        &cloudpdf.TenantFeature{
+            ID: "id",
+        },
+    },
+}
+client.Tenants.Update(
+    context.TODO(),
+    request,
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**tenantID:** `string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**features:** `[]*cloudpdf.TenantFeature` 
+    
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.Tenants.Resume(TenantID) -> error</code></summary>
 <dl>
 <dd>

@@ -229,6 +229,125 @@ func (t *TenantsSuspendRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
+	tenantFeatureFieldID      = big.NewInt(1 << 0)
+	tenantFeatureFieldStopped = big.NewInt(1 << 1)
+)
+
+type TenantFeature struct {
+	ID      string                `json:"id" url:"id"`
+	Stopped *TenantFeatureStopped `json:"stopped,omitempty" url:"stopped,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (t *TenantFeature) GetID() string {
+	if t == nil {
+		return ""
+	}
+	return t.ID
+}
+
+func (t *TenantFeature) GetStopped() *TenantFeatureStopped {
+	if t == nil {
+		return nil
+	}
+	return t.Stopped
+}
+
+func (t *TenantFeature) GetExtraProperties() map[string]interface{} {
+	if t == nil {
+		return nil
+	}
+	return t.extraProperties
+}
+
+func (t *TenantFeature) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantFeature) SetID(id string) {
+	t.ID = id
+	t.require(tenantFeatureFieldID)
+}
+
+// SetStopped sets the Stopped field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantFeature) SetStopped(stopped *TenantFeatureStopped) {
+	t.Stopped = stopped
+	t.require(tenantFeatureFieldStopped)
+}
+
+func (t *TenantFeature) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantFeature
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*t = TenantFeature(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *t)
+	if err != nil {
+		return err
+	}
+	t.extraProperties = extraProperties
+	t.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (t *TenantFeature) MarshalJSON() ([]byte, error) {
+	type embed TenantFeature
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*t),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (t *TenantFeature) String() string {
+	if t == nil {
+		return "<nil>"
+	}
+	if len(t.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(t); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", t)
+}
+
+type TenantFeatureStopped string
+
+const (
+	TenantFeatureStoppedCap TenantFeatureStopped = "cap"
+)
+
+func NewTenantFeatureStoppedFromString(s string) (TenantFeatureStopped, error) {
+	switch s {
+	case "cap":
+		return TenantFeatureStoppedCap, nil
+	}
+	var t TenantFeatureStopped
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (t TenantFeatureStopped) Ptr() *TenantFeatureStopped {
+	return &t
+}
+
+var (
 	tenantsCreate200ResponseFieldTenant  = big.NewInt(1 << 0)
 	tenantsCreate200ResponseFieldCreated = big.NewInt(1 << 1)
 )
@@ -333,7 +452,8 @@ var (
 	tenantsCreate200ResponseTenantFieldName            = big.NewInt(1 << 1)
 	tenantsCreate200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
 	tenantsCreate200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
-	tenantsCreate200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 4)
+	tenantsCreate200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsCreate200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
 type TenantsCreate200ResponseTenant struct {
@@ -341,6 +461,7 @@ type TenantsCreate200ResponseTenant struct {
 	Name            string                                `json:"name" url:"name"`
 	AutoProvisioned bool                                  `json:"autoProvisioned" url:"autoProvisioned"`
 	Status          *TenantsCreate200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                      `json:"features,omitempty" url:"features,omitempty"`
 	CreatedAt       float64                               `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -376,6 +497,13 @@ func (t *TenantsCreate200ResponseTenant) GetStatus() *TenantsCreate200ResponseTe
 		return nil
 	}
 	return t.Status
+}
+
+func (t *TenantsCreate200ResponseTenant) GetFeatures() []*TenantFeature {
+	if t == nil {
+		return nil
+	}
+	return t.Features
 }
 
 func (t *TenantsCreate200ResponseTenant) GetCreatedAt() float64 {
@@ -425,6 +553,13 @@ func (t *TenantsCreate200ResponseTenant) SetAutoProvisioned(autoProvisioned bool
 func (t *TenantsCreate200ResponseTenant) SetStatus(status *TenantsCreate200ResponseTenantStatus) {
 	t.Status = status
 	t.require(tenantsCreate200ResponseTenantFieldStatus)
+}
+
+// SetFeatures sets the Features field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsCreate200ResponseTenant) SetFeatures(features []*TenantFeature) {
+	t.Features = features
+	t.require(tenantsCreate200ResponseTenantFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
@@ -587,7 +722,8 @@ var (
 	tenantsGet200ResponseTenantFieldName            = big.NewInt(1 << 1)
 	tenantsGet200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
 	tenantsGet200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
-	tenantsGet200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 4)
+	tenantsGet200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsGet200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
 type TenantsGet200ResponseTenant struct {
@@ -595,6 +731,7 @@ type TenantsGet200ResponseTenant struct {
 	Name            string                             `json:"name" url:"name"`
 	AutoProvisioned bool                               `json:"autoProvisioned" url:"autoProvisioned"`
 	Status          *TenantsGet200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                   `json:"features,omitempty" url:"features,omitempty"`
 	CreatedAt       float64                            `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -630,6 +767,13 @@ func (t *TenantsGet200ResponseTenant) GetStatus() *TenantsGet200ResponseTenantSt
 		return nil
 	}
 	return t.Status
+}
+
+func (t *TenantsGet200ResponseTenant) GetFeatures() []*TenantFeature {
+	if t == nil {
+		return nil
+	}
+	return t.Features
 }
 
 func (t *TenantsGet200ResponseTenant) GetCreatedAt() float64 {
@@ -679,6 +823,13 @@ func (t *TenantsGet200ResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
 func (t *TenantsGet200ResponseTenant) SetStatus(status *TenantsGet200ResponseTenantStatus) {
 	t.Status = status
 	t.require(tenantsGet200ResponseTenantFieldStatus)
+}
+
+// SetFeatures sets the Features field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsGet200ResponseTenant) SetFeatures(features []*TenantFeature) {
+	t.Features = features
+	t.require(tenantsGet200ResponseTenantFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
@@ -857,7 +1008,8 @@ var (
 	tenantsList200ResponseTenantsItemFieldName            = big.NewInt(1 << 1)
 	tenantsList200ResponseTenantsItemFieldAutoProvisioned = big.NewInt(1 << 2)
 	tenantsList200ResponseTenantsItemFieldStatus          = big.NewInt(1 << 3)
-	tenantsList200ResponseTenantsItemFieldCreatedAt       = big.NewInt(1 << 4)
+	tenantsList200ResponseTenantsItemFieldFeatures        = big.NewInt(1 << 4)
+	tenantsList200ResponseTenantsItemFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
 type TenantsList200ResponseTenantsItem struct {
@@ -865,6 +1017,7 @@ type TenantsList200ResponseTenantsItem struct {
 	Name            string                                   `json:"name" url:"name"`
 	AutoProvisioned bool                                     `json:"autoProvisioned" url:"autoProvisioned"`
 	Status          *TenantsList200ResponseTenantsItemStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                         `json:"features,omitempty" url:"features,omitempty"`
 	CreatedAt       float64                                  `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -900,6 +1053,13 @@ func (t *TenantsList200ResponseTenantsItem) GetStatus() *TenantsList200ResponseT
 		return nil
 	}
 	return t.Status
+}
+
+func (t *TenantsList200ResponseTenantsItem) GetFeatures() []*TenantFeature {
+	if t == nil {
+		return nil
+	}
+	return t.Features
 }
 
 func (t *TenantsList200ResponseTenantsItem) GetCreatedAt() float64 {
@@ -949,6 +1109,13 @@ func (t *TenantsList200ResponseTenantsItem) SetAutoProvisioned(autoProvisioned b
 func (t *TenantsList200ResponseTenantsItem) SetStatus(status *TenantsList200ResponseTenantsItemStatus) {
 	t.Status = status
 	t.require(tenantsList200ResponseTenantsItemFieldStatus)
+}
+
+// SetFeatures sets the Features field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsList200ResponseTenantsItem) SetFeatures(features []*TenantFeature) {
+	t.Features = features
+	t.require(tenantsList200ResponseTenantsItemFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
@@ -1019,6 +1186,276 @@ func NewTenantsList200ResponseTenantsItemStatusFromString(s string) (TenantsList
 }
 
 func (t TenantsList200ResponseTenantsItemStatus) Ptr() *TenantsList200ResponseTenantsItemStatus {
+	return &t
+}
+
+var (
+	tenantsUpdate200ResponseFieldTenant = big.NewInt(1 << 0)
+)
+
+type TenantsUpdate200Response struct {
+	Tenant *TenantsUpdate200ResponseTenant `json:"tenant" url:"tenant"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (t *TenantsUpdate200Response) GetTenant() *TenantsUpdate200ResponseTenant {
+	if t == nil {
+		return nil
+	}
+	return t.Tenant
+}
+
+func (t *TenantsUpdate200Response) GetExtraProperties() map[string]interface{} {
+	if t == nil {
+		return nil
+	}
+	return t.extraProperties
+}
+
+func (t *TenantsUpdate200Response) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetTenant sets the Tenant field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200Response) SetTenant(tenant *TenantsUpdate200ResponseTenant) {
+	t.Tenant = tenant
+	t.require(tenantsUpdate200ResponseFieldTenant)
+}
+
+func (t *TenantsUpdate200Response) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUpdate200Response
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*t = TenantsUpdate200Response(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *t)
+	if err != nil {
+		return err
+	}
+	t.extraProperties = extraProperties
+	t.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (t *TenantsUpdate200Response) MarshalJSON() ([]byte, error) {
+	type embed TenantsUpdate200Response
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*t),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (t *TenantsUpdate200Response) String() string {
+	if t == nil {
+		return "<nil>"
+	}
+	if len(t.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(t); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", t)
+}
+
+var (
+	tenantsUpdate200ResponseTenantFieldID              = big.NewInt(1 << 0)
+	tenantsUpdate200ResponseTenantFieldName            = big.NewInt(1 << 1)
+	tenantsUpdate200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
+	tenantsUpdate200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
+	tenantsUpdate200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsUpdate200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
+)
+
+type TenantsUpdate200ResponseTenant struct {
+	ID              string                                `json:"id" url:"id"`
+	Name            string                                `json:"name" url:"name"`
+	AutoProvisioned bool                                  `json:"autoProvisioned" url:"autoProvisioned"`
+	Status          *TenantsUpdate200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                      `json:"features,omitempty" url:"features,omitempty"`
+	CreatedAt       float64                               `json:"createdAt" url:"createdAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetID() string {
+	if t == nil {
+		return ""
+	}
+	return t.ID
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetName() string {
+	if t == nil {
+		return ""
+	}
+	return t.Name
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetAutoProvisioned() bool {
+	if t == nil {
+		return false
+	}
+	return t.AutoProvisioned
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetStatus() *TenantsUpdate200ResponseTenantStatus {
+	if t == nil {
+		return nil
+	}
+	return t.Status
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetFeatures() []*TenantFeature {
+	if t == nil {
+		return nil
+	}
+	return t.Features
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetCreatedAt() float64 {
+	if t == nil {
+		return 0
+	}
+	return t.CreatedAt
+}
+
+func (t *TenantsUpdate200ResponseTenant) GetExtraProperties() map[string]interface{} {
+	if t == nil {
+		return nil
+	}
+	return t.extraProperties
+}
+
+func (t *TenantsUpdate200ResponseTenant) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetID(id string) {
+	t.ID = id
+	t.require(tenantsUpdate200ResponseTenantFieldID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetName(name string) {
+	t.Name = name
+	t.require(tenantsUpdate200ResponseTenantFieldName)
+}
+
+// SetAutoProvisioned sets the AutoProvisioned field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
+	t.AutoProvisioned = autoProvisioned
+	t.require(tenantsUpdate200ResponseTenantFieldAutoProvisioned)
+}
+
+// SetStatus sets the Status field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetStatus(status *TenantsUpdate200ResponseTenantStatus) {
+	t.Status = status
+	t.require(tenantsUpdate200ResponseTenantFieldStatus)
+}
+
+// SetFeatures sets the Features field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetFeatures(features []*TenantFeature) {
+	t.Features = features
+	t.require(tenantsUpdate200ResponseTenantFieldFeatures)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdate200ResponseTenant) SetCreatedAt(createdAt float64) {
+	t.CreatedAt = createdAt
+	t.require(tenantsUpdate200ResponseTenantFieldCreatedAt)
+}
+
+func (t *TenantsUpdate200ResponseTenant) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUpdate200ResponseTenant
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*t = TenantsUpdate200ResponseTenant(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *t)
+	if err != nil {
+		return err
+	}
+	t.extraProperties = extraProperties
+	t.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (t *TenantsUpdate200ResponseTenant) MarshalJSON() ([]byte, error) {
+	type embed TenantsUpdate200ResponseTenant
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*t),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (t *TenantsUpdate200ResponseTenant) String() string {
+	if t == nil {
+		return "<nil>"
+	}
+	if len(t.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(t); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", t)
+}
+
+type TenantsUpdate200ResponseTenantStatus string
+
+const (
+	TenantsUpdate200ResponseTenantStatusActive    TenantsUpdate200ResponseTenantStatus = "active"
+	TenantsUpdate200ResponseTenantStatusSuspended TenantsUpdate200ResponseTenantStatus = "suspended"
+)
+
+func NewTenantsUpdate200ResponseTenantStatusFromString(s string) (TenantsUpdate200ResponseTenantStatus, error) {
+	switch s {
+	case "active":
+		return TenantsUpdate200ResponseTenantStatusActive, nil
+	case "suspended":
+		return TenantsUpdate200ResponseTenantStatusSuspended, nil
+	}
+	var t TenantsUpdate200ResponseTenantStatus
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (t TenantsUpdate200ResponseTenantStatus) Ptr() *TenantsUpdate200ResponseTenantStatus {
 	return &t
 }
 
@@ -1268,6 +1705,61 @@ func (t *TenantsUsage200ResponseMetrics) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", t)
+}
+
+var (
+	tenantsUpdateRequestFieldTenantID = big.NewInt(1 << 0)
+	tenantsUpdateRequestFieldFeatures = big.NewInt(1 << 1)
+)
+
+type TenantsUpdateRequest struct {
+	TenantID string           `json:"-" url:"-"`
+	Features []*TenantFeature `json:"features" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (t *TenantsUpdateRequest) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdateRequest) SetTenantID(tenantID string) {
+	t.TenantID = tenantID
+	t.require(tenantsUpdateRequestFieldTenantID)
+}
+
+// SetFeatures sets the Features field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUpdateRequest) SetFeatures(features []*TenantFeature) {
+	t.Features = features
+	t.require(tenantsUpdateRequestFieldFeatures)
+}
+
+func (t *TenantsUpdateRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUpdateRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*t = TenantsUpdateRequest(body)
+	return nil
+}
+
+func (t *TenantsUpdateRequest) MarshalJSON() ([]byte, error) {
+	type embed TenantsUpdateRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*t),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
 }
 
 var (
