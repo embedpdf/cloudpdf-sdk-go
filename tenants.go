@@ -1765,11 +1765,15 @@ func (t *TenantsUpdateRequest) MarshalJSON() ([]byte, error) {
 var (
 	usageTenantsRequestFieldTenantID = big.NewInt(1 << 0)
 	usageTenantsRequestFieldPeriod   = big.NewInt(1 << 1)
+	usageTenantsRequestFieldFrom     = big.NewInt(1 << 2)
+	usageTenantsRequestFieldTo       = big.NewInt(1 << 3)
 )
 
 type UsageTenantsRequest struct {
 	TenantID string  `json:"-" url:"-"`
 	Period   *string `json:"-" url:"period,omitempty"`
+	From     *string `json:"-" url:"from,omitempty"`
+	To       *string `json:"-" url:"to,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1794,4 +1798,18 @@ func (u *UsageTenantsRequest) SetTenantID(tenantID string) {
 func (u *UsageTenantsRequest) SetPeriod(period *string) {
 	u.Period = period
 	u.require(usageTenantsRequestFieldPeriod)
+}
+
+// SetFrom sets the From field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UsageTenantsRequest) SetFrom(from *string) {
+	u.From = from
+	u.require(usageTenantsRequestFieldFrom)
+}
+
+// SetTo sets the To field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (u *UsageTenantsRequest) SetTo(to *string) {
+	u.To = to
+	u.require(usageTenantsRequestFieldTo)
 }

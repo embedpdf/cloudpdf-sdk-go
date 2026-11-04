@@ -955,11 +955,12 @@ var (
 	annotationDraftCaretFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftCaretFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftCaretFieldActions           = big.NewInt(1 << 30)
-	annotationDraftCaretFieldColor             = big.NewInt(1 << 31)
-	annotationDraftCaretFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftCaretFieldBox               = big.NewInt(1 << 33)
-	annotationDraftCaretFieldRotation          = big.NewInt(1 << 34)
-	annotationDraftCaretFieldIntent            = big.NewInt(1 << 35)
+	annotationDraftCaretFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftCaretFieldColor             = big.NewInt(1 << 32)
+	annotationDraftCaretFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftCaretFieldBox               = big.NewInt(1 << 34)
+	annotationDraftCaretFieldRotation          = big.NewInt(1 << 35)
+	annotationDraftCaretFieldIntent            = big.NewInt(1 << 36)
 )
 
 type AnnotationDraftCaret struct {
@@ -994,6 +995,7 @@ type AnnotationDraftCaret struct {
 	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput         `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Box               *AnnotationDraftCaretBox       `json:"box,omitempty" url:"box,omitempty"`
@@ -1222,6 +1224,13 @@ func (a *AnnotationDraftCaret) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftCaret) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftCaret) GetColor() *string {
@@ -1488,6 +1497,13 @@ func (a *AnnotationDraftCaret) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftCaret) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftCaretFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftCaret) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftCaretFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -2068,15 +2084,16 @@ var (
 	annotationDraftCircleFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftCircleFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftCircleFieldActions           = big.NewInt(1 << 30)
-	annotationDraftCircleFieldColor             = big.NewInt(1 << 31)
-	annotationDraftCircleFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftCircleFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftCircleFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftCircleFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftCircleFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationDraftCircleFieldBox               = big.NewInt(1 << 37)
-	annotationDraftCircleFieldRotation          = big.NewInt(1 << 38)
-	annotationDraftCircleFieldCloudyIntensity   = big.NewInt(1 << 39)
+	annotationDraftCircleFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftCircleFieldColor             = big.NewInt(1 << 32)
+	annotationDraftCircleFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftCircleFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftCircleFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftCircleFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftCircleFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationDraftCircleFieldBox               = big.NewInt(1 << 38)
+	annotationDraftCircleFieldRotation          = big.NewInt(1 << 39)
+	annotationDraftCircleFieldCloudyIntensity   = big.NewInt(1 << 40)
 )
 
 type AnnotationDraftCircle struct {
@@ -2111,6 +2128,7 @@ type AnnotationDraftCircle struct {
 	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput            `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -2343,6 +2361,13 @@ func (a *AnnotationDraftCircle) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftCircle) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftCircle) GetColor() *string {
@@ -2637,6 +2662,13 @@ func (a *AnnotationDraftCircle) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftCircle) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftCircleFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftCircle) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftCircleFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -3248,10 +3280,11 @@ var (
 	annotationDraftFileAttachmentFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftFileAttachmentFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftFileAttachmentFieldActions           = big.NewInt(1 << 30)
-	annotationDraftFileAttachmentFieldColor             = big.NewInt(1 << 31)
-	annotationDraftFileAttachmentFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftFileAttachmentFieldIcon              = big.NewInt(1 << 33)
-	annotationDraftFileAttachmentFieldFile              = big.NewInt(1 << 34)
+	annotationDraftFileAttachmentFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftFileAttachmentFieldColor             = big.NewInt(1 << 32)
+	annotationDraftFileAttachmentFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftFileAttachmentFieldIcon              = big.NewInt(1 << 34)
+	annotationDraftFileAttachmentFieldFile              = big.NewInt(1 << 35)
 )
 
 type AnnotationDraftFileAttachment struct {
@@ -3286,6 +3319,7 @@ type AnnotationDraftFileAttachment struct {
 	ModifiedBy        any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                     `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                  `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                 `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Icon              *AnnotationDraftFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
@@ -3513,6 +3547,13 @@ func (a *AnnotationDraftFileAttachment) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftFileAttachment) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftFileAttachment) GetColor() *string {
@@ -3772,6 +3813,13 @@ func (a *AnnotationDraftFileAttachment) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftFileAttachment) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftFileAttachmentFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftFileAttachment) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftFileAttachmentFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -4338,14 +4386,14 @@ var (
 	annotationDraftFreeTextFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftFreeTextFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftFreeTextFieldActions           = big.NewInt(1 << 30)
-	annotationDraftFreeTextFieldBox               = big.NewInt(1 << 31)
-	annotationDraftFreeTextFieldRotation          = big.NewInt(1 << 32)
-	annotationDraftFreeTextFieldIntent            = big.NewInt(1 << 33)
-	annotationDraftFreeTextFieldFontFamily        = big.NewInt(1 << 34)
-	annotationDraftFreeTextFieldFontSize          = big.NewInt(1 << 35)
-	annotationDraftFreeTextFieldTextAlign         = big.NewInt(1 << 36)
-	annotationDraftFreeTextFieldVerticalAlign     = big.NewInt(1 << 37)
-	annotationDraftFreeTextFieldRichText          = big.NewInt(1 << 38)
+	annotationDraftFreeTextFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftFreeTextFieldBox               = big.NewInt(1 << 32)
+	annotationDraftFreeTextFieldRotation          = big.NewInt(1 << 33)
+	annotationDraftFreeTextFieldIntent            = big.NewInt(1 << 34)
+	annotationDraftFreeTextFieldFontFamily        = big.NewInt(1 << 35)
+	annotationDraftFreeTextFieldFontSize          = big.NewInt(1 << 36)
+	annotationDraftFreeTextFieldTextAlign         = big.NewInt(1 << 37)
+	annotationDraftFreeTextFieldVerticalAlign     = big.NewInt(1 << 38)
 	annotationDraftFreeTextFieldColor             = big.NewInt(1 << 39)
 	annotationDraftFreeTextFieldFontColor         = big.NewInt(1 << 40)
 	annotationDraftFreeTextFieldInteriorColor     = big.NewInt(1 << 41)
@@ -4390,6 +4438,7 @@ type AnnotationDraftFreeText struct {
 	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                `json:"richText,omitempty" url:"richText,omitempty"`
 	Box               *AnnotationDraftFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
 	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
 	Intent            *AnnotationDraftFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
@@ -4397,7 +4446,6 @@ type AnnotationDraftFreeText struct {
 	FontSize          *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
 	TextAlign         *AnnotationDraftFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
 	VerticalAlign     *AnnotationDraftFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
-	RichText          *AnnotationDraftFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
 	FontColor         *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
 	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
@@ -4633,6 +4681,13 @@ func (a *AnnotationDraftFreeText) GetActions() any {
 	return a.Actions
 }
 
+func (a *AnnotationDraftFreeText) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
+}
+
 func (a *AnnotationDraftFreeText) GetBox() *AnnotationDraftFreeTextBox {
 	if a == nil {
 		return nil
@@ -4680,13 +4735,6 @@ func (a *AnnotationDraftFreeText) GetVerticalAlign() *AnnotationDraftFreeTextVer
 		return nil
 	}
 	return a.VerticalAlign
-}
-
-func (a *AnnotationDraftFreeText) GetRichText() *AnnotationDraftFreeTextRichText {
-	if a == nil {
-		return nil
-	}
-	return a.RichText
 }
 
 func (a *AnnotationDraftFreeText) GetColor() *string {
@@ -4990,6 +5038,13 @@ func (a *AnnotationDraftFreeText) SetActions(actions any) {
 	a.require(annotationDraftFreeTextFieldActions)
 }
 
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftFreeText) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftFreeTextFieldRichText)
+}
+
 // SetBox sets the Box field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (a *AnnotationDraftFreeText) SetBox(box *AnnotationDraftFreeTextBox) {
@@ -5037,13 +5092,6 @@ func (a *AnnotationDraftFreeText) SetTextAlign(textAlign *AnnotationDraftFreeTex
 func (a *AnnotationDraftFreeText) SetVerticalAlign(verticalAlign *AnnotationDraftFreeTextVerticalAlign) {
 	a.VerticalAlign = verticalAlign
 	a.require(annotationDraftFreeTextFieldVerticalAlign)
-}
-
-// SetRichText sets the RichText field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeText) SetRichText(richText *AnnotationDraftFreeTextRichText) {
-	a.RichText = richText
-	a.require(annotationDraftFreeTextFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -5698,1386 +5746,6 @@ func (a AnnotationDraftFreeTextReplyType) Ptr() *AnnotationDraftFreeTextReplyTyp
 	return &a
 }
 
-var (
-	annotationDraftFreeTextRichTextFieldBody       = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextFieldParagraphs = big.NewInt(1 << 1)
-)
-
-type AnnotationDraftFreeTextRichText struct {
-	Body       *AnnotationDraftFreeTextRichTextBody             `json:"body,omitempty" url:"body,omitempty"`
-	Paragraphs []*AnnotationDraftFreeTextRichTextParagraphsItem `json:"paragraphs" url:"paragraphs"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichText) GetBody() *AnnotationDraftFreeTextRichTextBody {
-	if a == nil {
-		return nil
-	}
-	return a.Body
-}
-
-func (a *AnnotationDraftFreeTextRichText) GetParagraphs() []*AnnotationDraftFreeTextRichTextParagraphsItem {
-	if a == nil {
-		return nil
-	}
-	return a.Paragraphs
-}
-
-func (a *AnnotationDraftFreeTextRichText) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichText) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetBody sets the Body field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichText) SetBody(body *AnnotationDraftFreeTextRichTextBody) {
-	a.Body = body
-	a.require(annotationDraftFreeTextRichTextFieldBody)
-}
-
-// SetParagraphs sets the Paragraphs field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichText) SetParagraphs(paragraphs []*AnnotationDraftFreeTextRichTextParagraphsItem) {
-	a.Paragraphs = paragraphs
-	a.require(annotationDraftFreeTextRichTextFieldParagraphs)
-}
-
-func (a *AnnotationDraftFreeTextRichText) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichText
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichText(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichText) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichText
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichText) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationDraftFreeTextRichTextBodyFieldFamily          = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextBodyFieldWeight          = big.NewInt(1 << 1)
-	annotationDraftFreeTextRichTextBodyFieldItalic          = big.NewInt(1 << 2)
-	annotationDraftFreeTextRichTextBodyFieldSize            = big.NewInt(1 << 3)
-	annotationDraftFreeTextRichTextBodyFieldColor           = big.NewInt(1 << 4)
-	annotationDraftFreeTextRichTextBodyFieldDecoration      = big.NewInt(1 << 5)
-	annotationDraftFreeTextRichTextBodyFieldScript          = big.NewInt(1 << 6)
-	annotationDraftFreeTextRichTextBodyFieldLetterSpacing   = big.NewInt(1 << 7)
-	annotationDraftFreeTextRichTextBodyFieldHorizontalScale = big.NewInt(1 << 8)
-	annotationDraftFreeTextRichTextBodyFieldUnknown         = big.NewInt(1 << 9)
-	annotationDraftFreeTextRichTextBodyFieldAlign           = big.NewInt(1 << 10)
-	annotationDraftFreeTextRichTextBodyFieldDir             = big.NewInt(1 << 11)
-	annotationDraftFreeTextRichTextBodyFieldLineHeight      = big.NewInt(1 << 12)
-	annotationDraftFreeTextRichTextBodyFieldMargins         = big.NewInt(1 << 13)
-	annotationDraftFreeTextRichTextBodyFieldTextIndent      = big.NewInt(1 << 14)
-)
-
-type AnnotationDraftFreeTextRichTextBody struct {
-	Family          *string                                             `json:"family,omitempty" url:"family,omitempty"`
-	Weight          *int                                                `json:"weight,omitempty" url:"weight,omitempty"`
-	Italic          *bool                                               `json:"italic,omitempty" url:"italic,omitempty"`
-	Size            *float64                                            `json:"size,omitempty" url:"size,omitempty"`
-	Color           *string                                             `json:"color,omitempty" url:"color,omitempty"`
-	Decoration      []AnnotationDraftFreeTextRichTextBodyDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
-	Script          *AnnotationDraftFreeTextRichTextBodyScript          `json:"script,omitempty" url:"script,omitempty"`
-	LetterSpacing   *float64                                            `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
-	HorizontalScale *float64                                            `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
-	Unknown         *string                                             `json:"unknown,omitempty" url:"unknown,omitempty"`
-	Align           *AnnotationDraftFreeTextRichTextBodyAlign           `json:"align,omitempty" url:"align,omitempty"`
-	Dir             *AnnotationDraftFreeTextRichTextBodyDir             `json:"dir,omitempty" url:"dir,omitempty"`
-	LineHeight      *float64                                            `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
-	Margins         *AnnotationDraftFreeTextRichTextBodyMargins         `json:"margins,omitempty" url:"margins,omitempty"`
-	TextIndent      *float64                                            `json:"textIndent,omitempty" url:"textIndent,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetFamily() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Family
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetWeight() *int {
-	if a == nil {
-		return nil
-	}
-	return a.Weight
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetItalic() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Italic
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetSize() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.Size
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetColor() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Color
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetDecoration() []AnnotationDraftFreeTextRichTextBodyDecorationItem {
-	if a == nil {
-		return nil
-	}
-	return a.Decoration
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetScript() *AnnotationDraftFreeTextRichTextBodyScript {
-	if a == nil {
-		return nil
-	}
-	return a.Script
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetLetterSpacing() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LetterSpacing
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetHorizontalScale() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.HorizontalScale
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetAlign() *AnnotationDraftFreeTextRichTextBodyAlign {
-	if a == nil {
-		return nil
-	}
-	return a.Align
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetDir() *AnnotationDraftFreeTextRichTextBodyDir {
-	if a == nil {
-		return nil
-	}
-	return a.Dir
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetLineHeight() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LineHeight
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetMargins() *AnnotationDraftFreeTextRichTextBodyMargins {
-	if a == nil {
-		return nil
-	}
-	return a.Margins
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetTextIndent() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.TextIndent
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetFamily sets the Family field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetFamily(family *string) {
-	a.Family = family
-	a.require(annotationDraftFreeTextRichTextBodyFieldFamily)
-}
-
-// SetWeight sets the Weight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetWeight(weight *int) {
-	a.Weight = weight
-	a.require(annotationDraftFreeTextRichTextBodyFieldWeight)
-}
-
-// SetItalic sets the Italic field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetItalic(italic *bool) {
-	a.Italic = italic
-	a.require(annotationDraftFreeTextRichTextBodyFieldItalic)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetSize(size *float64) {
-	a.Size = size
-	a.require(annotationDraftFreeTextRichTextBodyFieldSize)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetColor(color *string) {
-	a.Color = color
-	a.require(annotationDraftFreeTextRichTextBodyFieldColor)
-}
-
-// SetDecoration sets the Decoration field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetDecoration(decoration []AnnotationDraftFreeTextRichTextBodyDecorationItem) {
-	a.Decoration = decoration
-	a.require(annotationDraftFreeTextRichTextBodyFieldDecoration)
-}
-
-// SetScript sets the Script field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetScript(script *AnnotationDraftFreeTextRichTextBodyScript) {
-	a.Script = script
-	a.require(annotationDraftFreeTextRichTextBodyFieldScript)
-}
-
-// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetLetterSpacing(letterSpacing *float64) {
-	a.LetterSpacing = letterSpacing
-	a.require(annotationDraftFreeTextRichTextBodyFieldLetterSpacing)
-}
-
-// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetHorizontalScale(horizontalScale *float64) {
-	a.HorizontalScale = horizontalScale
-	a.require(annotationDraftFreeTextRichTextBodyFieldHorizontalScale)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationDraftFreeTextRichTextBodyFieldUnknown)
-}
-
-// SetAlign sets the Align field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetAlign(align *AnnotationDraftFreeTextRichTextBodyAlign) {
-	a.Align = align
-	a.require(annotationDraftFreeTextRichTextBodyFieldAlign)
-}
-
-// SetDir sets the Dir field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetDir(dir *AnnotationDraftFreeTextRichTextBodyDir) {
-	a.Dir = dir
-	a.require(annotationDraftFreeTextRichTextBodyFieldDir)
-}
-
-// SetLineHeight sets the LineHeight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetLineHeight(lineHeight *float64) {
-	a.LineHeight = lineHeight
-	a.require(annotationDraftFreeTextRichTextBodyFieldLineHeight)
-}
-
-// SetMargins sets the Margins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetMargins(margins *AnnotationDraftFreeTextRichTextBodyMargins) {
-	a.Margins = margins
-	a.require(annotationDraftFreeTextRichTextBodyFieldMargins)
-}
-
-// SetTextIndent sets the TextIndent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBody) SetTextIndent(textIndent *float64) {
-	a.TextIndent = textIndent
-	a.require(annotationDraftFreeTextRichTextBodyFieldTextIndent)
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextBody
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextBody(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextBody
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextBody) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationDraftFreeTextRichTextBodyAlign string
-
-const (
-	AnnotationDraftFreeTextRichTextBodyAlignLeft    AnnotationDraftFreeTextRichTextBodyAlign = "left"
-	AnnotationDraftFreeTextRichTextBodyAlignCenter  AnnotationDraftFreeTextRichTextBodyAlign = "center"
-	AnnotationDraftFreeTextRichTextBodyAlignRight   AnnotationDraftFreeTextRichTextBodyAlign = "right"
-	AnnotationDraftFreeTextRichTextBodyAlignJustify AnnotationDraftFreeTextRichTextBodyAlign = "justify"
-)
-
-func NewAnnotationDraftFreeTextRichTextBodyAlignFromString(s string) (AnnotationDraftFreeTextRichTextBodyAlign, error) {
-	switch s {
-	case "left":
-		return AnnotationDraftFreeTextRichTextBodyAlignLeft, nil
-	case "center":
-		return AnnotationDraftFreeTextRichTextBodyAlignCenter, nil
-	case "right":
-		return AnnotationDraftFreeTextRichTextBodyAlignRight, nil
-	case "justify":
-		return AnnotationDraftFreeTextRichTextBodyAlignJustify, nil
-	}
-	var t AnnotationDraftFreeTextRichTextBodyAlign
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextBodyAlign) Ptr() *AnnotationDraftFreeTextRichTextBodyAlign {
-	return &a
-}
-
-type AnnotationDraftFreeTextRichTextBodyDecorationItem string
-
-const (
-	AnnotationDraftFreeTextRichTextBodyDecorationItemUnderline   AnnotationDraftFreeTextRichTextBodyDecorationItem = "underline"
-	AnnotationDraftFreeTextRichTextBodyDecorationItemLineThrough AnnotationDraftFreeTextRichTextBodyDecorationItem = "line-through"
-	AnnotationDraftFreeTextRichTextBodyDecorationItemWord        AnnotationDraftFreeTextRichTextBodyDecorationItem = "word"
-)
-
-func NewAnnotationDraftFreeTextRichTextBodyDecorationItemFromString(s string) (AnnotationDraftFreeTextRichTextBodyDecorationItem, error) {
-	switch s {
-	case "underline":
-		return AnnotationDraftFreeTextRichTextBodyDecorationItemUnderline, nil
-	case "line-through":
-		return AnnotationDraftFreeTextRichTextBodyDecorationItemLineThrough, nil
-	case "word":
-		return AnnotationDraftFreeTextRichTextBodyDecorationItemWord, nil
-	}
-	var t AnnotationDraftFreeTextRichTextBodyDecorationItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextBodyDecorationItem) Ptr() *AnnotationDraftFreeTextRichTextBodyDecorationItem {
-	return &a
-}
-
-type AnnotationDraftFreeTextRichTextBodyDir string
-
-const (
-	AnnotationDraftFreeTextRichTextBodyDirLtr AnnotationDraftFreeTextRichTextBodyDir = "ltr"
-	AnnotationDraftFreeTextRichTextBodyDirRtl AnnotationDraftFreeTextRichTextBodyDir = "rtl"
-)
-
-func NewAnnotationDraftFreeTextRichTextBodyDirFromString(s string) (AnnotationDraftFreeTextRichTextBodyDir, error) {
-	switch s {
-	case "ltr":
-		return AnnotationDraftFreeTextRichTextBodyDirLtr, nil
-	case "rtl":
-		return AnnotationDraftFreeTextRichTextBodyDirRtl, nil
-	}
-	var t AnnotationDraftFreeTextRichTextBodyDir
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextBodyDir) Ptr() *AnnotationDraftFreeTextRichTextBodyDir {
-	return &a
-}
-
-var (
-	annotationDraftFreeTextRichTextBodyMarginsFieldTop    = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextBodyMarginsFieldBottom = big.NewInt(1 << 1)
-	annotationDraftFreeTextRichTextBodyMarginsFieldLeft   = big.NewInt(1 << 2)
-	annotationDraftFreeTextRichTextBodyMarginsFieldRight  = big.NewInt(1 << 3)
-)
-
-type AnnotationDraftFreeTextRichTextBodyMargins struct {
-	Top    float64 `json:"top" url:"top"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Left   float64 `json:"left" url:"left"`
-	Right  float64 `json:"right" url:"right"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) GetTop() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Top
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) GetBottom() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Bottom
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) GetLeft() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Left
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) GetRight() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Right
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) SetTop(top float64) {
-	a.Top = top
-	a.require(annotationDraftFreeTextRichTextBodyMarginsFieldTop)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) SetBottom(bottom float64) {
-	a.Bottom = bottom
-	a.require(annotationDraftFreeTextRichTextBodyMarginsFieldBottom)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) SetLeft(left float64) {
-	a.Left = left
-	a.require(annotationDraftFreeTextRichTextBodyMarginsFieldLeft)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) SetRight(right float64) {
-	a.Right = right
-	a.require(annotationDraftFreeTextRichTextBodyMarginsFieldRight)
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextBodyMargins
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextBodyMargins(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextBodyMargins
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextBodyMargins) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationDraftFreeTextRichTextBodyScript string
-
-const (
-	AnnotationDraftFreeTextRichTextBodyScriptNormal AnnotationDraftFreeTextRichTextBodyScript = "normal"
-	AnnotationDraftFreeTextRichTextBodyScriptSub    AnnotationDraftFreeTextRichTextBodyScript = "sub"
-	AnnotationDraftFreeTextRichTextBodyScriptSuper  AnnotationDraftFreeTextRichTextBodyScript = "super"
-)
-
-func NewAnnotationDraftFreeTextRichTextBodyScriptFromString(s string) (AnnotationDraftFreeTextRichTextBodyScript, error) {
-	switch s {
-	case "normal":
-		return AnnotationDraftFreeTextRichTextBodyScriptNormal, nil
-	case "sub":
-		return AnnotationDraftFreeTextRichTextBodyScriptSub, nil
-	case "super":
-		return AnnotationDraftFreeTextRichTextBodyScriptSuper, nil
-	}
-	var t AnnotationDraftFreeTextRichTextBodyScript
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextBodyScript) Ptr() *AnnotationDraftFreeTextRichTextBodyScript {
-	return &a
-}
-
-var (
-	annotationDraftFreeTextRichTextParagraphsItemFieldAlign      = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextParagraphsItemFieldDir        = big.NewInt(1 << 1)
-	annotationDraftFreeTextRichTextParagraphsItemFieldLineHeight = big.NewInt(1 << 2)
-	annotationDraftFreeTextRichTextParagraphsItemFieldMargins    = big.NewInt(1 << 3)
-	annotationDraftFreeTextRichTextParagraphsItemFieldTextIndent = big.NewInt(1 << 4)
-	annotationDraftFreeTextRichTextParagraphsItemFieldUnknown    = big.NewInt(1 << 5)
-	annotationDraftFreeTextRichTextParagraphsItemFieldRuns       = big.NewInt(1 << 6)
-)
-
-type AnnotationDraftFreeTextRichTextParagraphsItem struct {
-	Align      *AnnotationDraftFreeTextRichTextParagraphsItemAlign      `json:"align,omitempty" url:"align,omitempty"`
-	Dir        *AnnotationDraftFreeTextRichTextParagraphsItemDir        `json:"dir,omitempty" url:"dir,omitempty"`
-	LineHeight *float64                                                 `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
-	Margins    *AnnotationDraftFreeTextRichTextParagraphsItemMargins    `json:"margins,omitempty" url:"margins,omitempty"`
-	TextIndent *float64                                                 `json:"textIndent,omitempty" url:"textIndent,omitempty"`
-	Unknown    *string                                                  `json:"unknown,omitempty" url:"unknown,omitempty"`
-	Runs       []*AnnotationDraftFreeTextRichTextParagraphsItemRunsItem `json:"runs" url:"runs"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetAlign() *AnnotationDraftFreeTextRichTextParagraphsItemAlign {
-	if a == nil {
-		return nil
-	}
-	return a.Align
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetDir() *AnnotationDraftFreeTextRichTextParagraphsItemDir {
-	if a == nil {
-		return nil
-	}
-	return a.Dir
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetLineHeight() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LineHeight
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetMargins() *AnnotationDraftFreeTextRichTextParagraphsItemMargins {
-	if a == nil {
-		return nil
-	}
-	return a.Margins
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetTextIndent() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.TextIndent
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetRuns() []*AnnotationDraftFreeTextRichTextParagraphsItemRunsItem {
-	if a == nil {
-		return nil
-	}
-	return a.Runs
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetAlign sets the Align field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetAlign(align *AnnotationDraftFreeTextRichTextParagraphsItemAlign) {
-	a.Align = align
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldAlign)
-}
-
-// SetDir sets the Dir field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetDir(dir *AnnotationDraftFreeTextRichTextParagraphsItemDir) {
-	a.Dir = dir
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldDir)
-}
-
-// SetLineHeight sets the LineHeight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetLineHeight(lineHeight *float64) {
-	a.LineHeight = lineHeight
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldLineHeight)
-}
-
-// SetMargins sets the Margins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetMargins(margins *AnnotationDraftFreeTextRichTextParagraphsItemMargins) {
-	a.Margins = margins
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldMargins)
-}
-
-// SetTextIndent sets the TextIndent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetTextIndent(textIndent *float64) {
-	a.TextIndent = textIndent
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldTextIndent)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldUnknown)
-}
-
-// SetRuns sets the Runs field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) SetRuns(runs []*AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) {
-	a.Runs = runs
-	a.require(annotationDraftFreeTextRichTextParagraphsItemFieldRuns)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextParagraphsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextParagraphsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextParagraphsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItem) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationDraftFreeTextRichTextParagraphsItemAlign string
-
-const (
-	AnnotationDraftFreeTextRichTextParagraphsItemAlignLeft    AnnotationDraftFreeTextRichTextParagraphsItemAlign = "left"
-	AnnotationDraftFreeTextRichTextParagraphsItemAlignCenter  AnnotationDraftFreeTextRichTextParagraphsItemAlign = "center"
-	AnnotationDraftFreeTextRichTextParagraphsItemAlignRight   AnnotationDraftFreeTextRichTextParagraphsItemAlign = "right"
-	AnnotationDraftFreeTextRichTextParagraphsItemAlignJustify AnnotationDraftFreeTextRichTextParagraphsItemAlign = "justify"
-)
-
-func NewAnnotationDraftFreeTextRichTextParagraphsItemAlignFromString(s string) (AnnotationDraftFreeTextRichTextParagraphsItemAlign, error) {
-	switch s {
-	case "left":
-		return AnnotationDraftFreeTextRichTextParagraphsItemAlignLeft, nil
-	case "center":
-		return AnnotationDraftFreeTextRichTextParagraphsItemAlignCenter, nil
-	case "right":
-		return AnnotationDraftFreeTextRichTextParagraphsItemAlignRight, nil
-	case "justify":
-		return AnnotationDraftFreeTextRichTextParagraphsItemAlignJustify, nil
-	}
-	var t AnnotationDraftFreeTextRichTextParagraphsItemAlign
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextParagraphsItemAlign) Ptr() *AnnotationDraftFreeTextRichTextParagraphsItemAlign {
-	return &a
-}
-
-type AnnotationDraftFreeTextRichTextParagraphsItemDir string
-
-const (
-	AnnotationDraftFreeTextRichTextParagraphsItemDirLtr AnnotationDraftFreeTextRichTextParagraphsItemDir = "ltr"
-	AnnotationDraftFreeTextRichTextParagraphsItemDirRtl AnnotationDraftFreeTextRichTextParagraphsItemDir = "rtl"
-)
-
-func NewAnnotationDraftFreeTextRichTextParagraphsItemDirFromString(s string) (AnnotationDraftFreeTextRichTextParagraphsItemDir, error) {
-	switch s {
-	case "ltr":
-		return AnnotationDraftFreeTextRichTextParagraphsItemDirLtr, nil
-	case "rtl":
-		return AnnotationDraftFreeTextRichTextParagraphsItemDirRtl, nil
-	}
-	var t AnnotationDraftFreeTextRichTextParagraphsItemDir
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextParagraphsItemDir) Ptr() *AnnotationDraftFreeTextRichTextParagraphsItemDir {
-	return &a
-}
-
-var (
-	annotationDraftFreeTextRichTextParagraphsItemMarginsFieldTop    = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextParagraphsItemMarginsFieldBottom = big.NewInt(1 << 1)
-	annotationDraftFreeTextRichTextParagraphsItemMarginsFieldLeft   = big.NewInt(1 << 2)
-	annotationDraftFreeTextRichTextParagraphsItemMarginsFieldRight  = big.NewInt(1 << 3)
-)
-
-type AnnotationDraftFreeTextRichTextParagraphsItemMargins struct {
-	Top    float64 `json:"top" url:"top"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Left   float64 `json:"left" url:"left"`
-	Right  float64 `json:"right" url:"right"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) GetTop() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Top
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) GetBottom() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Bottom
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) GetLeft() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Left
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) GetRight() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Right
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) SetTop(top float64) {
-	a.Top = top
-	a.require(annotationDraftFreeTextRichTextParagraphsItemMarginsFieldTop)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) SetBottom(bottom float64) {
-	a.Bottom = bottom
-	a.require(annotationDraftFreeTextRichTextParagraphsItemMarginsFieldBottom)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) SetLeft(left float64) {
-	a.Left = left
-	a.require(annotationDraftFreeTextRichTextParagraphsItemMarginsFieldLeft)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) SetRight(right float64) {
-	a.Right = right
-	a.require(annotationDraftFreeTextRichTextParagraphsItemMarginsFieldRight)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextParagraphsItemMargins
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextParagraphsItemMargins(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextParagraphsItemMargins
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemMargins) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemFieldText  = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemFieldStyle = big.NewInt(1 << 1)
-)
-
-type AnnotationDraftFreeTextRichTextParagraphsItemRunsItem struct {
-	Text  string                                                      `json:"text" url:"text"`
-	Style *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) GetText() string {
-	if a == nil {
-		return ""
-	}
-	return a.Text
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) GetStyle() *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle {
-	if a == nil {
-		return nil
-	}
-	return a.Style
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) SetText(text string) {
-	a.Text = text
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemFieldText)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) SetStyle(style *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) {
-	a.Style = style
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemFieldStyle)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextParagraphsItemRunsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextParagraphsItemRunsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextParagraphsItemRunsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItem) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldFamily          = big.NewInt(1 << 0)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldWeight          = big.NewInt(1 << 1)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldItalic          = big.NewInt(1 << 2)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldSize            = big.NewInt(1 << 3)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldColor           = big.NewInt(1 << 4)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldDecoration      = big.NewInt(1 << 5)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldScript          = big.NewInt(1 << 6)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldLetterSpacing   = big.NewInt(1 << 7)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldHorizontalScale = big.NewInt(1 << 8)
-	annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldUnknown         = big.NewInt(1 << 9)
-)
-
-type AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle struct {
-	Family          *string                                                                    `json:"family,omitempty" url:"family,omitempty"`
-	Weight          *int                                                                       `json:"weight,omitempty" url:"weight,omitempty"`
-	Italic          *bool                                                                      `json:"italic,omitempty" url:"italic,omitempty"`
-	Size            *float64                                                                   `json:"size,omitempty" url:"size,omitempty"`
-	Color           *string                                                                    `json:"color,omitempty" url:"color,omitempty"`
-	Decoration      []AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
-	Script          *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript          `json:"script,omitempty" url:"script,omitempty"`
-	LetterSpacing   *float64                                                                   `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
-	HorizontalScale *float64                                                                   `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
-	Unknown         *string                                                                    `json:"unknown,omitempty" url:"unknown,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetFamily() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Family
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetWeight() *int {
-	if a == nil {
-		return nil
-	}
-	return a.Weight
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetItalic() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Italic
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetSize() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.Size
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetColor() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Color
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetDecoration() []AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem {
-	if a == nil {
-		return nil
-	}
-	return a.Decoration
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetScript() *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript {
-	if a == nil {
-		return nil
-	}
-	return a.Script
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetLetterSpacing() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LetterSpacing
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetHorizontalScale() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.HorizontalScale
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetFamily sets the Family field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetFamily(family *string) {
-	a.Family = family
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldFamily)
-}
-
-// SetWeight sets the Weight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetWeight(weight *int) {
-	a.Weight = weight
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldWeight)
-}
-
-// SetItalic sets the Italic field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetItalic(italic *bool) {
-	a.Italic = italic
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldItalic)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetSize(size *float64) {
-	a.Size = size
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldSize)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetColor(color *string) {
-	a.Color = color
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldColor)
-}
-
-// SetDecoration sets the Decoration field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetDecoration(decoration []AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem) {
-	a.Decoration = decoration
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldDecoration)
-}
-
-// SetScript sets the Script field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetScript(script *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript) {
-	a.Script = script
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldScript)
-}
-
-// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetLetterSpacing(letterSpacing *float64) {
-	a.LetterSpacing = letterSpacing
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldLetterSpacing)
-}
-
-// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetHorizontalScale(horizontalScale *float64) {
-	a.HorizontalScale = horizontalScale
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldHorizontalScale)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationDraftFreeTextRichTextParagraphsItemRunsItemStyleFieldUnknown)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) MarshalJSON() ([]byte, error) {
-	type embed AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyle) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem string
-
-const (
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemUnderline   AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "underline"
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemLineThrough AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "line-through"
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemWord        AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "word"
-)
-
-func NewAnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemFromString(s string) (AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem, error) {
-	switch s {
-	case "underline":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemUnderline, nil
-	case "line-through":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemLineThrough, nil
-	case "word":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemWord, nil
-	}
-	var t AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem) Ptr() *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem {
-	return &a
-}
-
-type AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript string
-
-const (
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptNormal AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript = "normal"
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptSub    AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript = "sub"
-	AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptSuper  AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript = "super"
-)
-
-func NewAnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptFromString(s string) (AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript, error) {
-	switch s {
-	case "normal":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptNormal, nil
-	case "sub":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptSub, nil
-	case "super":
-		return AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScriptSuper, nil
-	}
-	var t AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript) Ptr() *AnnotationDraftFreeTextRichTextParagraphsItemRunsItemStyleScript {
-	return &a
-}
-
 type AnnotationDraftFreeTextTextAlign string
 
 const (
@@ -7163,9 +5831,10 @@ var (
 	annotationDraftHighlightFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftHighlightFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftHighlightFieldActions           = big.NewInt(1 << 30)
-	annotationDraftHighlightFieldColor             = big.NewInt(1 << 31)
-	annotationDraftHighlightFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftHighlightFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationDraftHighlightFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftHighlightFieldColor             = big.NewInt(1 << 32)
+	annotationDraftHighlightFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftHighlightFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationDraftHighlight struct {
@@ -7200,6 +5869,7 @@ type AnnotationDraftHighlight struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationDraftHighlightQuadPointsItem `json:"quadPoints" url:"quadPoints"`
@@ -7426,6 +6096,13 @@ func (a *AnnotationDraftHighlight) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftHighlight) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftHighlight) GetColor() *string {
@@ -7678,6 +6355,13 @@ func (a *AnnotationDraftHighlight) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftHighlight) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftHighlightFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftHighlight) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftHighlightFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -8625,14 +7309,15 @@ var (
 	annotationDraftInkFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftInkFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftInkFieldActions           = big.NewInt(1 << 30)
-	annotationDraftInkFieldColor             = big.NewInt(1 << 31)
-	annotationDraftInkFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftInkFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftInkFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftInkFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftInkFieldInkList           = big.NewInt(1 << 36)
-	annotationDraftInkFieldIntent            = big.NewInt(1 << 37)
-	annotationDraftInkFieldRotation          = big.NewInt(1 << 38)
+	annotationDraftInkFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftInkFieldColor             = big.NewInt(1 << 32)
+	annotationDraftInkFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftInkFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftInkFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftInkFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftInkFieldInkList           = big.NewInt(1 << 37)
+	annotationDraftInkFieldIntent            = big.NewInt(1 << 38)
+	annotationDraftInkFieldRotation          = big.NewInt(1 << 39)
 )
 
 type AnnotationDraftInk struct {
@@ -8667,6 +7352,7 @@ type AnnotationDraftInk struct {
 	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                 `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -8898,6 +7584,13 @@ func (a *AnnotationDraftInk) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftInk) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftInk) GetColor() *string {
@@ -9185,6 +7878,13 @@ func (a *AnnotationDraftInk) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftInk) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftInkFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftInk) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftInkFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -9776,21 +8476,22 @@ var (
 	annotationDraftLineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftLineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftLineFieldActions           = big.NewInt(1 << 30)
-	annotationDraftLineFieldColor             = big.NewInt(1 << 31)
-	annotationDraftLineFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftLineFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftLineFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftLineFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftLineFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationDraftLineFieldLinePoints        = big.NewInt(1 << 37)
-	annotationDraftLineFieldLineEndings       = big.NewInt(1 << 38)
-	annotationDraftLineFieldRotation          = big.NewInt(1 << 39)
-	annotationDraftLineFieldIntent            = big.NewInt(1 << 40)
-	annotationDraftLineFieldMeasure           = big.NewInt(1 << 41)
-	annotationDraftLineFieldCaptionEnabled    = big.NewInt(1 << 42)
-	annotationDraftLineFieldCaptionPosition   = big.NewInt(1 << 43)
-	annotationDraftLineFieldCaptionOffset     = big.NewInt(1 << 44)
-	annotationDraftLineFieldLeader            = big.NewInt(1 << 45)
+	annotationDraftLineFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftLineFieldColor             = big.NewInt(1 << 32)
+	annotationDraftLineFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftLineFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftLineFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftLineFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftLineFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationDraftLineFieldLinePoints        = big.NewInt(1 << 38)
+	annotationDraftLineFieldLineEndings       = big.NewInt(1 << 39)
+	annotationDraftLineFieldRotation          = big.NewInt(1 << 40)
+	annotationDraftLineFieldIntent            = big.NewInt(1 << 41)
+	annotationDraftLineFieldMeasure           = big.NewInt(1 << 42)
+	annotationDraftLineFieldCaptionEnabled    = big.NewInt(1 << 43)
+	annotationDraftLineFieldCaptionPosition   = big.NewInt(1 << 44)
+	annotationDraftLineFieldCaptionOffset     = big.NewInt(1 << 45)
+	annotationDraftLineFieldLeader            = big.NewInt(1 << 46)
 )
 
 type AnnotationDraftLine struct {
@@ -9825,6 +8526,7 @@ type AnnotationDraftLine struct {
 	ModifiedBy        any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                 `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput              `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                             `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -10063,6 +8765,13 @@ func (a *AnnotationDraftLine) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftLine) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftLine) GetColor() *string {
@@ -10399,6 +9108,13 @@ func (a *AnnotationDraftLine) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftLine) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftLineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftLine) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftLineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -14941,19 +13657,20 @@ var (
 	annotationDraftPolygonFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftPolygonFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftPolygonFieldActions           = big.NewInt(1 << 30)
-	annotationDraftPolygonFieldColor             = big.NewInt(1 << 31)
-	annotationDraftPolygonFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftPolygonFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftPolygonFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftPolygonFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftPolygonFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationDraftPolygonFieldVertices          = big.NewInt(1 << 37)
-	annotationDraftPolygonFieldRotation          = big.NewInt(1 << 38)
-	annotationDraftPolygonFieldCaptionEnabled    = big.NewInt(1 << 39)
-	annotationDraftPolygonFieldCaptionCenter     = big.NewInt(1 << 40)
-	annotationDraftPolygonFieldIntent            = big.NewInt(1 << 41)
-	annotationDraftPolygonFieldMeasure           = big.NewInt(1 << 42)
-	annotationDraftPolygonFieldCloudyIntensity   = big.NewInt(1 << 43)
+	annotationDraftPolygonFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftPolygonFieldColor             = big.NewInt(1 << 32)
+	annotationDraftPolygonFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftPolygonFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftPolygonFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftPolygonFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftPolygonFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationDraftPolygonFieldVertices          = big.NewInt(1 << 38)
+	annotationDraftPolygonFieldRotation          = big.NewInt(1 << 39)
+	annotationDraftPolygonFieldCaptionEnabled    = big.NewInt(1 << 40)
+	annotationDraftPolygonFieldCaptionCenter     = big.NewInt(1 << 41)
+	annotationDraftPolygonFieldIntent            = big.NewInt(1 << 42)
+	annotationDraftPolygonFieldMeasure           = big.NewInt(1 << 43)
+	annotationDraftPolygonFieldCloudyIntensity   = big.NewInt(1 << 44)
 )
 
 type AnnotationDraftPolygon struct {
@@ -14988,6 +13705,7 @@ type AnnotationDraftPolygon struct {
 	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -15224,6 +13942,13 @@ func (a *AnnotationDraftPolygon) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftPolygon) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftPolygon) GetColor() *string {
@@ -15546,6 +14271,13 @@ func (a *AnnotationDraftPolygon) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftPolygon) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftPolygonFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftPolygon) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftPolygonFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -18646,19 +17378,20 @@ var (
 	annotationDraftPolylineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftPolylineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftPolylineFieldActions           = big.NewInt(1 << 30)
-	annotationDraftPolylineFieldColor             = big.NewInt(1 << 31)
-	annotationDraftPolylineFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftPolylineFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftPolylineFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftPolylineFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftPolylineFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationDraftPolylineFieldVertices          = big.NewInt(1 << 37)
-	annotationDraftPolylineFieldRotation          = big.NewInt(1 << 38)
-	annotationDraftPolylineFieldCaptionEnabled    = big.NewInt(1 << 39)
-	annotationDraftPolylineFieldCaptionCenter     = big.NewInt(1 << 40)
-	annotationDraftPolylineFieldIntent            = big.NewInt(1 << 41)
-	annotationDraftPolylineFieldMeasure           = big.NewInt(1 << 42)
-	annotationDraftPolylineFieldLineEndings       = big.NewInt(1 << 43)
+	annotationDraftPolylineFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftPolylineFieldColor             = big.NewInt(1 << 32)
+	annotationDraftPolylineFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftPolylineFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftPolylineFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftPolylineFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftPolylineFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationDraftPolylineFieldVertices          = big.NewInt(1 << 38)
+	annotationDraftPolylineFieldRotation          = big.NewInt(1 << 39)
+	annotationDraftPolylineFieldCaptionEnabled    = big.NewInt(1 << 40)
+	annotationDraftPolylineFieldCaptionCenter     = big.NewInt(1 << 41)
+	annotationDraftPolylineFieldIntent            = big.NewInt(1 << 42)
+	annotationDraftPolylineFieldMeasure           = big.NewInt(1 << 43)
+	annotationDraftPolylineFieldLineEndings       = big.NewInt(1 << 44)
 )
 
 type AnnotationDraftPolyline struct {
@@ -18693,6 +17426,7 @@ type AnnotationDraftPolyline struct {
 	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                 `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                               `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -18929,6 +17663,13 @@ func (a *AnnotationDraftPolyline) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftPolyline) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftPolyline) GetColor() *string {
@@ -19251,6 +17992,13 @@ func (a *AnnotationDraftPolyline) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftPolyline) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftPolylineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftPolyline) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftPolylineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -23454,16 +22202,17 @@ var (
 	annotationDraftRedactFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftRedactFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftRedactFieldActions           = big.NewInt(1 << 30)
-	annotationDraftRedactFieldColor             = big.NewInt(1 << 31)
-	annotationDraftRedactFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftRedactFieldQuadPoints        = big.NewInt(1 << 33)
-	annotationDraftRedactFieldInteriorColor     = big.NewInt(1 << 34)
-	annotationDraftRedactFieldOverlayText       = big.NewInt(1 << 35)
-	annotationDraftRedactFieldRepeat            = big.NewInt(1 << 36)
-	annotationDraftRedactFieldFontFamily        = big.NewInt(1 << 37)
-	annotationDraftRedactFieldFontSize          = big.NewInt(1 << 38)
-	annotationDraftRedactFieldFontColor         = big.NewInt(1 << 39)
-	annotationDraftRedactFieldTextAlign         = big.NewInt(1 << 40)
+	annotationDraftRedactFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftRedactFieldColor             = big.NewInt(1 << 32)
+	annotationDraftRedactFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftRedactFieldQuadPoints        = big.NewInt(1 << 34)
+	annotationDraftRedactFieldInteriorColor     = big.NewInt(1 << 35)
+	annotationDraftRedactFieldOverlayText       = big.NewInt(1 << 36)
+	annotationDraftRedactFieldRepeat            = big.NewInt(1 << 37)
+	annotationDraftRedactFieldFontFamily        = big.NewInt(1 << 38)
+	annotationDraftRedactFieldFontSize          = big.NewInt(1 << 39)
+	annotationDraftRedactFieldFontColor         = big.NewInt(1 << 40)
+	annotationDraftRedactFieldTextAlign         = big.NewInt(1 << 41)
 )
 
 type AnnotationDraftRedact struct {
@@ -23498,6 +22247,7 @@ type AnnotationDraftRedact struct {
 	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                 `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationDraftRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -23731,6 +22481,13 @@ func (a *AnnotationDraftRedact) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftRedact) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftRedact) GetColor() *string {
@@ -24032,6 +22789,13 @@ func (a *AnnotationDraftRedact) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftRedact) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftRedactFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftRedact) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftRedactFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -25053,15 +23817,16 @@ var (
 	annotationDraftSquareFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftSquareFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftSquareFieldActions           = big.NewInt(1 << 30)
-	annotationDraftSquareFieldColor             = big.NewInt(1 << 31)
-	annotationDraftSquareFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftSquareFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationDraftSquareFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationDraftSquareFieldDashArray         = big.NewInt(1 << 35)
-	annotationDraftSquareFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationDraftSquareFieldBox               = big.NewInt(1 << 37)
-	annotationDraftSquareFieldRotation          = big.NewInt(1 << 38)
-	annotationDraftSquareFieldCloudyIntensity   = big.NewInt(1 << 39)
+	annotationDraftSquareFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftSquareFieldColor             = big.NewInt(1 << 32)
+	annotationDraftSquareFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftSquareFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationDraftSquareFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationDraftSquareFieldDashArray         = big.NewInt(1 << 36)
+	annotationDraftSquareFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationDraftSquareFieldBox               = big.NewInt(1 << 38)
+	annotationDraftSquareFieldRotation          = big.NewInt(1 << 39)
+	annotationDraftSquareFieldCloudyIntensity   = big.NewInt(1 << 40)
 )
 
 type AnnotationDraftSquare struct {
@@ -25096,6 +23861,7 @@ type AnnotationDraftSquare struct {
 	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput            `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -25328,6 +24094,13 @@ func (a *AnnotationDraftSquare) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftSquare) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftSquare) GetColor() *string {
@@ -25622,6 +24395,13 @@ func (a *AnnotationDraftSquare) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftSquare) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftSquareFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftSquare) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftSquareFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -26233,9 +25013,10 @@ var (
 	annotationDraftSquigglyFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftSquigglyFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftSquigglyFieldActions           = big.NewInt(1 << 30)
-	annotationDraftSquigglyFieldColor             = big.NewInt(1 << 31)
-	annotationDraftSquigglyFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftSquigglyFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationDraftSquigglyFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftSquigglyFieldColor             = big.NewInt(1 << 32)
+	annotationDraftSquigglyFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftSquigglyFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationDraftSquiggly struct {
@@ -26270,6 +25051,7 @@ type AnnotationDraftSquiggly struct {
 	ModifiedBy        any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                      `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                   `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                  `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationDraftSquigglyQuadPointsItem `json:"quadPoints" url:"quadPoints"`
@@ -26496,6 +25278,13 @@ func (a *AnnotationDraftSquiggly) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftSquiggly) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftSquiggly) GetColor() *string {
@@ -26748,6 +25537,13 @@ func (a *AnnotationDraftSquiggly) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftSquiggly) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftSquigglyFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftSquiggly) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftSquigglyFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -27695,11 +26491,12 @@ var (
 	annotationDraftStampFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftStampFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftStampFieldActions           = big.NewInt(1 << 30)
-	annotationDraftStampFieldBox               = big.NewInt(1 << 31)
-	annotationDraftStampFieldRotation          = big.NewInt(1 << 32)
-	annotationDraftStampFieldName              = big.NewInt(1 << 33)
-	annotationDraftStampFieldFit               = big.NewInt(1 << 34)
-	annotationDraftStampFieldOpacity           = big.NewInt(1 << 35)
+	annotationDraftStampFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftStampFieldBox               = big.NewInt(1 << 32)
+	annotationDraftStampFieldRotation          = big.NewInt(1 << 33)
+	annotationDraftStampFieldName              = big.NewInt(1 << 34)
+	annotationDraftStampFieldFit               = big.NewInt(1 << 35)
+	annotationDraftStampFieldOpacity           = big.NewInt(1 << 36)
 )
 
 type AnnotationDraftStamp struct {
@@ -27734,6 +26531,7 @@ type AnnotationDraftStamp struct {
 	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput         `json:"richText,omitempty" url:"richText,omitempty"`
 	Box               *AnnotationDraftStampBox       `json:"box,omitempty" url:"box,omitempty"`
 	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
 	Name              *string                        `json:"name,omitempty" url:"name,omitempty"`
@@ -27962,6 +26760,13 @@ func (a *AnnotationDraftStamp) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftStamp) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftStamp) GetBox() *AnnotationDraftStampBox {
@@ -28228,6 +27033,13 @@ func (a *AnnotationDraftStamp) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftStamp) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftStampFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftStamp) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftStampFieldRichText)
 }
 
 // SetBox sets the Box field and marks it as non-optional;
@@ -28814,10 +27626,11 @@ var (
 	annotationDraftStrikeoutFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftStrikeoutFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftStrikeoutFieldActions           = big.NewInt(1 << 30)
-	annotationDraftStrikeoutFieldColor             = big.NewInt(1 << 31)
-	annotationDraftStrikeoutFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftStrikeoutFieldQuadPoints        = big.NewInt(1 << 33)
-	annotationDraftStrikeoutFieldIntent            = big.NewInt(1 << 34)
+	annotationDraftStrikeoutFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftStrikeoutFieldColor             = big.NewInt(1 << 32)
+	annotationDraftStrikeoutFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftStrikeoutFieldQuadPoints        = big.NewInt(1 << 34)
+	annotationDraftStrikeoutFieldIntent            = big.NewInt(1 << 35)
 )
 
 type AnnotationDraftStrikeout struct {
@@ -28852,6 +27665,7 @@ type AnnotationDraftStrikeout struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationDraftStrikeoutQuadPointsItem `json:"quadPoints" url:"quadPoints"`
@@ -29079,6 +27893,13 @@ func (a *AnnotationDraftStrikeout) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftStrikeout) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftStrikeout) GetColor() *string {
@@ -29338,6 +28159,13 @@ func (a *AnnotationDraftStrikeout) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftStrikeout) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftStrikeoutFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftStrikeout) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftStrikeoutFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -30311,12 +29139,13 @@ var (
 	annotationDraftTextFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftTextFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftTextFieldActions           = big.NewInt(1 << 30)
-	annotationDraftTextFieldColor             = big.NewInt(1 << 31)
-	annotationDraftTextFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftTextFieldIcon              = big.NewInt(1 << 33)
-	annotationDraftTextFieldOpen              = big.NewInt(1 << 34)
-	annotationDraftTextFieldState             = big.NewInt(1 << 35)
-	annotationDraftTextFieldStateModel        = big.NewInt(1 << 36)
+	annotationDraftTextFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftTextFieldColor             = big.NewInt(1 << 32)
+	annotationDraftTextFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftTextFieldIcon              = big.NewInt(1 << 34)
+	annotationDraftTextFieldOpen              = big.NewInt(1 << 35)
+	annotationDraftTextFieldState             = big.NewInt(1 << 36)
+	annotationDraftTextFieldStateModel        = big.NewInt(1 << 37)
 )
 
 type AnnotationDraftText struct {
@@ -30351,6 +29180,7 @@ type AnnotationDraftText struct {
 	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput        `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                       `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Icon              *AnnotationDraftTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
@@ -30580,6 +29410,13 @@ func (a *AnnotationDraftText) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftText) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftText) GetColor() *string {
@@ -30853,6 +29690,13 @@ func (a *AnnotationDraftText) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftText) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftTextFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftText) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftTextFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -31326,9 +30170,10 @@ var (
 	annotationDraftUnderlineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationDraftUnderlineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationDraftUnderlineFieldActions           = big.NewInt(1 << 30)
-	annotationDraftUnderlineFieldColor             = big.NewInt(1 << 31)
-	annotationDraftUnderlineFieldOpacity           = big.NewInt(1 << 32)
-	annotationDraftUnderlineFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationDraftUnderlineFieldRichText          = big.NewInt(1 << 31)
+	annotationDraftUnderlineFieldColor             = big.NewInt(1 << 32)
+	annotationDraftUnderlineFieldOpacity           = big.NewInt(1 << 33)
+	annotationDraftUnderlineFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationDraftUnderline struct {
@@ -31363,6 +30208,7 @@ type AnnotationDraftUnderline struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationDraftUnderlineQuadPointsItem `json:"quadPoints" url:"quadPoints"`
@@ -31589,6 +30435,13 @@ func (a *AnnotationDraftUnderline) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationDraftUnderline) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationDraftUnderline) GetColor() *string {
@@ -31841,6 +30694,13 @@ func (a *AnnotationDraftUnderline) SetImportedBy(importedBy any) {
 func (a *AnnotationDraftUnderline) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationDraftUnderlineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftUnderline) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationDraftUnderlineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -34666,11 +33526,12 @@ var (
 	annotationPatchCaretFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchCaretFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchCaretFieldActions           = big.NewInt(1 << 30)
-	annotationPatchCaretFieldColor             = big.NewInt(1 << 31)
-	annotationPatchCaretFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchCaretFieldBox               = big.NewInt(1 << 33)
-	annotationPatchCaretFieldRotation          = big.NewInt(1 << 34)
-	annotationPatchCaretFieldIntent            = big.NewInt(1 << 35)
+	annotationPatchCaretFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchCaretFieldColor             = big.NewInt(1 << 32)
+	annotationPatchCaretFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchCaretFieldBox               = big.NewInt(1 << 34)
+	annotationPatchCaretFieldRotation          = big.NewInt(1 << 35)
+	annotationPatchCaretFieldIntent            = big.NewInt(1 << 36)
 )
 
 type AnnotationPatchCaret struct {
@@ -34705,6 +33566,7 @@ type AnnotationPatchCaret struct {
 	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput         `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Box               *AnnotationPatchCaretBox       `json:"box,omitempty" url:"box,omitempty"`
@@ -34933,6 +33795,13 @@ func (a *AnnotationPatchCaret) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchCaret) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchCaret) GetColor() *string {
@@ -35199,6 +34068,13 @@ func (a *AnnotationPatchCaret) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchCaret) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchCaretFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchCaret) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchCaretFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -35779,15 +34655,16 @@ var (
 	annotationPatchCircleFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchCircleFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchCircleFieldActions           = big.NewInt(1 << 30)
-	annotationPatchCircleFieldColor             = big.NewInt(1 << 31)
-	annotationPatchCircleFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchCircleFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchCircleFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchCircleFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchCircleFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationPatchCircleFieldBox               = big.NewInt(1 << 37)
-	annotationPatchCircleFieldRotation          = big.NewInt(1 << 38)
-	annotationPatchCircleFieldCloudyIntensity   = big.NewInt(1 << 39)
+	annotationPatchCircleFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchCircleFieldColor             = big.NewInt(1 << 32)
+	annotationPatchCircleFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchCircleFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchCircleFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchCircleFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchCircleFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationPatchCircleFieldBox               = big.NewInt(1 << 38)
+	annotationPatchCircleFieldRotation          = big.NewInt(1 << 39)
+	annotationPatchCircleFieldCloudyIntensity   = big.NewInt(1 << 40)
 )
 
 type AnnotationPatchCircle struct {
@@ -35822,6 +34699,7 @@ type AnnotationPatchCircle struct {
 	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput            `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -36054,6 +34932,13 @@ func (a *AnnotationPatchCircle) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchCircle) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchCircle) GetColor() *string {
@@ -36348,6 +35233,13 @@ func (a *AnnotationPatchCircle) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchCircle) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchCircleFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchCircle) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchCircleFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -37049,10 +35941,11 @@ var (
 	annotationPatchFileAttachmentFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchFileAttachmentFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchFileAttachmentFieldActions           = big.NewInt(1 << 30)
-	annotationPatchFileAttachmentFieldColor             = big.NewInt(1 << 31)
-	annotationPatchFileAttachmentFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchFileAttachmentFieldIcon              = big.NewInt(1 << 33)
-	annotationPatchFileAttachmentFieldFile              = big.NewInt(1 << 34)
+	annotationPatchFileAttachmentFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchFileAttachmentFieldColor             = big.NewInt(1 << 32)
+	annotationPatchFileAttachmentFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchFileAttachmentFieldIcon              = big.NewInt(1 << 34)
+	annotationPatchFileAttachmentFieldFile              = big.NewInt(1 << 35)
 )
 
 type AnnotationPatchFileAttachment struct {
@@ -37087,6 +35980,7 @@ type AnnotationPatchFileAttachment struct {
 	ModifiedBy        any                                     `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                     `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                     `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                  `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                 `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Icon              *AnnotationPatchFileAttachmentIcon      `json:"icon,omitempty" url:"icon,omitempty"`
@@ -37314,6 +36208,13 @@ func (a *AnnotationPatchFileAttachment) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchFileAttachment) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchFileAttachment) GetColor() *string {
@@ -37573,6 +36474,13 @@ func (a *AnnotationPatchFileAttachment) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchFileAttachment) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchFileAttachmentFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchFileAttachment) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchFileAttachmentFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -38139,14 +37047,14 @@ var (
 	annotationPatchFreeTextFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchFreeTextFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchFreeTextFieldActions           = big.NewInt(1 << 30)
-	annotationPatchFreeTextFieldBox               = big.NewInt(1 << 31)
-	annotationPatchFreeTextFieldRotation          = big.NewInt(1 << 32)
-	annotationPatchFreeTextFieldIntent            = big.NewInt(1 << 33)
-	annotationPatchFreeTextFieldFontFamily        = big.NewInt(1 << 34)
-	annotationPatchFreeTextFieldFontSize          = big.NewInt(1 << 35)
-	annotationPatchFreeTextFieldTextAlign         = big.NewInt(1 << 36)
-	annotationPatchFreeTextFieldVerticalAlign     = big.NewInt(1 << 37)
-	annotationPatchFreeTextFieldRichText          = big.NewInt(1 << 38)
+	annotationPatchFreeTextFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchFreeTextFieldBox               = big.NewInt(1 << 32)
+	annotationPatchFreeTextFieldRotation          = big.NewInt(1 << 33)
+	annotationPatchFreeTextFieldIntent            = big.NewInt(1 << 34)
+	annotationPatchFreeTextFieldFontFamily        = big.NewInt(1 << 35)
+	annotationPatchFreeTextFieldFontSize          = big.NewInt(1 << 36)
+	annotationPatchFreeTextFieldTextAlign         = big.NewInt(1 << 37)
+	annotationPatchFreeTextFieldVerticalAlign     = big.NewInt(1 << 38)
 	annotationPatchFreeTextFieldColor             = big.NewInt(1 << 39)
 	annotationPatchFreeTextFieldFontColor         = big.NewInt(1 << 40)
 	annotationPatchFreeTextFieldInteriorColor     = big.NewInt(1 << 41)
@@ -38191,6 +37099,7 @@ type AnnotationPatchFreeText struct {
 	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                `json:"richText,omitempty" url:"richText,omitempty"`
 	Box               *AnnotationPatchFreeTextBox           `json:"box,omitempty" url:"box,omitempty"`
 	Rotation          *float64                              `json:"rotation,omitempty" url:"rotation,omitempty"`
 	Intent            *AnnotationPatchFreeTextIntent        `json:"intent,omitempty" url:"intent,omitempty"`
@@ -38198,7 +37107,6 @@ type AnnotationPatchFreeText struct {
 	FontSize          *float64                              `json:"fontSize,omitempty" url:"fontSize,omitempty"`
 	TextAlign         *AnnotationPatchFreeTextTextAlign     `json:"textAlign,omitempty" url:"textAlign,omitempty"`
 	VerticalAlign     *AnnotationPatchFreeTextVerticalAlign `json:"verticalAlign,omitempty" url:"verticalAlign,omitempty"`
-	RichText          *AnnotationPatchFreeTextRichText      `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
 	FontColor         *string                               `json:"fontColor,omitempty" url:"fontColor,omitempty"`
 	InteriorColor     *string                               `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
@@ -38434,6 +37342,13 @@ func (a *AnnotationPatchFreeText) GetActions() any {
 	return a.Actions
 }
 
+func (a *AnnotationPatchFreeText) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
+}
+
 func (a *AnnotationPatchFreeText) GetBox() *AnnotationPatchFreeTextBox {
 	if a == nil {
 		return nil
@@ -38481,13 +37396,6 @@ func (a *AnnotationPatchFreeText) GetVerticalAlign() *AnnotationPatchFreeTextVer
 		return nil
 	}
 	return a.VerticalAlign
-}
-
-func (a *AnnotationPatchFreeText) GetRichText() *AnnotationPatchFreeTextRichText {
-	if a == nil {
-		return nil
-	}
-	return a.RichText
 }
 
 func (a *AnnotationPatchFreeText) GetColor() *string {
@@ -38791,6 +37699,13 @@ func (a *AnnotationPatchFreeText) SetActions(actions any) {
 	a.require(annotationPatchFreeTextFieldActions)
 }
 
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchFreeText) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchFreeTextFieldRichText)
+}
+
 // SetBox sets the Box field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (a *AnnotationPatchFreeText) SetBox(box *AnnotationPatchFreeTextBox) {
@@ -38838,13 +37753,6 @@ func (a *AnnotationPatchFreeText) SetTextAlign(textAlign *AnnotationPatchFreeTex
 func (a *AnnotationPatchFreeText) SetVerticalAlign(verticalAlign *AnnotationPatchFreeTextVerticalAlign) {
 	a.VerticalAlign = verticalAlign
 	a.require(annotationPatchFreeTextFieldVerticalAlign)
-}
-
-// SetRichText sets the RichText field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeText) SetRichText(richText *AnnotationPatchFreeTextRichText) {
-	a.RichText = richText
-	a.require(annotationPatchFreeTextFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -39676,1386 +38584,6 @@ func (a AnnotationPatchFreeTextReplyType) Ptr() *AnnotationPatchFreeTextReplyTyp
 	return &a
 }
 
-var (
-	annotationPatchFreeTextRichTextFieldBody       = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextFieldParagraphs = big.NewInt(1 << 1)
-)
-
-type AnnotationPatchFreeTextRichText struct {
-	Body       *AnnotationPatchFreeTextRichTextBody             `json:"body,omitempty" url:"body,omitempty"`
-	Paragraphs []*AnnotationPatchFreeTextRichTextParagraphsItem `json:"paragraphs" url:"paragraphs"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichText) GetBody() *AnnotationPatchFreeTextRichTextBody {
-	if a == nil {
-		return nil
-	}
-	return a.Body
-}
-
-func (a *AnnotationPatchFreeTextRichText) GetParagraphs() []*AnnotationPatchFreeTextRichTextParagraphsItem {
-	if a == nil {
-		return nil
-	}
-	return a.Paragraphs
-}
-
-func (a *AnnotationPatchFreeTextRichText) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichText) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetBody sets the Body field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichText) SetBody(body *AnnotationPatchFreeTextRichTextBody) {
-	a.Body = body
-	a.require(annotationPatchFreeTextRichTextFieldBody)
-}
-
-// SetParagraphs sets the Paragraphs field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichText) SetParagraphs(paragraphs []*AnnotationPatchFreeTextRichTextParagraphsItem) {
-	a.Paragraphs = paragraphs
-	a.require(annotationPatchFreeTextRichTextFieldParagraphs)
-}
-
-func (a *AnnotationPatchFreeTextRichText) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichText
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichText(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichText) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichText
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichText) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationPatchFreeTextRichTextBodyFieldFamily          = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextBodyFieldWeight          = big.NewInt(1 << 1)
-	annotationPatchFreeTextRichTextBodyFieldItalic          = big.NewInt(1 << 2)
-	annotationPatchFreeTextRichTextBodyFieldSize            = big.NewInt(1 << 3)
-	annotationPatchFreeTextRichTextBodyFieldColor           = big.NewInt(1 << 4)
-	annotationPatchFreeTextRichTextBodyFieldDecoration      = big.NewInt(1 << 5)
-	annotationPatchFreeTextRichTextBodyFieldScript          = big.NewInt(1 << 6)
-	annotationPatchFreeTextRichTextBodyFieldLetterSpacing   = big.NewInt(1 << 7)
-	annotationPatchFreeTextRichTextBodyFieldHorizontalScale = big.NewInt(1 << 8)
-	annotationPatchFreeTextRichTextBodyFieldUnknown         = big.NewInt(1 << 9)
-	annotationPatchFreeTextRichTextBodyFieldAlign           = big.NewInt(1 << 10)
-	annotationPatchFreeTextRichTextBodyFieldDir             = big.NewInt(1 << 11)
-	annotationPatchFreeTextRichTextBodyFieldLineHeight      = big.NewInt(1 << 12)
-	annotationPatchFreeTextRichTextBodyFieldMargins         = big.NewInt(1 << 13)
-	annotationPatchFreeTextRichTextBodyFieldTextIndent      = big.NewInt(1 << 14)
-)
-
-type AnnotationPatchFreeTextRichTextBody struct {
-	Family          *string                                             `json:"family,omitempty" url:"family,omitempty"`
-	Weight          *int                                                `json:"weight,omitempty" url:"weight,omitempty"`
-	Italic          *bool                                               `json:"italic,omitempty" url:"italic,omitempty"`
-	Size            *float64                                            `json:"size,omitempty" url:"size,omitempty"`
-	Color           *string                                             `json:"color,omitempty" url:"color,omitempty"`
-	Decoration      []AnnotationPatchFreeTextRichTextBodyDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
-	Script          *AnnotationPatchFreeTextRichTextBodyScript          `json:"script,omitempty" url:"script,omitempty"`
-	LetterSpacing   *float64                                            `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
-	HorizontalScale *float64                                            `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
-	Unknown         *string                                             `json:"unknown,omitempty" url:"unknown,omitempty"`
-	Align           *AnnotationPatchFreeTextRichTextBodyAlign           `json:"align,omitempty" url:"align,omitempty"`
-	Dir             *AnnotationPatchFreeTextRichTextBodyDir             `json:"dir,omitempty" url:"dir,omitempty"`
-	LineHeight      *float64                                            `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
-	Margins         *AnnotationPatchFreeTextRichTextBodyMargins         `json:"margins,omitempty" url:"margins,omitempty"`
-	TextIndent      *float64                                            `json:"textIndent,omitempty" url:"textIndent,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetFamily() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Family
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetWeight() *int {
-	if a == nil {
-		return nil
-	}
-	return a.Weight
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetItalic() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Italic
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetSize() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.Size
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetColor() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Color
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetDecoration() []AnnotationPatchFreeTextRichTextBodyDecorationItem {
-	if a == nil {
-		return nil
-	}
-	return a.Decoration
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetScript() *AnnotationPatchFreeTextRichTextBodyScript {
-	if a == nil {
-		return nil
-	}
-	return a.Script
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetLetterSpacing() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LetterSpacing
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetHorizontalScale() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.HorizontalScale
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetAlign() *AnnotationPatchFreeTextRichTextBodyAlign {
-	if a == nil {
-		return nil
-	}
-	return a.Align
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetDir() *AnnotationPatchFreeTextRichTextBodyDir {
-	if a == nil {
-		return nil
-	}
-	return a.Dir
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetLineHeight() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LineHeight
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetMargins() *AnnotationPatchFreeTextRichTextBodyMargins {
-	if a == nil {
-		return nil
-	}
-	return a.Margins
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetTextIndent() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.TextIndent
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetFamily sets the Family field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetFamily(family *string) {
-	a.Family = family
-	a.require(annotationPatchFreeTextRichTextBodyFieldFamily)
-}
-
-// SetWeight sets the Weight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetWeight(weight *int) {
-	a.Weight = weight
-	a.require(annotationPatchFreeTextRichTextBodyFieldWeight)
-}
-
-// SetItalic sets the Italic field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetItalic(italic *bool) {
-	a.Italic = italic
-	a.require(annotationPatchFreeTextRichTextBodyFieldItalic)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetSize(size *float64) {
-	a.Size = size
-	a.require(annotationPatchFreeTextRichTextBodyFieldSize)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetColor(color *string) {
-	a.Color = color
-	a.require(annotationPatchFreeTextRichTextBodyFieldColor)
-}
-
-// SetDecoration sets the Decoration field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetDecoration(decoration []AnnotationPatchFreeTextRichTextBodyDecorationItem) {
-	a.Decoration = decoration
-	a.require(annotationPatchFreeTextRichTextBodyFieldDecoration)
-}
-
-// SetScript sets the Script field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetScript(script *AnnotationPatchFreeTextRichTextBodyScript) {
-	a.Script = script
-	a.require(annotationPatchFreeTextRichTextBodyFieldScript)
-}
-
-// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetLetterSpacing(letterSpacing *float64) {
-	a.LetterSpacing = letterSpacing
-	a.require(annotationPatchFreeTextRichTextBodyFieldLetterSpacing)
-}
-
-// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetHorizontalScale(horizontalScale *float64) {
-	a.HorizontalScale = horizontalScale
-	a.require(annotationPatchFreeTextRichTextBodyFieldHorizontalScale)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationPatchFreeTextRichTextBodyFieldUnknown)
-}
-
-// SetAlign sets the Align field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetAlign(align *AnnotationPatchFreeTextRichTextBodyAlign) {
-	a.Align = align
-	a.require(annotationPatchFreeTextRichTextBodyFieldAlign)
-}
-
-// SetDir sets the Dir field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetDir(dir *AnnotationPatchFreeTextRichTextBodyDir) {
-	a.Dir = dir
-	a.require(annotationPatchFreeTextRichTextBodyFieldDir)
-}
-
-// SetLineHeight sets the LineHeight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetLineHeight(lineHeight *float64) {
-	a.LineHeight = lineHeight
-	a.require(annotationPatchFreeTextRichTextBodyFieldLineHeight)
-}
-
-// SetMargins sets the Margins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetMargins(margins *AnnotationPatchFreeTextRichTextBodyMargins) {
-	a.Margins = margins
-	a.require(annotationPatchFreeTextRichTextBodyFieldMargins)
-}
-
-// SetTextIndent sets the TextIndent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBody) SetTextIndent(textIndent *float64) {
-	a.TextIndent = textIndent
-	a.require(annotationPatchFreeTextRichTextBodyFieldTextIndent)
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextBody
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextBody(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextBody
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextBody) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationPatchFreeTextRichTextBodyAlign string
-
-const (
-	AnnotationPatchFreeTextRichTextBodyAlignLeft    AnnotationPatchFreeTextRichTextBodyAlign = "left"
-	AnnotationPatchFreeTextRichTextBodyAlignCenter  AnnotationPatchFreeTextRichTextBodyAlign = "center"
-	AnnotationPatchFreeTextRichTextBodyAlignRight   AnnotationPatchFreeTextRichTextBodyAlign = "right"
-	AnnotationPatchFreeTextRichTextBodyAlignJustify AnnotationPatchFreeTextRichTextBodyAlign = "justify"
-)
-
-func NewAnnotationPatchFreeTextRichTextBodyAlignFromString(s string) (AnnotationPatchFreeTextRichTextBodyAlign, error) {
-	switch s {
-	case "left":
-		return AnnotationPatchFreeTextRichTextBodyAlignLeft, nil
-	case "center":
-		return AnnotationPatchFreeTextRichTextBodyAlignCenter, nil
-	case "right":
-		return AnnotationPatchFreeTextRichTextBodyAlignRight, nil
-	case "justify":
-		return AnnotationPatchFreeTextRichTextBodyAlignJustify, nil
-	}
-	var t AnnotationPatchFreeTextRichTextBodyAlign
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextBodyAlign) Ptr() *AnnotationPatchFreeTextRichTextBodyAlign {
-	return &a
-}
-
-type AnnotationPatchFreeTextRichTextBodyDecorationItem string
-
-const (
-	AnnotationPatchFreeTextRichTextBodyDecorationItemUnderline   AnnotationPatchFreeTextRichTextBodyDecorationItem = "underline"
-	AnnotationPatchFreeTextRichTextBodyDecorationItemLineThrough AnnotationPatchFreeTextRichTextBodyDecorationItem = "line-through"
-	AnnotationPatchFreeTextRichTextBodyDecorationItemWord        AnnotationPatchFreeTextRichTextBodyDecorationItem = "word"
-)
-
-func NewAnnotationPatchFreeTextRichTextBodyDecorationItemFromString(s string) (AnnotationPatchFreeTextRichTextBodyDecorationItem, error) {
-	switch s {
-	case "underline":
-		return AnnotationPatchFreeTextRichTextBodyDecorationItemUnderline, nil
-	case "line-through":
-		return AnnotationPatchFreeTextRichTextBodyDecorationItemLineThrough, nil
-	case "word":
-		return AnnotationPatchFreeTextRichTextBodyDecorationItemWord, nil
-	}
-	var t AnnotationPatchFreeTextRichTextBodyDecorationItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextBodyDecorationItem) Ptr() *AnnotationPatchFreeTextRichTextBodyDecorationItem {
-	return &a
-}
-
-type AnnotationPatchFreeTextRichTextBodyDir string
-
-const (
-	AnnotationPatchFreeTextRichTextBodyDirLtr AnnotationPatchFreeTextRichTextBodyDir = "ltr"
-	AnnotationPatchFreeTextRichTextBodyDirRtl AnnotationPatchFreeTextRichTextBodyDir = "rtl"
-)
-
-func NewAnnotationPatchFreeTextRichTextBodyDirFromString(s string) (AnnotationPatchFreeTextRichTextBodyDir, error) {
-	switch s {
-	case "ltr":
-		return AnnotationPatchFreeTextRichTextBodyDirLtr, nil
-	case "rtl":
-		return AnnotationPatchFreeTextRichTextBodyDirRtl, nil
-	}
-	var t AnnotationPatchFreeTextRichTextBodyDir
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextBodyDir) Ptr() *AnnotationPatchFreeTextRichTextBodyDir {
-	return &a
-}
-
-var (
-	annotationPatchFreeTextRichTextBodyMarginsFieldTop    = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextBodyMarginsFieldBottom = big.NewInt(1 << 1)
-	annotationPatchFreeTextRichTextBodyMarginsFieldLeft   = big.NewInt(1 << 2)
-	annotationPatchFreeTextRichTextBodyMarginsFieldRight  = big.NewInt(1 << 3)
-)
-
-type AnnotationPatchFreeTextRichTextBodyMargins struct {
-	Top    float64 `json:"top" url:"top"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Left   float64 `json:"left" url:"left"`
-	Right  float64 `json:"right" url:"right"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) GetTop() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Top
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) GetBottom() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Bottom
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) GetLeft() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Left
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) GetRight() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Right
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) SetTop(top float64) {
-	a.Top = top
-	a.require(annotationPatchFreeTextRichTextBodyMarginsFieldTop)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) SetBottom(bottom float64) {
-	a.Bottom = bottom
-	a.require(annotationPatchFreeTextRichTextBodyMarginsFieldBottom)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) SetLeft(left float64) {
-	a.Left = left
-	a.require(annotationPatchFreeTextRichTextBodyMarginsFieldLeft)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) SetRight(right float64) {
-	a.Right = right
-	a.require(annotationPatchFreeTextRichTextBodyMarginsFieldRight)
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextBodyMargins
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextBodyMargins(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextBodyMargins
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextBodyMargins) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationPatchFreeTextRichTextBodyScript string
-
-const (
-	AnnotationPatchFreeTextRichTextBodyScriptNormal AnnotationPatchFreeTextRichTextBodyScript = "normal"
-	AnnotationPatchFreeTextRichTextBodyScriptSub    AnnotationPatchFreeTextRichTextBodyScript = "sub"
-	AnnotationPatchFreeTextRichTextBodyScriptSuper  AnnotationPatchFreeTextRichTextBodyScript = "super"
-)
-
-func NewAnnotationPatchFreeTextRichTextBodyScriptFromString(s string) (AnnotationPatchFreeTextRichTextBodyScript, error) {
-	switch s {
-	case "normal":
-		return AnnotationPatchFreeTextRichTextBodyScriptNormal, nil
-	case "sub":
-		return AnnotationPatchFreeTextRichTextBodyScriptSub, nil
-	case "super":
-		return AnnotationPatchFreeTextRichTextBodyScriptSuper, nil
-	}
-	var t AnnotationPatchFreeTextRichTextBodyScript
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextBodyScript) Ptr() *AnnotationPatchFreeTextRichTextBodyScript {
-	return &a
-}
-
-var (
-	annotationPatchFreeTextRichTextParagraphsItemFieldAlign      = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextParagraphsItemFieldDir        = big.NewInt(1 << 1)
-	annotationPatchFreeTextRichTextParagraphsItemFieldLineHeight = big.NewInt(1 << 2)
-	annotationPatchFreeTextRichTextParagraphsItemFieldMargins    = big.NewInt(1 << 3)
-	annotationPatchFreeTextRichTextParagraphsItemFieldTextIndent = big.NewInt(1 << 4)
-	annotationPatchFreeTextRichTextParagraphsItemFieldUnknown    = big.NewInt(1 << 5)
-	annotationPatchFreeTextRichTextParagraphsItemFieldRuns       = big.NewInt(1 << 6)
-)
-
-type AnnotationPatchFreeTextRichTextParagraphsItem struct {
-	Align      *AnnotationPatchFreeTextRichTextParagraphsItemAlign      `json:"align,omitempty" url:"align,omitempty"`
-	Dir        *AnnotationPatchFreeTextRichTextParagraphsItemDir        `json:"dir,omitempty" url:"dir,omitempty"`
-	LineHeight *float64                                                 `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
-	Margins    *AnnotationPatchFreeTextRichTextParagraphsItemMargins    `json:"margins,omitempty" url:"margins,omitempty"`
-	TextIndent *float64                                                 `json:"textIndent,omitempty" url:"textIndent,omitempty"`
-	Unknown    *string                                                  `json:"unknown,omitempty" url:"unknown,omitempty"`
-	Runs       []*AnnotationPatchFreeTextRichTextParagraphsItemRunsItem `json:"runs" url:"runs"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetAlign() *AnnotationPatchFreeTextRichTextParagraphsItemAlign {
-	if a == nil {
-		return nil
-	}
-	return a.Align
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetDir() *AnnotationPatchFreeTextRichTextParagraphsItemDir {
-	if a == nil {
-		return nil
-	}
-	return a.Dir
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetLineHeight() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LineHeight
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetMargins() *AnnotationPatchFreeTextRichTextParagraphsItemMargins {
-	if a == nil {
-		return nil
-	}
-	return a.Margins
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetTextIndent() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.TextIndent
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetRuns() []*AnnotationPatchFreeTextRichTextParagraphsItemRunsItem {
-	if a == nil {
-		return nil
-	}
-	return a.Runs
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetAlign sets the Align field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetAlign(align *AnnotationPatchFreeTextRichTextParagraphsItemAlign) {
-	a.Align = align
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldAlign)
-}
-
-// SetDir sets the Dir field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetDir(dir *AnnotationPatchFreeTextRichTextParagraphsItemDir) {
-	a.Dir = dir
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldDir)
-}
-
-// SetLineHeight sets the LineHeight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetLineHeight(lineHeight *float64) {
-	a.LineHeight = lineHeight
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldLineHeight)
-}
-
-// SetMargins sets the Margins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetMargins(margins *AnnotationPatchFreeTextRichTextParagraphsItemMargins) {
-	a.Margins = margins
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldMargins)
-}
-
-// SetTextIndent sets the TextIndent field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetTextIndent(textIndent *float64) {
-	a.TextIndent = textIndent
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldTextIndent)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldUnknown)
-}
-
-// SetRuns sets the Runs field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) SetRuns(runs []*AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) {
-	a.Runs = runs
-	a.require(annotationPatchFreeTextRichTextParagraphsItemFieldRuns)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextParagraphsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextParagraphsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextParagraphsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItem) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationPatchFreeTextRichTextParagraphsItemAlign string
-
-const (
-	AnnotationPatchFreeTextRichTextParagraphsItemAlignLeft    AnnotationPatchFreeTextRichTextParagraphsItemAlign = "left"
-	AnnotationPatchFreeTextRichTextParagraphsItemAlignCenter  AnnotationPatchFreeTextRichTextParagraphsItemAlign = "center"
-	AnnotationPatchFreeTextRichTextParagraphsItemAlignRight   AnnotationPatchFreeTextRichTextParagraphsItemAlign = "right"
-	AnnotationPatchFreeTextRichTextParagraphsItemAlignJustify AnnotationPatchFreeTextRichTextParagraphsItemAlign = "justify"
-)
-
-func NewAnnotationPatchFreeTextRichTextParagraphsItemAlignFromString(s string) (AnnotationPatchFreeTextRichTextParagraphsItemAlign, error) {
-	switch s {
-	case "left":
-		return AnnotationPatchFreeTextRichTextParagraphsItemAlignLeft, nil
-	case "center":
-		return AnnotationPatchFreeTextRichTextParagraphsItemAlignCenter, nil
-	case "right":
-		return AnnotationPatchFreeTextRichTextParagraphsItemAlignRight, nil
-	case "justify":
-		return AnnotationPatchFreeTextRichTextParagraphsItemAlignJustify, nil
-	}
-	var t AnnotationPatchFreeTextRichTextParagraphsItemAlign
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextParagraphsItemAlign) Ptr() *AnnotationPatchFreeTextRichTextParagraphsItemAlign {
-	return &a
-}
-
-type AnnotationPatchFreeTextRichTextParagraphsItemDir string
-
-const (
-	AnnotationPatchFreeTextRichTextParagraphsItemDirLtr AnnotationPatchFreeTextRichTextParagraphsItemDir = "ltr"
-	AnnotationPatchFreeTextRichTextParagraphsItemDirRtl AnnotationPatchFreeTextRichTextParagraphsItemDir = "rtl"
-)
-
-func NewAnnotationPatchFreeTextRichTextParagraphsItemDirFromString(s string) (AnnotationPatchFreeTextRichTextParagraphsItemDir, error) {
-	switch s {
-	case "ltr":
-		return AnnotationPatchFreeTextRichTextParagraphsItemDirLtr, nil
-	case "rtl":
-		return AnnotationPatchFreeTextRichTextParagraphsItemDirRtl, nil
-	}
-	var t AnnotationPatchFreeTextRichTextParagraphsItemDir
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextParagraphsItemDir) Ptr() *AnnotationPatchFreeTextRichTextParagraphsItemDir {
-	return &a
-}
-
-var (
-	annotationPatchFreeTextRichTextParagraphsItemMarginsFieldTop    = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextParagraphsItemMarginsFieldBottom = big.NewInt(1 << 1)
-	annotationPatchFreeTextRichTextParagraphsItemMarginsFieldLeft   = big.NewInt(1 << 2)
-	annotationPatchFreeTextRichTextParagraphsItemMarginsFieldRight  = big.NewInt(1 << 3)
-)
-
-type AnnotationPatchFreeTextRichTextParagraphsItemMargins struct {
-	Top    float64 `json:"top" url:"top"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Left   float64 `json:"left" url:"left"`
-	Right  float64 `json:"right" url:"right"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) GetTop() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Top
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) GetBottom() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Bottom
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) GetLeft() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Left
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) GetRight() float64 {
-	if a == nil {
-		return 0
-	}
-	return a.Right
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) SetTop(top float64) {
-	a.Top = top
-	a.require(annotationPatchFreeTextRichTextParagraphsItemMarginsFieldTop)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) SetBottom(bottom float64) {
-	a.Bottom = bottom
-	a.require(annotationPatchFreeTextRichTextParagraphsItemMarginsFieldBottom)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) SetLeft(left float64) {
-	a.Left = left
-	a.require(annotationPatchFreeTextRichTextParagraphsItemMarginsFieldLeft)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) SetRight(right float64) {
-	a.Right = right
-	a.require(annotationPatchFreeTextRichTextParagraphsItemMarginsFieldRight)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextParagraphsItemMargins
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextParagraphsItemMargins(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextParagraphsItemMargins
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemMargins) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemFieldText  = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemFieldStyle = big.NewInt(1 << 1)
-)
-
-type AnnotationPatchFreeTextRichTextParagraphsItemRunsItem struct {
-	Text  string                                                      `json:"text" url:"text"`
-	Style *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) GetText() string {
-	if a == nil {
-		return ""
-	}
-	return a.Text
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) GetStyle() *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle {
-	if a == nil {
-		return nil
-	}
-	return a.Style
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetText sets the Text field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) SetText(text string) {
-	a.Text = text
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemFieldText)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) SetStyle(style *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) {
-	a.Style = style
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemFieldStyle)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextParagraphsItemRunsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextParagraphsItemRunsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextParagraphsItemRunsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItem) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-var (
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldFamily          = big.NewInt(1 << 0)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldWeight          = big.NewInt(1 << 1)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldItalic          = big.NewInt(1 << 2)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldSize            = big.NewInt(1 << 3)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldColor           = big.NewInt(1 << 4)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldDecoration      = big.NewInt(1 << 5)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldScript          = big.NewInt(1 << 6)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldLetterSpacing   = big.NewInt(1 << 7)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldHorizontalScale = big.NewInt(1 << 8)
-	annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldUnknown         = big.NewInt(1 << 9)
-)
-
-type AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle struct {
-	Family          *string                                                                    `json:"family,omitempty" url:"family,omitempty"`
-	Weight          *int                                                                       `json:"weight,omitempty" url:"weight,omitempty"`
-	Italic          *bool                                                                      `json:"italic,omitempty" url:"italic,omitempty"`
-	Size            *float64                                                                   `json:"size,omitempty" url:"size,omitempty"`
-	Color           *string                                                                    `json:"color,omitempty" url:"color,omitempty"`
-	Decoration      []AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
-	Script          *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript          `json:"script,omitempty" url:"script,omitempty"`
-	LetterSpacing   *float64                                                                   `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
-	HorizontalScale *float64                                                                   `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
-	Unknown         *string                                                                    `json:"unknown,omitempty" url:"unknown,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetFamily() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Family
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetWeight() *int {
-	if a == nil {
-		return nil
-	}
-	return a.Weight
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetItalic() *bool {
-	if a == nil {
-		return nil
-	}
-	return a.Italic
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetSize() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.Size
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetColor() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Color
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetDecoration() []AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem {
-	if a == nil {
-		return nil
-	}
-	return a.Decoration
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetScript() *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript {
-	if a == nil {
-		return nil
-	}
-	return a.Script
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetLetterSpacing() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.LetterSpacing
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetHorizontalScale() *float64 {
-	if a == nil {
-		return nil
-	}
-	return a.HorizontalScale
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetUnknown() *string {
-	if a == nil {
-		return nil
-	}
-	return a.Unknown
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) GetExtraProperties() map[string]interface{} {
-	if a == nil {
-		return nil
-	}
-	return a.extraProperties
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) require(field *big.Int) {
-	if a.explicitFields == nil {
-		a.explicitFields = big.NewInt(0)
-	}
-	a.explicitFields.Or(a.explicitFields, field)
-}
-
-// SetFamily sets the Family field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetFamily(family *string) {
-	a.Family = family
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldFamily)
-}
-
-// SetWeight sets the Weight field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetWeight(weight *int) {
-	a.Weight = weight
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldWeight)
-}
-
-// SetItalic sets the Italic field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetItalic(italic *bool) {
-	a.Italic = italic
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldItalic)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetSize(size *float64) {
-	a.Size = size
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldSize)
-}
-
-// SetColor sets the Color field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetColor(color *string) {
-	a.Color = color
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldColor)
-}
-
-// SetDecoration sets the Decoration field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetDecoration(decoration []AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem) {
-	a.Decoration = decoration
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldDecoration)
-}
-
-// SetScript sets the Script field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetScript(script *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript) {
-	a.Script = script
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldScript)
-}
-
-// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetLetterSpacing(letterSpacing *float64) {
-	a.LetterSpacing = letterSpacing
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldLetterSpacing)
-}
-
-// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetHorizontalScale(horizontalScale *float64) {
-	a.HorizontalScale = horizontalScale
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldHorizontalScale)
-}
-
-// SetUnknown sets the Unknown field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) SetUnknown(unknown *string) {
-	a.Unknown = unknown
-	a.require(annotationPatchFreeTextRichTextParagraphsItemRunsItemStyleFieldUnknown)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) UnmarshalJSON(data []byte) error {
-	type unmarshaler AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*a = AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *a)
-	if err != nil {
-		return err
-	}
-	a.extraProperties = extraProperties
-	a.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) MarshalJSON() ([]byte, error) {
-	type embed AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*a),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, a.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (a *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyle) String() string {
-	if a == nil {
-		return "<nil>"
-	}
-	if len(a.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(a.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(a); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", a)
-}
-
-type AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem string
-
-const (
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemUnderline   AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "underline"
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemLineThrough AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "line-through"
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemWord        AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem = "word"
-)
-
-func NewAnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemFromString(s string) (AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem, error) {
-	switch s {
-	case "underline":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemUnderline, nil
-	case "line-through":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemLineThrough, nil
-	case "word":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItemWord, nil
-	}
-	var t AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem) Ptr() *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleDecorationItem {
-	return &a
-}
-
-type AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript string
-
-const (
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptNormal AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript = "normal"
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptSub    AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript = "sub"
-	AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptSuper  AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript = "super"
-)
-
-func NewAnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptFromString(s string) (AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript, error) {
-	switch s {
-	case "normal":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptNormal, nil
-	case "sub":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptSub, nil
-	case "super":
-		return AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScriptSuper, nil
-	}
-	var t AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (a AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript) Ptr() *AnnotationPatchFreeTextRichTextParagraphsItemRunsItemStyleScript {
-	return &a
-}
-
 type AnnotationPatchFreeTextTextAlign string
 
 const (
@@ -41141,9 +38669,10 @@ var (
 	annotationPatchHighlightFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchHighlightFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchHighlightFieldActions           = big.NewInt(1 << 30)
-	annotationPatchHighlightFieldColor             = big.NewInt(1 << 31)
-	annotationPatchHighlightFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchHighlightFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationPatchHighlightFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchHighlightFieldColor             = big.NewInt(1 << 32)
+	annotationPatchHighlightFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchHighlightFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationPatchHighlight struct {
@@ -41178,6 +38707,7 @@ type AnnotationPatchHighlight struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationPatchHighlightQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -41404,6 +38934,13 @@ func (a *AnnotationPatchHighlight) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchHighlight) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchHighlight) GetColor() *string {
@@ -41656,6 +39193,13 @@ func (a *AnnotationPatchHighlight) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchHighlight) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchHighlightFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchHighlight) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchHighlightFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -42603,14 +40147,15 @@ var (
 	annotationPatchInkFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchInkFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchInkFieldActions           = big.NewInt(1 << 30)
-	annotationPatchInkFieldColor             = big.NewInt(1 << 31)
-	annotationPatchInkFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchInkFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchInkFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchInkFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchInkFieldInkList           = big.NewInt(1 << 36)
-	annotationPatchInkFieldIntent            = big.NewInt(1 << 37)
-	annotationPatchInkFieldRotation          = big.NewInt(1 << 38)
+	annotationPatchInkFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchInkFieldColor             = big.NewInt(1 << 32)
+	annotationPatchInkFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchInkFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchInkFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchInkFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchInkFieldInkList           = big.NewInt(1 << 37)
+	annotationPatchInkFieldIntent            = big.NewInt(1 << 38)
+	annotationPatchInkFieldRotation          = big.NewInt(1 << 39)
 )
 
 type AnnotationPatchInk struct {
@@ -42645,6 +40190,7 @@ type AnnotationPatchInk struct {
 	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput         `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                        `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                       `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                       `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -42876,6 +40422,13 @@ func (a *AnnotationPatchInk) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchInk) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchInk) GetColor() *string {
@@ -43163,6 +40716,13 @@ func (a *AnnotationPatchInk) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchInk) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchInkFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchInk) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchInkFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -44006,21 +41566,22 @@ var (
 	annotationPatchLineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchLineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchLineFieldActions           = big.NewInt(1 << 30)
-	annotationPatchLineFieldColor             = big.NewInt(1 << 31)
-	annotationPatchLineFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchLineFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchLineFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchLineFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchLineFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationPatchLineFieldLinePoints        = big.NewInt(1 << 37)
-	annotationPatchLineFieldLineEndings       = big.NewInt(1 << 38)
-	annotationPatchLineFieldRotation          = big.NewInt(1 << 39)
-	annotationPatchLineFieldIntent            = big.NewInt(1 << 40)
-	annotationPatchLineFieldMeasure           = big.NewInt(1 << 41)
-	annotationPatchLineFieldCaptionEnabled    = big.NewInt(1 << 42)
-	annotationPatchLineFieldCaptionPosition   = big.NewInt(1 << 43)
-	annotationPatchLineFieldCaptionOffset     = big.NewInt(1 << 44)
-	annotationPatchLineFieldLeader            = big.NewInt(1 << 45)
+	annotationPatchLineFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchLineFieldColor             = big.NewInt(1 << 32)
+	annotationPatchLineFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchLineFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchLineFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchLineFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchLineFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationPatchLineFieldLinePoints        = big.NewInt(1 << 38)
+	annotationPatchLineFieldLineEndings       = big.NewInt(1 << 39)
+	annotationPatchLineFieldRotation          = big.NewInt(1 << 40)
+	annotationPatchLineFieldIntent            = big.NewInt(1 << 41)
+	annotationPatchLineFieldMeasure           = big.NewInt(1 << 42)
+	annotationPatchLineFieldCaptionEnabled    = big.NewInt(1 << 43)
+	annotationPatchLineFieldCaptionPosition   = big.NewInt(1 << 44)
+	annotationPatchLineFieldCaptionOffset     = big.NewInt(1 << 45)
+	annotationPatchLineFieldLeader            = big.NewInt(1 << 46)
 )
 
 type AnnotationPatchLine struct {
@@ -44055,6 +41616,7 @@ type AnnotationPatchLine struct {
 	ModifiedBy        any                                 `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                 `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                 `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput              `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                             `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                            `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                            `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -44293,6 +41855,13 @@ func (a *AnnotationPatchLine) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchLine) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchLine) GetColor() *string {
@@ -44629,6 +42198,13 @@ func (a *AnnotationPatchLine) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchLine) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchLineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchLine) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchLineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -49323,19 +46899,20 @@ var (
 	annotationPatchPolygonFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchPolygonFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchPolygonFieldActions           = big.NewInt(1 << 30)
-	annotationPatchPolygonFieldColor             = big.NewInt(1 << 31)
-	annotationPatchPolygonFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchPolygonFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchPolygonFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchPolygonFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchPolygonFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationPatchPolygonFieldVertices          = big.NewInt(1 << 37)
-	annotationPatchPolygonFieldRotation          = big.NewInt(1 << 38)
-	annotationPatchPolygonFieldCaptionEnabled    = big.NewInt(1 << 39)
-	annotationPatchPolygonFieldCaptionCenter     = big.NewInt(1 << 40)
-	annotationPatchPolygonFieldIntent            = big.NewInt(1 << 41)
-	annotationPatchPolygonFieldMeasure           = big.NewInt(1 << 42)
-	annotationPatchPolygonFieldCloudyIntensity   = big.NewInt(1 << 43)
+	annotationPatchPolygonFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchPolygonFieldColor             = big.NewInt(1 << 32)
+	annotationPatchPolygonFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchPolygonFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchPolygonFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchPolygonFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchPolygonFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationPatchPolygonFieldVertices          = big.NewInt(1 << 38)
+	annotationPatchPolygonFieldRotation          = big.NewInt(1 << 39)
+	annotationPatchPolygonFieldCaptionEnabled    = big.NewInt(1 << 40)
+	annotationPatchPolygonFieldCaptionCenter     = big.NewInt(1 << 41)
+	annotationPatchPolygonFieldIntent            = big.NewInt(1 << 42)
+	annotationPatchPolygonFieldMeasure           = big.NewInt(1 << 43)
+	annotationPatchPolygonFieldCloudyIntensity   = big.NewInt(1 << 44)
 )
 
 type AnnotationPatchPolygon struct {
@@ -49370,6 +46947,7 @@ type AnnotationPatchPolygon struct {
 	ModifiedBy        any                                  `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                  `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                  `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput               `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                              `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                             `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                             `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -49606,6 +47184,13 @@ func (a *AnnotationPatchPolygon) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchPolygon) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchPolygon) GetColor() *string {
@@ -49928,6 +47513,13 @@ func (a *AnnotationPatchPolygon) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchPolygon) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchPolygonFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchPolygon) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchPolygonFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -53280,19 +50872,20 @@ var (
 	annotationPatchPolylineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchPolylineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchPolylineFieldActions           = big.NewInt(1 << 30)
-	annotationPatchPolylineFieldColor             = big.NewInt(1 << 31)
-	annotationPatchPolylineFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchPolylineFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchPolylineFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchPolylineFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchPolylineFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationPatchPolylineFieldVertices          = big.NewInt(1 << 37)
-	annotationPatchPolylineFieldRotation          = big.NewInt(1 << 38)
-	annotationPatchPolylineFieldCaptionEnabled    = big.NewInt(1 << 39)
-	annotationPatchPolylineFieldCaptionCenter     = big.NewInt(1 << 40)
-	annotationPatchPolylineFieldIntent            = big.NewInt(1 << 41)
-	annotationPatchPolylineFieldMeasure           = big.NewInt(1 << 42)
-	annotationPatchPolylineFieldLineEndings       = big.NewInt(1 << 43)
+	annotationPatchPolylineFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchPolylineFieldColor             = big.NewInt(1 << 32)
+	annotationPatchPolylineFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchPolylineFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchPolylineFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchPolylineFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchPolylineFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationPatchPolylineFieldVertices          = big.NewInt(1 << 38)
+	annotationPatchPolylineFieldRotation          = big.NewInt(1 << 39)
+	annotationPatchPolylineFieldCaptionEnabled    = big.NewInt(1 << 40)
+	annotationPatchPolylineFieldCaptionCenter     = big.NewInt(1 << 41)
+	annotationPatchPolylineFieldIntent            = big.NewInt(1 << 42)
+	annotationPatchPolylineFieldMeasure           = big.NewInt(1 << 43)
+	annotationPatchPolylineFieldLineEndings       = big.NewInt(1 << 44)
 )
 
 type AnnotationPatchPolyline struct {
@@ -53327,6 +50920,7 @@ type AnnotationPatchPolyline struct {
 	ModifiedBy        any                                   `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                   `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                   `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                               `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                              `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                              `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -53563,6 +51157,13 @@ func (a *AnnotationPatchPolyline) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchPolyline) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchPolyline) GetColor() *string {
@@ -53885,6 +51486,13 @@ func (a *AnnotationPatchPolyline) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchPolyline) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchPolylineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchPolyline) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchPolylineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -58340,16 +55948,17 @@ var (
 	annotationPatchRedactFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchRedactFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchRedactFieldActions           = big.NewInt(1 << 30)
-	annotationPatchRedactFieldColor             = big.NewInt(1 << 31)
-	annotationPatchRedactFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchRedactFieldQuadPoints        = big.NewInt(1 << 33)
-	annotationPatchRedactFieldInteriorColor     = big.NewInt(1 << 34)
-	annotationPatchRedactFieldOverlayText       = big.NewInt(1 << 35)
-	annotationPatchRedactFieldRepeat            = big.NewInt(1 << 36)
-	annotationPatchRedactFieldFontFamily        = big.NewInt(1 << 37)
-	annotationPatchRedactFieldFontSize          = big.NewInt(1 << 38)
-	annotationPatchRedactFieldFontColor         = big.NewInt(1 << 39)
-	annotationPatchRedactFieldTextAlign         = big.NewInt(1 << 40)
+	annotationPatchRedactFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchRedactFieldColor             = big.NewInt(1 << 32)
+	annotationPatchRedactFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchRedactFieldQuadPoints        = big.NewInt(1 << 34)
+	annotationPatchRedactFieldInteriorColor     = big.NewInt(1 << 35)
+	annotationPatchRedactFieldOverlayText       = big.NewInt(1 << 36)
+	annotationPatchRedactFieldRepeat            = big.NewInt(1 << 37)
+	annotationPatchRedactFieldFontFamily        = big.NewInt(1 << 38)
+	annotationPatchRedactFieldFontSize          = big.NewInt(1 << 39)
+	annotationPatchRedactFieldFontColor         = big.NewInt(1 << 40)
+	annotationPatchRedactFieldTextAlign         = big.NewInt(1 << 41)
 )
 
 type AnnotationPatchRedact struct {
@@ -58384,6 +55993,7 @@ type AnnotationPatchRedact struct {
 	ModifiedBy        any                                    `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                    `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                    `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                 `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                               `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationPatchRedactQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -58617,6 +56227,13 @@ func (a *AnnotationPatchRedact) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchRedact) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchRedact) GetColor() *string {
@@ -58918,6 +56535,13 @@ func (a *AnnotationPatchRedact) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchRedact) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchRedactFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchRedact) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchRedactFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -59939,15 +57563,16 @@ var (
 	annotationPatchSquareFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchSquareFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchSquareFieldActions           = big.NewInt(1 << 30)
-	annotationPatchSquareFieldColor             = big.NewInt(1 << 31)
-	annotationPatchSquareFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchSquareFieldStrokeWidth       = big.NewInt(1 << 33)
-	annotationPatchSquareFieldBorderStyle       = big.NewInt(1 << 34)
-	annotationPatchSquareFieldDashArray         = big.NewInt(1 << 35)
-	annotationPatchSquareFieldInteriorColor     = big.NewInt(1 << 36)
-	annotationPatchSquareFieldBox               = big.NewInt(1 << 37)
-	annotationPatchSquareFieldRotation          = big.NewInt(1 << 38)
-	annotationPatchSquareFieldCloudyIntensity   = big.NewInt(1 << 39)
+	annotationPatchSquareFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchSquareFieldColor             = big.NewInt(1 << 32)
+	annotationPatchSquareFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchSquareFieldStrokeWidth       = big.NewInt(1 << 34)
+	annotationPatchSquareFieldBorderStyle       = big.NewInt(1 << 35)
+	annotationPatchSquareFieldDashArray         = big.NewInt(1 << 36)
+	annotationPatchSquareFieldInteriorColor     = big.NewInt(1 << 37)
+	annotationPatchSquareFieldBox               = big.NewInt(1 << 38)
+	annotationPatchSquareFieldRotation          = big.NewInt(1 << 39)
+	annotationPatchSquareFieldCloudyIntensity   = big.NewInt(1 << 40)
 )
 
 type AnnotationPatchSquare struct {
@@ -59982,6 +57607,7 @@ type AnnotationPatchSquare struct {
 	ModifiedBy        any                               `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                               `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput            `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                          `json:"opacity,omitempty" url:"opacity,omitempty"`
 	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -60214,6 +57840,13 @@ func (a *AnnotationPatchSquare) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchSquare) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchSquare) GetColor() *string {
@@ -60508,6 +58141,13 @@ func (a *AnnotationPatchSquare) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchSquare) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchSquareFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchSquare) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchSquareFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -61209,9 +58849,10 @@ var (
 	annotationPatchSquigglyFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchSquigglyFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchSquigglyFieldActions           = big.NewInt(1 << 30)
-	annotationPatchSquigglyFieldColor             = big.NewInt(1 << 31)
-	annotationPatchSquigglyFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchSquigglyFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationPatchSquigglyFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchSquigglyFieldColor             = big.NewInt(1 << 32)
+	annotationPatchSquigglyFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchSquigglyFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationPatchSquiggly struct {
@@ -61246,6 +58887,7 @@ type AnnotationPatchSquiggly struct {
 	ModifiedBy        any                                      `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                      `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                      `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                   `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                  `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                 `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationPatchSquigglyQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -61472,6 +59114,13 @@ func (a *AnnotationPatchSquiggly) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchSquiggly) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchSquiggly) GetColor() *string {
@@ -61724,6 +59373,13 @@ func (a *AnnotationPatchSquiggly) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchSquiggly) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchSquigglyFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchSquiggly) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchSquigglyFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -62671,11 +60327,12 @@ var (
 	annotationPatchStampFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchStampFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchStampFieldActions           = big.NewInt(1 << 30)
-	annotationPatchStampFieldBox               = big.NewInt(1 << 31)
-	annotationPatchStampFieldRotation          = big.NewInt(1 << 32)
-	annotationPatchStampFieldName              = big.NewInt(1 << 33)
-	annotationPatchStampFieldFit               = big.NewInt(1 << 34)
-	annotationPatchStampFieldOpacity           = big.NewInt(1 << 35)
+	annotationPatchStampFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchStampFieldBox               = big.NewInt(1 << 32)
+	annotationPatchStampFieldRotation          = big.NewInt(1 << 33)
+	annotationPatchStampFieldName              = big.NewInt(1 << 34)
+	annotationPatchStampFieldFit               = big.NewInt(1 << 35)
+	annotationPatchStampFieldOpacity           = big.NewInt(1 << 36)
 )
 
 type AnnotationPatchStamp struct {
@@ -62710,6 +60367,7 @@ type AnnotationPatchStamp struct {
 	ModifiedBy        any                            `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                            `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                            `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput         `json:"richText,omitempty" url:"richText,omitempty"`
 	Box               *AnnotationPatchStampBox       `json:"box,omitempty" url:"box,omitempty"`
 	Rotation          *float64                       `json:"rotation,omitempty" url:"rotation,omitempty"`
 	Name              *string                        `json:"name,omitempty" url:"name,omitempty"`
@@ -62938,6 +60596,13 @@ func (a *AnnotationPatchStamp) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchStamp) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchStamp) GetBox() *AnnotationPatchStampBox {
@@ -63204,6 +60869,13 @@ func (a *AnnotationPatchStamp) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchStamp) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchStampFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchStamp) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchStampFieldRichText)
 }
 
 // SetBox sets the Box field and marks it as non-optional;
@@ -63790,10 +61462,11 @@ var (
 	annotationPatchStrikeoutFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchStrikeoutFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchStrikeoutFieldActions           = big.NewInt(1 << 30)
-	annotationPatchStrikeoutFieldColor             = big.NewInt(1 << 31)
-	annotationPatchStrikeoutFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchStrikeoutFieldQuadPoints        = big.NewInt(1 << 33)
-	annotationPatchStrikeoutFieldIntent            = big.NewInt(1 << 34)
+	annotationPatchStrikeoutFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchStrikeoutFieldColor             = big.NewInt(1 << 32)
+	annotationPatchStrikeoutFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchStrikeoutFieldQuadPoints        = big.NewInt(1 << 34)
+	annotationPatchStrikeoutFieldIntent            = big.NewInt(1 << 35)
 )
 
 type AnnotationPatchStrikeout struct {
@@ -63828,6 +61501,7 @@ type AnnotationPatchStrikeout struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationPatchStrikeoutQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -64055,6 +61729,13 @@ func (a *AnnotationPatchStrikeout) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchStrikeout) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchStrikeout) GetColor() *string {
@@ -64314,6 +61995,13 @@ func (a *AnnotationPatchStrikeout) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchStrikeout) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchStrikeoutFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchStrikeout) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchStrikeoutFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -65287,12 +62975,13 @@ var (
 	annotationPatchTextFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchTextFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchTextFieldActions           = big.NewInt(1 << 30)
-	annotationPatchTextFieldColor             = big.NewInt(1 << 31)
-	annotationPatchTextFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchTextFieldIcon              = big.NewInt(1 << 33)
-	annotationPatchTextFieldOpen              = big.NewInt(1 << 34)
-	annotationPatchTextFieldState             = big.NewInt(1 << 35)
-	annotationPatchTextFieldStateModel        = big.NewInt(1 << 36)
+	annotationPatchTextFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchTextFieldColor             = big.NewInt(1 << 32)
+	annotationPatchTextFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchTextFieldIcon              = big.NewInt(1 << 34)
+	annotationPatchTextFieldOpen              = big.NewInt(1 << 35)
+	annotationPatchTextFieldState             = big.NewInt(1 << 36)
+	annotationPatchTextFieldStateModel        = big.NewInt(1 << 37)
 )
 
 type AnnotationPatchText struct {
@@ -65327,6 +63016,7 @@ type AnnotationPatchText struct {
 	ModifiedBy        any                           `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                           `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                           `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput        `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                       `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                      `json:"opacity,omitempty" url:"opacity,omitempty"`
 	Icon              *AnnotationPatchTextIcon      `json:"icon,omitempty" url:"icon,omitempty"`
@@ -65556,6 +63246,13 @@ func (a *AnnotationPatchText) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchText) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchText) GetColor() *string {
@@ -65829,6 +63526,13 @@ func (a *AnnotationPatchText) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchText) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchTextFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchText) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchTextFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -66302,9 +64006,10 @@ var (
 	annotationPatchUnderlineFieldModifiedBy        = big.NewInt(1 << 28)
 	annotationPatchUnderlineFieldImportedBy        = big.NewInt(1 << 29)
 	annotationPatchUnderlineFieldActions           = big.NewInt(1 << 30)
-	annotationPatchUnderlineFieldColor             = big.NewInt(1 << 31)
-	annotationPatchUnderlineFieldOpacity           = big.NewInt(1 << 32)
-	annotationPatchUnderlineFieldQuadPoints        = big.NewInt(1 << 33)
+	annotationPatchUnderlineFieldRichText          = big.NewInt(1 << 31)
+	annotationPatchUnderlineFieldColor             = big.NewInt(1 << 32)
+	annotationPatchUnderlineFieldOpacity           = big.NewInt(1 << 33)
+	annotationPatchUnderlineFieldQuadPoints        = big.NewInt(1 << 34)
 )
 
 type AnnotationPatchUnderline struct {
@@ -66339,6 +64044,7 @@ type AnnotationPatchUnderline struct {
 	ModifiedBy        any                                       `json:"modifiedBy,omitempty" url:"modifiedBy,omitempty"`
 	ImportedBy        any                                       `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           any                                       `json:"actions,omitempty" url:"actions,omitempty"`
+	RichText          *RichTextDocumentInput                    `json:"richText,omitempty" url:"richText,omitempty"`
 	Color             *string                                   `json:"color,omitempty" url:"color,omitempty"`
 	Opacity           *float64                                  `json:"opacity,omitempty" url:"opacity,omitempty"`
 	QuadPoints        []*AnnotationPatchUnderlineQuadPointsItem `json:"quadPoints,omitempty" url:"quadPoints,omitempty"`
@@ -66565,6 +64271,13 @@ func (a *AnnotationPatchUnderline) GetActions() any {
 		return nil
 	}
 	return a.Actions
+}
+
+func (a *AnnotationPatchUnderline) GetRichText() *RichTextDocumentInput {
+	if a == nil {
+		return nil
+	}
+	return a.RichText
 }
 
 func (a *AnnotationPatchUnderline) GetColor() *string {
@@ -66817,6 +64530,13 @@ func (a *AnnotationPatchUnderline) SetImportedBy(importedBy any) {
 func (a *AnnotationPatchUnderline) SetActions(actions any) {
 	a.Actions = actions
 	a.require(annotationPatchUnderlineFieldActions)
+}
+
+// SetRichText sets the RichText field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationPatchUnderline) SetRichText(richText *RichTextDocumentInput) {
+	a.RichText = richText
+	a.require(annotationPatchUnderlineFieldRichText)
 }
 
 // SetColor sets the Color field and marks it as non-optional;
@@ -101362,6 +99082,1386 @@ func (p *PdfLinkTargetWritableURI) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	richTextDocumentInputFieldBody       = big.NewInt(1 << 0)
+	richTextDocumentInputFieldParagraphs = big.NewInt(1 << 1)
+)
+
+type RichTextDocumentInput struct {
+	Body       *RichTextDocumentInputBody             `json:"body,omitempty" url:"body,omitempty"`
+	Paragraphs []*RichTextDocumentInputParagraphsItem `json:"paragraphs" url:"paragraphs"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInput) GetBody() *RichTextDocumentInputBody {
+	if r == nil {
+		return nil
+	}
+	return r.Body
+}
+
+func (r *RichTextDocumentInput) GetParagraphs() []*RichTextDocumentInputParagraphsItem {
+	if r == nil {
+		return nil
+	}
+	return r.Paragraphs
+}
+
+func (r *RichTextDocumentInput) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInput) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetBody sets the Body field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInput) SetBody(body *RichTextDocumentInputBody) {
+	r.Body = body
+	r.require(richTextDocumentInputFieldBody)
+}
+
+// SetParagraphs sets the Paragraphs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInput) SetParagraphs(paragraphs []*RichTextDocumentInputParagraphsItem) {
+	r.Paragraphs = paragraphs
+	r.require(richTextDocumentInputFieldParagraphs)
+}
+
+func (r *RichTextDocumentInput) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInput
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInput(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInput) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInput
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInput) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+var (
+	richTextDocumentInputBodyFieldFamily          = big.NewInt(1 << 0)
+	richTextDocumentInputBodyFieldWeight          = big.NewInt(1 << 1)
+	richTextDocumentInputBodyFieldItalic          = big.NewInt(1 << 2)
+	richTextDocumentInputBodyFieldSize            = big.NewInt(1 << 3)
+	richTextDocumentInputBodyFieldColor           = big.NewInt(1 << 4)
+	richTextDocumentInputBodyFieldDecoration      = big.NewInt(1 << 5)
+	richTextDocumentInputBodyFieldScript          = big.NewInt(1 << 6)
+	richTextDocumentInputBodyFieldLetterSpacing   = big.NewInt(1 << 7)
+	richTextDocumentInputBodyFieldHorizontalScale = big.NewInt(1 << 8)
+	richTextDocumentInputBodyFieldUnknown         = big.NewInt(1 << 9)
+	richTextDocumentInputBodyFieldAlign           = big.NewInt(1 << 10)
+	richTextDocumentInputBodyFieldDir             = big.NewInt(1 << 11)
+	richTextDocumentInputBodyFieldLineHeight      = big.NewInt(1 << 12)
+	richTextDocumentInputBodyFieldMargins         = big.NewInt(1 << 13)
+	richTextDocumentInputBodyFieldTextIndent      = big.NewInt(1 << 14)
+)
+
+type RichTextDocumentInputBody struct {
+	Family          *string                                   `json:"family,omitempty" url:"family,omitempty"`
+	Weight          *int                                      `json:"weight,omitempty" url:"weight,omitempty"`
+	Italic          *bool                                     `json:"italic,omitempty" url:"italic,omitempty"`
+	Size            *float64                                  `json:"size,omitempty" url:"size,omitempty"`
+	Color           *string                                   `json:"color,omitempty" url:"color,omitempty"`
+	Decoration      []RichTextDocumentInputBodyDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
+	Script          *RichTextDocumentInputBodyScript          `json:"script,omitempty" url:"script,omitempty"`
+	LetterSpacing   *float64                                  `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
+	HorizontalScale *float64                                  `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
+	Unknown         *string                                   `json:"unknown,omitempty" url:"unknown,omitempty"`
+	Align           *RichTextDocumentInputBodyAlign           `json:"align,omitempty" url:"align,omitempty"`
+	Dir             *RichTextDocumentInputBodyDir             `json:"dir,omitempty" url:"dir,omitempty"`
+	LineHeight      *float64                                  `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
+	Margins         *RichTextDocumentInputBodyMargins         `json:"margins,omitempty" url:"margins,omitempty"`
+	TextIndent      *float64                                  `json:"textIndent,omitempty" url:"textIndent,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputBody) GetFamily() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Family
+}
+
+func (r *RichTextDocumentInputBody) GetWeight() *int {
+	if r == nil {
+		return nil
+	}
+	return r.Weight
+}
+
+func (r *RichTextDocumentInputBody) GetItalic() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Italic
+}
+
+func (r *RichTextDocumentInputBody) GetSize() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.Size
+}
+
+func (r *RichTextDocumentInputBody) GetColor() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Color
+}
+
+func (r *RichTextDocumentInputBody) GetDecoration() []RichTextDocumentInputBodyDecorationItem {
+	if r == nil {
+		return nil
+	}
+	return r.Decoration
+}
+
+func (r *RichTextDocumentInputBody) GetScript() *RichTextDocumentInputBodyScript {
+	if r == nil {
+		return nil
+	}
+	return r.Script
+}
+
+func (r *RichTextDocumentInputBody) GetLetterSpacing() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.LetterSpacing
+}
+
+func (r *RichTextDocumentInputBody) GetHorizontalScale() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.HorizontalScale
+}
+
+func (r *RichTextDocumentInputBody) GetUnknown() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Unknown
+}
+
+func (r *RichTextDocumentInputBody) GetAlign() *RichTextDocumentInputBodyAlign {
+	if r == nil {
+		return nil
+	}
+	return r.Align
+}
+
+func (r *RichTextDocumentInputBody) GetDir() *RichTextDocumentInputBodyDir {
+	if r == nil {
+		return nil
+	}
+	return r.Dir
+}
+
+func (r *RichTextDocumentInputBody) GetLineHeight() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.LineHeight
+}
+
+func (r *RichTextDocumentInputBody) GetMargins() *RichTextDocumentInputBodyMargins {
+	if r == nil {
+		return nil
+	}
+	return r.Margins
+}
+
+func (r *RichTextDocumentInputBody) GetTextIndent() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.TextIndent
+}
+
+func (r *RichTextDocumentInputBody) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputBody) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetFamily sets the Family field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetFamily(family *string) {
+	r.Family = family
+	r.require(richTextDocumentInputBodyFieldFamily)
+}
+
+// SetWeight sets the Weight field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetWeight(weight *int) {
+	r.Weight = weight
+	r.require(richTextDocumentInputBodyFieldWeight)
+}
+
+// SetItalic sets the Italic field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetItalic(italic *bool) {
+	r.Italic = italic
+	r.require(richTextDocumentInputBodyFieldItalic)
+}
+
+// SetSize sets the Size field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetSize(size *float64) {
+	r.Size = size
+	r.require(richTextDocumentInputBodyFieldSize)
+}
+
+// SetColor sets the Color field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetColor(color *string) {
+	r.Color = color
+	r.require(richTextDocumentInputBodyFieldColor)
+}
+
+// SetDecoration sets the Decoration field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetDecoration(decoration []RichTextDocumentInputBodyDecorationItem) {
+	r.Decoration = decoration
+	r.require(richTextDocumentInputBodyFieldDecoration)
+}
+
+// SetScript sets the Script field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetScript(script *RichTextDocumentInputBodyScript) {
+	r.Script = script
+	r.require(richTextDocumentInputBodyFieldScript)
+}
+
+// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetLetterSpacing(letterSpacing *float64) {
+	r.LetterSpacing = letterSpacing
+	r.require(richTextDocumentInputBodyFieldLetterSpacing)
+}
+
+// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetHorizontalScale(horizontalScale *float64) {
+	r.HorizontalScale = horizontalScale
+	r.require(richTextDocumentInputBodyFieldHorizontalScale)
+}
+
+// SetUnknown sets the Unknown field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetUnknown(unknown *string) {
+	r.Unknown = unknown
+	r.require(richTextDocumentInputBodyFieldUnknown)
+}
+
+// SetAlign sets the Align field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetAlign(align *RichTextDocumentInputBodyAlign) {
+	r.Align = align
+	r.require(richTextDocumentInputBodyFieldAlign)
+}
+
+// SetDir sets the Dir field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetDir(dir *RichTextDocumentInputBodyDir) {
+	r.Dir = dir
+	r.require(richTextDocumentInputBodyFieldDir)
+}
+
+// SetLineHeight sets the LineHeight field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetLineHeight(lineHeight *float64) {
+	r.LineHeight = lineHeight
+	r.require(richTextDocumentInputBodyFieldLineHeight)
+}
+
+// SetMargins sets the Margins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetMargins(margins *RichTextDocumentInputBodyMargins) {
+	r.Margins = margins
+	r.require(richTextDocumentInputBodyFieldMargins)
+}
+
+// SetTextIndent sets the TextIndent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBody) SetTextIndent(textIndent *float64) {
+	r.TextIndent = textIndent
+	r.require(richTextDocumentInputBodyFieldTextIndent)
+}
+
+func (r *RichTextDocumentInputBody) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputBody
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputBody(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputBody) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputBody
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputBody) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+type RichTextDocumentInputBodyAlign string
+
+const (
+	RichTextDocumentInputBodyAlignLeft    RichTextDocumentInputBodyAlign = "left"
+	RichTextDocumentInputBodyAlignCenter  RichTextDocumentInputBodyAlign = "center"
+	RichTextDocumentInputBodyAlignRight   RichTextDocumentInputBodyAlign = "right"
+	RichTextDocumentInputBodyAlignJustify RichTextDocumentInputBodyAlign = "justify"
+)
+
+func NewRichTextDocumentInputBodyAlignFromString(s string) (RichTextDocumentInputBodyAlign, error) {
+	switch s {
+	case "left":
+		return RichTextDocumentInputBodyAlignLeft, nil
+	case "center":
+		return RichTextDocumentInputBodyAlignCenter, nil
+	case "right":
+		return RichTextDocumentInputBodyAlignRight, nil
+	case "justify":
+		return RichTextDocumentInputBodyAlignJustify, nil
+	}
+	var t RichTextDocumentInputBodyAlign
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputBodyAlign) Ptr() *RichTextDocumentInputBodyAlign {
+	return &r
+}
+
+type RichTextDocumentInputBodyDecorationItem string
+
+const (
+	RichTextDocumentInputBodyDecorationItemUnderline   RichTextDocumentInputBodyDecorationItem = "underline"
+	RichTextDocumentInputBodyDecorationItemLineThrough RichTextDocumentInputBodyDecorationItem = "line-through"
+	RichTextDocumentInputBodyDecorationItemWord        RichTextDocumentInputBodyDecorationItem = "word"
+)
+
+func NewRichTextDocumentInputBodyDecorationItemFromString(s string) (RichTextDocumentInputBodyDecorationItem, error) {
+	switch s {
+	case "underline":
+		return RichTextDocumentInputBodyDecorationItemUnderline, nil
+	case "line-through":
+		return RichTextDocumentInputBodyDecorationItemLineThrough, nil
+	case "word":
+		return RichTextDocumentInputBodyDecorationItemWord, nil
+	}
+	var t RichTextDocumentInputBodyDecorationItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputBodyDecorationItem) Ptr() *RichTextDocumentInputBodyDecorationItem {
+	return &r
+}
+
+type RichTextDocumentInputBodyDir string
+
+const (
+	RichTextDocumentInputBodyDirLtr RichTextDocumentInputBodyDir = "ltr"
+	RichTextDocumentInputBodyDirRtl RichTextDocumentInputBodyDir = "rtl"
+)
+
+func NewRichTextDocumentInputBodyDirFromString(s string) (RichTextDocumentInputBodyDir, error) {
+	switch s {
+	case "ltr":
+		return RichTextDocumentInputBodyDirLtr, nil
+	case "rtl":
+		return RichTextDocumentInputBodyDirRtl, nil
+	}
+	var t RichTextDocumentInputBodyDir
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputBodyDir) Ptr() *RichTextDocumentInputBodyDir {
+	return &r
+}
+
+var (
+	richTextDocumentInputBodyMarginsFieldTop    = big.NewInt(1 << 0)
+	richTextDocumentInputBodyMarginsFieldBottom = big.NewInt(1 << 1)
+	richTextDocumentInputBodyMarginsFieldLeft   = big.NewInt(1 << 2)
+	richTextDocumentInputBodyMarginsFieldRight  = big.NewInt(1 << 3)
+)
+
+type RichTextDocumentInputBodyMargins struct {
+	Top    float64 `json:"top" url:"top"`
+	Bottom float64 `json:"bottom" url:"bottom"`
+	Left   float64 `json:"left" url:"left"`
+	Right  float64 `json:"right" url:"right"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputBodyMargins) GetTop() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Top
+}
+
+func (r *RichTextDocumentInputBodyMargins) GetBottom() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Bottom
+}
+
+func (r *RichTextDocumentInputBodyMargins) GetLeft() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Left
+}
+
+func (r *RichTextDocumentInputBodyMargins) GetRight() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Right
+}
+
+func (r *RichTextDocumentInputBodyMargins) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputBodyMargins) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetTop sets the Top field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBodyMargins) SetTop(top float64) {
+	r.Top = top
+	r.require(richTextDocumentInputBodyMarginsFieldTop)
+}
+
+// SetBottom sets the Bottom field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBodyMargins) SetBottom(bottom float64) {
+	r.Bottom = bottom
+	r.require(richTextDocumentInputBodyMarginsFieldBottom)
+}
+
+// SetLeft sets the Left field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBodyMargins) SetLeft(left float64) {
+	r.Left = left
+	r.require(richTextDocumentInputBodyMarginsFieldLeft)
+}
+
+// SetRight sets the Right field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputBodyMargins) SetRight(right float64) {
+	r.Right = right
+	r.require(richTextDocumentInputBodyMarginsFieldRight)
+}
+
+func (r *RichTextDocumentInputBodyMargins) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputBodyMargins
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputBodyMargins(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputBodyMargins) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputBodyMargins
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputBodyMargins) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+type RichTextDocumentInputBodyScript string
+
+const (
+	RichTextDocumentInputBodyScriptNormal RichTextDocumentInputBodyScript = "normal"
+	RichTextDocumentInputBodyScriptSub    RichTextDocumentInputBodyScript = "sub"
+	RichTextDocumentInputBodyScriptSuper  RichTextDocumentInputBodyScript = "super"
+)
+
+func NewRichTextDocumentInputBodyScriptFromString(s string) (RichTextDocumentInputBodyScript, error) {
+	switch s {
+	case "normal":
+		return RichTextDocumentInputBodyScriptNormal, nil
+	case "sub":
+		return RichTextDocumentInputBodyScriptSub, nil
+	case "super":
+		return RichTextDocumentInputBodyScriptSuper, nil
+	}
+	var t RichTextDocumentInputBodyScript
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputBodyScript) Ptr() *RichTextDocumentInputBodyScript {
+	return &r
+}
+
+var (
+	richTextDocumentInputParagraphsItemFieldAlign      = big.NewInt(1 << 0)
+	richTextDocumentInputParagraphsItemFieldDir        = big.NewInt(1 << 1)
+	richTextDocumentInputParagraphsItemFieldLineHeight = big.NewInt(1 << 2)
+	richTextDocumentInputParagraphsItemFieldMargins    = big.NewInt(1 << 3)
+	richTextDocumentInputParagraphsItemFieldTextIndent = big.NewInt(1 << 4)
+	richTextDocumentInputParagraphsItemFieldUnknown    = big.NewInt(1 << 5)
+	richTextDocumentInputParagraphsItemFieldRuns       = big.NewInt(1 << 6)
+)
+
+type RichTextDocumentInputParagraphsItem struct {
+	Align      *RichTextDocumentInputParagraphsItemAlign      `json:"align,omitempty" url:"align,omitempty"`
+	Dir        *RichTextDocumentInputParagraphsItemDir        `json:"dir,omitempty" url:"dir,omitempty"`
+	LineHeight *float64                                       `json:"lineHeight,omitempty" url:"lineHeight,omitempty"`
+	Margins    *RichTextDocumentInputParagraphsItemMargins    `json:"margins,omitempty" url:"margins,omitempty"`
+	TextIndent *float64                                       `json:"textIndent,omitempty" url:"textIndent,omitempty"`
+	Unknown    *string                                        `json:"unknown,omitempty" url:"unknown,omitempty"`
+	Runs       []*RichTextDocumentInputParagraphsItemRunsItem `json:"runs" url:"runs"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetAlign() *RichTextDocumentInputParagraphsItemAlign {
+	if r == nil {
+		return nil
+	}
+	return r.Align
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetDir() *RichTextDocumentInputParagraphsItemDir {
+	if r == nil {
+		return nil
+	}
+	return r.Dir
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetLineHeight() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.LineHeight
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetMargins() *RichTextDocumentInputParagraphsItemMargins {
+	if r == nil {
+		return nil
+	}
+	return r.Margins
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetTextIndent() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.TextIndent
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetUnknown() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Unknown
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetRuns() []*RichTextDocumentInputParagraphsItemRunsItem {
+	if r == nil {
+		return nil
+	}
+	return r.Runs
+}
+
+func (r *RichTextDocumentInputParagraphsItem) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputParagraphsItem) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetAlign sets the Align field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetAlign(align *RichTextDocumentInputParagraphsItemAlign) {
+	r.Align = align
+	r.require(richTextDocumentInputParagraphsItemFieldAlign)
+}
+
+// SetDir sets the Dir field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetDir(dir *RichTextDocumentInputParagraphsItemDir) {
+	r.Dir = dir
+	r.require(richTextDocumentInputParagraphsItemFieldDir)
+}
+
+// SetLineHeight sets the LineHeight field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetLineHeight(lineHeight *float64) {
+	r.LineHeight = lineHeight
+	r.require(richTextDocumentInputParagraphsItemFieldLineHeight)
+}
+
+// SetMargins sets the Margins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetMargins(margins *RichTextDocumentInputParagraphsItemMargins) {
+	r.Margins = margins
+	r.require(richTextDocumentInputParagraphsItemFieldMargins)
+}
+
+// SetTextIndent sets the TextIndent field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetTextIndent(textIndent *float64) {
+	r.TextIndent = textIndent
+	r.require(richTextDocumentInputParagraphsItemFieldTextIndent)
+}
+
+// SetUnknown sets the Unknown field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetUnknown(unknown *string) {
+	r.Unknown = unknown
+	r.require(richTextDocumentInputParagraphsItemFieldUnknown)
+}
+
+// SetRuns sets the Runs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItem) SetRuns(runs []*RichTextDocumentInputParagraphsItemRunsItem) {
+	r.Runs = runs
+	r.require(richTextDocumentInputParagraphsItemFieldRuns)
+}
+
+func (r *RichTextDocumentInputParagraphsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputParagraphsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputParagraphsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputParagraphsItem) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputParagraphsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputParagraphsItem) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+type RichTextDocumentInputParagraphsItemAlign string
+
+const (
+	RichTextDocumentInputParagraphsItemAlignLeft    RichTextDocumentInputParagraphsItemAlign = "left"
+	RichTextDocumentInputParagraphsItemAlignCenter  RichTextDocumentInputParagraphsItemAlign = "center"
+	RichTextDocumentInputParagraphsItemAlignRight   RichTextDocumentInputParagraphsItemAlign = "right"
+	RichTextDocumentInputParagraphsItemAlignJustify RichTextDocumentInputParagraphsItemAlign = "justify"
+)
+
+func NewRichTextDocumentInputParagraphsItemAlignFromString(s string) (RichTextDocumentInputParagraphsItemAlign, error) {
+	switch s {
+	case "left":
+		return RichTextDocumentInputParagraphsItemAlignLeft, nil
+	case "center":
+		return RichTextDocumentInputParagraphsItemAlignCenter, nil
+	case "right":
+		return RichTextDocumentInputParagraphsItemAlignRight, nil
+	case "justify":
+		return RichTextDocumentInputParagraphsItemAlignJustify, nil
+	}
+	var t RichTextDocumentInputParagraphsItemAlign
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputParagraphsItemAlign) Ptr() *RichTextDocumentInputParagraphsItemAlign {
+	return &r
+}
+
+type RichTextDocumentInputParagraphsItemDir string
+
+const (
+	RichTextDocumentInputParagraphsItemDirLtr RichTextDocumentInputParagraphsItemDir = "ltr"
+	RichTextDocumentInputParagraphsItemDirRtl RichTextDocumentInputParagraphsItemDir = "rtl"
+)
+
+func NewRichTextDocumentInputParagraphsItemDirFromString(s string) (RichTextDocumentInputParagraphsItemDir, error) {
+	switch s {
+	case "ltr":
+		return RichTextDocumentInputParagraphsItemDirLtr, nil
+	case "rtl":
+		return RichTextDocumentInputParagraphsItemDirRtl, nil
+	}
+	var t RichTextDocumentInputParagraphsItemDir
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputParagraphsItemDir) Ptr() *RichTextDocumentInputParagraphsItemDir {
+	return &r
+}
+
+var (
+	richTextDocumentInputParagraphsItemMarginsFieldTop    = big.NewInt(1 << 0)
+	richTextDocumentInputParagraphsItemMarginsFieldBottom = big.NewInt(1 << 1)
+	richTextDocumentInputParagraphsItemMarginsFieldLeft   = big.NewInt(1 << 2)
+	richTextDocumentInputParagraphsItemMarginsFieldRight  = big.NewInt(1 << 3)
+)
+
+type RichTextDocumentInputParagraphsItemMargins struct {
+	Top    float64 `json:"top" url:"top"`
+	Bottom float64 `json:"bottom" url:"bottom"`
+	Left   float64 `json:"left" url:"left"`
+	Right  float64 `json:"right" url:"right"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) GetTop() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Top
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) GetBottom() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Bottom
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) GetLeft() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Left
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) GetRight() float64 {
+	if r == nil {
+		return 0
+	}
+	return r.Right
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetTop sets the Top field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemMargins) SetTop(top float64) {
+	r.Top = top
+	r.require(richTextDocumentInputParagraphsItemMarginsFieldTop)
+}
+
+// SetBottom sets the Bottom field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemMargins) SetBottom(bottom float64) {
+	r.Bottom = bottom
+	r.require(richTextDocumentInputParagraphsItemMarginsFieldBottom)
+}
+
+// SetLeft sets the Left field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemMargins) SetLeft(left float64) {
+	r.Left = left
+	r.require(richTextDocumentInputParagraphsItemMarginsFieldLeft)
+}
+
+// SetRight sets the Right field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemMargins) SetRight(right float64) {
+	r.Right = right
+	r.require(richTextDocumentInputParagraphsItemMarginsFieldRight)
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputParagraphsItemMargins
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputParagraphsItemMargins(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputParagraphsItemMargins
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputParagraphsItemMargins) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+var (
+	richTextDocumentInputParagraphsItemRunsItemFieldText  = big.NewInt(1 << 0)
+	richTextDocumentInputParagraphsItemRunsItemFieldStyle = big.NewInt(1 << 1)
+)
+
+type RichTextDocumentInputParagraphsItemRunsItem struct {
+	Text  string                                            `json:"text" url:"text"`
+	Style *RichTextDocumentInputParagraphsItemRunsItemStyle `json:"style,omitempty" url:"style,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) GetText() string {
+	if r == nil {
+		return ""
+	}
+	return r.Text
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) GetStyle() *RichTextDocumentInputParagraphsItemRunsItemStyle {
+	if r == nil {
+		return nil
+	}
+	return r.Style
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetText sets the Text field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItem) SetText(text string) {
+	r.Text = text
+	r.require(richTextDocumentInputParagraphsItemRunsItemFieldText)
+}
+
+// SetStyle sets the Style field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItem) SetStyle(style *RichTextDocumentInputParagraphsItemRunsItemStyle) {
+	r.Style = style
+	r.require(richTextDocumentInputParagraphsItemRunsItemFieldStyle)
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputParagraphsItemRunsItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputParagraphsItemRunsItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputParagraphsItemRunsItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItem) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+var (
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldFamily          = big.NewInt(1 << 0)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldWeight          = big.NewInt(1 << 1)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldItalic          = big.NewInt(1 << 2)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldSize            = big.NewInt(1 << 3)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldColor           = big.NewInt(1 << 4)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldDecoration      = big.NewInt(1 << 5)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldScript          = big.NewInt(1 << 6)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldLetterSpacing   = big.NewInt(1 << 7)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldHorizontalScale = big.NewInt(1 << 8)
+	richTextDocumentInputParagraphsItemRunsItemStyleFieldUnknown         = big.NewInt(1 << 9)
+)
+
+type RichTextDocumentInputParagraphsItemRunsItemStyle struct {
+	Family          *string                                                          `json:"family,omitempty" url:"family,omitempty"`
+	Weight          *int                                                             `json:"weight,omitempty" url:"weight,omitempty"`
+	Italic          *bool                                                            `json:"italic,omitempty" url:"italic,omitempty"`
+	Size            *float64                                                         `json:"size,omitempty" url:"size,omitempty"`
+	Color           *string                                                          `json:"color,omitempty" url:"color,omitempty"`
+	Decoration      []RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem `json:"decoration,omitempty" url:"decoration,omitempty"`
+	Script          *RichTextDocumentInputParagraphsItemRunsItemStyleScript          `json:"script,omitempty" url:"script,omitempty"`
+	LetterSpacing   *float64                                                         `json:"letterSpacing,omitempty" url:"letterSpacing,omitempty"`
+	HorizontalScale *float64                                                         `json:"horizontalScale,omitempty" url:"horizontalScale,omitempty"`
+	Unknown         *string                                                          `json:"unknown,omitempty" url:"unknown,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetFamily() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Family
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetWeight() *int {
+	if r == nil {
+		return nil
+	}
+	return r.Weight
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetItalic() *bool {
+	if r == nil {
+		return nil
+	}
+	return r.Italic
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetSize() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.Size
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetColor() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Color
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetDecoration() []RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem {
+	if r == nil {
+		return nil
+	}
+	return r.Decoration
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetScript() *RichTextDocumentInputParagraphsItemRunsItemStyleScript {
+	if r == nil {
+		return nil
+	}
+	return r.Script
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetLetterSpacing() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.LetterSpacing
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetHorizontalScale() *float64 {
+	if r == nil {
+		return nil
+	}
+	return r.HorizontalScale
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetUnknown() *string {
+	if r == nil {
+		return nil
+	}
+	return r.Unknown
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) GetExtraProperties() map[string]interface{} {
+	if r == nil {
+		return nil
+	}
+	return r.extraProperties
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) require(field *big.Int) {
+	if r.explicitFields == nil {
+		r.explicitFields = big.NewInt(0)
+	}
+	r.explicitFields.Or(r.explicitFields, field)
+}
+
+// SetFamily sets the Family field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetFamily(family *string) {
+	r.Family = family
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldFamily)
+}
+
+// SetWeight sets the Weight field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetWeight(weight *int) {
+	r.Weight = weight
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldWeight)
+}
+
+// SetItalic sets the Italic field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetItalic(italic *bool) {
+	r.Italic = italic
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldItalic)
+}
+
+// SetSize sets the Size field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetSize(size *float64) {
+	r.Size = size
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldSize)
+}
+
+// SetColor sets the Color field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetColor(color *string) {
+	r.Color = color
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldColor)
+}
+
+// SetDecoration sets the Decoration field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetDecoration(decoration []RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem) {
+	r.Decoration = decoration
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldDecoration)
+}
+
+// SetScript sets the Script field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetScript(script *RichTextDocumentInputParagraphsItemRunsItemStyleScript) {
+	r.Script = script
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldScript)
+}
+
+// SetLetterSpacing sets the LetterSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetLetterSpacing(letterSpacing *float64) {
+	r.LetterSpacing = letterSpacing
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldLetterSpacing)
+}
+
+// SetHorizontalScale sets the HorizontalScale field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetHorizontalScale(horizontalScale *float64) {
+	r.HorizontalScale = horizontalScale
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldHorizontalScale)
+}
+
+// SetUnknown sets the Unknown field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) SetUnknown(unknown *string) {
+	r.Unknown = unknown
+	r.require(richTextDocumentInputParagraphsItemRunsItemStyleFieldUnknown)
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) UnmarshalJSON(data []byte) error {
+	type unmarshaler RichTextDocumentInputParagraphsItemRunsItemStyle
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*r = RichTextDocumentInputParagraphsItemRunsItemStyle(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *r)
+	if err != nil {
+		return err
+	}
+	r.extraProperties = extraProperties
+	r.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) MarshalJSON() ([]byte, error) {
+	type embed RichTextDocumentInputParagraphsItemRunsItemStyle
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*r),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, r.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (r *RichTextDocumentInputParagraphsItemRunsItemStyle) String() string {
+	if r == nil {
+		return "<nil>"
+	}
+	if len(r.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(r.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(r); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", r)
+}
+
+type RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem string
+
+const (
+	RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemUnderline   RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem = "underline"
+	RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemLineThrough RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem = "line-through"
+	RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemWord        RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem = "word"
+)
+
+func NewRichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemFromString(s string) (RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem, error) {
+	switch s {
+	case "underline":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemUnderline, nil
+	case "line-through":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemLineThrough, nil
+	case "word":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItemWord, nil
+	}
+	var t RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem) Ptr() *RichTextDocumentInputParagraphsItemRunsItemStyleDecorationItem {
+	return &r
+}
+
+type RichTextDocumentInputParagraphsItemRunsItemStyleScript string
+
+const (
+	RichTextDocumentInputParagraphsItemRunsItemStyleScriptNormal RichTextDocumentInputParagraphsItemRunsItemStyleScript = "normal"
+	RichTextDocumentInputParagraphsItemRunsItemStyleScriptSub    RichTextDocumentInputParagraphsItemRunsItemStyleScript = "sub"
+	RichTextDocumentInputParagraphsItemRunsItemStyleScriptSuper  RichTextDocumentInputParagraphsItemRunsItemStyleScript = "super"
+)
+
+func NewRichTextDocumentInputParagraphsItemRunsItemStyleScriptFromString(s string) (RichTextDocumentInputParagraphsItemRunsItemStyleScript, error) {
+	switch s {
+	case "normal":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleScriptNormal, nil
+	case "sub":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleScriptSub, nil
+	case "super":
+		return RichTextDocumentInputParagraphsItemRunsItemStyleScriptSuper, nil
+	}
+	var t RichTextDocumentInputParagraphsItemRunsItemStyleScript
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (r RichTextDocumentInputParagraphsItemRunsItemStyleScript) Ptr() *RichTextDocumentInputParagraphsItemRunsItemStyleScript {
+	return &r
 }
 
 var (

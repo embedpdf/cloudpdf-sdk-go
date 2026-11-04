@@ -124,3 +124,653 @@ func (d *DeploymentLicenseStatusResponse) String() string {
 	}
 	return fmt.Sprintf("%#v", d)
 }
+
+var (
+	deploymentModulesResponseFieldModules = big.NewInt(1 << 0)
+)
+
+type DeploymentModulesResponse struct {
+	Modules []*ModuleManifest `json:"modules" url:"modules"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DeploymentModulesResponse) GetModules() []*ModuleManifest {
+	if d == nil {
+		return nil
+	}
+	return d.Modules
+}
+
+func (d *DeploymentModulesResponse) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DeploymentModulesResponse) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetModules sets the Modules field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DeploymentModulesResponse) SetModules(modules []*ModuleManifest) {
+	d.Modules = modules
+	d.require(deploymentModulesResponseFieldModules)
+}
+
+func (d *DeploymentModulesResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DeploymentModulesResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DeploymentModulesResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DeploymentModulesResponse) MarshalJSON() ([]byte, error) {
+	type embed DeploymentModulesResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DeploymentModulesResponse) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	moduleManifestFieldID          = big.NewInt(1 << 0)
+	moduleManifestFieldName        = big.NewInt(1 << 1)
+	moduleManifestFieldDescription = big.NewInt(1 << 2)
+	moduleManifestFieldPermissions = big.NewInt(1 << 3)
+	moduleManifestFieldMeters      = big.NewInt(1 << 4)
+	moduleManifestFieldRequires    = big.NewInt(1 << 5)
+)
+
+type ModuleManifest struct {
+	ID          string                  `json:"id" url:"id"`
+	Name        string                  `json:"name" url:"name"`
+	Description *string                 `json:"description,omitempty" url:"description,omitempty"`
+	Permissions []*ModulePermission     `json:"permissions" url:"permissions"`
+	Meters      []*ModuleMeter          `json:"meters" url:"meters"`
+	Requires    *ModuleManifestRequires `json:"requires" url:"requires"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (m *ModuleManifest) GetID() string {
+	if m == nil {
+		return ""
+	}
+	return m.ID
+}
+
+func (m *ModuleManifest) GetName() string {
+	if m == nil {
+		return ""
+	}
+	return m.Name
+}
+
+func (m *ModuleManifest) GetDescription() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Description
+}
+
+func (m *ModuleManifest) GetPermissions() []*ModulePermission {
+	if m == nil {
+		return nil
+	}
+	return m.Permissions
+}
+
+func (m *ModuleManifest) GetMeters() []*ModuleMeter {
+	if m == nil {
+		return nil
+	}
+	return m.Meters
+}
+
+func (m *ModuleManifest) GetRequires() *ModuleManifestRequires {
+	if m == nil {
+		return nil
+	}
+	return m.Requires
+}
+
+func (m *ModuleManifest) GetExtraProperties() map[string]interface{} {
+	if m == nil {
+		return nil
+	}
+	return m.extraProperties
+}
+
+func (m *ModuleManifest) require(field *big.Int) {
+	if m.explicitFields == nil {
+		m.explicitFields = big.NewInt(0)
+	}
+	m.explicitFields.Or(m.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetID(id string) {
+	m.ID = id
+	m.require(moduleManifestFieldID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetName(name string) {
+	m.Name = name
+	m.require(moduleManifestFieldName)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetDescription(description *string) {
+	m.Description = description
+	m.require(moduleManifestFieldDescription)
+}
+
+// SetPermissions sets the Permissions field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetPermissions(permissions []*ModulePermission) {
+	m.Permissions = permissions
+	m.require(moduleManifestFieldPermissions)
+}
+
+// SetMeters sets the Meters field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetMeters(meters []*ModuleMeter) {
+	m.Meters = meters
+	m.require(moduleManifestFieldMeters)
+}
+
+// SetRequires sets the Requires field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifest) SetRequires(requires *ModuleManifestRequires) {
+	m.Requires = requires
+	m.require(moduleManifestFieldRequires)
+}
+
+func (m *ModuleManifest) UnmarshalJSON(data []byte) error {
+	type unmarshaler ModuleManifest
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*m = ModuleManifest(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *m)
+	if err != nil {
+		return err
+	}
+	m.extraProperties = extraProperties
+	m.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (m *ModuleManifest) MarshalJSON() ([]byte, error) {
+	type embed ModuleManifest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*m),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (m *ModuleManifest) String() string {
+	if m == nil {
+		return "<nil>"
+	}
+	if len(m.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(m.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(m); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", m)
+}
+
+var (
+	moduleManifestRequiresFieldDocument = big.NewInt(1 << 0)
+)
+
+type ModuleManifestRequires struct {
+	Document []string `json:"document" url:"document"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (m *ModuleManifestRequires) GetDocument() []string {
+	if m == nil {
+		return nil
+	}
+	return m.Document
+}
+
+func (m *ModuleManifestRequires) GetExtraProperties() map[string]interface{} {
+	if m == nil {
+		return nil
+	}
+	return m.extraProperties
+}
+
+func (m *ModuleManifestRequires) require(field *big.Int) {
+	if m.explicitFields == nil {
+		m.explicitFields = big.NewInt(0)
+	}
+	m.explicitFields.Or(m.explicitFields, field)
+}
+
+// SetDocument sets the Document field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleManifestRequires) SetDocument(document []string) {
+	m.Document = document
+	m.require(moduleManifestRequiresFieldDocument)
+}
+
+func (m *ModuleManifestRequires) UnmarshalJSON(data []byte) error {
+	type unmarshaler ModuleManifestRequires
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*m = ModuleManifestRequires(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *m)
+	if err != nil {
+		return err
+	}
+	m.extraProperties = extraProperties
+	m.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (m *ModuleManifestRequires) MarshalJSON() ([]byte, error) {
+	type embed ModuleManifestRequires
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*m),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (m *ModuleManifestRequires) String() string {
+	if m == nil {
+		return "<nil>"
+	}
+	if len(m.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(m.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(m); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", m)
+}
+
+var (
+	moduleMeterFieldName        = big.NewInt(1 << 0)
+	moduleMeterFieldLabel       = big.NewInt(1 << 1)
+	moduleMeterFieldUnit        = big.NewInt(1 << 2)
+	moduleMeterFieldDescription = big.NewInt(1 << 3)
+)
+
+type ModuleMeter struct {
+	Name        string  `json:"name" url:"name"`
+	Label       string  `json:"label" url:"label"`
+	Unit        string  `json:"unit" url:"unit"`
+	Description *string `json:"description,omitempty" url:"description,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (m *ModuleMeter) GetName() string {
+	if m == nil {
+		return ""
+	}
+	return m.Name
+}
+
+func (m *ModuleMeter) GetLabel() string {
+	if m == nil {
+		return ""
+	}
+	return m.Label
+}
+
+func (m *ModuleMeter) GetUnit() string {
+	if m == nil {
+		return ""
+	}
+	return m.Unit
+}
+
+func (m *ModuleMeter) GetDescription() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Description
+}
+
+func (m *ModuleMeter) GetExtraProperties() map[string]interface{} {
+	if m == nil {
+		return nil
+	}
+	return m.extraProperties
+}
+
+func (m *ModuleMeter) require(field *big.Int) {
+	if m.explicitFields == nil {
+		m.explicitFields = big.NewInt(0)
+	}
+	m.explicitFields.Or(m.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleMeter) SetName(name string) {
+	m.Name = name
+	m.require(moduleMeterFieldName)
+}
+
+// SetLabel sets the Label field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleMeter) SetLabel(label string) {
+	m.Label = label
+	m.require(moduleMeterFieldLabel)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleMeter) SetUnit(unit string) {
+	m.Unit = unit
+	m.require(moduleMeterFieldUnit)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModuleMeter) SetDescription(description *string) {
+	m.Description = description
+	m.require(moduleMeterFieldDescription)
+}
+
+func (m *ModuleMeter) UnmarshalJSON(data []byte) error {
+	type unmarshaler ModuleMeter
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*m = ModuleMeter(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *m)
+	if err != nil {
+		return err
+	}
+	m.extraProperties = extraProperties
+	m.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (m *ModuleMeter) MarshalJSON() ([]byte, error) {
+	type embed ModuleMeter
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*m),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (m *ModuleMeter) String() string {
+	if m == nil {
+		return "<nil>"
+	}
+	if len(m.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(m.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(m); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", m)
+}
+
+var (
+	modulePermissionFieldName        = big.NewInt(1 << 0)
+	modulePermissionFieldLevel       = big.NewInt(1 << 1)
+	modulePermissionFieldLabel       = big.NewInt(1 << 2)
+	modulePermissionFieldDescription = big.NewInt(1 << 3)
+	modulePermissionFieldReplaces    = big.NewInt(1 << 4)
+	modulePermissionFieldBypassedBy  = big.NewInt(1 << 5)
+)
+
+type ModulePermission struct {
+	Name        string                `json:"name" url:"name"`
+	Level       ModulePermissionLevel `json:"level" url:"level"`
+	Label       string                `json:"label" url:"label"`
+	Description *string               `json:"description,omitempty" url:"description,omitempty"`
+	Replaces    *string               `json:"replaces,omitempty" url:"replaces,omitempty"`
+	BypassedBy  []string              `json:"bypassedBy,omitempty" url:"bypassedBy,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (m *ModulePermission) GetName() string {
+	if m == nil {
+		return ""
+	}
+	return m.Name
+}
+
+func (m *ModulePermission) GetLevel() ModulePermissionLevel {
+	if m == nil {
+		return ""
+	}
+	return m.Level
+}
+
+func (m *ModulePermission) GetLabel() string {
+	if m == nil {
+		return ""
+	}
+	return m.Label
+}
+
+func (m *ModulePermission) GetDescription() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Description
+}
+
+func (m *ModulePermission) GetReplaces() *string {
+	if m == nil {
+		return nil
+	}
+	return m.Replaces
+}
+
+func (m *ModulePermission) GetBypassedBy() []string {
+	if m == nil {
+		return nil
+	}
+	return m.BypassedBy
+}
+
+func (m *ModulePermission) GetExtraProperties() map[string]interface{} {
+	if m == nil {
+		return nil
+	}
+	return m.extraProperties
+}
+
+func (m *ModulePermission) require(field *big.Int) {
+	if m.explicitFields == nil {
+		m.explicitFields = big.NewInt(0)
+	}
+	m.explicitFields.Or(m.explicitFields, field)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetName(name string) {
+	m.Name = name
+	m.require(modulePermissionFieldName)
+}
+
+// SetLevel sets the Level field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetLevel(level ModulePermissionLevel) {
+	m.Level = level
+	m.require(modulePermissionFieldLevel)
+}
+
+// SetLabel sets the Label field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetLabel(label string) {
+	m.Label = label
+	m.require(modulePermissionFieldLabel)
+}
+
+// SetDescription sets the Description field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetDescription(description *string) {
+	m.Description = description
+	m.require(modulePermissionFieldDescription)
+}
+
+// SetReplaces sets the Replaces field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetReplaces(replaces *string) {
+	m.Replaces = replaces
+	m.require(modulePermissionFieldReplaces)
+}
+
+// SetBypassedBy sets the BypassedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (m *ModulePermission) SetBypassedBy(bypassedBy []string) {
+	m.BypassedBy = bypassedBy
+	m.require(modulePermissionFieldBypassedBy)
+}
+
+func (m *ModulePermission) UnmarshalJSON(data []byte) error {
+	type unmarshaler ModulePermission
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*m = ModulePermission(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *m)
+	if err != nil {
+		return err
+	}
+	m.extraProperties = extraProperties
+	m.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (m *ModulePermission) MarshalJSON() ([]byte, error) {
+	type embed ModulePermission
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*m),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, m.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (m *ModulePermission) String() string {
+	if m == nil {
+		return "<nil>"
+	}
+	if len(m.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(m.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(m); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", m)
+}
+
+type ModulePermissionLevel string
+
+const (
+	ModulePermissionLevelDocument ModulePermissionLevel = "document"
+	ModulePermissionLevelTenant   ModulePermissionLevel = "tenant"
+)
+
+func NewModulePermissionLevelFromString(s string) (ModulePermissionLevel, error) {
+	switch s {
+	case "document":
+		return ModulePermissionLevelDocument, nil
+	case "tenant":
+		return ModulePermissionLevelTenant, nil
+	}
+	var t ModulePermissionLevel
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (m ModulePermissionLevel) Ptr() *ModulePermissionLevel {
+	return &m
+}
