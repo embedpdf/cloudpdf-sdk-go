@@ -71,3 +71,43 @@ func (r *RawClient) LicenseStatus(
 		Body:       response,
 	}, nil
 }
+
+func (r *RawClient) Modules(
+	ctx context.Context,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DeploymentModulesResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://engine.cloudpdf.com",
+	)
+	endpointURL := baseURL + "/v1/deployment/modules"
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	var response *cloudpdf.DeploymentModulesResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodGet,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Response:        &response,
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DeploymentModulesResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}

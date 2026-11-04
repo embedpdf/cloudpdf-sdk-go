@@ -52,3 +52,24 @@ func (c *Client) LicenseStatus(
 	}
 	return response.Body, nil
 }
+
+// What each module declares, for a dashboard or a script that lists modules, offers their permissions in its dialogs and shows their meters. Which tenants may use one is in their `features` (`tenants.get`); what it costs, if anything, is the operator's.
+//
+// Example:
+//
+//	client.Deployment.Modules(
+//	    context.TODO(),
+//	)
+func (c *Client) Modules(
+	ctx context.Context,
+	opts ...option.RequestOption,
+) (*cloudpdf.DeploymentModulesResponse, error) {
+	response, err := c.WithRawResponse.Modules(
+		ctx,
+		opts...,
+	)
+	if err != nil {
+		return nil, err
+	}
+	return response.Body, nil
+}

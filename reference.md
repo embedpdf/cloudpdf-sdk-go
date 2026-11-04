@@ -27,6 +27,47 @@ client.Deployment.LicenseStatus(
 </dl>
 </details>
 
+<details><summary><code>client.Deployment.Modules() -> *cloudpdf.DeploymentModulesResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+What each module declares, for a dashboard or a script that lists modules, offers their permissions in its dialogs and shows their meters. Which tenants may use one is in their `features` (`tenants.get`); what it costs, if anything, is the operator's.
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```go
+client.Deployment.Modules(
+    context.TODO(),
+)
+```
+</dd>
+</dl>
+</dd>
+</dl>
+
+
+</dd>
+</dl>
+</details>
+
 ## Doc
 <details><summary><code>client.Doc.Head(DocID) -> *cloudpdf.DocHead200Response</code></summary>
 <dl>
@@ -1675,6 +1716,22 @@ client.Tenants.Usage(
 <dd>
 
 **period:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**from:** `*string` 
+    
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**to:** `*string` 
     
 </dd>
 </dl>
