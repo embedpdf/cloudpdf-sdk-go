@@ -37,7 +37,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListFormsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsList200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocFormsList200Response
+	var response *cloudpdf.DocFormsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsList200Response]{
+	return &core.Response[*cloudpdf.DocFormsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -87,7 +87,7 @@ func (r *RawClient) ReorderCalculations(
 	ctx context.Context,
 	request *doc.DocFormsReorderCalculationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsReorderCalculations200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsReorderCalculationsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -110,7 +110,7 @@ func (r *RawClient) ReorderCalculations(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsReorderCalculations200Response
+	var response *cloudpdf.DocFormsReorderCalculationsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -130,7 +130,7 @@ func (r *RawClient) ReorderCalculations(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsReorderCalculations200Response]{
+	return &core.Response[*cloudpdf.DocFormsReorderCalculationsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -141,7 +141,7 @@ func (r *RawClient) SetValue(
 	ctx context.Context,
 	request *doc.SetValueFormsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsSetValue200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsSetValueResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -165,7 +165,7 @@ func (r *RawClient) SetValue(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsSetValue200Response
+	var response *cloudpdf.DocFormsSetValueResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -185,7 +185,7 @@ func (r *RawClient) SetValue(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsSetValue200Response]{
+	return &core.Response[*cloudpdf.DocFormsSetValueResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -196,7 +196,7 @@ func (r *RawClient) Reset(
 	ctx context.Context,
 	request *doc.DocFormsResetRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsReset200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsResetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -219,7 +219,7 @@ func (r *RawClient) Reset(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsReset200Response
+	var response *cloudpdf.DocFormsResetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -239,7 +239,7 @@ func (r *RawClient) Reset(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsReset200Response]{
+	return &core.Response[*cloudpdf.DocFormsResetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -250,7 +250,7 @@ func (r *RawClient) DeleteWidget(
 	ctx context.Context,
 	request *doc.DeleteWidgetFormsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsDeleteWidget200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsDeleteWidgetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -262,7 +262,7 @@ func (r *RawClient) DeleteWidget(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -275,7 +275,7 @@ func (r *RawClient) DeleteWidget(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 
-	var response *cloudpdf.DocFormsDeleteWidget200Response
+	var response *cloudpdf.DocFormsDeleteWidgetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -294,7 +294,7 @@ func (r *RawClient) DeleteWidget(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsDeleteWidget200Response]{
+	return &core.Response[*cloudpdf.DocFormsDeleteWidgetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -305,7 +305,7 @@ func (r *RawClient) UpdateWidget(
 	ctx context.Context,
 	request *doc.DocFormsUpdateWidgetRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsUpdateWidget200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsUpdateWidgetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -317,7 +317,7 @@ func (r *RawClient) UpdateWidget(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -330,7 +330,7 @@ func (r *RawClient) UpdateWidget(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsUpdateWidget200Response
+	var response *cloudpdf.DocFormsUpdateWidgetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -350,7 +350,7 @@ func (r *RawClient) UpdateWidget(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsUpdateWidget200Response]{
+	return &core.Response[*cloudpdf.DocFormsUpdateWidgetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -361,7 +361,7 @@ func (r *RawClient) ReorderWidgets(
 	ctx context.Context,
 	request *doc.DocFormsReorderWidgetsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocFormsReorderWidgets200Response], error) {
+) (*core.Response[*cloudpdf.DocFormsReorderWidgetsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -385,7 +385,7 @@ func (r *RawClient) ReorderWidgets(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocFormsReorderWidgets200Response
+	var response *cloudpdf.DocFormsReorderWidgetsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -405,7 +405,7 @@ func (r *RawClient) ReorderWidgets(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocFormsReorderWidgets200Response]{
+	return &core.Response[*cloudpdf.DocFormsReorderWidgetsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

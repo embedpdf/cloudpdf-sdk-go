@@ -37,7 +37,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *metadata.GetCustomRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocMetadataCustomGet200Response], error) {
+) (*core.Response[cloudpdf.DocMetadataCustomGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) Get(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocMetadataCustomGet200Response
+	var response cloudpdf.DocMetadataCustomGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocMetadataCustomGet200Response]{
+	return &core.Response[cloudpdf.DocMetadataCustomGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

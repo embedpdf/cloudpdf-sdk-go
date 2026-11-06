@@ -45,7 +45,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *cloudpdf.ListTenantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TenantsList200Response, error) {
+) (*cloudpdf.TenantsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -70,7 +70,7 @@ func (c *Client) Create(
 	ctx context.Context,
 	request *cloudpdf.TenantsCreateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TenantsCreate200Response, error) {
+) (*cloudpdf.TenantsCreateResponse, error) {
 	response, err := c.WithRawResponse.Create(
 		ctx,
 		request,
@@ -95,7 +95,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *cloudpdf.GetTenantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TenantsGet200Response, error) {
+) (*cloudpdf.TenantsGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,
@@ -154,7 +154,7 @@ func (c *Client) Update(
 	ctx context.Context,
 	request *cloudpdf.TenantsUpdateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TenantsUpdate200Response, error) {
+) (*cloudpdf.TenantsUpdateResponse, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -233,7 +233,7 @@ func (c *Client) Usage(
 	ctx context.Context,
 	request *cloudpdf.UsageTenantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TenantsUsage200Response, error) {
+) (*cloudpdf.TenantsUsageResponse, error) {
 	response, err := c.WithRawResponse.Usage(
 		ctx,
 		request,

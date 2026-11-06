@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
+	time "time"
 )
 
 var (
@@ -348,13 +349,13 @@ func (t TenantFeatureStopped) Ptr() *TenantFeatureStopped {
 }
 
 var (
-	tenantsCreate200ResponseFieldTenant  = big.NewInt(1 << 0)
-	tenantsCreate200ResponseFieldCreated = big.NewInt(1 << 1)
+	tenantsCreateResponseFieldTenant  = big.NewInt(1 << 0)
+	tenantsCreateResponseFieldCreated = big.NewInt(1 << 1)
 )
 
-type TenantsCreate200Response struct {
-	Tenant  *TenantsCreate200ResponseTenant `json:"tenant" url:"tenant"`
-	Created bool                            `json:"created" url:"created"`
+type TenantsCreateResponse struct {
+	Tenant  *TenantsCreateResponseTenant `json:"tenant" url:"tenant"`
+	Created bool                         `json:"created" url:"created"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -363,28 +364,28 @@ type TenantsCreate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsCreate200Response) GetTenant() *TenantsCreate200ResponseTenant {
+func (t *TenantsCreateResponse) GetTenant() *TenantsCreateResponseTenant {
 	if t == nil {
 		return nil
 	}
 	return t.Tenant
 }
 
-func (t *TenantsCreate200Response) GetCreated() bool {
+func (t *TenantsCreateResponse) GetCreated() bool {
 	if t == nil {
 		return false
 	}
 	return t.Created
 }
 
-func (t *TenantsCreate200Response) GetExtraProperties() map[string]interface{} {
+func (t *TenantsCreateResponse) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsCreate200Response) require(field *big.Int) {
+func (t *TenantsCreateResponse) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -393,25 +394,25 @@ func (t *TenantsCreate200Response) require(field *big.Int) {
 
 // SetTenant sets the Tenant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200Response) SetTenant(tenant *TenantsCreate200ResponseTenant) {
+func (t *TenantsCreateResponse) SetTenant(tenant *TenantsCreateResponseTenant) {
 	t.Tenant = tenant
-	t.require(tenantsCreate200ResponseFieldTenant)
+	t.require(tenantsCreateResponseFieldTenant)
 }
 
 // SetCreated sets the Created field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200Response) SetCreated(created bool) {
+func (t *TenantsCreateResponse) SetCreated(created bool) {
 	t.Created = created
-	t.require(tenantsCreate200ResponseFieldCreated)
+	t.require(tenantsCreateResponseFieldCreated)
 }
 
-func (t *TenantsCreate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsCreate200Response
+func (t *TenantsCreateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsCreateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsCreate200Response(value)
+	*t = TenantsCreateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -421,8 +422,8 @@ func (t *TenantsCreate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsCreate200Response) MarshalJSON() ([]byte, error) {
-	type embed TenantsCreate200Response
+func (t *TenantsCreateResponse) MarshalJSON() ([]byte, error) {
+	type embed TenantsCreateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -432,7 +433,7 @@ func (t *TenantsCreate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsCreate200Response) String() string {
+func (t *TenantsCreateResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -448,21 +449,21 @@ func (t *TenantsCreate200Response) String() string {
 }
 
 var (
-	tenantsCreate200ResponseTenantFieldID              = big.NewInt(1 << 0)
-	tenantsCreate200ResponseTenantFieldName            = big.NewInt(1 << 1)
-	tenantsCreate200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
-	tenantsCreate200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
-	tenantsCreate200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
-	tenantsCreate200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
+	tenantsCreateResponseTenantFieldID              = big.NewInt(1 << 0)
+	tenantsCreateResponseTenantFieldName            = big.NewInt(1 << 1)
+	tenantsCreateResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
+	tenantsCreateResponseTenantFieldStatus          = big.NewInt(1 << 3)
+	tenantsCreateResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsCreateResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
-type TenantsCreate200ResponseTenant struct {
-	ID              string                                `json:"id" url:"id"`
-	Name            string                                `json:"name" url:"name"`
-	AutoProvisioned bool                                  `json:"autoProvisioned" url:"autoProvisioned"`
-	Status          *TenantsCreate200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
-	Features        []*TenantFeature                      `json:"features,omitempty" url:"features,omitempty"`
-	CreatedAt       float64                               `json:"createdAt" url:"createdAt"`
+type TenantsCreateResponseTenant struct {
+	ID              string                             `json:"id" url:"id"`
+	Name            string                             `json:"name" url:"name"`
+	AutoProvisioned bool                               `json:"autoProvisioned" url:"autoProvisioned"`
+	Status          *TenantsCreateResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                   `json:"features,omitempty" url:"features,omitempty"`
+	CreatedAt       time.Time                          `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -471,56 +472,56 @@ type TenantsCreate200ResponseTenant struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsCreate200ResponseTenant) GetID() string {
+func (t *TenantsCreateResponseTenant) GetID() string {
 	if t == nil {
 		return ""
 	}
 	return t.ID
 }
 
-func (t *TenantsCreate200ResponseTenant) GetName() string {
+func (t *TenantsCreateResponseTenant) GetName() string {
 	if t == nil {
 		return ""
 	}
 	return t.Name
 }
 
-func (t *TenantsCreate200ResponseTenant) GetAutoProvisioned() bool {
+func (t *TenantsCreateResponseTenant) GetAutoProvisioned() bool {
 	if t == nil {
 		return false
 	}
 	return t.AutoProvisioned
 }
 
-func (t *TenantsCreate200ResponseTenant) GetStatus() *TenantsCreate200ResponseTenantStatus {
+func (t *TenantsCreateResponseTenant) GetStatus() *TenantsCreateResponseTenantStatus {
 	if t == nil {
 		return nil
 	}
 	return t.Status
 }
 
-func (t *TenantsCreate200ResponseTenant) GetFeatures() []*TenantFeature {
+func (t *TenantsCreateResponseTenant) GetFeatures() []*TenantFeature {
 	if t == nil {
 		return nil
 	}
 	return t.Features
 }
 
-func (t *TenantsCreate200ResponseTenant) GetCreatedAt() float64 {
+func (t *TenantsCreateResponseTenant) GetCreatedAt() time.Time {
 	if t == nil {
-		return 0
+		return time.Time{}
 	}
 	return t.CreatedAt
 }
 
-func (t *TenantsCreate200ResponseTenant) GetExtraProperties() map[string]interface{} {
+func (t *TenantsCreateResponseTenant) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsCreate200ResponseTenant) require(field *big.Int) {
+func (t *TenantsCreateResponseTenant) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -529,53 +530,59 @@ func (t *TenantsCreate200ResponseTenant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetID(id string) {
+func (t *TenantsCreateResponseTenant) SetID(id string) {
 	t.ID = id
-	t.require(tenantsCreate200ResponseTenantFieldID)
+	t.require(tenantsCreateResponseTenantFieldID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetName(name string) {
+func (t *TenantsCreateResponseTenant) SetName(name string) {
 	t.Name = name
-	t.require(tenantsCreate200ResponseTenantFieldName)
+	t.require(tenantsCreateResponseTenantFieldName)
 }
 
 // SetAutoProvisioned sets the AutoProvisioned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
+func (t *TenantsCreateResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
 	t.AutoProvisioned = autoProvisioned
-	t.require(tenantsCreate200ResponseTenantFieldAutoProvisioned)
+	t.require(tenantsCreateResponseTenantFieldAutoProvisioned)
 }
 
 // SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetStatus(status *TenantsCreate200ResponseTenantStatus) {
+func (t *TenantsCreateResponseTenant) SetStatus(status *TenantsCreateResponseTenantStatus) {
 	t.Status = status
-	t.require(tenantsCreate200ResponseTenantFieldStatus)
+	t.require(tenantsCreateResponseTenantFieldStatus)
 }
 
 // SetFeatures sets the Features field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetFeatures(features []*TenantFeature) {
+func (t *TenantsCreateResponseTenant) SetFeatures(features []*TenantFeature) {
 	t.Features = features
-	t.require(tenantsCreate200ResponseTenantFieldFeatures)
+	t.require(tenantsCreateResponseTenantFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsCreate200ResponseTenant) SetCreatedAt(createdAt float64) {
+func (t *TenantsCreateResponseTenant) SetCreatedAt(createdAt time.Time) {
 	t.CreatedAt = createdAt
-	t.require(tenantsCreate200ResponseTenantFieldCreatedAt)
+	t.require(tenantsCreateResponseTenantFieldCreatedAt)
 }
 
-func (t *TenantsCreate200ResponseTenant) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsCreate200ResponseTenant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (t *TenantsCreateResponseTenant) UnmarshalJSON(data []byte) error {
+	type embed TenantsCreateResponseTenant
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*t),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*t = TenantsCreate200ResponseTenant(value)
+	*t = TenantsCreateResponseTenant(unmarshaler.embed)
+	t.CreatedAt = unmarshaler.CreatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -585,18 +592,20 @@ func (t *TenantsCreate200ResponseTenant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsCreate200ResponseTenant) MarshalJSON() ([]byte, error) {
-	type embed TenantsCreate200ResponseTenant
+func (t *TenantsCreateResponseTenant) MarshalJSON() ([]byte, error) {
+	type embed TenantsCreateResponseTenant
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
 	}{
-		embed: embed(*t),
+		embed:     embed(*t),
+		CreatedAt: internal.NewDateTime(t.CreatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsCreate200ResponseTenant) String() string {
+func (t *TenantsCreateResponseTenant) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -611,34 +620,34 @@ func (t *TenantsCreate200ResponseTenant) String() string {
 	return fmt.Sprintf("%#v", t)
 }
 
-type TenantsCreate200ResponseTenantStatus string
+type TenantsCreateResponseTenantStatus string
 
 const (
-	TenantsCreate200ResponseTenantStatusActive    TenantsCreate200ResponseTenantStatus = "active"
-	TenantsCreate200ResponseTenantStatusSuspended TenantsCreate200ResponseTenantStatus = "suspended"
+	TenantsCreateResponseTenantStatusActive    TenantsCreateResponseTenantStatus = "active"
+	TenantsCreateResponseTenantStatusSuspended TenantsCreateResponseTenantStatus = "suspended"
 )
 
-func NewTenantsCreate200ResponseTenantStatusFromString(s string) (TenantsCreate200ResponseTenantStatus, error) {
+func NewTenantsCreateResponseTenantStatusFromString(s string) (TenantsCreateResponseTenantStatus, error) {
 	switch s {
 	case "active":
-		return TenantsCreate200ResponseTenantStatusActive, nil
+		return TenantsCreateResponseTenantStatusActive, nil
 	case "suspended":
-		return TenantsCreate200ResponseTenantStatusSuspended, nil
+		return TenantsCreateResponseTenantStatusSuspended, nil
 	}
-	var t TenantsCreate200ResponseTenantStatus
+	var t TenantsCreateResponseTenantStatus
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (t TenantsCreate200ResponseTenantStatus) Ptr() *TenantsCreate200ResponseTenantStatus {
+func (t TenantsCreateResponseTenantStatus) Ptr() *TenantsCreateResponseTenantStatus {
 	return &t
 }
 
 var (
-	tenantsGet200ResponseFieldTenant = big.NewInt(1 << 0)
+	tenantsGetResponseFieldTenant = big.NewInt(1 << 0)
 )
 
-type TenantsGet200Response struct {
-	Tenant *TenantsGet200ResponseTenant `json:"tenant" url:"tenant"`
+type TenantsGetResponse struct {
+	Tenant *TenantsGetResponseTenant `json:"tenant" url:"tenant"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -647,21 +656,21 @@ type TenantsGet200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsGet200Response) GetTenant() *TenantsGet200ResponseTenant {
+func (t *TenantsGetResponse) GetTenant() *TenantsGetResponseTenant {
 	if t == nil {
 		return nil
 	}
 	return t.Tenant
 }
 
-func (t *TenantsGet200Response) GetExtraProperties() map[string]interface{} {
+func (t *TenantsGetResponse) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsGet200Response) require(field *big.Int) {
+func (t *TenantsGetResponse) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -670,18 +679,18 @@ func (t *TenantsGet200Response) require(field *big.Int) {
 
 // SetTenant sets the Tenant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200Response) SetTenant(tenant *TenantsGet200ResponseTenant) {
+func (t *TenantsGetResponse) SetTenant(tenant *TenantsGetResponseTenant) {
 	t.Tenant = tenant
-	t.require(tenantsGet200ResponseFieldTenant)
+	t.require(tenantsGetResponseFieldTenant)
 }
 
-func (t *TenantsGet200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsGet200Response
+func (t *TenantsGetResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsGetResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsGet200Response(value)
+	*t = TenantsGetResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -691,8 +700,8 @@ func (t *TenantsGet200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsGet200Response) MarshalJSON() ([]byte, error) {
-	type embed TenantsGet200Response
+func (t *TenantsGetResponse) MarshalJSON() ([]byte, error) {
+	type embed TenantsGetResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -702,7 +711,7 @@ func (t *TenantsGet200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsGet200Response) String() string {
+func (t *TenantsGetResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -718,21 +727,21 @@ func (t *TenantsGet200Response) String() string {
 }
 
 var (
-	tenantsGet200ResponseTenantFieldID              = big.NewInt(1 << 0)
-	tenantsGet200ResponseTenantFieldName            = big.NewInt(1 << 1)
-	tenantsGet200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
-	tenantsGet200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
-	tenantsGet200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
-	tenantsGet200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
+	tenantsGetResponseTenantFieldID              = big.NewInt(1 << 0)
+	tenantsGetResponseTenantFieldName            = big.NewInt(1 << 1)
+	tenantsGetResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
+	tenantsGetResponseTenantFieldStatus          = big.NewInt(1 << 3)
+	tenantsGetResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsGetResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
-type TenantsGet200ResponseTenant struct {
-	ID              string                             `json:"id" url:"id"`
-	Name            string                             `json:"name" url:"name"`
-	AutoProvisioned bool                               `json:"autoProvisioned" url:"autoProvisioned"`
-	Status          *TenantsGet200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
-	Features        []*TenantFeature                   `json:"features,omitempty" url:"features,omitempty"`
-	CreatedAt       float64                            `json:"createdAt" url:"createdAt"`
+type TenantsGetResponseTenant struct {
+	ID              string                          `json:"id" url:"id"`
+	Name            string                          `json:"name" url:"name"`
+	AutoProvisioned bool                            `json:"autoProvisioned" url:"autoProvisioned"`
+	Status          *TenantsGetResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                `json:"features,omitempty" url:"features,omitempty"`
+	CreatedAt       time.Time                       `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -741,56 +750,56 @@ type TenantsGet200ResponseTenant struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsGet200ResponseTenant) GetID() string {
+func (t *TenantsGetResponseTenant) GetID() string {
 	if t == nil {
 		return ""
 	}
 	return t.ID
 }
 
-func (t *TenantsGet200ResponseTenant) GetName() string {
+func (t *TenantsGetResponseTenant) GetName() string {
 	if t == nil {
 		return ""
 	}
 	return t.Name
 }
 
-func (t *TenantsGet200ResponseTenant) GetAutoProvisioned() bool {
+func (t *TenantsGetResponseTenant) GetAutoProvisioned() bool {
 	if t == nil {
 		return false
 	}
 	return t.AutoProvisioned
 }
 
-func (t *TenantsGet200ResponseTenant) GetStatus() *TenantsGet200ResponseTenantStatus {
+func (t *TenantsGetResponseTenant) GetStatus() *TenantsGetResponseTenantStatus {
 	if t == nil {
 		return nil
 	}
 	return t.Status
 }
 
-func (t *TenantsGet200ResponseTenant) GetFeatures() []*TenantFeature {
+func (t *TenantsGetResponseTenant) GetFeatures() []*TenantFeature {
 	if t == nil {
 		return nil
 	}
 	return t.Features
 }
 
-func (t *TenantsGet200ResponseTenant) GetCreatedAt() float64 {
+func (t *TenantsGetResponseTenant) GetCreatedAt() time.Time {
 	if t == nil {
-		return 0
+		return time.Time{}
 	}
 	return t.CreatedAt
 }
 
-func (t *TenantsGet200ResponseTenant) GetExtraProperties() map[string]interface{} {
+func (t *TenantsGetResponseTenant) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsGet200ResponseTenant) require(field *big.Int) {
+func (t *TenantsGetResponseTenant) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -799,53 +808,59 @@ func (t *TenantsGet200ResponseTenant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetID(id string) {
+func (t *TenantsGetResponseTenant) SetID(id string) {
 	t.ID = id
-	t.require(tenantsGet200ResponseTenantFieldID)
+	t.require(tenantsGetResponseTenantFieldID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetName(name string) {
+func (t *TenantsGetResponseTenant) SetName(name string) {
 	t.Name = name
-	t.require(tenantsGet200ResponseTenantFieldName)
+	t.require(tenantsGetResponseTenantFieldName)
 }
 
 // SetAutoProvisioned sets the AutoProvisioned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
+func (t *TenantsGetResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
 	t.AutoProvisioned = autoProvisioned
-	t.require(tenantsGet200ResponseTenantFieldAutoProvisioned)
+	t.require(tenantsGetResponseTenantFieldAutoProvisioned)
 }
 
 // SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetStatus(status *TenantsGet200ResponseTenantStatus) {
+func (t *TenantsGetResponseTenant) SetStatus(status *TenantsGetResponseTenantStatus) {
 	t.Status = status
-	t.require(tenantsGet200ResponseTenantFieldStatus)
+	t.require(tenantsGetResponseTenantFieldStatus)
 }
 
 // SetFeatures sets the Features field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetFeatures(features []*TenantFeature) {
+func (t *TenantsGetResponseTenant) SetFeatures(features []*TenantFeature) {
 	t.Features = features
-	t.require(tenantsGet200ResponseTenantFieldFeatures)
+	t.require(tenantsGetResponseTenantFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsGet200ResponseTenant) SetCreatedAt(createdAt float64) {
+func (t *TenantsGetResponseTenant) SetCreatedAt(createdAt time.Time) {
 	t.CreatedAt = createdAt
-	t.require(tenantsGet200ResponseTenantFieldCreatedAt)
+	t.require(tenantsGetResponseTenantFieldCreatedAt)
 }
 
-func (t *TenantsGet200ResponseTenant) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsGet200ResponseTenant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (t *TenantsGetResponseTenant) UnmarshalJSON(data []byte) error {
+	type embed TenantsGetResponseTenant
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*t),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*t = TenantsGet200ResponseTenant(value)
+	*t = TenantsGetResponseTenant(unmarshaler.embed)
+	t.CreatedAt = unmarshaler.CreatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -855,18 +870,20 @@ func (t *TenantsGet200ResponseTenant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsGet200ResponseTenant) MarshalJSON() ([]byte, error) {
-	type embed TenantsGet200ResponseTenant
+func (t *TenantsGetResponseTenant) MarshalJSON() ([]byte, error) {
+	type embed TenantsGetResponseTenant
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
 	}{
-		embed: embed(*t),
+		embed:     embed(*t),
+		CreatedAt: internal.NewDateTime(t.CreatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsGet200ResponseTenant) String() string {
+func (t *TenantsGetResponseTenant) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -881,36 +898,36 @@ func (t *TenantsGet200ResponseTenant) String() string {
 	return fmt.Sprintf("%#v", t)
 }
 
-type TenantsGet200ResponseTenantStatus string
+type TenantsGetResponseTenantStatus string
 
 const (
-	TenantsGet200ResponseTenantStatusActive    TenantsGet200ResponseTenantStatus = "active"
-	TenantsGet200ResponseTenantStatusSuspended TenantsGet200ResponseTenantStatus = "suspended"
+	TenantsGetResponseTenantStatusActive    TenantsGetResponseTenantStatus = "active"
+	TenantsGetResponseTenantStatusSuspended TenantsGetResponseTenantStatus = "suspended"
 )
 
-func NewTenantsGet200ResponseTenantStatusFromString(s string) (TenantsGet200ResponseTenantStatus, error) {
+func NewTenantsGetResponseTenantStatusFromString(s string) (TenantsGetResponseTenantStatus, error) {
 	switch s {
 	case "active":
-		return TenantsGet200ResponseTenantStatusActive, nil
+		return TenantsGetResponseTenantStatusActive, nil
 	case "suspended":
-		return TenantsGet200ResponseTenantStatusSuspended, nil
+		return TenantsGetResponseTenantStatusSuspended, nil
 	}
-	var t TenantsGet200ResponseTenantStatus
+	var t TenantsGetResponseTenantStatus
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (t TenantsGet200ResponseTenantStatus) Ptr() *TenantsGet200ResponseTenantStatus {
+func (t TenantsGetResponseTenantStatus) Ptr() *TenantsGetResponseTenantStatus {
 	return &t
 }
 
 var (
-	tenantsList200ResponseFieldTenants    = big.NewInt(1 << 0)
-	tenantsList200ResponseFieldNextCursor = big.NewInt(1 << 1)
+	tenantsListResponseFieldTenants    = big.NewInt(1 << 0)
+	tenantsListResponseFieldNextCursor = big.NewInt(1 << 1)
 )
 
-type TenantsList200Response struct {
-	Tenants    []*TenantsList200ResponseTenantsItem `json:"tenants" url:"tenants"`
-	NextCursor *string                              `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+type TenantsListResponse struct {
+	Tenants    []*TenantsListResponseTenantsItem `json:"tenants" url:"tenants"`
+	NextCursor *string                           `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -919,28 +936,28 @@ type TenantsList200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsList200Response) GetTenants() []*TenantsList200ResponseTenantsItem {
+func (t *TenantsListResponse) GetTenants() []*TenantsListResponseTenantsItem {
 	if t == nil {
 		return nil
 	}
 	return t.Tenants
 }
 
-func (t *TenantsList200Response) GetNextCursor() *string {
+func (t *TenantsListResponse) GetNextCursor() *string {
 	if t == nil {
 		return nil
 	}
 	return t.NextCursor
 }
 
-func (t *TenantsList200Response) GetExtraProperties() map[string]interface{} {
+func (t *TenantsListResponse) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsList200Response) require(field *big.Int) {
+func (t *TenantsListResponse) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -949,25 +966,25 @@ func (t *TenantsList200Response) require(field *big.Int) {
 
 // SetTenants sets the Tenants field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200Response) SetTenants(tenants []*TenantsList200ResponseTenantsItem) {
+func (t *TenantsListResponse) SetTenants(tenants []*TenantsListResponseTenantsItem) {
 	t.Tenants = tenants
-	t.require(tenantsList200ResponseFieldTenants)
+	t.require(tenantsListResponseFieldTenants)
 }
 
 // SetNextCursor sets the NextCursor field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200Response) SetNextCursor(nextCursor *string) {
+func (t *TenantsListResponse) SetNextCursor(nextCursor *string) {
 	t.NextCursor = nextCursor
-	t.require(tenantsList200ResponseFieldNextCursor)
+	t.require(tenantsListResponseFieldNextCursor)
 }
 
-func (t *TenantsList200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsList200Response
+func (t *TenantsListResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsListResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsList200Response(value)
+	*t = TenantsListResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -977,8 +994,8 @@ func (t *TenantsList200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsList200Response) MarshalJSON() ([]byte, error) {
-	type embed TenantsList200Response
+func (t *TenantsListResponse) MarshalJSON() ([]byte, error) {
+	type embed TenantsListResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -988,7 +1005,7 @@ func (t *TenantsList200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsList200Response) String() string {
+func (t *TenantsListResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -1004,21 +1021,21 @@ func (t *TenantsList200Response) String() string {
 }
 
 var (
-	tenantsList200ResponseTenantsItemFieldID              = big.NewInt(1 << 0)
-	tenantsList200ResponseTenantsItemFieldName            = big.NewInt(1 << 1)
-	tenantsList200ResponseTenantsItemFieldAutoProvisioned = big.NewInt(1 << 2)
-	tenantsList200ResponseTenantsItemFieldStatus          = big.NewInt(1 << 3)
-	tenantsList200ResponseTenantsItemFieldFeatures        = big.NewInt(1 << 4)
-	tenantsList200ResponseTenantsItemFieldCreatedAt       = big.NewInt(1 << 5)
+	tenantsListResponseTenantsItemFieldID              = big.NewInt(1 << 0)
+	tenantsListResponseTenantsItemFieldName            = big.NewInt(1 << 1)
+	tenantsListResponseTenantsItemFieldAutoProvisioned = big.NewInt(1 << 2)
+	tenantsListResponseTenantsItemFieldStatus          = big.NewInt(1 << 3)
+	tenantsListResponseTenantsItemFieldFeatures        = big.NewInt(1 << 4)
+	tenantsListResponseTenantsItemFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
-type TenantsList200ResponseTenantsItem struct {
-	ID              string                                   `json:"id" url:"id"`
-	Name            string                                   `json:"name" url:"name"`
-	AutoProvisioned bool                                     `json:"autoProvisioned" url:"autoProvisioned"`
-	Status          *TenantsList200ResponseTenantsItemStatus `json:"status,omitempty" url:"status,omitempty"`
-	Features        []*TenantFeature                         `json:"features,omitempty" url:"features,omitempty"`
-	CreatedAt       float64                                  `json:"createdAt" url:"createdAt"`
+type TenantsListResponseTenantsItem struct {
+	ID              string                                `json:"id" url:"id"`
+	Name            string                                `json:"name" url:"name"`
+	AutoProvisioned bool                                  `json:"autoProvisioned" url:"autoProvisioned"`
+	Status          *TenantsListResponseTenantsItemStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                      `json:"features,omitempty" url:"features,omitempty"`
+	CreatedAt       time.Time                             `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1027,56 +1044,56 @@ type TenantsList200ResponseTenantsItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetID() string {
+func (t *TenantsListResponseTenantsItem) GetID() string {
 	if t == nil {
 		return ""
 	}
 	return t.ID
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetName() string {
+func (t *TenantsListResponseTenantsItem) GetName() string {
 	if t == nil {
 		return ""
 	}
 	return t.Name
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetAutoProvisioned() bool {
+func (t *TenantsListResponseTenantsItem) GetAutoProvisioned() bool {
 	if t == nil {
 		return false
 	}
 	return t.AutoProvisioned
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetStatus() *TenantsList200ResponseTenantsItemStatus {
+func (t *TenantsListResponseTenantsItem) GetStatus() *TenantsListResponseTenantsItemStatus {
 	if t == nil {
 		return nil
 	}
 	return t.Status
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetFeatures() []*TenantFeature {
+func (t *TenantsListResponseTenantsItem) GetFeatures() []*TenantFeature {
 	if t == nil {
 		return nil
 	}
 	return t.Features
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetCreatedAt() float64 {
+func (t *TenantsListResponseTenantsItem) GetCreatedAt() time.Time {
 	if t == nil {
-		return 0
+		return time.Time{}
 	}
 	return t.CreatedAt
 }
 
-func (t *TenantsList200ResponseTenantsItem) GetExtraProperties() map[string]interface{} {
+func (t *TenantsListResponseTenantsItem) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsList200ResponseTenantsItem) require(field *big.Int) {
+func (t *TenantsListResponseTenantsItem) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -1085,53 +1102,59 @@ func (t *TenantsList200ResponseTenantsItem) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetID(id string) {
+func (t *TenantsListResponseTenantsItem) SetID(id string) {
 	t.ID = id
-	t.require(tenantsList200ResponseTenantsItemFieldID)
+	t.require(tenantsListResponseTenantsItemFieldID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetName(name string) {
+func (t *TenantsListResponseTenantsItem) SetName(name string) {
 	t.Name = name
-	t.require(tenantsList200ResponseTenantsItemFieldName)
+	t.require(tenantsListResponseTenantsItemFieldName)
 }
 
 // SetAutoProvisioned sets the AutoProvisioned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetAutoProvisioned(autoProvisioned bool) {
+func (t *TenantsListResponseTenantsItem) SetAutoProvisioned(autoProvisioned bool) {
 	t.AutoProvisioned = autoProvisioned
-	t.require(tenantsList200ResponseTenantsItemFieldAutoProvisioned)
+	t.require(tenantsListResponseTenantsItemFieldAutoProvisioned)
 }
 
 // SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetStatus(status *TenantsList200ResponseTenantsItemStatus) {
+func (t *TenantsListResponseTenantsItem) SetStatus(status *TenantsListResponseTenantsItemStatus) {
 	t.Status = status
-	t.require(tenantsList200ResponseTenantsItemFieldStatus)
+	t.require(tenantsListResponseTenantsItemFieldStatus)
 }
 
 // SetFeatures sets the Features field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetFeatures(features []*TenantFeature) {
+func (t *TenantsListResponseTenantsItem) SetFeatures(features []*TenantFeature) {
 	t.Features = features
-	t.require(tenantsList200ResponseTenantsItemFieldFeatures)
+	t.require(tenantsListResponseTenantsItemFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsList200ResponseTenantsItem) SetCreatedAt(createdAt float64) {
+func (t *TenantsListResponseTenantsItem) SetCreatedAt(createdAt time.Time) {
 	t.CreatedAt = createdAt
-	t.require(tenantsList200ResponseTenantsItemFieldCreatedAt)
+	t.require(tenantsListResponseTenantsItemFieldCreatedAt)
 }
 
-func (t *TenantsList200ResponseTenantsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsList200ResponseTenantsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (t *TenantsListResponseTenantsItem) UnmarshalJSON(data []byte) error {
+	type embed TenantsListResponseTenantsItem
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*t),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*t = TenantsList200ResponseTenantsItem(value)
+	*t = TenantsListResponseTenantsItem(unmarshaler.embed)
+	t.CreatedAt = unmarshaler.CreatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -1141,18 +1164,20 @@ func (t *TenantsList200ResponseTenantsItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsList200ResponseTenantsItem) MarshalJSON() ([]byte, error) {
-	type embed TenantsList200ResponseTenantsItem
+func (t *TenantsListResponseTenantsItem) MarshalJSON() ([]byte, error) {
+	type embed TenantsListResponseTenantsItem
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
 	}{
-		embed: embed(*t),
+		embed:     embed(*t),
+		CreatedAt: internal.NewDateTime(t.CreatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsList200ResponseTenantsItem) String() string {
+func (t *TenantsListResponseTenantsItem) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -1167,34 +1192,34 @@ func (t *TenantsList200ResponseTenantsItem) String() string {
 	return fmt.Sprintf("%#v", t)
 }
 
-type TenantsList200ResponseTenantsItemStatus string
+type TenantsListResponseTenantsItemStatus string
 
 const (
-	TenantsList200ResponseTenantsItemStatusActive    TenantsList200ResponseTenantsItemStatus = "active"
-	TenantsList200ResponseTenantsItemStatusSuspended TenantsList200ResponseTenantsItemStatus = "suspended"
+	TenantsListResponseTenantsItemStatusActive    TenantsListResponseTenantsItemStatus = "active"
+	TenantsListResponseTenantsItemStatusSuspended TenantsListResponseTenantsItemStatus = "suspended"
 )
 
-func NewTenantsList200ResponseTenantsItemStatusFromString(s string) (TenantsList200ResponseTenantsItemStatus, error) {
+func NewTenantsListResponseTenantsItemStatusFromString(s string) (TenantsListResponseTenantsItemStatus, error) {
 	switch s {
 	case "active":
-		return TenantsList200ResponseTenantsItemStatusActive, nil
+		return TenantsListResponseTenantsItemStatusActive, nil
 	case "suspended":
-		return TenantsList200ResponseTenantsItemStatusSuspended, nil
+		return TenantsListResponseTenantsItemStatusSuspended, nil
 	}
-	var t TenantsList200ResponseTenantsItemStatus
+	var t TenantsListResponseTenantsItemStatus
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (t TenantsList200ResponseTenantsItemStatus) Ptr() *TenantsList200ResponseTenantsItemStatus {
+func (t TenantsListResponseTenantsItemStatus) Ptr() *TenantsListResponseTenantsItemStatus {
 	return &t
 }
 
 var (
-	tenantsUpdate200ResponseFieldTenant = big.NewInt(1 << 0)
+	tenantsUpdateResponseFieldTenant = big.NewInt(1 << 0)
 )
 
-type TenantsUpdate200Response struct {
-	Tenant *TenantsUpdate200ResponseTenant `json:"tenant" url:"tenant"`
+type TenantsUpdateResponse struct {
+	Tenant *TenantsUpdateResponseTenant `json:"tenant" url:"tenant"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1203,21 +1228,21 @@ type TenantsUpdate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsUpdate200Response) GetTenant() *TenantsUpdate200ResponseTenant {
+func (t *TenantsUpdateResponse) GetTenant() *TenantsUpdateResponseTenant {
 	if t == nil {
 		return nil
 	}
 	return t.Tenant
 }
 
-func (t *TenantsUpdate200Response) GetExtraProperties() map[string]interface{} {
+func (t *TenantsUpdateResponse) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsUpdate200Response) require(field *big.Int) {
+func (t *TenantsUpdateResponse) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -1226,18 +1251,18 @@ func (t *TenantsUpdate200Response) require(field *big.Int) {
 
 // SetTenant sets the Tenant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200Response) SetTenant(tenant *TenantsUpdate200ResponseTenant) {
+func (t *TenantsUpdateResponse) SetTenant(tenant *TenantsUpdateResponseTenant) {
 	t.Tenant = tenant
-	t.require(tenantsUpdate200ResponseFieldTenant)
+	t.require(tenantsUpdateResponseFieldTenant)
 }
 
-func (t *TenantsUpdate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsUpdate200Response
+func (t *TenantsUpdateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUpdateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsUpdate200Response(value)
+	*t = TenantsUpdateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -1247,8 +1272,8 @@ func (t *TenantsUpdate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsUpdate200Response) MarshalJSON() ([]byte, error) {
-	type embed TenantsUpdate200Response
+func (t *TenantsUpdateResponse) MarshalJSON() ([]byte, error) {
+	type embed TenantsUpdateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1258,7 +1283,7 @@ func (t *TenantsUpdate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsUpdate200Response) String() string {
+func (t *TenantsUpdateResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -1274,21 +1299,21 @@ func (t *TenantsUpdate200Response) String() string {
 }
 
 var (
-	tenantsUpdate200ResponseTenantFieldID              = big.NewInt(1 << 0)
-	tenantsUpdate200ResponseTenantFieldName            = big.NewInt(1 << 1)
-	tenantsUpdate200ResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
-	tenantsUpdate200ResponseTenantFieldStatus          = big.NewInt(1 << 3)
-	tenantsUpdate200ResponseTenantFieldFeatures        = big.NewInt(1 << 4)
-	tenantsUpdate200ResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
+	tenantsUpdateResponseTenantFieldID              = big.NewInt(1 << 0)
+	tenantsUpdateResponseTenantFieldName            = big.NewInt(1 << 1)
+	tenantsUpdateResponseTenantFieldAutoProvisioned = big.NewInt(1 << 2)
+	tenantsUpdateResponseTenantFieldStatus          = big.NewInt(1 << 3)
+	tenantsUpdateResponseTenantFieldFeatures        = big.NewInt(1 << 4)
+	tenantsUpdateResponseTenantFieldCreatedAt       = big.NewInt(1 << 5)
 )
 
-type TenantsUpdate200ResponseTenant struct {
-	ID              string                                `json:"id" url:"id"`
-	Name            string                                `json:"name" url:"name"`
-	AutoProvisioned bool                                  `json:"autoProvisioned" url:"autoProvisioned"`
-	Status          *TenantsUpdate200ResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
-	Features        []*TenantFeature                      `json:"features,omitempty" url:"features,omitempty"`
-	CreatedAt       float64                               `json:"createdAt" url:"createdAt"`
+type TenantsUpdateResponseTenant struct {
+	ID              string                             `json:"id" url:"id"`
+	Name            string                             `json:"name" url:"name"`
+	AutoProvisioned bool                               `json:"autoProvisioned" url:"autoProvisioned"`
+	Status          *TenantsUpdateResponseTenantStatus `json:"status,omitempty" url:"status,omitempty"`
+	Features        []*TenantFeature                   `json:"features,omitempty" url:"features,omitempty"`
+	CreatedAt       time.Time                          `json:"createdAt" url:"createdAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1297,56 +1322,56 @@ type TenantsUpdate200ResponseTenant struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetID() string {
+func (t *TenantsUpdateResponseTenant) GetID() string {
 	if t == nil {
 		return ""
 	}
 	return t.ID
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetName() string {
+func (t *TenantsUpdateResponseTenant) GetName() string {
 	if t == nil {
 		return ""
 	}
 	return t.Name
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetAutoProvisioned() bool {
+func (t *TenantsUpdateResponseTenant) GetAutoProvisioned() bool {
 	if t == nil {
 		return false
 	}
 	return t.AutoProvisioned
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetStatus() *TenantsUpdate200ResponseTenantStatus {
+func (t *TenantsUpdateResponseTenant) GetStatus() *TenantsUpdateResponseTenantStatus {
 	if t == nil {
 		return nil
 	}
 	return t.Status
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetFeatures() []*TenantFeature {
+func (t *TenantsUpdateResponseTenant) GetFeatures() []*TenantFeature {
 	if t == nil {
 		return nil
 	}
 	return t.Features
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetCreatedAt() float64 {
+func (t *TenantsUpdateResponseTenant) GetCreatedAt() time.Time {
 	if t == nil {
-		return 0
+		return time.Time{}
 	}
 	return t.CreatedAt
 }
 
-func (t *TenantsUpdate200ResponseTenant) GetExtraProperties() map[string]interface{} {
+func (t *TenantsUpdateResponseTenant) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsUpdate200ResponseTenant) require(field *big.Int) {
+func (t *TenantsUpdateResponseTenant) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -1355,53 +1380,59 @@ func (t *TenantsUpdate200ResponseTenant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetID(id string) {
+func (t *TenantsUpdateResponseTenant) SetID(id string) {
 	t.ID = id
-	t.require(tenantsUpdate200ResponseTenantFieldID)
+	t.require(tenantsUpdateResponseTenantFieldID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetName(name string) {
+func (t *TenantsUpdateResponseTenant) SetName(name string) {
 	t.Name = name
-	t.require(tenantsUpdate200ResponseTenantFieldName)
+	t.require(tenantsUpdateResponseTenantFieldName)
 }
 
 // SetAutoProvisioned sets the AutoProvisioned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
+func (t *TenantsUpdateResponseTenant) SetAutoProvisioned(autoProvisioned bool) {
 	t.AutoProvisioned = autoProvisioned
-	t.require(tenantsUpdate200ResponseTenantFieldAutoProvisioned)
+	t.require(tenantsUpdateResponseTenantFieldAutoProvisioned)
 }
 
 // SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetStatus(status *TenantsUpdate200ResponseTenantStatus) {
+func (t *TenantsUpdateResponseTenant) SetStatus(status *TenantsUpdateResponseTenantStatus) {
 	t.Status = status
-	t.require(tenantsUpdate200ResponseTenantFieldStatus)
+	t.require(tenantsUpdateResponseTenantFieldStatus)
 }
 
 // SetFeatures sets the Features field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetFeatures(features []*TenantFeature) {
+func (t *TenantsUpdateResponseTenant) SetFeatures(features []*TenantFeature) {
 	t.Features = features
-	t.require(tenantsUpdate200ResponseTenantFieldFeatures)
+	t.require(tenantsUpdateResponseTenantFieldFeatures)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUpdate200ResponseTenant) SetCreatedAt(createdAt float64) {
+func (t *TenantsUpdateResponseTenant) SetCreatedAt(createdAt time.Time) {
 	t.CreatedAt = createdAt
-	t.require(tenantsUpdate200ResponseTenantFieldCreatedAt)
+	t.require(tenantsUpdateResponseTenantFieldCreatedAt)
 }
 
-func (t *TenantsUpdate200ResponseTenant) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsUpdate200ResponseTenant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (t *TenantsUpdateResponseTenant) UnmarshalJSON(data []byte) error {
+	type embed TenantsUpdateResponseTenant
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+	}{
+		embed: embed(*t),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*t = TenantsUpdate200ResponseTenant(value)
+	*t = TenantsUpdateResponseTenant(unmarshaler.embed)
+	t.CreatedAt = unmarshaler.CreatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -1411,18 +1442,20 @@ func (t *TenantsUpdate200ResponseTenant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsUpdate200ResponseTenant) MarshalJSON() ([]byte, error) {
-	type embed TenantsUpdate200ResponseTenant
+func (t *TenantsUpdateResponseTenant) MarshalJSON() ([]byte, error) {
+	type embed TenantsUpdateResponseTenant
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
 	}{
-		embed: embed(*t),
+		embed:     embed(*t),
+		CreatedAt: internal.NewDateTime(t.CreatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsUpdate200ResponseTenant) String() string {
+func (t *TenantsUpdateResponseTenant) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -1437,40 +1470,42 @@ func (t *TenantsUpdate200ResponseTenant) String() string {
 	return fmt.Sprintf("%#v", t)
 }
 
-type TenantsUpdate200ResponseTenantStatus string
+type TenantsUpdateResponseTenantStatus string
 
 const (
-	TenantsUpdate200ResponseTenantStatusActive    TenantsUpdate200ResponseTenantStatus = "active"
-	TenantsUpdate200ResponseTenantStatusSuspended TenantsUpdate200ResponseTenantStatus = "suspended"
+	TenantsUpdateResponseTenantStatusActive    TenantsUpdateResponseTenantStatus = "active"
+	TenantsUpdateResponseTenantStatusSuspended TenantsUpdateResponseTenantStatus = "suspended"
 )
 
-func NewTenantsUpdate200ResponseTenantStatusFromString(s string) (TenantsUpdate200ResponseTenantStatus, error) {
+func NewTenantsUpdateResponseTenantStatusFromString(s string) (TenantsUpdateResponseTenantStatus, error) {
 	switch s {
 	case "active":
-		return TenantsUpdate200ResponseTenantStatusActive, nil
+		return TenantsUpdateResponseTenantStatusActive, nil
 	case "suspended":
-		return TenantsUpdate200ResponseTenantStatusSuspended, nil
+		return TenantsUpdateResponseTenantStatusSuspended, nil
 	}
-	var t TenantsUpdate200ResponseTenantStatus
+	var t TenantsUpdateResponseTenantStatus
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (t TenantsUpdate200ResponseTenantStatus) Ptr() *TenantsUpdate200ResponseTenantStatus {
+func (t TenantsUpdateResponseTenantStatus) Ptr() *TenantsUpdateResponseTenantStatus {
 	return &t
 }
 
 var (
-	tenantsUsage200ResponseFieldTenantID    = big.NewInt(1 << 0)
-	tenantsUsage200ResponseFieldPeriodStart = big.NewInt(1 << 1)
-	tenantsUsage200ResponseFieldPeriodEnd   = big.NewInt(1 << 2)
-	tenantsUsage200ResponseFieldMetrics     = big.NewInt(1 << 3)
+	tenantsUsageResponseFieldTenantID     = big.NewInt(1 << 0)
+	tenantsUsageResponseFieldPeriodStart  = big.NewInt(1 << 1)
+	tenantsUsageResponseFieldPeriodEnd    = big.NewInt(1 << 2)
+	tenantsUsageResponseFieldMetrics      = big.NewInt(1 << 3)
+	tenantsUsageResponseFieldModuleMeters = big.NewInt(1 << 4)
 )
 
-type TenantsUsage200Response struct {
-	TenantID    string                          `json:"tenantId" url:"tenantId"`
-	PeriodStart string                          `json:"periodStart" url:"periodStart"`
-	PeriodEnd   string                          `json:"periodEnd" url:"periodEnd"`
-	Metrics     *TenantsUsage200ResponseMetrics `json:"metrics" url:"metrics"`
+type TenantsUsageResponse struct {
+	TenantID     string                       `json:"tenantId" url:"tenantId"`
+	PeriodStart  string                       `json:"periodStart" url:"periodStart"`
+	PeriodEnd    string                       `json:"periodEnd" url:"periodEnd"`
+	Metrics      *TenantsUsageResponseMetrics `json:"metrics" url:"metrics"`
+	ModuleMeters map[string]int               `json:"moduleMeters" url:"moduleMeters"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1479,42 +1514,49 @@ type TenantsUsage200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsUsage200Response) GetTenantID() string {
+func (t *TenantsUsageResponse) GetTenantID() string {
 	if t == nil {
 		return ""
 	}
 	return t.TenantID
 }
 
-func (t *TenantsUsage200Response) GetPeriodStart() string {
+func (t *TenantsUsageResponse) GetPeriodStart() string {
 	if t == nil {
 		return ""
 	}
 	return t.PeriodStart
 }
 
-func (t *TenantsUsage200Response) GetPeriodEnd() string {
+func (t *TenantsUsageResponse) GetPeriodEnd() string {
 	if t == nil {
 		return ""
 	}
 	return t.PeriodEnd
 }
 
-func (t *TenantsUsage200Response) GetMetrics() *TenantsUsage200ResponseMetrics {
+func (t *TenantsUsageResponse) GetMetrics() *TenantsUsageResponseMetrics {
 	if t == nil {
 		return nil
 	}
 	return t.Metrics
 }
 
-func (t *TenantsUsage200Response) GetExtraProperties() map[string]interface{} {
+func (t *TenantsUsageResponse) GetModuleMeters() map[string]int {
+	if t == nil {
+		return nil
+	}
+	return t.ModuleMeters
+}
+
+func (t *TenantsUsageResponse) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsUsage200Response) require(field *big.Int) {
+func (t *TenantsUsageResponse) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -1523,39 +1565,46 @@ func (t *TenantsUsage200Response) require(field *big.Int) {
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200Response) SetTenantID(tenantID string) {
+func (t *TenantsUsageResponse) SetTenantID(tenantID string) {
 	t.TenantID = tenantID
-	t.require(tenantsUsage200ResponseFieldTenantID)
+	t.require(tenantsUsageResponseFieldTenantID)
 }
 
 // SetPeriodStart sets the PeriodStart field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200Response) SetPeriodStart(periodStart string) {
+func (t *TenantsUsageResponse) SetPeriodStart(periodStart string) {
 	t.PeriodStart = periodStart
-	t.require(tenantsUsage200ResponseFieldPeriodStart)
+	t.require(tenantsUsageResponseFieldPeriodStart)
 }
 
 // SetPeriodEnd sets the PeriodEnd field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200Response) SetPeriodEnd(periodEnd string) {
+func (t *TenantsUsageResponse) SetPeriodEnd(periodEnd string) {
 	t.PeriodEnd = periodEnd
-	t.require(tenantsUsage200ResponseFieldPeriodEnd)
+	t.require(tenantsUsageResponseFieldPeriodEnd)
 }
 
 // SetMetrics sets the Metrics field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200Response) SetMetrics(metrics *TenantsUsage200ResponseMetrics) {
+func (t *TenantsUsageResponse) SetMetrics(metrics *TenantsUsageResponseMetrics) {
 	t.Metrics = metrics
-	t.require(tenantsUsage200ResponseFieldMetrics)
+	t.require(tenantsUsageResponseFieldMetrics)
 }
 
-func (t *TenantsUsage200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsUsage200Response
+// SetModuleMeters sets the ModuleMeters field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TenantsUsageResponse) SetModuleMeters(moduleMeters map[string]int) {
+	t.ModuleMeters = moduleMeters
+	t.require(tenantsUsageResponseFieldModuleMeters)
+}
+
+func (t *TenantsUsageResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUsageResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsUsage200Response(value)
+	*t = TenantsUsageResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -1565,8 +1614,8 @@ func (t *TenantsUsage200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsUsage200Response) MarshalJSON() ([]byte, error) {
-	type embed TenantsUsage200Response
+func (t *TenantsUsageResponse) MarshalJSON() ([]byte, error) {
+	type embed TenantsUsageResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1576,7 +1625,7 @@ func (t *TenantsUsage200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsUsage200Response) String() string {
+func (t *TenantsUsageResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}
@@ -1592,15 +1641,15 @@ func (t *TenantsUsage200Response) String() string {
 }
 
 var (
-	tenantsUsage200ResponseMetricsFieldPdfViews     = big.NewInt(1 << 0)
-	tenantsUsage200ResponseMetricsFieldPdfUploads   = big.NewInt(1 << 1)
-	tenantsUsage200ResponseMetricsFieldStorageBytes = big.NewInt(1 << 2)
+	tenantsUsageResponseMetricsFieldPdfViews     = big.NewInt(1 << 0)
+	tenantsUsageResponseMetricsFieldPdfUploads   = big.NewInt(1 << 1)
+	tenantsUsageResponseMetricsFieldStorageBytes = big.NewInt(1 << 2)
 )
 
-type TenantsUsage200ResponseMetrics struct {
-	PdfViews     float64 `json:"pdf.views" url:"pdf.views"`
-	PdfUploads   float64 `json:"pdf.uploads" url:"pdf.uploads"`
-	StorageBytes float64 `json:"storage.bytes" url:"storage.bytes"`
+type TenantsUsageResponseMetrics struct {
+	PdfViews     int `json:"pdfViews" url:"pdfViews"`
+	PdfUploads   int `json:"pdfUploads" url:"pdfUploads"`
+	StorageBytes int `json:"storageBytes" url:"storageBytes"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1609,35 +1658,35 @@ type TenantsUsage200ResponseMetrics struct {
 	rawJSON         json.RawMessage
 }
 
-func (t *TenantsUsage200ResponseMetrics) GetPdfViews() float64 {
+func (t *TenantsUsageResponseMetrics) GetPdfViews() int {
 	if t == nil {
 		return 0
 	}
 	return t.PdfViews
 }
 
-func (t *TenantsUsage200ResponseMetrics) GetPdfUploads() float64 {
+func (t *TenantsUsageResponseMetrics) GetPdfUploads() int {
 	if t == nil {
 		return 0
 	}
 	return t.PdfUploads
 }
 
-func (t *TenantsUsage200ResponseMetrics) GetStorageBytes() float64 {
+func (t *TenantsUsageResponseMetrics) GetStorageBytes() int {
 	if t == nil {
 		return 0
 	}
 	return t.StorageBytes
 }
 
-func (t *TenantsUsage200ResponseMetrics) GetExtraProperties() map[string]interface{} {
+func (t *TenantsUsageResponseMetrics) GetExtraProperties() map[string]interface{} {
 	if t == nil {
 		return nil
 	}
 	return t.extraProperties
 }
 
-func (t *TenantsUsage200ResponseMetrics) require(field *big.Int) {
+func (t *TenantsUsageResponseMetrics) require(field *big.Int) {
 	if t.explicitFields == nil {
 		t.explicitFields = big.NewInt(0)
 	}
@@ -1646,32 +1695,32 @@ func (t *TenantsUsage200ResponseMetrics) require(field *big.Int) {
 
 // SetPdfViews sets the PdfViews field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200ResponseMetrics) SetPdfViews(pdfViews float64) {
+func (t *TenantsUsageResponseMetrics) SetPdfViews(pdfViews int) {
 	t.PdfViews = pdfViews
-	t.require(tenantsUsage200ResponseMetricsFieldPdfViews)
+	t.require(tenantsUsageResponseMetricsFieldPdfViews)
 }
 
 // SetPdfUploads sets the PdfUploads field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200ResponseMetrics) SetPdfUploads(pdfUploads float64) {
+func (t *TenantsUsageResponseMetrics) SetPdfUploads(pdfUploads int) {
 	t.PdfUploads = pdfUploads
-	t.require(tenantsUsage200ResponseMetricsFieldPdfUploads)
+	t.require(tenantsUsageResponseMetricsFieldPdfUploads)
 }
 
 // SetStorageBytes sets the StorageBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TenantsUsage200ResponseMetrics) SetStorageBytes(storageBytes float64) {
+func (t *TenantsUsageResponseMetrics) SetStorageBytes(storageBytes int) {
 	t.StorageBytes = storageBytes
-	t.require(tenantsUsage200ResponseMetricsFieldStorageBytes)
+	t.require(tenantsUsageResponseMetricsFieldStorageBytes)
 }
 
-func (t *TenantsUsage200ResponseMetrics) UnmarshalJSON(data []byte) error {
-	type unmarshaler TenantsUsage200ResponseMetrics
+func (t *TenantsUsageResponseMetrics) UnmarshalJSON(data []byte) error {
+	type unmarshaler TenantsUsageResponseMetrics
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*t = TenantsUsage200ResponseMetrics(value)
+	*t = TenantsUsageResponseMetrics(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *t)
 	if err != nil {
 		return err
@@ -1681,8 +1730,8 @@ func (t *TenantsUsage200ResponseMetrics) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (t *TenantsUsage200ResponseMetrics) MarshalJSON() ([]byte, error) {
-	type embed TenantsUsage200ResponseMetrics
+func (t *TenantsUsageResponseMetrics) MarshalJSON() ([]byte, error) {
+	type embed TenantsUsageResponseMetrics
 	var marshaler = struct {
 		embed
 	}{
@@ -1692,7 +1741,7 @@ func (t *TenantsUsage200ResponseMetrics) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (t *TenantsUsage200ResponseMetrics) String() string {
+func (t *TenantsUsageResponseMetrics) String() string {
 	if t == nil {
 		return "<nil>"
 	}

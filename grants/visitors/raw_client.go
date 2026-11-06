@@ -37,7 +37,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *grants.ListVisitorsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsVisitorsList200Response], error) {
+) (*core.Response[*cloudpdf.GrantsVisitorsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -60,7 +60,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.GrantsVisitorsList200Response
+	var response *cloudpdf.GrantsVisitorsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -79,7 +79,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsVisitorsList200Response]{
+	return &core.Response[*cloudpdf.GrantsVisitorsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

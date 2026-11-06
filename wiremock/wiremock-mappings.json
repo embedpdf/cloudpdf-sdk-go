@@ -83,7 +83,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"id\": \"id\",\n  \"baseSha\": \"baseSha\",\n  \"storageSizeBytes\": 1,\n  \"docVersion\": 1,\n  \"state\": \"pending\",\n  \"encryption\": {\n    \"state\": \"unknown\",\n    \"requiresPassword\": true\n  },\n  \"permissions\": {\n    \"known\": true,\n    \"bits\": 1,\n    \"allAllowed\": true,\n    \"openedAs\": \"none\",\n    \"securityHandlerRevision\": 1,\n    \"canUpgradeToOwner\": true\n  },\n  \"access\": {\n    \"required\": true,\n    \"reasons\": [\n      \"password\"\n    ],\n    \"endpoint\": \"endpoint\"\n  }\n}",
+        "body": "{\n  \"id\": \"id\",\n  \"baseSha256\": \"baseSha256\",\n  \"sizeBytes\": 1,\n  \"docVersion\": 1,\n  \"state\": \"pending\",\n  \"encryption\": {\n    \"state\": \"unknown\",\n    \"requiresPassword\": true\n  },\n  \"permissions\": {\n    \"known\": true,\n    \"flags\": {\n      \"print\": true,\n      \"modifyContents\": true,\n      \"copy\": true,\n      \"modifyAnnotations\": true,\n      \"fillForms\": true,\n      \"copyForAccessibility\": true,\n      \"assemble\": true,\n      \"printHighQuality\": true\n    },\n    \"allAllowed\": true,\n    \"openedAs\": \"none\",\n    \"securityHandlerRevision\": 1,\n    \"canUpgradeToOwner\": true\n  },\n  \"access\": {\n    \"required\": true,\n    \"reasons\": [\n      \"password\"\n    ],\n    \"endpoint\": \"endpoint\"\n  },\n  \"engine\": {\n    \"key\": \"value\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -161,7 +161,7 @@
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -200,7 +200,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"url\": \"url\",\n  \"expiresAt\": 1.1\n}",
+        "body": "{\n  \"url\": \"url\",\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -239,7 +239,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"docVersion\": 1,\n  \"layoutVersion\": 1,\n  \"metadataVersion\": 1,\n  \"actionsVersion\": 1,\n  \"attachmentsVersion\": 1,\n  \"annotationsVersion\": 1,\n  \"formsVersion\": 1,\n  \"outlineVersion\": 1,\n  \"fontsVersion\": 1,\n  \"serverFonts\": \"serverFonts\",\n  \"auditHead\": 1,\n  \"baseSha\": \"baseSha\",\n  \"layerVersion\": 1,\n  \"working\": true,\n  \"baseByteLength\": 1,\n  \"scopes\": {\n    \"content\": \"base\",\n    \"annotations\": \"base\",\n    \"forms\": \"base\",\n    \"layout\": \"base\",\n    \"attachments\": \"base\",\n    \"metadata\": \"base\",\n    \"actions\": \"base\",\n    \"outline\": \"base\"\n  },\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": {\n          \"action\": \"all\",\n          \"fields\": [\n            \"fields\"\n          ]\n        }\n      }\n    ],\n    \"policyVersion\": 1\n  },\n  \"pages\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"cache\": {\n        \"contentVersion\": 1,\n        \"annotationVersion\": 1,\n        \"widgetVersion\": 1\n      }\n    }\n  ]\n}",
+        "body": "{\n  \"docVersion\": 1,\n  \"layoutVersion\": 1,\n  \"metadataVersion\": 1,\n  \"actionsVersion\": 1,\n  \"attachmentsVersion\": 1,\n  \"annotationsVersion\": 1,\n  \"formsVersion\": 1,\n  \"outlineVersion\": 1,\n  \"fontsVersion\": 1,\n  \"contentsVersion\": 1,\n  \"auditHead\": 1,\n  \"baseSha256\": \"baseSha256\",\n  \"layerVersion\": 1,\n  \"working\": true,\n  \"baseSizeBytes\": 1,\n  \"scopes\": {\n    \"content\": \"base\",\n    \"annotations\": \"base\",\n    \"forms\": \"base\",\n    \"layout\": \"base\",\n    \"attachments\": \"base\",\n    \"metadata\": \"base\",\n    \"actions\": \"base\",\n    \"outline\": \"base\"\n  },\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": {\n          \"action\": \"all\",\n          \"fields\": [\n            \"fields\"\n          ]\n        }\n      }\n    ],\n    \"policyVersion\": 1\n  },\n  \"pages\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"cache\": {\n        \"contentVersion\": 1,\n        \"annotationVersion\": 1,\n        \"widgetVersion\": 1\n      }\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -281,7 +281,7 @@
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -349,7 +349,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"token\": \"token\",\n  \"docId\": \"docId\",\n  \"layerName\": \"layerName\",\n  \"layerMode\": \"shared\",\n  \"visitor\": {\n    \"handle\": \"handle\",\n    \"keep\": true,\n    \"identityRequest\": {\n      \"fields\": {},\n      \"missing\": [\n        \"displayName\"\n      ],\n      \"invalid\": [\n        \"displayName\"\n      ],\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    }\n  },\n  \"expiresAt\": 1.1\n}",
+        "body": "{\n  \"token\": \"token\",\n  \"docId\": \"docId\",\n  \"layerName\": \"layerName\",\n  \"layerMode\": \"shared\",\n  \"visitor\": {\n    \"handle\": \"handle\",\n    \"keep\": true,\n    \"identityRequest\": {\n      \"fields\": {},\n      \"missing\": [\n        \"displayName\"\n      ],\n      \"invalid\": [\n        \"displayName\"\n      ],\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    }\n  },\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -385,7 +385,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"grants\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"name\": \"name\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1.1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"identity\": {},\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passphraseProtected\": true,\n      \"sessionTtlSeconds\": 1.1,\n      \"disabled\": true,\n      \"archivedAt\": 1.1,\n      \"expiresAt\": 1.1,\n      \"exchangeCount\": 1.1,\n      \"lastExchangedAt\": 1.1,\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"grants\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"docId\": \"docId\",\n      \"name\": \"name\",\n      \"layerMode\": \"shared\",\n      \"layerName\": \"layerName\",\n      \"keepVisitorLayers\": true,\n      \"visitorIdleSeconds\": 1,\n      \"visitorIdentity\": {\n        \"fields\": {},\n        \"ask\": \"on-open\"\n      },\n      \"identity\": {},\n      \"scope\": [\n        \"scope\"\n      ],\n      \"origins\": [\n        \"origins\"\n      ],\n      \"passphraseProtected\": true,\n      \"sessionTtlSeconds\": 1,\n      \"disabled\": true,\n      \"archivedAt\": \"2024-01-15T09:30:00Z\",\n      \"expiresAt\": \"2024-01-15T09:30:00Z\",\n      \"exchangeCount\": 1,\n      \"lastExchangedAt\": \"2024-01-15T09:30:00Z\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -421,7 +421,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1,\n    \"disabled\": true,\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"expiresAt\": \"2024-01-15T09:30:00Z\",\n    \"exchangeCount\": 1,\n    \"lastExchangedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -460,7 +460,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1,\n    \"disabled\": true,\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"expiresAt\": \"2024-01-15T09:30:00Z\",\n    \"exchangeCount\": 1,\n    \"lastExchangedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -538,7 +538,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1,\n    \"disabled\": true,\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"expiresAt\": \"2024-01-15T09:30:00Z\",\n    \"exchangeCount\": 1,\n    \"lastExchangedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -577,7 +577,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1.1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1.1,\n    \"disabled\": true,\n    \"archivedAt\": 1.1,\n    \"expiresAt\": 1.1,\n    \"exchangeCount\": 1.1,\n    \"lastExchangedAt\": 1.1,\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1\n  }\n}",
+        "body": "{\n  \"grant\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"docId\": \"docId\",\n    \"name\": \"name\",\n    \"layerMode\": \"shared\",\n    \"layerName\": \"layerName\",\n    \"keepVisitorLayers\": true,\n    \"visitorIdleSeconds\": 1,\n    \"visitorIdentity\": {\n      \"fields\": {},\n      \"ask\": \"on-open\",\n      \"purpose\": \"purpose\",\n      \"privacyUrl\": \"privacyUrl\"\n    },\n    \"identity\": {\n      \"userId\": \"userId\",\n      \"displayName\": \"displayName\",\n      \"email\": \"email\",\n      \"title\": \"title\",\n      \"organization\": \"organization\",\n      \"organizationalUnit\": \"organizationalUnit\",\n      \"groupId\": \"groupId\"\n    },\n    \"scope\": [\n      \"scope\"\n    ],\n    \"origins\": [\n      \"origins\"\n    ],\n    \"passphraseProtected\": true,\n    \"sessionTtlSeconds\": 1,\n    \"disabled\": true,\n    \"archivedAt\": \"2024-01-15T09:30:00Z\",\n    \"expiresAt\": \"2024-01-15T09:30:00Z\",\n    \"exchangeCount\": 1,\n    \"lastExchangedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -608,7 +608,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenants\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"autoProvisioned\": true,\n      \"status\": \"active\",\n      \"features\": [\n        {\n          \"id\": \"id\"\n        }\n      ],\n      \"createdAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"tenants\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\",\n      \"autoProvisioned\": true,\n      \"status\": \"active\",\n      \"features\": [\n        {\n          \"id\": \"id\"\n        }\n      ],\n      \"createdAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -640,7 +640,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": 1.1\n  },\n  \"created\": true\n}",
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  },\n  \"created\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -676,7 +676,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": 1.1\n  }\n}",
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -748,7 +748,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": 1.1\n  }\n}",
+        "body": "{\n  \"tenant\": {\n    \"id\": \"id\",\n    \"name\": \"name\",\n    \"autoProvisioned\": true,\n    \"status\": \"active\",\n    \"features\": [\n      {\n        \"id\": \"id\"\n      }\n    ],\n    \"createdAt\": \"2024-01-15T09:30:00Z\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -856,7 +856,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tenantId\": \"tenantId\",\n  \"periodStart\": \"periodStart\",\n  \"periodEnd\": \"periodEnd\",\n  \"metrics\": {\n    \"pdf.views\": 1.1,\n    \"pdf.uploads\": 1.1,\n    \"storage.bytes\": 1.1\n  }\n}",
+        "body": "{\n  \"tenantId\": \"tenantId\",\n  \"periodStart\": \"periodStart\",\n  \"periodEnd\": \"periodEnd\",\n  \"metrics\": {\n    \"pdfViews\": 1,\n    \"pdfUploads\": 1,\n    \"storageBytes\": 1\n  },\n  \"moduleMeters\": {\n    \"key\": 1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -892,7 +892,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"documents\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"name\": \"name\",\n      \"folderId\": \"folderId\",\n      \"state\": \"pending\",\n      \"baseSha\": \"baseSha\",\n      \"storageSizeBytes\": 1.1,\n      \"metadata\": {\n        \"key\": \"value\"\n      },\n      \"idempotencyKey\": \"idempotencyKey\",\n      \"failureReason\": \"failureReason\",\n      \"thumbnailState\": \"pending\",\n      \"thumbnailUrl\": \"thumbnailUrl\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"documents\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"name\": \"name\",\n      \"folderId\": \"folderId\",\n      \"state\": \"pending\",\n      \"baseSha256\": \"baseSha256\",\n      \"sizeBytes\": 1,\n      \"metadata\": {\n        \"key\": \"value\"\n      },\n      \"idempotencyKey\": \"idempotencyKey\",\n      \"failureReason\": \"failureReason\",\n      \"thumbnailState\": \"pending\",\n      \"thumbnailUrl\": \"thumbnailUrl\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -910,10 +910,10 @@
       }
     },
     {
-      "id": "d7c0da02-a1de-488b-9997-a0e8219a7050",
+      "id": "8c95dff5-f3fe-4b17-b016-d381bb15b198",
       "name": "Fetch one document record. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -924,19 +924,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha256\": \"baseSha256\",\n    \"sizeBytes\": 1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "d7c0da02-a1de-488b-9997-a0e8219a7050",
+      "uuid": "8c95dff5-f3fe-4b17-b016-d381bb15b198",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -949,10 +949,10 @@
       }
     },
     {
-      "id": "1b3e2270-ad12-4c11-bb1a-de119cf6e6b6",
+      "id": "4162cdad-d2b7-495b-a09e-577d66dd8c58",
       "name": "Delete a document and its stored artifacts. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -963,8 +963,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
@@ -975,7 +975,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "1b3e2270-ad12-4c11-bb1a-de119cf6e6b6",
+      "uuid": "4162cdad-d2b7-495b-a09e-577d66dd8c58",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -988,10 +988,10 @@
       }
     },
     {
-      "id": "d36ffc5c-0d3a-4251-9e07-a4c25a8a6d9a",
+      "id": "681c57ed-da35-4e86-b7eb-046f664c1b06",
       "name": "Rename a document. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}",
         "method": "PATCH",
         "headers": {
           "Authorization": {
@@ -1002,19 +1002,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha256\": \"baseSha256\",\n    \"sizeBytes\": 1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "d36ffc5c-0d3a-4251-9e07-a4c25a8a6d9a",
+      "uuid": "681c57ed-da35-4e86-b7eb-046f664c1b06",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1027,10 +1027,10 @@
       }
     },
     {
-      "id": "7900e323-666f-4656-97d4-49fa2a712d25",
+      "id": "a96afb85-d415-4916-9611-3153701bb709",
       "name": "Finish an upload: verify the SHA-256 and promote the document to ready. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/commit",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/commit",
         "method": "POST",
         "headers": {
           "Authorization": {
@@ -1041,19 +1041,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha256\": \"baseSha256\",\n    \"sizeBytes\": 1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "7900e323-666f-4656-97d4-49fa2a712d25",
+      "uuid": "a96afb85-d415-4916-9611-3153701bb709",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1066,10 +1066,10 @@
       }
     },
     {
-      "id": "8cd2a74b-a954-4c13-9c41-e89f9ba82620",
+      "id": "60418f53-8902-4ff1-aed5-ffdb453de120",
       "name": "Download the stored base PDF bytes. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/download",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/download",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -1080,19 +1080,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "8cd2a74b-a954-4c13-9c41-e89f9ba82620",
+      "uuid": "60418f53-8902-4ff1-aed5-ffdb453de120",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1105,10 +1105,10 @@
       }
     },
     {
-      "id": "63a209ad-47fa-49ac-9aa9-6ab9447a7bee",
+      "id": "bffaea05-4b94-4cfd-b5ad-0a4468c5e3d8",
       "name": "Fetch the warmed dashboard-tile render for a document. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/thumbnail",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/thumbnail",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -1119,19 +1119,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "63a209ad-47fa-49ac-9aa9-6ab9447a7bee",
+      "uuid": "bffaea05-4b94-4cfd-b5ad-0a4468c5e3d8",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1144,10 +1144,10 @@
       }
     },
     {
-      "id": "aae98187-29f7-41b7-9a32-31a370914c01",
+      "id": "420cb951-fdb7-4aa0-9e3e-241b06107dc4",
       "name": "Upload a bounded PDF through the API when the initialized transfer kind is proxy. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/upload-proxy",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/upload-proxy",
         "method": "POST",
         "headers": {
           "Authorization": {
@@ -1158,8 +1158,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
@@ -1170,7 +1170,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "aae98187-29f7-41b7-9a32-31a370914c01",
+      "uuid": "420cb951-fdb7-4aa0-9e3e-241b06107dc4",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1201,7 +1201,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"tag\": \"imported\",\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"status\": \"imported\",\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha256\": \"baseSha256\",\n    \"sizeBytes\": 1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1237,7 +1237,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha\": \"baseSha\",\n    \"storageSizeBytes\": 1.1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"upload\": {\n    \"presigned\": {\n      \"url\": \"url\",\n      \"headers\": {\n        \"key\": \"value\"\n      },\n      \"method\": \"PUT\",\n      \"expiresAt\": 1.1\n    },\n    \"key\": \"key\",\n    \"kind\": \"presigned\"\n  },\n  \"tag\": \"created\"\n}",
+        "body": "{\n  \"document\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"name\": \"name\",\n    \"folderId\": \"folderId\",\n    \"state\": \"pending\",\n    \"baseSha256\": \"baseSha256\",\n    \"sizeBytes\": 1,\n    \"metadata\": {\n      \"key\": \"value\"\n    },\n    \"idempotencyKey\": \"idempotencyKey\",\n    \"failureReason\": \"failureReason\",\n    \"thumbnailState\": \"pending\",\n    \"thumbnailUrl\": \"thumbnailUrl\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  },\n  \"upload\": {\n    \"presigned\": {\n      \"url\": \"url\",\n      \"headers\": {\n        \"key\": \"value\"\n      },\n      \"method\": \"PUT\",\n      \"expiresAt\": \"2024-01-15T09:30:00Z\"\n    },\n    \"key\": \"key\",\n    \"kind\": \"presigned\"\n  },\n  \"status\": \"created\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1273,7 +1273,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"folders\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"parentId\": \"parentId\",\n      \"name\": \"name\",\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"folders\": [\n    {\n      \"id\": \"id\",\n      \"tenantId\": \"tenantId\",\n      \"parentId\": \"parentId\",\n      \"name\": \"name\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"createdBy\": \"createdBy\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1309,7 +1309,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1348,7 +1348,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  },\n  \"path\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\"\n    }\n  ]\n}",
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  },\n  \"path\": [\n    {\n      \"id\": \"id\",\n      \"name\": \"name\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1426,7 +1426,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": 1.1,\n    \"updatedAt\": 1.1,\n    \"createdBy\": \"createdBy\"\n  }\n}",
+        "body": "{\n  \"folder\": {\n    \"id\": \"id\",\n    \"tenantId\": \"tenantId\",\n    \"parentId\": \"parentId\",\n    \"name\": \"name\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"updatedAt\": \"2024-01-15T09:30:00Z\",\n    \"createdBy\": \"createdBy\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1501,7 +1501,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"token\": \"token\",\n  \"jti\": \"jti\",\n  \"expiresAt\": 1.1\n}",
+        "body": "{\n  \"token\": \"token\",\n  \"jti\": \"jti\",\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1663,7 +1663,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"annotation\": {\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"richText\": {\n      \"body\": {\n        \"family\": \"family\",\n        \"weight\": 1,\n        \"italic\": true,\n        \"size\": 1.1,\n        \"color\": \"color\",\n        \"decoration\": [\n          \"underline\"\n        ],\n        \"script\": \"normal\",\n        \"letterSpacing\": 1.1,\n        \"horizontalScale\": 1.1,\n        \"align\": \"left\",\n        \"dir\": \"ltr\"\n      },\n      \"paragraphs\": [\n        {\n          \"runs\": [\n            {\n              \"text\": \"text\"\n            }\n          ]\n        }\n      ]\n    },\n    \"color\": \"color\",\n    \"opacity\": 1.1,\n    \"quadPoints\": [\n      {\n        \"upperLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"upperRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        }\n      }\n    ],\n    \"subtype\": \"highlight\"\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changed\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"annotation\": {\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"richText\": {\n      \"body\": {\n        \"family\": \"family\",\n        \"weight\": 1,\n        \"italic\": true,\n        \"size\": 1.1,\n        \"color\": \"color\",\n        \"decoration\": [\n          \"underline\"\n        ],\n        \"script\": \"normal\",\n        \"letterSpacing\": 1.1,\n        \"horizontalScale\": 1.1,\n        \"align\": \"left\",\n        \"dir\": \"ltr\"\n      },\n      \"paragraphs\": [\n        {\n          \"runs\": [\n            {\n              \"text\": \"text\"\n            }\n          ]\n        }\n      ]\n    },\n    \"color\": \"color\",\n    \"opacity\": 1.1,\n    \"quadPoints\": [\n      {\n        \"upperLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"upperRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        }\n      }\n    ],\n    \"subtype\": \"highlight\"\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedRefs\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1681,10 +1681,10 @@
       }
     },
     {
-      "id": "355c881c-35fd-4861-bdb9-fd7f50b1514b",
+      "id": "a5a5ade7-b565-4fb6-be0b-3b81ec3f1a4c",
       "name": "Delete one annotation by key. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotKey}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotationKey}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -1701,19 +1701,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changed\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedRefs\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "355c881c-35fd-4861-bdb9-fd7f50b1514b",
+      "uuid": "a5a5ade7-b565-4fb6-be0b-3b81ec3f1a4c",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1726,10 +1726,10 @@
       }
     },
     {
-      "id": "b3e8f1ba-e3fb-455e-ac06-ee9b2ab636bd",
+      "id": "a552947d-7a97-483d-8e91-42ff3b9784b5",
       "name": "Update one annotation by key. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotKey}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotationKey}",
         "method": "PATCH",
         "headers": {
           "Authorization": {
@@ -1746,19 +1746,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"annotation\": {\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"richText\": {\n      \"body\": {\n        \"family\": \"family\",\n        \"weight\": 1,\n        \"italic\": true,\n        \"size\": 1.1,\n        \"color\": \"color\",\n        \"decoration\": [\n          \"underline\"\n        ],\n        \"script\": \"normal\",\n        \"letterSpacing\": 1.1,\n        \"horizontalScale\": 1.1,\n        \"align\": \"left\",\n        \"dir\": \"ltr\"\n      },\n      \"paragraphs\": [\n        {\n          \"runs\": [\n            {\n              \"text\": \"text\"\n            }\n          ]\n        }\n      ]\n    },\n    \"color\": \"color\",\n    \"opacity\": 1.1,\n    \"quadPoints\": [\n      {\n        \"upperLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"upperRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        }\n      }\n    ],\n    \"subtype\": \"highlight\"\n  },\n  \"appearance\": {\n    \"action\": \"preserved\",\n    \"changed\": true\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changed\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"annotation\": {\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"richText\": {\n      \"body\": {\n        \"family\": \"family\",\n        \"weight\": 1,\n        \"italic\": true,\n        \"size\": 1.1,\n        \"color\": \"color\",\n        \"decoration\": [\n          \"underline\"\n        ],\n        \"script\": \"normal\",\n        \"letterSpacing\": 1.1,\n        \"horizontalScale\": 1.1,\n        \"align\": \"left\",\n        \"dir\": \"ltr\"\n      },\n      \"paragraphs\": [\n        {\n          \"runs\": [\n            {\n              \"text\": \"text\"\n            }\n          ]\n        }\n      ]\n    },\n    \"color\": \"color\",\n    \"opacity\": 1.1,\n    \"quadPoints\": [\n      {\n        \"upperLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"upperRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerLeft\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        },\n        \"lowerRight\": {\n          \"x\": 1.1,\n          \"y\": 1.1\n        }\n      }\n    ],\n    \"subtype\": \"highlight\"\n  },\n  \"appearance\": {\n    \"action\": \"preserved\",\n    \"changed\": true\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedRefs\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "b3e8f1ba-e3fb-455e-ac06-ee9b2ab636bd",
+      "uuid": "a552947d-7a97-483d-8e91-42ff3b9784b5",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1771,10 +1771,10 @@
       }
     },
     {
-      "id": "9effcc5b-4b7f-40bd-b474-2a47f4170796",
+      "id": "a3ee8156-d732-4d84-aca8-d72a2c1c0f90",
       "name": "A stamp's drawing as a one-page PDF, before the fit, rotation and opacity its data describes: with the data, the bytes to create the same stamp again. A read; the source is untouched. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotKey}/resources/appearance",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotationKey}/resources/appearance",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -1791,19 +1791,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "9effcc5b-4b7f-40bd-b474-2a47f4170796",
+      "uuid": "a3ee8156-d732-4d84-aca8-d72a2c1c0f90",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1816,10 +1816,10 @@
       }
     },
     {
-      "id": "07154c0f-5267-48b5-b425-d61d6662616c",
+      "id": "90665fbf-2e05-4c2e-a48e-5d0371ff8ba5",
       "name": "A file-attachment annotation's file, decoded: its `file` resource. Its name and type are what the annotation's `file` says. A read; the source is untouched. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotKey}/resources/file",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/annotations/pages/{pageKey}/items/{annotationKey}/resources/file",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -1836,19 +1836,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "07154c0f-5267-48b5-b425-d61d6662616c",
+      "uuid": "90665fbf-2e05-4c2e-a48e-5d0371ff8ba5",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -1885,7 +1885,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1927,7 +1927,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"usage\": \"display\",\n  \"results\": [\n    {\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"status\": \"applied\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"usage\": \"display\",\n  \"results\": [\n    {\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"status\": \"applied\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -1969,7 +1969,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"order\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changed\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"order\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedRefs\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2011,7 +2011,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2050,7 +2050,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"attachments\": [\n    {\n      \"ref\": {\n        \"kind\": \"key\",\n        \"key\": \"key\"\n      },\n      \"name\": \"name\",\n      \"mimeType\": \"mimeType\",\n      \"description\": \"description\",\n      \"size\": 1,\n      \"checksum\": \"checksum\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"index\": 1\n    }\n  ]\n}",
+        "body": "{\n  \"attachments\": [\n    {\n      \"ref\": {\n        \"kind\": \"key\",\n        \"key\": \"key\"\n      },\n      \"name\": \"name\",\n      \"mimeType\": \"mimeType\",\n      \"description\": \"description\",\n      \"sizeBytes\": 1,\n      \"md5\": \"md5\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"index\": 1\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2089,7 +2089,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"fonts\": [\n    {\n      \"name\": \"name\",\n      \"source\": \"standard\",\n      \"familyName\": \"familyName\",\n      \"weight\": 1,\n      \"italic\": true,\n      \"postScriptName\": \"postScriptName\",\n      \"canChoose\": true,\n      \"restrictions\": [\n        \"subset\"\n      ],\n      \"programs\": [\n        {\n          \"displayHash\": null,\n          \"sourceHash\": null,\n          \"embedded\": \"whole\",\n          \"format\": null,\n          \"embeddingPermission\": null,\n          \"canDownload\": true\n        }\n      ]\n    }\n  ],\n  \"fallbacks\": [\n    \"fallbacks\"\n  ],\n  \"lastResort\": {\n    \"displayHash\": \"displayHash\",\n    \"sourceHash\": \"sourceHash\",\n    \"embedded\": \"whole\",\n    \"format\": \"truetype\",\n    \"embeddingPermission\": \"installable\",\n    \"canDownload\": true\n  }\n}",
+        "body": "{\n  \"fonts\": [\n    {\n      \"name\": \"name\",\n      \"source\": \"standard\",\n      \"familyName\": \"familyName\",\n      \"weight\": 1,\n      \"italic\": true,\n      \"postScriptName\": \"postScriptName\",\n      \"canChoose\": true,\n      \"restrictions\": [\n        \"subset\"\n      ],\n      \"programs\": [\n        {\n          \"displaySha256\": null,\n          \"sourceSha256\": null,\n          \"embedded\": \"whole\",\n          \"format\": null,\n          \"embeddingPermission\": null,\n          \"canDownload\": true\n        }\n      ]\n    }\n  ],\n  \"fallbacks\": [\n    \"fallbacks\"\n  ],\n  \"lastResort\": {\n    \"displaySha256\": \"displaySha256\",\n    \"sourceSha256\": \"sourceSha256\",\n    \"embedded\": \"whole\",\n    \"format\": \"truetype\",\n    \"embeddingPermission\": \"installable\",\n    \"canDownload\": true\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2167,7 +2167,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"formKind\": \"none\",\n  \"needsAppearances\": true,\n  \"fields\": [\n    {\n      \"ref\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"name\": \"name\",\n      \"origin\": \"acroform\",\n      \"readOnly\": true,\n      \"required\": true,\n      \"noExport\": true,\n      \"alternateName\": \"alternateName\",\n      \"mappingName\": \"mappingName\",\n      \"valueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"defaultValueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"groupId\": \"groupId\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"filledBy\": \"filledBy\",\n      \"filledByName\": \"filledByName\",\n      \"filledAt\": \"2024-01-15T09:30:00Z\",\n      \"importedBy\": \"importedBy\",\n      \"widgets\": [\n        {\n          \"ref\": null,\n          \"objectNumber\": 1,\n          \"page\": null\n        }\n      ],\n      \"value\": \"value\",\n      \"defaultValue\": \"defaultValue\",\n      \"maxLength\": 1,\n      \"multiline\": true,\n      \"password\": true,\n      \"comb\": true,\n      \"family\": \"text\"\n    }\n  ],\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1.1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldFamily\": \"text\"\n    }\n  ],\n  \"calculationOrder\": [\n    {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ]\n}",
+        "body": "{\n  \"formKind\": \"none\",\n  \"needsAppearances\": true,\n  \"fields\": [\n    {\n      \"ref\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"name\": \"name\",\n      \"origin\": \"acroform\",\n      \"readOnly\": true,\n      \"required\": true,\n      \"noExport\": true,\n      \"alternateName\": \"alternateName\",\n      \"mappingName\": \"mappingName\",\n      \"valueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"defaultValueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"groupId\": \"groupId\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"filledBy\": \"filledBy\",\n      \"filledByName\": \"filledByName\",\n      \"filledAt\": \"2024-01-15T09:30:00Z\",\n      \"importedBy\": \"importedBy\",\n      \"widgets\": [\n        {\n          \"ref\": null,\n          \"objectNumber\": 1,\n          \"page\": null\n        }\n      ],\n      \"value\": \"value\",\n      \"defaultValue\": \"defaultValue\",\n      \"maxLength\": 1,\n      \"multiline\": true,\n      \"password\": true,\n      \"comb\": true,\n      \"kind\": \"text\"\n    }\n  ],\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldKind\": \"text\",\n      \"hasMark\": true\n    }\n  ],\n  \"calculationOrder\": [\n    {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2206,7 +2206,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"calculationOrder\": [\n    {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"calculationOrder\": [\n    {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2248,7 +2248,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"field\": {\n    \"ref\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"name\": \"name\",\n    \"origin\": \"acroform\",\n    \"readOnly\": true,\n    \"required\": true,\n    \"noExport\": true,\n    \"alternateName\": \"alternateName\",\n    \"mappingName\": \"mappingName\",\n    \"valueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"defaultValueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"actions\": {\n      \"keystroke\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"format\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"validate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"calculate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"groupId\": \"groupId\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"filledBy\": \"filledBy\",\n    \"filledByName\": \"filledByName\",\n    \"filledAt\": \"2024-01-15T09:30:00Z\",\n    \"importedBy\": \"importedBy\",\n    \"widgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"value\": \"value\",\n    \"defaultValue\": \"defaultValue\",\n    \"maxLength\": 1,\n    \"multiline\": true,\n    \"password\": true,\n    \"comb\": true,\n    \"family\": \"text\"\n  },\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1.1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldFamily\": \"text\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"field\": {\n    \"ref\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"name\": \"name\",\n    \"origin\": \"acroform\",\n    \"readOnly\": true,\n    \"required\": true,\n    \"noExport\": true,\n    \"alternateName\": \"alternateName\",\n    \"mappingName\": \"mappingName\",\n    \"valueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"defaultValueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"actions\": {\n      \"keystroke\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"format\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"validate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"calculate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"groupId\": \"groupId\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"filledBy\": \"filledBy\",\n    \"filledByName\": \"filledByName\",\n    \"filledAt\": \"2024-01-15T09:30:00Z\",\n    \"importedBy\": \"importedBy\",\n    \"widgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"value\": \"value\",\n    \"defaultValue\": \"defaultValue\",\n    \"maxLength\": 1,\n    \"multiline\": true,\n    \"password\": true,\n    \"comb\": true,\n    \"kind\": \"text\"\n  },\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldKind\": \"text\",\n      \"hasMark\": true\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2287,7 +2287,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"fields\": [\n    {\n      \"ref\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"name\": \"name\",\n      \"origin\": \"acroform\",\n      \"readOnly\": true,\n      \"required\": true,\n      \"noExport\": true,\n      \"alternateName\": \"alternateName\",\n      \"mappingName\": \"mappingName\",\n      \"valueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"defaultValueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"groupId\": \"groupId\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"filledBy\": \"filledBy\",\n      \"filledByName\": \"filledByName\",\n      \"filledAt\": \"2024-01-15T09:30:00Z\",\n      \"importedBy\": \"importedBy\",\n      \"widgets\": [\n        {\n          \"ref\": null,\n          \"objectNumber\": 1,\n          \"page\": null\n        }\n      ],\n      \"value\": \"value\",\n      \"defaultValue\": \"defaultValue\",\n      \"maxLength\": 1,\n      \"multiline\": true,\n      \"password\": true,\n      \"comb\": true,\n      \"family\": \"text\"\n    }\n  ],\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1.1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldFamily\": \"text\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"fields\": [\n    {\n      \"ref\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"name\": \"name\",\n      \"origin\": \"acroform\",\n      \"readOnly\": true,\n      \"required\": true,\n      \"noExport\": true,\n      \"alternateName\": \"alternateName\",\n      \"mappingName\": \"mappingName\",\n      \"valueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"defaultValueEntry\": {\n        \"kind\": \"none\"\n      },\n      \"groupId\": \"groupId\",\n      \"createdBy\": \"createdBy\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"filledBy\": \"filledBy\",\n      \"filledByName\": \"filledByName\",\n      \"filledAt\": \"2024-01-15T09:30:00Z\",\n      \"importedBy\": \"importedBy\",\n      \"widgets\": [\n        {\n          \"ref\": null,\n          \"objectNumber\": 1,\n          \"page\": null\n        }\n      ],\n      \"value\": \"value\",\n      \"defaultValue\": \"defaultValue\",\n      \"maxLength\": 1,\n      \"multiline\": true,\n      \"password\": true,\n      \"comb\": true,\n      \"kind\": \"text\"\n    }\n  ],\n  \"widgets\": [\n    {\n      \"subtype\": \"widget\",\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"hasAppearance\": true,\n      \"appearanceState\": \"appearanceState\",\n      \"structurePosition\": [\n        1\n      ],\n      \"nm\": \"nm\",\n      \"rect\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"contents\": \"contents\",\n      \"subject\": \"subject\",\n      \"blendMode\": \"normal\",\n      \"invisible\": true,\n      \"hidden\": true,\n      \"print\": true,\n      \"noZoom\": true,\n      \"noRotate\": true,\n      \"noView\": true,\n      \"readOnly\": true,\n      \"locked\": true,\n      \"toggleNoView\": true,\n      \"lockedContents\": true,\n      \"reply\": {\n        \"to\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"objectNumber\": 1,\n          \"kind\": \"objectNumber\"\n        },\n        \"type\": \"reply\"\n      },\n      \"popup\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"groupId\": \"groupId\",\n      \"author\": \"author\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n      \"userId\": \"userId\",\n      \"createdBy\": \"createdBy\",\n      \"modifiedBy\": \"modifiedBy\",\n      \"importedBy\": \"importedBy\",\n      \"actions\": {},\n      \"box\": {\n        \"x\": 1.1,\n        \"y\": 1.1,\n        \"width\": 1.1,\n        \"height\": 1.1\n      },\n      \"rotation\": 1,\n      \"color\": \"color\",\n      \"interiorColor\": \"interiorColor\",\n      \"strokeWidth\": 1.1,\n      \"borderStyle\": \"solid\",\n      \"dashArray\": [\n        1.1\n      ],\n      \"fontFamily\": \"fontFamily\",\n      \"fontSize\": 1.1,\n      \"fontColor\": \"fontColor\",\n      \"textAlign\": \"left\",\n      \"caption\": \"caption\",\n      \"checkStyle\": \"check\",\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldKind\": \"text\",\n      \"hasMark\": true\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2305,10 +2305,10 @@
       }
     },
     {
-      "id": "8ce41786-d3b2-4738-9c32-2e5e4f35f96c",
+      "id": "b35110d1-0d32-4bb0-8bc9-f14c8e276767",
       "name": "Delete a widget: it leaves its page, and its field when it has one. The field survives, unplaced when this was its last widget. A widget that is its field's own dictionary is refused: delete the field. A widget is the form's, so the annotation routes refuse one. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/widgets/{pageKey}/{annotKey}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/widgets/{pageKey}/{annotationKey}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -2325,19 +2325,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"widget\": {\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"objectNumber\": 1,\n    \"kind\": \"objectNumber\"\n  },\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"field\": {\n    \"ref\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"name\": \"name\",\n    \"origin\": \"acroform\",\n    \"readOnly\": true,\n    \"required\": true,\n    \"noExport\": true,\n    \"alternateName\": \"alternateName\",\n    \"mappingName\": \"mappingName\",\n    \"valueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"defaultValueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"actions\": {\n      \"keystroke\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"format\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"validate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"calculate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"groupId\": \"groupId\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"filledBy\": \"filledBy\",\n    \"filledByName\": \"filledByName\",\n    \"filledAt\": \"2024-01-15T09:30:00Z\",\n    \"importedBy\": \"importedBy\",\n    \"widgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"value\": \"value\",\n    \"defaultValue\": \"defaultValue\",\n    \"maxLength\": 1,\n    \"multiline\": true,\n    \"password\": true,\n    \"comb\": true,\n    \"family\": \"text\"\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"widget\": {\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"objectNumber\": 1,\n    \"kind\": \"objectNumber\"\n  },\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"field\": {\n    \"ref\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"name\": \"name\",\n    \"origin\": \"acroform\",\n    \"readOnly\": true,\n    \"required\": true,\n    \"noExport\": true,\n    \"alternateName\": \"alternateName\",\n    \"mappingName\": \"mappingName\",\n    \"valueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"defaultValueEntry\": {\n      \"kind\": \"none\"\n    },\n    \"actions\": {\n      \"keystroke\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"format\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"validate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"calculate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"groupId\": \"groupId\",\n    \"createdBy\": \"createdBy\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"filledBy\": \"filledBy\",\n    \"filledByName\": \"filledByName\",\n    \"filledAt\": \"2024-01-15T09:30:00Z\",\n    \"importedBy\": \"importedBy\",\n    \"widgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"value\": \"value\",\n    \"defaultValue\": \"defaultValue\",\n    \"maxLength\": 1,\n    \"multiline\": true,\n    \"password\": true,\n    \"comb\": true,\n    \"kind\": \"text\"\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "8ce41786-d3b2-4738-9c32-2e5e4f35f96c",
+      "uuid": "b35110d1-0d32-4bb0-8bc9-f14c8e276767",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2350,10 +2350,10 @@
       }
     },
     {
-      "id": "4d3c2fbf-8375-4a55-b768-8e46aa2c2447",
+      "id": "56aac0ef-3a82-4094-a104-b84312f1f0c2",
       "name": "Change a widget's place and look: what an annotation update takes, for a form field's widget. A widget is the form's, so the annotation routes refuse one. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/widgets/{pageKey}/{annotKey}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/form/widgets/{pageKey}/{annotationKey}",
         "method": "PATCH",
         "headers": {
           "Authorization": {
@@ -2370,19 +2370,19 @@
           "pageKey": {
             "equalTo": "pageKey"
           },
-          "annotKey": {
-            "equalTo": "annotKey"
+          "annotationKey": {
+            "equalTo": "annotationKey"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"widget\": {\n    \"subtype\": \"widget\",\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"box\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"rotation\": 1.1,\n    \"color\": \"color\",\n    \"interiorColor\": \"interiorColor\",\n    \"strokeWidth\": 1.1,\n    \"borderStyle\": \"solid\",\n    \"dashArray\": [\n      1.1\n    ],\n    \"fontFamily\": \"fontFamily\",\n    \"fontSize\": 1.1,\n    \"fontColor\": \"fontColor\",\n    \"textAlign\": \"left\",\n    \"caption\": \"caption\",\n    \"checkStyle\": \"check\",\n    \"field\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"fieldFamily\": \"text\"\n  },\n  \"appearance\": {\n    \"action\": \"preserved\",\n    \"changed\": true\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"widget\": {\n    \"subtype\": \"widget\",\n    \"ref\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"page\": {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    },\n    \"hasAppearance\": true,\n    \"appearanceState\": \"appearanceState\",\n    \"structurePosition\": [\n      1\n    ],\n    \"nm\": \"nm\",\n    \"rect\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"contents\": \"contents\",\n    \"subject\": \"subject\",\n    \"blendMode\": \"normal\",\n    \"invisible\": true,\n    \"hidden\": true,\n    \"print\": true,\n    \"noZoom\": true,\n    \"noRotate\": true,\n    \"noView\": true,\n    \"readOnly\": true,\n    \"locked\": true,\n    \"toggleNoView\": true,\n    \"lockedContents\": true,\n    \"reply\": {\n      \"to\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"type\": \"reply\"\n    },\n    \"popup\": {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"groupId\": \"groupId\",\n    \"author\": \"author\",\n    \"createdAt\": \"2024-01-15T09:30:00Z\",\n    \"modifiedAt\": \"2024-01-15T09:30:00Z\",\n    \"userId\": \"userId\",\n    \"createdBy\": \"createdBy\",\n    \"modifiedBy\": \"modifiedBy\",\n    \"importedBy\": \"importedBy\",\n    \"actions\": {\n      \"activate\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorEnter\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"cursorExit\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseDown\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"mouseUp\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"focus\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"blur\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageOpen\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageClose\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageVisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"pageInvisible\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      }\n    },\n    \"box\": {\n      \"x\": 1.1,\n      \"y\": 1.1,\n      \"width\": 1.1,\n      \"height\": 1.1\n    },\n    \"rotation\": 1,\n    \"color\": \"color\",\n    \"interiorColor\": \"interiorColor\",\n    \"strokeWidth\": 1.1,\n    \"borderStyle\": \"solid\",\n    \"dashArray\": [\n      1.1\n    ],\n    \"fontFamily\": \"fontFamily\",\n    \"fontSize\": 1.1,\n    \"fontColor\": \"fontColor\",\n    \"textAlign\": \"left\",\n    \"caption\": \"caption\",\n    \"checkStyle\": \"check\",\n    \"field\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"fieldKind\": \"text\",\n    \"hasMark\": true\n  },\n  \"appearance\": {\n    \"action\": \"preserved\",\n    \"changed\": true\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "4d3c2fbf-8375-4a55-b768-8e46aa2c2447",
+      "uuid": "56aac0ef-3a82-4094-a104-b84312f1f0c2",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -2419,7 +2419,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"order\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
+        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"order\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ],\n    \"changedFields\": [\n      {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ],\n    \"changedWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ],\n    \"redrawnWidgets\": [\n      {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      }\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2497,7 +2497,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"items\": [\n    {\n      \"ref\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"parent\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"title\": \"title\",\n      \"target\": {\n        \"destination\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"kind\": \"xyz\"\n        },\n        \"kind\": \"goto\"\n      },\n      \"action\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warningFlags\": 1,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"open\": true,\n      \"color\": \"color\",\n      \"bold\": true,\n      \"italic\": true\n    }\n  ],\n  \"incomplete\": true\n}",
+        "body": "{\n  \"items\": [\n    {\n      \"ref\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"parent\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"title\": \"title\",\n      \"target\": {\n        \"destination\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"x\": null,\n          \"y\": null,\n          \"zoom\": null,\n          \"kind\": \"xyz\"\n        },\n        \"kind\": \"goto\"\n      },\n      \"action\": {\n        \"root\": null,\n        \"incomplete\": true,\n        \"warnings\": [\n          \"cycle-dropped\"\n        ]\n      },\n      \"open\": true,\n      \"color\": \"color\",\n      \"bold\": true,\n      \"italic\": true\n    }\n  ],\n  \"incomplete\": true\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2539,7 +2539,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"page\": {\n    \"kind\": \"objectNumber\",\n    \"objectNumber\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2620,7 +2620,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2659,7 +2659,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"pages\": [\n    {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    }\n  ],\n  \"usage\": \"display\",\n  \"results\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"status\": \"applied\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"pages\": [\n    {\n      \"kind\": \"objectNumber\",\n      \"objectNumber\": 1\n    }\n  ],\n  \"usage\": \"display\",\n  \"results\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"status\": \"applied\"\n    }\n  ],\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2698,7 +2698,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"layout\": {\n    \"pageCount\": 1,\n    \"pages\": [\n      {\n        \"index\": 1,\n        \"ref\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"label\": null,\n        \"size\": {\n          \"width\": 1.1,\n          \"height\": 1.1\n        },\n        \"rotation\": 1.1,\n        \"userUnit\": 1.1,\n        \"tabOrder\": null,\n        \"boxes\": {\n          \"media\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"crop\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"bleed\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"trim\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"art\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          }\n        },\n        \"pdfCropBox\": {\n          \"left\": 1.1,\n          \"bottom\": 1.1,\n          \"right\": 1.1,\n          \"top\": 1.1\n        }\n      }\n    ],\n    \"labels\": [\n      {\n        \"firstPage\": 1,\n        \"style\": null,\n        \"firstNumber\": 1,\n        \"prefix\": \"prefix\"\n      }\n    ],\n    \"namedPages\": [\n      {\n        \"name\": \"name\",\n        \"target\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"kind\": \"page\"\n        }\n      }\n    ]\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"layout\": {\n    \"pageCount\": 1,\n    \"pages\": [\n      {\n        \"index\": 1,\n        \"ref\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"label\": null,\n        \"size\": {\n          \"width\": 1.1,\n          \"height\": 1.1\n        },\n        \"rotation\": 1,\n        \"userUnit\": 1.1,\n        \"tabOrder\": null,\n        \"boxes\": {\n          \"media\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"crop\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"bleed\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"trim\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"art\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          }\n        },\n        \"pdfCropBox\": {\n          \"left\": 1.1,\n          \"bottom\": 1.1,\n          \"right\": 1.1,\n          \"top\": 1.1\n        }\n      }\n    ],\n    \"labels\": [\n      {\n        \"firstPage\": 1,\n        \"style\": null,\n        \"firstNumber\": 1,\n        \"prefix\": \"prefix\"\n      }\n    ],\n    \"namedPages\": [\n      {\n        \"name\": \"name\",\n        \"target\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"kind\": \"page\"\n        }\n      }\n    ]\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2737,7 +2737,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"layout\": {\n    \"pageCount\": 1,\n    \"pages\": [\n      {\n        \"index\": 1,\n        \"ref\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"label\": null,\n        \"size\": {\n          \"width\": 1.1,\n          \"height\": 1.1\n        },\n        \"rotation\": 1.1,\n        \"userUnit\": 1.1,\n        \"tabOrder\": null,\n        \"boxes\": {\n          \"media\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"crop\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"bleed\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"trim\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"art\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          }\n        },\n        \"pdfCropBox\": {\n          \"left\": 1.1,\n          \"bottom\": 1.1,\n          \"right\": 1.1,\n          \"top\": 1.1\n        }\n      }\n    ],\n    \"labels\": [\n      {\n        \"firstPage\": 1,\n        \"style\": null,\n        \"firstNumber\": 1,\n        \"prefix\": \"prefix\"\n      }\n    ],\n    \"namedPages\": [\n      {\n        \"name\": \"name\",\n        \"target\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"kind\": \"page\"\n        }\n      }\n    ]\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"layout\": {\n    \"pageCount\": 1,\n    \"pages\": [\n      {\n        \"index\": 1,\n        \"ref\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"label\": null,\n        \"size\": {\n          \"width\": 1.1,\n          \"height\": 1.1\n        },\n        \"rotation\": 1,\n        \"userUnit\": 1.1,\n        \"tabOrder\": null,\n        \"boxes\": {\n          \"media\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"crop\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"bleed\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"trim\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          },\n          \"art\": {\n            \"x\": 1.1,\n            \"y\": 1.1,\n            \"width\": 1.1,\n            \"height\": 1.1\n          }\n        },\n        \"pdfCropBox\": {\n          \"left\": 1.1,\n          \"bottom\": 1.1,\n          \"right\": 1.1,\n          \"top\": 1.1\n        }\n      }\n    ],\n    \"labels\": [\n      {\n        \"firstPage\": 1,\n        \"style\": null,\n        \"firstNumber\": 1,\n        \"prefix\": \"prefix\"\n      }\n    ],\n    \"namedPages\": [\n      {\n        \"name\": \"name\",\n        \"target\": {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"kind\": \"page\"\n        }\n      }\n    ]\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2776,7 +2776,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"scope\": {\n    \"pages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"annotations\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  },\n  \"results\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"status\": \"applied\",\n      \"removedAnnotationCount\": 1\n    }\n  ],\n  \"removedAnnotationCount\": 1,\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"scope\": {\n    \"pages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"annotations\": [\n      {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      }\n    ]\n  },\n  \"results\": [\n    {\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      },\n      \"status\": \"applied\",\n      \"removedAnnotationCount\": 1\n    }\n  ],\n  \"removedAnnotationCount\": 1,\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2815,7 +2815,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSize\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"signedAt\": null\n      },\n      \"docMdp\": 1.1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"requiredFlags\": 1,\n        \"presentFlags\": 1,\n        \"version\": null,\n        \"mdp\": null,\n        \"filter\": null,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
+        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSizeBytes\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"signedAt\": null\n      },\n      \"docMdp\": 1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"parserVersion\": null,\n        \"parserVersionRequired\": true,\n        \"mdp\": null,\n        \"filter\": null,\n        \"filterRequired\": true,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"subFiltersRequired\": true,\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"digestMethodsRequired\": true,\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"reasonsRequired\": true,\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": {\n          \"action\": \"all\",\n          \"fields\": [\n            \"fields\"\n          ]\n        }\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2899,7 +2899,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"status\": \"completed\",\n  \"signature\": {\n    \"index\": 1,\n    \"field\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"fieldName\": \"fieldName\",\n    \"widget\": {\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"objectNumber\": 1,\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    },\n    \"signed\": true,\n    \"kind\": \"signature\",\n    \"filter\": \"filter\",\n    \"subFilter\": \"subFilter\",\n    \"byteRange\": [\n      {\n        \"key\": \"value\"\n      }\n    ],\n    \"contentsSize\": 1,\n    \"coverage\": \"whole-revision\",\n    \"revisionIndex\": 1,\n    \"signer\": {\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"location\": \"location\",\n      \"contactInfo\": \"contactInfo\",\n      \"signedAt\": \"2024-01-15T09:30:00Z\"\n    },\n    \"docMdp\": 1.1,\n    \"catalogCertification\": true,\n    \"fieldMdp\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1.1\n    },\n    \"lock\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1.1\n    },\n    \"seedValue\": {\n      \"requiredFlags\": 1,\n      \"presentFlags\": 1,\n      \"version\": 1,\n      \"mdp\": 1.1,\n      \"filter\": \"filter\",\n      \"subFilters\": [\n        \"subFilters\"\n      ],\n      \"digestMethods\": [\n        \"digestMethods\"\n      ],\n      \"reasons\": [\n        \"reasons\"\n      ],\n      \"unsupportedRequired\": true\n    }\n  },\n  \"version\": {\n    \"sha256\": \"sha256\",\n    \"byteLength\": 1\n  },\n  \"previous\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "body": "{\n  \"status\": \"completed\",\n  \"signature\": {\n    \"index\": 1,\n    \"field\": {\n      \"objectNumber\": 1,\n      \"kind\": \"objectNumber\"\n    },\n    \"fieldName\": \"fieldName\",\n    \"widget\": {\n      \"ref\": {\n        \"page\": {\n          \"kind\": \"objectNumber\",\n          \"objectNumber\": 1\n        },\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"objectNumber\": 1,\n      \"page\": {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    },\n    \"signed\": true,\n    \"kind\": \"signature\",\n    \"filter\": \"filter\",\n    \"subFilter\": \"subFilter\",\n    \"byteRange\": [\n      {\n        \"key\": \"value\"\n      }\n    ],\n    \"contentsSizeBytes\": 1,\n    \"coverage\": \"whole-revision\",\n    \"revisionIndex\": 1,\n    \"signer\": {\n      \"name\": \"name\",\n      \"reason\": \"reason\",\n      \"location\": \"location\",\n      \"contactInfo\": \"contactInfo\",\n      \"signedAt\": \"2024-01-15T09:30:00Z\"\n    },\n    \"docMdp\": 1,\n    \"catalogCertification\": true,\n    \"fieldMdp\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1\n    },\n    \"lock\": {\n      \"action\": \"all\",\n      \"fields\": [\n        \"fields\"\n      ],\n      \"permission\": 1\n    },\n    \"seedValue\": {\n      \"parserVersion\": 1,\n      \"parserVersionRequired\": true,\n      \"mdp\": 1,\n      \"filter\": \"filter\",\n      \"filterRequired\": true,\n      \"subFilters\": [\n        \"subFilters\"\n      ],\n      \"subFiltersRequired\": true,\n      \"digestMethods\": [\n        \"digestMethods\"\n      ],\n      \"digestMethodsRequired\": true,\n      \"reasons\": [\n        \"reasons\"\n      ],\n      \"reasonsRequired\": true,\n      \"unsupportedRequired\": true\n    }\n  },\n  \"version\": {\n    \"sha256\": \"sha256\",\n    \"sizeBytes\": 1\n  },\n  \"previous\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": {\n          \"action\": \"all\",\n          \"fields\": [\n            \"fields\"\n          ]\n        }\n      }\n    ],\n    \"policyVersion\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2938,7 +2938,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1.1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
+        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"sizeBytes\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -2977,7 +2977,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"signingId\": \"signingId\",\n  \"digest\": \"digest\",\n  \"algorithm\": \"sha256\",\n  \"byteRange\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"contentsSize\": 1,\n  \"subFilter\": \"subFilter\",\n  \"expectedVersion\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"expiresAt\": \"expiresAt\"\n}",
+        "body": "{\n  \"signingId\": \"signingId\",\n  \"digest\": \"digest\",\n  \"algorithm\": \"sha256\",\n  \"byteRange\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"contentsSizeBytes\": 1,\n  \"subFilter\": \"subFilter\",\n  \"expectedVersion\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3016,7 +3016,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"baseSha\": \"baseSha\",\n  \"versions\": [\n    {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1,\n      \"number\": 1,\n      \"parentSha256\": \"parentSha256\",\n      \"producer\": \"upload\",\n      \"signingId\": \"signingId\",\n      \"createdAt\": 1\n    }\n  ]\n}",
+        "body": "{\n  \"baseSha256\": \"baseSha256\",\n  \"versions\": [\n    {\n      \"sha256\": \"sha256\",\n      \"sizeBytes\": 1,\n      \"number\": 1,\n      \"parentSha256\": \"parentSha256\",\n      \"producer\": \"upload\",\n      \"signingId\": \"signingId\",\n      \"createdAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
@@ -3034,10 +3034,10 @@
       }
     },
     {
-      "id": "7b832a05-89f5-4f6f-8bcd-06af91ef6cc2",
+      "id": "477051b3-0858-485d-8f99-6f57b342bc09",
       "name": "What changed between two revisions of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/analysis/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/analysis/{sha256}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3051,19 +3051,19 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"byteLength\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1.1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
+        "body": "{\n  \"mode\": \"authoritative\",\n  \"policyVersion\": 1,\n  \"basis\": {\n    \"version\": {\n      \"sha256\": \"sha256\",\n      \"sizeBytes\": 1\n    },\n    \"editsVersion\": 1,\n    \"source\": \"persisted\"\n  },\n  \"since\": {\n    \"revisionIndex\": 1,\n    \"signatureIndex\": 1\n  },\n  \"until\": {\n    \"revisionIndex\": 1\n  },\n  \"restrictions\": [\n    {\n      \"signatureIndex\": 1,\n      \"revisionIndex\": 1,\n      \"source\": \"docmdp\",\n      \"own\": true,\n      \"permission\": 1,\n      \"fields\": {\n        \"key\": \"value\"\n      }\n    }\n  ],\n  \"current\": {\n    \"verdict\": \"unchanged\",\n    \"complete\": true,\n    \"primary\": {\n      \"rule\": \"rule\",\n      \"verdict\": \"permitted\",\n      \"objectNumber\": 1,\n      \"edge\": \"edge\",\n      \"detail\": \"detail\"\n    },\n    \"findings\": [\n      {\n        \"rule\": \"rule\",\n        \"verdict\": \"permitted\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"method\": \"net-state\"\n  },\n  \"later\": {\n    \"revisionCount\": 1,\n    \"undoneObjectNumbers\": [\n      1\n    ]\n  },\n  \"verdict\": \"unchanged\",\n  \"steps\": [\n    {\n      \"key\": \"value\"\n    }\n  ]\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "7b832a05-89f5-4f6f-8bcd-06af91ef6cc2",
+      "uuid": "477051b3-0858-485d-8f99-6f57b342bc09",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3076,10 +3076,10 @@
       }
     },
     {
-      "id": "8327e642-5e2c-473f-b602-1b7a2fa42085",
+      "id": "567b7640-1d93-40c3-88ea-fb49bd7dfaac",
       "name": "The bytes of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/download/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/download/{sha256}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3093,19 +3093,19 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           }
         }
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "8327e642-5e2c-473f-b602-1b7a2fa42085",
+      "uuid": "567b7640-1d93-40c3-88ea-fb49bd7dfaac",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3118,10 +3118,10 @@
       }
     },
     {
-      "id": "e8ffad79-b84f-4840-9677-44aed09c1cb5",
+      "id": "d68d55d1-4e8b-459a-8edb-c8611a85ddbd",
       "name": "The byte prefix of one revision of a layer's version: exactly what a signature over it signed (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/revisions/{sha}/{index}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/revisions/{sha256}/{index}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3135,8 +3135,8 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           },
           "index": {
             "equalTo": "1"
@@ -3145,12 +3145,12 @@
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "e8ffad79-b84f-4840-9677-44aed09c1cb5",
+      "uuid": "d68d55d1-4e8b-459a-8edb-c8611a85ddbd",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3163,10 +3163,10 @@
       }
     },
     {
-      "id": "9274ab9a-c8b5-43d8-9c85-d0608ad866fb",
+      "id": "ce9f14a9-d5c5-4063-bc0f-1067b59220c1",
       "name": "The signature snapshot of one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha256}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3180,19 +3180,19 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSize\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"signedAt\": null\n      },\n      \"docMdp\": 1.1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"requiredFlags\": 1,\n        \"presentFlags\": 1,\n        \"version\": null,\n        \"mdp\": null,\n        \"filter\": null,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1.1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": null\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
+        "body": "{\n  \"chainValid\": true,\n  \"revisions\": [\n    {\n      \"index\": 1,\n      \"end\": 1,\n      \"xrefOffset\": 1,\n      \"signatureIndex\": 1\n    }\n  ],\n  \"signatures\": [\n    {\n      \"index\": 1,\n      \"field\": {\n        \"objectNumber\": 1,\n        \"kind\": \"objectNumber\"\n      },\n      \"fieldName\": \"fieldName\",\n      \"widget\": {\n        \"ref\": null,\n        \"objectNumber\": 1,\n        \"page\": null\n      },\n      \"signed\": true,\n      \"kind\": \"signature\",\n      \"filter\": \"filter\",\n      \"subFilter\": \"subFilter\",\n      \"byteRange\": [],\n      \"contentsSizeBytes\": 1,\n      \"coverage\": \"whole-revision\",\n      \"revisionIndex\": 1,\n      \"signer\": {\n        \"name\": null,\n        \"reason\": null,\n        \"location\": null,\n        \"contactInfo\": null,\n        \"signedAt\": null\n      },\n      \"docMdp\": 1,\n      \"catalogCertification\": true,\n      \"fieldMdp\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"lock\": {\n        \"action\": \"all\",\n        \"fields\": [\n          \"fields\"\n        ]\n      },\n      \"seedValue\": {\n        \"parserVersion\": null,\n        \"parserVersionRequired\": true,\n        \"mdp\": null,\n        \"filter\": null,\n        \"filterRequired\": true,\n        \"subFilters\": [\n          \"subFilters\"\n        ],\n        \"subFiltersRequired\": true,\n        \"digestMethods\": [\n          \"digestMethods\"\n        ],\n        \"digestMethodsRequired\": true,\n        \"reasons\": [\n          \"reasons\"\n        ],\n        \"reasonsRequired\": true,\n        \"unsupportedRequired\": true\n      }\n    }\n  ],\n  \"protection\": {\n    \"enforced\": \"none\",\n    \"judged\": \"none\",\n    \"certification\": {\n      \"signatureIndex\": 1,\n      \"permission\": 1\n    },\n    \"fieldLocks\": [\n      {\n        \"signatureIndex\": 1,\n        \"source\": \"fieldmdp\",\n        \"spec\": {\n          \"action\": \"all\",\n          \"fields\": [\n            \"fields\"\n          ]\n        }\n      }\n    ],\n    \"policyVersion\": 1\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "9274ab9a-c8b5-43d8-9c85-d0608ad866fb",
+      "uuid": "ce9f14a9-d5c5-4063-bc0f-1067b59220c1",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3205,10 +3205,10 @@
       }
     },
     {
-      "id": "09b09dbf-a1e7-412d-8b20-fdfcb397d5d7",
+      "id": "e9f8989a-5845-445a-a0a9-1716e6cfb093",
       "name": "The DER /Contents of a signed field in one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}/{fieldKey}/contents",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha256}/{fieldKey}/contents",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3222,8 +3222,8 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           },
           "fieldKey": {
             "equalTo": "fieldKey"
@@ -3232,12 +3232,12 @@
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "09b09dbf-a1e7-412d-8b20-fdfcb397d5d7",
+      "uuid": "e9f8989a-5845-445a-a0a9-1716e6cfb093",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3250,10 +3250,10 @@
       }
     },
     {
-      "id": "e0798858-e066-4e6e-8b8d-ef4a17cc4bcc",
+      "id": "8bc567f4-f69e-4f42-b01c-1d4b9c096164",
       "name": "The digest of a signed field's /ByteRange in one of a layer's versions (immutable). - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha}/{fieldKey}/digest/{algorithm}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha256}/{fieldKey}/digest/{algorithm}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3267,8 +3267,8 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "sha": {
-            "equalTo": "sha"
+          "sha256": {
+            "equalTo": "sha256"
           },
           "fieldKey": {
             "equalTo": "fieldKey"
@@ -3280,12 +3280,12 @@
       },
       "response": {
         "status": 404,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "e0798858-e066-4e6e-8b8d-ef4a17cc4bcc",
+      "uuid": "8bc567f4-f69e-4f42-b01c-1d4b9c096164",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3298,10 +3298,10 @@
       }
     },
     {
-      "id": "06d57c99-bae8-4006-8f55-d18abd3665d0",
+      "id": "939d88ca-75e0-4c6c-b936-6cf55b8f53c4",
       "name": "A font file a browser can load, by its hash: to show text being typed in the font the engine writes it with. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/font-program-files/{displayHash}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/font-program-files/{displaySha256}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3315,19 +3315,19 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "displayHash": {
-            "equalTo": "displayHash"
+          "displaySha256": {
+            "equalTo": "displaySha256"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"key\": \"value\"\n}",
+        "body": "{\n  \"error\": {\n    \"code\": \"Unknown\",\n    \"message\": \"message\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "06d57c99-bae8-4006-8f55-d18abd3665d0",
+      "uuid": "939d88ca-75e0-4c6c-b936-6cf55b8f53c4",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3340,10 +3340,10 @@
       }
     },
     {
-      "id": "05fa8eba-6fc5-45fb-953f-36b76466da36",
+      "id": "9ec41359-5a04-4b83-b0dd-89dfb2221e5b",
       "name": "A font file's facts, by the hash of the file a browser loads: the characters the engine can write with it and its line metrics. - default",
       "request": {
-        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/font-programs/{displayHash}",
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/font-programs/{displaySha256}",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3357,19 +3357,19 @@
           "layerName": {
             "equalTo": "layerName"
           },
-          "displayHash": {
-            "equalTo": "displayHash"
+          "displaySha256": {
+            "equalTo": "displaySha256"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"displayHash\": \"displayHash\",\n  \"sourceHash\": \"sourceHash\",\n  \"embedded\": \"whole\",\n  \"format\": \"truetype\",\n  \"embeddingPermission\": \"installable\",\n  \"canDownload\": true,\n  \"covers\": [\n    {\n      \"start\": 1,\n      \"count\": 1\n    }\n  ],\n  \"ascent\": 1.1,\n  \"descent\": 1.1\n}",
+        "body": "{\n  \"displaySha256\": \"displaySha256\",\n  \"sourceSha256\": \"sourceSha256\",\n  \"embedded\": \"whole\",\n  \"format\": \"truetype\",\n  \"embeddingPermission\": \"installable\",\n  \"canDownload\": true,\n  \"covers\": [\n    {\n      \"start\": 1,\n      \"count\": 1\n    }\n  ],\n  \"ascent\": 1.1,\n  \"descent\": 1.1\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "05fa8eba-6fc5-45fb-953f-36b76466da36",
+      "uuid": "9ec41359-5a04-4b83-b0dd-89dfb2221e5b",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3421,10 +3421,10 @@
       }
     },
     {
-      "id": "c556c7d4-072b-461e-9ebc-9d33028b236f",
+      "id": "2b3590e8-f326-46ce-95f3-b12b667e8176",
       "name": "A document's layers that hold changes, newest first, cursor-paginated: the ones grants and your tokens name, and each grant visitor's own. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/layers",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/layers",
         "method": "GET",
         "headers": {
           "Authorization": {
@@ -3435,19 +3435,19 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           }
         }
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"layers\": [\n    {\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"grantId\": \"grantId\",\n      \"visitorId\": \"visitorId\",\n      \"storageSizeBytes\": 1.1,\n      \"createdAt\": 1.1,\n      \"updatedAt\": 1.1,\n      \"lastSeenAt\": 1.1\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"layers\": [\n    {\n      \"docId\": \"docId\",\n      \"layerName\": \"layerName\",\n      \"grantId\": \"grantId\",\n      \"visitorId\": \"visitorId\",\n      \"sizeBytes\": 1,\n      \"createdAt\": \"2024-01-15T09:30:00Z\",\n      \"updatedAt\": \"2024-01-15T09:30:00Z\",\n      \"lastSeenAt\": \"2024-01-15T09:30:00Z\"\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
-      "uuid": "c556c7d4-072b-461e-9ebc-9d33028b236f",
+      "uuid": "2b3590e8-f326-46ce-95f3-b12b667e8176",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3460,10 +3460,10 @@
       }
     },
     {
-      "id": "4505b31c-de6e-4008-ba47-1d36a692c428",
+      "id": "67a6078a-31b3-403a-a459-c7626c98be43",
       "name": "Delete a layer and everything it stored. A layer that was written can't be used again under its name; one nobody wrote stays usable. - default",
       "request": {
-        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{id}/layers/{layerName}",
+        "urlPathTemplate": "/v1/tenants/{tenantId}/documents/{docId}/layers/{layerName}",
         "method": "DELETE",
         "headers": {
           "Authorization": {
@@ -3474,8 +3474,8 @@
           "tenantId": {
             "equalTo": "tenantId"
           },
-          "id": {
-            "equalTo": "id"
+          "docId": {
+            "equalTo": "docId"
           },
           "layerName": {
             "equalTo": "layerName"
@@ -3489,7 +3489,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "4505b31c-de6e-4008-ba47-1d36a692c428",
+      "uuid": "67a6078a-31b3-403a-a459-c7626c98be43",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3523,7 +3523,7 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"visitors\": [\n    {\n      \"visitorId\": \"visitorId\",\n      \"answers\": {},\n      \"emailVerified\": true,\n      \"consentedAt\": 1.1,\n      \"firstSeenAt\": 1.1,\n      \"lastSeenAt\": 1.1,\n      \"layer\": {\n        \"layerName\": \"layerName\",\n        \"storageSizeBytes\": null\n      }\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
+        "body": "{\n  \"visitors\": [\n    {\n      \"visitorId\": \"visitorId\",\n      \"answers\": {},\n      \"emailVerified\": true,\n      \"consentedAt\": \"2024-01-15T09:30:00Z\",\n      \"firstSeenAt\": \"2024-01-15T09:30:00Z\",\n      \"lastSeenAt\": \"2024-01-15T09:30:00Z\",\n      \"layer\": {\n        \"layerName\": \"layerName\",\n        \"sizeBytes\": null\n      }\n    }\n  ],\n  \"nextCursor\": \"nextCursor\"\n}",
         "headers": {
           "Content-Type": "application/json"
         }

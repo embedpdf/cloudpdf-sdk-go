@@ -7,14 +7,14 @@ import (
 	core "github.com/embedpdf/cloudpdf-sdk-go/v3/core"
 )
 
-// Response
+// Bad gateway
 type BadGatewayError struct {
 	*core.APIError
-	Body DocumentsImportFrom502Response
+	Body *ErrorResponse
 }
 
 func (b *BadGatewayError) UnmarshalJSON(data []byte) error {
-	var body DocumentsImportFrom502Response
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -34,11 +34,11 @@ func (b *BadGatewayError) Unwrap() error {
 // Bad request
 type BadRequestError struct {
 	*core.APIError
-	Body any
+	Body *ErrorResponse
 }
 
 func (b *BadRequestError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -58,11 +58,11 @@ func (b *BadRequestError) Unwrap() error {
 // Conflict
 type ConflictError struct {
 	*core.APIError
-	Body any
+	Body *ErrorResponse
 }
 
 func (c *ConflictError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -79,14 +79,14 @@ func (c *ConflictError) Unwrap() error {
 	return c.APIError
 }
 
-// Response
+// Payload too large
 type ContentTooLargeError struct {
 	*core.APIError
-	Body any
+	Body *ErrorResponse
 }
 
 func (c *ContentTooLargeError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -106,11 +106,11 @@ func (c *ContentTooLargeError) Unwrap() error {
 // Forbidden
 type ForbiddenError struct {
 	*core.APIError
-	Body any
+	Body *ErrorResponse
 }
 
 func (f *ForbiddenError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -130,11 +130,11 @@ func (f *ForbiddenError) Unwrap() error {
 // Gone
 type GoneError struct {
 	*core.APIError
-	Body GrantsExchange410Response
+	Body *ErrorResponse
 }
 
 func (g *GoneError) UnmarshalJSON(data []byte) error {
-	var body GrantsExchange410Response
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -154,11 +154,11 @@ func (g *GoneError) Unwrap() error {
 // Not found
 type NotFoundError struct {
 	*core.APIError
-	Body any
+	Body *ErrorResponse
 }
 
 func (n *NotFoundError) UnmarshalJSON(data []byte) error {
-	var body any
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -175,14 +175,14 @@ func (n *NotFoundError) Unwrap() error {
 	return n.APIError
 }
 
-// Response
+// Not implemented
 type NotImplementedError struct {
 	*core.APIError
-	Body DocDownloadLink501Response
+	Body *ErrorResponse
 }
 
 func (n *NotImplementedError) UnmarshalJSON(data []byte) error {
-	var body DocDownloadLink501Response
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}
@@ -202,11 +202,11 @@ func (n *NotImplementedError) Unwrap() error {
 // Unprocessable
 type UnprocessableEntityError struct {
 	*core.APIError
-	Body GrantsExchange422Response
+	Body *ErrorResponse
 }
 
 func (u *UnprocessableEntityError) UnmarshalJSON(data []byte) error {
-	var body GrantsExchange422Response
+	var body *ErrorResponse
 	if err := json.Unmarshal(data, &body); err != nil {
 		return err
 	}

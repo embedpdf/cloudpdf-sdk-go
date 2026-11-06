@@ -8,13 +8,13 @@ import (
 
 var (
 	deleteLayersRequestFieldTenantID  = big.NewInt(1 << 0)
-	deleteLayersRequestFieldID        = big.NewInt(1 << 1)
+	deleteLayersRequestFieldDocID     = big.NewInt(1 << 1)
 	deleteLayersRequestFieldLayerName = big.NewInt(1 << 2)
 )
 
 type DeleteLayersRequest struct {
 	TenantID  string `json:"-" url:"-"`
-	ID        string `json:"-" url:"-"`
+	DocID     string `json:"-" url:"-"`
 	LayerName string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -35,11 +35,11 @@ func (d *DeleteLayersRequest) SetTenantID(tenantID string) {
 	d.require(deleteLayersRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeleteLayersRequest) SetID(id string) {
-	d.ID = id
-	d.require(deleteLayersRequestFieldID)
+func (d *DeleteLayersRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(deleteLayersRequestFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
@@ -51,7 +51,7 @@ func (d *DeleteLayersRequest) SetLayerName(layerName string) {
 
 var (
 	listLayersRequestFieldTenantID = big.NewInt(1 << 0)
-	listLayersRequestFieldID       = big.NewInt(1 << 1)
+	listLayersRequestFieldDocID    = big.NewInt(1 << 1)
 	listLayersRequestFieldLimit    = big.NewInt(1 << 2)
 	listLayersRequestFieldCursor   = big.NewInt(1 << 3)
 	listLayersRequestFieldGrantID  = big.NewInt(1 << 4)
@@ -59,7 +59,7 @@ var (
 
 type ListLayersRequest struct {
 	TenantID string  `json:"-" url:"-"`
-	ID       string  `json:"-" url:"-"`
+	DocID    string  `json:"-" url:"-"`
 	Limit    *int    `json:"-" url:"limit,omitempty"`
 	Cursor   *string `json:"-" url:"cursor,omitempty"`
 	GrantID  *string `json:"-" url:"grantId,omitempty"`
@@ -82,11 +82,11 @@ func (l *ListLayersRequest) SetTenantID(tenantID string) {
 	l.require(listLayersRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (l *ListLayersRequest) SetID(id string) {
-	l.ID = id
-	l.require(listLayersRequestFieldID)
+func (l *ListLayersRequest) SetDocID(docID string) {
+	l.DocID = docID
+	l.require(listLayersRequestFieldDocID)
 }
 
 // SetLimit sets the Limit field and marks it as non-optional;

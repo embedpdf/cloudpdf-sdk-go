@@ -7,6 +7,7 @@ import (
 	assert "github.com/stretchr/testify/assert"
 	require "github.com/stretchr/testify/require"
 	testing "testing"
+	time "time"
 )
 
 func TestSettersArchiveGrantsRequest(t *testing.T) {
@@ -200,7 +201,7 @@ func TestSettersGrantsCreateRequest(t *testing.T) {
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
 		obj := &GrantsCreateRequest{}
-		var fernTestValueExpiresAt *int
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -616,7 +617,7 @@ func TestSettersMarkExplicitGrantsCreateRequest(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GrantsCreateRequest{}
-		var fernTestValueExpiresAt *int
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -1215,10 +1216,10 @@ func TestSettersMarkExplicitListGrantsRequest(t *testing.T) {
 
 }
 
-func TestSettersGrantsArchive200Response(t *testing.T) {
+func TestSettersGrantsArchiveResponse(t *testing.T) {
 	t.Run("SetGrant", func(t *testing.T) {
-		obj := &GrantsArchive200Response{}
-		var fernTestValueGrant *GrantsArchive200ResponseGrant
+		obj := &GrantsArchiveResponse{}
+		var fernTestValueGrant *GrantsArchiveResponseGrant
 		obj.SetGrant(fernTestValueGrant)
 		assert.Equal(t, fernTestValueGrant, obj.Grant)
 		assert.NotNil(t, obj.explicitFields)
@@ -1226,12 +1227,12 @@ func TestSettersGrantsArchive200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsArchive200Response(t *testing.T) {
+func TestGettersGrantsArchiveResponse(t *testing.T) {
 	t.Run("GetGrant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200Response{}
-		var expected *GrantsArchive200ResponseGrant
+		obj := &GrantsArchiveResponse{}
+		var expected *GrantsArchiveResponseGrant
 		obj.Grant = expected
 
 		// Act & Assert
@@ -1241,7 +1242,7 @@ func TestGettersGrantsArchive200Response(t *testing.T) {
 	t.Run("GetGrant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200Response{}
+		obj := &GrantsArchiveResponse{}
 		obj.Grant = nil
 
 		// Act & Assert
@@ -1250,7 +1251,7 @@ func TestGettersGrantsArchive200Response(t *testing.T) {
 
 	t.Run("GetGrant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200Response
+		var obj *GrantsArchiveResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1262,12 +1263,12 @@ func TestGettersGrantsArchive200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsArchive200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsArchiveResponse(t *testing.T) {
 	t.Run("SetGrant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200Response{}
-		var fernTestValueGrant *GrantsArchive200ResponseGrant
+		obj := &GrantsArchiveResponse{}
+		var fernTestValueGrant *GrantsArchiveResponseGrant
 
 		// Act
 		obj.SetGrant(fernTestValueGrant)
@@ -1296,9 +1297,9 @@ func TestSettersMarkExplicitGrantsArchive200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
+func TestSettersGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1306,7 +1307,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -1314,7 +1315,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -1322,7 +1323,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueName *string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1330,15 +1331,15 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueLayerMode GrantsArchive200ResponseGrantLayerMode
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueLayerMode GrantsArchiveResponseGrantLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -1346,7 +1347,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
 		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
@@ -1354,23 +1355,23 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
 		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitorIdentity", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsArchive200ResponseGrantVisitorIdentity
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsArchiveResponseGrantVisitorIdentity
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetIdentity", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueIdentity *Identity
 		obj.SetIdentity(fernTestValueIdentity)
 		assert.Equal(t, fernTestValueIdentity, obj.Identity)
@@ -1378,7 +1379,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetScope", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueScope []string
 		obj.SetScope(fernTestValueScope)
 		assert.Equal(t, fernTestValueScope, obj.Scope)
@@ -1386,7 +1387,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetOrigins", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueOrigins []string
 		obj.SetOrigins(fernTestValueOrigins)
 		assert.Equal(t, fernTestValueOrigins, obj.Origins)
@@ -1394,7 +1395,7 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetPassphraseProtected", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 		obj.SetPassphraseProtected(fernTestValuePassphraseProtected)
 		assert.Equal(t, fernTestValuePassphraseProtected, obj.PassphraseProtected)
@@ -1402,15 +1403,15 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
 		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetDisabled", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
@@ -1418,39 +1419,39 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetArchivedAt", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 		obj.SetArchivedAt(fernTestValueArchivedAt)
 		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExchangeCount", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueExchangeCount int
 		obj.SetExchangeCount(fernTestValueExchangeCount)
 		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLastExchangedAt", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
 		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueCreatedBy string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -1458,16 +1459,16 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -1475,11 +1476,11 @@ func TestSettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 }
 
-func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
+func TestGettersGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected string
 		obj.ID = expected
 
@@ -1489,7 +1490,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1502,7 +1503,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected string
 		obj.TenantID = expected
 
@@ -1512,7 +1513,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1525,7 +1526,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected string
 		obj.DocID = expected
 
@@ -1535,7 +1536,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1548,7 +1549,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected *string
 		obj.Name = expected
 
@@ -1559,7 +1560,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.Name = nil
 
 		// Act & Assert
@@ -1568,7 +1569,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1581,8 +1582,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected GrantsArchive200ResponseGrantLayerMode
+		obj := &GrantsArchiveResponseGrant{}
+		var expected GrantsArchiveResponseGrantLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -1591,7 +1592,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1604,7 +1605,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected *string
 		obj.LayerName = expected
 
@@ -1615,7 +1616,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.LayerName = nil
 
 		// Act & Assert
@@ -1624,7 +1625,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1637,7 +1638,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected bool
 		obj.KeepVisitorLayers = expected
 
@@ -1647,7 +1648,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1660,8 +1661,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected *int
 		obj.VisitorIdleSeconds = expected
 
 		// Act & Assert
@@ -1671,7 +1672,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.VisitorIdleSeconds = nil
 
 		// Act & Assert
@@ -1680,7 +1681,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1693,8 +1694,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentity
+		obj := &GrantsArchiveResponseGrant{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentity
 		obj.VisitorIdentity = expected
 
 		// Act & Assert
@@ -1704,7 +1705,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.VisitorIdentity = nil
 
 		// Act & Assert
@@ -1713,7 +1714,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1726,7 +1727,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected *Identity
 		obj.Identity = expected
 
@@ -1737,7 +1738,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.Identity = nil
 
 		// Act & Assert
@@ -1746,7 +1747,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1759,7 +1760,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetScope", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected []string
 		obj.Scope = expected
 
@@ -1770,7 +1771,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetScope_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.Scope = nil
 
 		// Act & Assert
@@ -1779,7 +1780,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetScope_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1792,7 +1793,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected []string
 		obj.Origins = expected
 
@@ -1803,7 +1804,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.Origins = nil
 
 		// Act & Assert
@@ -1812,7 +1813,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1825,7 +1826,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetPassphraseProtected", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected bool
 		obj.PassphraseProtected = expected
 
@@ -1835,7 +1836,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetPassphraseProtected_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1848,8 +1849,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected int
 		obj.SessionTTLSeconds = expected
 
 		// Act & Assert
@@ -1858,7 +1859,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1871,7 +1872,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetDisabled", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected bool
 		obj.Disabled = expected
 
@@ -1881,7 +1882,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1894,8 +1895,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected *time.Time
 		obj.ArchivedAt = expected
 
 		// Act & Assert
@@ -1905,7 +1906,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.ArchivedAt = nil
 
 		// Act & Assert
@@ -1914,7 +1915,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1927,8 +1928,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected *time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -1938,7 +1939,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.ExpiresAt = nil
 
 		// Act & Assert
@@ -1947,7 +1948,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1960,8 +1961,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetExchangeCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected int
 		obj.ExchangeCount = expected
 
 		// Act & Assert
@@ -1970,7 +1971,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1983,8 +1984,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected *time.Time
 		obj.LastExchangedAt = expected
 
 		// Act & Assert
@@ -1994,7 +1995,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		obj.LastExchangedAt = nil
 
 		// Act & Assert
@@ -2003,7 +2004,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2016,7 +2017,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var expected string
 		obj.CreatedBy = expected
 
@@ -2026,7 +2027,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2039,8 +2040,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -2049,7 +2050,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2062,8 +2063,8 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var expected float64
+		obj := &GrantsArchiveResponseGrant{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -2072,7 +2073,7 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2084,11 +2085,11 @@ func TestGettersGrantsArchive200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
+func TestSettersMarkExplicitGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueID string
 
 		// Act
@@ -2119,7 +2120,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -2150,7 +2151,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueDocID string
 
 		// Act
@@ -2181,7 +2182,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueName *string
 
 		// Act
@@ -2212,8 +2213,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueLayerMode GrantsArchive200ResponseGrantLayerMode
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueLayerMode GrantsArchiveResponseGrantLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -2243,7 +2244,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueLayerName *string
 
 		// Act
@@ -2274,7 +2275,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 
 		// Act
@@ -2305,8 +2306,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 
 		// Act
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
@@ -2336,8 +2337,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsArchive200ResponseGrantVisitorIdentity
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsArchiveResponseGrantVisitorIdentity
 
 		// Act
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
@@ -2367,7 +2368,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueIdentity *Identity
 
 		// Act
@@ -2398,7 +2399,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueScope []string
 
 		// Act
@@ -2429,7 +2430,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueOrigins []string
 
 		// Act
@@ -2460,7 +2461,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetPassphraseProtected_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 
 		// Act
@@ -2491,8 +2492,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 
 		// Act
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
@@ -2522,7 +2523,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueDisabled bool
 
 		// Act
@@ -2553,8 +2554,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 
 		// Act
 		obj.SetArchivedAt(fernTestValueArchivedAt)
@@ -2584,8 +2585,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -2615,8 +2616,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueExchangeCount int
 
 		// Act
 		obj.SetExchangeCount(fernTestValueExchangeCount)
@@ -2646,8 +2647,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 
 		// Act
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
@@ -2677,7 +2678,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		var fernTestValueCreatedBy string
 
 		// Act
@@ -2708,8 +2709,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -2739,8 +2740,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsArchiveResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -2769,25 +2770,25 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsArchive200ResponseGrantVisitorIdentityFields
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsArchiveResponseGrantVisitorIdentityFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetAsk", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsArchive200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsArchiveResponseGrantVisitorIdentityAsk
 		obj.SetAsk(fernTestValueAsk)
 		assert.Equal(t, fernTestValueAsk, obj.Ask)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -2795,7 +2796,7 @@ func TestSettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -2804,12 +2805,12 @@ func TestSettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestGettersGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFields
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -2819,7 +2820,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -2828,7 +2829,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2841,8 +2842,8 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetAsk", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var expected GrantsArchive200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var expected GrantsArchiveResponseGrantVisitorIdentityAsk
 		obj.Ask = expected
 
 		// Act & Assert
@@ -2851,7 +2852,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2864,7 +2865,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -2875,7 +2876,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -2884,7 +2885,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2897,7 +2898,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -2908,7 +2909,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -2917,7 +2918,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2929,12 +2930,12 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersMarkExplicitGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsArchive200ResponseGrantVisitorIdentityFields
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsArchiveResponseGrantVisitorIdentityFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -2964,8 +2965,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentity(t *test
 	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsArchive200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsArchiveResponseGrantVisitorIdentityAsk
 
 		// Act
 		obj.SetAsk(fernTestValueAsk)
@@ -2995,7 +2996,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentity(t *test
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -3026,7 +3027,7 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentity(t *test
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -3056,42 +3057,42 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentity(t *test
 
 }
 
-func TestSettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -3099,12 +3100,12 @@ func TestSettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 }
 
-func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestGettersGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -3114,7 +3115,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -3123,7 +3124,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3136,8 +3137,8 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -3147,7 +3148,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -3156,7 +3157,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3169,8 +3170,8 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -3180,7 +3181,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -3189,7 +3190,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3202,8 +3203,8 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -3213,7 +3214,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -3222,7 +3223,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3235,8 +3236,8 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var expected *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -3246,7 +3247,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -3255,7 +3256,7 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3267,12 +3268,12 @@ func TestGettersGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T)
 
 }
 
-func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -3302,8 +3303,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -3333,8 +3334,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -3364,8 +3365,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -3395,8 +3396,8 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -3425,10 +3426,10 @@ func TestSettersMarkExplicitGrantsArchive200ResponseGrantVisitorIdentityFields(t
 
 }
 
-func TestSettersGrantsCreate200Response(t *testing.T) {
+func TestSettersGrantsCreateResponse(t *testing.T) {
 	t.Run("SetGrant", func(t *testing.T) {
-		obj := &GrantsCreate200Response{}
-		var fernTestValueGrant *GrantsCreate200ResponseGrant
+		obj := &GrantsCreateResponse{}
+		var fernTestValueGrant *GrantsCreateResponseGrant
 		obj.SetGrant(fernTestValueGrant)
 		assert.Equal(t, fernTestValueGrant, obj.Grant)
 		assert.NotNil(t, obj.explicitFields)
@@ -3436,12 +3437,12 @@ func TestSettersGrantsCreate200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsCreate200Response(t *testing.T) {
+func TestGettersGrantsCreateResponse(t *testing.T) {
 	t.Run("GetGrant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200Response{}
-		var expected *GrantsCreate200ResponseGrant
+		obj := &GrantsCreateResponse{}
+		var expected *GrantsCreateResponseGrant
 		obj.Grant = expected
 
 		// Act & Assert
@@ -3451,7 +3452,7 @@ func TestGettersGrantsCreate200Response(t *testing.T) {
 	t.Run("GetGrant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200Response{}
+		obj := &GrantsCreateResponse{}
 		obj.Grant = nil
 
 		// Act & Assert
@@ -3460,7 +3461,7 @@ func TestGettersGrantsCreate200Response(t *testing.T) {
 
 	t.Run("GetGrant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200Response
+		var obj *GrantsCreateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3472,12 +3473,12 @@ func TestGettersGrantsCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsCreate200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsCreateResponse(t *testing.T) {
 	t.Run("SetGrant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200Response{}
-		var fernTestValueGrant *GrantsCreate200ResponseGrant
+		obj := &GrantsCreateResponse{}
+		var fernTestValueGrant *GrantsCreateResponseGrant
 
 		// Act
 		obj.SetGrant(fernTestValueGrant)
@@ -3506,9 +3507,9 @@ func TestSettersMarkExplicitGrantsCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
+func TestSettersGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -3516,7 +3517,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -3524,7 +3525,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -3532,7 +3533,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueName *string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -3540,15 +3541,15 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueLayerMode GrantsCreate200ResponseGrantLayerMode
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueLayerMode GrantsCreateResponseGrantLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -3556,7 +3557,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
 		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
@@ -3564,23 +3565,23 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
 		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitorIdentity", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsCreate200ResponseGrantVisitorIdentity
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsCreateResponseGrantVisitorIdentity
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetIdentity", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueIdentity *Identity
 		obj.SetIdentity(fernTestValueIdentity)
 		assert.Equal(t, fernTestValueIdentity, obj.Identity)
@@ -3588,7 +3589,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetScope", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueScope []string
 		obj.SetScope(fernTestValueScope)
 		assert.Equal(t, fernTestValueScope, obj.Scope)
@@ -3596,7 +3597,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetOrigins", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueOrigins []string
 		obj.SetOrigins(fernTestValueOrigins)
 		assert.Equal(t, fernTestValueOrigins, obj.Origins)
@@ -3604,7 +3605,7 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetPassphraseProtected", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 		obj.SetPassphraseProtected(fernTestValuePassphraseProtected)
 		assert.Equal(t, fernTestValuePassphraseProtected, obj.PassphraseProtected)
@@ -3612,15 +3613,15 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
 		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetDisabled", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
@@ -3628,39 +3629,39 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetArchivedAt", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 		obj.SetArchivedAt(fernTestValueArchivedAt)
 		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExchangeCount", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueExchangeCount int
 		obj.SetExchangeCount(fernTestValueExchangeCount)
 		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLastExchangedAt", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
 		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueCreatedBy string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -3668,16 +3669,16 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -3685,11 +3686,11 @@ func TestSettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
+func TestGettersGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected string
 		obj.ID = expected
 
@@ -3699,7 +3700,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3712,7 +3713,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected string
 		obj.TenantID = expected
 
@@ -3722,7 +3723,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3735,7 +3736,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected string
 		obj.DocID = expected
 
@@ -3745,7 +3746,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3758,7 +3759,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected *string
 		obj.Name = expected
 
@@ -3769,7 +3770,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.Name = nil
 
 		// Act & Assert
@@ -3778,7 +3779,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3791,8 +3792,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected GrantsCreate200ResponseGrantLayerMode
+		obj := &GrantsCreateResponseGrant{}
+		var expected GrantsCreateResponseGrantLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -3801,7 +3802,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3814,7 +3815,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected *string
 		obj.LayerName = expected
 
@@ -3825,7 +3826,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.LayerName = nil
 
 		// Act & Assert
@@ -3834,7 +3835,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3847,7 +3848,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected bool
 		obj.KeepVisitorLayers = expected
 
@@ -3857,7 +3858,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3870,8 +3871,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected *int
 		obj.VisitorIdleSeconds = expected
 
 		// Act & Assert
@@ -3881,7 +3882,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.VisitorIdleSeconds = nil
 
 		// Act & Assert
@@ -3890,7 +3891,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3903,8 +3904,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentity
+		obj := &GrantsCreateResponseGrant{}
+		var expected *GrantsCreateResponseGrantVisitorIdentity
 		obj.VisitorIdentity = expected
 
 		// Act & Assert
@@ -3914,7 +3915,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.VisitorIdentity = nil
 
 		// Act & Assert
@@ -3923,7 +3924,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3936,7 +3937,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected *Identity
 		obj.Identity = expected
 
@@ -3947,7 +3948,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.Identity = nil
 
 		// Act & Assert
@@ -3956,7 +3957,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3969,7 +3970,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetScope", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected []string
 		obj.Scope = expected
 
@@ -3980,7 +3981,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetScope_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.Scope = nil
 
 		// Act & Assert
@@ -3989,7 +3990,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetScope_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4002,7 +4003,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected []string
 		obj.Origins = expected
 
@@ -4013,7 +4014,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.Origins = nil
 
 		// Act & Assert
@@ -4022,7 +4023,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4035,7 +4036,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetPassphraseProtected", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected bool
 		obj.PassphraseProtected = expected
 
@@ -4045,7 +4046,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetPassphraseProtected_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4058,8 +4059,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected int
 		obj.SessionTTLSeconds = expected
 
 		// Act & Assert
@@ -4068,7 +4069,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4081,7 +4082,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetDisabled", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected bool
 		obj.Disabled = expected
 
@@ -4091,7 +4092,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4104,8 +4105,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected *time.Time
 		obj.ArchivedAt = expected
 
 		// Act & Assert
@@ -4115,7 +4116,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.ArchivedAt = nil
 
 		// Act & Assert
@@ -4124,7 +4125,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4137,8 +4138,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected *time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -4148,7 +4149,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.ExpiresAt = nil
 
 		// Act & Assert
@@ -4157,7 +4158,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4170,8 +4171,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetExchangeCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected int
 		obj.ExchangeCount = expected
 
 		// Act & Assert
@@ -4180,7 +4181,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4193,8 +4194,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected *time.Time
 		obj.LastExchangedAt = expected
 
 		// Act & Assert
@@ -4204,7 +4205,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		obj.LastExchangedAt = nil
 
 		// Act & Assert
@@ -4213,7 +4214,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4226,7 +4227,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var expected string
 		obj.CreatedBy = expected
 
@@ -4236,7 +4237,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4249,8 +4250,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -4259,7 +4260,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4272,8 +4273,8 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsCreateResponseGrant{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -4282,7 +4283,7 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
+		var obj *GrantsCreateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -4294,11 +4295,11 @@ func TestGettersGrantsCreate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
+func TestSettersMarkExplicitGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueID string
 
 		// Act
@@ -4329,7 +4330,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -4360,7 +4361,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueDocID string
 
 		// Act
@@ -4391,7 +4392,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueName *string
 
 		// Act
@@ -4422,8 +4423,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueLayerMode GrantsCreate200ResponseGrantLayerMode
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueLayerMode GrantsCreateResponseGrantLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -4453,7 +4454,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueLayerName *string
 
 		// Act
@@ -4484,7 +4485,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 
 		// Act
@@ -4515,8 +4516,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 
 		// Act
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
@@ -4546,8 +4547,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsCreate200ResponseGrantVisitorIdentity
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsCreateResponseGrantVisitorIdentity
 
 		// Act
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
@@ -4577,7 +4578,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueIdentity *Identity
 
 		// Act
@@ -4608,7 +4609,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueScope []string
 
 		// Act
@@ -4639,7 +4640,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueOrigins []string
 
 		// Act
@@ -4670,7 +4671,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetPassphraseProtected_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 
 		// Act
@@ -4701,8 +4702,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 
 		// Act
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
@@ -4732,7 +4733,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueDisabled bool
 
 		// Act
@@ -4763,8 +4764,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 
 		// Act
 		obj.SetArchivedAt(fernTestValueArchivedAt)
@@ -4794,8 +4795,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -4825,8 +4826,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueExchangeCount int
 
 		// Act
 		obj.SetExchangeCount(fernTestValueExchangeCount)
@@ -4856,8 +4857,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 
 		// Act
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
@@ -4887,7 +4888,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
+		obj := &GrantsCreateResponseGrant{}
 		var fernTestValueCreatedBy string
 
 		// Act
@@ -4918,8 +4919,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -4949,8 +4950,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsCreateResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -4979,25 +4980,25 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsCreate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsCreateResponseGrantVisitorIdentityFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetAsk", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsCreate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsCreateResponseGrantVisitorIdentityAsk
 		obj.SetAsk(fernTestValueAsk)
 		assert.Equal(t, fernTestValueAsk, obj.Ask)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -5005,7 +5006,7 @@ func TestSettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -5014,12 +5015,12 @@ func TestSettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestGettersGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -5029,7 +5030,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -5038,7 +5039,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5051,8 +5052,8 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetAsk", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var expected GrantsCreate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var expected GrantsCreateResponseGrantVisitorIdentityAsk
 		obj.Ask = expected
 
 		// Act & Assert
@@ -5061,7 +5062,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5074,7 +5075,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -5085,7 +5086,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -5094,7 +5095,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5107,7 +5108,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -5118,7 +5119,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -5127,7 +5128,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5139,12 +5140,12 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersMarkExplicitGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsCreate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsCreateResponseGrantVisitorIdentityFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -5174,8 +5175,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsCreate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsCreateResponseGrantVisitorIdentityAsk
 
 		// Act
 		obj.SetAsk(fernTestValueAsk)
@@ -5205,7 +5206,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -5236,7 +5237,7 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -5266,42 +5267,42 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentity(t *testi
 
 }
 
-func TestSettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsCreateResponseGrantVisitorIdentityFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsCreateResponseGrantVisitorIdentityFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -5309,12 +5310,12 @@ func TestSettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 }
 
-func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestGettersGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -5324,7 +5325,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -5333,7 +5334,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5346,8 +5347,8 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -5357,7 +5358,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -5366,7 +5367,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5379,8 +5380,8 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -5390,7 +5391,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -5399,7 +5400,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5412,8 +5413,8 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -5423,7 +5424,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -5432,7 +5433,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5445,8 +5446,8 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -5456,7 +5457,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -5465,7 +5466,7 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5477,12 +5478,12 @@ func TestGettersGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 }
 
-func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -5512,8 +5513,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsCreateResponseGrantVisitorIdentityFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -5543,8 +5544,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsCreateResponseGrantVisitorIdentityFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -5574,8 +5575,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -5605,8 +5606,8 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -5635,9 +5636,9 @@ func TestSettersMarkExplicitGrantsCreate200ResponseGrantVisitorIdentityFields(t 
 
 }
 
-func TestSettersGrantsExchange200Response(t *testing.T) {
+func TestSettersGrantsExchangeResponse(t *testing.T) {
 	t.Run("SetToken", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueToken string
 		obj.SetToken(fernTestValueToken)
 		assert.Equal(t, fernTestValueToken, obj.Token)
@@ -5645,7 +5646,7 @@ func TestSettersGrantsExchange200Response(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -5653,7 +5654,7 @@ func TestSettersGrantsExchange200Response(t *testing.T) {
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueLayerName string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -5661,24 +5662,24 @@ func TestSettersGrantsExchange200Response(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
-		var fernTestValueLayerMode GrantsExchange200ResponseLayerMode
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueLayerMode GrantsExchangeResponseLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitor", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
-		var fernTestValueVisitor *GrantsExchange200ResponseVisitor
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueVisitor *GrantsExchangeResponseVisitor
 		obj.SetVisitor(fernTestValueVisitor)
 		assert.Equal(t, fernTestValueVisitor, obj.Visitor)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsExchange200Response{}
-		var fernTestValueExpiresAt float64
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueExpiresAt time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -5686,11 +5687,11 @@ func TestSettersGrantsExchange200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsExchange200Response(t *testing.T) {
+func TestGettersGrantsExchangeResponse(t *testing.T) {
 	t.Run("GetToken", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var expected string
 		obj.Token = expected
 
@@ -5700,7 +5701,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetToken_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5713,7 +5714,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var expected string
 		obj.DocID = expected
 
@@ -5723,7 +5724,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5736,7 +5737,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var expected string
 		obj.LayerName = expected
 
@@ -5746,7 +5747,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5759,8 +5760,8 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var expected GrantsExchange200ResponseLayerMode
+		obj := &GrantsExchangeResponse{}
+		var expected GrantsExchangeResponseLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -5769,7 +5770,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5782,8 +5783,8 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetVisitor", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var expected *GrantsExchange200ResponseVisitor
+		obj := &GrantsExchangeResponse{}
+		var expected *GrantsExchangeResponseVisitor
 		obj.Visitor = expected
 
 		// Act & Assert
@@ -5793,7 +5794,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetVisitor_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		obj.Visitor = nil
 
 		// Act & Assert
@@ -5802,7 +5803,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetVisitor_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5815,8 +5816,8 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var expected float64
+		obj := &GrantsExchangeResponse{}
+		var expected time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -5825,7 +5826,7 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsExchangeResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5837,11 +5838,11 @@ func TestGettersGrantsExchange200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsExchangeResponse(t *testing.T) {
 	t.Run("SetToken_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueToken string
 
 		// Act
@@ -5872,7 +5873,7 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueDocID string
 
 		// Act
@@ -5903,7 +5904,7 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsExchangeResponse{}
 		var fernTestValueLayerName string
 
 		// Act
@@ -5934,8 +5935,8 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var fernTestValueLayerMode GrantsExchange200ResponseLayerMode
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueLayerMode GrantsExchangeResponseLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -5965,8 +5966,8 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 	t.Run("SetVisitor_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var fernTestValueVisitor *GrantsExchange200ResponseVisitor
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueVisitor *GrantsExchangeResponseVisitor
 
 		// Act
 		obj.SetVisitor(fernTestValueVisitor)
@@ -5996,8 +5997,8 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
-		var fernTestValueExpiresAt float64
+		obj := &GrantsExchangeResponse{}
+		var fernTestValueExpiresAt time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -6026,9 +6027,9 @@ func TestSettersMarkExplicitGrantsExchange200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestSettersGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("SetHandle", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var fernTestValueHandle string
 		obj.SetHandle(fernTestValueHandle)
 		assert.Equal(t, fernTestValueHandle, obj.Handle)
@@ -6036,7 +6037,7 @@ func TestSettersGrantsExchange200ResponseVisitor(t *testing.T) {
 	})
 
 	t.Run("SetKeep", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var fernTestValueKeep bool
 		obj.SetKeep(fernTestValueKeep)
 		assert.Equal(t, fernTestValueKeep, obj.Keep)
@@ -6044,8 +6045,8 @@ func TestSettersGrantsExchange200ResponseVisitor(t *testing.T) {
 	})
 
 	t.Run("SetIdentityRequest", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitor{}
-		var fernTestValueIdentityRequest *GrantsExchange200ResponseVisitorIdentityRequest
+		obj := &GrantsExchangeResponseVisitor{}
+		var fernTestValueIdentityRequest *GrantsExchangeResponseVisitorIdentityRequest
 		obj.SetIdentityRequest(fernTestValueIdentityRequest)
 		assert.Equal(t, fernTestValueIdentityRequest, obj.IdentityRequest)
 		assert.NotNil(t, obj.explicitFields)
@@ -6053,11 +6054,11 @@ func TestSettersGrantsExchange200ResponseVisitor(t *testing.T) {
 
 }
 
-func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestGettersGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("GetHandle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var expected string
 		obj.Handle = expected
 
@@ -6067,7 +6068,7 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 
 	t.Run("GetHandle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitor
+		var obj *GrantsExchangeResponseVisitor
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6080,7 +6081,7 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 	t.Run("GetKeep", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var expected bool
 		obj.Keep = expected
 
@@ -6090,7 +6091,7 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 
 	t.Run("GetKeep_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitor
+		var obj *GrantsExchangeResponseVisitor
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6103,8 +6104,8 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 	t.Run("GetIdentityRequest", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequest
+		obj := &GrantsExchangeResponseVisitor{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequest
 		obj.IdentityRequest = expected
 
 		// Act & Assert
@@ -6114,7 +6115,7 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 	t.Run("GetIdentityRequest_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		obj.IdentityRequest = nil
 
 		// Act & Assert
@@ -6123,7 +6124,7 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 
 	t.Run("GetIdentityRequest_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitor
+		var obj *GrantsExchangeResponseVisitor
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6135,11 +6136,11 @@ func TestGettersGrantsExchange200ResponseVisitor(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestSettersMarkExplicitGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("SetHandle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var fernTestValueHandle string
 
 		// Act
@@ -6170,7 +6171,7 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitor(t *testing.T) {
 	t.Run("SetKeep_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsExchangeResponseVisitor{}
 		var fernTestValueKeep bool
 
 		// Act
@@ -6201,8 +6202,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitor(t *testing.T) {
 	t.Run("SetIdentityRequest_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
-		var fernTestValueIdentityRequest *GrantsExchange200ResponseVisitorIdentityRequest
+		obj := &GrantsExchangeResponseVisitor{}
+		var fernTestValueIdentityRequest *GrantsExchangeResponseVisitorIdentityRequest
 
 		// Act
 		obj.SetIdentityRequest(fernTestValueIdentityRequest)
@@ -6231,33 +6232,33 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitor(t *testing.T) {
 
 }
 
-func TestSettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestSettersGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueFields *GrantsExchange200ResponseVisitorIdentityRequestFields
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueFields *GrantsExchangeResponseVisitorIdentityRequestFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMissing", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueMissing []GrantsExchange200ResponseVisitorIdentityRequestMissingItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueMissing []GrantsExchangeResponseVisitorIdentityRequestMissingItem
 		obj.SetMissing(fernTestValueMissing)
 		assert.Equal(t, fernTestValueMissing, obj.Missing)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetInvalid", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueInvalid []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueInvalid []GrantsExchangeResponseVisitorIdentityRequestInvalidItem
 		obj.SetInvalid(fernTestValueInvalid)
 		assert.Equal(t, fernTestValueInvalid, obj.Invalid)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -6265,7 +6266,7 @@ func TestSettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -6274,12 +6275,12 @@ func TestSettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 }
 
-func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestGettersGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFields
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -6289,7 +6290,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -6298,7 +6299,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6311,8 +6312,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetMissing", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var expected []GrantsExchange200ResponseVisitorIdentityRequestMissingItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var expected []GrantsExchangeResponseVisitorIdentityRequestMissingItem
 		obj.Missing = expected
 
 		// Act & Assert
@@ -6322,7 +6323,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetMissing_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		obj.Missing = nil
 
 		// Act & Assert
@@ -6331,7 +6332,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 	t.Run("GetMissing_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6344,8 +6345,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetInvalid", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var expected []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var expected []GrantsExchangeResponseVisitorIdentityRequestInvalidItem
 		obj.Invalid = expected
 
 		// Act & Assert
@@ -6355,7 +6356,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetInvalid_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		obj.Invalid = nil
 
 		// Act & Assert
@@ -6364,7 +6365,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 	t.Run("GetInvalid_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6377,7 +6378,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -6388,7 +6389,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -6397,7 +6398,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6410,7 +6411,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -6421,7 +6422,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -6430,7 +6431,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6442,12 +6443,12 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestSettersMarkExplicitGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueFields *GrantsExchange200ResponseVisitorIdentityRequestFields
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueFields *GrantsExchangeResponseVisitorIdentityRequestFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -6477,8 +6478,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *t
 	t.Run("SetMissing_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueMissing []GrantsExchange200ResponseVisitorIdentityRequestMissingItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueMissing []GrantsExchangeResponseVisitorIdentityRequestMissingItem
 
 		// Act
 		obj.SetMissing(fernTestValueMissing)
@@ -6508,8 +6509,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *t
 	t.Run("SetInvalid_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
-		var fernTestValueInvalid []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
+		var fernTestValueInvalid []GrantsExchangeResponseVisitorIdentityRequestInvalidItem
 
 		// Act
 		obj.SetInvalid(fernTestValueInvalid)
@@ -6539,7 +6540,7 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *t
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -6570,7 +6571,7 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *t
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -6600,42 +6601,42 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequest(t *t
 
 }
 
-func TestSettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestSettersGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueDisplayName *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueDisplayName *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueEmail *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueEmail *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueTitle *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueTitle *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueOrganization *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganization *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueOrganizationalUnit *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganizationalUnit *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -6643,12 +6644,12 @@ func TestSettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 }
 
-func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestGettersGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -6658,7 +6659,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -6667,7 +6668,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6680,8 +6681,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -6691,7 +6692,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -6700,7 +6701,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6713,8 +6714,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -6724,7 +6725,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -6733,7 +6734,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6746,8 +6747,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -6757,7 +6758,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -6766,7 +6767,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6779,8 +6780,8 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var expected *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var expected *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -6790,7 +6791,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -6799,7 +6800,7 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6811,12 +6812,12 @@ func TestGettersGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing
 
 }
 
-func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueDisplayName *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueDisplayName *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -6846,8 +6847,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestField
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueEmail *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueEmail *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -6877,8 +6878,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestField
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueTitle *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueTitle *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -6908,8 +6909,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestField
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueOrganization *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganization *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -6939,8 +6940,8 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestField
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
-		var fernTestValueOrganizationalUnit *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
+		var fernTestValueOrganizationalUnit *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -6969,10 +6970,10 @@ func TestSettersMarkExplicitGrantsExchange200ResponseVisitorIdentityRequestField
 
 }
 
-func TestSettersGrantsGet200Response(t *testing.T) {
+func TestSettersGrantsGetResponse(t *testing.T) {
 	t.Run("SetGrant", func(t *testing.T) {
-		obj := &GrantsGet200Response{}
-		var fernTestValueGrant *GrantsGet200ResponseGrant
+		obj := &GrantsGetResponse{}
+		var fernTestValueGrant *GrantsGetResponseGrant
 		obj.SetGrant(fernTestValueGrant)
 		assert.Equal(t, fernTestValueGrant, obj.Grant)
 		assert.NotNil(t, obj.explicitFields)
@@ -6980,12 +6981,12 @@ func TestSettersGrantsGet200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsGet200Response(t *testing.T) {
+func TestGettersGrantsGetResponse(t *testing.T) {
 	t.Run("GetGrant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200Response{}
-		var expected *GrantsGet200ResponseGrant
+		obj := &GrantsGetResponse{}
+		var expected *GrantsGetResponseGrant
 		obj.Grant = expected
 
 		// Act & Assert
@@ -6995,7 +6996,7 @@ func TestGettersGrantsGet200Response(t *testing.T) {
 	t.Run("GetGrant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200Response{}
+		obj := &GrantsGetResponse{}
 		obj.Grant = nil
 
 		// Act & Assert
@@ -7004,7 +7005,7 @@ func TestGettersGrantsGet200Response(t *testing.T) {
 
 	t.Run("GetGrant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200Response
+		var obj *GrantsGetResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7016,12 +7017,12 @@ func TestGettersGrantsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsGet200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsGetResponse(t *testing.T) {
 	t.Run("SetGrant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200Response{}
-		var fernTestValueGrant *GrantsGet200ResponseGrant
+		obj := &GrantsGetResponse{}
+		var fernTestValueGrant *GrantsGetResponseGrant
 
 		// Act
 		obj.SetGrant(fernTestValueGrant)
@@ -7050,9 +7051,9 @@ func TestSettersMarkExplicitGrantsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
+func TestSettersGrantsGetResponseGrant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -7060,7 +7061,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -7068,7 +7069,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -7076,7 +7077,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueName *string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -7084,15 +7085,15 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueLayerMode GrantsGet200ResponseGrantLayerMode
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueLayerMode GrantsGetResponseGrantLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -7100,7 +7101,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
 		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
@@ -7108,23 +7109,23 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
 		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitorIdentity", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsGet200ResponseGrantVisitorIdentity
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsGetResponseGrantVisitorIdentity
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetIdentity", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueIdentity *Identity
 		obj.SetIdentity(fernTestValueIdentity)
 		assert.Equal(t, fernTestValueIdentity, obj.Identity)
@@ -7132,7 +7133,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetScope", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueScope []string
 		obj.SetScope(fernTestValueScope)
 		assert.Equal(t, fernTestValueScope, obj.Scope)
@@ -7140,7 +7141,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetOrigins", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueOrigins []string
 		obj.SetOrigins(fernTestValueOrigins)
 		assert.Equal(t, fernTestValueOrigins, obj.Origins)
@@ -7148,7 +7149,7 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetPassphraseProtected", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 		obj.SetPassphraseProtected(fernTestValuePassphraseProtected)
 		assert.Equal(t, fernTestValuePassphraseProtected, obj.PassphraseProtected)
@@ -7156,15 +7157,15 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
 		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetDisabled", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
@@ -7172,39 +7173,39 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetArchivedAt", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 		obj.SetArchivedAt(fernTestValueArchivedAt)
 		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExchangeCount", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueExchangeCount int
 		obj.SetExchangeCount(fernTestValueExchangeCount)
 		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLastExchangedAt", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
 		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueCreatedBy string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -7212,16 +7213,16 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -7229,11 +7230,11 @@ func TestSettersGrantsGet200ResponseGrant(t *testing.T) {
 
 }
 
-func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
+func TestGettersGrantsGetResponseGrant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected string
 		obj.ID = expected
 
@@ -7243,7 +7244,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7256,7 +7257,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected string
 		obj.TenantID = expected
 
@@ -7266,7 +7267,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7279,7 +7280,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected string
 		obj.DocID = expected
 
@@ -7289,7 +7290,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7302,7 +7303,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected *string
 		obj.Name = expected
 
@@ -7313,7 +7314,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.Name = nil
 
 		// Act & Assert
@@ -7322,7 +7323,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7335,8 +7336,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected GrantsGet200ResponseGrantLayerMode
+		obj := &GrantsGetResponseGrant{}
+		var expected GrantsGetResponseGrantLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -7345,7 +7346,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7358,7 +7359,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected *string
 		obj.LayerName = expected
 
@@ -7369,7 +7370,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.LayerName = nil
 
 		// Act & Assert
@@ -7378,7 +7379,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7391,7 +7392,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected bool
 		obj.KeepVisitorLayers = expected
 
@@ -7401,7 +7402,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7414,8 +7415,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsGetResponseGrant{}
+		var expected *int
 		obj.VisitorIdleSeconds = expected
 
 		// Act & Assert
@@ -7425,7 +7426,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.VisitorIdleSeconds = nil
 
 		// Act & Assert
@@ -7434,7 +7435,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7447,8 +7448,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentity
+		obj := &GrantsGetResponseGrant{}
+		var expected *GrantsGetResponseGrantVisitorIdentity
 		obj.VisitorIdentity = expected
 
 		// Act & Assert
@@ -7458,7 +7459,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.VisitorIdentity = nil
 
 		// Act & Assert
@@ -7467,7 +7468,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7480,7 +7481,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected *Identity
 		obj.Identity = expected
 
@@ -7491,7 +7492,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.Identity = nil
 
 		// Act & Assert
@@ -7500,7 +7501,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7513,7 +7514,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetScope", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected []string
 		obj.Scope = expected
 
@@ -7524,7 +7525,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetScope_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.Scope = nil
 
 		// Act & Assert
@@ -7533,7 +7534,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetScope_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7546,7 +7547,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected []string
 		obj.Origins = expected
 
@@ -7557,7 +7558,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.Origins = nil
 
 		// Act & Assert
@@ -7566,7 +7567,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7579,7 +7580,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetPassphraseProtected", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected bool
 		obj.PassphraseProtected = expected
 
@@ -7589,7 +7590,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetPassphraseProtected_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7602,8 +7603,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected float64
+		obj := &GrantsGetResponseGrant{}
+		var expected int
 		obj.SessionTTLSeconds = expected
 
 		// Act & Assert
@@ -7612,7 +7613,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7625,7 +7626,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetDisabled", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected bool
 		obj.Disabled = expected
 
@@ -7635,7 +7636,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7648,8 +7649,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsGetResponseGrant{}
+		var expected *time.Time
 		obj.ArchivedAt = expected
 
 		// Act & Assert
@@ -7659,7 +7660,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.ArchivedAt = nil
 
 		// Act & Assert
@@ -7668,7 +7669,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7681,8 +7682,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsGetResponseGrant{}
+		var expected *time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -7692,7 +7693,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.ExpiresAt = nil
 
 		// Act & Assert
@@ -7701,7 +7702,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7714,8 +7715,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetExchangeCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected float64
+		obj := &GrantsGetResponseGrant{}
+		var expected int
 		obj.ExchangeCount = expected
 
 		// Act & Assert
@@ -7724,7 +7725,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7737,8 +7738,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsGetResponseGrant{}
+		var expected *time.Time
 		obj.LastExchangedAt = expected
 
 		// Act & Assert
@@ -7748,7 +7749,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		obj.LastExchangedAt = nil
 
 		// Act & Assert
@@ -7757,7 +7758,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7770,7 +7771,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var expected string
 		obj.CreatedBy = expected
 
@@ -7780,7 +7781,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7793,8 +7794,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected float64
+		obj := &GrantsGetResponseGrant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -7803,7 +7804,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7816,8 +7817,8 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var expected float64
+		obj := &GrantsGetResponseGrant{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -7826,7 +7827,7 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsGetResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7838,11 +7839,11 @@ func TestGettersGrantsGet200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
+func TestSettersMarkExplicitGrantsGetResponseGrant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueID string
 
 		// Act
@@ -7873,7 +7874,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -7904,7 +7905,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueDocID string
 
 		// Act
@@ -7935,7 +7936,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueName *string
 
 		// Act
@@ -7966,8 +7967,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueLayerMode GrantsGet200ResponseGrantLayerMode
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueLayerMode GrantsGetResponseGrantLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -7997,7 +7998,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueLayerName *string
 
 		// Act
@@ -8028,7 +8029,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 
 		// Act
@@ -8059,8 +8060,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 
 		// Act
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
@@ -8090,8 +8091,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsGet200ResponseGrantVisitorIdentity
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsGetResponseGrantVisitorIdentity
 
 		// Act
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
@@ -8121,7 +8122,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueIdentity *Identity
 
 		// Act
@@ -8152,7 +8153,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueScope []string
 
 		// Act
@@ -8183,7 +8184,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueOrigins []string
 
 		// Act
@@ -8214,7 +8215,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetPassphraseProtected_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 
 		// Act
@@ -8245,8 +8246,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 
 		// Act
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
@@ -8276,7 +8277,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueDisabled bool
 
 		// Act
@@ -8307,8 +8308,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 
 		// Act
 		obj.SetArchivedAt(fernTestValueArchivedAt)
@@ -8338,8 +8339,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -8369,8 +8370,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueExchangeCount int
 
 		// Act
 		obj.SetExchangeCount(fernTestValueExchangeCount)
@@ -8400,8 +8401,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 
 		// Act
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
@@ -8431,7 +8432,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsGetResponseGrant{}
 		var fernTestValueCreatedBy string
 
 		// Act
@@ -8462,8 +8463,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -8493,8 +8494,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsGetResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -8523,25 +8524,25 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsGet200ResponseGrantVisitorIdentityFields
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsGetResponseGrantVisitorIdentityFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetAsk", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsGet200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsGetResponseGrantVisitorIdentityAsk
 		obj.SetAsk(fernTestValueAsk)
 		assert.Equal(t, fernTestValueAsk, obj.Ask)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -8549,7 +8550,7 @@ func TestSettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -8558,12 +8559,12 @@ func TestSettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestGettersGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFields
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -8573,7 +8574,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -8582,7 +8583,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8595,8 +8596,8 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetAsk", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var expected GrantsGet200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var expected GrantsGetResponseGrantVisitorIdentityAsk
 		obj.Ask = expected
 
 		// Act & Assert
@@ -8605,7 +8606,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8618,7 +8619,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -8629,7 +8630,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -8638,7 +8639,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8651,7 +8652,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -8662,7 +8663,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -8671,7 +8672,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8683,12 +8684,12 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersMarkExplicitGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsGet200ResponseGrantVisitorIdentityFields
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsGetResponseGrantVisitorIdentityFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -8718,8 +8719,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentity(t *testing.
 	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsGet200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsGetResponseGrantVisitorIdentityAsk
 
 		// Act
 		obj.SetAsk(fernTestValueAsk)
@@ -8749,7 +8750,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentity(t *testing.
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -8780,7 +8781,7 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentity(t *testing.
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -8810,42 +8811,42 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentity(t *testing.
 
 }
 
-func TestSettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsGetResponseGrantVisitorIdentityFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsGetResponseGrantVisitorIdentityFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsGetResponseGrantVisitorIdentityFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -8853,12 +8854,12 @@ func TestSettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 }
 
-func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestGettersGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -8868,7 +8869,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -8877,7 +8878,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8890,8 +8891,8 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -8901,7 +8902,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -8910,7 +8911,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8923,8 +8924,8 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -8934,7 +8935,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -8943,7 +8944,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8956,8 +8957,8 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -8967,7 +8968,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -8976,7 +8977,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8989,8 +8990,8 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var expected *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -9000,7 +9001,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -9009,7 +9010,7 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9021,12 +9022,12 @@ func TestGettersGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -9056,8 +9057,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *te
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsGetResponseGrantVisitorIdentityFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -9087,8 +9088,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *te
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsGetResponseGrantVisitorIdentityFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -9118,8 +9119,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *te
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsGetResponseGrantVisitorIdentityFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -9149,8 +9150,8 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *te
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -9179,17 +9180,17 @@ func TestSettersMarkExplicitGrantsGet200ResponseGrantVisitorIdentityFields(t *te
 
 }
 
-func TestSettersGrantsList200Response(t *testing.T) {
+func TestSettersGrantsListResponse(t *testing.T) {
 	t.Run("SetGrants", func(t *testing.T) {
-		obj := &GrantsList200Response{}
-		var fernTestValueGrants []*GrantsList200ResponseGrantsItem
+		obj := &GrantsListResponse{}
+		var fernTestValueGrants []*GrantsListResponseGrantsItem
 		obj.SetGrants(fernTestValueGrants)
 		assert.Equal(t, fernTestValueGrants, obj.Grants)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetNextCursor", func(t *testing.T) {
-		obj := &GrantsList200Response{}
+		obj := &GrantsListResponse{}
 		var fernTestValueNextCursor *string
 		obj.SetNextCursor(fernTestValueNextCursor)
 		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
@@ -9198,12 +9199,12 @@ func TestSettersGrantsList200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsList200Response(t *testing.T) {
+func TestGettersGrantsListResponse(t *testing.T) {
 	t.Run("GetGrants", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
-		var expected []*GrantsList200ResponseGrantsItem
+		obj := &GrantsListResponse{}
+		var expected []*GrantsListResponseGrantsItem
 		obj.Grants = expected
 
 		// Act & Assert
@@ -9213,7 +9214,7 @@ func TestGettersGrantsList200Response(t *testing.T) {
 	t.Run("GetGrants_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
+		obj := &GrantsListResponse{}
 		obj.Grants = nil
 
 		// Act & Assert
@@ -9222,7 +9223,7 @@ func TestGettersGrantsList200Response(t *testing.T) {
 
 	t.Run("GetGrants_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200Response
+		var obj *GrantsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9235,7 +9236,7 @@ func TestGettersGrantsList200Response(t *testing.T) {
 	t.Run("GetNextCursor", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
+		obj := &GrantsListResponse{}
 		var expected *string
 		obj.NextCursor = expected
 
@@ -9246,7 +9247,7 @@ func TestGettersGrantsList200Response(t *testing.T) {
 	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
+		obj := &GrantsListResponse{}
 		obj.NextCursor = nil
 
 		// Act & Assert
@@ -9255,7 +9256,7 @@ func TestGettersGrantsList200Response(t *testing.T) {
 
 	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200Response
+		var obj *GrantsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9267,12 +9268,12 @@ func TestGettersGrantsList200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsList200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsListResponse(t *testing.T) {
 	t.Run("SetGrants_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
-		var fernTestValueGrants []*GrantsList200ResponseGrantsItem
+		obj := &GrantsListResponse{}
+		var fernTestValueGrants []*GrantsListResponseGrantsItem
 
 		// Act
 		obj.SetGrants(fernTestValueGrants)
@@ -9302,7 +9303,7 @@ func TestSettersMarkExplicitGrantsList200Response(t *testing.T) {
 	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
+		obj := &GrantsListResponse{}
 		var fernTestValueNextCursor *string
 
 		// Act
@@ -9332,9 +9333,9 @@ func TestSettersMarkExplicitGrantsList200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestSettersGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -9342,7 +9343,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -9350,7 +9351,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -9358,7 +9359,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueName *string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -9366,15 +9367,15 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueLayerMode GrantsList200ResponseGrantsItemLayerMode
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueLayerMode GrantsListResponseGrantsItemLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -9382,7 +9383,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueKeepVisitorLayers bool
 		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
 		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
@@ -9390,23 +9391,23 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueVisitorIdleSeconds *int
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
 		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitorIdentity", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueVisitorIdentity *GrantsList200ResponseGrantsItemVisitorIdentity
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueVisitorIdentity *GrantsListResponseGrantsItemVisitorIdentity
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetIdentity", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueIdentity *Identity
 		obj.SetIdentity(fernTestValueIdentity)
 		assert.Equal(t, fernTestValueIdentity, obj.Identity)
@@ -9414,7 +9415,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetScope", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueScope []string
 		obj.SetScope(fernTestValueScope)
 		assert.Equal(t, fernTestValueScope, obj.Scope)
@@ -9422,7 +9423,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetOrigins", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueOrigins []string
 		obj.SetOrigins(fernTestValueOrigins)
 		assert.Equal(t, fernTestValueOrigins, obj.Origins)
@@ -9430,7 +9431,7 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetPassphraseProtected", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValuePassphraseProtected bool
 		obj.SetPassphraseProtected(fernTestValuePassphraseProtected)
 		assert.Equal(t, fernTestValuePassphraseProtected, obj.PassphraseProtected)
@@ -9438,15 +9439,15 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueSessionTTLSeconds int
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
 		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetDisabled", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
@@ -9454,39 +9455,39 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetArchivedAt", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueArchivedAt *time.Time
 		obj.SetArchivedAt(fernTestValueArchivedAt)
 		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExchangeCount", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueExchangeCount int
 		obj.SetExchangeCount(fernTestValueExchangeCount)
 		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLastExchangedAt", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueLastExchangedAt *time.Time
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
 		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueCreatedBy string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -9494,16 +9495,16 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -9511,11 +9512,11 @@ func TestSettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 }
 
-func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestGettersGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected string
 		obj.ID = expected
 
@@ -9525,7 +9526,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9538,7 +9539,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected string
 		obj.TenantID = expected
 
@@ -9548,7 +9549,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9561,7 +9562,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected string
 		obj.DocID = expected
 
@@ -9571,7 +9572,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9584,7 +9585,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected *string
 		obj.Name = expected
 
@@ -9595,7 +9596,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.Name = nil
 
 		// Act & Assert
@@ -9604,7 +9605,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9617,8 +9618,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected GrantsList200ResponseGrantsItemLayerMode
+		obj := &GrantsListResponseGrantsItem{}
+		var expected GrantsListResponseGrantsItemLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -9627,7 +9628,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9640,7 +9641,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected *string
 		obj.LayerName = expected
 
@@ -9651,7 +9652,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetLayerName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.LayerName = nil
 
 		// Act & Assert
@@ -9660,7 +9661,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9673,7 +9674,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected bool
 		obj.KeepVisitorLayers = expected
 
@@ -9683,7 +9684,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9696,8 +9697,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected *int
 		obj.VisitorIdleSeconds = expected
 
 		// Act & Assert
@@ -9707,7 +9708,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.VisitorIdleSeconds = nil
 
 		// Act & Assert
@@ -9716,7 +9717,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9729,8 +9730,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetVisitorIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentity
+		obj := &GrantsListResponseGrantsItem{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentity
 		obj.VisitorIdentity = expected
 
 		// Act & Assert
@@ -9740,7 +9741,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.VisitorIdentity = nil
 
 		// Act & Assert
@@ -9749,7 +9750,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9762,7 +9763,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected *Identity
 		obj.Identity = expected
 
@@ -9773,7 +9774,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.Identity = nil
 
 		// Act & Assert
@@ -9782,7 +9783,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9795,7 +9796,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetScope", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected []string
 		obj.Scope = expected
 
@@ -9806,7 +9807,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetScope_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.Scope = nil
 
 		// Act & Assert
@@ -9815,7 +9816,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetScope_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9828,7 +9829,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetOrigins", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected []string
 		obj.Origins = expected
 
@@ -9839,7 +9840,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetOrigins_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.Origins = nil
 
 		// Act & Assert
@@ -9848,7 +9849,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9861,7 +9862,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetPassphraseProtected", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected bool
 		obj.PassphraseProtected = expected
 
@@ -9871,7 +9872,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetPassphraseProtected_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9884,8 +9885,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected int
 		obj.SessionTTLSeconds = expected
 
 		// Act & Assert
@@ -9894,7 +9895,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9907,7 +9908,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetDisabled", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected bool
 		obj.Disabled = expected
 
@@ -9917,7 +9918,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9930,8 +9931,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetArchivedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected *time.Time
 		obj.ArchivedAt = expected
 
 		// Act & Assert
@@ -9941,7 +9942,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.ArchivedAt = nil
 
 		// Act & Assert
@@ -9950,7 +9951,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9963,8 +9964,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected *time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -9974,7 +9975,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.ExpiresAt = nil
 
 		// Act & Assert
@@ -9983,7 +9984,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9996,8 +9997,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetExchangeCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected int
 		obj.ExchangeCount = expected
 
 		// Act & Assert
@@ -10006,7 +10007,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10019,8 +10020,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetLastExchangedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected *time.Time
 		obj.LastExchangedAt = expected
 
 		// Act & Assert
@@ -10030,7 +10031,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		obj.LastExchangedAt = nil
 
 		// Act & Assert
@@ -10039,7 +10040,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10052,7 +10053,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var expected string
 		obj.CreatedBy = expected
 
@@ -10062,7 +10063,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10075,8 +10076,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -10085,7 +10086,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10098,8 +10099,8 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var expected float64
+		obj := &GrantsListResponseGrantsItem{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -10108,7 +10109,7 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsListResponseGrantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10120,11 +10121,11 @@ func TestGettersGrantsList200ResponseGrantsItem(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestSettersMarkExplicitGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueID string
 
 		// Act
@@ -10155,7 +10156,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -10186,7 +10187,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueDocID string
 
 		// Act
@@ -10217,7 +10218,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueName *string
 
 		// Act
@@ -10248,8 +10249,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueLayerMode GrantsList200ResponseGrantsItemLayerMode
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueLayerMode GrantsListResponseGrantsItemLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -10279,7 +10280,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueLayerName *string
 
 		// Act
@@ -10310,7 +10311,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueKeepVisitorLayers bool
 
 		// Act
@@ -10341,8 +10342,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueVisitorIdleSeconds *int
 
 		// Act
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
@@ -10372,8 +10373,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueVisitorIdentity *GrantsList200ResponseGrantsItemVisitorIdentity
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueVisitorIdentity *GrantsListResponseGrantsItemVisitorIdentity
 
 		// Act
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
@@ -10403,7 +10404,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueIdentity *Identity
 
 		// Act
@@ -10434,7 +10435,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueScope []string
 
 		// Act
@@ -10465,7 +10466,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueOrigins []string
 
 		// Act
@@ -10496,7 +10497,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetPassphraseProtected_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValuePassphraseProtected bool
 
 		// Act
@@ -10527,8 +10528,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueSessionTTLSeconds int
 
 		// Act
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
@@ -10558,7 +10559,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueDisabled bool
 
 		// Act
@@ -10589,8 +10590,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueArchivedAt *time.Time
 
 		// Act
 		obj.SetArchivedAt(fernTestValueArchivedAt)
@@ -10620,8 +10621,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -10651,8 +10652,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueExchangeCount int
 
 		// Act
 		obj.SetExchangeCount(fernTestValueExchangeCount)
@@ -10682,8 +10683,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueLastExchangedAt *time.Time
 
 		// Act
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
@@ -10713,7 +10714,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsListResponseGrantsItem{}
 		var fernTestValueCreatedBy string
 
 		// Act
@@ -10744,8 +10745,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -10775,8 +10776,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsListResponseGrantsItem{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -10805,25 +10806,25 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItem(t *testing.T) {
 
 }
 
-func TestSettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestSettersGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var fernTestValueFields *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var fernTestValueFields *GrantsListResponseGrantsItemVisitorIdentityFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetAsk", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var fernTestValueAsk GrantsList200ResponseGrantsItemVisitorIdentityAsk
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var fernTestValueAsk GrantsListResponseGrantsItemVisitorIdentityAsk
 		obj.SetAsk(fernTestValueAsk)
 		assert.Equal(t, fernTestValueAsk, obj.Ask)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -10831,7 +10832,7 @@ func TestSettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -10840,12 +10841,12 @@ func TestSettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 }
 
-func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestGettersGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -10855,7 +10856,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -10864,7 +10865,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10877,8 +10878,8 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetAsk", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var expected GrantsList200ResponseGrantsItemVisitorIdentityAsk
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var expected GrantsListResponseGrantsItemVisitorIdentityAsk
 		obj.Ask = expected
 
 		// Act & Assert
@@ -10887,7 +10888,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10900,7 +10901,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -10911,7 +10912,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -10920,7 +10921,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10933,7 +10934,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -10944,7 +10945,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -10953,7 +10954,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10965,12 +10966,12 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestSettersMarkExplicitGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var fernTestValueFields *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var fernTestValueFields *GrantsListResponseGrantsItemVisitorIdentityFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -11000,8 +11001,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentity(t *te
 	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
-		var fernTestValueAsk GrantsList200ResponseGrantsItemVisitorIdentityAsk
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
+		var fernTestValueAsk GrantsListResponseGrantsItemVisitorIdentityAsk
 
 		// Act
 		obj.SetAsk(fernTestValueAsk)
@@ -11031,7 +11032,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentity(t *te
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -11062,7 +11063,7 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentity(t *te
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -11092,42 +11093,42 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentity(t *te
 
 }
 
-func TestSettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestSettersGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -11135,12 +11136,12 @@ func TestSettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 }
 
-func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestGettersGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -11150,7 +11151,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -11159,7 +11160,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11172,8 +11173,8 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -11183,7 +11184,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -11192,7 +11193,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11205,8 +11206,8 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -11216,7 +11217,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -11225,7 +11226,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11238,8 +11239,8 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -11249,7 +11250,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -11258,7 +11259,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11271,8 +11272,8 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var expected *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var expected *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -11282,7 +11283,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -11291,7 +11292,7 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11303,12 +11304,12 @@ func TestGettersGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.
 
 }
 
-func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -11338,8 +11339,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -11369,8 +11370,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -11400,8 +11401,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -11431,8 +11432,8 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -11461,10 +11462,10 @@ func TestSettersMarkExplicitGrantsList200ResponseGrantsItemVisitorIdentityFields
 
 }
 
-func TestSettersGrantsUpdate200Response(t *testing.T) {
+func TestSettersGrantsUpdateResponse(t *testing.T) {
 	t.Run("SetGrant", func(t *testing.T) {
-		obj := &GrantsUpdate200Response{}
-		var fernTestValueGrant *GrantsUpdate200ResponseGrant
+		obj := &GrantsUpdateResponse{}
+		var fernTestValueGrant *GrantsUpdateResponseGrant
 		obj.SetGrant(fernTestValueGrant)
 		assert.Equal(t, fernTestValueGrant, obj.Grant)
 		assert.NotNil(t, obj.explicitFields)
@@ -11472,12 +11473,12 @@ func TestSettersGrantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestGettersGrantsUpdate200Response(t *testing.T) {
+func TestGettersGrantsUpdateResponse(t *testing.T) {
 	t.Run("GetGrant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200Response{}
-		var expected *GrantsUpdate200ResponseGrant
+		obj := &GrantsUpdateResponse{}
+		var expected *GrantsUpdateResponseGrant
 		obj.Grant = expected
 
 		// Act & Assert
@@ -11487,7 +11488,7 @@ func TestGettersGrantsUpdate200Response(t *testing.T) {
 	t.Run("GetGrant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200Response{}
+		obj := &GrantsUpdateResponse{}
 		obj.Grant = nil
 
 		// Act & Assert
@@ -11496,7 +11497,7 @@ func TestGettersGrantsUpdate200Response(t *testing.T) {
 
 	t.Run("GetGrant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200Response
+		var obj *GrantsUpdateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11508,12 +11509,12 @@ func TestGettersGrantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsUpdate200Response(t *testing.T) {
+func TestSettersMarkExplicitGrantsUpdateResponse(t *testing.T) {
 	t.Run("SetGrant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200Response{}
-		var fernTestValueGrant *GrantsUpdate200ResponseGrant
+		obj := &GrantsUpdateResponse{}
+		var fernTestValueGrant *GrantsUpdateResponseGrant
 
 		// Act
 		obj.SetGrant(fernTestValueGrant)
@@ -11542,9 +11543,9 @@ func TestSettersMarkExplicitGrantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestSettersGrantsUpdateResponseGrant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -11552,7 +11553,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -11560,7 +11561,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetDocID", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueDocID string
 		obj.SetDocID(fernTestValueDocID)
 		assert.Equal(t, fernTestValueDocID, obj.DocID)
@@ -11568,7 +11569,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueName *string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -11576,15 +11577,15 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetLayerMode", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueLayerMode GrantsUpdate200ResponseGrantLayerMode
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueLayerMode GrantsUpdateResponseGrantLayerMode
 		obj.SetLayerMode(fernTestValueLayerMode)
 		assert.Equal(t, fernTestValueLayerMode, obj.LayerMode)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLayerName", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueLayerName *string
 		obj.SetLayerName(fernTestValueLayerName)
 		assert.Equal(t, fernTestValueLayerName, obj.LayerName)
@@ -11592,7 +11593,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetKeepVisitorLayers", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 		obj.SetKeepVisitorLayers(fernTestValueKeepVisitorLayers)
 		assert.Equal(t, fernTestValueKeepVisitorLayers, obj.KeepVisitorLayers)
@@ -11600,23 +11601,23 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetVisitorIdleSeconds", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
 		assert.Equal(t, fernTestValueVisitorIdleSeconds, obj.VisitorIdleSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetVisitorIdentity", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsUpdate200ResponseGrantVisitorIdentity
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsUpdateResponseGrantVisitorIdentity
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
 		assert.Equal(t, fernTestValueVisitorIdentity, obj.VisitorIdentity)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetIdentity", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueIdentity *Identity
 		obj.SetIdentity(fernTestValueIdentity)
 		assert.Equal(t, fernTestValueIdentity, obj.Identity)
@@ -11624,7 +11625,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetScope", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueScope []string
 		obj.SetScope(fernTestValueScope)
 		assert.Equal(t, fernTestValueScope, obj.Scope)
@@ -11632,7 +11633,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetOrigins", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueOrigins []string
 		obj.SetOrigins(fernTestValueOrigins)
 		assert.Equal(t, fernTestValueOrigins, obj.Origins)
@@ -11640,7 +11641,7 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetPassphraseProtected", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 		obj.SetPassphraseProtected(fernTestValuePassphraseProtected)
 		assert.Equal(t, fernTestValuePassphraseProtected, obj.PassphraseProtected)
@@ -11648,15 +11649,15 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetSessionTTLSeconds", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
 		assert.Equal(t, fernTestValueSessionTTLSeconds, obj.SessionTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetDisabled", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueDisabled bool
 		obj.SetDisabled(fernTestValueDisabled)
 		assert.Equal(t, fernTestValueDisabled, obj.Disabled)
@@ -11664,39 +11665,39 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetArchivedAt", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 		obj.SetArchivedAt(fernTestValueArchivedAt)
 		assert.Equal(t, fernTestValueArchivedAt, obj.ArchivedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExchangeCount", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueExchangeCount int
 		obj.SetExchangeCount(fernTestValueExchangeCount)
 		assert.Equal(t, fernTestValueExchangeCount, obj.ExchangeCount)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetLastExchangedAt", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
 		assert.Equal(t, fernTestValueLastExchangedAt, obj.LastExchangedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueCreatedBy string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -11704,16 +11705,16 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -11721,11 +11722,11 @@ func TestSettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestGettersGrantsUpdateResponseGrant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected string
 		obj.ID = expected
 
@@ -11735,7 +11736,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11748,7 +11749,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected string
 		obj.TenantID = expected
 
@@ -11758,7 +11759,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11771,7 +11772,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetDocID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected string
 		obj.DocID = expected
 
@@ -11781,7 +11782,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDocID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11794,7 +11795,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected *string
 		obj.Name = expected
 
@@ -11805,7 +11806,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.Name = nil
 
 		// Act & Assert
@@ -11814,7 +11815,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11827,8 +11828,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerMode", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected GrantsUpdate200ResponseGrantLayerMode
+		obj := &GrantsUpdateResponseGrant{}
+		var expected GrantsUpdateResponseGrantLayerMode
 		obj.LayerMode = expected
 
 		// Act & Assert
@@ -11837,7 +11838,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerMode_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11850,7 +11851,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected *string
 		obj.LayerName = expected
 
@@ -11861,7 +11862,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetLayerName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.LayerName = nil
 
 		// Act & Assert
@@ -11870,7 +11871,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLayerName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11883,7 +11884,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetKeepVisitorLayers", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected bool
 		obj.KeepVisitorLayers = expected
 
@@ -11893,7 +11894,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetKeepVisitorLayers_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11906,8 +11907,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected *int
 		obj.VisitorIdleSeconds = expected
 
 		// Act & Assert
@@ -11917,7 +11918,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdleSeconds_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.VisitorIdleSeconds = nil
 
 		// Act & Assert
@@ -11926,7 +11927,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdleSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11939,8 +11940,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentity
+		obj := &GrantsUpdateResponseGrant{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentity
 		obj.VisitorIdentity = expected
 
 		// Act & Assert
@@ -11950,7 +11951,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetVisitorIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.VisitorIdentity = nil
 
 		// Act & Assert
@@ -11959,7 +11960,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetVisitorIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11972,7 +11973,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected *Identity
 		obj.Identity = expected
 
@@ -11983,7 +11984,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetIdentity_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.Identity = nil
 
 		// Act & Assert
@@ -11992,7 +11993,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetIdentity_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12005,7 +12006,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetScope", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected []string
 		obj.Scope = expected
 
@@ -12016,7 +12017,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetScope_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.Scope = nil
 
 		// Act & Assert
@@ -12025,7 +12026,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetScope_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12038,7 +12039,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected []string
 		obj.Origins = expected
 
@@ -12049,7 +12050,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetOrigins_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.Origins = nil
 
 		// Act & Assert
@@ -12058,7 +12059,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetOrigins_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12071,7 +12072,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetPassphraseProtected", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected bool
 		obj.PassphraseProtected = expected
 
@@ -12081,7 +12082,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetPassphraseProtected_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12094,8 +12095,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetSessionTTLSeconds", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected int
 		obj.SessionTTLSeconds = expected
 
 		// Act & Assert
@@ -12104,7 +12105,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetSessionTTLSeconds_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12117,7 +12118,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetDisabled", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected bool
 		obj.Disabled = expected
 
@@ -12127,7 +12128,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetDisabled_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12140,8 +12141,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected *time.Time
 		obj.ArchivedAt = expected
 
 		// Act & Assert
@@ -12151,7 +12152,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetArchivedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.ArchivedAt = nil
 
 		// Act & Assert
@@ -12160,7 +12161,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetArchivedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12173,8 +12174,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected *time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -12184,7 +12185,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetExpiresAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.ExpiresAt = nil
 
 		// Act & Assert
@@ -12193,7 +12194,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12206,8 +12207,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetExchangeCount", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected int
 		obj.ExchangeCount = expected
 
 		// Act & Assert
@@ -12216,7 +12217,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExchangeCount_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12229,8 +12230,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected *time.Time
 		obj.LastExchangedAt = expected
 
 		// Act & Assert
@@ -12240,7 +12241,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetLastExchangedAt_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		obj.LastExchangedAt = nil
 
 		// Act & Assert
@@ -12249,7 +12250,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetLastExchangedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12262,7 +12263,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var expected string
 		obj.CreatedBy = expected
 
@@ -12272,7 +12273,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12285,8 +12286,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -12295,7 +12296,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12308,8 +12309,8 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var expected float64
+		obj := &GrantsUpdateResponseGrant{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -12318,7 +12319,7 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsUpdateResponseGrant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12330,11 +12331,11 @@ func TestGettersGrantsUpdate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestSettersMarkExplicitGrantsUpdateResponseGrant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueID string
 
 		// Act
@@ -12365,7 +12366,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -12396,7 +12397,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueDocID string
 
 		// Act
@@ -12427,7 +12428,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueName *string
 
 		// Act
@@ -12458,8 +12459,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerMode_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueLayerMode GrantsUpdate200ResponseGrantLayerMode
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueLayerMode GrantsUpdateResponseGrantLayerMode
 
 		// Act
 		obj.SetLayerMode(fernTestValueLayerMode)
@@ -12489,7 +12490,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetLayerName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueLayerName *string
 
 		// Act
@@ -12520,7 +12521,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetKeepVisitorLayers_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueKeepVisitorLayers bool
 
 		// Act
@@ -12551,8 +12552,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdleSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueVisitorIdleSeconds *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueVisitorIdleSeconds *int
 
 		// Act
 		obj.SetVisitorIdleSeconds(fernTestValueVisitorIdleSeconds)
@@ -12582,8 +12583,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetVisitorIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueVisitorIdentity *GrantsUpdate200ResponseGrantVisitorIdentity
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueVisitorIdentity *GrantsUpdateResponseGrantVisitorIdentity
 
 		// Act
 		obj.SetVisitorIdentity(fernTestValueVisitorIdentity)
@@ -12613,7 +12614,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetIdentity_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueIdentity *Identity
 
 		// Act
@@ -12644,7 +12645,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetScope_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueScope []string
 
 		// Act
@@ -12675,7 +12676,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetOrigins_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueOrigins []string
 
 		// Act
@@ -12706,7 +12707,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetPassphraseProtected_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValuePassphraseProtected bool
 
 		// Act
@@ -12737,8 +12738,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetSessionTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueSessionTTLSeconds float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueSessionTTLSeconds int
 
 		// Act
 		obj.SetSessionTTLSeconds(fernTestValueSessionTTLSeconds)
@@ -12768,7 +12769,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetDisabled_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueDisabled bool
 
 		// Act
@@ -12799,8 +12800,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetArchivedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueArchivedAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueArchivedAt *time.Time
 
 		// Act
 		obj.SetArchivedAt(fernTestValueArchivedAt)
@@ -12830,8 +12831,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueExpiresAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -12861,8 +12862,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetExchangeCount_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueExchangeCount float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueExchangeCount int
 
 		// Act
 		obj.SetExchangeCount(fernTestValueExchangeCount)
@@ -12892,8 +12893,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetLastExchangedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueLastExchangedAt *float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueLastExchangedAt *time.Time
 
 		// Act
 		obj.SetLastExchangedAt(fernTestValueLastExchangedAt)
@@ -12923,7 +12924,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsUpdateResponseGrant{}
 		var fernTestValueCreatedBy string
 
 		// Act
@@ -12954,8 +12955,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueCreatedAt float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -12985,8 +12986,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
-		var fernTestValueUpdatedAt float64
+		obj := &GrantsUpdateResponseGrant{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -13015,25 +13016,25 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrant(t *testing.T) {
 
 }
 
-func TestSettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsUpdateResponseGrantVisitorIdentityFields
 		obj.SetFields(fernTestValueFields)
 		assert.Equal(t, fernTestValueFields, obj.Fields)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetAsk", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsUpdate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsUpdateResponseGrantVisitorIdentityAsk
 		obj.SetAsk(fernTestValueAsk)
 		assert.Equal(t, fernTestValueAsk, obj.Ask)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPurpose", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 		obj.SetPurpose(fernTestValuePurpose)
 		assert.Equal(t, fernTestValuePurpose, obj.Purpose)
@@ -13041,7 +13042,7 @@ func TestSettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	})
 
 	t.Run("SetPrivacyURL", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 		obj.SetPrivacyURL(fernTestValuePrivacyURL)
 		assert.Equal(t, fernTestValuePrivacyURL, obj.PrivacyURL)
@@ -13050,12 +13051,12 @@ func TestSettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestGettersGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFields
 		obj.Fields = expected
 
 		// Act & Assert
@@ -13065,7 +13066,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetFields_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		obj.Fields = nil
 
 		// Act & Assert
@@ -13074,7 +13075,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetFields_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13087,8 +13088,8 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetAsk", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var expected GrantsUpdate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var expected GrantsUpdateResponseGrantVisitorIdentityAsk
 		obj.Ask = expected
 
 		// Act & Assert
@@ -13097,7 +13098,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetAsk_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13110,7 +13111,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.Purpose = expected
 
@@ -13121,7 +13122,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPurpose_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		obj.Purpose = nil
 
 		// Act & Assert
@@ -13130,7 +13131,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPurpose_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13143,7 +13144,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var expected *string
 		obj.PrivacyURL = expected
 
@@ -13154,7 +13155,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetPrivacyURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		obj.PrivacyURL = nil
 
 		// Act & Assert
@@ -13163,7 +13164,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetPrivacyURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13175,12 +13176,12 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestSettersMarkExplicitGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("SetFields_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var fernTestValueFields *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var fernTestValueFields *GrantsUpdateResponseGrantVisitorIdentityFields
 
 		// Act
 		obj.SetFields(fernTestValueFields)
@@ -13210,8 +13211,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetAsk_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
-		var fernTestValueAsk GrantsUpdate200ResponseGrantVisitorIdentityAsk
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		var fernTestValueAsk GrantsUpdateResponseGrantVisitorIdentityAsk
 
 		// Act
 		obj.SetAsk(fernTestValueAsk)
@@ -13241,7 +13242,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetPurpose_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var fernTestValuePurpose *string
 
 		// Act
@@ -13272,7 +13273,7 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentity(t *testi
 	t.Run("SetPrivacyURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
 		var fernTestValuePrivacyURL *string
 
 		// Act
@@ -13302,42 +13303,42 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentity(t *testi
 
 }
 
-func TestSettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName
 		obj.SetDisplayName(fernTestValueDisplayName)
 		assert.Equal(t, fernTestValueDisplayName, obj.DisplayName)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetEmail", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail
 		obj.SetEmail(fernTestValueEmail)
 		assert.Equal(t, fernTestValueEmail, obj.Email)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetTitle", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle
 		obj.SetTitle(fernTestValueTitle)
 		assert.Equal(t, fernTestValueTitle, obj.Title)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganization", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization
 		obj.SetOrganization(fernTestValueOrganization)
 		assert.Equal(t, fernTestValueOrganization, obj.Organization)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetOrganizationalUnit", func(t *testing.T) {
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
 		assert.Equal(t, fernTestValueOrganizationalUnit, obj.OrganizationalUnit)
 		assert.NotNil(t, obj.explicitFields)
@@ -13345,12 +13346,12 @@ func TestSettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 }
 
-func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestGettersGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetDisplayName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName
 		obj.DisplayName = expected
 
 		// Act & Assert
@@ -13360,7 +13361,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetDisplayName_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
 		obj.DisplayName = nil
 
 		// Act & Assert
@@ -13369,7 +13370,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetDisplayName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13382,8 +13383,8 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetEmail", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail
 		obj.Email = expected
 
 		// Act & Assert
@@ -13393,7 +13394,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetEmail_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
 		obj.Email = nil
 
 		// Act & Assert
@@ -13402,7 +13403,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetEmail_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13415,8 +13416,8 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetTitle", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle
 		obj.Title = expected
 
 		// Act & Assert
@@ -13426,7 +13427,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetTitle_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
 		obj.Title = nil
 
 		// Act & Assert
@@ -13435,7 +13436,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetTitle_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13448,8 +13449,8 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganization", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization
 		obj.Organization = expected
 
 		// Act & Assert
@@ -13459,7 +13460,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganization_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
 		obj.Organization = nil
 
 		// Act & Assert
@@ -13468,7 +13469,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetOrganization_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13481,8 +13482,8 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganizationalUnit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var expected *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var expected *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 		obj.OrganizationalUnit = expected
 
 		// Act & Assert
@@ -13492,7 +13493,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 	t.Run("GetOrganizationalUnit_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
 		obj.OrganizationalUnit = nil
 
 		// Act & Assert
@@ -13501,7 +13502,7 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 	t.Run("GetOrganizationalUnit_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -13513,12 +13514,12 @@ func TestGettersGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) 
 
 }
 
-func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestSettersMarkExplicitGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("SetDisplayName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueDisplayName *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueDisplayName *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName
 
 		// Act
 		obj.SetDisplayName(fernTestValueDisplayName)
@@ -13548,8 +13549,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetEmail_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueEmail *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueEmail *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail
 
 		// Act
 		obj.SetEmail(fernTestValueEmail)
@@ -13579,8 +13580,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetTitle_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueTitle *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueTitle *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle
 
 		// Act
 		obj.SetTitle(fernTestValueTitle)
@@ -13610,8 +13611,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetOrganization_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganization *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganization *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization
 
 		// Act
 		obj.SetOrganization(fernTestValueOrganization)
@@ -13641,8 +13642,8 @@ func TestSettersMarkExplicitGrantsUpdate200ResponseGrantVisitorIdentityFields(t 
 	t.Run("SetOrganizationalUnit_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
-		var fernTestValueOrganizationalUnit *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		var fernTestValueOrganizationalUnit *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 
 		// Act
 		obj.SetOrganizationalUnit(fernTestValueOrganizationalUnit)
@@ -15467,7 +15468,7 @@ func TestSettersGrantsUpdateRequest(t *testing.T) {
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
 		obj := &GrantsUpdateRequest{}
-		var fernTestValueExpiresAt *int
+		var fernTestValueExpiresAt *time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -15914,7 +15915,7 @@ func TestSettersMarkExplicitGrantsUpdateRequest(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GrantsUpdateRequest{}
-		var fernTestValueExpiresAt *int
+		var fernTestValueExpiresAt *time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -15943,11 +15944,11 @@ func TestSettersMarkExplicitGrantsUpdateRequest(t *testing.T) {
 
 }
 
-func TestJSONMarshalingGrantsArchive200Response(t *testing.T) {
+func TestJSONMarshalingGrantsArchiveResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200Response{}
+		obj := &GrantsArchiveResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -15956,31 +15957,31 @@ func TestJSONMarshalingGrantsArchive200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsArchive200Response
+		var unmarshaled GrantsArchiveResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200Response
+		var obj GrantsArchiveResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200Response
+		var obj GrantsArchiveResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsArchive200ResponseGrant(t *testing.T) {
+func TestJSONMarshalingGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -15989,31 +15990,31 @@ func TestJSONMarshalingGrantsArchive200ResponseGrant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsArchive200ResponseGrant
+		var unmarshaled GrantsArchiveResponseGrant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrant
+		var obj GrantsArchiveResponseGrant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrant
+		var obj GrantsArchiveResponseGrant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestJSONMarshalingGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16022,31 +16023,31 @@ func TestJSONMarshalingGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsArchive200ResponseGrantVisitorIdentity
+		var unmarshaled GrantsArchiveResponseGrantVisitorIdentity
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrantVisitorIdentity
+		var obj GrantsArchiveResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrantVisitorIdentity
+		var obj GrantsArchiveResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestJSONMarshalingGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16055,153 +16056,21 @@ func TestJSONMarshalingGrantsArchive200ResponseGrantVisitorIdentityFields(t *tes
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsArchive200ResponseGrantVisitorIdentityFields
+		var unmarshaled GrantsArchiveResponseGrantVisitorIdentityFields
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrantVisitorIdentityFields
+		var obj GrantsArchiveResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsArchive200ResponseGrantVisitorIdentityFields
-		err := json.Unmarshal([]byte(`{}`), &obj)
-		assert.NoError(t, err, "unmarshaling empty object should succeed")
-	})
-}
-
-func TestJSONMarshalingGrantsCreate200Response(t *testing.T) {
-	t.Run("MarshalUnmarshal", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &GrantsCreate200Response{}
-
-		// Act - Marshal to JSON
-		data, err := json.Marshal(obj)
-		require.NoError(t, err, "marshaling should succeed")
-		assert.NotNil(t, data, "marshaled data should not be nil")
-		assert.NotEmpty(t, data, "marshaled data should not be empty")
-
-		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsCreate200Response
-		err = json.Unmarshal(data, &unmarshaled)
-		assert.NoError(t, err, "round-trip unmarshal should succeed")
-	})
-
-	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200Response
-		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
-		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
-	})
-
-	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200Response
-		err := json.Unmarshal([]byte(`{}`), &obj)
-		assert.NoError(t, err, "unmarshaling empty object should succeed")
-	})
-}
-
-func TestJSONMarshalingGrantsCreate200ResponseGrant(t *testing.T) {
-	t.Run("MarshalUnmarshal", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &GrantsCreate200ResponseGrant{}
-
-		// Act - Marshal to JSON
-		data, err := json.Marshal(obj)
-		require.NoError(t, err, "marshaling should succeed")
-		assert.NotNil(t, data, "marshaled data should not be nil")
-		assert.NotEmpty(t, data, "marshaled data should not be empty")
-
-		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsCreate200ResponseGrant
-		err = json.Unmarshal(data, &unmarshaled)
-		assert.NoError(t, err, "round-trip unmarshal should succeed")
-	})
-
-	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrant
-		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
-		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
-	})
-
-	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrant
-		err := json.Unmarshal([]byte(`{}`), &obj)
-		assert.NoError(t, err, "unmarshaling empty object should succeed")
-	})
-}
-
-func TestJSONMarshalingGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
-	t.Run("MarshalUnmarshal", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-
-		// Act - Marshal to JSON
-		data, err := json.Marshal(obj)
-		require.NoError(t, err, "marshaling should succeed")
-		assert.NotNil(t, data, "marshaled data should not be nil")
-		assert.NotEmpty(t, data, "marshaled data should not be empty")
-
-		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsCreate200ResponseGrantVisitorIdentity
-		err = json.Unmarshal(data, &unmarshaled)
-		assert.NoError(t, err, "round-trip unmarshal should succeed")
-	})
-
-	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrantVisitorIdentity
-		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
-		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
-	})
-
-	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrantVisitorIdentity
-		err := json.Unmarshal([]byte(`{}`), &obj)
-		assert.NoError(t, err, "unmarshaling empty object should succeed")
-	})
-}
-
-func TestJSONMarshalingGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
-	t.Run("MarshalUnmarshal", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-
-		// Act - Marshal to JSON
-		data, err := json.Marshal(obj)
-		require.NoError(t, err, "marshaling should succeed")
-		assert.NotNil(t, data, "marshaled data should not be nil")
-		assert.NotEmpty(t, data, "marshaled data should not be empty")
-
-		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsCreate200ResponseGrantVisitorIdentityFields
-		err = json.Unmarshal(data, &unmarshaled)
-		assert.NoError(t, err, "round-trip unmarshal should succeed")
-	})
-
-	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrantVisitorIdentityFields
-		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
-		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
-	})
-
-	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
-		t.Parallel()
-		var obj GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj GrantsArchiveResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -16273,11 +16142,11 @@ func TestJSONMarshalingGrantsCreateRequestVisitorIdentityFields(t *testing.T) {
 	})
 }
 
-func TestJSONMarshalingGrantsExchange200Response(t *testing.T) {
+func TestJSONMarshalingGrantsCreateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsCreateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16286,31 +16155,31 @@ func TestJSONMarshalingGrantsExchange200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsExchange200Response
+		var unmarshaled GrantsCreateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200Response
+		var obj GrantsCreateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200Response
+		var obj GrantsCreateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestJSONMarshalingGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsCreateResponseGrant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16319,31 +16188,31 @@ func TestJSONMarshalingGrantsExchange200ResponseVisitor(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsExchange200ResponseVisitor
+		var unmarshaled GrantsCreateResponseGrant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitor
+		var obj GrantsCreateResponseGrant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitor
+		var obj GrantsCreateResponseGrant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestJSONMarshalingGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16352,31 +16221,31 @@ func TestJSONMarshalingGrantsExchange200ResponseVisitorIdentityRequest(t *testin
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsExchange200ResponseVisitorIdentityRequest
+		var unmarshaled GrantsCreateResponseGrantVisitorIdentity
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitorIdentityRequest
+		var obj GrantsCreateResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitorIdentityRequest
+		var obj GrantsCreateResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestJSONMarshalingGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16385,21 +16254,21 @@ func TestJSONMarshalingGrantsExchange200ResponseVisitorIdentityRequestFields(t *
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsExchange200ResponseVisitorIdentityRequestFields
+		var unmarshaled GrantsCreateResponseGrantVisitorIdentityFields
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj GrantsCreateResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj GrantsCreateResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -16438,11 +16307,11 @@ func TestJSONMarshalingGrantsExchangeRequestVisitorIdentity(t *testing.T) {
 	})
 }
 
-func TestJSONMarshalingGrantsGet200Response(t *testing.T) {
+func TestJSONMarshalingGrantsExchangeResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200Response{}
+		obj := &GrantsExchangeResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16451,31 +16320,31 @@ func TestJSONMarshalingGrantsGet200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsGet200Response
+		var unmarshaled GrantsExchangeResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200Response
+		var obj GrantsExchangeResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200Response
+		var obj GrantsExchangeResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsGet200ResponseGrant(t *testing.T) {
+func TestJSONMarshalingGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsExchangeResponseVisitor{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16484,31 +16353,31 @@ func TestJSONMarshalingGrantsGet200ResponseGrant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsGet200ResponseGrant
+		var unmarshaled GrantsExchangeResponseVisitor
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrant
+		var obj GrantsExchangeResponseVisitor
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrant
+		var obj GrantsExchangeResponseVisitor
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestJSONMarshalingGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16517,31 +16386,31 @@ func TestJSONMarshalingGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsGet200ResponseGrantVisitorIdentity
+		var unmarshaled GrantsExchangeResponseVisitorIdentityRequest
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrantVisitorIdentity
+		var obj GrantsExchangeResponseVisitorIdentityRequest
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrantVisitorIdentity
+		var obj GrantsExchangeResponseVisitorIdentityRequest
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestJSONMarshalingGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16550,31 +16419,31 @@ func TestJSONMarshalingGrantsGet200ResponseGrantVisitorIdentityFields(t *testing
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsGet200ResponseGrantVisitorIdentityFields
+		var unmarshaled GrantsExchangeResponseVisitorIdentityRequestFields
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj GrantsExchangeResponseVisitorIdentityRequestFields
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj GrantsExchangeResponseVisitorIdentityRequestFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsList200Response(t *testing.T) {
+func TestJSONMarshalingGrantsGetResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200Response{}
+		obj := &GrantsGetResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16583,31 +16452,31 @@ func TestJSONMarshalingGrantsList200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsList200Response
+		var unmarshaled GrantsGetResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200Response
+		var obj GrantsGetResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200Response
+		var obj GrantsGetResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestJSONMarshalingGrantsGetResponseGrant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsGetResponseGrant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16616,31 +16485,31 @@ func TestJSONMarshalingGrantsList200ResponseGrantsItem(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsList200ResponseGrantsItem
+		var unmarshaled GrantsGetResponseGrant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItem
+		var obj GrantsGetResponseGrant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItem
+		var obj GrantsGetResponseGrant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestJSONMarshalingGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16649,31 +16518,31 @@ func TestJSONMarshalingGrantsList200ResponseGrantsItemVisitorIdentity(t *testing
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsList200ResponseGrantsItemVisitorIdentity
+		var unmarshaled GrantsGetResponseGrantVisitorIdentity
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj GrantsGetResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj GrantsGetResponseGrantVisitorIdentity
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestJSONMarshalingGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16682,31 +16551,31 @@ func TestJSONMarshalingGrantsList200ResponseGrantsItemVisitorIdentityFields(t *t
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var unmarshaled GrantsGetResponseGrantVisitorIdentityFields
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj GrantsGetResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj GrantsGetResponseGrantVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsUpdate200Response(t *testing.T) {
+func TestJSONMarshalingGrantsListResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200Response{}
+		obj := &GrantsListResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16715,31 +16584,31 @@ func TestJSONMarshalingGrantsUpdate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsUpdate200Response
+		var unmarshaled GrantsListResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200Response
+		var obj GrantsListResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200Response
+		var obj GrantsListResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestJSONMarshalingGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsListResponseGrantsItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16748,31 +16617,31 @@ func TestJSONMarshalingGrantsUpdate200ResponseGrant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsUpdate200ResponseGrant
+		var unmarshaled GrantsListResponseGrantsItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrant
+		var obj GrantsListResponseGrantsItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrant
+		var obj GrantsListResponseGrantsItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestJSONMarshalingGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16781,31 +16650,31 @@ func TestJSONMarshalingGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T)
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsUpdate200ResponseGrantVisitorIdentity
+		var unmarshaled GrantsListResponseGrantsItemVisitorIdentity
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj GrantsListResponseGrantsItemVisitorIdentity
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj GrantsListResponseGrantsItemVisitorIdentity
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestJSONMarshalingGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -16814,21 +16683,21 @@ func TestJSONMarshalingGrantsUpdate200ResponseGrantVisitorIdentityFields(t *test
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var unmarshaled GrantsListResponseGrantsItemVisitorIdentityFields
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj GrantsListResponseGrantsItemVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj GrantsListResponseGrantsItemVisitorIdentityFields
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -16900,129 +16769,197 @@ func TestJSONMarshalingGrantsUpdateRequestVisitorIdentityFields(t *testing.T) {
 	})
 }
 
-func TestStringGrantsArchive200Response(t *testing.T) {
+func TestJSONMarshalingGrantsUpdateResponse(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GrantsUpdateResponse{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled GrantsUpdateResponse
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponse
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponse
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingGrantsUpdateResponseGrant(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GrantsUpdateResponseGrant{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled GrantsUpdateResponseGrant
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrant
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrant
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled GrantsUpdateResponseGrantVisitorIdentity
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrantVisitorIdentity
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrantVisitorIdentity
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestJSONMarshalingGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
+	t.Run("MarshalUnmarshal", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+
+		// Act - Marshal to JSON
+		data, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed")
+		assert.NotNil(t, data, "marshaled data should not be nil")
+		assert.NotEmpty(t, data, "marshaled data should not be empty")
+
+		// Unmarshal back and verify round-trip
+		var unmarshaled GrantsUpdateResponseGrantVisitorIdentityFields
+		err = json.Unmarshal(data, &unmarshaled)
+		assert.NoError(t, err, "round-trip unmarshal should succeed")
+	})
+
+	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrantVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
+		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
+	})
+
+	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
+		t.Parallel()
+		var obj GrantsUpdateResponseGrantVisitorIdentityFields
+		err := json.Unmarshal([]byte(`{}`), &obj)
+		assert.NoError(t, err, "unmarshaling empty object should succeed")
+	})
+}
+
+func TestStringGrantsArchiveResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200Response{}
+		obj := &GrantsArchiveResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200Response
+		var obj *GrantsArchiveResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsArchive200ResponseGrant(t *testing.T) {
+func TestStringGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestStringGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestStringGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
-		result := obj.String()
-		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
-	})
-}
-
-func TestStringGrantsCreate200Response(t *testing.T) {
-	t.Run("StringMethod", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200Response{}
-		result := obj.String()
-		assert.NotEmpty(t, result, "String() should return a non-empty representation")
-	})
-
-	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200Response
-		result := obj.String()
-		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
-	})
-}
-
-func TestStringGrantsCreate200ResponseGrant(t *testing.T) {
-	t.Run("StringMethod", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrant{}
-		result := obj.String()
-		assert.NotEmpty(t, result, "String() should return a non-empty representation")
-	})
-
-	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
-		result := obj.String()
-		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
-	})
-}
-
-func TestStringGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
-	t.Run("StringMethod", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		result := obj.String()
-		assert.NotEmpty(t, result, "String() should return a non-empty representation")
-	})
-
-	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
-		result := obj.String()
-		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
-	})
-}
-
-func TestStringGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
-	t.Run("StringMethod", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		result := obj.String()
-		assert.NotEmpty(t, result, "String() should return a non-empty representation")
-	})
-
-	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -17060,65 +16997,65 @@ func TestStringGrantsCreateRequestVisitorIdentityFields(t *testing.T) {
 	})
 }
 
-func TestStringGrantsExchange200Response(t *testing.T) {
+func TestStringGrantsCreateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsCreateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsCreateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestStringGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsCreateResponseGrant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitor
+		var obj *GrantsCreateResponseGrant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestStringGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestStringGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -17140,193 +17077,193 @@ func TestStringGrantsExchangeRequestVisitorIdentity(t *testing.T) {
 	})
 }
 
-func TestStringGrantsGet200Response(t *testing.T) {
+func TestStringGrantsExchangeResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200Response{}
+		obj := &GrantsExchangeResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200Response
+		var obj *GrantsExchangeResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsGet200ResponseGrant(t *testing.T) {
+func TestStringGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsExchangeResponseVisitor{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsExchangeResponseVisitor
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestStringGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestStringGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsList200Response(t *testing.T) {
+func TestStringGrantsGetResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200Response{}
+		obj := &GrantsGetResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200Response
+		var obj *GrantsGetResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestStringGrantsGetResponseGrant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsGetResponseGrant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsGetResponseGrant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestStringGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestStringGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsUpdate200Response(t *testing.T) {
+func TestStringGrantsListResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200Response{}
+		obj := &GrantsListResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200Response
+		var obj *GrantsListResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestStringGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsListResponseGrantsItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsListResponseGrantsItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestStringGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestStringGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -17364,28 +17301,92 @@ func TestStringGrantsUpdateRequestVisitorIdentityFields(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantLayerMode(t *testing.T) {
+func TestStringGrantsUpdateResponse(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponse{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponse
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringGrantsUpdateResponseGrant(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrant{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrant
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestStringGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
+	t.Run("StringMethod", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		result := obj.String()
+		assert.NotEmpty(t, result, "String() should return a non-empty representation")
+	})
+
+	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
+		result := obj.String()
+		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
+	})
+}
+
+func TestEnumGrantsArchiveResponseGrantLayerMode(t *testing.T) {
 	t.Run("NewFromString_shared", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantLayerModeFromString("shared")
+		val, err := NewGrantsArchiveResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_per_visitor", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantLayerModeFromString("per-visitor")
+		val, err := NewGrantsArchiveResponseGrantLayerModeFromString("per-visitor")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantLayerModeFromString("shared")
+		val, err := NewGrantsArchiveResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17393,28 +17394,28 @@ func TestEnumGrantsArchive200ResponseGrantLayerMode(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityAsk(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityAsk(t *testing.T) {
 	t.Run("NewFromString_on_open", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_before_first_change", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityAskFromString("before-first-change")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityAskFromString("before-first-change")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17422,28 +17423,28 @@ func TestEnumGrantsArchive200ResponseGrantVisitorIdentityAsk(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17451,28 +17452,28 @@ func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName(t *te
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsEmailFromString("optional")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsEmailFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17480,28 +17481,28 @@ func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsEmail(t *testing.
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17509,28 +17510,28 @@ func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization(t *t
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17538,231 +17539,28 @@ func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUni
 	})
 }
 
-func TestEnumGrantsArchive200ResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
+func TestEnumGrantsArchiveResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsTitleFromString("optional")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsTitleFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsArchiveResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsArchive200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantLayerMode(t *testing.T) {
-	t.Run("NewFromString_shared", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantLayerModeFromString("shared")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_per_visitor", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantLayerModeFromString("per-visitor")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantLayerModeFromString("shared")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityAsk(t *testing.T) {
-	t.Run("NewFromString_on_open", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityAskFromString("on-open")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_before_first_change", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityAskFromString("before-first-change")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityAskFromString("on-open")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsEmailFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsCreate200ResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsTitleFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsCreate200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsArchiveResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -17973,28 +17771,28 @@ func TestEnumGrantsCreateRequestVisitorIdentityFieldsTitle(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsExchange200ResponseLayerMode(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantLayerMode(t *testing.T) {
 	t.Run("NewFromString_shared", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseLayerModeFromString("shared")
+		val, err := NewGrantsCreateResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseLayerMode("shared"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_per_visitor", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseLayerModeFromString("per-visitor")
+		val, err := NewGrantsCreateResponseGrantLayerModeFromString("per-visitor")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseLayerMode("per-visitor"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseLayerModeFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseLayerModeFromString("shared")
+		val, err := NewGrantsCreateResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18002,28 +17800,57 @@ func TestEnumGrantsExchange200ResponseLayerMode(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsCreateResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("optional")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18031,28 +17858,28 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName(t 
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsEmail(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("optional")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsEmailFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18060,28 +17887,28 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsEmail(t *testi
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("optional")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18089,28 +17916,28 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization(t
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("optional")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18118,28 +17945,28 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizational
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsTitle(t *testing.T) {
+func TestEnumGrantsCreateResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("optional")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsTitleFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsCreateResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		val, err := NewGrantsCreateResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18147,49 +17974,223 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestFieldsTitle(t *testi
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestInvalidItem(t *testing.T) {
+func TestEnumGrantsExchangeResponseLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestInvalidItem(t *testing.T) {
 	t.Run("NewFromString_displayName", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("displayName")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("displayName")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestInvalidItem("displayName"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestInvalidItem("displayName"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_email", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("email")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("email")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestInvalidItem("email"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestInvalidItem("email"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_title", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("title")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("title")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestInvalidItem("title"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestInvalidItem("title"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_organization", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("organization")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("organization")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestInvalidItem("organization"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestInvalidItem("organization"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_organizationalUnit", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("organizationalUnit")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("organizationalUnit")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestInvalidItem("organizationalUnit"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestInvalidItem("organizationalUnit"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString("displayName")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString("displayName")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18197,49 +18198,49 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestInvalidItem(t *testi
 	})
 }
 
-func TestEnumGrantsExchange200ResponseVisitorIdentityRequestMissingItem(t *testing.T) {
+func TestEnumGrantsExchangeResponseVisitorIdentityRequestMissingItem(t *testing.T) {
 	t.Run("NewFromString_displayName", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("displayName")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("displayName")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestMissingItem("displayName"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestMissingItem("displayName"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_email", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("email")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("email")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestMissingItem("email"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestMissingItem("email"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_title", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("title")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("title")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestMissingItem("title"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestMissingItem("title"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_organization", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("organization")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("organization")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestMissingItem("organization"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestMissingItem("organization"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_organizationalUnit", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("organizationalUnit")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("organizationalUnit")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsExchange200ResponseVisitorIdentityRequestMissingItem("organizationalUnit"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsExchangeResponseVisitorIdentityRequestMissingItem("organizationalUnit"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString("displayName")
+		val, err := NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString("displayName")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18247,28 +18248,28 @@ func TestEnumGrantsExchange200ResponseVisitorIdentityRequestMissingItem(t *testi
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantLayerMode(t *testing.T) {
+func TestEnumGrantsGetResponseGrantLayerMode(t *testing.T) {
 	t.Run("NewFromString_shared", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantLayerModeFromString("shared")
+		val, err := NewGrantsGetResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_per_visitor", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantLayerModeFromString("per-visitor")
+		val, err := NewGrantsGetResponseGrantLayerModeFromString("per-visitor")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantLayerModeFromString("shared")
+		val, err := NewGrantsGetResponseGrantLayerModeFromString("shared")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18276,28 +18277,28 @@ func TestEnumGrantsGet200ResponseGrantLayerMode(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityAsk(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityAsk(t *testing.T) {
 	t.Run("NewFromString_on_open", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_before_first_change", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityAskFromString("before-first-change")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityAskFromString("before-first-change")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18305,28 +18306,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityAsk(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18334,28 +18335,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName(t *testin
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsEmailFromString("optional")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsEmailFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18363,28 +18364,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18392,28 +18393,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsOrganization(t *testi
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18421,28 +18422,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit(t 
 	})
 }
 
-func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
+func TestEnumGrantsGetResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsTitleFromString("optional")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsTitleFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsGet200ResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsGetResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsGetResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsGet200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsGetResponseGrantVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18450,28 +18451,28 @@ func TestEnumGrantsGet200ResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemLayerMode(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemLayerMode(t *testing.T) {
 	t.Run("NewFromString_shared", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemLayerModeFromString("shared")
+		val, err := NewGrantsListResponseGrantsItemLayerModeFromString("shared")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemLayerMode("shared"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemLayerMode("shared"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_per_visitor", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemLayerModeFromString("per-visitor")
+		val, err := NewGrantsListResponseGrantsItemLayerModeFromString("per-visitor")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemLayerMode("per-visitor"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemLayerMode("per-visitor"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemLayerModeFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemLayerModeFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemLayerModeFromString("shared")
+		val, err := NewGrantsListResponseGrantsItemLayerModeFromString("shared")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18479,28 +18480,28 @@ func TestEnumGrantsList200ResponseGrantsItemLayerMode(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityAsk(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityAsk(t *testing.T) {
 	t.Run("NewFromString_on_open", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_before_first_change", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityAskFromString("before-first-change")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityAskFromString("before-first-change")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityAskFromString("on-open")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityAskFromString("on-open")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18508,28 +18509,28 @@ func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityAsk(t *testing.T) {
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("optional")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18537,28 +18538,28 @@ func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName(t *
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityFieldsEmail(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailFromString("optional")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsEmailFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsEmailFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18566,28 +18567,28 @@ func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail(t *testin
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityFieldsOrganization(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("optional")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18595,28 +18596,28 @@ func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization(t 
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -18624,231 +18625,28 @@ func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalU
 	})
 }
 
-func TestEnumGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle(t *testing.T) {
+func TestEnumGrantsListResponseGrantsItemVisitorIdentityFieldsTitle(t *testing.T) {
 	t.Run("NewFromString_required", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_optional", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleFromString("optional")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsTitleFromString("optional")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+		assert.Equal(t, GrantsListResponseGrantsItemVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		_, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantLayerMode(t *testing.T) {
-	t.Run("NewFromString_shared", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantLayerModeFromString("shared")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_per_visitor", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantLayerModeFromString("per-visitor")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantLayerModeFromString("shared")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityAsk(t *testing.T) {
-	t.Run("NewFromString_on_open", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityAskFromString("on-open")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_before_first_change", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityAskFromString("before-first-change")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityAskFromString("on-open")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
-	t.Run("NewFromString_required", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_optional", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleFromString("optional")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		val, err := NewGrantsListResponseGrantsItemVisitorIdentityFieldsTitleFromString("required")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -19059,10 +18857,213 @@ func TestEnumGrantsUpdateRequestVisitorIdentityFieldsTitle(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesGrantsArchive200Response(t *testing.T) {
+func TestEnumGrantsUpdateResponseGrantLayerMode(t *testing.T) {
+	t.Run("NewFromString_shared", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantLayerModeFromString("shared")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantLayerMode("shared"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_per_visitor", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantLayerModeFromString("per-visitor")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantLayerMode("per-visitor"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantLayerModeFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantLayerModeFromString("shared")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityAsk(t *testing.T) {
+	t.Run("NewFromString_on_open", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityAsk("on-open"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_before_first_change", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityAskFromString("before-first-change")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityAsk("before-first-change"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityAskFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityAskFromString("on-open")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityFieldsEmail(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsEmail("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsEmailFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsEmail("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsEmailFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsEmailFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityFieldsOrganization(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumGrantsUpdateResponseGrantVisitorIdentityFieldsTitle(t *testing.T) {
+	t.Run("NewFromString_required", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsTitle("required"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_optional", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsTitleFromString("optional")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, GrantsUpdateResponseGrantVisitorIdentityFieldsTitle("optional"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsTitleFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewGrantsUpdateResponseGrantVisitorIdentityFieldsTitleFromString("required")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestExtraPropertiesGrantsArchiveResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200Response{}
+		obj := &GrantsArchiveResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19076,16 +19077,16 @@ func TestExtraPropertiesGrantsArchive200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200Response
+		var obj *GrantsArchiveResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsArchive200ResponseGrant(t *testing.T) {
+func TestExtraPropertiesGrantsArchiveResponseGrant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrant{}
+		obj := &GrantsArchiveResponseGrant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19099,16 +19100,16 @@ func TestExtraPropertiesGrantsArchive200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrant
+		var obj *GrantsArchiveResponseGrant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsArchive200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestExtraPropertiesGrantsArchiveResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrantVisitorIdentity{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentity{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19122,16 +19123,16 @@ func TestExtraPropertiesGrantsArchive200ResponseGrantVisitorIdentity(t *testing.
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentity
+		var obj *GrantsArchiveResponseGrantVisitorIdentity
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsArchive200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestExtraPropertiesGrantsArchiveResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsArchive200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsArchiveResponseGrantVisitorIdentityFields{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19145,99 +19146,7 @@ func TestExtraPropertiesGrantsArchive200ResponseGrantVisitorIdentityFields(t *te
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsArchive200ResponseGrantVisitorIdentityFields
-		extraProps := obj.GetExtraProperties()
-		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
-	})
-}
-
-func TestExtraPropertiesGrantsCreate200Response(t *testing.T) {
-	t.Run("GetExtraProperties", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200Response{}
-		// Should not panic when calling GetExtraProperties()
-		defer func() {
-			if r := recover(); r != nil {
-				t.Errorf("GetExtraProperties() panicked: %v", r)
-			}
-		}()
-		extraProps := obj.GetExtraProperties()
-		// Result can be nil or an empty/non-empty map
-		_ = extraProps
-	})
-
-	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200Response
-		extraProps := obj.GetExtraProperties()
-		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
-	})
-}
-
-func TestExtraPropertiesGrantsCreate200ResponseGrant(t *testing.T) {
-	t.Run("GetExtraProperties", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrant{}
-		// Should not panic when calling GetExtraProperties()
-		defer func() {
-			if r := recover(); r != nil {
-				t.Errorf("GetExtraProperties() panicked: %v", r)
-			}
-		}()
-		extraProps := obj.GetExtraProperties()
-		// Result can be nil or an empty/non-empty map
-		_ = extraProps
-	})
-
-	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrant
-		extraProps := obj.GetExtraProperties()
-		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
-	})
-}
-
-func TestExtraPropertiesGrantsCreate200ResponseGrantVisitorIdentity(t *testing.T) {
-	t.Run("GetExtraProperties", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrantVisitorIdentity{}
-		// Should not panic when calling GetExtraProperties()
-		defer func() {
-			if r := recover(); r != nil {
-				t.Errorf("GetExtraProperties() panicked: %v", r)
-			}
-		}()
-		extraProps := obj.GetExtraProperties()
-		// Result can be nil or an empty/non-empty map
-		_ = extraProps
-	})
-
-	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentity
-		extraProps := obj.GetExtraProperties()
-		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
-	})
-}
-
-func TestExtraPropertiesGrantsCreate200ResponseGrantVisitorIdentityFields(t *testing.T) {
-	t.Run("GetExtraProperties", func(t *testing.T) {
-		t.Parallel()
-		obj := &GrantsCreate200ResponseGrantVisitorIdentityFields{}
-		// Should not panic when calling GetExtraProperties()
-		defer func() {
-			if r := recover(); r != nil {
-				t.Errorf("GetExtraProperties() panicked: %v", r)
-			}
-		}()
-		extraProps := obj.GetExtraProperties()
-		// Result can be nil or an empty/non-empty map
-		_ = extraProps
-	})
-
-	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
-		t.Parallel()
-		var obj *GrantsCreate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsArchiveResponseGrantVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -19289,10 +19198,10 @@ func TestExtraPropertiesGrantsCreateRequestVisitorIdentityFields(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesGrantsExchange200Response(t *testing.T) {
+func TestExtraPropertiesGrantsCreateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200Response{}
+		obj := &GrantsCreateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19306,16 +19215,16 @@ func TestExtraPropertiesGrantsExchange200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200Response
+		var obj *GrantsCreateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsExchange200ResponseVisitor(t *testing.T) {
+func TestExtraPropertiesGrantsCreateResponseGrant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitor{}
+		obj := &GrantsCreateResponseGrant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19329,16 +19238,16 @@ func TestExtraPropertiesGrantsExchange200ResponseVisitor(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitor
+		var obj *GrantsCreateResponseGrant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsExchange200ResponseVisitorIdentityRequest(t *testing.T) {
+func TestExtraPropertiesGrantsCreateResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitorIdentityRequest{}
+		obj := &GrantsCreateResponseGrantVisitorIdentity{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19352,16 +19261,16 @@ func TestExtraPropertiesGrantsExchange200ResponseVisitorIdentityRequest(t *testi
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequest
+		var obj *GrantsCreateResponseGrantVisitorIdentity
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsExchange200ResponseVisitorIdentityRequestFields(t *testing.T) {
+func TestExtraPropertiesGrantsCreateResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsExchange200ResponseVisitorIdentityRequestFields{}
+		obj := &GrantsCreateResponseGrantVisitorIdentityFields{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19375,7 +19284,7 @@ func TestExtraPropertiesGrantsExchange200ResponseVisitorIdentityRequestFields(t 
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsExchange200ResponseVisitorIdentityRequestFields
+		var obj *GrantsCreateResponseGrantVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -19404,10 +19313,10 @@ func TestExtraPropertiesGrantsExchangeRequestVisitorIdentity(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesGrantsGet200Response(t *testing.T) {
+func TestExtraPropertiesGrantsExchangeResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200Response{}
+		obj := &GrantsExchangeResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19421,16 +19330,16 @@ func TestExtraPropertiesGrantsGet200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200Response
+		var obj *GrantsExchangeResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsGet200ResponseGrant(t *testing.T) {
+func TestExtraPropertiesGrantsExchangeResponseVisitor(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrant{}
+		obj := &GrantsExchangeResponseVisitor{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19444,16 +19353,16 @@ func TestExtraPropertiesGrantsGet200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrant
+		var obj *GrantsExchangeResponseVisitor
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestExtraPropertiesGrantsExchangeResponseVisitorIdentityRequest(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrantVisitorIdentity{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequest{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19467,16 +19376,16 @@ func TestExtraPropertiesGrantsGet200ResponseGrantVisitorIdentity(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentity
+		var obj *GrantsExchangeResponseVisitorIdentityRequest
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsGet200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestExtraPropertiesGrantsExchangeResponseVisitorIdentityRequestFields(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsGet200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsExchangeResponseVisitorIdentityRequestFields{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19490,16 +19399,16 @@ func TestExtraPropertiesGrantsGet200ResponseGrantVisitorIdentityFields(t *testin
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsGet200ResponseGrantVisitorIdentityFields
+		var obj *GrantsExchangeResponseVisitorIdentityRequestFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsList200Response(t *testing.T) {
+func TestExtraPropertiesGrantsGetResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200Response{}
+		obj := &GrantsGetResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19513,16 +19422,16 @@ func TestExtraPropertiesGrantsList200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200Response
+		var obj *GrantsGetResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsList200ResponseGrantsItem(t *testing.T) {
+func TestExtraPropertiesGrantsGetResponseGrant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItem{}
+		obj := &GrantsGetResponseGrant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19536,16 +19445,16 @@ func TestExtraPropertiesGrantsList200ResponseGrantsItem(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItem
+		var obj *GrantsGetResponseGrant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsList200ResponseGrantsItemVisitorIdentity(t *testing.T) {
+func TestExtraPropertiesGrantsGetResponseGrantVisitorIdentity(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentity{}
+		obj := &GrantsGetResponseGrantVisitorIdentity{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19559,16 +19468,16 @@ func TestExtraPropertiesGrantsList200ResponseGrantsItemVisitorIdentity(t *testin
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentity
+		var obj *GrantsGetResponseGrantVisitorIdentity
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsList200ResponseGrantsItemVisitorIdentityFields(t *testing.T) {
+func TestExtraPropertiesGrantsGetResponseGrantVisitorIdentityFields(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsList200ResponseGrantsItemVisitorIdentityFields{}
+		obj := &GrantsGetResponseGrantVisitorIdentityFields{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19582,16 +19491,16 @@ func TestExtraPropertiesGrantsList200ResponseGrantsItemVisitorIdentityFields(t *
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsList200ResponseGrantsItemVisitorIdentityFields
+		var obj *GrantsGetResponseGrantVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsUpdate200Response(t *testing.T) {
+func TestExtraPropertiesGrantsListResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200Response{}
+		obj := &GrantsListResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19605,16 +19514,16 @@ func TestExtraPropertiesGrantsUpdate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200Response
+		var obj *GrantsListResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsUpdate200ResponseGrant(t *testing.T) {
+func TestExtraPropertiesGrantsListResponseGrantsItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrant{}
+		obj := &GrantsListResponseGrantsItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19628,16 +19537,16 @@ func TestExtraPropertiesGrantsUpdate200ResponseGrant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrant
+		var obj *GrantsListResponseGrantsItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T) {
+func TestExtraPropertiesGrantsListResponseGrantsItemVisitorIdentity(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentity{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentity{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19651,16 +19560,16 @@ func TestExtraPropertiesGrantsUpdate200ResponseGrantVisitorIdentity(t *testing.T
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentity
+		var obj *GrantsListResponseGrantsItemVisitorIdentity
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesGrantsUpdate200ResponseGrantVisitorIdentityFields(t *testing.T) {
+func TestExtraPropertiesGrantsListResponseGrantsItemVisitorIdentityFields(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &GrantsUpdate200ResponseGrantVisitorIdentityFields{}
+		obj := &GrantsListResponseGrantsItemVisitorIdentityFields{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -19674,7 +19583,7 @@ func TestExtraPropertiesGrantsUpdate200ResponseGrantVisitorIdentityFields(t *tes
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *GrantsUpdate200ResponseGrantVisitorIdentityFields
+		var obj *GrantsListResponseGrantsItemVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -19721,6 +19630,98 @@ func TestExtraPropertiesGrantsUpdateRequestVisitorIdentityFields(t *testing.T) {
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *GrantsUpdateRequestVisitorIdentityFields
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesGrantsUpdateResponse(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponse{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponse
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesGrantsUpdateResponseGrant(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrant{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrant
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesGrantsUpdateResponseGrantVisitorIdentity(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrantVisitorIdentity{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrantVisitorIdentity
+		extraProps := obj.GetExtraProperties()
+		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
+	})
+}
+
+func TestExtraPropertiesGrantsUpdateResponseGrantVisitorIdentityFields(t *testing.T) {
+	t.Run("GetExtraProperties", func(t *testing.T) {
+		t.Parallel()
+		obj := &GrantsUpdateResponseGrantVisitorIdentityFields{}
+		// Should not panic when calling GetExtraProperties()
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("GetExtraProperties() panicked: %v", r)
+			}
+		}()
+		extraProps := obj.GetExtraProperties()
+		// Result can be nil or an empty/non-empty map
+		_ = extraProps
+	})
+
+	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *GrantsUpdateResponseGrantVisitorIdentityFields
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

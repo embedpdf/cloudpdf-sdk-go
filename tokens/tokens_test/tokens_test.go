@@ -97,7 +97,7 @@ func TestTokensIssueWithWireMock(
 				Scope: []string{
 					"scope",
 				},
-				ExpiresIn: 1,
+				ExpiresInSeconds: 1,
 			},
 		},
 	}

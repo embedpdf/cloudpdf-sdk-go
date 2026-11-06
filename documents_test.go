@@ -7,6 +7,7 @@ import (
 	assert "github.com/stretchr/testify/assert"
 	require "github.com/stretchr/testify/require"
 	testing "testing"
+	time "time"
 )
 
 func TestSettersDocumentsCommitRequest(t *testing.T) {
@@ -18,11 +19,11 @@ func TestSettersDocumentsCommitRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &DocumentsCommitRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -68,14 +69,14 @@ func TestSettersMarkExplicitDocumentsCommitRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsCommitRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -141,11 +142,11 @@ func TestSettersDeleteDocumentsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &DeleteDocumentsRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -183,14 +184,14 @@ func TestSettersMarkExplicitDeleteDocumentsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeleteDocumentsRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -225,11 +226,11 @@ func TestSettersDownloadDocumentsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &DownloadDocumentsRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -267,14 +268,14 @@ func TestSettersMarkExplicitDownloadDocumentsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DownloadDocumentsRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -309,11 +310,11 @@ func TestSettersGetDocumentsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &GetDocumentsRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -351,14 +352,14 @@ func TestSettersMarkExplicitGetDocumentsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GetDocumentsRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -789,11 +790,11 @@ func TestSettersDocumentsInitRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetContentLength", func(t *testing.T) {
+	t.Run("SetSizeBytes", func(t *testing.T) {
 		obj := &DocumentsInitRequest{}
-		var fernTestValueContentLength float64
-		obj.SetContentLength(fernTestValueContentLength)
-		assert.Equal(t, fernTestValueContentLength, obj.ContentLength)
+		var fernTestValueSizeBytes int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -853,11 +854,11 @@ func TestSettersDocumentsInitRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetUploadTTLSec", func(t *testing.T) {
+	t.Run("SetUploadTTLSeconds", func(t *testing.T) {
 		obj := &DocumentsInitRequest{}
-		var fernTestValueUploadTTLSec *float64
-		obj.SetUploadTTLSec(fernTestValueUploadTTLSec)
-		assert.Equal(t, fernTestValueUploadTTLSec, obj.UploadTTLSec)
+		var fernTestValueUploadTTLSeconds *int
+		obj.SetUploadTTLSeconds(fernTestValueUploadTTLSeconds)
+		assert.Equal(t, fernTestValueUploadTTLSeconds, obj.UploadTTLSeconds)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -903,14 +904,14 @@ func TestSettersMarkExplicitDocumentsInitRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetContentLength_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsInitRequest{}
-		var fernTestValueContentLength float64
+		var fernTestValueSizeBytes int
 
 		// Act
-		obj.SetContentLength(fernTestValueContentLength)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1151,14 +1152,14 @@ func TestSettersMarkExplicitDocumentsInitRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetUploadTTLSec_MarksExplicit", func(t *testing.T) {
+	t.Run("SetUploadTTLSeconds_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsInitRequest{}
-		var fernTestValueUploadTTLSec *float64
+		var fernTestValueUploadTTLSeconds *int
 
 		// Act
-		obj.SetUploadTTLSec(fernTestValueUploadTTLSec)
+		obj.SetUploadTTLSeconds(fernTestValueUploadTTLSeconds)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1542,11 +1543,11 @@ func TestSettersThumbnailDocumentsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &ThumbnailDocumentsRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1584,14 +1585,14 @@ func TestSettersMarkExplicitThumbnailDocumentsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ThumbnailDocumentsRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1617,10 +1618,10 @@ func TestSettersMarkExplicitThumbnailDocumentsRequest(t *testing.T) {
 
 }
 
-func TestSettersDocumentsCommit200Response(t *testing.T) {
+func TestSettersDocumentsCommitResponse(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsCommit200Response{}
-		var fernTestValueDocument *DocumentsCommit200ResponseDocument
+		obj := &DocumentsCommitResponse{}
+		var fernTestValueDocument *DocumentsCommitResponseDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
@@ -1628,12 +1629,12 @@ func TestSettersDocumentsCommit200Response(t *testing.T) {
 
 }
 
-func TestGettersDocumentsCommit200Response(t *testing.T) {
+func TestGettersDocumentsCommitResponse(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200Response{}
-		var expected *DocumentsCommit200ResponseDocument
+		obj := &DocumentsCommitResponse{}
+		var expected *DocumentsCommitResponseDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -1643,7 +1644,7 @@ func TestGettersDocumentsCommit200Response(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200Response{}
+		obj := &DocumentsCommitResponse{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -1652,7 +1653,7 @@ func TestGettersDocumentsCommit200Response(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200Response
+		var obj *DocumentsCommitResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1664,12 +1665,12 @@ func TestGettersDocumentsCommit200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsCommit200Response(t *testing.T) {
+func TestSettersMarkExplicitDocumentsCommitResponse(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200Response{}
-		var fernTestValueDocument *DocumentsCommit200ResponseDocument
+		obj := &DocumentsCommitResponse{}
+		var fernTestValueDocument *DocumentsCommitResponseDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -1698,9 +1699,9 @@ func TestSettersMarkExplicitDocumentsCommit200Response(t *testing.T) {
 
 }
 
-func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestSettersDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1708,7 +1709,7 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -1716,7 +1717,7 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1724,7 +1725,7 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -1732,31 +1733,31 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueState DocumentsCommit200ResponseDocumentState
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueState DocumentsCommitResponseDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -1764,7 +1765,7 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -1772,7 +1773,7 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -1780,15 +1781,15 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsCommit200ResponseDocumentThumbnailState
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueThumbnailState DocumentsCommitResponseDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -1796,23 +1797,23 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -1821,11 +1822,11 @@ func TestSettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestGettersDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -1835,7 +1836,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1848,7 +1849,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -1858,7 +1859,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1871,7 +1872,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -1881,7 +1882,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1894,7 +1895,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -1904,7 +1905,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1917,8 +1918,8 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var expected DocumentsCommit200ResponseDocumentState
+		obj := &DocumentsCommitResponseDocument{}
+		var expected DocumentsCommitResponseDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -1927,7 +1928,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1937,76 +1938,76 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsCommitResponseDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsCommitResponseDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsCommitResponseDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -2017,7 +2018,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -2026,7 +2027,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2039,7 +2040,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -2050,7 +2051,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -2059,7 +2060,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2072,7 +2073,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -2083,7 +2084,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -2092,7 +2093,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2105,27 +2106,17 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var expected *DocumentsCommit200ResponseDocumentThumbnailState
+		obj := &DocumentsCommitResponseDocument{}
+		var expected DocumentsCommitResponseDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2138,7 +2129,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -2149,7 +2140,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -2158,7 +2149,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2171,8 +2162,8 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsCommitResponseDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -2181,7 +2172,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2194,8 +2185,8 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsCommitResponseDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -2204,7 +2195,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2217,7 +2208,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -2228,7 +2219,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -2237,7 +2228,7 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2249,11 +2240,11 @@ func TestGettersDocumentsCommit200ResponseDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -2284,7 +2275,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -2315,7 +2306,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -2346,7 +2337,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -2377,8 +2368,8 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueState DocumentsCommit200ResponseDocumentState
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueState DocumentsCommitResponseDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -2405,14 +2396,14 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -2436,14 +2427,14 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -2470,7 +2461,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -2501,7 +2492,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -2532,7 +2523,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -2563,8 +2554,8 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsCommit200ResponseDocumentThumbnailState
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueThumbnailState DocumentsCommitResponseDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -2594,7 +2585,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -2625,8 +2616,8 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -2656,8 +2647,8 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsCommitResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -2687,7 +2678,7 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -2717,10 +2708,10 @@ func TestSettersMarkExplicitDocumentsCommit200ResponseDocument(t *testing.T) {
 
 }
 
-func TestSettersDocumentsGet200Response(t *testing.T) {
+func TestSettersDocumentsGetResponse(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsGet200Response{}
-		var fernTestValueDocument *DocumentsGet200ResponseDocument
+		obj := &DocumentsGetResponse{}
+		var fernTestValueDocument *DocumentsGetResponseDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
@@ -2728,12 +2719,12 @@ func TestSettersDocumentsGet200Response(t *testing.T) {
 
 }
 
-func TestGettersDocumentsGet200Response(t *testing.T) {
+func TestGettersDocumentsGetResponse(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200Response{}
-		var expected *DocumentsGet200ResponseDocument
+		obj := &DocumentsGetResponse{}
+		var expected *DocumentsGetResponseDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -2743,7 +2734,7 @@ func TestGettersDocumentsGet200Response(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200Response{}
+		obj := &DocumentsGetResponse{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -2752,7 +2743,7 @@ func TestGettersDocumentsGet200Response(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200Response
+		var obj *DocumentsGetResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2764,12 +2755,12 @@ func TestGettersDocumentsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsGet200Response(t *testing.T) {
+func TestSettersMarkExplicitDocumentsGetResponse(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200Response{}
-		var fernTestValueDocument *DocumentsGet200ResponseDocument
+		obj := &DocumentsGetResponse{}
+		var fernTestValueDocument *DocumentsGetResponseDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -2798,9 +2789,9 @@ func TestSettersMarkExplicitDocumentsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
+func TestSettersDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -2808,7 +2799,7 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -2816,7 +2807,7 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -2824,7 +2815,7 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -2832,31 +2823,31 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueState DocumentsGet200ResponseDocumentState
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueState DocumentsGetResponseDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -2864,7 +2855,7 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -2872,7 +2863,7 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -2880,15 +2871,15 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsGet200ResponseDocumentThumbnailState
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueThumbnailState DocumentsGetResponseDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -2896,23 +2887,23 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -2921,11 +2912,11 @@ func TestSettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
+func TestGettersDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -2935,7 +2926,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2948,7 +2939,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -2958,7 +2949,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2971,7 +2962,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -2981,7 +2972,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2994,7 +2985,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -3004,7 +2995,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3017,8 +3008,8 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var expected DocumentsGet200ResponseDocumentState
+		obj := &DocumentsGetResponseDocument{}
+		var expected DocumentsGetResponseDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -3027,7 +3018,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3037,76 +3028,76 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsGetResponseDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsGetResponseDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsGetResponseDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -3117,7 +3108,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -3126,7 +3117,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3139,7 +3130,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -3150,7 +3141,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -3159,7 +3150,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3172,7 +3163,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -3183,7 +3174,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -3192,7 +3183,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3205,27 +3196,17 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var expected *DocumentsGet200ResponseDocumentThumbnailState
+		obj := &DocumentsGetResponseDocument{}
+		var expected DocumentsGetResponseDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3238,7 +3219,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -3249,7 +3230,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -3258,7 +3239,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3271,8 +3252,8 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsGetResponseDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -3281,7 +3262,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3294,8 +3275,8 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsGetResponseDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -3304,7 +3285,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3317,7 +3298,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -3328,7 +3309,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -3337,7 +3318,7 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -3349,11 +3330,11 @@ func TestGettersDocumentsGet200ResponseDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -3384,7 +3365,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -3415,7 +3396,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -3446,7 +3427,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -3477,8 +3458,8 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueState DocumentsGet200ResponseDocumentState
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueState DocumentsGetResponseDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -3505,14 +3486,14 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -3536,14 +3517,14 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -3570,7 +3551,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -3601,7 +3582,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -3632,7 +3613,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -3663,8 +3644,8 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsGet200ResponseDocumentThumbnailState
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueThumbnailState DocumentsGetResponseDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -3694,7 +3675,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -3725,8 +3706,8 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -3756,8 +3737,8 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsGetResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -3787,7 +3768,7 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -3818,11 +3799,11 @@ func TestSettersMarkExplicitDocumentsGet200ResponseDocument(t *testing.T) {
 }
 
 func TestSettersDocumentsImportFrom200Response(t *testing.T) {
-	t.Run("SetTag", func(t *testing.T) {
+	t.Run("SetStatus", func(t *testing.T) {
 		obj := &DocumentsImportFrom200Response{}
-		var fernTestValueTag DocumentsImportFrom200ResponseTag
-		obj.SetTag(fernTestValueTag)
-		assert.Equal(t, fernTestValueTag, obj.Tag)
+		var fernTestValueStatus DocumentsImportFrom200ResponseStatus
+		obj.SetStatus(fernTestValueStatus)
+		assert.Equal(t, fernTestValueStatus, obj.Status)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -3837,18 +3818,18 @@ func TestSettersDocumentsImportFrom200Response(t *testing.T) {
 }
 
 func TestGettersDocumentsImportFrom200Response(t *testing.T) {
-	t.Run("GetTag", func(t *testing.T) {
+	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200Response{}
-		var expected DocumentsImportFrom200ResponseTag
-		obj.Tag = expected
+		var expected DocumentsImportFrom200ResponseStatus
+		obj.Status = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetTag(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetStatus(), "getter should return the property value")
 	})
 
-	t.Run("GetTag_NilReceiver", func(t *testing.T) {
+	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *DocumentsImportFrom200Response
 		// Should not panic - getters should handle nil receiver gracefully
@@ -3857,7 +3838,7 @@ func TestGettersDocumentsImportFrom200Response(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetTag() // Should return zero value
+		_ = obj.GetStatus() // Should return zero value
 	})
 
 	t.Run("GetDocument", func(t *testing.T) {
@@ -3896,14 +3877,14 @@ func TestGettersDocumentsImportFrom200Response(t *testing.T) {
 }
 
 func TestSettersMarkExplicitDocumentsImportFrom200Response(t *testing.T) {
-	t.Run("SetTag_MarksExplicit", func(t *testing.T) {
+	t.Run("SetStatus_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200Response{}
-		var fernTestValueTag DocumentsImportFrom200ResponseTag
+		var fernTestValueStatus DocumentsImportFrom200ResponseStatus
 
 		// Act
-		obj.SetTag(fernTestValueTag)
+		obj.SetStatus(fernTestValueStatus)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -4001,19 +3982,19 @@ func TestSettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
+	t.Run("SetBaseSha256", func(t *testing.T) {
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
+	t.Run("SetSizeBytes", func(t *testing.T) {
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -4043,7 +4024,7 @@ func TestSettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsImportFrom200ResponseDocumentThumbnailState
+		var fernTestValueThumbnailState DocumentsImportFrom200ResponseDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
@@ -4059,7 +4040,7 @@ func TestSettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -4067,7 +4048,7 @@ func TestSettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -4199,28 +4180,28 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		obj.BaseSha = nil
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *DocumentsImportFrom200ResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
@@ -4229,31 +4210,31 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		obj.StorageSizeBytes = nil
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
 		var obj *DocumentsImportFrom200ResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
@@ -4262,7 +4243,7 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
@@ -4368,21 +4349,11 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var expected *DocumentsImportFrom200ResponseDocumentThumbnailState
+		var expected DocumentsImportFrom200ResponseDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
-	})
-
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsImportFrom200ResponseDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
@@ -4434,7 +4405,7 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var expected float64
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -4457,7 +4428,7 @@ func TestGettersDocumentsImportFrom200ResponseDocument(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var expected float64
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -4667,14 +4638,14 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueBaseSha *string
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -4698,14 +4669,14 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -4826,7 +4797,7 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsImportFrom200ResponseDocumentThumbnailState
+		var fernTestValueThumbnailState DocumentsImportFrom200ResponseDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -4888,7 +4859,7 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -4919,7 +4890,7 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsImportFrom200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -4979,35 +4950,35 @@ func TestSettersMarkExplicitDocumentsImportFrom200ResponseDocument(t *testing.T)
 
 }
 
-func TestGettersDocumentsInit200Response(t *testing.T) {
-	t.Run("GetTag", func(t *testing.T) {
+func TestGettersDocumentsInitResponse(t *testing.T) {
+	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
+		obj := &DocumentsInitResponse{}
 		var expected string
-		obj.Tag = expected
+		obj.Status = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetTag(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetStatus(), "getter should return the property value")
 	})
 
-	t.Run("GetTag_NilReceiver", func(t *testing.T) {
+	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200Response
+		var obj *DocumentsInitResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetTag() // Should return zero value
+		_ = obj.GetStatus() // Should return zero value
 	})
 
 	t.Run("GetCreated", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
-		var expected *DocumentsInit200ResponseCreated
+		obj := &DocumentsInitResponse{}
+		var expected *DocumentsInitResponseCreated
 		obj.Created = expected
 
 		// Act & Assert
@@ -5017,7 +4988,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 	t.Run("GetCreated_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
+		obj := &DocumentsInitResponse{}
 		obj.Created = nil
 
 		// Act & Assert
@@ -5026,7 +4997,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 
 	t.Run("GetCreated_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200Response
+		var obj *DocumentsInitResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5039,8 +5010,8 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 	t.Run("GetResumed", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
-		var expected *DocumentsInit200ResponseResumed
+		obj := &DocumentsInitResponse{}
+		var expected *DocumentsInitResponseResumed
 		obj.Resumed = expected
 
 		// Act & Assert
@@ -5050,7 +5021,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 	t.Run("GetResumed_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
+		obj := &DocumentsInitResponse{}
 		obj.Resumed = nil
 
 		// Act & Assert
@@ -5059,7 +5030,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 
 	t.Run("GetResumed_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200Response
+		var obj *DocumentsInitResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5072,8 +5043,8 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 	t.Run("GetDeduped", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
-		var expected *DocumentsInit200ResponseDeduped
+		obj := &DocumentsInitResponse{}
+		var expected *DocumentsInitResponseDeduped
 		obj.Deduped = expected
 
 		// Act & Assert
@@ -5083,7 +5054,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 	t.Run("GetDeduped_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200Response{}
+		obj := &DocumentsInitResponse{}
 		obj.Deduped = nil
 
 		// Act & Assert
@@ -5092,7 +5063,7 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 
 	t.Run("GetDeduped_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200Response
+		var obj *DocumentsInitResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5104,18 +5075,18 @@ func TestGettersDocumentsInit200Response(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseCreated(t *testing.T) {
+func TestSettersDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreated{}
-		var fernTestValueDocument *DocumentsInit200ResponseCreatedDocument
+		obj := &DocumentsInitResponseCreated{}
+		var fernTestValueDocument *DocumentsInitResponseCreatedDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpload", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreated{}
-		var fernTestValueUpload *DocumentsInit200ResponseCreatedUpload
+		obj := &DocumentsInitResponseCreated{}
+		var fernTestValueUpload *DocumentsInitResponseCreatedUpload
 		obj.SetUpload(fernTestValueUpload)
 		assert.Equal(t, fernTestValueUpload, obj.Upload)
 		assert.NotNil(t, obj.explicitFields)
@@ -5123,12 +5094,12 @@ func TestSettersDocumentsInit200ResponseCreated(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
+func TestGettersDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
-		var expected *DocumentsInit200ResponseCreatedDocument
+		obj := &DocumentsInitResponseCreated{}
+		var expected *DocumentsInitResponseCreatedDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -5138,7 +5109,7 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
+		obj := &DocumentsInitResponseCreated{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -5147,7 +5118,7 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreated
+		var obj *DocumentsInitResponseCreated
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5160,8 +5131,8 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 	t.Run("GetUpload", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
-		var expected *DocumentsInit200ResponseCreatedUpload
+		obj := &DocumentsInitResponseCreated{}
+		var expected *DocumentsInitResponseCreatedUpload
 		obj.Upload = expected
 
 		// Act & Assert
@@ -5171,7 +5142,7 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 	t.Run("GetUpload_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
+		obj := &DocumentsInitResponseCreated{}
 		obj.Upload = nil
 
 		// Act & Assert
@@ -5180,7 +5151,7 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 
 	t.Run("GetUpload_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreated
+		var obj *DocumentsInitResponseCreated
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5192,12 +5163,12 @@ func TestGettersDocumentsInit200ResponseCreated(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseCreated(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
-		var fernTestValueDocument *DocumentsInit200ResponseCreatedDocument
+		obj := &DocumentsInitResponseCreated{}
+		var fernTestValueDocument *DocumentsInitResponseCreatedDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -5227,8 +5198,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreated(t *testing.T) {
 	t.Run("SetUpload_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
-		var fernTestValueUpload *DocumentsInit200ResponseCreatedUpload
+		obj := &DocumentsInitResponseCreated{}
+		var fernTestValueUpload *DocumentsInitResponseCreatedUpload
 
 		// Act
 		obj.SetUpload(fernTestValueUpload)
@@ -5257,9 +5228,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreated(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestSettersDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -5267,7 +5238,7 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -5275,7 +5246,7 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -5283,7 +5254,7 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -5291,31 +5262,31 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueState DocumentsInit200ResponseCreatedDocumentState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueState DocumentsInitResponseCreatedDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -5323,7 +5294,7 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -5331,7 +5302,7 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -5339,15 +5310,15 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseCreatedDocumentThumbnailState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseCreatedDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -5355,23 +5326,23 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -5380,11 +5351,11 @@ func TestSettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestGettersDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -5394,7 +5365,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5407,7 +5378,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -5417,7 +5388,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5430,7 +5401,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -5440,7 +5411,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5453,7 +5424,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -5463,7 +5434,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5476,8 +5447,8 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var expected DocumentsInit200ResponseCreatedDocumentState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var expected DocumentsInitResponseCreatedDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -5486,7 +5457,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5496,76 +5467,76 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsInitResponseCreatedDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsInitResponseCreatedDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -5576,7 +5547,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -5585,7 +5556,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5598,7 +5569,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -5609,7 +5580,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -5618,7 +5589,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5631,7 +5602,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -5642,7 +5613,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -5651,7 +5622,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5664,27 +5635,17 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var expected *DocumentsInit200ResponseCreatedDocumentThumbnailState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var expected DocumentsInitResponseCreatedDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5697,7 +5658,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -5708,7 +5669,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -5717,7 +5678,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5730,8 +5691,8 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -5740,7 +5701,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5753,8 +5714,8 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -5763,7 +5724,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5776,7 +5737,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -5787,7 +5748,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -5796,7 +5757,7 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -5808,11 +5769,11 @@ func TestGettersDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -5843,7 +5804,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -5874,7 +5835,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -5905,7 +5866,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -5936,8 +5897,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueState DocumentsInit200ResponseCreatedDocumentState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueState DocumentsInitResponseCreatedDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -5964,14 +5925,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -5995,14 +5956,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -6029,7 +5990,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -6060,7 +6021,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -6091,7 +6052,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -6122,8 +6083,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseCreatedDocumentThumbnailState
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseCreatedDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -6153,7 +6114,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -6184,8 +6145,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -6215,8 +6176,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseCreatedDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -6246,7 +6207,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -6276,11 +6237,11 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedDocument(t *testing.T
 
 }
 
-func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
+func TestGettersDocumentsInitResponseCreatedUpload(t *testing.T) {
 	t.Run("GetKind", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUpload{}
+		obj := &DocumentsInitResponseCreatedUpload{}
 		var expected string
 		obj.Kind = expected
 
@@ -6290,7 +6251,7 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 
 	t.Run("GetKind_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUpload
+		var obj *DocumentsInitResponseCreatedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6303,8 +6264,8 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 	t.Run("GetPresigned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUpload{}
-		var expected *DocumentsInit200ResponseCreatedUploadPresigned
+		obj := &DocumentsInitResponseCreatedUpload{}
+		var expected *DocumentsInitResponseCreatedUploadPresigned
 		obj.Presigned = expected
 
 		// Act & Assert
@@ -6314,7 +6275,7 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 	t.Run("GetPresigned_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUpload{}
+		obj := &DocumentsInitResponseCreatedUpload{}
 		obj.Presigned = nil
 
 		// Act & Assert
@@ -6323,7 +6284,7 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 
 	t.Run("GetPresigned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUpload
+		var obj *DocumentsInitResponseCreatedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6336,8 +6297,8 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 	t.Run("GetProxy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUpload{}
-		var expected *DocumentsInit200ResponseCreatedUploadProxy
+		obj := &DocumentsInitResponseCreatedUpload{}
+		var expected *DocumentsInitResponseCreatedUploadProxy
 		obj.Proxy = expected
 
 		// Act & Assert
@@ -6347,7 +6308,7 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 	t.Run("GetProxy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUpload{}
+		obj := &DocumentsInitResponseCreatedUpload{}
 		obj.Proxy = nil
 
 		// Act & Assert
@@ -6356,7 +6317,7 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 
 	t.Run("GetProxy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUpload
+		var obj *DocumentsInitResponseCreatedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6368,17 +6329,17 @@ func TestGettersDocumentsInit200ResponseCreatedUpload(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestSettersDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("SetPresigned", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
-		var fernTestValuePresigned *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
+		var fernTestValuePresigned *DocumentsInitResponseCreatedUploadPresignedPresigned
 		obj.SetPresigned(fernTestValuePresigned)
 		assert.Equal(t, fernTestValuePresigned, obj.Presigned)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		var fernTestValueKey string
 		obj.SetKey(fernTestValueKey)
 		assert.Equal(t, fernTestValueKey, obj.Key)
@@ -6387,12 +6348,12 @@ func TestSettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestGettersDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("GetPresigned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
-		var expected *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
+		var expected *DocumentsInitResponseCreatedUploadPresignedPresigned
 		obj.Presigned = expected
 
 		// Act & Assert
@@ -6402,7 +6363,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("GetPresigned_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		obj.Presigned = nil
 
 		// Act & Assert
@@ -6411,7 +6372,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 
 	t.Run("GetPresigned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6424,7 +6385,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("GetKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		var expected string
 		obj.Key = expected
 
@@ -6434,7 +6395,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 
 	t.Run("GetKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6446,12 +6407,12 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("SetPresigned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
-		var fernTestValuePresigned *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
+		var fernTestValuePresigned *DocumentsInitResponseCreatedUploadPresignedPresigned
 
 		// Act
 		obj.SetPresigned(fernTestValuePresigned)
@@ -6481,7 +6442,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresigned(t *te
 	t.Run("SetKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		var fernTestValueKey string
 
 		// Act
@@ -6511,9 +6472,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresigned(t *te
 
 }
 
-func TestSettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestSettersDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("SetURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var fernTestValueURL string
 		obj.SetURL(fernTestValueURL)
 		assert.Equal(t, fernTestValueURL, obj.URL)
@@ -6521,7 +6482,7 @@ func TestSettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	})
 
 	t.Run("SetHeaders", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var fernTestValueHeaders map[string]string
 		obj.SetHeaders(fernTestValueHeaders)
 		assert.Equal(t, fernTestValueHeaders, obj.Headers)
@@ -6529,16 +6490,16 @@ func TestSettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	})
 
 	t.Run("SetMethod", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var fernTestValueMethod DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var fernTestValueMethod DocumentsInitResponseCreatedUploadPresignedPresignedMethod
 		obj.SetMethod(fernTestValueMethod)
 		assert.Equal(t, fernTestValueMethod, obj.Method)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var fernTestValueExpiresAt float64
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var fernTestValueExpiresAt time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -6546,11 +6507,11 @@ func TestSettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 }
 
-func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestGettersDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("GetURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var expected string
 		obj.URL = expected
 
@@ -6560,7 +6521,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 	t.Run("GetURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6573,7 +6534,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	t.Run("GetHeaders", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var expected map[string]string
 		obj.Headers = expected
 
@@ -6584,7 +6545,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	t.Run("GetHeaders_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		obj.Headers = nil
 
 		// Act & Assert
@@ -6593,7 +6554,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 	t.Run("GetHeaders_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6606,8 +6567,8 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	t.Run("GetMethod", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var expected DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var expected DocumentsInitResponseCreatedUploadPresignedPresignedMethod
 		obj.Method = expected
 
 		// Act & Assert
@@ -6616,7 +6577,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 	t.Run("GetMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6629,8 +6590,8 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var expected float64
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var expected time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -6639,7 +6600,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6651,11 +6612,11 @@ func TestGettersDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testi
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("SetURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var fernTestValueURL string
 
 		// Act
@@ -6686,7 +6647,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresignedPresig
 	t.Run("SetHeaders_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		var fernTestValueHeaders map[string]string
 
 		// Act
@@ -6717,8 +6678,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresignedPresig
 	t.Run("SetMethod_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var fernTestValueMethod DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var fernTestValueMethod DocumentsInitResponseCreatedUploadPresignedPresignedMethod
 
 		// Act
 		obj.SetMethod(fernTestValueMethod)
@@ -6748,8 +6709,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresignedPresig
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
-		var fernTestValueExpiresAt float64
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
+		var fernTestValueExpiresAt time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -6778,9 +6739,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadPresignedPresig
 
 }
 
-func TestSettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestSettersDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("SetURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var fernTestValueURL string
 		obj.SetURL(fernTestValueURL)
 		assert.Equal(t, fernTestValueURL, obj.URL)
@@ -6788,7 +6749,7 @@ func TestSettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 	})
 
 	t.Run("SetKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var fernTestValueKey string
 		obj.SetKey(fernTestValueKey)
 		assert.Equal(t, fernTestValueKey, obj.Key)
@@ -6797,11 +6758,11 @@ func TestSettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestGettersDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("GetURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var expected string
 		obj.URL = expected
 
@@ -6811,7 +6772,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 
 	t.Run("GetURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadProxy
+		var obj *DocumentsInitResponseCreatedUploadProxy
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6824,7 +6785,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("GetKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var expected string
 		obj.Key = expected
 
@@ -6834,7 +6795,7 @@ func TestGettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 
 	t.Run("GetKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadProxy
+		var obj *DocumentsInitResponseCreatedUploadProxy
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6846,11 +6807,11 @@ func TestGettersDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("SetURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var fernTestValueURL string
 
 		// Act
@@ -6881,7 +6842,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadProxy(t *testin
 	t.Run("SetKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		var fernTestValueKey string
 
 		// Act
@@ -6911,10 +6872,10 @@ func TestSettersMarkExplicitDocumentsInit200ResponseCreatedUploadProxy(t *testin
 
 }
 
-func TestSettersDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestSettersDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDeduped{}
-		var fernTestValueDocument *DocumentsInit200ResponseDedupedDocument
+		obj := &DocumentsInitResponseDeduped{}
+		var fernTestValueDocument *DocumentsInitResponseDedupedDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
@@ -6922,12 +6883,12 @@ func TestSettersDocumentsInit200ResponseDeduped(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestGettersDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDeduped{}
-		var expected *DocumentsInit200ResponseDedupedDocument
+		obj := &DocumentsInitResponseDeduped{}
+		var expected *DocumentsInitResponseDedupedDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -6937,7 +6898,7 @@ func TestGettersDocumentsInit200ResponseDeduped(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDeduped{}
+		obj := &DocumentsInitResponseDeduped{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -6946,7 +6907,7 @@ func TestGettersDocumentsInit200ResponseDeduped(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDeduped
+		var obj *DocumentsInitResponseDeduped
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -6958,12 +6919,12 @@ func TestGettersDocumentsInit200ResponseDeduped(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDeduped{}
-		var fernTestValueDocument *DocumentsInit200ResponseDedupedDocument
+		obj := &DocumentsInitResponseDeduped{}
+		var fernTestValueDocument *DocumentsInitResponseDedupedDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -6992,9 +6953,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDeduped(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestSettersDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -7002,7 +6963,7 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -7010,7 +6971,7 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -7018,7 +6979,7 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -7026,31 +6987,31 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueState DocumentsInit200ResponseDedupedDocumentState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueState DocumentsInitResponseDedupedDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -7058,7 +7019,7 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -7066,7 +7027,7 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -7074,15 +7035,15 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseDedupedDocumentThumbnailState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseDedupedDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -7090,23 +7051,23 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -7115,11 +7076,11 @@ func TestSettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestGettersDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -7129,7 +7090,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7142,7 +7103,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -7152,7 +7113,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7165,7 +7126,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -7175,7 +7136,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7188,7 +7149,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -7198,7 +7159,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7211,8 +7172,8 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var expected DocumentsInit200ResponseDedupedDocumentState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var expected DocumentsInitResponseDedupedDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -7221,7 +7182,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7231,76 +7192,76 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsInitResponseDedupedDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsInitResponseDedupedDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -7311,7 +7272,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -7320,7 +7281,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7333,7 +7294,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -7344,7 +7305,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -7353,7 +7314,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7366,7 +7327,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -7377,7 +7338,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -7386,7 +7347,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7399,27 +7360,17 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var expected *DocumentsInit200ResponseDedupedDocumentThumbnailState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var expected DocumentsInitResponseDedupedDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7432,7 +7383,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -7443,7 +7394,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -7452,7 +7403,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7465,8 +7416,8 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -7475,7 +7426,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7488,8 +7439,8 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -7498,7 +7449,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7511,7 +7462,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -7522,7 +7473,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -7531,7 +7482,7 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -7543,11 +7494,11 @@ func TestGettersDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -7578,7 +7529,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -7609,7 +7560,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -7640,7 +7591,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -7671,8 +7622,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueState DocumentsInit200ResponseDedupedDocumentState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueState DocumentsInitResponseDedupedDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -7699,14 +7650,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -7730,14 +7681,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -7764,7 +7715,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -7795,7 +7746,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -7826,7 +7777,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -7857,8 +7808,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseDedupedDocumentThumbnailState
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseDedupedDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -7888,7 +7839,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -7919,8 +7870,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -7950,8 +7901,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseDedupedDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -7981,7 +7932,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -8011,18 +7962,18 @@ func TestSettersMarkExplicitDocumentsInit200ResponseDedupedDocument(t *testing.T
 
 }
 
-func TestSettersDocumentsInit200ResponseResumed(t *testing.T) {
+func TestSettersDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumed{}
-		var fernTestValueDocument *DocumentsInit200ResponseResumedDocument
+		obj := &DocumentsInitResponseResumed{}
+		var fernTestValueDocument *DocumentsInitResponseResumedDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpload", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumed{}
-		var fernTestValueUpload *DocumentsInit200ResponseResumedUpload
+		obj := &DocumentsInitResponseResumed{}
+		var fernTestValueUpload *DocumentsInitResponseResumedUpload
 		obj.SetUpload(fernTestValueUpload)
 		assert.Equal(t, fernTestValueUpload, obj.Upload)
 		assert.NotNil(t, obj.explicitFields)
@@ -8030,12 +7981,12 @@ func TestSettersDocumentsInit200ResponseResumed(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
+func TestGettersDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
-		var expected *DocumentsInit200ResponseResumedDocument
+		obj := &DocumentsInitResponseResumed{}
+		var expected *DocumentsInitResponseResumedDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -8045,7 +7996,7 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
+		obj := &DocumentsInitResponseResumed{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -8054,7 +8005,7 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumed
+		var obj *DocumentsInitResponseResumed
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8067,8 +8018,8 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 	t.Run("GetUpload", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
-		var expected *DocumentsInit200ResponseResumedUpload
+		obj := &DocumentsInitResponseResumed{}
+		var expected *DocumentsInitResponseResumedUpload
 		obj.Upload = expected
 
 		// Act & Assert
@@ -8078,7 +8029,7 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 	t.Run("GetUpload_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
+		obj := &DocumentsInitResponseResumed{}
 		obj.Upload = nil
 
 		// Act & Assert
@@ -8087,7 +8038,7 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 
 	t.Run("GetUpload_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumed
+		var obj *DocumentsInitResponseResumed
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8099,12 +8050,12 @@ func TestGettersDocumentsInit200ResponseResumed(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseResumed(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
-		var fernTestValueDocument *DocumentsInit200ResponseResumedDocument
+		obj := &DocumentsInitResponseResumed{}
+		var fernTestValueDocument *DocumentsInitResponseResumedDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -8134,8 +8085,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumed(t *testing.T) {
 	t.Run("SetUpload_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
-		var fernTestValueUpload *DocumentsInit200ResponseResumedUpload
+		obj := &DocumentsInitResponseResumed{}
+		var fernTestValueUpload *DocumentsInitResponseResumedUpload
 
 		// Act
 		obj.SetUpload(fernTestValueUpload)
@@ -8164,9 +8115,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumed(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestSettersDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -8174,7 +8125,7 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -8182,7 +8133,7 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -8190,7 +8141,7 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -8198,31 +8149,31 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueState DocumentsInit200ResponseResumedDocumentState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueState DocumentsInitResponseResumedDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -8230,7 +8181,7 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -8238,7 +8189,7 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -8246,15 +8197,15 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseResumedDocumentThumbnailState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseResumedDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -8262,23 +8213,23 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -8287,11 +8238,11 @@ func TestSettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestGettersDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -8301,7 +8252,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8314,7 +8265,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -8324,7 +8275,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8337,7 +8288,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -8347,7 +8298,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8360,7 +8311,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -8370,7 +8321,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8383,8 +8334,8 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var expected DocumentsInit200ResponseResumedDocumentState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var expected DocumentsInitResponseResumedDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -8393,7 +8344,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8403,76 +8354,76 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsInitResponseResumedDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsInitResponseResumedDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsInitResponseResumedDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -8483,7 +8434,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -8492,7 +8443,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8505,7 +8456,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -8516,7 +8467,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -8525,7 +8476,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8538,7 +8489,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -8549,7 +8500,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -8558,7 +8509,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8571,27 +8522,17 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var expected *DocumentsInit200ResponseResumedDocumentThumbnailState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var expected DocumentsInitResponseResumedDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8604,7 +8545,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -8615,7 +8556,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -8624,7 +8565,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8637,8 +8578,8 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -8647,7 +8588,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8660,8 +8601,8 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var expected float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -8670,7 +8611,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8683,7 +8624,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -8694,7 +8635,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -8703,7 +8644,7 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -8715,11 +8656,11 @@ func TestGettersDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -8750,7 +8691,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -8781,7 +8722,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -8812,7 +8753,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -8843,8 +8784,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueState DocumentsInit200ResponseResumedDocumentState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueState DocumentsInitResponseResumedDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -8871,14 +8812,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -8902,14 +8843,14 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -8936,7 +8877,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -8967,7 +8908,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -8998,7 +8939,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -9029,8 +8970,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueThumbnailState *DocumentsInit200ResponseResumedDocumentThumbnailState
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueThumbnailState DocumentsInitResponseResumedDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -9060,7 +9001,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -9091,8 +9032,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -9122,8 +9063,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsInitResponseResumedDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -9153,7 +9094,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -9183,11 +9124,11 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedDocument(t *testing.T
 
 }
 
-func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
+func TestGettersDocumentsInitResponseResumedUpload(t *testing.T) {
 	t.Run("GetKind", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUpload{}
+		obj := &DocumentsInitResponseResumedUpload{}
 		var expected string
 		obj.Kind = expected
 
@@ -9197,7 +9138,7 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 
 	t.Run("GetKind_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUpload
+		var obj *DocumentsInitResponseResumedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9210,8 +9151,8 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 	t.Run("GetPresigned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUpload{}
-		var expected *DocumentsInit200ResponseResumedUploadPresigned
+		obj := &DocumentsInitResponseResumedUpload{}
+		var expected *DocumentsInitResponseResumedUploadPresigned
 		obj.Presigned = expected
 
 		// Act & Assert
@@ -9221,7 +9162,7 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 	t.Run("GetPresigned_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUpload{}
+		obj := &DocumentsInitResponseResumedUpload{}
 		obj.Presigned = nil
 
 		// Act & Assert
@@ -9230,7 +9171,7 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 
 	t.Run("GetPresigned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUpload
+		var obj *DocumentsInitResponseResumedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9243,8 +9184,8 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 	t.Run("GetProxy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUpload{}
-		var expected *DocumentsInit200ResponseResumedUploadProxy
+		obj := &DocumentsInitResponseResumedUpload{}
+		var expected *DocumentsInitResponseResumedUploadProxy
 		obj.Proxy = expected
 
 		// Act & Assert
@@ -9254,7 +9195,7 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 	t.Run("GetProxy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUpload{}
+		obj := &DocumentsInitResponseResumedUpload{}
 		obj.Proxy = nil
 
 		// Act & Assert
@@ -9263,7 +9204,7 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 
 	t.Run("GetProxy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUpload
+		var obj *DocumentsInitResponseResumedUpload
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9275,17 +9216,17 @@ func TestGettersDocumentsInit200ResponseResumedUpload(t *testing.T) {
 
 }
 
-func TestSettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestSettersDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("SetPresigned", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
-		var fernTestValuePresigned *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
+		var fernTestValuePresigned *DocumentsInitResponseResumedUploadPresignedPresigned
 		obj.SetPresigned(fernTestValuePresigned)
 		assert.Equal(t, fernTestValuePresigned, obj.Presigned)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		var fernTestValueKey string
 		obj.SetKey(fernTestValueKey)
 		assert.Equal(t, fernTestValueKey, obj.Key)
@@ -9294,12 +9235,12 @@ func TestSettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestGettersDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("GetPresigned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
-		var expected *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
+		var expected *DocumentsInitResponseResumedUploadPresignedPresigned
 		obj.Presigned = expected
 
 		// Act & Assert
@@ -9309,7 +9250,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("GetPresigned_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		obj.Presigned = nil
 
 		// Act & Assert
@@ -9318,7 +9259,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 
 	t.Run("GetPresigned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresigned
+		var obj *DocumentsInitResponseResumedUploadPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9331,7 +9272,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("GetKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		var expected string
 		obj.Key = expected
 
@@ -9341,7 +9282,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 
 	t.Run("GetKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresigned
+		var obj *DocumentsInitResponseResumedUploadPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9353,12 +9294,12 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("SetPresigned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
-		var fernTestValuePresigned *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
+		var fernTestValuePresigned *DocumentsInitResponseResumedUploadPresignedPresigned
 
 		// Act
 		obj.SetPresigned(fernTestValuePresigned)
@@ -9388,7 +9329,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresigned(t *te
 	t.Run("SetKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		var fernTestValueKey string
 
 		// Act
@@ -9418,9 +9359,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresigned(t *te
 
 }
 
-func TestSettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestSettersDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("SetURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var fernTestValueURL string
 		obj.SetURL(fernTestValueURL)
 		assert.Equal(t, fernTestValueURL, obj.URL)
@@ -9428,7 +9369,7 @@ func TestSettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	})
 
 	t.Run("SetHeaders", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var fernTestValueHeaders map[string]string
 		obj.SetHeaders(fernTestValueHeaders)
 		assert.Equal(t, fernTestValueHeaders, obj.Headers)
@@ -9436,16 +9377,16 @@ func TestSettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	})
 
 	t.Run("SetMethod", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var fernTestValueMethod DocumentsInit200ResponseResumedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var fernTestValueMethod DocumentsInitResponseResumedUploadPresignedPresignedMethod
 		obj.SetMethod(fernTestValueMethod)
 		assert.Equal(t, fernTestValueMethod, obj.Method)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetExpiresAt", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var fernTestValueExpiresAt float64
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var fernTestValueExpiresAt time.Time
 		obj.SetExpiresAt(fernTestValueExpiresAt)
 		assert.Equal(t, fernTestValueExpiresAt, obj.ExpiresAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -9453,11 +9394,11 @@ func TestSettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 }
 
-func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestGettersDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("GetURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var expected string
 		obj.URL = expected
 
@@ -9467,7 +9408,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 	t.Run("GetURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9480,7 +9421,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	t.Run("GetHeaders", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var expected map[string]string
 		obj.Headers = expected
 
@@ -9491,7 +9432,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	t.Run("GetHeaders_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		obj.Headers = nil
 
 		// Act & Assert
@@ -9500,7 +9441,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 	t.Run("GetHeaders_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9513,8 +9454,8 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	t.Run("GetMethod", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var expected DocumentsInit200ResponseResumedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var expected DocumentsInitResponseResumedUploadPresignedPresignedMethod
 		obj.Method = expected
 
 		// Act & Assert
@@ -9523,7 +9464,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 	t.Run("GetMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9536,8 +9477,8 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 	t.Run("GetExpiresAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var expected float64
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var expected time.Time
 		obj.ExpiresAt = expected
 
 		// Act & Assert
@@ -9546,7 +9487,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 	t.Run("GetExpiresAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9558,11 +9499,11 @@ func TestGettersDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testi
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("SetURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var fernTestValueURL string
 
 		// Act
@@ -9593,7 +9534,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresignedPresig
 	t.Run("SetHeaders_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		var fernTestValueHeaders map[string]string
 
 		// Act
@@ -9624,8 +9565,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresignedPresig
 	t.Run("SetMethod_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var fernTestValueMethod DocumentsInit200ResponseResumedUploadPresignedPresignedMethod
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var fernTestValueMethod DocumentsInitResponseResumedUploadPresignedPresignedMethod
 
 		// Act
 		obj.SetMethod(fernTestValueMethod)
@@ -9655,8 +9596,8 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresignedPresig
 	t.Run("SetExpiresAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
-		var fernTestValueExpiresAt float64
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
+		var fernTestValueExpiresAt time.Time
 
 		// Act
 		obj.SetExpiresAt(fernTestValueExpiresAt)
@@ -9685,9 +9626,9 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadPresignedPresig
 
 }
 
-func TestSettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestSettersDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("SetURL", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var fernTestValueURL string
 		obj.SetURL(fernTestValueURL)
 		assert.Equal(t, fernTestValueURL, obj.URL)
@@ -9695,7 +9636,7 @@ func TestSettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 	})
 
 	t.Run("SetKey", func(t *testing.T) {
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var fernTestValueKey string
 		obj.SetKey(fernTestValueKey)
 		assert.Equal(t, fernTestValueKey, obj.Key)
@@ -9704,11 +9645,11 @@ func TestSettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 
 }
 
-func TestGettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestGettersDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("GetURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var expected string
 		obj.URL = expected
 
@@ -9718,7 +9659,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 
 	t.Run("GetURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadProxy
+		var obj *DocumentsInitResponseResumedUploadProxy
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9731,7 +9672,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 	t.Run("GetKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var expected string
 		obj.Key = expected
 
@@ -9741,7 +9682,7 @@ func TestGettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 
 	t.Run("GetKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadProxy
+		var obj *DocumentsInitResponseResumedUploadProxy
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9753,11 +9694,11 @@ func TestGettersDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestSettersMarkExplicitDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("SetURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var fernTestValueURL string
 
 		// Act
@@ -9788,7 +9729,7 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadProxy(t *testin
 	t.Run("SetKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		var fernTestValueKey string
 
 		// Act
@@ -9818,17 +9759,17 @@ func TestSettersMarkExplicitDocumentsInit200ResponseResumedUploadProxy(t *testin
 
 }
 
-func TestSettersDocumentsList200Response(t *testing.T) {
+func TestSettersDocumentsListResponse(t *testing.T) {
 	t.Run("SetDocuments", func(t *testing.T) {
-		obj := &DocumentsList200Response{}
-		var fernTestValueDocuments []*DocumentsList200ResponseDocumentsItem
+		obj := &DocumentsListResponse{}
+		var fernTestValueDocuments []*DocumentsListResponseDocumentsItem
 		obj.SetDocuments(fernTestValueDocuments)
 		assert.Equal(t, fernTestValueDocuments, obj.Documents)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetNextCursor", func(t *testing.T) {
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		var fernTestValueNextCursor *string
 		obj.SetNextCursor(fernTestValueNextCursor)
 		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
@@ -9837,12 +9778,12 @@ func TestSettersDocumentsList200Response(t *testing.T) {
 
 }
 
-func TestGettersDocumentsList200Response(t *testing.T) {
+func TestGettersDocumentsListResponse(t *testing.T) {
 	t.Run("GetDocuments", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
-		var expected []*DocumentsList200ResponseDocumentsItem
+		obj := &DocumentsListResponse{}
+		var expected []*DocumentsListResponseDocumentsItem
 		obj.Documents = expected
 
 		// Act & Assert
@@ -9852,7 +9793,7 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 	t.Run("GetDocuments_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		obj.Documents = nil
 
 		// Act & Assert
@@ -9861,7 +9802,7 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 
 	t.Run("GetDocuments_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200Response
+		var obj *DocumentsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9874,7 +9815,7 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 	t.Run("GetNextCursor", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		var expected *string
 		obj.NextCursor = expected
 
@@ -9885,7 +9826,7 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		obj.NextCursor = nil
 
 		// Act & Assert
@@ -9894,7 +9835,7 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 
 	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200Response
+		var obj *DocumentsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -9906,12 +9847,12 @@ func TestGettersDocumentsList200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsList200Response(t *testing.T) {
+func TestSettersMarkExplicitDocumentsListResponse(t *testing.T) {
 	t.Run("SetDocuments_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
-		var fernTestValueDocuments []*DocumentsList200ResponseDocumentsItem
+		obj := &DocumentsListResponse{}
+		var fernTestValueDocuments []*DocumentsListResponseDocumentsItem
 
 		// Act
 		obj.SetDocuments(fernTestValueDocuments)
@@ -9941,7 +9882,7 @@ func TestSettersMarkExplicitDocumentsList200Response(t *testing.T) {
 	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		var fernTestValueNextCursor *string
 
 		// Act
@@ -9971,9 +9912,9 @@ func TestSettersMarkExplicitDocumentsList200Response(t *testing.T) {
 
 }
 
-func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestSettersDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -9981,7 +9922,7 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -9989,7 +9930,7 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -9997,7 +9938,7 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -10005,31 +9946,31 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueState DocumentsList200ResponseDocumentsItemState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueState DocumentsListResponseDocumentsItemState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -10037,7 +9978,7 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -10045,7 +9986,7 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -10053,15 +9994,15 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueThumbnailState *DocumentsList200ResponseDocumentsItemThumbnailState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueThumbnailState DocumentsListResponseDocumentsItemThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -10069,23 +10010,23 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -10094,11 +10035,11 @@ func TestSettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 }
 
-func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestGettersDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected string
 		obj.ID = expected
 
@@ -10108,7 +10049,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10121,7 +10062,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected string
 		obj.TenantID = expected
 
@@ -10131,7 +10072,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10144,7 +10085,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected string
 		obj.Name = expected
 
@@ -10154,7 +10095,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10167,7 +10108,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected string
 		obj.FolderID = expected
 
@@ -10177,7 +10118,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10190,8 +10131,8 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var expected DocumentsList200ResponseDocumentsItemState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var expected DocumentsListResponseDocumentsItemState
 		obj.State = expected
 
 		// Act & Assert
@@ -10200,7 +10141,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10210,76 +10151,76 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		obj.BaseSha = nil
+		obj := &DocumentsListResponseDocumentsItem{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsListResponseDocumentsItem{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsListResponseDocumentsItem{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -10290,7 +10231,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -10299,7 +10240,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10312,7 +10253,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -10323,7 +10264,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -10332,7 +10273,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10345,7 +10286,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -10356,7 +10297,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -10365,7 +10306,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10378,27 +10319,17 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var expected *DocumentsList200ResponseDocumentsItemThumbnailState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var expected DocumentsListResponseDocumentsItemThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10411,7 +10342,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -10422,7 +10353,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -10431,7 +10362,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10444,8 +10375,8 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var expected float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -10454,7 +10385,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10467,8 +10398,8 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var expected float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -10477,7 +10408,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10490,7 +10421,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -10501,7 +10432,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -10510,7 +10441,7 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -10522,11 +10453,11 @@ func TestGettersDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestSettersMarkExplicitDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueID string
 
 		// Act
@@ -10557,7 +10488,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -10588,7 +10519,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueName string
 
 		// Act
@@ -10619,7 +10550,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -10650,8 +10581,8 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueState DocumentsList200ResponseDocumentsItemState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueState DocumentsListResponseDocumentsItemState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -10678,14 +10609,14 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -10709,14 +10640,14 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -10743,7 +10674,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -10774,7 +10705,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -10805,7 +10736,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -10836,8 +10767,8 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueThumbnailState *DocumentsList200ResponseDocumentsItemThumbnailState
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueThumbnailState DocumentsListResponseDocumentsItemThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -10867,7 +10798,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -10898,8 +10829,8 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -10929,8 +10860,8 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsListResponseDocumentsItem{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -10960,7 +10891,7 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -10990,10 +10921,10 @@ func TestSettersMarkExplicitDocumentsList200ResponseDocumentsItem(t *testing.T) 
 
 }
 
-func TestSettersDocumentsUpdate200Response(t *testing.T) {
+func TestSettersDocumentsUpdateResponse(t *testing.T) {
 	t.Run("SetDocument", func(t *testing.T) {
-		obj := &DocumentsUpdate200Response{}
-		var fernTestValueDocument *DocumentsUpdate200ResponseDocument
+		obj := &DocumentsUpdateResponse{}
+		var fernTestValueDocument *DocumentsUpdateResponseDocument
 		obj.SetDocument(fernTestValueDocument)
 		assert.Equal(t, fernTestValueDocument, obj.Document)
 		assert.NotNil(t, obj.explicitFields)
@@ -11001,12 +10932,12 @@ func TestSettersDocumentsUpdate200Response(t *testing.T) {
 
 }
 
-func TestGettersDocumentsUpdate200Response(t *testing.T) {
+func TestGettersDocumentsUpdateResponse(t *testing.T) {
 	t.Run("GetDocument", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200Response{}
-		var expected *DocumentsUpdate200ResponseDocument
+		obj := &DocumentsUpdateResponse{}
+		var expected *DocumentsUpdateResponseDocument
 		obj.Document = expected
 
 		// Act & Assert
@@ -11016,7 +10947,7 @@ func TestGettersDocumentsUpdate200Response(t *testing.T) {
 	t.Run("GetDocument_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200Response{}
+		obj := &DocumentsUpdateResponse{}
 		obj.Document = nil
 
 		// Act & Assert
@@ -11025,7 +10956,7 @@ func TestGettersDocumentsUpdate200Response(t *testing.T) {
 
 	t.Run("GetDocument_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200Response
+		var obj *DocumentsUpdateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11037,12 +10968,12 @@ func TestGettersDocumentsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsUpdate200Response(t *testing.T) {
+func TestSettersMarkExplicitDocumentsUpdateResponse(t *testing.T) {
 	t.Run("SetDocument_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200Response{}
-		var fernTestValueDocument *DocumentsUpdate200ResponseDocument
+		obj := &DocumentsUpdateResponse{}
+		var fernTestValueDocument *DocumentsUpdateResponseDocument
 
 		// Act
 		obj.SetDocument(fernTestValueDocument)
@@ -11071,9 +11002,9 @@ func TestSettersMarkExplicitDocumentsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestSettersDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -11081,7 +11012,7 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -11089,7 +11020,7 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -11097,7 +11028,7 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFolderID", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueFolderID string
 		obj.SetFolderID(fernTestValueFolderID)
 		assert.Equal(t, fernTestValueFolderID, obj.FolderID)
@@ -11105,31 +11036,31 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetState", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueState DocumentsUpdate200ResponseDocumentState
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueState DocumentsUpdateResponseDocumentState
 		obj.SetState(fernTestValueState)
 		assert.Equal(t, fernTestValueState, obj.State)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetBaseSha", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueBaseSha *string
-		obj.SetBaseSha(fernTestValueBaseSha)
-		assert.Equal(t, fernTestValueBaseSha, obj.BaseSha)
+	t.Run("SetBaseSha256", func(t *testing.T) {
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueBaseSha256 *string
+		obj.SetBaseSha256(fernTestValueBaseSha256)
+		assert.Equal(t, fernTestValueBaseSha256, obj.BaseSha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetStorageSizeBytes", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
-		assert.Equal(t, fernTestValueStorageSizeBytes, obj.StorageSizeBytes)
+	t.Run("SetSizeBytes", func(t *testing.T) {
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueSizeBytes *int
+		obj.SetSizeBytes(fernTestValueSizeBytes)
+		assert.Equal(t, fernTestValueSizeBytes, obj.SizeBytes)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetMetadata", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueMetadata map[string]any
 		obj.SetMetadata(fernTestValueMetadata)
 		assert.Equal(t, fernTestValueMetadata, obj.Metadata)
@@ -11137,7 +11068,7 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetIdempotencyKey", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 		obj.SetIdempotencyKey(fernTestValueIdempotencyKey)
 		assert.Equal(t, fernTestValueIdempotencyKey, obj.IdempotencyKey)
@@ -11145,7 +11076,7 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetFailureReason", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueFailureReason *string
 		obj.SetFailureReason(fernTestValueFailureReason)
 		assert.Equal(t, fernTestValueFailureReason, obj.FailureReason)
@@ -11153,15 +11084,15 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetThumbnailState", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsUpdate200ResponseDocumentThumbnailState
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueThumbnailState DocumentsUpdateResponseDocumentThumbnailState
 		obj.SetThumbnailState(fernTestValueThumbnailState)
 		assert.Equal(t, fernTestValueThumbnailState, obj.ThumbnailState)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetThumbnailURL", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueThumbnailURL *string
 		obj.SetThumbnailURL(fernTestValueThumbnailURL)
 		assert.Equal(t, fernTestValueThumbnailURL, obj.ThumbnailURL)
@@ -11169,23 +11100,23 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -11194,11 +11125,11 @@ func TestSettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 }
 
-func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestGettersDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected string
 		obj.ID = expected
 
@@ -11208,7 +11139,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11221,7 +11152,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected string
 		obj.TenantID = expected
 
@@ -11231,7 +11162,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11244,7 +11175,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected string
 		obj.Name = expected
 
@@ -11254,7 +11185,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11267,7 +11198,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetFolderID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected string
 		obj.FolderID = expected
 
@@ -11277,7 +11208,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFolderID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11290,8 +11221,8 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var expected DocumentsUpdate200ResponseDocumentState
+		obj := &DocumentsUpdateResponseDocument{}
+		var expected DocumentsUpdateResponseDocumentState
 		obj.State = expected
 
 		// Act & Assert
@@ -11300,7 +11231,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11310,76 +11241,76 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 		_ = obj.GetState() // Should return zero value
 	})
 
-	t.Run("GetBaseSha", func(t *testing.T) {
+	t.Run("GetBaseSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected *string
-		obj.BaseSha = expected
+		obj.BaseSha256 = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetBaseSha(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetBaseSha256(), "getter should return the property value")
 	})
 
-	t.Run("GetBaseSha_NilValue", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		obj.BaseSha = nil
+		obj := &DocumentsUpdateResponseDocument{}
+		obj.BaseSha256 = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetBaseSha(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetBaseSha256(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetBaseSha_NilReceiver", func(t *testing.T) {
+	t.Run("GetBaseSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetBaseSha() // Should return zero value
+		_ = obj.GetBaseSha256() // Should return zero value
 	})
 
-	t.Run("GetStorageSizeBytes", func(t *testing.T) {
+	t.Run("GetSizeBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var expected *float64
-		obj.StorageSizeBytes = expected
+		obj := &DocumentsUpdateResponseDocument{}
+		var expected *int
+		obj.SizeBytes = expected
 
 		// Act & Assert
-		assert.Equal(t, expected, obj.GetStorageSizeBytes(), "getter should return the property value")
+		assert.Equal(t, expected, obj.GetSizeBytes(), "getter should return the property value")
 	})
 
-	t.Run("GetStorageSizeBytes_NilValue", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		obj.StorageSizeBytes = nil
+		obj := &DocumentsUpdateResponseDocument{}
+		obj.SizeBytes = nil
 
 		// Act & Assert
-		assert.Nil(t, obj.GetStorageSizeBytes(), "getter should return nil when property is nil")
+		assert.Nil(t, obj.GetSizeBytes(), "getter should return nil when property is nil")
 	})
 
-	t.Run("GetStorageSizeBytes_NilReceiver", func(t *testing.T) {
+	t.Run("GetSizeBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
 				t.Errorf("Getter panicked on nil receiver: %v", r)
 			}
 		}()
-		_ = obj.GetStorageSizeBytes() // Should return zero value
+		_ = obj.GetSizeBytes() // Should return zero value
 	})
 
 	t.Run("GetMetadata", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected map[string]any
 		obj.Metadata = expected
 
@@ -11390,7 +11321,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetMetadata_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		obj.Metadata = nil
 
 		// Act & Assert
@@ -11399,7 +11330,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetMetadata_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11412,7 +11343,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected *string
 		obj.IdempotencyKey = expected
 
@@ -11423,7 +11354,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetIdempotencyKey_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		obj.IdempotencyKey = nil
 
 		// Act & Assert
@@ -11432,7 +11363,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetIdempotencyKey_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11445,7 +11376,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected *string
 		obj.FailureReason = expected
 
@@ -11456,7 +11387,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetFailureReason_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		obj.FailureReason = nil
 
 		// Act & Assert
@@ -11465,7 +11396,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetFailureReason_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11478,27 +11409,17 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailState", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var expected *DocumentsUpdate200ResponseDocumentThumbnailState
+		obj := &DocumentsUpdateResponseDocument{}
+		var expected DocumentsUpdateResponseDocumentThumbnailState
 		obj.ThumbnailState = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetThumbnailState(), "getter should return the property value")
 	})
 
-	t.Run("GetThumbnailState_NilValue", func(t *testing.T) {
-		t.Parallel()
-		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		obj.ThumbnailState = nil
-
-		// Act & Assert
-		assert.Nil(t, obj.GetThumbnailState(), "getter should return nil when property is nil")
-	})
-
 	t.Run("GetThumbnailState_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11511,7 +11432,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected *string
 		obj.ThumbnailURL = expected
 
@@ -11522,7 +11443,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetThumbnailURL_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		obj.ThumbnailURL = nil
 
 		// Act & Assert
@@ -11531,7 +11452,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetThumbnailURL_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11544,8 +11465,8 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -11554,7 +11475,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11567,8 +11488,8 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var expected float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -11577,7 +11498,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11590,7 +11511,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -11601,7 +11522,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -11610,7 +11531,7 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -11622,11 +11543,11 @@ func TestGettersDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestSettersMarkExplicitDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueID string
 
 		// Act
@@ -11657,7 +11578,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -11688,7 +11609,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueName string
 
 		// Act
@@ -11719,7 +11640,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetFolderID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueFolderID string
 
 		// Act
@@ -11750,8 +11671,8 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueState DocumentsUpdate200ResponseDocumentState
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueState DocumentsUpdateResponseDocumentState
 
 		// Act
 		obj.SetState(fernTestValueState)
@@ -11778,14 +11699,14 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetBaseSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetBaseSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueBaseSha *string
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueBaseSha256 *string
 
 		// Act
-		obj.SetBaseSha(fernTestValueBaseSha)
+		obj.SetBaseSha256(fernTestValueBaseSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -11809,14 +11730,14 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetStorageSizeBytes_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSizeBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueStorageSizeBytes *float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueSizeBytes *int
 
 		// Act
-		obj.SetStorageSizeBytes(fernTestValueStorageSizeBytes)
+		obj.SetSizeBytes(fernTestValueSizeBytes)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -11843,7 +11764,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetMetadata_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueMetadata map[string]any
 
 		// Act
@@ -11874,7 +11795,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetIdempotencyKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueIdempotencyKey *string
 
 		// Act
@@ -11905,7 +11826,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetFailureReason_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueFailureReason *string
 
 		// Act
@@ -11936,8 +11857,8 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailState_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueThumbnailState *DocumentsUpdate200ResponseDocumentThumbnailState
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueThumbnailState DocumentsUpdateResponseDocumentThumbnailState
 
 		// Act
 		obj.SetThumbnailState(fernTestValueThumbnailState)
@@ -11967,7 +11888,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetThumbnailURL_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueThumbnailURL *string
 
 		// Act
@@ -11998,8 +11919,8 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueCreatedAt float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -12029,8 +11950,8 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
-		var fernTestValueUpdatedAt float64
+		obj := &DocumentsUpdateResponseDocument{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -12060,7 +11981,7 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -12090,9 +12011,9 @@ func TestSettersMarkExplicitDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 }
 
-func TestSettersDocumentsUploadProxy200Response(t *testing.T) {
+func TestSettersDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("SetSha256", func(t *testing.T) {
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 		var fernTestValueSha256 string
 		obj.SetSha256(fernTestValueSha256)
 		assert.Equal(t, fernTestValueSha256, obj.Sha256)
@@ -12101,11 +12022,11 @@ func TestSettersDocumentsUploadProxy200Response(t *testing.T) {
 
 }
 
-func TestGettersDocumentsUploadProxy200Response(t *testing.T) {
+func TestGettersDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("GetSha256", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 		var expected string
 		obj.Sha256 = expected
 
@@ -12115,7 +12036,7 @@ func TestGettersDocumentsUploadProxy200Response(t *testing.T) {
 
 	t.Run("GetSha256_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUploadProxy200Response
+		var obj *DocumentsUploadProxyResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -12127,11 +12048,11 @@ func TestGettersDocumentsUploadProxy200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitDocumentsUploadProxy200Response(t *testing.T) {
+func TestSettersMarkExplicitDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 		var fernTestValueSha256 string
 
 		// Act
@@ -12691,11 +12612,11 @@ func TestSettersDocumentsUpdateRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &DocumentsUpdateRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -12741,14 +12662,14 @@ func TestSettersMarkExplicitDocumentsUpdateRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocumentsUpdateRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -12814,11 +12735,11 @@ func TestSettersUploadProxyDocumentsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &UploadProxyDocumentsRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -12856,14 +12777,14 @@ func TestSettersMarkExplicitUploadProxyDocumentsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &UploadProxyDocumentsRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -12889,11 +12810,11 @@ func TestSettersMarkExplicitUploadProxyDocumentsRequest(t *testing.T) {
 
 }
 
-func TestJSONMarshalingDocumentsCommit200Response(t *testing.T) {
+func TestJSONMarshalingDocumentsCommitResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200Response{}
+		obj := &DocumentsCommitResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -12902,31 +12823,31 @@ func TestJSONMarshalingDocumentsCommit200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsCommit200Response
+		var unmarshaled DocumentsCommitResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsCommit200Response
+		var obj DocumentsCommitResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsCommit200Response
+		var obj DocumentsCommitResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -12935,31 +12856,31 @@ func TestJSONMarshalingDocumentsCommit200ResponseDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsCommit200ResponseDocument
+		var unmarshaled DocumentsCommitResponseDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsCommit200ResponseDocument
+		var obj DocumentsCommitResponseDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsCommit200ResponseDocument
+		var obj DocumentsCommitResponseDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsGet200Response(t *testing.T) {
+func TestJSONMarshalingDocumentsGetResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200Response{}
+		obj := &DocumentsGetResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -12968,31 +12889,31 @@ func TestJSONMarshalingDocumentsGet200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsGet200Response
+		var unmarshaled DocumentsGetResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsGet200Response
+		var obj DocumentsGetResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsGet200Response
+		var obj DocumentsGetResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsGet200ResponseDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13001,21 +12922,21 @@ func TestJSONMarshalingDocumentsGet200ResponseDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsGet200ResponseDocument
+		var unmarshaled DocumentsGetResponseDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsGet200ResponseDocument
+		var obj DocumentsGetResponseDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsGet200ResponseDocument
+		var obj DocumentsGetResponseDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -13186,11 +13107,11 @@ func TestJSONMarshalingDocumentsImportFromRequestSourceURL(t *testing.T) {
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseCreated(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreated{}
+		obj := &DocumentsInitResponseCreated{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13199,31 +13120,31 @@ func TestJSONMarshalingDocumentsInit200ResponseCreated(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseCreated
+		var unmarshaled DocumentsInitResponseCreated
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreated
+		var obj DocumentsInitResponseCreated
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreated
+		var obj DocumentsInitResponseCreated
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13232,31 +13153,31 @@ func TestJSONMarshalingDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseCreatedDocument
+		var unmarshaled DocumentsInitResponseCreatedDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedDocument
+		var obj DocumentsInitResponseCreatedDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedDocument
+		var obj DocumentsInitResponseCreatedDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13265,31 +13186,31 @@ func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadPresigned(t *testing
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseCreatedUploadPresigned
+		var unmarshaled DocumentsInitResponseCreatedUploadPresigned
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadPresigned
+		var obj DocumentsInitResponseCreatedUploadPresigned
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadPresigned
+		var obj DocumentsInitResponseCreatedUploadPresigned
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13298,31 +13219,31 @@ func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadPresignedPresigned(t
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var unmarshaled DocumentsInitResponseCreatedUploadPresignedPresigned
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj DocumentsInitResponseCreatedUploadPresignedPresigned
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj DocumentsInitResponseCreatedUploadPresignedPresigned
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13331,31 +13252,31 @@ func TestJSONMarshalingDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) 
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseCreatedUploadProxy
+		var unmarshaled DocumentsInitResponseCreatedUploadProxy
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadProxy
+		var obj DocumentsInitResponseCreatedUploadProxy
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseCreatedUploadProxy
+		var obj DocumentsInitResponseCreatedUploadProxy
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDeduped{}
+		obj := &DocumentsInitResponseDeduped{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13364,31 +13285,31 @@ func TestJSONMarshalingDocumentsInit200ResponseDeduped(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseDeduped
+		var unmarshaled DocumentsInitResponseDeduped
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseDeduped
+		var obj DocumentsInitResponseDeduped
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseDeduped
+		var obj DocumentsInitResponseDeduped
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13397,31 +13318,31 @@ func TestJSONMarshalingDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseDedupedDocument
+		var unmarshaled DocumentsInitResponseDedupedDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseDedupedDocument
+		var obj DocumentsInitResponseDedupedDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseDedupedDocument
+		var obj DocumentsInitResponseDedupedDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseResumed(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumed{}
+		obj := &DocumentsInitResponseResumed{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13430,31 +13351,31 @@ func TestJSONMarshalingDocumentsInit200ResponseResumed(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseResumed
+		var unmarshaled DocumentsInitResponseResumed
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumed
+		var obj DocumentsInitResponseResumed
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumed
+		var obj DocumentsInitResponseResumed
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13463,31 +13384,31 @@ func TestJSONMarshalingDocumentsInit200ResponseResumedDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseResumedDocument
+		var unmarshaled DocumentsInitResponseResumedDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedDocument
+		var obj DocumentsInitResponseResumedDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedDocument
+		var obj DocumentsInitResponseResumedDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13496,31 +13417,31 @@ func TestJSONMarshalingDocumentsInit200ResponseResumedUploadPresigned(t *testing
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseResumedUploadPresigned
+		var unmarshaled DocumentsInitResponseResumedUploadPresigned
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadPresigned
+		var obj DocumentsInitResponseResumedUploadPresigned
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadPresigned
+		var obj DocumentsInitResponseResumedUploadPresigned
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13529,31 +13450,31 @@ func TestJSONMarshalingDocumentsInit200ResponseResumedUploadPresignedPresigned(t
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var unmarshaled DocumentsInitResponseResumedUploadPresignedPresigned
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj DocumentsInitResponseResumedUploadPresignedPresigned
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj DocumentsInitResponseResumedUploadPresignedPresigned
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestJSONMarshalingDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13562,31 +13483,31 @@ func TestJSONMarshalingDocumentsInit200ResponseResumedUploadProxy(t *testing.T) 
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsInit200ResponseResumedUploadProxy
+		var unmarshaled DocumentsInitResponseResumedUploadProxy
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadProxy
+		var obj DocumentsInitResponseResumedUploadProxy
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsInit200ResponseResumedUploadProxy
+		var obj DocumentsInitResponseResumedUploadProxy
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsList200Response(t *testing.T) {
+func TestJSONMarshalingDocumentsListResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13595,31 +13516,31 @@ func TestJSONMarshalingDocumentsList200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsList200Response
+		var unmarshaled DocumentsListResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsList200Response
+		var obj DocumentsListResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsList200Response
+		var obj DocumentsListResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestJSONMarshalingDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13628,31 +13549,31 @@ func TestJSONMarshalingDocumentsList200ResponseDocumentsItem(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsList200ResponseDocumentsItem
+		var unmarshaled DocumentsListResponseDocumentsItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsList200ResponseDocumentsItem
+		var obj DocumentsListResponseDocumentsItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsList200ResponseDocumentsItem
+		var obj DocumentsListResponseDocumentsItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsUpdate200Response(t *testing.T) {
+func TestJSONMarshalingDocumentsUpdateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200Response{}
+		obj := &DocumentsUpdateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13661,31 +13582,31 @@ func TestJSONMarshalingDocumentsUpdate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsUpdate200Response
+		var unmarshaled DocumentsUpdateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUpdate200Response
+		var obj DocumentsUpdateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUpdate200Response
+		var obj DocumentsUpdateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestJSONMarshalingDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13694,31 +13615,31 @@ func TestJSONMarshalingDocumentsUpdate200ResponseDocument(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsUpdate200ResponseDocument
+		var unmarshaled DocumentsUpdateResponseDocument
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUpdate200ResponseDocument
+		var obj DocumentsUpdateResponseDocument
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUpdate200ResponseDocument
+		var obj DocumentsUpdateResponseDocument
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingDocumentsUploadProxy200Response(t *testing.T) {
+func TestJSONMarshalingDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -13727,85 +13648,85 @@ func TestJSONMarshalingDocumentsUploadProxy200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled DocumentsUploadProxy200Response
+		var unmarshaled DocumentsUploadProxyResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUploadProxy200Response
+		var obj DocumentsUploadProxyResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj DocumentsUploadProxy200Response
+		var obj DocumentsUploadProxyResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestStringDocumentsCommit200Response(t *testing.T) {
+func TestStringDocumentsCommitResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsCommit200Response{}
+		obj := &DocumentsCommitResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200Response
+		var obj *DocumentsCommitResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestStringDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsGet200Response(t *testing.T) {
+func TestStringDocumentsGetResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsGet200Response{}
+		obj := &DocumentsGetResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200Response
+		var obj *DocumentsGetResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsGet200ResponseDocument(t *testing.T) {
+func TestStringDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -13891,314 +13812,314 @@ func TestStringDocumentsImportFromRequestSourceURL(t *testing.T) {
 	})
 }
 
-func TestStringDocumentsInit200ResponseCreated(t *testing.T) {
+func TestStringDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreated{}
+		obj := &DocumentsInitResponseCreated{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreated
+		var obj *DocumentsInitResponseCreated
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestStringDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestStringDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresigned
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestStringDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestStringDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadProxy
+		var obj *DocumentsInitResponseCreatedUploadProxy
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestStringDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseDeduped{}
+		obj := &DocumentsInitResponseDeduped{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDeduped
+		var obj *DocumentsInitResponseDeduped
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestStringDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseResumed(t *testing.T) {
+func TestStringDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumed{}
+		obj := &DocumentsInitResponseResumed{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumed
+		var obj *DocumentsInitResponseResumed
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestStringDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestStringDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresigned
+		var obj *DocumentsInitResponseResumedUploadPresigned
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestStringDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestStringDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadProxy
+		var obj *DocumentsInitResponseResumedUploadProxy
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsList200Response(t *testing.T) {
+func TestStringDocumentsListResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200Response
+		var obj *DocumentsListResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestStringDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsUpdate200Response(t *testing.T) {
+func TestStringDocumentsUpdateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUpdate200Response{}
+		obj := &DocumentsUpdateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200Response
+		var obj *DocumentsUpdateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestStringDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringDocumentsUploadProxy200Response(t *testing.T) {
+func TestStringDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUploadProxy200Response
+		var obj *DocumentsUploadProxyResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestEnumDocumentsCommit200ResponseDocumentState(t *testing.T) {
+func TestEnumDocumentsCommitResponseDocumentState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsCommitResponseDocumentStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentStateFromString("ready")
+		val, err := NewDocumentsCommitResponseDocumentStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentStateFromString("failed")
+		val, err := NewDocumentsCommitResponseDocumentStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_deleting", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentStateFromString("deleting")
+		val, err := NewDocumentsCommitResponseDocumentStateFromString("deleting")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentState("deleting"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentState("deleting"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsCommit200ResponseDocumentStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsCommitResponseDocumentStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsCommit200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsCommitResponseDocumentStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14206,42 +14127,42 @@ func TestEnumDocumentsCommit200ResponseDocumentState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsCommit200ResponseDocumentThumbnailState(t *testing.T) {
+func TestEnumDocumentsCommitResponseDocumentThumbnailState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("ready")
+		val, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_locked", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("locked")
+		val, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("locked")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("failed")
+		val, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsCommit200ResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsCommitResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsCommit200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsCommitResponseDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14249,42 +14170,42 @@ func TestEnumDocumentsCommit200ResponseDocumentThumbnailState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsGet200ResponseDocumentState(t *testing.T) {
+func TestEnumDocumentsGetResponseDocumentState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsGetResponseDocumentStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentStateFromString("ready")
+		val, err := NewDocumentsGetResponseDocumentStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentStateFromString("failed")
+		val, err := NewDocumentsGetResponseDocumentStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_deleting", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentStateFromString("deleting")
+		val, err := NewDocumentsGetResponseDocumentStateFromString("deleting")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentState("deleting"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentState("deleting"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsGet200ResponseDocumentStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsGetResponseDocumentStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsGet200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsGetResponseDocumentStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14292,42 +14213,42 @@ func TestEnumDocumentsGet200ResponseDocumentState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsGet200ResponseDocumentThumbnailState(t *testing.T) {
+func TestEnumDocumentsGetResponseDocumentThumbnailState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("ready")
+		val, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_locked", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("locked")
+		val, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("locked")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("failed")
+		val, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsGet200ResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsGetResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsGet200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsGetResponseDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14421,35 +14342,35 @@ func TestEnumDocumentsImportFrom200ResponseDocumentThumbnailState(t *testing.T) 
 	})
 }
 
-func TestEnumDocumentsImportFrom200ResponseTag(t *testing.T) {
+func TestEnumDocumentsImportFrom200ResponseStatus(t *testing.T) {
 	t.Run("NewFromString_imported", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsImportFrom200ResponseTagFromString("imported")
+		val, err := NewDocumentsImportFrom200ResponseStatusFromString("imported")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsImportFrom200ResponseTag("imported"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsImportFrom200ResponseStatus("imported"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_deduped", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsImportFrom200ResponseTagFromString("deduped")
+		val, err := NewDocumentsImportFrom200ResponseStatusFromString("deduped")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsImportFrom200ResponseTag("deduped"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsImportFrom200ResponseStatus("deduped"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_accepted", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsImportFrom200ResponseTagFromString("accepted")
+		val, err := NewDocumentsImportFrom200ResponseStatusFromString("accepted")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsImportFrom200ResponseTag("accepted"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsImportFrom200ResponseStatus("accepted"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsImportFrom200ResponseTagFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsImportFrom200ResponseStatusFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsImportFrom200ResponseTagFromString("imported")
+		val, err := NewDocumentsImportFrom200ResponseStatusFromString("imported")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14508,308 +14429,6 @@ func TestEnumDocumentsImportFromRequestMode(t *testing.T) {
 
 	t.Run("Ptr", func(t *testing.T) {
 		val, err := NewDocumentsImportFromRequestModeFromString("sync")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseCreatedDocumentState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_deleting", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("deleting")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentState("deleting"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseCreatedDocumentStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseCreatedDocumentThumbnailState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_locked", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("locked")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseCreatedUploadPresignedPresignedMethod(t *testing.T) {
-	t.Run("NewFromString_PUT", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseCreatedUploadPresignedPresignedMethodFromString("PUT")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod("PUT"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseCreatedUploadPresignedPresignedMethodFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseCreatedUploadPresignedPresignedMethodFromString("PUT")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseDedupedDocumentState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_deleting", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("deleting")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentState("deleting"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseDedupedDocumentStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseDedupedDocumentThumbnailState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_locked", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("locked")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseDedupedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseResumedDocumentState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_deleting", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("deleting")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentState("deleting"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseResumedDocumentStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseResumedDocumentThumbnailState(t *testing.T) {
-	t.Run("NewFromString_pending", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_ready", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("ready")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_locked", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("locked")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_failed", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("failed")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString("pending")
-		assert.NoError(t, err)
-		ptr := val.Ptr()
-		assert.NotNil(t, ptr)
-		assert.Equal(t, val, *ptr)
-	})
-}
-
-func TestEnumDocumentsInit200ResponseResumedUploadPresignedPresignedMethod(t *testing.T) {
-	t.Run("NewFromString_PUT", func(t *testing.T) {
-		t.Parallel()
-		val, err := NewDocumentsInit200ResponseResumedUploadPresignedPresignedMethodFromString("PUT")
-		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsInit200ResponseResumedUploadPresignedPresignedMethod("PUT"), val, "enum value should match expected wire value")
-	})
-
-	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsInit200ResponseResumedUploadPresignedPresignedMethodFromString("invalid_value_that_does_not_exist")
-		assert.Error(t, err)
-	})
-
-	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsInit200ResponseResumedUploadPresignedPresignedMethodFromString("PUT")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14882,42 +14501,42 @@ func TestEnumDocumentsInitRequestUploadPreference(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsList200ResponseDocumentsItemState(t *testing.T) {
+func TestEnumDocumentsInitResponseCreatedDocumentState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemStateFromString("pending")
+		val, err := NewDocumentsInitResponseCreatedDocumentStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemStateFromString("ready")
+		val, err := NewDocumentsInitResponseCreatedDocumentStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemStateFromString("failed")
+		val, err := NewDocumentsInitResponseCreatedDocumentStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_deleting", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemStateFromString("deleting")
+		val, err := NewDocumentsInitResponseCreatedDocumentStateFromString("deleting")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemState("deleting"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentState("deleting"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsList200ResponseDocumentsItemStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsInitResponseCreatedDocumentStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsList200ResponseDocumentsItemStateFromString("pending")
+		val, err := NewDocumentsInitResponseCreatedDocumentStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14925,42 +14544,42 @@ func TestEnumDocumentsList200ResponseDocumentsItemState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsList200ResponseDocumentsItemThumbnailState(t *testing.T) {
+func TestEnumDocumentsInitResponseCreatedDocumentThumbnailState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("pending")
+		val, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemThumbnailState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("ready")
+		val, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemThumbnailState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_locked", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("locked")
+		val, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("locked")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemThumbnailState("locked"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("failed")
+		val, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsList200ResponseDocumentsItemThumbnailState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseCreatedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString("pending")
+		val, err := NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -14968,42 +14587,64 @@ func TestEnumDocumentsList200ResponseDocumentsItemThumbnailState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsUpdate200ResponseDocumentState(t *testing.T) {
+func TestEnumDocumentsInitResponseCreatedUploadPresignedPresignedMethod(t *testing.T) {
+	t.Run("NewFromString_PUT", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseCreatedUploadPresignedPresignedMethodFromString("PUT")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseCreatedUploadPresignedPresignedMethod("PUT"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsInitResponseCreatedUploadPresignedPresignedMethodFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsInitResponseCreatedUploadPresignedPresignedMethodFromString("PUT")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsInitResponseDedupedDocumentState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsInitResponseDedupedDocumentStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentStateFromString("ready")
+		val, err := NewDocumentsInitResponseDedupedDocumentStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentStateFromString("failed")
+		val, err := NewDocumentsInitResponseDedupedDocumentStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_deleting", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentStateFromString("deleting")
+		val, err := NewDocumentsInitResponseDedupedDocumentStateFromString("deleting")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentState("deleting"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentState("deleting"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsUpdate200ResponseDocumentStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsInitResponseDedupedDocumentStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsUpdate200ResponseDocumentStateFromString("pending")
+		val, err := NewDocumentsInitResponseDedupedDocumentStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -15011,42 +14652,322 @@ func TestEnumDocumentsUpdate200ResponseDocumentState(t *testing.T) {
 	})
 }
 
-func TestEnumDocumentsUpdate200ResponseDocumentThumbnailState(t *testing.T) {
+func TestEnumDocumentsInitResponseDedupedDocumentThumbnailState(t *testing.T) {
 	t.Run("NewFromString_pending", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_ready", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("ready")
+		val, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("ready")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_locked", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("locked")
+		val, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("locked")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_failed", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("failed")
+		val, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("failed")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, DocumentsUpdate200ResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
+		assert.Equal(t, DocumentsInitResponseDedupedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
+		_, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString("pending")
+		val, err := NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsInitResponseResumedDocumentState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_deleting", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentStateFromString("deleting")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentState("deleting"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsInitResponseResumedDocumentStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsInitResponseResumedDocumentStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsInitResponseResumedDocumentThumbnailState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_locked", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("locked")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsInitResponseResumedDocumentThumbnailStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsInitResponseResumedUploadPresignedPresignedMethod(t *testing.T) {
+	t.Run("NewFromString_PUT", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsInitResponseResumedUploadPresignedPresignedMethodFromString("PUT")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsInitResponseResumedUploadPresignedPresignedMethod("PUT"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsInitResponseResumedUploadPresignedPresignedMethodFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsInitResponseResumedUploadPresignedPresignedMethodFromString("PUT")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsListResponseDocumentsItemState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_deleting", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemStateFromString("deleting")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemState("deleting"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsListResponseDocumentsItemStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsListResponseDocumentsItemStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsListResponseDocumentsItemThumbnailState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemThumbnailState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemThumbnailState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_locked", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("locked")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemThumbnailState("locked"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsListResponseDocumentsItemThumbnailState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsListResponseDocumentsItemThumbnailStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsUpdateResponseDocumentState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_deleting", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentStateFromString("deleting")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentState("deleting"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsUpdateResponseDocumentStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsUpdateResponseDocumentStateFromString("pending")
+		assert.NoError(t, err)
+		ptr := val.Ptr()
+		assert.NotNil(t, ptr)
+		assert.Equal(t, val, *ptr)
+	})
+}
+
+func TestEnumDocumentsUpdateResponseDocumentThumbnailState(t *testing.T) {
+	t.Run("NewFromString_pending", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("pending")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentThumbnailState("pending"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_ready", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("ready")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentThumbnailState("ready"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_locked", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("locked")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentThumbnailState("locked"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_failed", func(t *testing.T) {
+		t.Parallel()
+		val, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("failed")
+		assert.NoError(t, err, "valid enum value should not return error")
+		assert.Equal(t, DocumentsUpdateResponseDocumentThumbnailState("failed"), val, "enum value should match expected wire value")
+	})
+
+	t.Run("NewFromString_Invalid", func(t *testing.T) {
+		_, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("invalid_value_that_does_not_exist")
+		assert.Error(t, err)
+	})
+
+	t.Run("Ptr", func(t *testing.T) {
+		val, err := NewDocumentsUpdateResponseDocumentThumbnailStateFromString("pending")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -15162,10 +15083,10 @@ func TestEnumListDocumentsRequestState(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesDocumentsCommit200Response(t *testing.T) {
+func TestExtraPropertiesDocumentsCommitResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsCommit200Response{}
+		obj := &DocumentsCommitResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15179,16 +15100,16 @@ func TestExtraPropertiesDocumentsCommit200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200Response
+		var obj *DocumentsCommitResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsCommit200ResponseDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsCommitResponseDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsCommit200ResponseDocument{}
+		obj := &DocumentsCommitResponseDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15202,16 +15123,16 @@ func TestExtraPropertiesDocumentsCommit200ResponseDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsCommit200ResponseDocument
+		var obj *DocumentsCommitResponseDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsGet200Response(t *testing.T) {
+func TestExtraPropertiesDocumentsGetResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsGet200Response{}
+		obj := &DocumentsGetResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15225,16 +15146,16 @@ func TestExtraPropertiesDocumentsGet200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200Response
+		var obj *DocumentsGetResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsGet200ResponseDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsGetResponseDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsGet200ResponseDocument{}
+		obj := &DocumentsGetResponseDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15248,7 +15169,7 @@ func TestExtraPropertiesDocumentsGet200ResponseDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsGet200ResponseDocument
+		var obj *DocumentsGetResponseDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
@@ -15369,10 +15290,10 @@ func TestExtraPropertiesDocumentsImportFromRequestSourceURL(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseCreated(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseCreated(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreated{}
+		obj := &DocumentsInitResponseCreated{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15386,16 +15307,16 @@ func TestExtraPropertiesDocumentsInit200ResponseCreated(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreated
+		var obj *DocumentsInitResponseCreated
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseCreatedDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseCreatedDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedDocument{}
+		obj := &DocumentsInitResponseCreatedDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15409,16 +15330,16 @@ func TestExtraPropertiesDocumentsInit200ResponseCreatedDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedDocument
+		var obj *DocumentsInitResponseCreatedDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadPresigned(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseCreatedUploadPresigned(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresigned{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15432,16 +15353,16 @@ func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadPresigned(t *testin
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresigned
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadPresignedPresigned(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseCreatedUploadPresignedPresigned(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseCreatedUploadPresignedPresigned{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15455,16 +15376,16 @@ func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadPresignedPresigned(
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadPresignedPresigned
+		var obj *DocumentsInitResponseCreatedUploadPresignedPresigned
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadProxy(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseCreatedUploadProxy(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseCreatedUploadProxy{}
+		obj := &DocumentsInitResponseCreatedUploadProxy{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15478,16 +15399,16 @@ func TestExtraPropertiesDocumentsInit200ResponseCreatedUploadProxy(t *testing.T)
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseCreatedUploadProxy
+		var obj *DocumentsInitResponseCreatedUploadProxy
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseDeduped(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseDeduped(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseDeduped{}
+		obj := &DocumentsInitResponseDeduped{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15501,16 +15422,16 @@ func TestExtraPropertiesDocumentsInit200ResponseDeduped(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDeduped
+		var obj *DocumentsInitResponseDeduped
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseDedupedDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseDedupedDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseDedupedDocument{}
+		obj := &DocumentsInitResponseDedupedDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15524,16 +15445,16 @@ func TestExtraPropertiesDocumentsInit200ResponseDedupedDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseDedupedDocument
+		var obj *DocumentsInitResponseDedupedDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseResumed(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseResumed(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumed{}
+		obj := &DocumentsInitResponseResumed{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15547,16 +15468,16 @@ func TestExtraPropertiesDocumentsInit200ResponseResumed(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumed
+		var obj *DocumentsInitResponseResumed
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseResumedDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseResumedDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedDocument{}
+		obj := &DocumentsInitResponseResumedDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15570,16 +15491,16 @@ func TestExtraPropertiesDocumentsInit200ResponseResumedDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedDocument
+		var obj *DocumentsInitResponseResumedDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseResumedUploadPresigned(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseResumedUploadPresigned(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresigned{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15593,16 +15514,16 @@ func TestExtraPropertiesDocumentsInit200ResponseResumedUploadPresigned(t *testin
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresigned
+		var obj *DocumentsInitResponseResumedUploadPresigned
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseResumedUploadPresignedPresigned(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseResumedUploadPresignedPresigned(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadPresignedPresigned{}
+		obj := &DocumentsInitResponseResumedUploadPresignedPresigned{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15616,16 +15537,16 @@ func TestExtraPropertiesDocumentsInit200ResponseResumedUploadPresignedPresigned(
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadPresignedPresigned
+		var obj *DocumentsInitResponseResumedUploadPresignedPresigned
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsInit200ResponseResumedUploadProxy(t *testing.T) {
+func TestExtraPropertiesDocumentsInitResponseResumedUploadProxy(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsInit200ResponseResumedUploadProxy{}
+		obj := &DocumentsInitResponseResumedUploadProxy{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15639,16 +15560,16 @@ func TestExtraPropertiesDocumentsInit200ResponseResumedUploadProxy(t *testing.T)
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsInit200ResponseResumedUploadProxy
+		var obj *DocumentsInitResponseResumedUploadProxy
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsList200Response(t *testing.T) {
+func TestExtraPropertiesDocumentsListResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsList200Response{}
+		obj := &DocumentsListResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15662,16 +15583,16 @@ func TestExtraPropertiesDocumentsList200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200Response
+		var obj *DocumentsListResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsList200ResponseDocumentsItem(t *testing.T) {
+func TestExtraPropertiesDocumentsListResponseDocumentsItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsList200ResponseDocumentsItem{}
+		obj := &DocumentsListResponseDocumentsItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15685,16 +15606,16 @@ func TestExtraPropertiesDocumentsList200ResponseDocumentsItem(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsList200ResponseDocumentsItem
+		var obj *DocumentsListResponseDocumentsItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsUpdate200Response(t *testing.T) {
+func TestExtraPropertiesDocumentsUpdateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUpdate200Response{}
+		obj := &DocumentsUpdateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15708,16 +15629,16 @@ func TestExtraPropertiesDocumentsUpdate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200Response
+		var obj *DocumentsUpdateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsUpdate200ResponseDocument(t *testing.T) {
+func TestExtraPropertiesDocumentsUpdateResponseDocument(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUpdate200ResponseDocument{}
+		obj := &DocumentsUpdateResponseDocument{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15731,16 +15652,16 @@ func TestExtraPropertiesDocumentsUpdate200ResponseDocument(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUpdate200ResponseDocument
+		var obj *DocumentsUpdateResponseDocument
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesDocumentsUploadProxy200Response(t *testing.T) {
+func TestExtraPropertiesDocumentsUploadProxyResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &DocumentsUploadProxy200Response{}
+		obj := &DocumentsUploadProxyResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -15754,7 +15675,7 @@ func TestExtraPropertiesDocumentsUploadProxy200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *DocumentsUploadProxy200Response
+		var obj *DocumentsUploadProxyResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

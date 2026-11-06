@@ -47,7 +47,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *cloudpdf.ListFoldersRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.FoldersList200Response, error) {
+) (*cloudpdf.FoldersListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -75,7 +75,7 @@ func (c *Client) Create(
 	ctx context.Context,
 	request *cloudpdf.FoldersCreateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.FoldersCreate200Response, error) {
+) (*cloudpdf.FoldersCreateResponse, error) {
 	response, err := c.WithRawResponse.Create(
 		ctx,
 		request,
@@ -101,7 +101,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *cloudpdf.GetFoldersRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.FoldersGet200Response, error) {
+) (*cloudpdf.FoldersGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,
@@ -158,7 +158,7 @@ func (c *Client) Update(
 	ctx context.Context,
 	request *cloudpdf.FoldersUpdateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.FoldersUpdate200Response, error) {
+) (*cloudpdf.FoldersUpdateResponse, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -170,7 +170,7 @@ func (c *Client) Update(
 	return response.Body, nil
 }
 
-// Up to 1,000 ids in total. A folder moves with everything in it. 404 NotFound names the ids that do not exist or are being deleted in `details.documentIds` and `details.folderIds`. 409 Conflict carries `details.reason`: `cycle` (the destination is a moved folder or inside one; `details.folderId`), `too-deep` (the move would nest folders deeper than 100 levels; `details.maxDepth`) or `name-taken` (a moved folder's name is taken in the destination, ignoring case; `details.name`).
+// Up to 1,000 ids in total. A folder moves with everything in it. 404 NotFound names the ids that do not exist or are being deleted in `details.docIds` and `details.folderIds`. 409 Conflict carries `details.reason`: `cycle` (the destination is a moved folder or inside one; `details.folderId`), `too-deep` (the move would nest folders deeper than 100 levels; `details.maxDepth`) or `name-taken` (a moved folder's name is taken in the destination, ignoring case; `details.name`).
 //
 // Example:
 //

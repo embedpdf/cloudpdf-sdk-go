@@ -12,7 +12,7 @@ import (
 func TestSettersDeploymentLicenseStatusResponse(t *testing.T) {
 	t.Run("SetLicense", func(t *testing.T) {
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueLicense any
+		var fernTestValueLicense map[string]any
 		obj.SetLicense(fernTestValueLicense)
 		assert.Equal(t, fernTestValueLicense, obj.License)
 		assert.NotNil(t, obj.explicitFields)
@@ -20,7 +20,7 @@ func TestSettersDeploymentLicenseStatusResponse(t *testing.T) {
 
 	t.Run("SetReporting", func(t *testing.T) {
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueReporting any
+		var fernTestValueReporting map[string]any
 		obj.SetReporting(fernTestValueReporting)
 		assert.Equal(t, fernTestValueReporting, obj.Reporting)
 		assert.NotNil(t, obj.explicitFields)
@@ -28,7 +28,7 @@ func TestSettersDeploymentLicenseStatusResponse(t *testing.T) {
 
 	t.Run("SetUsage", func(t *testing.T) {
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueUsage any
+		var fernTestValueUsage map[string]any
 		obj.SetUsage(fernTestValueUsage)
 		assert.Equal(t, fernTestValueUsage, obj.Usage)
 		assert.NotNil(t, obj.explicitFields)
@@ -41,11 +41,21 @@ func TestGettersDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var expected any
+		var expected map[string]any
 		obj.License = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetLicense(), "getter should return the property value")
+	})
+
+	t.Run("GetLicense_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DeploymentLicenseStatusResponse{}
+		obj.License = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetLicense(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetLicense_NilReceiver", func(t *testing.T) {
@@ -64,11 +74,21 @@ func TestGettersDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var expected any
+		var expected map[string]any
 		obj.Reporting = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetReporting(), "getter should return the property value")
+	})
+
+	t.Run("GetReporting_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DeploymentLicenseStatusResponse{}
+		obj.Reporting = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetReporting(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetReporting_NilReceiver", func(t *testing.T) {
@@ -87,11 +107,21 @@ func TestGettersDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var expected any
+		var expected map[string]any
 		obj.Usage = expected
 
 		// Act & Assert
 		assert.Equal(t, expected, obj.GetUsage(), "getter should return the property value")
+	})
+
+	t.Run("GetUsage_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &DeploymentLicenseStatusResponse{}
+		obj.Usage = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetUsage(), "getter should return nil when property is nil")
 	})
 
 	t.Run("GetUsage_NilReceiver", func(t *testing.T) {
@@ -113,7 +143,7 @@ func TestSettersMarkExplicitDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueLicense any
+		var fernTestValueLicense map[string]any
 
 		// Act
 		obj.SetLicense(fernTestValueLicense)
@@ -144,7 +174,7 @@ func TestSettersMarkExplicitDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueReporting any
+		var fernTestValueReporting map[string]any
 
 		// Act
 		obj.SetReporting(fernTestValueReporting)
@@ -175,7 +205,7 @@ func TestSettersMarkExplicitDeploymentLicenseStatusResponse(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeploymentLicenseStatusResponse{}
-		var fernTestValueUsage any
+		var fernTestValueUsage map[string]any
 
 		// Act
 		obj.SetUsage(fernTestValueUsage)

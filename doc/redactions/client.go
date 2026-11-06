@@ -49,7 +49,7 @@ func (c *Client) Apply(
 	ctx context.Context,
 	request *doc.DocRedactionsApplyRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocRedactionsApply200Response, error) {
+) (*cloudpdf.DocRedactionsApplyResponse, error) {
 	response, err := c.WithRawResponse.Apply(
 		ctx,
 		request,

@@ -36,7 +36,7 @@ func (r *RawClient) Exchange(
 	ctx context.Context,
 	request *cloudpdf.GrantsExchangeRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsExchange200Response], error) {
+) (*core.Response[*cloudpdf.GrantsExchangeResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -49,7 +49,7 @@ func (r *RawClient) Exchange(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.GrantsExchange200Response
+	var response *cloudpdf.GrantsExchangeResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -69,7 +69,7 @@ func (r *RawClient) Exchange(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsExchange200Response]{
+	return &core.Response[*cloudpdf.GrantsExchangeResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -80,7 +80,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *cloudpdf.ListGrantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsList200Response], error) {
+) (*core.Response[*cloudpdf.GrantsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -102,7 +102,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.GrantsList200Response
+	var response *cloudpdf.GrantsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -121,7 +121,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsList200Response]{
+	return &core.Response[*cloudpdf.GrantsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -132,7 +132,7 @@ func (r *RawClient) Create(
 	ctx context.Context,
 	request *cloudpdf.GrantsCreateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsCreate200Response], error) {
+) (*core.Response[*cloudpdf.GrantsCreateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -148,7 +148,7 @@ func (r *RawClient) Create(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.GrantsCreate200Response
+	var response *cloudpdf.GrantsCreateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -168,7 +168,7 @@ func (r *RawClient) Create(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsCreate200Response]{
+	return &core.Response[*cloudpdf.GrantsCreateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -179,7 +179,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *cloudpdf.GetGrantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsGet200Response], error) {
+) (*core.Response[*cloudpdf.GrantsGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -195,7 +195,7 @@ func (r *RawClient) Get(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.GrantsGet200Response
+	var response *cloudpdf.GrantsGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -214,7 +214,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsGet200Response]{
+	return &core.Response[*cloudpdf.GrantsGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -269,7 +269,7 @@ func (r *RawClient) Update(
 	ctx context.Context,
 	request *cloudpdf.GrantsUpdateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsUpdate200Response], error) {
+) (*core.Response[*cloudpdf.GrantsUpdateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -286,7 +286,7 @@ func (r *RawClient) Update(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.GrantsUpdate200Response
+	var response *cloudpdf.GrantsUpdateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -306,7 +306,7 @@ func (r *RawClient) Update(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsUpdate200Response]{
+	return &core.Response[*cloudpdf.GrantsUpdateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -317,7 +317,7 @@ func (r *RawClient) Archive(
 	ctx context.Context,
 	request *cloudpdf.ArchiveGrantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.GrantsArchive200Response], error) {
+) (*core.Response[*cloudpdf.GrantsArchiveResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -333,7 +333,7 @@ func (r *RawClient) Archive(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.GrantsArchive200Response
+	var response *cloudpdf.GrantsArchiveResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -352,7 +352,7 @@ func (r *RawClient) Archive(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.GrantsArchive200Response]{
+	return &core.Response[*cloudpdf.GrantsArchiveResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

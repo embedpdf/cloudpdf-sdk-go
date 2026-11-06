@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
+	time "time"
 )
 
 var (
@@ -74,7 +75,7 @@ type GrantsCreateRequest struct {
 	Origins            []string                            `json:"origins,omitempty" url:"-"`
 	Passphrase         *string                             `json:"passphrase,omitempty" url:"-"`
 	SessionTTLSeconds  *int                                `json:"sessionTtlSeconds,omitempty" url:"-"`
-	ExpiresAt          *int                                `json:"expiresAt,omitempty" url:"-"`
+	ExpiresAt          *time.Time                          `json:"expiresAt,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -180,7 +181,7 @@ func (g *GrantsCreateRequest) SetSessionTTLSeconds(sessionTTLSeconds *int) {
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreateRequest) SetExpiresAt(expiresAt *int) {
+func (g *GrantsCreateRequest) SetExpiresAt(expiresAt *time.Time) {
 	g.ExpiresAt = expiresAt
 	g.require(grantsCreateRequestFieldExpiresAt)
 }
@@ -199,8 +200,10 @@ func (g *GrantsCreateRequest) MarshalJSON() ([]byte, error) {
 	type embed GrantsCreateRequest
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt,omitempty"`
 	}{
-		embed: embed(*g),
+		embed:     embed(*g),
+		ExpiresAt: internal.NewOptionalDateTime(g.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -418,11 +421,11 @@ func (l *ListGrantsRequest) SetArchived(archived *bool) {
 }
 
 var (
-	grantsArchive200ResponseFieldGrant = big.NewInt(1 << 0)
+	grantsArchiveResponseFieldGrant = big.NewInt(1 << 0)
 )
 
-type GrantsArchive200Response struct {
-	Grant *GrantsArchive200ResponseGrant `json:"grant" url:"grant"`
+type GrantsArchiveResponse struct {
+	Grant *GrantsArchiveResponseGrant `json:"grant" url:"grant"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -431,21 +434,21 @@ type GrantsArchive200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsArchive200Response) GetGrant() *GrantsArchive200ResponseGrant {
+func (g *GrantsArchiveResponse) GetGrant() *GrantsArchiveResponseGrant {
 	if g == nil {
 		return nil
 	}
 	return g.Grant
 }
 
-func (g *GrantsArchive200Response) GetExtraProperties() map[string]interface{} {
+func (g *GrantsArchiveResponse) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsArchive200Response) require(field *big.Int) {
+func (g *GrantsArchiveResponse) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -454,18 +457,18 @@ func (g *GrantsArchive200Response) require(field *big.Int) {
 
 // SetGrant sets the Grant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200Response) SetGrant(grant *GrantsArchive200ResponseGrant) {
+func (g *GrantsArchiveResponse) SetGrant(grant *GrantsArchiveResponseGrant) {
 	g.Grant = grant
-	g.require(grantsArchive200ResponseFieldGrant)
+	g.require(grantsArchiveResponseFieldGrant)
 }
 
-func (g *GrantsArchive200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsArchive200Response
+func (g *GrantsArchiveResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsArchiveResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsArchive200Response(value)
+	*g = GrantsArchiveResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -475,8 +478,8 @@ func (g *GrantsArchive200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsArchive200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsArchive200Response
+func (g *GrantsArchiveResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsArchiveResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -486,7 +489,7 @@ func (g *GrantsArchive200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsArchive200Response) String() string {
+func (g *GrantsArchiveResponse) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -502,53 +505,53 @@ func (g *GrantsArchive200Response) String() string {
 }
 
 var (
-	grantsArchive200ResponseGrantFieldID                  = big.NewInt(1 << 0)
-	grantsArchive200ResponseGrantFieldTenantID            = big.NewInt(1 << 1)
-	grantsArchive200ResponseGrantFieldDocID               = big.NewInt(1 << 2)
-	grantsArchive200ResponseGrantFieldName                = big.NewInt(1 << 3)
-	grantsArchive200ResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
-	grantsArchive200ResponseGrantFieldLayerName           = big.NewInt(1 << 5)
-	grantsArchive200ResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
-	grantsArchive200ResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
-	grantsArchive200ResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
-	grantsArchive200ResponseGrantFieldIdentity            = big.NewInt(1 << 9)
-	grantsArchive200ResponseGrantFieldScope               = big.NewInt(1 << 10)
-	grantsArchive200ResponseGrantFieldOrigins             = big.NewInt(1 << 11)
-	grantsArchive200ResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
-	grantsArchive200ResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
-	grantsArchive200ResponseGrantFieldDisabled            = big.NewInt(1 << 14)
-	grantsArchive200ResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
-	grantsArchive200ResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
-	grantsArchive200ResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
-	grantsArchive200ResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
-	grantsArchive200ResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
-	grantsArchive200ResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
-	grantsArchive200ResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
+	grantsArchiveResponseGrantFieldID                  = big.NewInt(1 << 0)
+	grantsArchiveResponseGrantFieldTenantID            = big.NewInt(1 << 1)
+	grantsArchiveResponseGrantFieldDocID               = big.NewInt(1 << 2)
+	grantsArchiveResponseGrantFieldName                = big.NewInt(1 << 3)
+	grantsArchiveResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
+	grantsArchiveResponseGrantFieldLayerName           = big.NewInt(1 << 5)
+	grantsArchiveResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
+	grantsArchiveResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
+	grantsArchiveResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
+	grantsArchiveResponseGrantFieldIdentity            = big.NewInt(1 << 9)
+	grantsArchiveResponseGrantFieldScope               = big.NewInt(1 << 10)
+	grantsArchiveResponseGrantFieldOrigins             = big.NewInt(1 << 11)
+	grantsArchiveResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
+	grantsArchiveResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
+	grantsArchiveResponseGrantFieldDisabled            = big.NewInt(1 << 14)
+	grantsArchiveResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
+	grantsArchiveResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
+	grantsArchiveResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
+	grantsArchiveResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
+	grantsArchiveResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
+	grantsArchiveResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
+	grantsArchiveResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
 )
 
-type GrantsArchive200ResponseGrant struct {
-	ID                  string                                        `json:"id" url:"id"`
-	TenantID            string                                        `json:"tenantId" url:"tenantId"`
-	DocID               string                                        `json:"docId" url:"docId"`
-	Name                *string                                       `json:"name,omitempty" url:"name,omitempty"`
-	LayerMode           GrantsArchive200ResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
-	LayerName           *string                                       `json:"layerName,omitempty" url:"layerName,omitempty"`
-	KeepVisitorLayers   bool                                          `json:"keepVisitorLayers" url:"keepVisitorLayers"`
-	VisitorIdleSeconds  *float64                                      `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
-	VisitorIdentity     *GrantsArchive200ResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
-	Identity            *Identity                                     `json:"identity,omitempty" url:"identity,omitempty"`
-	Scope               []string                                      `json:"scope" url:"scope"`
-	Origins             []string                                      `json:"origins,omitempty" url:"origins,omitempty"`
-	PassphraseProtected bool                                          `json:"passphraseProtected" url:"passphraseProtected"`
-	SessionTTLSeconds   float64                                       `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled            bool                                          `json:"disabled" url:"disabled"`
-	ArchivedAt          *float64                                      `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
-	ExpiresAt           *float64                                      `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount       float64                                       `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt     *float64                                      `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy           string                                        `json:"createdBy" url:"createdBy"`
-	CreatedAt           float64                                       `json:"createdAt" url:"createdAt"`
-	UpdatedAt           float64                                       `json:"updatedAt" url:"updatedAt"`
+type GrantsArchiveResponseGrant struct {
+	ID                  string                                     `json:"id" url:"id"`
+	TenantID            string                                     `json:"tenantId" url:"tenantId"`
+	DocID               string                                     `json:"docId" url:"docId"`
+	Name                *string                                    `json:"name,omitempty" url:"name,omitempty"`
+	LayerMode           GrantsArchiveResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName           *string                                    `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers   bool                                       `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds  *int                                       `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity     *GrantsArchiveResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity            *Identity                                  `json:"identity,omitempty" url:"identity,omitempty"`
+	Scope               []string                                   `json:"scope" url:"scope"`
+	Origins             []string                                   `json:"origins,omitempty" url:"origins,omitempty"`
+	PassphraseProtected bool                                       `json:"passphraseProtected" url:"passphraseProtected"`
+	SessionTTLSeconds   int                                        `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled            bool                                       `json:"disabled" url:"disabled"`
+	ArchivedAt          *time.Time                                 `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt           *time.Time                                 `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount       int                                        `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt     *time.Time                                 `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy           string                                     `json:"createdBy" url:"createdBy"`
+	CreatedAt           time.Time                                  `json:"createdAt" url:"createdAt"`
+	UpdatedAt           time.Time                                  `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -557,168 +560,168 @@ type GrantsArchive200ResponseGrant struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsArchive200ResponseGrant) GetID() string {
+func (g *GrantsArchiveResponseGrant) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
 }
 
-func (g *GrantsArchive200ResponseGrant) GetTenantID() string {
+func (g *GrantsArchiveResponseGrant) GetTenantID() string {
 	if g == nil {
 		return ""
 	}
 	return g.TenantID
 }
 
-func (g *GrantsArchive200ResponseGrant) GetDocID() string {
+func (g *GrantsArchiveResponseGrant) GetDocID() string {
 	if g == nil {
 		return ""
 	}
 	return g.DocID
 }
 
-func (g *GrantsArchive200ResponseGrant) GetName() *string {
+func (g *GrantsArchiveResponseGrant) GetName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Name
 }
 
-func (g *GrantsArchive200ResponseGrant) GetLayerMode() GrantsArchive200ResponseGrantLayerMode {
+func (g *GrantsArchiveResponseGrant) GetLayerMode() GrantsArchiveResponseGrantLayerMode {
 	if g == nil {
 		return ""
 	}
 	return g.LayerMode
 }
 
-func (g *GrantsArchive200ResponseGrant) GetLayerName() *string {
+func (g *GrantsArchiveResponseGrant) GetLayerName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.LayerName
 }
 
-func (g *GrantsArchive200ResponseGrant) GetKeepVisitorLayers() bool {
+func (g *GrantsArchiveResponseGrant) GetKeepVisitorLayers() bool {
 	if g == nil {
 		return false
 	}
 	return g.KeepVisitorLayers
 }
 
-func (g *GrantsArchive200ResponseGrant) GetVisitorIdleSeconds() *float64 {
+func (g *GrantsArchiveResponseGrant) GetVisitorIdleSeconds() *int {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdleSeconds
 }
 
-func (g *GrantsArchive200ResponseGrant) GetVisitorIdentity() *GrantsArchive200ResponseGrantVisitorIdentity {
+func (g *GrantsArchiveResponseGrant) GetVisitorIdentity() *GrantsArchiveResponseGrantVisitorIdentity {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdentity
 }
 
-func (g *GrantsArchive200ResponseGrant) GetIdentity() *Identity {
+func (g *GrantsArchiveResponseGrant) GetIdentity() *Identity {
 	if g == nil {
 		return nil
 	}
 	return g.Identity
 }
 
-func (g *GrantsArchive200ResponseGrant) GetScope() []string {
+func (g *GrantsArchiveResponseGrant) GetScope() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Scope
 }
 
-func (g *GrantsArchive200ResponseGrant) GetOrigins() []string {
+func (g *GrantsArchiveResponseGrant) GetOrigins() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Origins
 }
 
-func (g *GrantsArchive200ResponseGrant) GetPassphraseProtected() bool {
+func (g *GrantsArchiveResponseGrant) GetPassphraseProtected() bool {
 	if g == nil {
 		return false
 	}
 	return g.PassphraseProtected
 }
 
-func (g *GrantsArchive200ResponseGrant) GetSessionTTLSeconds() float64 {
+func (g *GrantsArchiveResponseGrant) GetSessionTTLSeconds() int {
 	if g == nil {
 		return 0
 	}
 	return g.SessionTTLSeconds
 }
 
-func (g *GrantsArchive200ResponseGrant) GetDisabled() bool {
+func (g *GrantsArchiveResponseGrant) GetDisabled() bool {
 	if g == nil {
 		return false
 	}
 	return g.Disabled
 }
 
-func (g *GrantsArchive200ResponseGrant) GetArchivedAt() *float64 {
+func (g *GrantsArchiveResponseGrant) GetArchivedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ArchivedAt
 }
 
-func (g *GrantsArchive200ResponseGrant) GetExpiresAt() *float64 {
+func (g *GrantsArchiveResponseGrant) GetExpiresAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ExpiresAt
 }
 
-func (g *GrantsArchive200ResponseGrant) GetExchangeCount() float64 {
+func (g *GrantsArchiveResponseGrant) GetExchangeCount() int {
 	if g == nil {
 		return 0
 	}
 	return g.ExchangeCount
 }
 
-func (g *GrantsArchive200ResponseGrant) GetLastExchangedAt() *float64 {
+func (g *GrantsArchiveResponseGrant) GetLastExchangedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.LastExchangedAt
 }
 
-func (g *GrantsArchive200ResponseGrant) GetCreatedBy() string {
+func (g *GrantsArchiveResponseGrant) GetCreatedBy() string {
 	if g == nil {
 		return ""
 	}
 	return g.CreatedBy
 }
 
-func (g *GrantsArchive200ResponseGrant) GetCreatedAt() float64 {
+func (g *GrantsArchiveResponseGrant) GetCreatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.CreatedAt
 }
 
-func (g *GrantsArchive200ResponseGrant) GetUpdatedAt() float64 {
+func (g *GrantsArchiveResponseGrant) GetUpdatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.UpdatedAt
 }
 
-func (g *GrantsArchive200ResponseGrant) GetExtraProperties() map[string]interface{} {
+func (g *GrantsArchiveResponseGrant) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsArchive200ResponseGrant) require(field *big.Int) {
+func (g *GrantsArchiveResponseGrant) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -727,165 +730,179 @@ func (g *GrantsArchive200ResponseGrant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetID(id string) {
+func (g *GrantsArchiveResponseGrant) SetID(id string) {
 	g.ID = id
-	g.require(grantsArchive200ResponseGrantFieldID)
+	g.require(grantsArchiveResponseGrantFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetTenantID(tenantID string) {
+func (g *GrantsArchiveResponseGrant) SetTenantID(tenantID string) {
 	g.TenantID = tenantID
-	g.require(grantsArchive200ResponseGrantFieldTenantID)
+	g.require(grantsArchiveResponseGrantFieldTenantID)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetDocID(docID string) {
+func (g *GrantsArchiveResponseGrant) SetDocID(docID string) {
 	g.DocID = docID
-	g.require(grantsArchive200ResponseGrantFieldDocID)
+	g.require(grantsArchiveResponseGrantFieldDocID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetName(name *string) {
+func (g *GrantsArchiveResponseGrant) SetName(name *string) {
 	g.Name = name
-	g.require(grantsArchive200ResponseGrantFieldName)
+	g.require(grantsArchiveResponseGrantFieldName)
 }
 
 // SetLayerMode sets the LayerMode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetLayerMode(layerMode GrantsArchive200ResponseGrantLayerMode) {
+func (g *GrantsArchiveResponseGrant) SetLayerMode(layerMode GrantsArchiveResponseGrantLayerMode) {
 	g.LayerMode = layerMode
-	g.require(grantsArchive200ResponseGrantFieldLayerMode)
+	g.require(grantsArchiveResponseGrantFieldLayerMode)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetLayerName(layerName *string) {
+func (g *GrantsArchiveResponseGrant) SetLayerName(layerName *string) {
 	g.LayerName = layerName
-	g.require(grantsArchive200ResponseGrantFieldLayerName)
+	g.require(grantsArchiveResponseGrantFieldLayerName)
 }
 
 // SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
+func (g *GrantsArchiveResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
 	g.KeepVisitorLayers = keepVisitorLayers
-	g.require(grantsArchive200ResponseGrantFieldKeepVisitorLayers)
+	g.require(grantsArchiveResponseGrantFieldKeepVisitorLayers)
 }
 
 // SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+func (g *GrantsArchiveResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
 	g.VisitorIdleSeconds = visitorIdleSeconds
-	g.require(grantsArchive200ResponseGrantFieldVisitorIdleSeconds)
+	g.require(grantsArchiveResponseGrantFieldVisitorIdleSeconds)
 }
 
 // SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsArchive200ResponseGrantVisitorIdentity) {
+func (g *GrantsArchiveResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsArchiveResponseGrantVisitorIdentity) {
 	g.VisitorIdentity = visitorIdentity
-	g.require(grantsArchive200ResponseGrantFieldVisitorIdentity)
+	g.require(grantsArchiveResponseGrantFieldVisitorIdentity)
 }
 
 // SetIdentity sets the Identity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetIdentity(identity *Identity) {
+func (g *GrantsArchiveResponseGrant) SetIdentity(identity *Identity) {
 	g.Identity = identity
-	g.require(grantsArchive200ResponseGrantFieldIdentity)
+	g.require(grantsArchiveResponseGrantFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetScope(scope []string) {
+func (g *GrantsArchiveResponseGrant) SetScope(scope []string) {
 	g.Scope = scope
-	g.require(grantsArchive200ResponseGrantFieldScope)
+	g.require(grantsArchiveResponseGrantFieldScope)
 }
 
 // SetOrigins sets the Origins field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetOrigins(origins []string) {
+func (g *GrantsArchiveResponseGrant) SetOrigins(origins []string) {
 	g.Origins = origins
-	g.require(grantsArchive200ResponseGrantFieldOrigins)
+	g.require(grantsArchiveResponseGrantFieldOrigins)
 }
 
 // SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
+func (g *GrantsArchiveResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
 	g.PassphraseProtected = passphraseProtected
-	g.require(grantsArchive200ResponseGrantFieldPassphraseProtected)
+	g.require(grantsArchiveResponseGrantFieldPassphraseProtected)
 }
 
 // SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds float64) {
+func (g *GrantsArchiveResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds int) {
 	g.SessionTTLSeconds = sessionTTLSeconds
-	g.require(grantsArchive200ResponseGrantFieldSessionTTLSeconds)
+	g.require(grantsArchiveResponseGrantFieldSessionTTLSeconds)
 }
 
 // SetDisabled sets the Disabled field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetDisabled(disabled bool) {
+func (g *GrantsArchiveResponseGrant) SetDisabled(disabled bool) {
 	g.Disabled = disabled
-	g.require(grantsArchive200ResponseGrantFieldDisabled)
+	g.require(grantsArchiveResponseGrantFieldDisabled)
 }
 
 // SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetArchivedAt(archivedAt *float64) {
+func (g *GrantsArchiveResponseGrant) SetArchivedAt(archivedAt *time.Time) {
 	g.ArchivedAt = archivedAt
-	g.require(grantsArchive200ResponseGrantFieldArchivedAt)
+	g.require(grantsArchiveResponseGrantFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetExpiresAt(expiresAt *float64) {
+func (g *GrantsArchiveResponseGrant) SetExpiresAt(expiresAt *time.Time) {
 	g.ExpiresAt = expiresAt
-	g.require(grantsArchive200ResponseGrantFieldExpiresAt)
+	g.require(grantsArchiveResponseGrantFieldExpiresAt)
 }
 
 // SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetExchangeCount(exchangeCount float64) {
+func (g *GrantsArchiveResponseGrant) SetExchangeCount(exchangeCount int) {
 	g.ExchangeCount = exchangeCount
-	g.require(grantsArchive200ResponseGrantFieldExchangeCount)
+	g.require(grantsArchiveResponseGrantFieldExchangeCount)
 }
 
 // SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetLastExchangedAt(lastExchangedAt *float64) {
+func (g *GrantsArchiveResponseGrant) SetLastExchangedAt(lastExchangedAt *time.Time) {
 	g.LastExchangedAt = lastExchangedAt
-	g.require(grantsArchive200ResponseGrantFieldLastExchangedAt)
+	g.require(grantsArchiveResponseGrantFieldLastExchangedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetCreatedBy(createdBy string) {
+func (g *GrantsArchiveResponseGrant) SetCreatedBy(createdBy string) {
 	g.CreatedBy = createdBy
-	g.require(grantsArchive200ResponseGrantFieldCreatedBy)
+	g.require(grantsArchiveResponseGrantFieldCreatedBy)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetCreatedAt(createdAt float64) {
+func (g *GrantsArchiveResponseGrant) SetCreatedAt(createdAt time.Time) {
 	g.CreatedAt = createdAt
-	g.require(grantsArchive200ResponseGrantFieldCreatedAt)
+	g.require(grantsArchiveResponseGrantFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrant) SetUpdatedAt(updatedAt float64) {
+func (g *GrantsArchiveResponseGrant) SetUpdatedAt(updatedAt time.Time) {
 	g.UpdatedAt = updatedAt
-	g.require(grantsArchive200ResponseGrantFieldUpdatedAt)
+	g.require(grantsArchiveResponseGrantFieldUpdatedAt)
 }
 
-func (g *GrantsArchive200ResponseGrant) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsArchive200ResponseGrant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (g *GrantsArchiveResponseGrant) UnmarshalJSON(data []byte) error {
+	type embed GrantsArchiveResponseGrant
+	var unmarshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*g = GrantsArchive200ResponseGrant(value)
+	*g = GrantsArchiveResponseGrant(unmarshaler.embed)
+	g.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	g.ExpiresAt = unmarshaler.ExpiresAt.TimePtr()
+	g.LastExchangedAt = unmarshaler.LastExchangedAt.TimePtr()
+	g.CreatedAt = unmarshaler.CreatedAt.Time()
+	g.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -895,18 +912,28 @@ func (g *GrantsArchive200ResponseGrant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsArchive200ResponseGrant) MarshalJSON() ([]byte, error) {
-	type embed GrantsArchive200ResponseGrant
+func (g *GrantsArchiveResponseGrant) MarshalJSON() ([]byte, error) {
+	type embed GrantsArchiveResponseGrant
 	var marshaler = struct {
 		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*g),
+		embed:           embed(*g),
+		ArchivedAt:      internal.NewOptionalDateTime(g.ArchivedAt),
+		ExpiresAt:       internal.NewOptionalDateTime(g.ExpiresAt),
+		LastExchangedAt: internal.NewOptionalDateTime(g.LastExchangedAt),
+		CreatedAt:       internal.NewDateTime(g.CreatedAt),
+		UpdatedAt:       internal.NewDateTime(g.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsArchive200ResponseGrant) String() string {
+func (g *GrantsArchiveResponseGrant) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -921,40 +948,40 @@ func (g *GrantsArchive200ResponseGrant) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsArchive200ResponseGrantLayerMode string
+type GrantsArchiveResponseGrantLayerMode string
 
 const (
-	GrantsArchive200ResponseGrantLayerModeShared     GrantsArchive200ResponseGrantLayerMode = "shared"
-	GrantsArchive200ResponseGrantLayerModePerVisitor GrantsArchive200ResponseGrantLayerMode = "per-visitor"
+	GrantsArchiveResponseGrantLayerModeShared     GrantsArchiveResponseGrantLayerMode = "shared"
+	GrantsArchiveResponseGrantLayerModePerVisitor GrantsArchiveResponseGrantLayerMode = "per-visitor"
 )
 
-func NewGrantsArchive200ResponseGrantLayerModeFromString(s string) (GrantsArchive200ResponseGrantLayerMode, error) {
+func NewGrantsArchiveResponseGrantLayerModeFromString(s string) (GrantsArchiveResponseGrantLayerMode, error) {
 	switch s {
 	case "shared":
-		return GrantsArchive200ResponseGrantLayerModeShared, nil
+		return GrantsArchiveResponseGrantLayerModeShared, nil
 	case "per-visitor":
-		return GrantsArchive200ResponseGrantLayerModePerVisitor, nil
+		return GrantsArchiveResponseGrantLayerModePerVisitor, nil
 	}
-	var t GrantsArchive200ResponseGrantLayerMode
+	var t GrantsArchiveResponseGrantLayerMode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantLayerMode) Ptr() *GrantsArchive200ResponseGrantLayerMode {
+func (g GrantsArchiveResponseGrantLayerMode) Ptr() *GrantsArchiveResponseGrantLayerMode {
 	return &g
 }
 
 var (
-	grantsArchive200ResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
-	grantsArchive200ResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
-	grantsArchive200ResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
-	grantsArchive200ResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+	grantsArchiveResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	grantsArchiveResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	grantsArchiveResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	grantsArchiveResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
 )
 
-type GrantsArchive200ResponseGrantVisitorIdentity struct {
-	Fields     *GrantsArchive200ResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
-	Ask        GrantsArchive200ResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
-	Purpose    *string                                             `json:"purpose,omitempty" url:"purpose,omitempty"`
-	PrivacyURL *string                                             `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+type GrantsArchiveResponseGrantVisitorIdentity struct {
+	Fields     *GrantsArchiveResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        GrantsArchiveResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                          `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                          `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -963,42 +990,42 @@ type GrantsArchive200ResponseGrantVisitorIdentity struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) GetFields() *GrantsArchive200ResponseGrantVisitorIdentityFields {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) GetFields() *GrantsArchiveResponseGrantVisitorIdentityFields {
 	if g == nil {
 		return nil
 	}
 	return g.Fields
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) GetAsk() GrantsArchive200ResponseGrantVisitorIdentityAsk {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) GetAsk() GrantsArchiveResponseGrantVisitorIdentityAsk {
 	if g == nil {
 		return ""
 	}
 	return g.Ask
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) GetPurpose() *string {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) GetPurpose() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Purpose
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) GetPrivacyURL() *string {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) GetPrivacyURL() *string {
 	if g == nil {
 		return nil
 	}
 	return g.PrivacyURL
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) require(field *big.Int) {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -1007,39 +1034,39 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentity) require(field *big.Int) {
 
 // SetFields sets the Fields field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) SetFields(fields *GrantsArchive200ResponseGrantVisitorIdentityFields) {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) SetFields(fields *GrantsArchiveResponseGrantVisitorIdentityFields) {
 	g.Fields = fields
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldFields)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldFields)
 }
 
 // SetAsk sets the Ask field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) SetAsk(ask GrantsArchive200ResponseGrantVisitorIdentityAsk) {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) SetAsk(ask GrantsArchiveResponseGrantVisitorIdentityAsk) {
 	g.Ask = ask
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldAsk)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldAsk)
 }
 
 // SetPurpose sets the Purpose field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
 	g.Purpose = purpose
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldPurpose)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldPurpose)
 }
 
 // SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
 	g.PrivacyURL = privacyURL
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldPrivacyURL)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldPrivacyURL)
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsArchive200ResponseGrantVisitorIdentity
+func (g *GrantsArchiveResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsArchiveResponseGrantVisitorIdentity
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsArchive200ResponseGrantVisitorIdentity(value)
+	*g = GrantsArchiveResponseGrantVisitorIdentity(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -1049,8 +1076,8 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte
 	return nil
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
-	type embed GrantsArchive200ResponseGrantVisitorIdentity
+func (g *GrantsArchiveResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed GrantsArchiveResponseGrantVisitorIdentity
 	var marshaler = struct {
 		embed
 	}{
@@ -1060,7 +1087,7 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, er
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentity) String() string {
+func (g *GrantsArchiveResponseGrantVisitorIdentity) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -1075,42 +1102,42 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentity) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityAsk string
+type GrantsArchiveResponseGrantVisitorIdentityAsk string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityAskOnOpen            GrantsArchive200ResponseGrantVisitorIdentityAsk = "on-open"
-	GrantsArchive200ResponseGrantVisitorIdentityAskBeforeFirstChange GrantsArchive200ResponseGrantVisitorIdentityAsk = "before-first-change"
+	GrantsArchiveResponseGrantVisitorIdentityAskOnOpen            GrantsArchiveResponseGrantVisitorIdentityAsk = "on-open"
+	GrantsArchiveResponseGrantVisitorIdentityAskBeforeFirstChange GrantsArchiveResponseGrantVisitorIdentityAsk = "before-first-change"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityAskFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityAsk, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityAskFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityAsk, error) {
 	switch s {
 	case "on-open":
-		return GrantsArchive200ResponseGrantVisitorIdentityAskOnOpen, nil
+		return GrantsArchiveResponseGrantVisitorIdentityAskOnOpen, nil
 	case "before-first-change":
-		return GrantsArchive200ResponseGrantVisitorIdentityAskBeforeFirstChange, nil
+		return GrantsArchiveResponseGrantVisitorIdentityAskBeforeFirstChange, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityAsk
+	var t GrantsArchiveResponseGrantVisitorIdentityAsk
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityAsk) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityAsk {
+func (g GrantsArchiveResponseGrantVisitorIdentityAsk) Ptr() *GrantsArchiveResponseGrantVisitorIdentityAsk {
 	return &g
 }
 
 var (
-	grantsArchive200ResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsArchive200ResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsArchive200ResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsArchive200ResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsArchive200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+	grantsArchiveResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsArchiveResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsArchiveResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsArchiveResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsArchiveResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
 )
 
-type GrantsArchive200ResponseGrantVisitorIdentityFields struct {
-	DisplayName        *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+type GrantsArchiveResponseGrantVisitorIdentityFields struct {
+	DisplayName        *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1119,49 +1146,49 @@ type GrantsArchive200ResponseGrantVisitorIdentityFields struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName {
 	if g == nil {
 		return nil
 	}
 	return g.DisplayName
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetEmail() *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetEmail() *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail {
 	if g == nil {
 		return nil
 	}
 	return g.Email
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetTitle() *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetTitle() *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle {
 	if g == nil {
 		return nil
 	}
 	return g.Title
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetOrganization() *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetOrganization() *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization {
 	if g == nil {
 		return nil
 	}
 	return g.Organization
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit {
 	if g == nil {
 		return nil
 	}
 	return g.OrganizationalUnit
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) require(field *big.Int) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -1170,46 +1197,46 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) require(field *big.
 
 // SetDisplayName sets the DisplayName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName) {
 	g.DisplayName = displayName
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldsFieldDisplayName)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldsFieldDisplayName)
 }
 
 // SetEmail sets the Email field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) SetEmail(email *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) SetEmail(email *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail) {
 	g.Email = email
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldsFieldEmail)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldsFieldEmail)
 }
 
 // SetTitle sets the Title field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) SetTitle(title *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) SetTitle(title *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle) {
 	g.Title = title
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldsFieldTitle)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldsFieldTitle)
 }
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization) {
 	g.Organization = organization
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldsFieldOrganization)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldsFieldOrganization)
 }
 
 // SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
 	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsArchive200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
+	g.require(grantsArchiveResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsArchive200ResponseGrantVisitorIdentityFields
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsArchiveResponseGrantVisitorIdentityFields
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsArchive200ResponseGrantVisitorIdentityFields(value)
+	*g = GrantsArchiveResponseGrantVisitorIdentityFields(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -1219,8 +1246,8 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data 
 	return nil
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsArchive200ResponseGrantVisitorIdentityFields
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsArchiveResponseGrantVisitorIdentityFields
 	var marshaler = struct {
 		embed
 	}{
@@ -1230,7 +1257,7 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]by
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) String() string {
+func (g *GrantsArchiveResponseGrantVisitorIdentityFields) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -1245,122 +1272,122 @@ func (g *GrantsArchive200ResponseGrantVisitorIdentityFields) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName string
+type GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName = "required"
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName = "optional"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName = "required"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName = "optional"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName, error) {
 	switch s {
 	case "required":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
 	case "optional":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName
+	var t GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsArchiveResponseGrantVisitorIdentityFieldsDisplayName {
 	return &g
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail string
+type GrantsArchiveResponseGrantVisitorIdentityFieldsEmail string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsEmailRequired GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail = "required"
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsEmailOptional GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail = "optional"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsEmailRequired GrantsArchiveResponseGrantVisitorIdentityFieldsEmail = "required"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsEmailOptional GrantsArchiveResponseGrantVisitorIdentityFieldsEmail = "optional"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityFieldsEmail, error) {
 	switch s {
 	case "required":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsEmailRequired, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsEmailRequired, nil
 	case "optional":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsEmailOptional, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsEmailOptional, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail
+	var t GrantsArchiveResponseGrantVisitorIdentityFieldsEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityFieldsEmail {
+func (g GrantsArchiveResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsArchiveResponseGrantVisitorIdentityFieldsEmail {
 	return &g
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization string
+type GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization = "required"
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization = "optional"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization = "required"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization = "optional"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization, error) {
 	switch s {
 	case "required":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
 	case "optional":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization
+	var t GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganization {
 	return &g
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit string
+type GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
 	switch s {
 	case "required":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
 	case "optional":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+	var t GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsArchiveResponseGrantVisitorIdentityFieldsOrganizationalUnit {
 	return &g
 }
 
-type GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle string
+type GrantsArchiveResponseGrantVisitorIdentityFieldsTitle string
 
 const (
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsTitleRequired GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle = "required"
-	GrantsArchive200ResponseGrantVisitorIdentityFieldsTitleOptional GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle = "optional"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsTitleRequired GrantsArchiveResponseGrantVisitorIdentityFieldsTitle = "required"
+	GrantsArchiveResponseGrantVisitorIdentityFieldsTitleOptional GrantsArchiveResponseGrantVisitorIdentityFieldsTitle = "optional"
 )
 
-func NewGrantsArchive200ResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle, error) {
+func NewGrantsArchiveResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsArchiveResponseGrantVisitorIdentityFieldsTitle, error) {
 	switch s {
 	case "required":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsTitleRequired, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsTitleRequired, nil
 	case "optional":
-		return GrantsArchive200ResponseGrantVisitorIdentityFieldsTitleOptional, nil
+		return GrantsArchiveResponseGrantVisitorIdentityFieldsTitleOptional, nil
 	}
-	var t GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle
+	var t GrantsArchiveResponseGrantVisitorIdentityFieldsTitle
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsArchive200ResponseGrantVisitorIdentityFieldsTitle {
+func (g GrantsArchiveResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsArchiveResponseGrantVisitorIdentityFieldsTitle {
 	return &g
 }
 
 var (
-	grantsCreate200ResponseFieldGrant = big.NewInt(1 << 0)
+	grantsCreateResponseFieldGrant = big.NewInt(1 << 0)
 )
 
-type GrantsCreate200Response struct {
-	Grant *GrantsCreate200ResponseGrant `json:"grant" url:"grant"`
+type GrantsCreateResponse struct {
+	Grant *GrantsCreateResponseGrant `json:"grant" url:"grant"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1369,21 +1396,21 @@ type GrantsCreate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsCreate200Response) GetGrant() *GrantsCreate200ResponseGrant {
+func (g *GrantsCreateResponse) GetGrant() *GrantsCreateResponseGrant {
 	if g == nil {
 		return nil
 	}
 	return g.Grant
 }
 
-func (g *GrantsCreate200Response) GetExtraProperties() map[string]interface{} {
+func (g *GrantsCreateResponse) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsCreate200Response) require(field *big.Int) {
+func (g *GrantsCreateResponse) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -1392,18 +1419,18 @@ func (g *GrantsCreate200Response) require(field *big.Int) {
 
 // SetGrant sets the Grant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200Response) SetGrant(grant *GrantsCreate200ResponseGrant) {
+func (g *GrantsCreateResponse) SetGrant(grant *GrantsCreateResponseGrant) {
 	g.Grant = grant
-	g.require(grantsCreate200ResponseFieldGrant)
+	g.require(grantsCreateResponseFieldGrant)
 }
 
-func (g *GrantsCreate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsCreate200Response
+func (g *GrantsCreateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsCreateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsCreate200Response(value)
+	*g = GrantsCreateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -1413,8 +1440,8 @@ func (g *GrantsCreate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsCreate200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsCreate200Response
+func (g *GrantsCreateResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsCreateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1424,7 +1451,7 @@ func (g *GrantsCreate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsCreate200Response) String() string {
+func (g *GrantsCreateResponse) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -1440,1761 +1467,53 @@ func (g *GrantsCreate200Response) String() string {
 }
 
 var (
-	grantsCreate200ResponseGrantFieldID                  = big.NewInt(1 << 0)
-	grantsCreate200ResponseGrantFieldTenantID            = big.NewInt(1 << 1)
-	grantsCreate200ResponseGrantFieldDocID               = big.NewInt(1 << 2)
-	grantsCreate200ResponseGrantFieldName                = big.NewInt(1 << 3)
-	grantsCreate200ResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
-	grantsCreate200ResponseGrantFieldLayerName           = big.NewInt(1 << 5)
-	grantsCreate200ResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
-	grantsCreate200ResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
-	grantsCreate200ResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
-	grantsCreate200ResponseGrantFieldIdentity            = big.NewInt(1 << 9)
-	grantsCreate200ResponseGrantFieldScope               = big.NewInt(1 << 10)
-	grantsCreate200ResponseGrantFieldOrigins             = big.NewInt(1 << 11)
-	grantsCreate200ResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
-	grantsCreate200ResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
-	grantsCreate200ResponseGrantFieldDisabled            = big.NewInt(1 << 14)
-	grantsCreate200ResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
-	grantsCreate200ResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
-	grantsCreate200ResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
-	grantsCreate200ResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
-	grantsCreate200ResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
-	grantsCreate200ResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
-	grantsCreate200ResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
+	grantsCreateResponseGrantFieldID                  = big.NewInt(1 << 0)
+	grantsCreateResponseGrantFieldTenantID            = big.NewInt(1 << 1)
+	grantsCreateResponseGrantFieldDocID               = big.NewInt(1 << 2)
+	grantsCreateResponseGrantFieldName                = big.NewInt(1 << 3)
+	grantsCreateResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
+	grantsCreateResponseGrantFieldLayerName           = big.NewInt(1 << 5)
+	grantsCreateResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
+	grantsCreateResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
+	grantsCreateResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
+	grantsCreateResponseGrantFieldIdentity            = big.NewInt(1 << 9)
+	grantsCreateResponseGrantFieldScope               = big.NewInt(1 << 10)
+	grantsCreateResponseGrantFieldOrigins             = big.NewInt(1 << 11)
+	grantsCreateResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
+	grantsCreateResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
+	grantsCreateResponseGrantFieldDisabled            = big.NewInt(1 << 14)
+	grantsCreateResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
+	grantsCreateResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
+	grantsCreateResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
+	grantsCreateResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
+	grantsCreateResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
+	grantsCreateResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
+	grantsCreateResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
 )
 
-type GrantsCreate200ResponseGrant struct {
-	ID                  string                                       `json:"id" url:"id"`
-	TenantID            string                                       `json:"tenantId" url:"tenantId"`
-	DocID               string                                       `json:"docId" url:"docId"`
-	Name                *string                                      `json:"name,omitempty" url:"name,omitempty"`
-	LayerMode           GrantsCreate200ResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
-	LayerName           *string                                      `json:"layerName,omitempty" url:"layerName,omitempty"`
-	KeepVisitorLayers   bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
-	VisitorIdleSeconds  *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
-	VisitorIdentity     *GrantsCreate200ResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
-	Identity            *Identity                                    `json:"identity,omitempty" url:"identity,omitempty"`
-	Scope               []string                                     `json:"scope" url:"scope"`
-	Origins             []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
-	PassphraseProtected bool                                         `json:"passphraseProtected" url:"passphraseProtected"`
-	SessionTTLSeconds   float64                                      `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled            bool                                         `json:"disabled" url:"disabled"`
-	ArchivedAt          *float64                                     `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
-	ExpiresAt           *float64                                     `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount       float64                                      `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt     *float64                                     `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy           string                                       `json:"createdBy" url:"createdBy"`
-	CreatedAt           float64                                      `json:"createdAt" url:"createdAt"`
-	UpdatedAt           float64                                      `json:"updatedAt" url:"updatedAt"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsCreate200ResponseGrant) GetID() string {
-	if g == nil {
-		return ""
-	}
-	return g.ID
-}
-
-func (g *GrantsCreate200ResponseGrant) GetTenantID() string {
-	if g == nil {
-		return ""
-	}
-	return g.TenantID
-}
-
-func (g *GrantsCreate200ResponseGrant) GetDocID() string {
-	if g == nil {
-		return ""
-	}
-	return g.DocID
-}
-
-func (g *GrantsCreate200ResponseGrant) GetName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Name
-}
-
-func (g *GrantsCreate200ResponseGrant) GetLayerMode() GrantsCreate200ResponseGrantLayerMode {
-	if g == nil {
-		return ""
-	}
-	return g.LayerMode
-}
-
-func (g *GrantsCreate200ResponseGrant) GetLayerName() *string {
-	if g == nil {
-		return nil
-	}
-	return g.LayerName
-}
-
-func (g *GrantsCreate200ResponseGrant) GetKeepVisitorLayers() bool {
-	if g == nil {
-		return false
-	}
-	return g.KeepVisitorLayers
-}
-
-func (g *GrantsCreate200ResponseGrant) GetVisitorIdleSeconds() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.VisitorIdleSeconds
-}
-
-func (g *GrantsCreate200ResponseGrant) GetVisitorIdentity() *GrantsCreate200ResponseGrantVisitorIdentity {
-	if g == nil {
-		return nil
-	}
-	return g.VisitorIdentity
-}
-
-func (g *GrantsCreate200ResponseGrant) GetIdentity() *Identity {
-	if g == nil {
-		return nil
-	}
-	return g.Identity
-}
-
-func (g *GrantsCreate200ResponseGrant) GetScope() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Scope
-}
-
-func (g *GrantsCreate200ResponseGrant) GetOrigins() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Origins
-}
-
-func (g *GrantsCreate200ResponseGrant) GetPassphraseProtected() bool {
-	if g == nil {
-		return false
-	}
-	return g.PassphraseProtected
-}
-
-func (g *GrantsCreate200ResponseGrant) GetSessionTTLSeconds() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.SessionTTLSeconds
-}
-
-func (g *GrantsCreate200ResponseGrant) GetDisabled() bool {
-	if g == nil {
-		return false
-	}
-	return g.Disabled
-}
-
-func (g *GrantsCreate200ResponseGrant) GetArchivedAt() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.ArchivedAt
-}
-
-func (g *GrantsCreate200ResponseGrant) GetExpiresAt() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.ExpiresAt
-}
-
-func (g *GrantsCreate200ResponseGrant) GetExchangeCount() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.ExchangeCount
-}
-
-func (g *GrantsCreate200ResponseGrant) GetLastExchangedAt() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.LastExchangedAt
-}
-
-func (g *GrantsCreate200ResponseGrant) GetCreatedBy() string {
-	if g == nil {
-		return ""
-	}
-	return g.CreatedBy
-}
-
-func (g *GrantsCreate200ResponseGrant) GetCreatedAt() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.CreatedAt
-}
-
-func (g *GrantsCreate200ResponseGrant) GetUpdatedAt() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.UpdatedAt
-}
-
-func (g *GrantsCreate200ResponseGrant) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsCreate200ResponseGrant) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetID sets the ID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetID(id string) {
-	g.ID = id
-	g.require(grantsCreate200ResponseGrantFieldID)
-}
-
-// SetTenantID sets the TenantID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetTenantID(tenantID string) {
-	g.TenantID = tenantID
-	g.require(grantsCreate200ResponseGrantFieldTenantID)
-}
-
-// SetDocID sets the DocID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetDocID(docID string) {
-	g.DocID = docID
-	g.require(grantsCreate200ResponseGrantFieldDocID)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetName(name *string) {
-	g.Name = name
-	g.require(grantsCreate200ResponseGrantFieldName)
-}
-
-// SetLayerMode sets the LayerMode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetLayerMode(layerMode GrantsCreate200ResponseGrantLayerMode) {
-	g.LayerMode = layerMode
-	g.require(grantsCreate200ResponseGrantFieldLayerMode)
-}
-
-// SetLayerName sets the LayerName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetLayerName(layerName *string) {
-	g.LayerName = layerName
-	g.require(grantsCreate200ResponseGrantFieldLayerName)
-}
-
-// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
-	g.KeepVisitorLayers = keepVisitorLayers
-	g.require(grantsCreate200ResponseGrantFieldKeepVisitorLayers)
-}
-
-// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
-	g.VisitorIdleSeconds = visitorIdleSeconds
-	g.require(grantsCreate200ResponseGrantFieldVisitorIdleSeconds)
-}
-
-// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsCreate200ResponseGrantVisitorIdentity) {
-	g.VisitorIdentity = visitorIdentity
-	g.require(grantsCreate200ResponseGrantFieldVisitorIdentity)
-}
-
-// SetIdentity sets the Identity field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetIdentity(identity *Identity) {
-	g.Identity = identity
-	g.require(grantsCreate200ResponseGrantFieldIdentity)
-}
-
-// SetScope sets the Scope field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetScope(scope []string) {
-	g.Scope = scope
-	g.require(grantsCreate200ResponseGrantFieldScope)
-}
-
-// SetOrigins sets the Origins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetOrigins(origins []string) {
-	g.Origins = origins
-	g.require(grantsCreate200ResponseGrantFieldOrigins)
-}
-
-// SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
-	g.PassphraseProtected = passphraseProtected
-	g.require(grantsCreate200ResponseGrantFieldPassphraseProtected)
-}
-
-// SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds float64) {
-	g.SessionTTLSeconds = sessionTTLSeconds
-	g.require(grantsCreate200ResponseGrantFieldSessionTTLSeconds)
-}
-
-// SetDisabled sets the Disabled field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetDisabled(disabled bool) {
-	g.Disabled = disabled
-	g.require(grantsCreate200ResponseGrantFieldDisabled)
-}
-
-// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetArchivedAt(archivedAt *float64) {
-	g.ArchivedAt = archivedAt
-	g.require(grantsCreate200ResponseGrantFieldArchivedAt)
-}
-
-// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetExpiresAt(expiresAt *float64) {
-	g.ExpiresAt = expiresAt
-	g.require(grantsCreate200ResponseGrantFieldExpiresAt)
-}
-
-// SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetExchangeCount(exchangeCount float64) {
-	g.ExchangeCount = exchangeCount
-	g.require(grantsCreate200ResponseGrantFieldExchangeCount)
-}
-
-// SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetLastExchangedAt(lastExchangedAt *float64) {
-	g.LastExchangedAt = lastExchangedAt
-	g.require(grantsCreate200ResponseGrantFieldLastExchangedAt)
-}
-
-// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetCreatedBy(createdBy string) {
-	g.CreatedBy = createdBy
-	g.require(grantsCreate200ResponseGrantFieldCreatedBy)
-}
-
-// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetCreatedAt(createdAt float64) {
-	g.CreatedAt = createdAt
-	g.require(grantsCreate200ResponseGrantFieldCreatedAt)
-}
-
-// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrant) SetUpdatedAt(updatedAt float64) {
-	g.UpdatedAt = updatedAt
-	g.require(grantsCreate200ResponseGrantFieldUpdatedAt)
-}
-
-func (g *GrantsCreate200ResponseGrant) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsCreate200ResponseGrant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsCreate200ResponseGrant(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsCreate200ResponseGrant) MarshalJSON() ([]byte, error) {
-	type embed GrantsCreate200ResponseGrant
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsCreate200ResponseGrant) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GrantsCreate200ResponseGrantLayerMode string
-
-const (
-	GrantsCreate200ResponseGrantLayerModeShared     GrantsCreate200ResponseGrantLayerMode = "shared"
-	GrantsCreate200ResponseGrantLayerModePerVisitor GrantsCreate200ResponseGrantLayerMode = "per-visitor"
-)
-
-func NewGrantsCreate200ResponseGrantLayerModeFromString(s string) (GrantsCreate200ResponseGrantLayerMode, error) {
-	switch s {
-	case "shared":
-		return GrantsCreate200ResponseGrantLayerModeShared, nil
-	case "per-visitor":
-		return GrantsCreate200ResponseGrantLayerModePerVisitor, nil
-	}
-	var t GrantsCreate200ResponseGrantLayerMode
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantLayerMode) Ptr() *GrantsCreate200ResponseGrantLayerMode {
-	return &g
-}
-
-var (
-	grantsCreate200ResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
-	grantsCreate200ResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
-	grantsCreate200ResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
-	grantsCreate200ResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
-)
-
-type GrantsCreate200ResponseGrantVisitorIdentity struct {
-	Fields     *GrantsCreate200ResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
-	Ask        GrantsCreate200ResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
-	Purpose    *string                                            `json:"purpose,omitempty" url:"purpose,omitempty"`
-	PrivacyURL *string                                            `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) GetFields() *GrantsCreate200ResponseGrantVisitorIdentityFields {
-	if g == nil {
-		return nil
-	}
-	return g.Fields
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) GetAsk() GrantsCreate200ResponseGrantVisitorIdentityAsk {
-	if g == nil {
-		return ""
-	}
-	return g.Ask
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) GetPurpose() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Purpose
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) GetPrivacyURL() *string {
-	if g == nil {
-		return nil
-	}
-	return g.PrivacyURL
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetFields sets the Fields field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) SetFields(fields *GrantsCreate200ResponseGrantVisitorIdentityFields) {
-	g.Fields = fields
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldFields)
-}
-
-// SetAsk sets the Ask field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) SetAsk(ask GrantsCreate200ResponseGrantVisitorIdentityAsk) {
-	g.Ask = ask
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldAsk)
-}
-
-// SetPurpose sets the Purpose field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
-	g.Purpose = purpose
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldPurpose)
-}
-
-// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
-	g.PrivacyURL = privacyURL
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldPrivacyURL)
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsCreate200ResponseGrantVisitorIdentity
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsCreate200ResponseGrantVisitorIdentity(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
-	type embed GrantsCreate200ResponseGrantVisitorIdentity
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentity) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityAsk string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityAskOnOpen            GrantsCreate200ResponseGrantVisitorIdentityAsk = "on-open"
-	GrantsCreate200ResponseGrantVisitorIdentityAskBeforeFirstChange GrantsCreate200ResponseGrantVisitorIdentityAsk = "before-first-change"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityAskFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityAsk, error) {
-	switch s {
-	case "on-open":
-		return GrantsCreate200ResponseGrantVisitorIdentityAskOnOpen, nil
-	case "before-first-change":
-		return GrantsCreate200ResponseGrantVisitorIdentityAskBeforeFirstChange, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityAsk
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityAsk) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityAsk {
-	return &g
-}
-
-var (
-	grantsCreate200ResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsCreate200ResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsCreate200ResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsCreate200ResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsCreate200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
-)
-
-type GrantsCreate200ResponseGrantVisitorIdentityFields struct {
-	DisplayName        *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName {
-	if g == nil {
-		return nil
-	}
-	return g.DisplayName
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetEmail() *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail {
-	if g == nil {
-		return nil
-	}
-	return g.Email
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetTitle() *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle {
-	if g == nil {
-		return nil
-	}
-	return g.Title
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetOrganization() *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization {
-	if g == nil {
-		return nil
-	}
-	return g.Organization
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
-	if g == nil {
-		return nil
-	}
-	return g.OrganizationalUnit
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetDisplayName sets the DisplayName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName) {
-	g.DisplayName = displayName
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldsFieldDisplayName)
-}
-
-// SetEmail sets the Email field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) SetEmail(email *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail) {
-	g.Email = email
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldsFieldEmail)
-}
-
-// SetTitle sets the Title field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) SetTitle(title *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle) {
-	g.Title = title
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldsFieldTitle)
-}
-
-// SetOrganization sets the Organization field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization) {
-	g.Organization = organization
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldsFieldOrganization)
-}
-
-// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
-	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsCreate200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsCreate200ResponseGrantVisitorIdentityFields
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsCreate200ResponseGrantVisitorIdentityFields(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsCreate200ResponseGrantVisitorIdentityFields
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsCreate200ResponseGrantVisitorIdentityFields) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName = "required"
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName = "optional"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName, error) {
-	switch s {
-	case "required":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
-	case "optional":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityFieldsDisplayName {
-	return &g
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsEmailRequired GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail = "required"
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsEmailOptional GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail = "optional"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail, error) {
-	switch s {
-	case "required":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsEmailRequired, nil
-	case "optional":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsEmailOptional, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityFieldsEmail {
-	return &g
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization = "required"
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization = "optional"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization, error) {
-	switch s {
-	case "required":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
-	case "optional":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganization {
-	return &g
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
-	switch s {
-	case "required":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
-	case "optional":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
-	return &g
-}
-
-type GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle string
-
-const (
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsTitleRequired GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle = "required"
-	GrantsCreate200ResponseGrantVisitorIdentityFieldsTitleOptional GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle = "optional"
-)
-
-func NewGrantsCreate200ResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle, error) {
-	switch s {
-	case "required":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsTitleRequired, nil
-	case "optional":
-		return GrantsCreate200ResponseGrantVisitorIdentityFieldsTitleOptional, nil
-	}
-	var t GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsCreate200ResponseGrantVisitorIdentityFieldsTitle {
-	return &g
-}
-
-var (
-	grantsExchange200ResponseFieldToken     = big.NewInt(1 << 0)
-	grantsExchange200ResponseFieldDocID     = big.NewInt(1 << 1)
-	grantsExchange200ResponseFieldLayerName = big.NewInt(1 << 2)
-	grantsExchange200ResponseFieldLayerMode = big.NewInt(1 << 3)
-	grantsExchange200ResponseFieldVisitor   = big.NewInt(1 << 4)
-	grantsExchange200ResponseFieldExpiresAt = big.NewInt(1 << 5)
-)
-
-type GrantsExchange200Response struct {
-	Token     string                             `json:"token" url:"token"`
-	DocID     string                             `json:"docId" url:"docId"`
-	LayerName string                             `json:"layerName" url:"layerName"`
-	LayerMode GrantsExchange200ResponseLayerMode `json:"layerMode" url:"layerMode"`
-	Visitor   *GrantsExchange200ResponseVisitor  `json:"visitor" url:"visitor"`
-	ExpiresAt float64                            `json:"expiresAt" url:"expiresAt"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsExchange200Response) GetToken() string {
-	if g == nil {
-		return ""
-	}
-	return g.Token
-}
-
-func (g *GrantsExchange200Response) GetDocID() string {
-	if g == nil {
-		return ""
-	}
-	return g.DocID
-}
-
-func (g *GrantsExchange200Response) GetLayerName() string {
-	if g == nil {
-		return ""
-	}
-	return g.LayerName
-}
-
-func (g *GrantsExchange200Response) GetLayerMode() GrantsExchange200ResponseLayerMode {
-	if g == nil {
-		return ""
-	}
-	return g.LayerMode
-}
-
-func (g *GrantsExchange200Response) GetVisitor() *GrantsExchange200ResponseVisitor {
-	if g == nil {
-		return nil
-	}
-	return g.Visitor
-}
-
-func (g *GrantsExchange200Response) GetExpiresAt() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.ExpiresAt
-}
-
-func (g *GrantsExchange200Response) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsExchange200Response) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetToken sets the Token field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetToken(token string) {
-	g.Token = token
-	g.require(grantsExchange200ResponseFieldToken)
-}
-
-// SetDocID sets the DocID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetDocID(docID string) {
-	g.DocID = docID
-	g.require(grantsExchange200ResponseFieldDocID)
-}
-
-// SetLayerName sets the LayerName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetLayerName(layerName string) {
-	g.LayerName = layerName
-	g.require(grantsExchange200ResponseFieldLayerName)
-}
-
-// SetLayerMode sets the LayerMode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetLayerMode(layerMode GrantsExchange200ResponseLayerMode) {
-	g.LayerMode = layerMode
-	g.require(grantsExchange200ResponseFieldLayerMode)
-}
-
-// SetVisitor sets the Visitor field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetVisitor(visitor *GrantsExchange200ResponseVisitor) {
-	g.Visitor = visitor
-	g.require(grantsExchange200ResponseFieldVisitor)
-}
-
-// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200Response) SetExpiresAt(expiresAt float64) {
-	g.ExpiresAt = expiresAt
-	g.require(grantsExchange200ResponseFieldExpiresAt)
-}
-
-func (g *GrantsExchange200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsExchange200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsExchange200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsExchange200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsExchange200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsExchange200Response) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GrantsExchange200ResponseLayerMode string
-
-const (
-	GrantsExchange200ResponseLayerModeShared     GrantsExchange200ResponseLayerMode = "shared"
-	GrantsExchange200ResponseLayerModePerVisitor GrantsExchange200ResponseLayerMode = "per-visitor"
-)
-
-func NewGrantsExchange200ResponseLayerModeFromString(s string) (GrantsExchange200ResponseLayerMode, error) {
-	switch s {
-	case "shared":
-		return GrantsExchange200ResponseLayerModeShared, nil
-	case "per-visitor":
-		return GrantsExchange200ResponseLayerModePerVisitor, nil
-	}
-	var t GrantsExchange200ResponseLayerMode
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseLayerMode) Ptr() *GrantsExchange200ResponseLayerMode {
-	return &g
-}
-
-var (
-	grantsExchange200ResponseVisitorFieldHandle          = big.NewInt(1 << 0)
-	grantsExchange200ResponseVisitorFieldKeep            = big.NewInt(1 << 1)
-	grantsExchange200ResponseVisitorFieldIdentityRequest = big.NewInt(1 << 2)
-)
-
-type GrantsExchange200ResponseVisitor struct {
-	Handle          string                                           `json:"handle" url:"handle"`
-	Keep            bool                                             `json:"keep" url:"keep"`
-	IdentityRequest *GrantsExchange200ResponseVisitorIdentityRequest `json:"identityRequest,omitempty" url:"identityRequest,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsExchange200ResponseVisitor) GetHandle() string {
-	if g == nil {
-		return ""
-	}
-	return g.Handle
-}
-
-func (g *GrantsExchange200ResponseVisitor) GetKeep() bool {
-	if g == nil {
-		return false
-	}
-	return g.Keep
-}
-
-func (g *GrantsExchange200ResponseVisitor) GetIdentityRequest() *GrantsExchange200ResponseVisitorIdentityRequest {
-	if g == nil {
-		return nil
-	}
-	return g.IdentityRequest
-}
-
-func (g *GrantsExchange200ResponseVisitor) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsExchange200ResponseVisitor) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetHandle sets the Handle field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitor) SetHandle(handle string) {
-	g.Handle = handle
-	g.require(grantsExchange200ResponseVisitorFieldHandle)
-}
-
-// SetKeep sets the Keep field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitor) SetKeep(keep bool) {
-	g.Keep = keep
-	g.require(grantsExchange200ResponseVisitorFieldKeep)
-}
-
-// SetIdentityRequest sets the IdentityRequest field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitor) SetIdentityRequest(identityRequest *GrantsExchange200ResponseVisitorIdentityRequest) {
-	g.IdentityRequest = identityRequest
-	g.require(grantsExchange200ResponseVisitorFieldIdentityRequest)
-}
-
-func (g *GrantsExchange200ResponseVisitor) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsExchange200ResponseVisitor
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsExchange200ResponseVisitor(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsExchange200ResponseVisitor) MarshalJSON() ([]byte, error) {
-	type embed GrantsExchange200ResponseVisitor
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsExchange200ResponseVisitor) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	grantsExchange200ResponseVisitorIdentityRequestFieldFields     = big.NewInt(1 << 0)
-	grantsExchange200ResponseVisitorIdentityRequestFieldMissing    = big.NewInt(1 << 1)
-	grantsExchange200ResponseVisitorIdentityRequestFieldInvalid    = big.NewInt(1 << 2)
-	grantsExchange200ResponseVisitorIdentityRequestFieldPurpose    = big.NewInt(1 << 3)
-	grantsExchange200ResponseVisitorIdentityRequestFieldPrivacyURL = big.NewInt(1 << 4)
-)
-
-type GrantsExchange200ResponseVisitorIdentityRequest struct {
-	Fields     *GrantsExchange200ResponseVisitorIdentityRequestFields       `json:"fields" url:"fields"`
-	Missing    []GrantsExchange200ResponseVisitorIdentityRequestMissingItem `json:"missing" url:"missing"`
-	Invalid    []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem `json:"invalid" url:"invalid"`
-	Purpose    *string                                                      `json:"purpose,omitempty" url:"purpose,omitempty"`
-	PrivacyURL *string                                                      `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetFields() *GrantsExchange200ResponseVisitorIdentityRequestFields {
-	if g == nil {
-		return nil
-	}
-	return g.Fields
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetMissing() []GrantsExchange200ResponseVisitorIdentityRequestMissingItem {
-	if g == nil {
-		return nil
-	}
-	return g.Missing
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetInvalid() []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem {
-	if g == nil {
-		return nil
-	}
-	return g.Invalid
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetPurpose() *string {
-	if g == nil {
-		return nil
-	}
-	return g.Purpose
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetPrivacyURL() *string {
-	if g == nil {
-		return nil
-	}
-	return g.PrivacyURL
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetFields sets the Fields field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) SetFields(fields *GrantsExchange200ResponseVisitorIdentityRequestFields) {
-	g.Fields = fields
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldFields)
-}
-
-// SetMissing sets the Missing field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) SetMissing(missing []GrantsExchange200ResponseVisitorIdentityRequestMissingItem) {
-	g.Missing = missing
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldMissing)
-}
-
-// SetInvalid sets the Invalid field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) SetInvalid(invalid []GrantsExchange200ResponseVisitorIdentityRequestInvalidItem) {
-	g.Invalid = invalid
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldInvalid)
-}
-
-// SetPurpose sets the Purpose field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) SetPurpose(purpose *string) {
-	g.Purpose = purpose
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldPurpose)
-}
-
-// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) SetPrivacyURL(privacyURL *string) {
-	g.PrivacyURL = privacyURL
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldPrivacyURL)
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsExchange200ResponseVisitorIdentityRequest
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsExchange200ResponseVisitorIdentityRequest(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) MarshalJSON() ([]byte, error) {
-	type embed GrantsExchange200ResponseVisitorIdentityRequest
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequest) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	grantsExchange200ResponseVisitorIdentityRequestFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsExchange200ResponseVisitorIdentityRequestFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsExchange200ResponseVisitorIdentityRequestFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsExchange200ResponseVisitorIdentityRequestFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsExchange200ResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
-)
-
-type GrantsExchange200ResponseVisitorIdentityRequestFields struct {
-	DisplayName        *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetDisplayName() *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName {
-	if g == nil {
-		return nil
-	}
-	return g.DisplayName
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetEmail() *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail {
-	if g == nil {
-		return nil
-	}
-	return g.Email
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetTitle() *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle {
-	if g == nil {
-		return nil
-	}
-	return g.Title
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetOrganization() *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization {
-	if g == nil {
-		return nil
-	}
-	return g.Organization
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetOrganizationalUnit() *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit {
-	if g == nil {
-		return nil
-	}
-	return g.OrganizationalUnit
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetDisplayName sets the DisplayName field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) SetDisplayName(displayName *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName) {
-	g.DisplayName = displayName
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldsFieldDisplayName)
-}
-
-// SetEmail sets the Email field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) SetEmail(email *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail) {
-	g.Email = email
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldsFieldEmail)
-}
-
-// SetTitle sets the Title field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) SetTitle(title *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle) {
-	g.Title = title
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldsFieldTitle)
-}
-
-// SetOrganization sets the Organization field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) SetOrganization(organization *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization) {
-	g.Organization = organization
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldsFieldOrganization)
-}
-
-// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) SetOrganizationalUnit(organizationalUnit *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit) {
-	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsExchange200ResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit)
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsExchange200ResponseVisitorIdentityRequestFields
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsExchange200ResponseVisitorIdentityRequestFields(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsExchange200ResponseVisitorIdentityRequestFields
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsExchange200ResponseVisitorIdentityRequestFields) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameRequired GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName = "required"
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameOptional GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName = "optional"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName, error) {
-	switch s {
-	case "required":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameRequired, nil
-	case "optional":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayNameOptional, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestFieldsDisplayName {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsEmailRequired GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail = "required"
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsEmailOptional GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail = "optional"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestFieldsEmailFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail, error) {
-	switch s {
-	case "required":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsEmailRequired, nil
-	case "optional":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsEmailOptional, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestFieldsEmail {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationRequired GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization = "required"
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationOptional GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization = "optional"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization, error) {
-	switch s {
-	case "required":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationRequired, nil
-	case "optional":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationOptional, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganization {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit = "required"
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit = "optional"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit, error) {
-	switch s {
-	case "required":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired, nil
-	case "optional":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestFieldsOrganizationalUnit {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsTitleRequired GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle = "required"
-	GrantsExchange200ResponseVisitorIdentityRequestFieldsTitleOptional GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle = "optional"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestFieldsTitleFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle, error) {
-	switch s {
-	case "required":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsTitleRequired, nil
-	case "optional":
-		return GrantsExchange200ResponseVisitorIdentityRequestFieldsTitleOptional, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestFieldsTitle {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestInvalidItem string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestInvalidItemDisplayName        GrantsExchange200ResponseVisitorIdentityRequestInvalidItem = "displayName"
-	GrantsExchange200ResponseVisitorIdentityRequestInvalidItemEmail              GrantsExchange200ResponseVisitorIdentityRequestInvalidItem = "email"
-	GrantsExchange200ResponseVisitorIdentityRequestInvalidItemTitle              GrantsExchange200ResponseVisitorIdentityRequestInvalidItem = "title"
-	GrantsExchange200ResponseVisitorIdentityRequestInvalidItemOrganization       GrantsExchange200ResponseVisitorIdentityRequestInvalidItem = "organization"
-	GrantsExchange200ResponseVisitorIdentityRequestInvalidItemOrganizationalUnit GrantsExchange200ResponseVisitorIdentityRequestInvalidItem = "organizationalUnit"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestInvalidItemFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestInvalidItem, error) {
-	switch s {
-	case "displayName":
-		return GrantsExchange200ResponseVisitorIdentityRequestInvalidItemDisplayName, nil
-	case "email":
-		return GrantsExchange200ResponseVisitorIdentityRequestInvalidItemEmail, nil
-	case "title":
-		return GrantsExchange200ResponseVisitorIdentityRequestInvalidItemTitle, nil
-	case "organization":
-		return GrantsExchange200ResponseVisitorIdentityRequestInvalidItemOrganization, nil
-	case "organizationalUnit":
-		return GrantsExchange200ResponseVisitorIdentityRequestInvalidItemOrganizationalUnit, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestInvalidItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestInvalidItem) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestInvalidItem {
-	return &g
-}
-
-type GrantsExchange200ResponseVisitorIdentityRequestMissingItem string
-
-const (
-	GrantsExchange200ResponseVisitorIdentityRequestMissingItemDisplayName        GrantsExchange200ResponseVisitorIdentityRequestMissingItem = "displayName"
-	GrantsExchange200ResponseVisitorIdentityRequestMissingItemEmail              GrantsExchange200ResponseVisitorIdentityRequestMissingItem = "email"
-	GrantsExchange200ResponseVisitorIdentityRequestMissingItemTitle              GrantsExchange200ResponseVisitorIdentityRequestMissingItem = "title"
-	GrantsExchange200ResponseVisitorIdentityRequestMissingItemOrganization       GrantsExchange200ResponseVisitorIdentityRequestMissingItem = "organization"
-	GrantsExchange200ResponseVisitorIdentityRequestMissingItemOrganizationalUnit GrantsExchange200ResponseVisitorIdentityRequestMissingItem = "organizationalUnit"
-)
-
-func NewGrantsExchange200ResponseVisitorIdentityRequestMissingItemFromString(s string) (GrantsExchange200ResponseVisitorIdentityRequestMissingItem, error) {
-	switch s {
-	case "displayName":
-		return GrantsExchange200ResponseVisitorIdentityRequestMissingItemDisplayName, nil
-	case "email":
-		return GrantsExchange200ResponseVisitorIdentityRequestMissingItemEmail, nil
-	case "title":
-		return GrantsExchange200ResponseVisitorIdentityRequestMissingItemTitle, nil
-	case "organization":
-		return GrantsExchange200ResponseVisitorIdentityRequestMissingItemOrganization, nil
-	case "organizationalUnit":
-		return GrantsExchange200ResponseVisitorIdentityRequestMissingItemOrganizationalUnit, nil
-	}
-	var t GrantsExchange200ResponseVisitorIdentityRequestMissingItem
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsExchange200ResponseVisitorIdentityRequestMissingItem) Ptr() *GrantsExchange200ResponseVisitorIdentityRequestMissingItem {
-	return &g
-}
-
-var (
-	grantsGet200ResponseFieldGrant = big.NewInt(1 << 0)
-)
-
-type GrantsGet200Response struct {
-	Grant *GrantsGet200ResponseGrant `json:"grant" url:"grant"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsGet200Response) GetGrant() *GrantsGet200ResponseGrant {
-	if g == nil {
-		return nil
-	}
-	return g.Grant
-}
-
-func (g *GrantsGet200Response) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsGet200Response) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetGrant sets the Grant field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200Response) SetGrant(grant *GrantsGet200ResponseGrant) {
-	g.Grant = grant
-	g.require(grantsGet200ResponseFieldGrant)
-}
-
-func (g *GrantsGet200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsGet200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsGet200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsGet200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsGet200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsGet200Response) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	grantsGet200ResponseGrantFieldID                  = big.NewInt(1 << 0)
-	grantsGet200ResponseGrantFieldTenantID            = big.NewInt(1 << 1)
-	grantsGet200ResponseGrantFieldDocID               = big.NewInt(1 << 2)
-	grantsGet200ResponseGrantFieldName                = big.NewInt(1 << 3)
-	grantsGet200ResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
-	grantsGet200ResponseGrantFieldLayerName           = big.NewInt(1 << 5)
-	grantsGet200ResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
-	grantsGet200ResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
-	grantsGet200ResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
-	grantsGet200ResponseGrantFieldIdentity            = big.NewInt(1 << 9)
-	grantsGet200ResponseGrantFieldScope               = big.NewInt(1 << 10)
-	grantsGet200ResponseGrantFieldOrigins             = big.NewInt(1 << 11)
-	grantsGet200ResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
-	grantsGet200ResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
-	grantsGet200ResponseGrantFieldDisabled            = big.NewInt(1 << 14)
-	grantsGet200ResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
-	grantsGet200ResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
-	grantsGet200ResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
-	grantsGet200ResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
-	grantsGet200ResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
-	grantsGet200ResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
-	grantsGet200ResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
-)
-
-type GrantsGet200ResponseGrant struct {
+type GrantsCreateResponseGrant struct {
 	ID                  string                                    `json:"id" url:"id"`
 	TenantID            string                                    `json:"tenantId" url:"tenantId"`
 	DocID               string                                    `json:"docId" url:"docId"`
 	Name                *string                                   `json:"name,omitempty" url:"name,omitempty"`
-	LayerMode           GrantsGet200ResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerMode           GrantsCreateResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
 	LayerName           *string                                   `json:"layerName,omitempty" url:"layerName,omitempty"`
 	KeepVisitorLayers   bool                                      `json:"keepVisitorLayers" url:"keepVisitorLayers"`
-	VisitorIdleSeconds  *float64                                  `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
-	VisitorIdentity     *GrantsGet200ResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	VisitorIdleSeconds  *int                                      `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity     *GrantsCreateResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
 	Identity            *Identity                                 `json:"identity,omitempty" url:"identity,omitempty"`
 	Scope               []string                                  `json:"scope" url:"scope"`
 	Origins             []string                                  `json:"origins,omitempty" url:"origins,omitempty"`
 	PassphraseProtected bool                                      `json:"passphraseProtected" url:"passphraseProtected"`
-	SessionTTLSeconds   float64                                   `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	SessionTTLSeconds   int                                       `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
 	Disabled            bool                                      `json:"disabled" url:"disabled"`
-	ArchivedAt          *float64                                  `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
-	ExpiresAt           *float64                                  `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount       float64                                   `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt     *float64                                  `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	ArchivedAt          *time.Time                                `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt           *time.Time                                `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount       int                                       `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt     *time.Time                                `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
 	CreatedBy           string                                    `json:"createdBy" url:"createdBy"`
-	CreatedAt           float64                                   `json:"createdAt" url:"createdAt"`
-	UpdatedAt           float64                                   `json:"updatedAt" url:"updatedAt"`
+	CreatedAt           time.Time                                 `json:"createdAt" url:"createdAt"`
+	UpdatedAt           time.Time                                 `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3203,168 +1522,168 @@ type GrantsGet200ResponseGrant struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsGet200ResponseGrant) GetID() string {
+func (g *GrantsCreateResponseGrant) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
 }
 
-func (g *GrantsGet200ResponseGrant) GetTenantID() string {
+func (g *GrantsCreateResponseGrant) GetTenantID() string {
 	if g == nil {
 		return ""
 	}
 	return g.TenantID
 }
 
-func (g *GrantsGet200ResponseGrant) GetDocID() string {
+func (g *GrantsCreateResponseGrant) GetDocID() string {
 	if g == nil {
 		return ""
 	}
 	return g.DocID
 }
 
-func (g *GrantsGet200ResponseGrant) GetName() *string {
+func (g *GrantsCreateResponseGrant) GetName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Name
 }
 
-func (g *GrantsGet200ResponseGrant) GetLayerMode() GrantsGet200ResponseGrantLayerMode {
+func (g *GrantsCreateResponseGrant) GetLayerMode() GrantsCreateResponseGrantLayerMode {
 	if g == nil {
 		return ""
 	}
 	return g.LayerMode
 }
 
-func (g *GrantsGet200ResponseGrant) GetLayerName() *string {
+func (g *GrantsCreateResponseGrant) GetLayerName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.LayerName
 }
 
-func (g *GrantsGet200ResponseGrant) GetKeepVisitorLayers() bool {
+func (g *GrantsCreateResponseGrant) GetKeepVisitorLayers() bool {
 	if g == nil {
 		return false
 	}
 	return g.KeepVisitorLayers
 }
 
-func (g *GrantsGet200ResponseGrant) GetVisitorIdleSeconds() *float64 {
+func (g *GrantsCreateResponseGrant) GetVisitorIdleSeconds() *int {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdleSeconds
 }
 
-func (g *GrantsGet200ResponseGrant) GetVisitorIdentity() *GrantsGet200ResponseGrantVisitorIdentity {
+func (g *GrantsCreateResponseGrant) GetVisitorIdentity() *GrantsCreateResponseGrantVisitorIdentity {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdentity
 }
 
-func (g *GrantsGet200ResponseGrant) GetIdentity() *Identity {
+func (g *GrantsCreateResponseGrant) GetIdentity() *Identity {
 	if g == nil {
 		return nil
 	}
 	return g.Identity
 }
 
-func (g *GrantsGet200ResponseGrant) GetScope() []string {
+func (g *GrantsCreateResponseGrant) GetScope() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Scope
 }
 
-func (g *GrantsGet200ResponseGrant) GetOrigins() []string {
+func (g *GrantsCreateResponseGrant) GetOrigins() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Origins
 }
 
-func (g *GrantsGet200ResponseGrant) GetPassphraseProtected() bool {
+func (g *GrantsCreateResponseGrant) GetPassphraseProtected() bool {
 	if g == nil {
 		return false
 	}
 	return g.PassphraseProtected
 }
 
-func (g *GrantsGet200ResponseGrant) GetSessionTTLSeconds() float64 {
+func (g *GrantsCreateResponseGrant) GetSessionTTLSeconds() int {
 	if g == nil {
 		return 0
 	}
 	return g.SessionTTLSeconds
 }
 
-func (g *GrantsGet200ResponseGrant) GetDisabled() bool {
+func (g *GrantsCreateResponseGrant) GetDisabled() bool {
 	if g == nil {
 		return false
 	}
 	return g.Disabled
 }
 
-func (g *GrantsGet200ResponseGrant) GetArchivedAt() *float64 {
+func (g *GrantsCreateResponseGrant) GetArchivedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ArchivedAt
 }
 
-func (g *GrantsGet200ResponseGrant) GetExpiresAt() *float64 {
+func (g *GrantsCreateResponseGrant) GetExpiresAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ExpiresAt
 }
 
-func (g *GrantsGet200ResponseGrant) GetExchangeCount() float64 {
+func (g *GrantsCreateResponseGrant) GetExchangeCount() int {
 	if g == nil {
 		return 0
 	}
 	return g.ExchangeCount
 }
 
-func (g *GrantsGet200ResponseGrant) GetLastExchangedAt() *float64 {
+func (g *GrantsCreateResponseGrant) GetLastExchangedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.LastExchangedAt
 }
 
-func (g *GrantsGet200ResponseGrant) GetCreatedBy() string {
+func (g *GrantsCreateResponseGrant) GetCreatedBy() string {
 	if g == nil {
 		return ""
 	}
 	return g.CreatedBy
 }
 
-func (g *GrantsGet200ResponseGrant) GetCreatedAt() float64 {
+func (g *GrantsCreateResponseGrant) GetCreatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.CreatedAt
 }
 
-func (g *GrantsGet200ResponseGrant) GetUpdatedAt() float64 {
+func (g *GrantsCreateResponseGrant) GetUpdatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.UpdatedAt
 }
 
-func (g *GrantsGet200ResponseGrant) GetExtraProperties() map[string]interface{} {
+func (g *GrantsCreateResponseGrant) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsGet200ResponseGrant) require(field *big.Int) {
+func (g *GrantsCreateResponseGrant) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -3373,165 +1692,179 @@ func (g *GrantsGet200ResponseGrant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetID(id string) {
+func (g *GrantsCreateResponseGrant) SetID(id string) {
 	g.ID = id
-	g.require(grantsGet200ResponseGrantFieldID)
+	g.require(grantsCreateResponseGrantFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetTenantID(tenantID string) {
+func (g *GrantsCreateResponseGrant) SetTenantID(tenantID string) {
 	g.TenantID = tenantID
-	g.require(grantsGet200ResponseGrantFieldTenantID)
+	g.require(grantsCreateResponseGrantFieldTenantID)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetDocID(docID string) {
+func (g *GrantsCreateResponseGrant) SetDocID(docID string) {
 	g.DocID = docID
-	g.require(grantsGet200ResponseGrantFieldDocID)
+	g.require(grantsCreateResponseGrantFieldDocID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetName(name *string) {
+func (g *GrantsCreateResponseGrant) SetName(name *string) {
 	g.Name = name
-	g.require(grantsGet200ResponseGrantFieldName)
+	g.require(grantsCreateResponseGrantFieldName)
 }
 
 // SetLayerMode sets the LayerMode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetLayerMode(layerMode GrantsGet200ResponseGrantLayerMode) {
+func (g *GrantsCreateResponseGrant) SetLayerMode(layerMode GrantsCreateResponseGrantLayerMode) {
 	g.LayerMode = layerMode
-	g.require(grantsGet200ResponseGrantFieldLayerMode)
+	g.require(grantsCreateResponseGrantFieldLayerMode)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetLayerName(layerName *string) {
+func (g *GrantsCreateResponseGrant) SetLayerName(layerName *string) {
 	g.LayerName = layerName
-	g.require(grantsGet200ResponseGrantFieldLayerName)
+	g.require(grantsCreateResponseGrantFieldLayerName)
 }
 
 // SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
+func (g *GrantsCreateResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
 	g.KeepVisitorLayers = keepVisitorLayers
-	g.require(grantsGet200ResponseGrantFieldKeepVisitorLayers)
+	g.require(grantsCreateResponseGrantFieldKeepVisitorLayers)
 }
 
 // SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+func (g *GrantsCreateResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
 	g.VisitorIdleSeconds = visitorIdleSeconds
-	g.require(grantsGet200ResponseGrantFieldVisitorIdleSeconds)
+	g.require(grantsCreateResponseGrantFieldVisitorIdleSeconds)
 }
 
 // SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsGet200ResponseGrantVisitorIdentity) {
+func (g *GrantsCreateResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsCreateResponseGrantVisitorIdentity) {
 	g.VisitorIdentity = visitorIdentity
-	g.require(grantsGet200ResponseGrantFieldVisitorIdentity)
+	g.require(grantsCreateResponseGrantFieldVisitorIdentity)
 }
 
 // SetIdentity sets the Identity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetIdentity(identity *Identity) {
+func (g *GrantsCreateResponseGrant) SetIdentity(identity *Identity) {
 	g.Identity = identity
-	g.require(grantsGet200ResponseGrantFieldIdentity)
+	g.require(grantsCreateResponseGrantFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetScope(scope []string) {
+func (g *GrantsCreateResponseGrant) SetScope(scope []string) {
 	g.Scope = scope
-	g.require(grantsGet200ResponseGrantFieldScope)
+	g.require(grantsCreateResponseGrantFieldScope)
 }
 
 // SetOrigins sets the Origins field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetOrigins(origins []string) {
+func (g *GrantsCreateResponseGrant) SetOrigins(origins []string) {
 	g.Origins = origins
-	g.require(grantsGet200ResponseGrantFieldOrigins)
+	g.require(grantsCreateResponseGrantFieldOrigins)
 }
 
 // SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
+func (g *GrantsCreateResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
 	g.PassphraseProtected = passphraseProtected
-	g.require(grantsGet200ResponseGrantFieldPassphraseProtected)
+	g.require(grantsCreateResponseGrantFieldPassphraseProtected)
 }
 
 // SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds float64) {
+func (g *GrantsCreateResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds int) {
 	g.SessionTTLSeconds = sessionTTLSeconds
-	g.require(grantsGet200ResponseGrantFieldSessionTTLSeconds)
+	g.require(grantsCreateResponseGrantFieldSessionTTLSeconds)
 }
 
 // SetDisabled sets the Disabled field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetDisabled(disabled bool) {
+func (g *GrantsCreateResponseGrant) SetDisabled(disabled bool) {
 	g.Disabled = disabled
-	g.require(grantsGet200ResponseGrantFieldDisabled)
+	g.require(grantsCreateResponseGrantFieldDisabled)
 }
 
 // SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetArchivedAt(archivedAt *float64) {
+func (g *GrantsCreateResponseGrant) SetArchivedAt(archivedAt *time.Time) {
 	g.ArchivedAt = archivedAt
-	g.require(grantsGet200ResponseGrantFieldArchivedAt)
+	g.require(grantsCreateResponseGrantFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetExpiresAt(expiresAt *float64) {
+func (g *GrantsCreateResponseGrant) SetExpiresAt(expiresAt *time.Time) {
 	g.ExpiresAt = expiresAt
-	g.require(grantsGet200ResponseGrantFieldExpiresAt)
+	g.require(grantsCreateResponseGrantFieldExpiresAt)
 }
 
 // SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetExchangeCount(exchangeCount float64) {
+func (g *GrantsCreateResponseGrant) SetExchangeCount(exchangeCount int) {
 	g.ExchangeCount = exchangeCount
-	g.require(grantsGet200ResponseGrantFieldExchangeCount)
+	g.require(grantsCreateResponseGrantFieldExchangeCount)
 }
 
 // SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetLastExchangedAt(lastExchangedAt *float64) {
+func (g *GrantsCreateResponseGrant) SetLastExchangedAt(lastExchangedAt *time.Time) {
 	g.LastExchangedAt = lastExchangedAt
-	g.require(grantsGet200ResponseGrantFieldLastExchangedAt)
+	g.require(grantsCreateResponseGrantFieldLastExchangedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetCreatedBy(createdBy string) {
+func (g *GrantsCreateResponseGrant) SetCreatedBy(createdBy string) {
 	g.CreatedBy = createdBy
-	g.require(grantsGet200ResponseGrantFieldCreatedBy)
+	g.require(grantsCreateResponseGrantFieldCreatedBy)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetCreatedAt(createdAt float64) {
+func (g *GrantsCreateResponseGrant) SetCreatedAt(createdAt time.Time) {
 	g.CreatedAt = createdAt
-	g.require(grantsGet200ResponseGrantFieldCreatedAt)
+	g.require(grantsCreateResponseGrantFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrant) SetUpdatedAt(updatedAt float64) {
+func (g *GrantsCreateResponseGrant) SetUpdatedAt(updatedAt time.Time) {
 	g.UpdatedAt = updatedAt
-	g.require(grantsGet200ResponseGrantFieldUpdatedAt)
+	g.require(grantsCreateResponseGrantFieldUpdatedAt)
 }
 
-func (g *GrantsGet200ResponseGrant) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsGet200ResponseGrant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (g *GrantsCreateResponseGrant) UnmarshalJSON(data []byte) error {
+	type embed GrantsCreateResponseGrant
+	var unmarshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*g = GrantsGet200ResponseGrant(value)
+	*g = GrantsCreateResponseGrant(unmarshaler.embed)
+	g.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	g.ExpiresAt = unmarshaler.ExpiresAt.TimePtr()
+	g.LastExchangedAt = unmarshaler.LastExchangedAt.TimePtr()
+	g.CreatedAt = unmarshaler.CreatedAt.Time()
+	g.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -3541,18 +1874,28 @@ func (g *GrantsGet200ResponseGrant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsGet200ResponseGrant) MarshalJSON() ([]byte, error) {
-	type embed GrantsGet200ResponseGrant
+func (g *GrantsCreateResponseGrant) MarshalJSON() ([]byte, error) {
+	type embed GrantsCreateResponseGrant
 	var marshaler = struct {
 		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*g),
+		embed:           embed(*g),
+		ArchivedAt:      internal.NewOptionalDateTime(g.ArchivedAt),
+		ExpiresAt:       internal.NewOptionalDateTime(g.ExpiresAt),
+		LastExchangedAt: internal.NewOptionalDateTime(g.LastExchangedAt),
+		CreatedAt:       internal.NewDateTime(g.CreatedAt),
+		UpdatedAt:       internal.NewDateTime(g.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsGet200ResponseGrant) String() string {
+func (g *GrantsCreateResponseGrant) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -3567,38 +1910,38 @@ func (g *GrantsGet200ResponseGrant) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsGet200ResponseGrantLayerMode string
+type GrantsCreateResponseGrantLayerMode string
 
 const (
-	GrantsGet200ResponseGrantLayerModeShared     GrantsGet200ResponseGrantLayerMode = "shared"
-	GrantsGet200ResponseGrantLayerModePerVisitor GrantsGet200ResponseGrantLayerMode = "per-visitor"
+	GrantsCreateResponseGrantLayerModeShared     GrantsCreateResponseGrantLayerMode = "shared"
+	GrantsCreateResponseGrantLayerModePerVisitor GrantsCreateResponseGrantLayerMode = "per-visitor"
 )
 
-func NewGrantsGet200ResponseGrantLayerModeFromString(s string) (GrantsGet200ResponseGrantLayerMode, error) {
+func NewGrantsCreateResponseGrantLayerModeFromString(s string) (GrantsCreateResponseGrantLayerMode, error) {
 	switch s {
 	case "shared":
-		return GrantsGet200ResponseGrantLayerModeShared, nil
+		return GrantsCreateResponseGrantLayerModeShared, nil
 	case "per-visitor":
-		return GrantsGet200ResponseGrantLayerModePerVisitor, nil
+		return GrantsCreateResponseGrantLayerModePerVisitor, nil
 	}
-	var t GrantsGet200ResponseGrantLayerMode
+	var t GrantsCreateResponseGrantLayerMode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantLayerMode) Ptr() *GrantsGet200ResponseGrantLayerMode {
+func (g GrantsCreateResponseGrantLayerMode) Ptr() *GrantsCreateResponseGrantLayerMode {
 	return &g
 }
 
 var (
-	grantsGet200ResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
-	grantsGet200ResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
-	grantsGet200ResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
-	grantsGet200ResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+	grantsCreateResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	grantsCreateResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	grantsCreateResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	grantsCreateResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
 )
 
-type GrantsGet200ResponseGrantVisitorIdentity struct {
-	Fields     *GrantsGet200ResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
-	Ask        GrantsGet200ResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
+type GrantsCreateResponseGrantVisitorIdentity struct {
+	Fields     *GrantsCreateResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        GrantsCreateResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
 	Purpose    *string                                         `json:"purpose,omitempty" url:"purpose,omitempty"`
 	PrivacyURL *string                                         `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
 
@@ -3609,42 +1952,42 @@ type GrantsGet200ResponseGrantVisitorIdentity struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) GetFields() *GrantsGet200ResponseGrantVisitorIdentityFields {
+func (g *GrantsCreateResponseGrantVisitorIdentity) GetFields() *GrantsCreateResponseGrantVisitorIdentityFields {
 	if g == nil {
 		return nil
 	}
 	return g.Fields
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) GetAsk() GrantsGet200ResponseGrantVisitorIdentityAsk {
+func (g *GrantsCreateResponseGrantVisitorIdentity) GetAsk() GrantsCreateResponseGrantVisitorIdentityAsk {
 	if g == nil {
 		return ""
 	}
 	return g.Ask
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) GetPurpose() *string {
+func (g *GrantsCreateResponseGrantVisitorIdentity) GetPurpose() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Purpose
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) GetPrivacyURL() *string {
+func (g *GrantsCreateResponseGrantVisitorIdentity) GetPrivacyURL() *string {
 	if g == nil {
 		return nil
 	}
 	return g.PrivacyURL
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
+func (g *GrantsCreateResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) require(field *big.Int) {
+func (g *GrantsCreateResponseGrantVisitorIdentity) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -3653,39 +1996,39 @@ func (g *GrantsGet200ResponseGrantVisitorIdentity) require(field *big.Int) {
 
 // SetFields sets the Fields field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentity) SetFields(fields *GrantsGet200ResponseGrantVisitorIdentityFields) {
+func (g *GrantsCreateResponseGrantVisitorIdentity) SetFields(fields *GrantsCreateResponseGrantVisitorIdentityFields) {
 	g.Fields = fields
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldFields)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldFields)
 }
 
 // SetAsk sets the Ask field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentity) SetAsk(ask GrantsGet200ResponseGrantVisitorIdentityAsk) {
+func (g *GrantsCreateResponseGrantVisitorIdentity) SetAsk(ask GrantsCreateResponseGrantVisitorIdentityAsk) {
 	g.Ask = ask
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldAsk)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldAsk)
 }
 
 // SetPurpose sets the Purpose field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
+func (g *GrantsCreateResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
 	g.Purpose = purpose
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldPurpose)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldPurpose)
 }
 
 // SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+func (g *GrantsCreateResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
 	g.PrivacyURL = privacyURL
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldPrivacyURL)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldPrivacyURL)
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsGet200ResponseGrantVisitorIdentity
+func (g *GrantsCreateResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsCreateResponseGrantVisitorIdentity
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsGet200ResponseGrantVisitorIdentity(value)
+	*g = GrantsCreateResponseGrantVisitorIdentity(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -3695,8 +2038,8 @@ func (g *GrantsGet200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) er
 	return nil
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
-	type embed GrantsGet200ResponseGrantVisitorIdentity
+func (g *GrantsCreateResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed GrantsCreateResponseGrantVisitorIdentity
 	var marshaler = struct {
 		embed
 	}{
@@ -3706,7 +2049,7 @@ func (g *GrantsGet200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentity) String() string {
+func (g *GrantsCreateResponseGrantVisitorIdentity) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -3721,42 +2064,42 @@ func (g *GrantsGet200ResponseGrantVisitorIdentity) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityAsk string
+type GrantsCreateResponseGrantVisitorIdentityAsk string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityAskOnOpen            GrantsGet200ResponseGrantVisitorIdentityAsk = "on-open"
-	GrantsGet200ResponseGrantVisitorIdentityAskBeforeFirstChange GrantsGet200ResponseGrantVisitorIdentityAsk = "before-first-change"
+	GrantsCreateResponseGrantVisitorIdentityAskOnOpen            GrantsCreateResponseGrantVisitorIdentityAsk = "on-open"
+	GrantsCreateResponseGrantVisitorIdentityAskBeforeFirstChange GrantsCreateResponseGrantVisitorIdentityAsk = "before-first-change"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityAskFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityAsk, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityAskFromString(s string) (GrantsCreateResponseGrantVisitorIdentityAsk, error) {
 	switch s {
 	case "on-open":
-		return GrantsGet200ResponseGrantVisitorIdentityAskOnOpen, nil
+		return GrantsCreateResponseGrantVisitorIdentityAskOnOpen, nil
 	case "before-first-change":
-		return GrantsGet200ResponseGrantVisitorIdentityAskBeforeFirstChange, nil
+		return GrantsCreateResponseGrantVisitorIdentityAskBeforeFirstChange, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityAsk
+	var t GrantsCreateResponseGrantVisitorIdentityAsk
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityAsk) Ptr() *GrantsGet200ResponseGrantVisitorIdentityAsk {
+func (g GrantsCreateResponseGrantVisitorIdentityAsk) Ptr() *GrantsCreateResponseGrantVisitorIdentityAsk {
 	return &g
 }
 
 var (
-	grantsGet200ResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsGet200ResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsGet200ResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsGet200ResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsGet200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+	grantsCreateResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsCreateResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsCreateResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsCreateResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsCreateResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
 )
 
-type GrantsGet200ResponseGrantVisitorIdentityFields struct {
-	DisplayName        *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+type GrantsCreateResponseGrantVisitorIdentityFields struct {
+	DisplayName        *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsCreateResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsCreateResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3765,49 +2108,49 @@ type GrantsGet200ResponseGrantVisitorIdentityFields struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName {
 	if g == nil {
 		return nil
 	}
 	return g.DisplayName
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetEmail() *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetEmail() *GrantsCreateResponseGrantVisitorIdentityFieldsEmail {
 	if g == nil {
 		return nil
 	}
 	return g.Email
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetTitle() *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetTitle() *GrantsCreateResponseGrantVisitorIdentityFieldsTitle {
 	if g == nil {
 		return nil
 	}
 	return g.Title
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetOrganization() *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetOrganization() *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization {
 	if g == nil {
 		return nil
 	}
 	return g.Organization
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit {
 	if g == nil {
 		return nil
 	}
 	return g.OrganizationalUnit
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) require(field *big.Int) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -3816,46 +2159,46 @@ func (g *GrantsGet200ResponseGrantVisitorIdentityFields) require(field *big.Int)
 
 // SetDisplayName sets the DisplayName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName) {
 	g.DisplayName = displayName
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldsFieldDisplayName)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldsFieldDisplayName)
 }
 
 // SetEmail sets the Email field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) SetEmail(email *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) SetEmail(email *GrantsCreateResponseGrantVisitorIdentityFieldsEmail) {
 	g.Email = email
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldsFieldEmail)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldsFieldEmail)
 }
 
 // SetTitle sets the Title field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) SetTitle(title *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) SetTitle(title *GrantsCreateResponseGrantVisitorIdentityFieldsTitle) {
 	g.Title = title
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldsFieldTitle)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldsFieldTitle)
 }
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization) {
 	g.Organization = organization
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldsFieldOrganization)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldsFieldOrganization)
 }
 
 // SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
 	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsGet200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
+	g.require(grantsCreateResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsGet200ResponseGrantVisitorIdentityFields
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsCreateResponseGrantVisitorIdentityFields
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsGet200ResponseGrantVisitorIdentityFields(value)
+	*g = GrantsCreateResponseGrantVisitorIdentityFields(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -3865,8 +2208,8 @@ func (g *GrantsGet200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data []by
 	return nil
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsGet200ResponseGrantVisitorIdentityFields
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsCreateResponseGrantVisitorIdentityFields
 	var marshaler = struct {
 		embed
 	}{
@@ -3876,7 +2219,7 @@ func (g *GrantsGet200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsGet200ResponseGrantVisitorIdentityFields) String() string {
+func (g *GrantsCreateResponseGrantVisitorIdentityFields) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -3891,124 +2234,132 @@ func (g *GrantsGet200ResponseGrantVisitorIdentityFields) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName string
+type GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName = "required"
-	GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName = "optional"
+	GrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName = "required"
+	GrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName = "optional"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName, error) {
 	switch s {
 	case "required":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
 	case "optional":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName
+	var t GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsGet200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsCreateResponseGrantVisitorIdentityFieldsDisplayName {
 	return &g
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityFieldsEmail string
+type GrantsCreateResponseGrantVisitorIdentityFieldsEmail string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityFieldsEmailRequired GrantsGet200ResponseGrantVisitorIdentityFieldsEmail = "required"
-	GrantsGet200ResponseGrantVisitorIdentityFieldsEmailOptional GrantsGet200ResponseGrantVisitorIdentityFieldsEmail = "optional"
+	GrantsCreateResponseGrantVisitorIdentityFieldsEmailRequired GrantsCreateResponseGrantVisitorIdentityFieldsEmail = "required"
+	GrantsCreateResponseGrantVisitorIdentityFieldsEmailOptional GrantsCreateResponseGrantVisitorIdentityFieldsEmail = "optional"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityFieldsEmail, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsCreateResponseGrantVisitorIdentityFieldsEmail, error) {
 	switch s {
 	case "required":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsEmailRequired, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsEmailRequired, nil
 	case "optional":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsEmailOptional, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsEmailOptional, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityFieldsEmail
+	var t GrantsCreateResponseGrantVisitorIdentityFieldsEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsGet200ResponseGrantVisitorIdentityFieldsEmail {
+func (g GrantsCreateResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsCreateResponseGrantVisitorIdentityFieldsEmail {
 	return &g
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization string
+type GrantsCreateResponseGrantVisitorIdentityFieldsOrganization string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization = "required"
-	GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization = "optional"
+	GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsCreateResponseGrantVisitorIdentityFieldsOrganization = "required"
+	GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsCreateResponseGrantVisitorIdentityFieldsOrganization = "optional"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsCreateResponseGrantVisitorIdentityFieldsOrganization, error) {
 	switch s {
 	case "required":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
 	case "optional":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization
+	var t GrantsCreateResponseGrantVisitorIdentityFieldsOrganization
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g GrantsCreateResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsCreateResponseGrantVisitorIdentityFieldsOrganization {
 	return &g
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit string
+type GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
-	GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
+	GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
+	GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
 	switch s {
 	case "required":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
 	case "optional":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+	var t GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsGet200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsCreateResponseGrantVisitorIdentityFieldsOrganizationalUnit {
 	return &g
 }
 
-type GrantsGet200ResponseGrantVisitorIdentityFieldsTitle string
+type GrantsCreateResponseGrantVisitorIdentityFieldsTitle string
 
 const (
-	GrantsGet200ResponseGrantVisitorIdentityFieldsTitleRequired GrantsGet200ResponseGrantVisitorIdentityFieldsTitle = "required"
-	GrantsGet200ResponseGrantVisitorIdentityFieldsTitleOptional GrantsGet200ResponseGrantVisitorIdentityFieldsTitle = "optional"
+	GrantsCreateResponseGrantVisitorIdentityFieldsTitleRequired GrantsCreateResponseGrantVisitorIdentityFieldsTitle = "required"
+	GrantsCreateResponseGrantVisitorIdentityFieldsTitleOptional GrantsCreateResponseGrantVisitorIdentityFieldsTitle = "optional"
 )
 
-func NewGrantsGet200ResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsGet200ResponseGrantVisitorIdentityFieldsTitle, error) {
+func NewGrantsCreateResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsCreateResponseGrantVisitorIdentityFieldsTitle, error) {
 	switch s {
 	case "required":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsTitleRequired, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsTitleRequired, nil
 	case "optional":
-		return GrantsGet200ResponseGrantVisitorIdentityFieldsTitleOptional, nil
+		return GrantsCreateResponseGrantVisitorIdentityFieldsTitleOptional, nil
 	}
-	var t GrantsGet200ResponseGrantVisitorIdentityFieldsTitle
+	var t GrantsCreateResponseGrantVisitorIdentityFieldsTitle
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsGet200ResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsGet200ResponseGrantVisitorIdentityFieldsTitle {
+func (g GrantsCreateResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsCreateResponseGrantVisitorIdentityFieldsTitle {
 	return &g
 }
 
 var (
-	grantsList200ResponseFieldGrants     = big.NewInt(1 << 0)
-	grantsList200ResponseFieldNextCursor = big.NewInt(1 << 1)
+	grantsExchangeResponseFieldToken     = big.NewInt(1 << 0)
+	grantsExchangeResponseFieldDocID     = big.NewInt(1 << 1)
+	grantsExchangeResponseFieldLayerName = big.NewInt(1 << 2)
+	grantsExchangeResponseFieldLayerMode = big.NewInt(1 << 3)
+	grantsExchangeResponseFieldVisitor   = big.NewInt(1 << 4)
+	grantsExchangeResponseFieldExpiresAt = big.NewInt(1 << 5)
 )
 
-type GrantsList200Response struct {
-	Grants     []*GrantsList200ResponseGrantsItem `json:"grants" url:"grants"`
-	NextCursor *string                            `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+type GrantsExchangeResponse struct {
+	Token     string                          `json:"token" url:"token"`
+	DocID     string                          `json:"docId" url:"docId"`
+	LayerName string                          `json:"layerName" url:"layerName"`
+	LayerMode GrantsExchangeResponseLayerMode `json:"layerMode" url:"layerMode"`
+	Visitor   *GrantsExchangeResponseVisitor  `json:"visitor" url:"visitor"`
+	ExpiresAt time.Time                       `json:"expiresAt" url:"expiresAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4017,475 +2368,117 @@ type GrantsList200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsList200Response) GetGrants() []*GrantsList200ResponseGrantsItem {
-	if g == nil {
-		return nil
-	}
-	return g.Grants
-}
-
-func (g *GrantsList200Response) GetNextCursor() *string {
-	if g == nil {
-		return nil
-	}
-	return g.NextCursor
-}
-
-func (g *GrantsList200Response) GetExtraProperties() map[string]interface{} {
-	if g == nil {
-		return nil
-	}
-	return g.extraProperties
-}
-
-func (g *GrantsList200Response) require(field *big.Int) {
-	if g.explicitFields == nil {
-		g.explicitFields = big.NewInt(0)
-	}
-	g.explicitFields.Or(g.explicitFields, field)
-}
-
-// SetGrants sets the Grants field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200Response) SetGrants(grants []*GrantsList200ResponseGrantsItem) {
-	g.Grants = grants
-	g.require(grantsList200ResponseFieldGrants)
-}
-
-// SetNextCursor sets the NextCursor field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200Response) SetNextCursor(nextCursor *string) {
-	g.NextCursor = nextCursor
-	g.require(grantsList200ResponseFieldNextCursor)
-}
-
-func (g *GrantsList200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsList200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*g = GrantsList200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *g)
-	if err != nil {
-		return err
-	}
-	g.extraProperties = extraProperties
-	g.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (g *GrantsList200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsList200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*g),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (g *GrantsList200Response) String() string {
-	if g == nil {
-		return "<nil>"
-	}
-	if len(g.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(g); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", g)
-}
-
-var (
-	grantsList200ResponseGrantsItemFieldID                  = big.NewInt(1 << 0)
-	grantsList200ResponseGrantsItemFieldTenantID            = big.NewInt(1 << 1)
-	grantsList200ResponseGrantsItemFieldDocID               = big.NewInt(1 << 2)
-	grantsList200ResponseGrantsItemFieldName                = big.NewInt(1 << 3)
-	grantsList200ResponseGrantsItemFieldLayerMode           = big.NewInt(1 << 4)
-	grantsList200ResponseGrantsItemFieldLayerName           = big.NewInt(1 << 5)
-	grantsList200ResponseGrantsItemFieldKeepVisitorLayers   = big.NewInt(1 << 6)
-	grantsList200ResponseGrantsItemFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
-	grantsList200ResponseGrantsItemFieldVisitorIdentity     = big.NewInt(1 << 8)
-	grantsList200ResponseGrantsItemFieldIdentity            = big.NewInt(1 << 9)
-	grantsList200ResponseGrantsItemFieldScope               = big.NewInt(1 << 10)
-	grantsList200ResponseGrantsItemFieldOrigins             = big.NewInt(1 << 11)
-	grantsList200ResponseGrantsItemFieldPassphraseProtected = big.NewInt(1 << 12)
-	grantsList200ResponseGrantsItemFieldSessionTTLSeconds   = big.NewInt(1 << 13)
-	grantsList200ResponseGrantsItemFieldDisabled            = big.NewInt(1 << 14)
-	grantsList200ResponseGrantsItemFieldArchivedAt          = big.NewInt(1 << 15)
-	grantsList200ResponseGrantsItemFieldExpiresAt           = big.NewInt(1 << 16)
-	grantsList200ResponseGrantsItemFieldExchangeCount       = big.NewInt(1 << 17)
-	grantsList200ResponseGrantsItemFieldLastExchangedAt     = big.NewInt(1 << 18)
-	grantsList200ResponseGrantsItemFieldCreatedBy           = big.NewInt(1 << 19)
-	grantsList200ResponseGrantsItemFieldCreatedAt           = big.NewInt(1 << 20)
-	grantsList200ResponseGrantsItemFieldUpdatedAt           = big.NewInt(1 << 21)
-)
-
-type GrantsList200ResponseGrantsItem struct {
-	ID                  string                                          `json:"id" url:"id"`
-	TenantID            string                                          `json:"tenantId" url:"tenantId"`
-	DocID               string                                          `json:"docId" url:"docId"`
-	Name                *string                                         `json:"name,omitempty" url:"name,omitempty"`
-	LayerMode           GrantsList200ResponseGrantsItemLayerMode        `json:"layerMode" url:"layerMode"`
-	LayerName           *string                                         `json:"layerName,omitempty" url:"layerName,omitempty"`
-	KeepVisitorLayers   bool                                            `json:"keepVisitorLayers" url:"keepVisitorLayers"`
-	VisitorIdleSeconds  *float64                                        `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
-	VisitorIdentity     *GrantsList200ResponseGrantsItemVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
-	Identity            *Identity                                       `json:"identity,omitempty" url:"identity,omitempty"`
-	Scope               []string                                        `json:"scope" url:"scope"`
-	Origins             []string                                        `json:"origins,omitempty" url:"origins,omitempty"`
-	PassphraseProtected bool                                            `json:"passphraseProtected" url:"passphraseProtected"`
-	SessionTTLSeconds   float64                                         `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled            bool                                            `json:"disabled" url:"disabled"`
-	ArchivedAt          *float64                                        `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
-	ExpiresAt           *float64                                        `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount       float64                                         `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt     *float64                                        `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy           string                                          `json:"createdBy" url:"createdBy"`
-	CreatedAt           float64                                         `json:"createdAt" url:"createdAt"`
-	UpdatedAt           float64                                         `json:"updatedAt" url:"updatedAt"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetID() string {
+func (g *GrantsExchangeResponse) GetToken() string {
 	if g == nil {
 		return ""
 	}
-	return g.ID
+	return g.Token
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetTenantID() string {
-	if g == nil {
-		return ""
-	}
-	return g.TenantID
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetDocID() string {
+func (g *GrantsExchangeResponse) GetDocID() string {
 	if g == nil {
 		return ""
 	}
 	return g.DocID
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetName() *string {
+func (g *GrantsExchangeResponse) GetLayerName() string {
 	if g == nil {
-		return nil
+		return ""
 	}
-	return g.Name
+	return g.LayerName
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetLayerMode() GrantsList200ResponseGrantsItemLayerMode {
+func (g *GrantsExchangeResponse) GetLayerMode() GrantsExchangeResponseLayerMode {
 	if g == nil {
 		return ""
 	}
 	return g.LayerMode
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetLayerName() *string {
+func (g *GrantsExchangeResponse) GetVisitor() *GrantsExchangeResponseVisitor {
 	if g == nil {
 		return nil
 	}
-	return g.LayerName
+	return g.Visitor
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetKeepVisitorLayers() bool {
+func (g *GrantsExchangeResponse) GetExpiresAt() time.Time {
 	if g == nil {
-		return false
-	}
-	return g.KeepVisitorLayers
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetVisitorIdleSeconds() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.VisitorIdleSeconds
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetVisitorIdentity() *GrantsList200ResponseGrantsItemVisitorIdentity {
-	if g == nil {
-		return nil
-	}
-	return g.VisitorIdentity
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetIdentity() *Identity {
-	if g == nil {
-		return nil
-	}
-	return g.Identity
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetScope() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Scope
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetOrigins() []string {
-	if g == nil {
-		return nil
-	}
-	return g.Origins
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetPassphraseProtected() bool {
-	if g == nil {
-		return false
-	}
-	return g.PassphraseProtected
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetSessionTTLSeconds() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.SessionTTLSeconds
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetDisabled() bool {
-	if g == nil {
-		return false
-	}
-	return g.Disabled
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetArchivedAt() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.ArchivedAt
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetExpiresAt() *float64 {
-	if g == nil {
-		return nil
+		return time.Time{}
 	}
 	return g.ExpiresAt
 }
 
-func (g *GrantsList200ResponseGrantsItem) GetExchangeCount() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.ExchangeCount
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetLastExchangedAt() *float64 {
-	if g == nil {
-		return nil
-	}
-	return g.LastExchangedAt
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetCreatedBy() string {
-	if g == nil {
-		return ""
-	}
-	return g.CreatedBy
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetCreatedAt() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.CreatedAt
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetUpdatedAt() float64 {
-	if g == nil {
-		return 0
-	}
-	return g.UpdatedAt
-}
-
-func (g *GrantsList200ResponseGrantsItem) GetExtraProperties() map[string]interface{} {
+func (g *GrantsExchangeResponse) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsList200ResponseGrantsItem) require(field *big.Int) {
+func (g *GrantsExchangeResponse) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
 	g.explicitFields.Or(g.explicitFields, field)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetToken sets the Token field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetID(id string) {
-	g.ID = id
-	g.require(grantsList200ResponseGrantsItemFieldID)
-}
-
-// SetTenantID sets the TenantID field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetTenantID(tenantID string) {
-	g.TenantID = tenantID
-	g.require(grantsList200ResponseGrantsItemFieldTenantID)
+func (g *GrantsExchangeResponse) SetToken(token string) {
+	g.Token = token
+	g.require(grantsExchangeResponseFieldToken)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetDocID(docID string) {
+func (g *GrantsExchangeResponse) SetDocID(docID string) {
 	g.DocID = docID
-	g.require(grantsList200ResponseGrantsItemFieldDocID)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetName(name *string) {
-	g.Name = name
-	g.require(grantsList200ResponseGrantsItemFieldName)
-}
-
-// SetLayerMode sets the LayerMode field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetLayerMode(layerMode GrantsList200ResponseGrantsItemLayerMode) {
-	g.LayerMode = layerMode
-	g.require(grantsList200ResponseGrantsItemFieldLayerMode)
+	g.require(grantsExchangeResponseFieldDocID)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetLayerName(layerName *string) {
+func (g *GrantsExchangeResponse) SetLayerName(layerName string) {
 	g.LayerName = layerName
-	g.require(grantsList200ResponseGrantsItemFieldLayerName)
+	g.require(grantsExchangeResponseFieldLayerName)
 }
 
-// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetKeepVisitorLayers(keepVisitorLayers bool) {
-	g.KeepVisitorLayers = keepVisitorLayers
-	g.require(grantsList200ResponseGrantsItemFieldKeepVisitorLayers)
+func (g *GrantsExchangeResponse) SetLayerMode(layerMode GrantsExchangeResponseLayerMode) {
+	g.LayerMode = layerMode
+	g.require(grantsExchangeResponseFieldLayerMode)
 }
 
-// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// SetVisitor sets the Visitor field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
-	g.VisitorIdleSeconds = visitorIdleSeconds
-	g.require(grantsList200ResponseGrantsItemFieldVisitorIdleSeconds)
-}
-
-// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetVisitorIdentity(visitorIdentity *GrantsList200ResponseGrantsItemVisitorIdentity) {
-	g.VisitorIdentity = visitorIdentity
-	g.require(grantsList200ResponseGrantsItemFieldVisitorIdentity)
-}
-
-// SetIdentity sets the Identity field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetIdentity(identity *Identity) {
-	g.Identity = identity
-	g.require(grantsList200ResponseGrantsItemFieldIdentity)
-}
-
-// SetScope sets the Scope field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetScope(scope []string) {
-	g.Scope = scope
-	g.require(grantsList200ResponseGrantsItemFieldScope)
-}
-
-// SetOrigins sets the Origins field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetOrigins(origins []string) {
-	g.Origins = origins
-	g.require(grantsList200ResponseGrantsItemFieldOrigins)
-}
-
-// SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetPassphraseProtected(passphraseProtected bool) {
-	g.PassphraseProtected = passphraseProtected
-	g.require(grantsList200ResponseGrantsItemFieldPassphraseProtected)
-}
-
-// SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetSessionTTLSeconds(sessionTTLSeconds float64) {
-	g.SessionTTLSeconds = sessionTTLSeconds
-	g.require(grantsList200ResponseGrantsItemFieldSessionTTLSeconds)
-}
-
-// SetDisabled sets the Disabled field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetDisabled(disabled bool) {
-	g.Disabled = disabled
-	g.require(grantsList200ResponseGrantsItemFieldDisabled)
-}
-
-// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetArchivedAt(archivedAt *float64) {
-	g.ArchivedAt = archivedAt
-	g.require(grantsList200ResponseGrantsItemFieldArchivedAt)
+func (g *GrantsExchangeResponse) SetVisitor(visitor *GrantsExchangeResponseVisitor) {
+	g.Visitor = visitor
+	g.require(grantsExchangeResponseFieldVisitor)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetExpiresAt(expiresAt *float64) {
+func (g *GrantsExchangeResponse) SetExpiresAt(expiresAt time.Time) {
 	g.ExpiresAt = expiresAt
-	g.require(grantsList200ResponseGrantsItemFieldExpiresAt)
+	g.require(grantsExchangeResponseFieldExpiresAt)
 }
 
-// SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetExchangeCount(exchangeCount float64) {
-	g.ExchangeCount = exchangeCount
-	g.require(grantsList200ResponseGrantsItemFieldExchangeCount)
-}
-
-// SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetLastExchangedAt(lastExchangedAt *float64) {
-	g.LastExchangedAt = lastExchangedAt
-	g.require(grantsList200ResponseGrantsItemFieldLastExchangedAt)
-}
-
-// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetCreatedBy(createdBy string) {
-	g.CreatedBy = createdBy
-	g.require(grantsList200ResponseGrantsItemFieldCreatedBy)
-}
-
-// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetCreatedAt(createdAt float64) {
-	g.CreatedAt = createdAt
-	g.require(grantsList200ResponseGrantsItemFieldCreatedAt)
-}
-
-// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItem) SetUpdatedAt(updatedAt float64) {
-	g.UpdatedAt = updatedAt
-	g.require(grantsList200ResponseGrantsItemFieldUpdatedAt)
-}
-
-func (g *GrantsList200ResponseGrantsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsList200ResponseGrantsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (g *GrantsExchangeResponse) UnmarshalJSON(data []byte) error {
+	type embed GrantsExchangeResponse
+	var unmarshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*g = GrantsList200ResponseGrantsItem(value)
+	*g = GrantsExchangeResponse(unmarshaler.embed)
+	g.ExpiresAt = unmarshaler.ExpiresAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -4495,18 +2488,20 @@ func (g *GrantsList200ResponseGrantsItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsList200ResponseGrantsItem) MarshalJSON() ([]byte, error) {
-	type embed GrantsList200ResponseGrantsItem
+func (g *GrantsExchangeResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsExchangeResponse
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
 	}{
-		embed: embed(*g),
+		embed:     embed(*g),
+		ExpiresAt: internal.NewDateTime(g.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsList200ResponseGrantsItem) String() string {
+func (g *GrantsExchangeResponse) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -4521,40 +2516,38 @@ func (g *GrantsList200ResponseGrantsItem) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsList200ResponseGrantsItemLayerMode string
+type GrantsExchangeResponseLayerMode string
 
 const (
-	GrantsList200ResponseGrantsItemLayerModeShared     GrantsList200ResponseGrantsItemLayerMode = "shared"
-	GrantsList200ResponseGrantsItemLayerModePerVisitor GrantsList200ResponseGrantsItemLayerMode = "per-visitor"
+	GrantsExchangeResponseLayerModeShared     GrantsExchangeResponseLayerMode = "shared"
+	GrantsExchangeResponseLayerModePerVisitor GrantsExchangeResponseLayerMode = "per-visitor"
 )
 
-func NewGrantsList200ResponseGrantsItemLayerModeFromString(s string) (GrantsList200ResponseGrantsItemLayerMode, error) {
+func NewGrantsExchangeResponseLayerModeFromString(s string) (GrantsExchangeResponseLayerMode, error) {
 	switch s {
 	case "shared":
-		return GrantsList200ResponseGrantsItemLayerModeShared, nil
+		return GrantsExchangeResponseLayerModeShared, nil
 	case "per-visitor":
-		return GrantsList200ResponseGrantsItemLayerModePerVisitor, nil
+		return GrantsExchangeResponseLayerModePerVisitor, nil
 	}
-	var t GrantsList200ResponseGrantsItemLayerMode
+	var t GrantsExchangeResponseLayerMode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemLayerMode) Ptr() *GrantsList200ResponseGrantsItemLayerMode {
+func (g GrantsExchangeResponseLayerMode) Ptr() *GrantsExchangeResponseLayerMode {
 	return &g
 }
 
 var (
-	grantsList200ResponseGrantsItemVisitorIdentityFieldFields     = big.NewInt(1 << 0)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+	grantsExchangeResponseVisitorFieldHandle          = big.NewInt(1 << 0)
+	grantsExchangeResponseVisitorFieldKeep            = big.NewInt(1 << 1)
+	grantsExchangeResponseVisitorFieldIdentityRequest = big.NewInt(1 << 2)
 )
 
-type GrantsList200ResponseGrantsItemVisitorIdentity struct {
-	Fields     *GrantsList200ResponseGrantsItemVisitorIdentityFields `json:"fields" url:"fields"`
-	Ask        GrantsList200ResponseGrantsItemVisitorIdentityAsk     `json:"ask" url:"ask"`
-	Purpose    *string                                               `json:"purpose,omitempty" url:"purpose,omitempty"`
-	PrivacyURL *string                                               `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+type GrantsExchangeResponseVisitor struct {
+	Handle          string                                        `json:"handle" url:"handle"`
+	Keep            bool                                          `json:"keep" url:"keep"`
+	IdentityRequest *GrantsExchangeResponseVisitorIdentityRequest `json:"identityRequest,omitempty" url:"identityRequest,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4563,42 +2556,169 @@ type GrantsList200ResponseGrantsItemVisitorIdentity struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) GetFields() *GrantsList200ResponseGrantsItemVisitorIdentityFields {
-	if g == nil {
-		return nil
-	}
-	return g.Fields
-}
-
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) GetAsk() GrantsList200ResponseGrantsItemVisitorIdentityAsk {
+func (g *GrantsExchangeResponseVisitor) GetHandle() string {
 	if g == nil {
 		return ""
 	}
-	return g.Ask
+	return g.Handle
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) GetPurpose() *string {
+func (g *GrantsExchangeResponseVisitor) GetKeep() bool {
+	if g == nil {
+		return false
+	}
+	return g.Keep
+}
+
+func (g *GrantsExchangeResponseVisitor) GetIdentityRequest() *GrantsExchangeResponseVisitorIdentityRequest {
 	if g == nil {
 		return nil
 	}
-	return g.Purpose
+	return g.IdentityRequest
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) GetPrivacyURL() *string {
-	if g == nil {
-		return nil
-	}
-	return g.PrivacyURL
-}
-
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) GetExtraProperties() map[string]interface{} {
+func (g *GrantsExchangeResponseVisitor) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) require(field *big.Int) {
+func (g *GrantsExchangeResponseVisitor) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetHandle sets the Handle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsExchangeResponseVisitor) SetHandle(handle string) {
+	g.Handle = handle
+	g.require(grantsExchangeResponseVisitorFieldHandle)
+}
+
+// SetKeep sets the Keep field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsExchangeResponseVisitor) SetKeep(keep bool) {
+	g.Keep = keep
+	g.require(grantsExchangeResponseVisitorFieldKeep)
+}
+
+// SetIdentityRequest sets the IdentityRequest field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsExchangeResponseVisitor) SetIdentityRequest(identityRequest *GrantsExchangeResponseVisitorIdentityRequest) {
+	g.IdentityRequest = identityRequest
+	g.require(grantsExchangeResponseVisitorFieldIdentityRequest)
+}
+
+func (g *GrantsExchangeResponseVisitor) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsExchangeResponseVisitor
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsExchangeResponseVisitor(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsExchangeResponseVisitor) MarshalJSON() ([]byte, error) {
+	type embed GrantsExchangeResponseVisitor
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsExchangeResponseVisitor) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsExchangeResponseVisitorIdentityRequestFieldFields     = big.NewInt(1 << 0)
+	grantsExchangeResponseVisitorIdentityRequestFieldMissing    = big.NewInt(1 << 1)
+	grantsExchangeResponseVisitorIdentityRequestFieldInvalid    = big.NewInt(1 << 2)
+	grantsExchangeResponseVisitorIdentityRequestFieldPurpose    = big.NewInt(1 << 3)
+	grantsExchangeResponseVisitorIdentityRequestFieldPrivacyURL = big.NewInt(1 << 4)
+)
+
+type GrantsExchangeResponseVisitorIdentityRequest struct {
+	Fields     *GrantsExchangeResponseVisitorIdentityRequestFields       `json:"fields" url:"fields"`
+	Missing    []GrantsExchangeResponseVisitorIdentityRequestMissingItem `json:"missing" url:"missing"`
+	Invalid    []GrantsExchangeResponseVisitorIdentityRequestInvalidItem `json:"invalid" url:"invalid"`
+	Purpose    *string                                                   `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                                   `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetFields() *GrantsExchangeResponseVisitorIdentityRequestFields {
+	if g == nil {
+		return nil
+	}
+	return g.Fields
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetMissing() []GrantsExchangeResponseVisitorIdentityRequestMissingItem {
+	if g == nil {
+		return nil
+	}
+	return g.Missing
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetInvalid() []GrantsExchangeResponseVisitorIdentityRequestInvalidItem {
+	if g == nil {
+		return nil
+	}
+	return g.Invalid
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetPurpose() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Purpose
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetPrivacyURL() *string {
+	if g == nil {
+		return nil
+	}
+	return g.PrivacyURL
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsExchangeResponseVisitorIdentityRequest) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -4607,39 +2727,46 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentity) require(field *big.Int)
 
 // SetFields sets the Fields field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) SetFields(fields *GrantsList200ResponseGrantsItemVisitorIdentityFields) {
+func (g *GrantsExchangeResponseVisitorIdentityRequest) SetFields(fields *GrantsExchangeResponseVisitorIdentityRequestFields) {
 	g.Fields = fields
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldFields)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldFields)
 }
 
-// SetAsk sets the Ask field and marks it as non-optional;
+// SetMissing sets the Missing field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) SetAsk(ask GrantsList200ResponseGrantsItemVisitorIdentityAsk) {
-	g.Ask = ask
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldAsk)
+func (g *GrantsExchangeResponseVisitorIdentityRequest) SetMissing(missing []GrantsExchangeResponseVisitorIdentityRequestMissingItem) {
+	g.Missing = missing
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldMissing)
+}
+
+// SetInvalid sets the Invalid field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsExchangeResponseVisitorIdentityRequest) SetInvalid(invalid []GrantsExchangeResponseVisitorIdentityRequestInvalidItem) {
+	g.Invalid = invalid
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldInvalid)
 }
 
 // SetPurpose sets the Purpose field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) SetPurpose(purpose *string) {
+func (g *GrantsExchangeResponseVisitorIdentityRequest) SetPurpose(purpose *string) {
 	g.Purpose = purpose
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldPurpose)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldPurpose)
 }
 
 // SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+func (g *GrantsExchangeResponseVisitorIdentityRequest) SetPrivacyURL(privacyURL *string) {
 	g.PrivacyURL = privacyURL
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldPrivacyURL)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldPrivacyURL)
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsList200ResponseGrantsItemVisitorIdentity
+func (g *GrantsExchangeResponseVisitorIdentityRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsExchangeResponseVisitorIdentityRequest
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsList200ResponseGrantsItemVisitorIdentity(value)
+	*g = GrantsExchangeResponseVisitorIdentityRequest(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -4649,8 +2776,8 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentity) UnmarshalJSON(data []by
 	return nil
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) MarshalJSON() ([]byte, error) {
-	type embed GrantsList200ResponseGrantsItemVisitorIdentity
+func (g *GrantsExchangeResponseVisitorIdentityRequest) MarshalJSON() ([]byte, error) {
+	type embed GrantsExchangeResponseVisitorIdentityRequest
 	var marshaler = struct {
 		embed
 	}{
@@ -4660,7 +2787,7 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentity) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentity) String() string {
+func (g *GrantsExchangeResponseVisitorIdentityRequest) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -4675,42 +2802,20 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentity) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityAsk string
-
-const (
-	GrantsList200ResponseGrantsItemVisitorIdentityAskOnOpen            GrantsList200ResponseGrantsItemVisitorIdentityAsk = "on-open"
-	GrantsList200ResponseGrantsItemVisitorIdentityAskBeforeFirstChange GrantsList200ResponseGrantsItemVisitorIdentityAsk = "before-first-change"
-)
-
-func NewGrantsList200ResponseGrantsItemVisitorIdentityAskFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityAsk, error) {
-	switch s {
-	case "on-open":
-		return GrantsList200ResponseGrantsItemVisitorIdentityAskOnOpen, nil
-	case "before-first-change":
-		return GrantsList200ResponseGrantsItemVisitorIdentityAskBeforeFirstChange, nil
-	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityAsk
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (g GrantsList200ResponseGrantsItemVisitorIdentityAsk) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityAsk {
-	return &g
-}
-
 var (
-	grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+	grantsExchangeResponseVisitorIdentityRequestFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsExchangeResponseVisitorIdentityRequestFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsExchangeResponseVisitorIdentityRequestFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsExchangeResponseVisitorIdentityRequestFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsExchangeResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
 )
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFields struct {
-	DisplayName        *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+type GrantsExchangeResponseVisitorIdentityRequestFields struct {
+	DisplayName        *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4719,49 +2824,49 @@ type GrantsList200ResponseGrantsItemVisitorIdentityFields struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetDisplayName() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetDisplayName() *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName {
 	if g == nil {
 		return nil
 	}
 	return g.DisplayName
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetEmail() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetEmail() *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail {
 	if g == nil {
 		return nil
 	}
 	return g.Email
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetTitle() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetTitle() *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle {
 	if g == nil {
 		return nil
 	}
 	return g.Title
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetOrganization() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetOrganization() *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization {
 	if g == nil {
 		return nil
 	}
 	return g.Organization
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetOrganizationalUnit() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetOrganizationalUnit() *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit {
 	if g == nil {
 		return nil
 	}
 	return g.OrganizationalUnit
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) require(field *big.Int) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -4770,46 +2875,46 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) require(field *bi
 
 // SetDisplayName sets the DisplayName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) SetDisplayName(displayName *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) SetDisplayName(displayName *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName) {
 	g.DisplayName = displayName
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldDisplayName)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldsFieldDisplayName)
 }
 
 // SetEmail sets the Email field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) SetEmail(email *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) SetEmail(email *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail) {
 	g.Email = email
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldEmail)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldsFieldEmail)
 }
 
 // SetTitle sets the Title field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) SetTitle(title *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) SetTitle(title *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle) {
 	g.Title = title
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldTitle)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldsFieldTitle)
 }
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) SetOrganization(organization *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) SetOrganization(organization *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization) {
 	g.Organization = organization
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldOrganization)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldsFieldOrganization)
 }
 
 // SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit) {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) SetOrganizationalUnit(organizationalUnit *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit) {
 	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsList200ResponseGrantsItemVisitorIdentityFieldsFieldOrganizationalUnit)
+	g.require(grantsExchangeResponseVisitorIdentityRequestFieldsFieldOrganizationalUnit)
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsList200ResponseGrantsItemVisitorIdentityFields
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsExchangeResponseVisitorIdentityRequestFields
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsList200ResponseGrantsItemVisitorIdentityFields(value)
+	*g = GrantsExchangeResponseVisitorIdentityRequestFields(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -4819,8 +2924,8 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) UnmarshalJSON(dat
 	return nil
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsList200ResponseGrantsItemVisitorIdentityFields
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsExchangeResponseVisitorIdentityRequestFields
 	var marshaler = struct {
 		embed
 	}{
@@ -4830,7 +2935,7 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) MarshalJSON() ([]
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) String() string {
+func (g *GrantsExchangeResponseVisitorIdentityRequestFields) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -4845,122 +2950,184 @@ func (g *GrantsList200ResponseGrantsItemVisitorIdentityFields) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName string
+type GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName string
 
 const (
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameRequired GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName = "required"
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameOptional GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName = "optional"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameRequired GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName = "required"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameOptional GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName = "optional"
 )
 
-func NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName, error) {
+func NewGrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName, error) {
 	switch s {
 	case "required":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameRequired, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameRequired, nil
 	case "optional":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayNameOptional, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayNameOptional, nil
 	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName
+	var t GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsDisplayName {
+func (g GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName) Ptr() *GrantsExchangeResponseVisitorIdentityRequestFieldsDisplayName {
 	return &g
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail string
+type GrantsExchangeResponseVisitorIdentityRequestFieldsEmail string
 
 const (
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailRequired GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail = "required"
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailOptional GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail = "optional"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsEmailRequired GrantsExchangeResponseVisitorIdentityRequestFieldsEmail = "required"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsEmailOptional GrantsExchangeResponseVisitorIdentityRequestFieldsEmail = "optional"
 )
 
-func NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail, error) {
+func NewGrantsExchangeResponseVisitorIdentityRequestFieldsEmailFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestFieldsEmail, error) {
 	switch s {
 	case "required":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailRequired, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsEmailRequired, nil
 	case "optional":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmailOptional, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsEmailOptional, nil
 	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail
+	var t GrantsExchangeResponseVisitorIdentityRequestFieldsEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsEmail {
+func (g GrantsExchangeResponseVisitorIdentityRequestFieldsEmail) Ptr() *GrantsExchangeResponseVisitorIdentityRequestFieldsEmail {
 	return &g
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization string
+type GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization string
 
 const (
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationRequired GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization = "required"
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationOptional GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization = "optional"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationRequired GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization = "required"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationOptional GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization = "optional"
 )
 
-func NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization, error) {
+func NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization, error) {
 	switch s {
 	case "required":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationRequired, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationRequired, nil
 	case "optional":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationOptional, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationOptional, nil
 	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization
+	var t GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganization {
+func (g GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization) Ptr() *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganization {
 	return &g
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit string
+type GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit string
 
 const (
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitRequired GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit = "required"
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitOptional GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit = "optional"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit = "required"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit = "optional"
 )
 
-func NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit, error) {
+func NewGrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit, error) {
 	switch s {
 	case "required":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitRequired, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitRequired, nil
 	case "optional":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitOptional, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnitOptional, nil
 	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
+	var t GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit {
+func (g GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit) Ptr() *GrantsExchangeResponseVisitorIdentityRequestFieldsOrganizationalUnit {
 	return &g
 }
 
-type GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle string
+type GrantsExchangeResponseVisitorIdentityRequestFieldsTitle string
 
 const (
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleRequired GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle = "required"
-	GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleOptional GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle = "optional"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsTitleRequired GrantsExchangeResponseVisitorIdentityRequestFieldsTitle = "required"
+	GrantsExchangeResponseVisitorIdentityRequestFieldsTitleOptional GrantsExchangeResponseVisitorIdentityRequestFieldsTitle = "optional"
 )
 
-func NewGrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleFromString(s string) (GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle, error) {
+func NewGrantsExchangeResponseVisitorIdentityRequestFieldsTitleFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestFieldsTitle, error) {
 	switch s {
 	case "required":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleRequired, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsTitleRequired, nil
 	case "optional":
-		return GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitleOptional, nil
+		return GrantsExchangeResponseVisitorIdentityRequestFieldsTitleOptional, nil
 	}
-	var t GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle
+	var t GrantsExchangeResponseVisitorIdentityRequestFieldsTitle
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle) Ptr() *GrantsList200ResponseGrantsItemVisitorIdentityFieldsTitle {
+func (g GrantsExchangeResponseVisitorIdentityRequestFieldsTitle) Ptr() *GrantsExchangeResponseVisitorIdentityRequestFieldsTitle {
+	return &g
+}
+
+type GrantsExchangeResponseVisitorIdentityRequestInvalidItem string
+
+const (
+	GrantsExchangeResponseVisitorIdentityRequestInvalidItemDisplayName        GrantsExchangeResponseVisitorIdentityRequestInvalidItem = "displayName"
+	GrantsExchangeResponseVisitorIdentityRequestInvalidItemEmail              GrantsExchangeResponseVisitorIdentityRequestInvalidItem = "email"
+	GrantsExchangeResponseVisitorIdentityRequestInvalidItemTitle              GrantsExchangeResponseVisitorIdentityRequestInvalidItem = "title"
+	GrantsExchangeResponseVisitorIdentityRequestInvalidItemOrganization       GrantsExchangeResponseVisitorIdentityRequestInvalidItem = "organization"
+	GrantsExchangeResponseVisitorIdentityRequestInvalidItemOrganizationalUnit GrantsExchangeResponseVisitorIdentityRequestInvalidItem = "organizationalUnit"
+)
+
+func NewGrantsExchangeResponseVisitorIdentityRequestInvalidItemFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestInvalidItem, error) {
+	switch s {
+	case "displayName":
+		return GrantsExchangeResponseVisitorIdentityRequestInvalidItemDisplayName, nil
+	case "email":
+		return GrantsExchangeResponseVisitorIdentityRequestInvalidItemEmail, nil
+	case "title":
+		return GrantsExchangeResponseVisitorIdentityRequestInvalidItemTitle, nil
+	case "organization":
+		return GrantsExchangeResponseVisitorIdentityRequestInvalidItemOrganization, nil
+	case "organizationalUnit":
+		return GrantsExchangeResponseVisitorIdentityRequestInvalidItemOrganizationalUnit, nil
+	}
+	var t GrantsExchangeResponseVisitorIdentityRequestInvalidItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsExchangeResponseVisitorIdentityRequestInvalidItem) Ptr() *GrantsExchangeResponseVisitorIdentityRequestInvalidItem {
+	return &g
+}
+
+type GrantsExchangeResponseVisitorIdentityRequestMissingItem string
+
+const (
+	GrantsExchangeResponseVisitorIdentityRequestMissingItemDisplayName        GrantsExchangeResponseVisitorIdentityRequestMissingItem = "displayName"
+	GrantsExchangeResponseVisitorIdentityRequestMissingItemEmail              GrantsExchangeResponseVisitorIdentityRequestMissingItem = "email"
+	GrantsExchangeResponseVisitorIdentityRequestMissingItemTitle              GrantsExchangeResponseVisitorIdentityRequestMissingItem = "title"
+	GrantsExchangeResponseVisitorIdentityRequestMissingItemOrganization       GrantsExchangeResponseVisitorIdentityRequestMissingItem = "organization"
+	GrantsExchangeResponseVisitorIdentityRequestMissingItemOrganizationalUnit GrantsExchangeResponseVisitorIdentityRequestMissingItem = "organizationalUnit"
+)
+
+func NewGrantsExchangeResponseVisitorIdentityRequestMissingItemFromString(s string) (GrantsExchangeResponseVisitorIdentityRequestMissingItem, error) {
+	switch s {
+	case "displayName":
+		return GrantsExchangeResponseVisitorIdentityRequestMissingItemDisplayName, nil
+	case "email":
+		return GrantsExchangeResponseVisitorIdentityRequestMissingItemEmail, nil
+	case "title":
+		return GrantsExchangeResponseVisitorIdentityRequestMissingItemTitle, nil
+	case "organization":
+		return GrantsExchangeResponseVisitorIdentityRequestMissingItemOrganization, nil
+	case "organizationalUnit":
+		return GrantsExchangeResponseVisitorIdentityRequestMissingItemOrganizationalUnit, nil
+	}
+	var t GrantsExchangeResponseVisitorIdentityRequestMissingItem
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsExchangeResponseVisitorIdentityRequestMissingItem) Ptr() *GrantsExchangeResponseVisitorIdentityRequestMissingItem {
 	return &g
 }
 
 var (
-	grantsUpdate200ResponseFieldGrant = big.NewInt(1 << 0)
+	grantsGetResponseFieldGrant = big.NewInt(1 << 0)
 )
 
-type GrantsUpdate200Response struct {
-	Grant *GrantsUpdate200ResponseGrant `json:"grant" url:"grant"`
+type GrantsGetResponse struct {
+	Grant *GrantsGetResponseGrant `json:"grant" url:"grant"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4969,21 +3136,21 @@ type GrantsUpdate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsUpdate200Response) GetGrant() *GrantsUpdate200ResponseGrant {
+func (g *GrantsGetResponse) GetGrant() *GrantsGetResponseGrant {
 	if g == nil {
 		return nil
 	}
 	return g.Grant
 }
 
-func (g *GrantsUpdate200Response) GetExtraProperties() map[string]interface{} {
+func (g *GrantsGetResponse) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsUpdate200Response) require(field *big.Int) {
+func (g *GrantsGetResponse) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -4992,18 +3159,18 @@ func (g *GrantsUpdate200Response) require(field *big.Int) {
 
 // SetGrant sets the Grant field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200Response) SetGrant(grant *GrantsUpdate200ResponseGrant) {
+func (g *GrantsGetResponse) SetGrant(grant *GrantsGetResponseGrant) {
 	g.Grant = grant
-	g.require(grantsUpdate200ResponseFieldGrant)
+	g.require(grantsGetResponseFieldGrant)
 }
 
-func (g *GrantsUpdate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsUpdate200Response
+func (g *GrantsGetResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsGetResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsUpdate200Response(value)
+	*g = GrantsGetResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -5013,8 +3180,8 @@ func (g *GrantsUpdate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsUpdate200Response) MarshalJSON() ([]byte, error) {
-	type embed GrantsUpdate200Response
+func (g *GrantsGetResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsGetResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -5024,7 +3191,7 @@ func (g *GrantsUpdate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsUpdate200Response) String() string {
+func (g *GrantsGetResponse) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -5040,53 +3207,53 @@ func (g *GrantsUpdate200Response) String() string {
 }
 
 var (
-	grantsUpdate200ResponseGrantFieldID                  = big.NewInt(1 << 0)
-	grantsUpdate200ResponseGrantFieldTenantID            = big.NewInt(1 << 1)
-	grantsUpdate200ResponseGrantFieldDocID               = big.NewInt(1 << 2)
-	grantsUpdate200ResponseGrantFieldName                = big.NewInt(1 << 3)
-	grantsUpdate200ResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
-	grantsUpdate200ResponseGrantFieldLayerName           = big.NewInt(1 << 5)
-	grantsUpdate200ResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
-	grantsUpdate200ResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
-	grantsUpdate200ResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
-	grantsUpdate200ResponseGrantFieldIdentity            = big.NewInt(1 << 9)
-	grantsUpdate200ResponseGrantFieldScope               = big.NewInt(1 << 10)
-	grantsUpdate200ResponseGrantFieldOrigins             = big.NewInt(1 << 11)
-	grantsUpdate200ResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
-	grantsUpdate200ResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
-	grantsUpdate200ResponseGrantFieldDisabled            = big.NewInt(1 << 14)
-	grantsUpdate200ResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
-	grantsUpdate200ResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
-	grantsUpdate200ResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
-	grantsUpdate200ResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
-	grantsUpdate200ResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
-	grantsUpdate200ResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
-	grantsUpdate200ResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
+	grantsGetResponseGrantFieldID                  = big.NewInt(1 << 0)
+	grantsGetResponseGrantFieldTenantID            = big.NewInt(1 << 1)
+	grantsGetResponseGrantFieldDocID               = big.NewInt(1 << 2)
+	grantsGetResponseGrantFieldName                = big.NewInt(1 << 3)
+	grantsGetResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
+	grantsGetResponseGrantFieldLayerName           = big.NewInt(1 << 5)
+	grantsGetResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
+	grantsGetResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
+	grantsGetResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
+	grantsGetResponseGrantFieldIdentity            = big.NewInt(1 << 9)
+	grantsGetResponseGrantFieldScope               = big.NewInt(1 << 10)
+	grantsGetResponseGrantFieldOrigins             = big.NewInt(1 << 11)
+	grantsGetResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
+	grantsGetResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
+	grantsGetResponseGrantFieldDisabled            = big.NewInt(1 << 14)
+	grantsGetResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
+	grantsGetResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
+	grantsGetResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
+	grantsGetResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
+	grantsGetResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
+	grantsGetResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
+	grantsGetResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
 )
 
-type GrantsUpdate200ResponseGrant struct {
-	ID                  string                                       `json:"id" url:"id"`
-	TenantID            string                                       `json:"tenantId" url:"tenantId"`
-	DocID               string                                       `json:"docId" url:"docId"`
-	Name                *string                                      `json:"name,omitempty" url:"name,omitempty"`
-	LayerMode           GrantsUpdate200ResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
-	LayerName           *string                                      `json:"layerName,omitempty" url:"layerName,omitempty"`
-	KeepVisitorLayers   bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
-	VisitorIdleSeconds  *float64                                     `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
-	VisitorIdentity     *GrantsUpdate200ResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
-	Identity            *Identity                                    `json:"identity,omitempty" url:"identity,omitempty"`
-	Scope               []string                                     `json:"scope" url:"scope"`
-	Origins             []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
-	PassphraseProtected bool                                         `json:"passphraseProtected" url:"passphraseProtected"`
-	SessionTTLSeconds   float64                                      `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
-	Disabled            bool                                         `json:"disabled" url:"disabled"`
-	ArchivedAt          *float64                                     `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
-	ExpiresAt           *float64                                     `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
-	ExchangeCount       float64                                      `json:"exchangeCount" url:"exchangeCount"`
-	LastExchangedAt     *float64                                     `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
-	CreatedBy           string                                       `json:"createdBy" url:"createdBy"`
-	CreatedAt           float64                                      `json:"createdAt" url:"createdAt"`
-	UpdatedAt           float64                                      `json:"updatedAt" url:"updatedAt"`
+type GrantsGetResponseGrant struct {
+	ID                  string                                 `json:"id" url:"id"`
+	TenantID            string                                 `json:"tenantId" url:"tenantId"`
+	DocID               string                                 `json:"docId" url:"docId"`
+	Name                *string                                `json:"name,omitempty" url:"name,omitempty"`
+	LayerMode           GrantsGetResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName           *string                                `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers   bool                                   `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds  *int                                   `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity     *GrantsGetResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity            *Identity                              `json:"identity,omitempty" url:"identity,omitempty"`
+	Scope               []string                               `json:"scope" url:"scope"`
+	Origins             []string                               `json:"origins,omitempty" url:"origins,omitempty"`
+	PassphraseProtected bool                                   `json:"passphraseProtected" url:"passphraseProtected"`
+	SessionTTLSeconds   int                                    `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled            bool                                   `json:"disabled" url:"disabled"`
+	ArchivedAt          *time.Time                             `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt           *time.Time                             `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount       int                                    `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt     *time.Time                             `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy           string                                 `json:"createdBy" url:"createdBy"`
+	CreatedAt           time.Time                              `json:"createdAt" url:"createdAt"`
+	UpdatedAt           time.Time                              `json:"updatedAt" url:"updatedAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5095,168 +3262,168 @@ type GrantsUpdate200ResponseGrant struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetID() string {
+func (g *GrantsGetResponseGrant) GetID() string {
 	if g == nil {
 		return ""
 	}
 	return g.ID
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetTenantID() string {
+func (g *GrantsGetResponseGrant) GetTenantID() string {
 	if g == nil {
 		return ""
 	}
 	return g.TenantID
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetDocID() string {
+func (g *GrantsGetResponseGrant) GetDocID() string {
 	if g == nil {
 		return ""
 	}
 	return g.DocID
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetName() *string {
+func (g *GrantsGetResponseGrant) GetName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Name
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetLayerMode() GrantsUpdate200ResponseGrantLayerMode {
+func (g *GrantsGetResponseGrant) GetLayerMode() GrantsGetResponseGrantLayerMode {
 	if g == nil {
 		return ""
 	}
 	return g.LayerMode
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetLayerName() *string {
+func (g *GrantsGetResponseGrant) GetLayerName() *string {
 	if g == nil {
 		return nil
 	}
 	return g.LayerName
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetKeepVisitorLayers() bool {
+func (g *GrantsGetResponseGrant) GetKeepVisitorLayers() bool {
 	if g == nil {
 		return false
 	}
 	return g.KeepVisitorLayers
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetVisitorIdleSeconds() *float64 {
+func (g *GrantsGetResponseGrant) GetVisitorIdleSeconds() *int {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdleSeconds
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetVisitorIdentity() *GrantsUpdate200ResponseGrantVisitorIdentity {
+func (g *GrantsGetResponseGrant) GetVisitorIdentity() *GrantsGetResponseGrantVisitorIdentity {
 	if g == nil {
 		return nil
 	}
 	return g.VisitorIdentity
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetIdentity() *Identity {
+func (g *GrantsGetResponseGrant) GetIdentity() *Identity {
 	if g == nil {
 		return nil
 	}
 	return g.Identity
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetScope() []string {
+func (g *GrantsGetResponseGrant) GetScope() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Scope
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetOrigins() []string {
+func (g *GrantsGetResponseGrant) GetOrigins() []string {
 	if g == nil {
 		return nil
 	}
 	return g.Origins
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetPassphraseProtected() bool {
+func (g *GrantsGetResponseGrant) GetPassphraseProtected() bool {
 	if g == nil {
 		return false
 	}
 	return g.PassphraseProtected
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetSessionTTLSeconds() float64 {
+func (g *GrantsGetResponseGrant) GetSessionTTLSeconds() int {
 	if g == nil {
 		return 0
 	}
 	return g.SessionTTLSeconds
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetDisabled() bool {
+func (g *GrantsGetResponseGrant) GetDisabled() bool {
 	if g == nil {
 		return false
 	}
 	return g.Disabled
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetArchivedAt() *float64 {
+func (g *GrantsGetResponseGrant) GetArchivedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ArchivedAt
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetExpiresAt() *float64 {
+func (g *GrantsGetResponseGrant) GetExpiresAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.ExpiresAt
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetExchangeCount() float64 {
+func (g *GrantsGetResponseGrant) GetExchangeCount() int {
 	if g == nil {
 		return 0
 	}
 	return g.ExchangeCount
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetLastExchangedAt() *float64 {
+func (g *GrantsGetResponseGrant) GetLastExchangedAt() *time.Time {
 	if g == nil {
 		return nil
 	}
 	return g.LastExchangedAt
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetCreatedBy() string {
+func (g *GrantsGetResponseGrant) GetCreatedBy() string {
 	if g == nil {
 		return ""
 	}
 	return g.CreatedBy
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetCreatedAt() float64 {
+func (g *GrantsGetResponseGrant) GetCreatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.CreatedAt
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetUpdatedAt() float64 {
+func (g *GrantsGetResponseGrant) GetUpdatedAt() time.Time {
 	if g == nil {
-		return 0
+		return time.Time{}
 	}
 	return g.UpdatedAt
 }
 
-func (g *GrantsUpdate200ResponseGrant) GetExtraProperties() map[string]interface{} {
+func (g *GrantsGetResponseGrant) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsUpdate200ResponseGrant) require(field *big.Int) {
+func (g *GrantsGetResponseGrant) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -5265,165 +3432,179 @@ func (g *GrantsUpdate200ResponseGrant) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetID(id string) {
+func (g *GrantsGetResponseGrant) SetID(id string) {
 	g.ID = id
-	g.require(grantsUpdate200ResponseGrantFieldID)
+	g.require(grantsGetResponseGrantFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetTenantID(tenantID string) {
+func (g *GrantsGetResponseGrant) SetTenantID(tenantID string) {
 	g.TenantID = tenantID
-	g.require(grantsUpdate200ResponseGrantFieldTenantID)
+	g.require(grantsGetResponseGrantFieldTenantID)
 }
 
 // SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetDocID(docID string) {
+func (g *GrantsGetResponseGrant) SetDocID(docID string) {
 	g.DocID = docID
-	g.require(grantsUpdate200ResponseGrantFieldDocID)
+	g.require(grantsGetResponseGrantFieldDocID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetName(name *string) {
+func (g *GrantsGetResponseGrant) SetName(name *string) {
 	g.Name = name
-	g.require(grantsUpdate200ResponseGrantFieldName)
+	g.require(grantsGetResponseGrantFieldName)
 }
 
 // SetLayerMode sets the LayerMode field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetLayerMode(layerMode GrantsUpdate200ResponseGrantLayerMode) {
+func (g *GrantsGetResponseGrant) SetLayerMode(layerMode GrantsGetResponseGrantLayerMode) {
 	g.LayerMode = layerMode
-	g.require(grantsUpdate200ResponseGrantFieldLayerMode)
+	g.require(grantsGetResponseGrantFieldLayerMode)
 }
 
 // SetLayerName sets the LayerName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetLayerName(layerName *string) {
+func (g *GrantsGetResponseGrant) SetLayerName(layerName *string) {
 	g.LayerName = layerName
-	g.require(grantsUpdate200ResponseGrantFieldLayerName)
+	g.require(grantsGetResponseGrantFieldLayerName)
 }
 
 // SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
+func (g *GrantsGetResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
 	g.KeepVisitorLayers = keepVisitorLayers
-	g.require(grantsUpdate200ResponseGrantFieldKeepVisitorLayers)
+	g.require(grantsGetResponseGrantFieldKeepVisitorLayers)
 }
 
 // SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *float64) {
+func (g *GrantsGetResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
 	g.VisitorIdleSeconds = visitorIdleSeconds
-	g.require(grantsUpdate200ResponseGrantFieldVisitorIdleSeconds)
+	g.require(grantsGetResponseGrantFieldVisitorIdleSeconds)
 }
 
 // SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsUpdate200ResponseGrantVisitorIdentity) {
+func (g *GrantsGetResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsGetResponseGrantVisitorIdentity) {
 	g.VisitorIdentity = visitorIdentity
-	g.require(grantsUpdate200ResponseGrantFieldVisitorIdentity)
+	g.require(grantsGetResponseGrantFieldVisitorIdentity)
 }
 
 // SetIdentity sets the Identity field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetIdentity(identity *Identity) {
+func (g *GrantsGetResponseGrant) SetIdentity(identity *Identity) {
 	g.Identity = identity
-	g.require(grantsUpdate200ResponseGrantFieldIdentity)
+	g.require(grantsGetResponseGrantFieldIdentity)
 }
 
 // SetScope sets the Scope field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetScope(scope []string) {
+func (g *GrantsGetResponseGrant) SetScope(scope []string) {
 	g.Scope = scope
-	g.require(grantsUpdate200ResponseGrantFieldScope)
+	g.require(grantsGetResponseGrantFieldScope)
 }
 
 // SetOrigins sets the Origins field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetOrigins(origins []string) {
+func (g *GrantsGetResponseGrant) SetOrigins(origins []string) {
 	g.Origins = origins
-	g.require(grantsUpdate200ResponseGrantFieldOrigins)
+	g.require(grantsGetResponseGrantFieldOrigins)
 }
 
 // SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
+func (g *GrantsGetResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
 	g.PassphraseProtected = passphraseProtected
-	g.require(grantsUpdate200ResponseGrantFieldPassphraseProtected)
+	g.require(grantsGetResponseGrantFieldPassphraseProtected)
 }
 
 // SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds float64) {
+func (g *GrantsGetResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds int) {
 	g.SessionTTLSeconds = sessionTTLSeconds
-	g.require(grantsUpdate200ResponseGrantFieldSessionTTLSeconds)
+	g.require(grantsGetResponseGrantFieldSessionTTLSeconds)
 }
 
 // SetDisabled sets the Disabled field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetDisabled(disabled bool) {
+func (g *GrantsGetResponseGrant) SetDisabled(disabled bool) {
 	g.Disabled = disabled
-	g.require(grantsUpdate200ResponseGrantFieldDisabled)
+	g.require(grantsGetResponseGrantFieldDisabled)
 }
 
 // SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetArchivedAt(archivedAt *float64) {
+func (g *GrantsGetResponseGrant) SetArchivedAt(archivedAt *time.Time) {
 	g.ArchivedAt = archivedAt
-	g.require(grantsUpdate200ResponseGrantFieldArchivedAt)
+	g.require(grantsGetResponseGrantFieldArchivedAt)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetExpiresAt(expiresAt *float64) {
+func (g *GrantsGetResponseGrant) SetExpiresAt(expiresAt *time.Time) {
 	g.ExpiresAt = expiresAt
-	g.require(grantsUpdate200ResponseGrantFieldExpiresAt)
+	g.require(grantsGetResponseGrantFieldExpiresAt)
 }
 
 // SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetExchangeCount(exchangeCount float64) {
+func (g *GrantsGetResponseGrant) SetExchangeCount(exchangeCount int) {
 	g.ExchangeCount = exchangeCount
-	g.require(grantsUpdate200ResponseGrantFieldExchangeCount)
+	g.require(grantsGetResponseGrantFieldExchangeCount)
 }
 
 // SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetLastExchangedAt(lastExchangedAt *float64) {
+func (g *GrantsGetResponseGrant) SetLastExchangedAt(lastExchangedAt *time.Time) {
 	g.LastExchangedAt = lastExchangedAt
-	g.require(grantsUpdate200ResponseGrantFieldLastExchangedAt)
+	g.require(grantsGetResponseGrantFieldLastExchangedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetCreatedBy(createdBy string) {
+func (g *GrantsGetResponseGrant) SetCreatedBy(createdBy string) {
 	g.CreatedBy = createdBy
-	g.require(grantsUpdate200ResponseGrantFieldCreatedBy)
+	g.require(grantsGetResponseGrantFieldCreatedBy)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetCreatedAt(createdAt float64) {
+func (g *GrantsGetResponseGrant) SetCreatedAt(createdAt time.Time) {
 	g.CreatedAt = createdAt
-	g.require(grantsUpdate200ResponseGrantFieldCreatedAt)
+	g.require(grantsGetResponseGrantFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrant) SetUpdatedAt(updatedAt float64) {
+func (g *GrantsGetResponseGrant) SetUpdatedAt(updatedAt time.Time) {
 	g.UpdatedAt = updatedAt
-	g.require(grantsUpdate200ResponseGrantFieldUpdatedAt)
+	g.require(grantsGetResponseGrantFieldUpdatedAt)
 }
 
-func (g *GrantsUpdate200ResponseGrant) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsUpdate200ResponseGrant
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (g *GrantsGetResponseGrant) UnmarshalJSON(data []byte) error {
+	type embed GrantsGetResponseGrant
+	var unmarshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*g = GrantsUpdate200ResponseGrant(value)
+	*g = GrantsGetResponseGrant(unmarshaler.embed)
+	g.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	g.ExpiresAt = unmarshaler.ExpiresAt.TimePtr()
+	g.LastExchangedAt = unmarshaler.LastExchangedAt.TimePtr()
+	g.CreatedAt = unmarshaler.CreatedAt.Time()
+	g.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -5433,18 +3614,28 @@ func (g *GrantsUpdate200ResponseGrant) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (g *GrantsUpdate200ResponseGrant) MarshalJSON() ([]byte, error) {
-	type embed GrantsUpdate200ResponseGrant
+func (g *GrantsGetResponseGrant) MarshalJSON() ([]byte, error) {
+	type embed GrantsGetResponseGrant
 	var marshaler = struct {
 		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*g),
+		embed:           embed(*g),
+		ArchivedAt:      internal.NewOptionalDateTime(g.ArchivedAt),
+		ExpiresAt:       internal.NewOptionalDateTime(g.ExpiresAt),
+		LastExchangedAt: internal.NewOptionalDateTime(g.LastExchangedAt),
+		CreatedAt:       internal.NewDateTime(g.CreatedAt),
+		UpdatedAt:       internal.NewDateTime(g.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsUpdate200ResponseGrant) String() string {
+func (g *GrantsGetResponseGrant) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -5459,38 +3650,1016 @@ func (g *GrantsUpdate200ResponseGrant) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsUpdate200ResponseGrantLayerMode string
+type GrantsGetResponseGrantLayerMode string
 
 const (
-	GrantsUpdate200ResponseGrantLayerModeShared     GrantsUpdate200ResponseGrantLayerMode = "shared"
-	GrantsUpdate200ResponseGrantLayerModePerVisitor GrantsUpdate200ResponseGrantLayerMode = "per-visitor"
+	GrantsGetResponseGrantLayerModeShared     GrantsGetResponseGrantLayerMode = "shared"
+	GrantsGetResponseGrantLayerModePerVisitor GrantsGetResponseGrantLayerMode = "per-visitor"
 )
 
-func NewGrantsUpdate200ResponseGrantLayerModeFromString(s string) (GrantsUpdate200ResponseGrantLayerMode, error) {
+func NewGrantsGetResponseGrantLayerModeFromString(s string) (GrantsGetResponseGrantLayerMode, error) {
 	switch s {
 	case "shared":
-		return GrantsUpdate200ResponseGrantLayerModeShared, nil
+		return GrantsGetResponseGrantLayerModeShared, nil
 	case "per-visitor":
-		return GrantsUpdate200ResponseGrantLayerModePerVisitor, nil
+		return GrantsGetResponseGrantLayerModePerVisitor, nil
 	}
-	var t GrantsUpdate200ResponseGrantLayerMode
+	var t GrantsGetResponseGrantLayerMode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantLayerMode) Ptr() *GrantsUpdate200ResponseGrantLayerMode {
+func (g GrantsGetResponseGrantLayerMode) Ptr() *GrantsGetResponseGrantLayerMode {
 	return &g
 }
 
 var (
-	grantsUpdate200ResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+	grantsGetResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	grantsGetResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	grantsGetResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	grantsGetResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
 )
 
-type GrantsUpdate200ResponseGrantVisitorIdentity struct {
-	Fields     *GrantsUpdate200ResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
-	Ask        GrantsUpdate200ResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
+type GrantsGetResponseGrantVisitorIdentity struct {
+	Fields     *GrantsGetResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        GrantsGetResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                      `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                      `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) GetFields() *GrantsGetResponseGrantVisitorIdentityFields {
+	if g == nil {
+		return nil
+	}
+	return g.Fields
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) GetAsk() GrantsGetResponseGrantVisitorIdentityAsk {
+	if g == nil {
+		return ""
+	}
+	return g.Ask
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) GetPurpose() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Purpose
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) GetPrivacyURL() *string {
+	if g == nil {
+		return nil
+	}
+	return g.PrivacyURL
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentity) SetFields(fields *GrantsGetResponseGrantVisitorIdentityFields) {
+	g.Fields = fields
+	g.require(grantsGetResponseGrantVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentity) SetAsk(ask GrantsGetResponseGrantVisitorIdentityAsk) {
+	g.Ask = ask
+	g.require(grantsGetResponseGrantVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
+	g.Purpose = purpose
+	g.require(grantsGetResponseGrantVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	g.PrivacyURL = privacyURL
+	g.require(grantsGetResponseGrantVisitorIdentityFieldPrivacyURL)
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsGetResponseGrantVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsGetResponseGrantVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed GrantsGetResponseGrantVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentity) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsGetResponseGrantVisitorIdentityAsk string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityAskOnOpen            GrantsGetResponseGrantVisitorIdentityAsk = "on-open"
+	GrantsGetResponseGrantVisitorIdentityAskBeforeFirstChange GrantsGetResponseGrantVisitorIdentityAsk = "before-first-change"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityAskFromString(s string) (GrantsGetResponseGrantVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return GrantsGetResponseGrantVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return GrantsGetResponseGrantVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityAsk) Ptr() *GrantsGetResponseGrantVisitorIdentityAsk {
+	return &g
+}
+
+var (
+	grantsGetResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsGetResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsGetResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsGetResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsGetResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type GrantsGetResponseGrantVisitorIdentityFields struct {
+	DisplayName        *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsGetResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsGetResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsGetResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName {
+	if g == nil {
+		return nil
+	}
+	return g.DisplayName
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetEmail() *GrantsGetResponseGrantVisitorIdentityFieldsEmail {
+	if g == nil {
+		return nil
+	}
+	return g.Email
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetTitle() *GrantsGetResponseGrantVisitorIdentityFieldsTitle {
+	if g == nil {
+		return nil
+	}
+	return g.Title
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetOrganization() *GrantsGetResponseGrantVisitorIdentityFieldsOrganization {
+	if g == nil {
+		return nil
+	}
+	return g.Organization
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+	if g == nil {
+		return nil
+	}
+	return g.OrganizationalUnit
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName) {
+	g.DisplayName = displayName
+	g.require(grantsGetResponseGrantVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentityFields) SetEmail(email *GrantsGetResponseGrantVisitorIdentityFieldsEmail) {
+	g.Email = email
+	g.require(grantsGetResponseGrantVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentityFields) SetTitle(title *GrantsGetResponseGrantVisitorIdentityFieldsTitle) {
+	g.Title = title
+	g.require(grantsGetResponseGrantVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsGetResponseGrantVisitorIdentityFieldsOrganization) {
+	g.Organization = organization
+	g.require(grantsGetResponseGrantVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsGetResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
+	g.OrganizationalUnit = organizationalUnit
+	g.require(grantsGetResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsGetResponseGrantVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsGetResponseGrantVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsGetResponseGrantVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsGetResponseGrantVisitorIdentityFields) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsGetResponseGrantVisitorIdentityFieldsDisplayName string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsGetResponseGrantVisitorIdentityFieldsDisplayName = "required"
+	GrantsGetResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsGetResponseGrantVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsGetResponseGrantVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return GrantsGetResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return GrantsGetResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsGetResponseGrantVisitorIdentityFieldsDisplayName {
+	return &g
+}
+
+type GrantsGetResponseGrantVisitorIdentityFieldsEmail string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityFieldsEmailRequired GrantsGetResponseGrantVisitorIdentityFieldsEmail = "required"
+	GrantsGetResponseGrantVisitorIdentityFieldsEmailOptional GrantsGetResponseGrantVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsGetResponseGrantVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return GrantsGetResponseGrantVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return GrantsGetResponseGrantVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsGetResponseGrantVisitorIdentityFieldsEmail {
+	return &g
+}
+
+type GrantsGetResponseGrantVisitorIdentityFieldsOrganization string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsGetResponseGrantVisitorIdentityFieldsOrganization = "required"
+	GrantsGetResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsGetResponseGrantVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsGetResponseGrantVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return GrantsGetResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return GrantsGetResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsGetResponseGrantVisitorIdentityFieldsOrganization {
+	return &g
+}
+
+type GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
+	GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsGetResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+	return &g
+}
+
+type GrantsGetResponseGrantVisitorIdentityFieldsTitle string
+
+const (
+	GrantsGetResponseGrantVisitorIdentityFieldsTitleRequired GrantsGetResponseGrantVisitorIdentityFieldsTitle = "required"
+	GrantsGetResponseGrantVisitorIdentityFieldsTitleOptional GrantsGetResponseGrantVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewGrantsGetResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsGetResponseGrantVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return GrantsGetResponseGrantVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return GrantsGetResponseGrantVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t GrantsGetResponseGrantVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsGetResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsGetResponseGrantVisitorIdentityFieldsTitle {
+	return &g
+}
+
+var (
+	grantsListResponseFieldGrants     = big.NewInt(1 << 0)
+	grantsListResponseFieldNextCursor = big.NewInt(1 << 1)
+)
+
+type GrantsListResponse struct {
+	Grants     []*GrantsListResponseGrantsItem `json:"grants" url:"grants"`
+	NextCursor *string                         `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsListResponse) GetGrants() []*GrantsListResponseGrantsItem {
+	if g == nil {
+		return nil
+	}
+	return g.Grants
+}
+
+func (g *GrantsListResponse) GetNextCursor() *string {
+	if g == nil {
+		return nil
+	}
+	return g.NextCursor
+}
+
+func (g *GrantsListResponse) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsListResponse) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetGrants sets the Grants field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponse) SetGrants(grants []*GrantsListResponseGrantsItem) {
+	g.Grants = grants
+	g.require(grantsListResponseFieldGrants)
+}
+
+// SetNextCursor sets the NextCursor field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponse) SetNextCursor(nextCursor *string) {
+	g.NextCursor = nextCursor
+	g.require(grantsListResponseFieldNextCursor)
+}
+
+func (g *GrantsListResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsListResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsListResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsListResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsListResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsListResponse) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsListResponseGrantsItemFieldID                  = big.NewInt(1 << 0)
+	grantsListResponseGrantsItemFieldTenantID            = big.NewInt(1 << 1)
+	grantsListResponseGrantsItemFieldDocID               = big.NewInt(1 << 2)
+	grantsListResponseGrantsItemFieldName                = big.NewInt(1 << 3)
+	grantsListResponseGrantsItemFieldLayerMode           = big.NewInt(1 << 4)
+	grantsListResponseGrantsItemFieldLayerName           = big.NewInt(1 << 5)
+	grantsListResponseGrantsItemFieldKeepVisitorLayers   = big.NewInt(1 << 6)
+	grantsListResponseGrantsItemFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
+	grantsListResponseGrantsItemFieldVisitorIdentity     = big.NewInt(1 << 8)
+	grantsListResponseGrantsItemFieldIdentity            = big.NewInt(1 << 9)
+	grantsListResponseGrantsItemFieldScope               = big.NewInt(1 << 10)
+	grantsListResponseGrantsItemFieldOrigins             = big.NewInt(1 << 11)
+	grantsListResponseGrantsItemFieldPassphraseProtected = big.NewInt(1 << 12)
+	grantsListResponseGrantsItemFieldSessionTTLSeconds   = big.NewInt(1 << 13)
+	grantsListResponseGrantsItemFieldDisabled            = big.NewInt(1 << 14)
+	grantsListResponseGrantsItemFieldArchivedAt          = big.NewInt(1 << 15)
+	grantsListResponseGrantsItemFieldExpiresAt           = big.NewInt(1 << 16)
+	grantsListResponseGrantsItemFieldExchangeCount       = big.NewInt(1 << 17)
+	grantsListResponseGrantsItemFieldLastExchangedAt     = big.NewInt(1 << 18)
+	grantsListResponseGrantsItemFieldCreatedBy           = big.NewInt(1 << 19)
+	grantsListResponseGrantsItemFieldCreatedAt           = big.NewInt(1 << 20)
+	grantsListResponseGrantsItemFieldUpdatedAt           = big.NewInt(1 << 21)
+)
+
+type GrantsListResponseGrantsItem struct {
+	ID                  string                                       `json:"id" url:"id"`
+	TenantID            string                                       `json:"tenantId" url:"tenantId"`
+	DocID               string                                       `json:"docId" url:"docId"`
+	Name                *string                                      `json:"name,omitempty" url:"name,omitempty"`
+	LayerMode           GrantsListResponseGrantsItemLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName           *string                                      `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers   bool                                         `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds  *int                                         `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity     *GrantsListResponseGrantsItemVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity            *Identity                                    `json:"identity,omitempty" url:"identity,omitempty"`
+	Scope               []string                                     `json:"scope" url:"scope"`
+	Origins             []string                                     `json:"origins,omitempty" url:"origins,omitempty"`
+	PassphraseProtected bool                                         `json:"passphraseProtected" url:"passphraseProtected"`
+	SessionTTLSeconds   int                                          `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled            bool                                         `json:"disabled" url:"disabled"`
+	ArchivedAt          *time.Time                                   `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt           *time.Time                                   `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount       int                                          `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt     *time.Time                                   `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy           string                                       `json:"createdBy" url:"createdBy"`
+	CreatedAt           time.Time                                    `json:"createdAt" url:"createdAt"`
+	UpdatedAt           time.Time                                    `json:"updatedAt" url:"updatedAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsListResponseGrantsItem) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GrantsListResponseGrantsItem) GetTenantID() string {
+	if g == nil {
+		return ""
+	}
+	return g.TenantID
+}
+
+func (g *GrantsListResponseGrantsItem) GetDocID() string {
+	if g == nil {
+		return ""
+	}
+	return g.DocID
+}
+
+func (g *GrantsListResponseGrantsItem) GetName() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Name
+}
+
+func (g *GrantsListResponseGrantsItem) GetLayerMode() GrantsListResponseGrantsItemLayerMode {
+	if g == nil {
+		return ""
+	}
+	return g.LayerMode
+}
+
+func (g *GrantsListResponseGrantsItem) GetLayerName() *string {
+	if g == nil {
+		return nil
+	}
+	return g.LayerName
+}
+
+func (g *GrantsListResponseGrantsItem) GetKeepVisitorLayers() bool {
+	if g == nil {
+		return false
+	}
+	return g.KeepVisitorLayers
+}
+
+func (g *GrantsListResponseGrantsItem) GetVisitorIdleSeconds() *int {
+	if g == nil {
+		return nil
+	}
+	return g.VisitorIdleSeconds
+}
+
+func (g *GrantsListResponseGrantsItem) GetVisitorIdentity() *GrantsListResponseGrantsItemVisitorIdentity {
+	if g == nil {
+		return nil
+	}
+	return g.VisitorIdentity
+}
+
+func (g *GrantsListResponseGrantsItem) GetIdentity() *Identity {
+	if g == nil {
+		return nil
+	}
+	return g.Identity
+}
+
+func (g *GrantsListResponseGrantsItem) GetScope() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Scope
+}
+
+func (g *GrantsListResponseGrantsItem) GetOrigins() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Origins
+}
+
+func (g *GrantsListResponseGrantsItem) GetPassphraseProtected() bool {
+	if g == nil {
+		return false
+	}
+	return g.PassphraseProtected
+}
+
+func (g *GrantsListResponseGrantsItem) GetSessionTTLSeconds() int {
+	if g == nil {
+		return 0
+	}
+	return g.SessionTTLSeconds
+}
+
+func (g *GrantsListResponseGrantsItem) GetDisabled() bool {
+	if g == nil {
+		return false
+	}
+	return g.Disabled
+}
+
+func (g *GrantsListResponseGrantsItem) GetArchivedAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.ArchivedAt
+}
+
+func (g *GrantsListResponseGrantsItem) GetExpiresAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.ExpiresAt
+}
+
+func (g *GrantsListResponseGrantsItem) GetExchangeCount() int {
+	if g == nil {
+		return 0
+	}
+	return g.ExchangeCount
+}
+
+func (g *GrantsListResponseGrantsItem) GetLastExchangedAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.LastExchangedAt
+}
+
+func (g *GrantsListResponseGrantsItem) GetCreatedBy() string {
+	if g == nil {
+		return ""
+	}
+	return g.CreatedBy
+}
+
+func (g *GrantsListResponseGrantsItem) GetCreatedAt() time.Time {
+	if g == nil {
+		return time.Time{}
+	}
+	return g.CreatedAt
+}
+
+func (g *GrantsListResponseGrantsItem) GetUpdatedAt() time.Time {
+	if g == nil {
+		return time.Time{}
+	}
+	return g.UpdatedAt
+}
+
+func (g *GrantsListResponseGrantsItem) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsListResponseGrantsItem) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetID(id string) {
+	g.ID = id
+	g.require(grantsListResponseGrantsItemFieldID)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetTenantID(tenantID string) {
+	g.TenantID = tenantID
+	g.require(grantsListResponseGrantsItemFieldTenantID)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetDocID(docID string) {
+	g.DocID = docID
+	g.require(grantsListResponseGrantsItemFieldDocID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetName(name *string) {
+	g.Name = name
+	g.require(grantsListResponseGrantsItemFieldName)
+}
+
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetLayerMode(layerMode GrantsListResponseGrantsItemLayerMode) {
+	g.LayerMode = layerMode
+	g.require(grantsListResponseGrantsItemFieldLayerMode)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetLayerName(layerName *string) {
+	g.LayerName = layerName
+	g.require(grantsListResponseGrantsItemFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	g.KeepVisitorLayers = keepVisitorLayers
+	g.require(grantsListResponseGrantsItemFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
+	g.VisitorIdleSeconds = visitorIdleSeconds
+	g.require(grantsListResponseGrantsItemFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetVisitorIdentity(visitorIdentity *GrantsListResponseGrantsItemVisitorIdentity) {
+	g.VisitorIdentity = visitorIdentity
+	g.require(grantsListResponseGrantsItemFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetIdentity(identity *Identity) {
+	g.Identity = identity
+	g.require(grantsListResponseGrantsItemFieldIdentity)
+}
+
+// SetScope sets the Scope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetScope(scope []string) {
+	g.Scope = scope
+	g.require(grantsListResponseGrantsItemFieldScope)
+}
+
+// SetOrigins sets the Origins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetOrigins(origins []string) {
+	g.Origins = origins
+	g.require(grantsListResponseGrantsItemFieldOrigins)
+}
+
+// SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetPassphraseProtected(passphraseProtected bool) {
+	g.PassphraseProtected = passphraseProtected
+	g.require(grantsListResponseGrantsItemFieldPassphraseProtected)
+}
+
+// SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetSessionTTLSeconds(sessionTTLSeconds int) {
+	g.SessionTTLSeconds = sessionTTLSeconds
+	g.require(grantsListResponseGrantsItemFieldSessionTTLSeconds)
+}
+
+// SetDisabled sets the Disabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetDisabled(disabled bool) {
+	g.Disabled = disabled
+	g.require(grantsListResponseGrantsItemFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetArchivedAt(archivedAt *time.Time) {
+	g.ArchivedAt = archivedAt
+	g.require(grantsListResponseGrantsItemFieldArchivedAt)
+}
+
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetExpiresAt(expiresAt *time.Time) {
+	g.ExpiresAt = expiresAt
+	g.require(grantsListResponseGrantsItemFieldExpiresAt)
+}
+
+// SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetExchangeCount(exchangeCount int) {
+	g.ExchangeCount = exchangeCount
+	g.require(grantsListResponseGrantsItemFieldExchangeCount)
+}
+
+// SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetLastExchangedAt(lastExchangedAt *time.Time) {
+	g.LastExchangedAt = lastExchangedAt
+	g.require(grantsListResponseGrantsItemFieldLastExchangedAt)
+}
+
+// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetCreatedBy(createdBy string) {
+	g.CreatedBy = createdBy
+	g.require(grantsListResponseGrantsItemFieldCreatedBy)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetCreatedAt(createdAt time.Time) {
+	g.CreatedAt = createdAt
+	g.require(grantsListResponseGrantsItemFieldCreatedAt)
+}
+
+// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsListResponseGrantsItem) SetUpdatedAt(updatedAt time.Time) {
+	g.UpdatedAt = updatedAt
+	g.require(grantsListResponseGrantsItemFieldUpdatedAt)
+}
+
+func (g *GrantsListResponseGrantsItem) UnmarshalJSON(data []byte) error {
+	type embed GrantsListResponseGrantsItem
+	var unmarshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*g = GrantsListResponseGrantsItem(unmarshaler.embed)
+	g.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	g.ExpiresAt = unmarshaler.ExpiresAt.TimePtr()
+	g.LastExchangedAt = unmarshaler.LastExchangedAt.TimePtr()
+	g.CreatedAt = unmarshaler.CreatedAt.Time()
+	g.UpdatedAt = unmarshaler.UpdatedAt.Time()
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsListResponseGrantsItem) MarshalJSON() ([]byte, error) {
+	type embed GrantsListResponseGrantsItem
+	var marshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed:           embed(*g),
+		ArchivedAt:      internal.NewOptionalDateTime(g.ArchivedAt),
+		ExpiresAt:       internal.NewOptionalDateTime(g.ExpiresAt),
+		LastExchangedAt: internal.NewOptionalDateTime(g.LastExchangedAt),
+		CreatedAt:       internal.NewDateTime(g.CreatedAt),
+		UpdatedAt:       internal.NewDateTime(g.UpdatedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsListResponseGrantsItem) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsListResponseGrantsItemLayerMode string
+
+const (
+	GrantsListResponseGrantsItemLayerModeShared     GrantsListResponseGrantsItemLayerMode = "shared"
+	GrantsListResponseGrantsItemLayerModePerVisitor GrantsListResponseGrantsItemLayerMode = "per-visitor"
+)
+
+func NewGrantsListResponseGrantsItemLayerModeFromString(s string) (GrantsListResponseGrantsItemLayerMode, error) {
+	switch s {
+	case "shared":
+		return GrantsListResponseGrantsItemLayerModeShared, nil
+	case "per-visitor":
+		return GrantsListResponseGrantsItemLayerModePerVisitor, nil
+	}
+	var t GrantsListResponseGrantsItemLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsListResponseGrantsItemLayerMode) Ptr() *GrantsListResponseGrantsItemLayerMode {
+	return &g
+}
+
+var (
+	grantsListResponseGrantsItemVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	grantsListResponseGrantsItemVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	grantsListResponseGrantsItemVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	grantsListResponseGrantsItemVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type GrantsListResponseGrantsItemVisitorIdentity struct {
+	Fields     *GrantsListResponseGrantsItemVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        GrantsListResponseGrantsItemVisitorIdentityAsk     `json:"ask" url:"ask"`
 	Purpose    *string                                            `json:"purpose,omitempty" url:"purpose,omitempty"`
 	PrivacyURL *string                                            `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
 
@@ -5501,42 +4670,42 @@ type GrantsUpdate200ResponseGrantVisitorIdentity struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) GetFields() *GrantsUpdate200ResponseGrantVisitorIdentityFields {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) GetFields() *GrantsListResponseGrantsItemVisitorIdentityFields {
 	if g == nil {
 		return nil
 	}
 	return g.Fields
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) GetAsk() GrantsUpdate200ResponseGrantVisitorIdentityAsk {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) GetAsk() GrantsListResponseGrantsItemVisitorIdentityAsk {
 	if g == nil {
 		return ""
 	}
 	return g.Ask
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) GetPurpose() *string {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) GetPurpose() *string {
 	if g == nil {
 		return nil
 	}
 	return g.Purpose
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) GetPrivacyURL() *string {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) GetPrivacyURL() *string {
 	if g == nil {
 		return nil
 	}
 	return g.PrivacyURL
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) require(field *big.Int) {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -5545,39 +4714,39 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentity) require(field *big.Int) {
 
 // SetFields sets the Fields field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) SetFields(fields *GrantsUpdate200ResponseGrantVisitorIdentityFields) {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) SetFields(fields *GrantsListResponseGrantsItemVisitorIdentityFields) {
 	g.Fields = fields
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldFields)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldFields)
 }
 
 // SetAsk sets the Ask field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) SetAsk(ask GrantsUpdate200ResponseGrantVisitorIdentityAsk) {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) SetAsk(ask GrantsListResponseGrantsItemVisitorIdentityAsk) {
 	g.Ask = ask
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldAsk)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldAsk)
 }
 
 // SetPurpose sets the Purpose field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) SetPurpose(purpose *string) {
 	g.Purpose = purpose
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldPurpose)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldPurpose)
 }
 
 // SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) SetPrivacyURL(privacyURL *string) {
 	g.PrivacyURL = privacyURL
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldPrivacyURL)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldPrivacyURL)
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsUpdate200ResponseGrantVisitorIdentity
+func (g *GrantsListResponseGrantsItemVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsListResponseGrantsItemVisitorIdentity
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsUpdate200ResponseGrantVisitorIdentity(value)
+	*g = GrantsListResponseGrantsItemVisitorIdentity(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -5587,8 +4756,8 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentity) UnmarshalJSON(data []byte)
 	return nil
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
-	type embed GrantsUpdate200ResponseGrantVisitorIdentity
+func (g *GrantsListResponseGrantsItemVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed GrantsListResponseGrantsItemVisitorIdentity
 	var marshaler = struct {
 		embed
 	}{
@@ -5598,7 +4767,7 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentity) MarshalJSON() ([]byte, err
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentity) String() string {
+func (g *GrantsListResponseGrantsItemVisitorIdentity) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -5613,42 +4782,42 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentity) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityAsk string
+type GrantsListResponseGrantsItemVisitorIdentityAsk string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityAskOnOpen            GrantsUpdate200ResponseGrantVisitorIdentityAsk = "on-open"
-	GrantsUpdate200ResponseGrantVisitorIdentityAskBeforeFirstChange GrantsUpdate200ResponseGrantVisitorIdentityAsk = "before-first-change"
+	GrantsListResponseGrantsItemVisitorIdentityAskOnOpen            GrantsListResponseGrantsItemVisitorIdentityAsk = "on-open"
+	GrantsListResponseGrantsItemVisitorIdentityAskBeforeFirstChange GrantsListResponseGrantsItemVisitorIdentityAsk = "before-first-change"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityAskFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityAsk, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityAskFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityAsk, error) {
 	switch s {
 	case "on-open":
-		return GrantsUpdate200ResponseGrantVisitorIdentityAskOnOpen, nil
+		return GrantsListResponseGrantsItemVisitorIdentityAskOnOpen, nil
 	case "before-first-change":
-		return GrantsUpdate200ResponseGrantVisitorIdentityAskBeforeFirstChange, nil
+		return GrantsListResponseGrantsItemVisitorIdentityAskBeforeFirstChange, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityAsk
+	var t GrantsListResponseGrantsItemVisitorIdentityAsk
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityAsk) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityAsk {
+func (g GrantsListResponseGrantsItemVisitorIdentityAsk) Ptr() *GrantsListResponseGrantsItemVisitorIdentityAsk {
 	return &g
 }
 
 var (
-	grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
-	grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+	grantsListResponseGrantsItemVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsListResponseGrantsItemVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsListResponseGrantsItemVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsListResponseGrantsItemVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsListResponseGrantsItemVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
 )
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFields struct {
-	DisplayName        *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
-	Email              *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
-	Title              *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
-	Organization       *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
-	OrganizationalUnit *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+type GrantsListResponseGrantsItemVisitorIdentityFields struct {
+	DisplayName        *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5657,49 +4826,49 @@ type GrantsUpdate200ResponseGrantVisitorIdentityFields struct {
 	rawJSON         json.RawMessage
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetDisplayName() *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName {
 	if g == nil {
 		return nil
 	}
 	return g.DisplayName
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetEmail() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetEmail() *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail {
 	if g == nil {
 		return nil
 	}
 	return g.Email
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetTitle() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetTitle() *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle {
 	if g == nil {
 		return nil
 	}
 	return g.Title
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetOrganization() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetOrganization() *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization {
 	if g == nil {
 		return nil
 	}
 	return g.Organization
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetOrganizationalUnit() *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit {
 	if g == nil {
 		return nil
 	}
 	return g.OrganizationalUnit
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
 	if g == nil {
 		return nil
 	}
 	return g.extraProperties
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) require(field *big.Int) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) require(field *big.Int) {
 	if g.explicitFields == nil {
 		g.explicitFields = big.NewInt(0)
 	}
@@ -5708,46 +4877,46 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) require(field *big.I
 
 // SetDisplayName sets the DisplayName field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) SetDisplayName(displayName *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName) {
 	g.DisplayName = displayName
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldDisplayName)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldsFieldDisplayName)
 }
 
 // SetEmail sets the Email field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) SetEmail(email *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) SetEmail(email *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail) {
 	g.Email = email
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldEmail)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldsFieldEmail)
 }
 
 // SetTitle sets the Title field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) SetTitle(title *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) SetTitle(title *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle) {
 	g.Title = title
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldTitle)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldsFieldTitle)
 }
 
 // SetOrganization sets the Organization field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) SetOrganization(organization *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization) {
 	g.Organization = organization
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldOrganization)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldsFieldOrganization)
 }
 
 // SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit) {
 	g.OrganizationalUnit = organizationalUnit
-	g.require(grantsUpdate200ResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
+	g.require(grantsListResponseGrantsItemVisitorIdentityFieldsFieldOrganizationalUnit)
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
-	type unmarshaler GrantsUpdate200ResponseGrantVisitorIdentityFields
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsListResponseGrantsItemVisitorIdentityFields
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*g = GrantsUpdate200ResponseGrantVisitorIdentityFields(value)
+	*g = GrantsListResponseGrantsItemVisitorIdentityFields(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *g)
 	if err != nil {
 		return err
@@ -5757,8 +4926,8 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) UnmarshalJSON(data [
 	return nil
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
-	type embed GrantsUpdate200ResponseGrantVisitorIdentityFields
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsListResponseGrantsItemVisitorIdentityFields
 	var marshaler = struct {
 		embed
 	}{
@@ -5768,7 +4937,7 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) MarshalJSON() ([]byt
 	return json.Marshal(explicitMarshaler)
 }
 
-func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) String() string {
+func (g *GrantsListResponseGrantsItemVisitorIdentityFields) String() string {
 	if g == nil {
 		return "<nil>"
 	}
@@ -5783,113 +4952,1075 @@ func (g *GrantsUpdate200ResponseGrantVisitorIdentityFields) String() string {
 	return fmt.Sprintf("%#v", g)
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName string
+type GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName = "required"
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName = "optional"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameRequired GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName = "required"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameOptional GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName = "optional"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName, error) {
 	switch s {
 	case "required":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameRequired, nil
 	case "optional":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayNameOptional, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName
+	var t GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsDisplayName {
+func (g GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName) Ptr() *GrantsListResponseGrantsItemVisitorIdentityFieldsDisplayName {
 	return &g
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail string
+type GrantsListResponseGrantsItemVisitorIdentityFieldsEmail string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailRequired GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail = "required"
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailOptional GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail = "optional"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsEmailRequired GrantsListResponseGrantsItemVisitorIdentityFieldsEmail = "required"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsEmailOptional GrantsListResponseGrantsItemVisitorIdentityFieldsEmail = "optional"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityFieldsEmailFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityFieldsEmail, error) {
 	switch s {
 	case "required":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailRequired, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsEmailRequired, nil
 	case "optional":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmailOptional, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsEmailOptional, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail
+	var t GrantsListResponseGrantsItemVisitorIdentityFieldsEmail
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsEmail {
+func (g GrantsListResponseGrantsItemVisitorIdentityFieldsEmail) Ptr() *GrantsListResponseGrantsItemVisitorIdentityFieldsEmail {
 	return &g
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization string
+type GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization = "required"
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization = "optional"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationRequired GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization = "required"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationOptional GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization = "optional"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization, error) {
 	switch s {
 	case "required":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationRequired, nil
 	case "optional":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationOptional, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization
+	var t GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganization {
+func (g GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization) Ptr() *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganization {
 	return &g
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit string
+type GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitRequired GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit = "required"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitOptional GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit = "optional"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit, error) {
 	switch s {
 	case "required":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitRequired, nil
 	case "optional":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnitOptional, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit
+	var t GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+func (g GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsListResponseGrantsItemVisitorIdentityFieldsOrganizationalUnit {
 	return &g
 }
 
-type GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle string
+type GrantsListResponseGrantsItemVisitorIdentityFieldsTitle string
 
 const (
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleRequired GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle = "required"
-	GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleOptional GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle = "optional"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsTitleRequired GrantsListResponseGrantsItemVisitorIdentityFieldsTitle = "required"
+	GrantsListResponseGrantsItemVisitorIdentityFieldsTitleOptional GrantsListResponseGrantsItemVisitorIdentityFieldsTitle = "optional"
 )
 
-func NewGrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle, error) {
+func NewGrantsListResponseGrantsItemVisitorIdentityFieldsTitleFromString(s string) (GrantsListResponseGrantsItemVisitorIdentityFieldsTitle, error) {
 	switch s {
 	case "required":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleRequired, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsTitleRequired, nil
 	case "optional":
-		return GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitleOptional, nil
+		return GrantsListResponseGrantsItemVisitorIdentityFieldsTitleOptional, nil
 	}
-	var t GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle
+	var t GrantsListResponseGrantsItemVisitorIdentityFieldsTitle
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (g GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsUpdate200ResponseGrantVisitorIdentityFieldsTitle {
+func (g GrantsListResponseGrantsItemVisitorIdentityFieldsTitle) Ptr() *GrantsListResponseGrantsItemVisitorIdentityFieldsTitle {
+	return &g
+}
+
+var (
+	grantsUpdateResponseFieldGrant = big.NewInt(1 << 0)
+)
+
+type GrantsUpdateResponse struct {
+	Grant *GrantsUpdateResponseGrant `json:"grant" url:"grant"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsUpdateResponse) GetGrant() *GrantsUpdateResponseGrant {
+	if g == nil {
+		return nil
+	}
+	return g.Grant
+}
+
+func (g *GrantsUpdateResponse) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsUpdateResponse) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetGrant sets the Grant field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponse) SetGrant(grant *GrantsUpdateResponseGrant) {
+	g.Grant = grant
+	g.require(grantsUpdateResponseFieldGrant)
+}
+
+func (g *GrantsUpdateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsUpdateResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsUpdateResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsUpdateResponse) MarshalJSON() ([]byte, error) {
+	type embed GrantsUpdateResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsUpdateResponse) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+var (
+	grantsUpdateResponseGrantFieldID                  = big.NewInt(1 << 0)
+	grantsUpdateResponseGrantFieldTenantID            = big.NewInt(1 << 1)
+	grantsUpdateResponseGrantFieldDocID               = big.NewInt(1 << 2)
+	grantsUpdateResponseGrantFieldName                = big.NewInt(1 << 3)
+	grantsUpdateResponseGrantFieldLayerMode           = big.NewInt(1 << 4)
+	grantsUpdateResponseGrantFieldLayerName           = big.NewInt(1 << 5)
+	grantsUpdateResponseGrantFieldKeepVisitorLayers   = big.NewInt(1 << 6)
+	grantsUpdateResponseGrantFieldVisitorIdleSeconds  = big.NewInt(1 << 7)
+	grantsUpdateResponseGrantFieldVisitorIdentity     = big.NewInt(1 << 8)
+	grantsUpdateResponseGrantFieldIdentity            = big.NewInt(1 << 9)
+	grantsUpdateResponseGrantFieldScope               = big.NewInt(1 << 10)
+	grantsUpdateResponseGrantFieldOrigins             = big.NewInt(1 << 11)
+	grantsUpdateResponseGrantFieldPassphraseProtected = big.NewInt(1 << 12)
+	grantsUpdateResponseGrantFieldSessionTTLSeconds   = big.NewInt(1 << 13)
+	grantsUpdateResponseGrantFieldDisabled            = big.NewInt(1 << 14)
+	grantsUpdateResponseGrantFieldArchivedAt          = big.NewInt(1 << 15)
+	grantsUpdateResponseGrantFieldExpiresAt           = big.NewInt(1 << 16)
+	grantsUpdateResponseGrantFieldExchangeCount       = big.NewInt(1 << 17)
+	grantsUpdateResponseGrantFieldLastExchangedAt     = big.NewInt(1 << 18)
+	grantsUpdateResponseGrantFieldCreatedBy           = big.NewInt(1 << 19)
+	grantsUpdateResponseGrantFieldCreatedAt           = big.NewInt(1 << 20)
+	grantsUpdateResponseGrantFieldUpdatedAt           = big.NewInt(1 << 21)
+)
+
+type GrantsUpdateResponseGrant struct {
+	ID                  string                                    `json:"id" url:"id"`
+	TenantID            string                                    `json:"tenantId" url:"tenantId"`
+	DocID               string                                    `json:"docId" url:"docId"`
+	Name                *string                                   `json:"name,omitempty" url:"name,omitempty"`
+	LayerMode           GrantsUpdateResponseGrantLayerMode        `json:"layerMode" url:"layerMode"`
+	LayerName           *string                                   `json:"layerName,omitempty" url:"layerName,omitempty"`
+	KeepVisitorLayers   bool                                      `json:"keepVisitorLayers" url:"keepVisitorLayers"`
+	VisitorIdleSeconds  *int                                      `json:"visitorIdleSeconds,omitempty" url:"visitorIdleSeconds,omitempty"`
+	VisitorIdentity     *GrantsUpdateResponseGrantVisitorIdentity `json:"visitorIdentity,omitempty" url:"visitorIdentity,omitempty"`
+	Identity            *Identity                                 `json:"identity,omitempty" url:"identity,omitempty"`
+	Scope               []string                                  `json:"scope" url:"scope"`
+	Origins             []string                                  `json:"origins,omitempty" url:"origins,omitempty"`
+	PassphraseProtected bool                                      `json:"passphraseProtected" url:"passphraseProtected"`
+	SessionTTLSeconds   int                                       `json:"sessionTtlSeconds" url:"sessionTtlSeconds"`
+	Disabled            bool                                      `json:"disabled" url:"disabled"`
+	ArchivedAt          *time.Time                                `json:"archivedAt,omitempty" url:"archivedAt,omitempty"`
+	ExpiresAt           *time.Time                                `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	ExchangeCount       int                                       `json:"exchangeCount" url:"exchangeCount"`
+	LastExchangedAt     *time.Time                                `json:"lastExchangedAt,omitempty" url:"lastExchangedAt,omitempty"`
+	CreatedBy           string                                    `json:"createdBy" url:"createdBy"`
+	CreatedAt           time.Time                                 `json:"createdAt" url:"createdAt"`
+	UpdatedAt           time.Time                                 `json:"updatedAt" url:"updatedAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsUpdateResponseGrant) GetID() string {
+	if g == nil {
+		return ""
+	}
+	return g.ID
+}
+
+func (g *GrantsUpdateResponseGrant) GetTenantID() string {
+	if g == nil {
+		return ""
+	}
+	return g.TenantID
+}
+
+func (g *GrantsUpdateResponseGrant) GetDocID() string {
+	if g == nil {
+		return ""
+	}
+	return g.DocID
+}
+
+func (g *GrantsUpdateResponseGrant) GetName() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Name
+}
+
+func (g *GrantsUpdateResponseGrant) GetLayerMode() GrantsUpdateResponseGrantLayerMode {
+	if g == nil {
+		return ""
+	}
+	return g.LayerMode
+}
+
+func (g *GrantsUpdateResponseGrant) GetLayerName() *string {
+	if g == nil {
+		return nil
+	}
+	return g.LayerName
+}
+
+func (g *GrantsUpdateResponseGrant) GetKeepVisitorLayers() bool {
+	if g == nil {
+		return false
+	}
+	return g.KeepVisitorLayers
+}
+
+func (g *GrantsUpdateResponseGrant) GetVisitorIdleSeconds() *int {
+	if g == nil {
+		return nil
+	}
+	return g.VisitorIdleSeconds
+}
+
+func (g *GrantsUpdateResponseGrant) GetVisitorIdentity() *GrantsUpdateResponseGrantVisitorIdentity {
+	if g == nil {
+		return nil
+	}
+	return g.VisitorIdentity
+}
+
+func (g *GrantsUpdateResponseGrant) GetIdentity() *Identity {
+	if g == nil {
+		return nil
+	}
+	return g.Identity
+}
+
+func (g *GrantsUpdateResponseGrant) GetScope() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Scope
+}
+
+func (g *GrantsUpdateResponseGrant) GetOrigins() []string {
+	if g == nil {
+		return nil
+	}
+	return g.Origins
+}
+
+func (g *GrantsUpdateResponseGrant) GetPassphraseProtected() bool {
+	if g == nil {
+		return false
+	}
+	return g.PassphraseProtected
+}
+
+func (g *GrantsUpdateResponseGrant) GetSessionTTLSeconds() int {
+	if g == nil {
+		return 0
+	}
+	return g.SessionTTLSeconds
+}
+
+func (g *GrantsUpdateResponseGrant) GetDisabled() bool {
+	if g == nil {
+		return false
+	}
+	return g.Disabled
+}
+
+func (g *GrantsUpdateResponseGrant) GetArchivedAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.ArchivedAt
+}
+
+func (g *GrantsUpdateResponseGrant) GetExpiresAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.ExpiresAt
+}
+
+func (g *GrantsUpdateResponseGrant) GetExchangeCount() int {
+	if g == nil {
+		return 0
+	}
+	return g.ExchangeCount
+}
+
+func (g *GrantsUpdateResponseGrant) GetLastExchangedAt() *time.Time {
+	if g == nil {
+		return nil
+	}
+	return g.LastExchangedAt
+}
+
+func (g *GrantsUpdateResponseGrant) GetCreatedBy() string {
+	if g == nil {
+		return ""
+	}
+	return g.CreatedBy
+}
+
+func (g *GrantsUpdateResponseGrant) GetCreatedAt() time.Time {
+	if g == nil {
+		return time.Time{}
+	}
+	return g.CreatedAt
+}
+
+func (g *GrantsUpdateResponseGrant) GetUpdatedAt() time.Time {
+	if g == nil {
+		return time.Time{}
+	}
+	return g.UpdatedAt
+}
+
+func (g *GrantsUpdateResponseGrant) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsUpdateResponseGrant) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetID sets the ID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetID(id string) {
+	g.ID = id
+	g.require(grantsUpdateResponseGrantFieldID)
+}
+
+// SetTenantID sets the TenantID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetTenantID(tenantID string) {
+	g.TenantID = tenantID
+	g.require(grantsUpdateResponseGrantFieldTenantID)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetDocID(docID string) {
+	g.DocID = docID
+	g.require(grantsUpdateResponseGrantFieldDocID)
+}
+
+// SetName sets the Name field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetName(name *string) {
+	g.Name = name
+	g.require(grantsUpdateResponseGrantFieldName)
+}
+
+// SetLayerMode sets the LayerMode field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetLayerMode(layerMode GrantsUpdateResponseGrantLayerMode) {
+	g.LayerMode = layerMode
+	g.require(grantsUpdateResponseGrantFieldLayerMode)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetLayerName(layerName *string) {
+	g.LayerName = layerName
+	g.require(grantsUpdateResponseGrantFieldLayerName)
+}
+
+// SetKeepVisitorLayers sets the KeepVisitorLayers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetKeepVisitorLayers(keepVisitorLayers bool) {
+	g.KeepVisitorLayers = keepVisitorLayers
+	g.require(grantsUpdateResponseGrantFieldKeepVisitorLayers)
+}
+
+// SetVisitorIdleSeconds sets the VisitorIdleSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetVisitorIdleSeconds(visitorIdleSeconds *int) {
+	g.VisitorIdleSeconds = visitorIdleSeconds
+	g.require(grantsUpdateResponseGrantFieldVisitorIdleSeconds)
+}
+
+// SetVisitorIdentity sets the VisitorIdentity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetVisitorIdentity(visitorIdentity *GrantsUpdateResponseGrantVisitorIdentity) {
+	g.VisitorIdentity = visitorIdentity
+	g.require(grantsUpdateResponseGrantFieldVisitorIdentity)
+}
+
+// SetIdentity sets the Identity field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetIdentity(identity *Identity) {
+	g.Identity = identity
+	g.require(grantsUpdateResponseGrantFieldIdentity)
+}
+
+// SetScope sets the Scope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetScope(scope []string) {
+	g.Scope = scope
+	g.require(grantsUpdateResponseGrantFieldScope)
+}
+
+// SetOrigins sets the Origins field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetOrigins(origins []string) {
+	g.Origins = origins
+	g.require(grantsUpdateResponseGrantFieldOrigins)
+}
+
+// SetPassphraseProtected sets the PassphraseProtected field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetPassphraseProtected(passphraseProtected bool) {
+	g.PassphraseProtected = passphraseProtected
+	g.require(grantsUpdateResponseGrantFieldPassphraseProtected)
+}
+
+// SetSessionTTLSeconds sets the SessionTTLSeconds field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetSessionTTLSeconds(sessionTTLSeconds int) {
+	g.SessionTTLSeconds = sessionTTLSeconds
+	g.require(grantsUpdateResponseGrantFieldSessionTTLSeconds)
+}
+
+// SetDisabled sets the Disabled field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetDisabled(disabled bool) {
+	g.Disabled = disabled
+	g.require(grantsUpdateResponseGrantFieldDisabled)
+}
+
+// SetArchivedAt sets the ArchivedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetArchivedAt(archivedAt *time.Time) {
+	g.ArchivedAt = archivedAt
+	g.require(grantsUpdateResponseGrantFieldArchivedAt)
+}
+
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetExpiresAt(expiresAt *time.Time) {
+	g.ExpiresAt = expiresAt
+	g.require(grantsUpdateResponseGrantFieldExpiresAt)
+}
+
+// SetExchangeCount sets the ExchangeCount field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetExchangeCount(exchangeCount int) {
+	g.ExchangeCount = exchangeCount
+	g.require(grantsUpdateResponseGrantFieldExchangeCount)
+}
+
+// SetLastExchangedAt sets the LastExchangedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetLastExchangedAt(lastExchangedAt *time.Time) {
+	g.LastExchangedAt = lastExchangedAt
+	g.require(grantsUpdateResponseGrantFieldLastExchangedAt)
+}
+
+// SetCreatedBy sets the CreatedBy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetCreatedBy(createdBy string) {
+	g.CreatedBy = createdBy
+	g.require(grantsUpdateResponseGrantFieldCreatedBy)
+}
+
+// SetCreatedAt sets the CreatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetCreatedAt(createdAt time.Time) {
+	g.CreatedAt = createdAt
+	g.require(grantsUpdateResponseGrantFieldCreatedAt)
+}
+
+// SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrant) SetUpdatedAt(updatedAt time.Time) {
+	g.UpdatedAt = updatedAt
+	g.require(grantsUpdateResponseGrantFieldUpdatedAt)
+}
+
+func (g *GrantsUpdateResponseGrant) UnmarshalJSON(data []byte) error {
+	type embed GrantsUpdateResponseGrant
+	var unmarshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*g),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*g = GrantsUpdateResponseGrant(unmarshaler.embed)
+	g.ArchivedAt = unmarshaler.ArchivedAt.TimePtr()
+	g.ExpiresAt = unmarshaler.ExpiresAt.TimePtr()
+	g.LastExchangedAt = unmarshaler.LastExchangedAt.TimePtr()
+	g.CreatedAt = unmarshaler.CreatedAt.Time()
+	g.UpdatedAt = unmarshaler.UpdatedAt.Time()
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsUpdateResponseGrant) MarshalJSON() ([]byte, error) {
+	type embed GrantsUpdateResponseGrant
+	var marshaler = struct {
+		embed
+		ArchivedAt      *internal.DateTime `json:"archivedAt,omitempty"`
+		ExpiresAt       *internal.DateTime `json:"expiresAt,omitempty"`
+		LastExchangedAt *internal.DateTime `json:"lastExchangedAt,omitempty"`
+		CreatedAt       *internal.DateTime `json:"createdAt"`
+		UpdatedAt       *internal.DateTime `json:"updatedAt"`
+	}{
+		embed:           embed(*g),
+		ArchivedAt:      internal.NewOptionalDateTime(g.ArchivedAt),
+		ExpiresAt:       internal.NewOptionalDateTime(g.ExpiresAt),
+		LastExchangedAt: internal.NewOptionalDateTime(g.LastExchangedAt),
+		CreatedAt:       internal.NewDateTime(g.CreatedAt),
+		UpdatedAt:       internal.NewDateTime(g.UpdatedAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsUpdateResponseGrant) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsUpdateResponseGrantLayerMode string
+
+const (
+	GrantsUpdateResponseGrantLayerModeShared     GrantsUpdateResponseGrantLayerMode = "shared"
+	GrantsUpdateResponseGrantLayerModePerVisitor GrantsUpdateResponseGrantLayerMode = "per-visitor"
+)
+
+func NewGrantsUpdateResponseGrantLayerModeFromString(s string) (GrantsUpdateResponseGrantLayerMode, error) {
+	switch s {
+	case "shared":
+		return GrantsUpdateResponseGrantLayerModeShared, nil
+	case "per-visitor":
+		return GrantsUpdateResponseGrantLayerModePerVisitor, nil
+	}
+	var t GrantsUpdateResponseGrantLayerMode
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantLayerMode) Ptr() *GrantsUpdateResponseGrantLayerMode {
+	return &g
+}
+
+var (
+	grantsUpdateResponseGrantVisitorIdentityFieldFields     = big.NewInt(1 << 0)
+	grantsUpdateResponseGrantVisitorIdentityFieldAsk        = big.NewInt(1 << 1)
+	grantsUpdateResponseGrantVisitorIdentityFieldPurpose    = big.NewInt(1 << 2)
+	grantsUpdateResponseGrantVisitorIdentityFieldPrivacyURL = big.NewInt(1 << 3)
+)
+
+type GrantsUpdateResponseGrantVisitorIdentity struct {
+	Fields     *GrantsUpdateResponseGrantVisitorIdentityFields `json:"fields" url:"fields"`
+	Ask        GrantsUpdateResponseGrantVisitorIdentityAsk     `json:"ask" url:"ask"`
+	Purpose    *string                                         `json:"purpose,omitempty" url:"purpose,omitempty"`
+	PrivacyURL *string                                         `json:"privacyUrl,omitempty" url:"privacyUrl,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) GetFields() *GrantsUpdateResponseGrantVisitorIdentityFields {
+	if g == nil {
+		return nil
+	}
+	return g.Fields
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) GetAsk() GrantsUpdateResponseGrantVisitorIdentityAsk {
+	if g == nil {
+		return ""
+	}
+	return g.Ask
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) GetPurpose() *string {
+	if g == nil {
+		return nil
+	}
+	return g.Purpose
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) GetPrivacyURL() *string {
+	if g == nil {
+		return nil
+	}
+	return g.PrivacyURL
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentity) SetFields(fields *GrantsUpdateResponseGrantVisitorIdentityFields) {
+	g.Fields = fields
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldFields)
+}
+
+// SetAsk sets the Ask field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentity) SetAsk(ask GrantsUpdateResponseGrantVisitorIdentityAsk) {
+	g.Ask = ask
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldAsk)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentity) SetPurpose(purpose *string) {
+	g.Purpose = purpose
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldPurpose)
+}
+
+// SetPrivacyURL sets the PrivacyURL field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentity) SetPrivacyURL(privacyURL *string) {
+	g.PrivacyURL = privacyURL
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldPrivacyURL)
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsUpdateResponseGrantVisitorIdentity
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsUpdateResponseGrantVisitorIdentity(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) MarshalJSON() ([]byte, error) {
+	type embed GrantsUpdateResponseGrantVisitorIdentity
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentity) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityAsk string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityAskOnOpen            GrantsUpdateResponseGrantVisitorIdentityAsk = "on-open"
+	GrantsUpdateResponseGrantVisitorIdentityAskBeforeFirstChange GrantsUpdateResponseGrantVisitorIdentityAsk = "before-first-change"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityAskFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityAsk, error) {
+	switch s {
+	case "on-open":
+		return GrantsUpdateResponseGrantVisitorIdentityAskOnOpen, nil
+	case "before-first-change":
+		return GrantsUpdateResponseGrantVisitorIdentityAskBeforeFirstChange, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityAsk
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityAsk) Ptr() *GrantsUpdateResponseGrantVisitorIdentityAsk {
+	return &g
+}
+
+var (
+	grantsUpdateResponseGrantVisitorIdentityFieldsFieldDisplayName        = big.NewInt(1 << 0)
+	grantsUpdateResponseGrantVisitorIdentityFieldsFieldEmail              = big.NewInt(1 << 1)
+	grantsUpdateResponseGrantVisitorIdentityFieldsFieldTitle              = big.NewInt(1 << 2)
+	grantsUpdateResponseGrantVisitorIdentityFieldsFieldOrganization       = big.NewInt(1 << 3)
+	grantsUpdateResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit = big.NewInt(1 << 4)
+)
+
+type GrantsUpdateResponseGrantVisitorIdentityFields struct {
+	DisplayName        *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName        `json:"displayName,omitempty" url:"displayName,omitempty"`
+	Email              *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail              `json:"email,omitempty" url:"email,omitempty"`
+	Title              *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle              `json:"title,omitempty" url:"title,omitempty"`
+	Organization       *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization       `json:"organization,omitempty" url:"organization,omitempty"`
+	OrganizationalUnit *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit `json:"organizationalUnit,omitempty" url:"organizationalUnit,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetDisplayName() *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName {
+	if g == nil {
+		return nil
+	}
+	return g.DisplayName
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetEmail() *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail {
+	if g == nil {
+		return nil
+	}
+	return g.Email
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetTitle() *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle {
+	if g == nil {
+		return nil
+	}
+	return g.Title
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetOrganization() *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization {
+	if g == nil {
+		return nil
+	}
+	return g.Organization
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetOrganizationalUnit() *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+	if g == nil {
+		return nil
+	}
+	return g.OrganizationalUnit
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) GetExtraProperties() map[string]interface{} {
+	if g == nil {
+		return nil
+	}
+	return g.extraProperties
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) require(field *big.Int) {
+	if g.explicitFields == nil {
+		g.explicitFields = big.NewInt(0)
+	}
+	g.explicitFields.Or(g.explicitFields, field)
+}
+
+// SetDisplayName sets the DisplayName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) SetDisplayName(displayName *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName) {
+	g.DisplayName = displayName
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldsFieldDisplayName)
+}
+
+// SetEmail sets the Email field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) SetEmail(email *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail) {
+	g.Email = email
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldsFieldEmail)
+}
+
+// SetTitle sets the Title field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) SetTitle(title *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle) {
+	g.Title = title
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldsFieldTitle)
+}
+
+// SetOrganization sets the Organization field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) SetOrganization(organization *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization) {
+	g.Organization = organization
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldsFieldOrganization)
+}
+
+// SetOrganizationalUnit sets the OrganizationalUnit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) SetOrganizationalUnit(organizationalUnit *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit) {
+	g.OrganizationalUnit = organizationalUnit
+	g.require(grantsUpdateResponseGrantVisitorIdentityFieldsFieldOrganizationalUnit)
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) UnmarshalJSON(data []byte) error {
+	type unmarshaler GrantsUpdateResponseGrantVisitorIdentityFields
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*g = GrantsUpdateResponseGrantVisitorIdentityFields(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *g)
+	if err != nil {
+		return err
+	}
+	g.extraProperties = extraProperties
+	g.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) MarshalJSON() ([]byte, error) {
+	type embed GrantsUpdateResponseGrantVisitorIdentityFields
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*g),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (g *GrantsUpdateResponseGrantVisitorIdentityFields) String() string {
+	if g == nil {
+		return "<nil>"
+	}
+	if len(g.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(g.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(g); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", g)
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameRequired GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName = "required"
+	GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameOptional GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName = "optional"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName, error) {
+	switch s {
+	case "required":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameRequired, nil
+	case "optional":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayNameOptional, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName) Ptr() *GrantsUpdateResponseGrantVisitorIdentityFieldsDisplayName {
+	return &g
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityFieldsEmail string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityFieldsEmailRequired GrantsUpdateResponseGrantVisitorIdentityFieldsEmail = "required"
+	GrantsUpdateResponseGrantVisitorIdentityFieldsEmailOptional GrantsUpdateResponseGrantVisitorIdentityFieldsEmail = "optional"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityFieldsEmailFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityFieldsEmail, error) {
+	switch s {
+	case "required":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsEmailRequired, nil
+	case "optional":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsEmailOptional, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityFieldsEmail
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityFieldsEmail) Ptr() *GrantsUpdateResponseGrantVisitorIdentityFieldsEmail {
+	return &g
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationRequired GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization = "required"
+	GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationOptional GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization = "optional"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization, error) {
+	switch s {
+	case "required":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationRequired, nil
+	case "optional":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationOptional, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization) Ptr() *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganization {
+	return &g
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit = "required"
+	GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit = "optional"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit, error) {
+	switch s {
+	case "required":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitRequired, nil
+	case "optional":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnitOptional, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit) Ptr() *GrantsUpdateResponseGrantVisitorIdentityFieldsOrganizationalUnit {
+	return &g
+}
+
+type GrantsUpdateResponseGrantVisitorIdentityFieldsTitle string
+
+const (
+	GrantsUpdateResponseGrantVisitorIdentityFieldsTitleRequired GrantsUpdateResponseGrantVisitorIdentityFieldsTitle = "required"
+	GrantsUpdateResponseGrantVisitorIdentityFieldsTitleOptional GrantsUpdateResponseGrantVisitorIdentityFieldsTitle = "optional"
+)
+
+func NewGrantsUpdateResponseGrantVisitorIdentityFieldsTitleFromString(s string) (GrantsUpdateResponseGrantVisitorIdentityFieldsTitle, error) {
+	switch s {
+	case "required":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsTitleRequired, nil
+	case "optional":
+		return GrantsUpdateResponseGrantVisitorIdentityFieldsTitleOptional, nil
+	}
+	var t GrantsUpdateResponseGrantVisitorIdentityFieldsTitle
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (g GrantsUpdateResponseGrantVisitorIdentityFieldsTitle) Ptr() *GrantsUpdateResponseGrantVisitorIdentityFieldsTitle {
 	return &g
 }
 
@@ -6942,7 +7073,7 @@ type GrantsUpdateRequest struct {
 	Passphrase         *string                             `json:"passphrase,omitempty" url:"-"`
 	SessionTTLSeconds  *int                                `json:"sessionTtlSeconds,omitempty" url:"-"`
 	Disabled           *bool                               `json:"disabled,omitempty" url:"-"`
-	ExpiresAt          *int                                `json:"expiresAt,omitempty" url:"-"`
+	ExpiresAt          *time.Time                          `json:"expiresAt,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -7055,7 +7186,7 @@ func (g *GrantsUpdateRequest) SetDisabled(disabled *bool) {
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GrantsUpdateRequest) SetExpiresAt(expiresAt *int) {
+func (g *GrantsUpdateRequest) SetExpiresAt(expiresAt *time.Time) {
 	g.ExpiresAt = expiresAt
 	g.require(grantsUpdateRequestFieldExpiresAt)
 }
@@ -7074,8 +7205,10 @@ func (g *GrantsUpdateRequest) MarshalJSON() ([]byte, error) {
 	type embed GrantsUpdateRequest
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt,omitempty"`
 	}{
-		embed: embed(*g),
+		embed:     embed(*g),
+		ExpiresAt: internal.NewOptionalDateTime(g.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, g.explicitFields)
 	return json.Marshal(explicitMarshaler)

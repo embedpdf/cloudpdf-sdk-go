@@ -52,7 +52,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListFontsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocFontsList200Response, error) {
+) (cloudpdf.DocFontsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -85,7 +85,7 @@ func (c *Client) Resolve(
 	ctx context.Context,
 	request *doc.ResolveFontsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocFontsResolve200Response, error) {
+) (cloudpdf.DocFontsResolveResponse, error) {
 	response, err := c.WithRawResponse.Resolve(
 		ctx,
 		request,

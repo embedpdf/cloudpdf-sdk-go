@@ -10,7 +10,7 @@ var (
 	downloadProgramsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	downloadProgramsRequestFieldDocID            = big.NewInt(1 << 1)
 	downloadProgramsRequestFieldLayerName        = big.NewInt(1 << 2)
-	downloadProgramsRequestFieldDisplayHash      = big.NewInt(1 << 3)
+	downloadProgramsRequestFieldDisplaySha256    = big.NewInt(1 << 3)
 )
 
 type DownloadProgramsRequest struct {
@@ -18,7 +18,7 @@ type DownloadProgramsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	DisplayHash      string  `json:"-" url:"-"`
+	DisplaySha256    string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -52,18 +52,18 @@ func (d *DownloadProgramsRequest) SetLayerName(layerName string) {
 	d.require(downloadProgramsRequestFieldLayerName)
 }
 
-// SetDisplayHash sets the DisplayHash field and marks it as non-optional;
+// SetDisplaySha256 sets the DisplaySha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DownloadProgramsRequest) SetDisplayHash(displayHash string) {
-	d.DisplayHash = displayHash
-	d.require(downloadProgramsRequestFieldDisplayHash)
+func (d *DownloadProgramsRequest) SetDisplaySha256(displaySha256 string) {
+	d.DisplaySha256 = displaySha256
+	d.require(downloadProgramsRequestFieldDisplaySha256)
 }
 
 var (
 	getProgramsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	getProgramsRequestFieldDocID            = big.NewInt(1 << 1)
 	getProgramsRequestFieldLayerName        = big.NewInt(1 << 2)
-	getProgramsRequestFieldDisplayHash      = big.NewInt(1 << 3)
+	getProgramsRequestFieldDisplaySha256    = big.NewInt(1 << 3)
 )
 
 type GetProgramsRequest struct {
@@ -71,7 +71,7 @@ type GetProgramsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	DisplayHash      string  `json:"-" url:"-"`
+	DisplaySha256    string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -105,9 +105,9 @@ func (g *GetProgramsRequest) SetLayerName(layerName string) {
 	g.require(getProgramsRequestFieldLayerName)
 }
 
-// SetDisplayHash sets the DisplayHash field and marks it as non-optional;
+// SetDisplaySha256 sets the DisplaySha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetProgramsRequest) SetDisplayHash(displayHash string) {
-	g.DisplayHash = displayHash
-	g.require(getProgramsRequestFieldDisplayHash)
+func (g *GetProgramsRequest) SetDisplaySha256(displaySha256 string) {
+	g.DisplaySha256 = displaySha256
+	g.require(getProgramsRequestFieldDisplaySha256)
 }

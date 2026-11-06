@@ -47,7 +47,7 @@ func NewClient(options *core.RequestOptions) *Client {
 //	            Scope: []string{
 //	                "scope",
 //	            },
-//	            ExpiresIn: 1,
+//	            ExpiresInSeconds: 1,
 //	        },
 //	    },
 //	}
@@ -59,7 +59,7 @@ func (c *Client) Issue(
 	ctx context.Context,
 	request *cloudpdf.IssueTokensRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.TokensIssue200Response, error) {
+) (*cloudpdf.TokensIssueResponse, error) {
 	response, err := c.WithRawResponse.Issue(
 		ctx,
 		request,

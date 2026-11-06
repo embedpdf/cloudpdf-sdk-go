@@ -49,7 +49,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListFormsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsList200Response, error) {
+) (*cloudpdf.DocFormsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -85,7 +85,7 @@ func (c *Client) ReorderCalculations(
 	ctx context.Context,
 	request *doc.DocFormsReorderCalculationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsReorderCalculations200Response, error) {
+) (*cloudpdf.DocFormsReorderCalculationsResponse, error) {
 	response, err := c.WithRawResponse.ReorderCalculations(
 		ctx,
 		request,
@@ -115,7 +115,7 @@ func (c *Client) SetValue(
 	ctx context.Context,
 	request *doc.SetValueFormsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsSetValue200Response, error) {
+) (*cloudpdf.DocFormsSetValueResponse, error) {
 	response, err := c.WithRawResponse.SetValue(
 		ctx,
 		request,
@@ -141,7 +141,7 @@ func (c *Client) Reset(
 	ctx context.Context,
 	request *doc.DocFormsResetRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsReset200Response, error) {
+) (*cloudpdf.DocFormsResetResponse, error) {
 	response, err := c.WithRawResponse.Reset(
 		ctx,
 		request,
@@ -159,7 +159,7 @@ func (c *Client) Reset(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	}
 //	client.Doc.Forms.DeleteWidget(
 //	    context.TODO(),
@@ -169,7 +169,7 @@ func (c *Client) DeleteWidget(
 	ctx context.Context,
 	request *doc.DeleteWidgetFormsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsDeleteWidget200Response, error) {
+) (*cloudpdf.DocFormsDeleteWidgetResponse, error) {
 	response, err := c.WithRawResponse.DeleteWidget(
 		ctx,
 		request,
@@ -187,7 +187,7 @@ func (c *Client) DeleteWidget(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	    Patch: &cloudpdf.WidgetPatch{},
 //	}
 //	client.Doc.Forms.UpdateWidget(
@@ -198,7 +198,7 @@ func (c *Client) UpdateWidget(
 	ctx context.Context,
 	request *doc.DocFormsUpdateWidgetRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsUpdateWidget200Response, error) {
+) (*cloudpdf.DocFormsUpdateWidgetResponse, error) {
 	response, err := c.WithRawResponse.UpdateWidget(
 		ctx,
 		request,
@@ -239,7 +239,7 @@ func (c *Client) ReorderWidgets(
 	ctx context.Context,
 	request *doc.DocFormsReorderWidgetsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocFormsReorderWidgets200Response, error) {
+) (*cloudpdf.DocFormsReorderWidgetsResponse, error) {
 	response, err := c.WithRawResponse.ReorderWidgets(
 		ctx,
 		request,

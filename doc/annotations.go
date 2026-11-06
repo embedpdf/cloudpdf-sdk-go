@@ -24,7 +24,7 @@ type CreateAnnotationsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string                         `json:"-" url:"-"`
 	Body    v3.DocAnnotationsCreateRequest `json:"-" url:"-"`
 
@@ -93,7 +93,7 @@ var (
 	deleteAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
 	deleteAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
 	deleteAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
-	deleteAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 5)
+	deleteAnnotationsRequestFieldAnnotationKey    = big.NewInt(1 << 5)
 )
 
 type DeleteAnnotationsRequest struct {
@@ -103,10 +103,10 @@ type DeleteAnnotationsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string `json:"-" url:"-"`
+	AnnotationKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -154,11 +154,11 @@ func (d *DeleteAnnotationsRequest) SetPageKey(pageKey string) {
 	d.require(deleteAnnotationsRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeleteAnnotationsRequest) SetAnnotKey(annotKey string) {
-	d.AnnotKey = annotKey
-	d.require(deleteAnnotationsRequestFieldAnnotKey)
+func (d *DeleteAnnotationsRequest) SetAnnotationKey(annotationKey string) {
+	d.AnnotationKey = annotationKey
+	d.require(deleteAnnotationsRequestFieldAnnotationKey)
 }
 
 var (
@@ -173,7 +173,7 @@ type ExportAppearanceAnnotationsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string                                   `json:"-" url:"-"`
 	Body    v3.DocAnnotationsExportAppearanceRequest `json:"-" url:"-"`
 
@@ -244,7 +244,7 @@ type FlattenAnnotationsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string                          `json:"-" url:"-"`
 	Body    v3.DocAnnotationsFlattenRequest `json:"-" url:"-"`
 
@@ -319,7 +319,7 @@ type ListAnnotationsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -410,7 +410,7 @@ var (
 	readAppearanceAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	readAppearanceAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
 	readAppearanceAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
-	readAppearanceAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+	readAppearanceAnnotationsRequestFieldAnnotationKey    = big.NewInt(1 << 4)
 )
 
 type ReadAppearanceAnnotationsRequest struct {
@@ -418,10 +418,10 @@ type ReadAppearanceAnnotationsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string `json:"-" url:"-"`
+	AnnotationKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -462,11 +462,11 @@ func (r *ReadAppearanceAnnotationsRequest) SetPageKey(pageKey string) {
 	r.require(readAppearanceAnnotationsRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ReadAppearanceAnnotationsRequest) SetAnnotKey(annotKey string) {
-	r.AnnotKey = annotKey
-	r.require(readAppearanceAnnotationsRequestFieldAnnotKey)
+func (r *ReadAppearanceAnnotationsRequest) SetAnnotationKey(annotationKey string) {
+	r.AnnotationKey = annotationKey
+	r.require(readAppearanceAnnotationsRequestFieldAnnotationKey)
 }
 
 var (
@@ -474,7 +474,7 @@ var (
 	readFileAnnotationsRequestFieldDocID            = big.NewInt(1 << 1)
 	readFileAnnotationsRequestFieldLayerName        = big.NewInt(1 << 2)
 	readFileAnnotationsRequestFieldPageKey          = big.NewInt(1 << 3)
-	readFileAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 4)
+	readFileAnnotationsRequestFieldAnnotationKey    = big.NewInt(1 << 4)
 )
 
 type ReadFileAnnotationsRequest struct {
@@ -482,10 +482,10 @@ type ReadFileAnnotationsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string `json:"-" url:"-"`
+	AnnotationKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -526,11 +526,11 @@ func (r *ReadFileAnnotationsRequest) SetPageKey(pageKey string) {
 	r.require(readFileAnnotationsRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *ReadFileAnnotationsRequest) SetAnnotKey(annotKey string) {
-	r.AnnotKey = annotKey
-	r.require(readFileAnnotationsRequestFieldAnnotKey)
+func (r *ReadFileAnnotationsRequest) SetAnnotationKey(annotationKey string) {
+	r.AnnotationKey = annotationKey
+	r.require(readFileAnnotationsRequestFieldAnnotationKey)
 }
 
 var (
@@ -550,7 +550,7 @@ type DocAnnotationsReorderRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey  string                 `json:"-" url:"-"`
 	Refs     []*v3.AnnotationRef    `json:"refs" url:"-"`
 	Position *v3.AnnotationPosition `json:"position" url:"-"`
@@ -642,7 +642,7 @@ var (
 	updateAnnotationsRequestFieldDocID            = big.NewInt(1 << 2)
 	updateAnnotationsRequestFieldLayerName        = big.NewInt(1 << 3)
 	updateAnnotationsRequestFieldPageKey          = big.NewInt(1 << 4)
-	updateAnnotationsRequestFieldAnnotKey         = big.NewInt(1 << 5)
+	updateAnnotationsRequestFieldAnnotationKey    = big.NewInt(1 << 5)
 )
 
 type UpdateAnnotationsRequest struct {
@@ -652,11 +652,11 @@ type UpdateAnnotationsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string                         `json:"-" url:"-"`
-	Body     v3.DocAnnotationsUpdateRequest `json:"-" url:"-"`
+	AnnotationKey string                         `json:"-" url:"-"`
+	Body          v3.DocAnnotationsUpdateRequest `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -704,11 +704,11 @@ func (u *UpdateAnnotationsRequest) SetPageKey(pageKey string) {
 	u.require(updateAnnotationsRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (u *UpdateAnnotationsRequest) SetAnnotKey(annotKey string) {
-	u.AnnotKey = annotKey
-	u.require(updateAnnotationsRequestFieldAnnotKey)
+func (u *UpdateAnnotationsRequest) SetAnnotationKey(annotationKey string) {
+	u.AnnotationKey = annotationKey
+	u.require(updateAnnotationsRequestFieldAnnotationKey)
 }
 
 func (u *UpdateAnnotationsRequest) UnmarshalJSON(data []byte) error {

@@ -11,7 +11,7 @@ var (
 	analysisVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	analysisVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	analysisVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	analysisVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	analysisVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 	analysisVersionsRequestFieldSinceSignature   = big.NewInt(1 << 4)
 	analysisVersionsRequestFieldSinceRevision    = big.NewInt(1 << 5)
 	analysisVersionsRequestFieldLevel            = big.NewInt(1 << 6)
@@ -24,7 +24,7 @@ type AnalysisVersionsRequest struct {
 	DocumentPassword *string                       `json:"-" url:"-"`
 	DocID            string                        `json:"-" url:"-"`
 	LayerName        string                        `json:"-" url:"-"`
-	Sha              string                        `json:"-" url:"-"`
+	Sha256           string                        `json:"-" url:"-"`
 	SinceSignature   *int                          `json:"-" url:"since.signature,omitempty"`
 	SinceRevision    *int                          `json:"-" url:"since.revision,omitempty"`
 	Level            *AnalysisVersionsRequestLevel `json:"-" url:"level,omitempty"`
@@ -63,11 +63,11 @@ func (a *AnalysisVersionsRequest) SetLayerName(layerName string) {
 	a.require(analysisVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnalysisVersionsRequest) SetSha(sha string) {
-	a.Sha = sha
-	a.require(analysisVersionsRequestFieldSha)
+func (a *AnalysisVersionsRequest) SetSha256(sha256 string) {
+	a.Sha256 = sha256
+	a.require(analysisVersionsRequestFieldSha256)
 }
 
 // SetSinceSignature sets the SinceSignature field and marks it as non-optional;
@@ -109,7 +109,7 @@ var (
 	downloadVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	downloadVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	downloadVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	downloadVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	downloadVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 )
 
 type DownloadVersionsRequest struct {
@@ -117,7 +117,7 @@ type DownloadVersionsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Sha              string  `json:"-" url:"-"`
+	Sha256           string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -151,11 +151,11 @@ func (d *DownloadVersionsRequest) SetLayerName(layerName string) {
 	d.require(downloadVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DownloadVersionsRequest) SetSha(sha string) {
-	d.Sha = sha
-	d.require(downloadVersionsRequestFieldSha)
+func (d *DownloadVersionsRequest) SetSha256(sha256 string) {
+	d.Sha256 = sha256
+	d.require(downloadVersionsRequestFieldSha256)
 }
 
 var (
@@ -206,7 +206,7 @@ var (
 	revisionVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	revisionVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	revisionVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	revisionVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	revisionVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 	revisionVersionsRequestFieldIndex            = big.NewInt(1 << 4)
 )
 
@@ -215,7 +215,7 @@ type RevisionVersionsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Sha              string  `json:"-" url:"-"`
+	Sha256           string  `json:"-" url:"-"`
 	Index            int     `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -250,11 +250,11 @@ func (r *RevisionVersionsRequest) SetLayerName(layerName string) {
 	r.require(revisionVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (r *RevisionVersionsRequest) SetSha(sha string) {
-	r.Sha = sha
-	r.require(revisionVersionsRequestFieldSha)
+func (r *RevisionVersionsRequest) SetSha256(sha256 string) {
+	r.Sha256 = sha256
+	r.require(revisionVersionsRequestFieldSha256)
 }
 
 // SetIndex sets the Index field and marks it as non-optional;
@@ -268,7 +268,7 @@ var (
 	signatureContentsVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signatureContentsVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	signatureContentsVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	signatureContentsVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	signatureContentsVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 	signatureContentsVersionsRequestFieldFieldKey         = big.NewInt(1 << 4)
 )
 
@@ -277,7 +277,7 @@ type SignatureContentsVersionsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Sha              string  `json:"-" url:"-"`
+	Sha256           string  `json:"-" url:"-"`
 	FieldKey         string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -312,11 +312,11 @@ func (s *SignatureContentsVersionsRequest) SetLayerName(layerName string) {
 	s.require(signatureContentsVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SignatureContentsVersionsRequest) SetSha(sha string) {
-	s.Sha = sha
-	s.require(signatureContentsVersionsRequestFieldSha)
+func (s *SignatureContentsVersionsRequest) SetSha256(sha256 string) {
+	s.Sha256 = sha256
+	s.require(signatureContentsVersionsRequestFieldSha256)
 }
 
 // SetFieldKey sets the FieldKey field and marks it as non-optional;
@@ -330,7 +330,7 @@ var (
 	signatureDigestVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signatureDigestVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	signatureDigestVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	signatureDigestVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	signatureDigestVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 	signatureDigestVersionsRequestFieldFieldKey         = big.NewInt(1 << 4)
 	signatureDigestVersionsRequestFieldAlgorithm        = big.NewInt(1 << 5)
 )
@@ -340,7 +340,7 @@ type SignatureDigestVersionsRequest struct {
 	DocumentPassword *string                                 `json:"-" url:"-"`
 	DocID            string                                  `json:"-" url:"-"`
 	LayerName        string                                  `json:"-" url:"-"`
-	Sha              string                                  `json:"-" url:"-"`
+	Sha256           string                                  `json:"-" url:"-"`
 	FieldKey         string                                  `json:"-" url:"-"`
 	Algorithm        SignatureDigestVersionsRequestAlgorithm `json:"-" url:"-"`
 
@@ -376,11 +376,11 @@ func (s *SignatureDigestVersionsRequest) SetLayerName(layerName string) {
 	s.require(signatureDigestVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SignatureDigestVersionsRequest) SetSha(sha string) {
-	s.Sha = sha
-	s.require(signatureDigestVersionsRequestFieldSha)
+func (s *SignatureDigestVersionsRequest) SetSha256(sha256 string) {
+	s.Sha256 = sha256
+	s.require(signatureDigestVersionsRequestFieldSha256)
 }
 
 // SetFieldKey sets the FieldKey field and marks it as non-optional;
@@ -401,7 +401,7 @@ var (
 	signaturesVersionsRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	signaturesVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	signaturesVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
-	signaturesVersionsRequestFieldSha              = big.NewInt(1 << 3)
+	signaturesVersionsRequestFieldSha256           = big.NewInt(1 << 3)
 )
 
 type SignaturesVersionsRequest struct {
@@ -409,7 +409,7 @@ type SignaturesVersionsRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	Sha              string  `json:"-" url:"-"`
+	Sha256           string  `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -443,11 +443,11 @@ func (s *SignaturesVersionsRequest) SetLayerName(layerName string) {
 	s.require(signaturesVersionsRequestFieldLayerName)
 }
 
-// SetSha sets the Sha field and marks it as non-optional;
+// SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (s *SignaturesVersionsRequest) SetSha(sha string) {
-	s.Sha = sha
-	s.require(signaturesVersionsRequestFieldSha)
+func (s *SignaturesVersionsRequest) SetSha256(sha256 string) {
+	s.Sha256 = sha256
+	s.require(signaturesVersionsRequestFieldSha256)
 }
 
 type AnalysisVersionsRequestLevel string

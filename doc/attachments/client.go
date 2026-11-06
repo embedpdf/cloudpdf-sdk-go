@@ -81,7 +81,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListAttachmentsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocAttachmentsList200Response, error) {
+) (cloudpdf.DocAttachmentsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,

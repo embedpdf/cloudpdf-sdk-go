@@ -37,7 +37,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListSignaturesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesList200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocSignaturesList200Response
+	var response *cloudpdf.DocSignaturesListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesList200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -87,7 +87,7 @@ func (r *RawClient) Cancel(
 	ctx context.Context,
 	request *doc.CancelSignaturesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesCancel200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesCancelResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -108,7 +108,7 @@ func (r *RawClient) Cancel(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocSignaturesCancel200Response
+	var response *cloudpdf.DocSignaturesCancelResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -127,7 +127,7 @@ func (r *RawClient) Cancel(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesCancel200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesCancelResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -138,7 +138,7 @@ func (r *RawClient) Complete(
 	ctx context.Context,
 	request *doc.DocSignaturesCompleteRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesComplete200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesCompleteResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -159,7 +159,7 @@ func (r *RawClient) Complete(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocSignaturesComplete200Response
+	var response *cloudpdf.DocSignaturesCompleteResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -179,7 +179,7 @@ func (r *RawClient) Complete(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesComplete200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesCompleteResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -190,7 +190,7 @@ func (r *RawClient) Analysis(
 	ctx context.Context,
 	request *doc.AnalysisSignaturesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesAnalysis200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesAnalysisResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -217,7 +217,7 @@ func (r *RawClient) Analysis(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocSignaturesAnalysis200Response
+	var response *cloudpdf.DocSignaturesAnalysisResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -236,7 +236,7 @@ func (r *RawClient) Analysis(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesAnalysis200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesAnalysisResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -247,7 +247,7 @@ func (r *RawClient) Prepare(
 	ctx context.Context,
 	request *doc.PrepareSignaturesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocSignaturesPrepare200Response], error) {
+) (*core.Response[*cloudpdf.DocSignaturesPrepareResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -276,7 +276,7 @@ func (r *RawClient) Prepare(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *cloudpdf.DocSignaturesPrepare200Response
+	var response *cloudpdf.DocSignaturesPrepareResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -296,7 +296,7 @@ func (r *RawClient) Prepare(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocSignaturesPrepare200Response]{
+	return &core.Response[*cloudpdf.DocSignaturesPrepareResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

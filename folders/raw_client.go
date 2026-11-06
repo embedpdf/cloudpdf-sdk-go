@@ -36,7 +36,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *cloudpdf.ListFoldersRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.FoldersList200Response], error) {
+) (*core.Response[*cloudpdf.FoldersListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -58,7 +58,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.FoldersList200Response
+	var response *cloudpdf.FoldersListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -77,7 +77,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.FoldersList200Response]{
+	return &core.Response[*cloudpdf.FoldersListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -88,7 +88,7 @@ func (r *RawClient) Create(
 	ctx context.Context,
 	request *cloudpdf.FoldersCreateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.FoldersCreate200Response], error) {
+) (*core.Response[*cloudpdf.FoldersCreateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -104,7 +104,7 @@ func (r *RawClient) Create(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.FoldersCreate200Response
+	var response *cloudpdf.FoldersCreateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -124,7 +124,7 @@ func (r *RawClient) Create(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.FoldersCreate200Response]{
+	return &core.Response[*cloudpdf.FoldersCreateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -135,7 +135,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *cloudpdf.GetFoldersRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.FoldersGet200Response], error) {
+) (*core.Response[*cloudpdf.FoldersGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -151,7 +151,7 @@ func (r *RawClient) Get(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.FoldersGet200Response
+	var response *cloudpdf.FoldersGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -170,7 +170,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.FoldersGet200Response]{
+	return &core.Response[*cloudpdf.FoldersGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -232,7 +232,7 @@ func (r *RawClient) Update(
 	ctx context.Context,
 	request *cloudpdf.FoldersUpdateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.FoldersUpdate200Response], error) {
+) (*core.Response[*cloudpdf.FoldersUpdateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -249,7 +249,7 @@ func (r *RawClient) Update(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.FoldersUpdate200Response
+	var response *cloudpdf.FoldersUpdateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -269,7 +269,7 @@ func (r *RawClient) Update(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.FoldersUpdate200Response]{
+	return &core.Response[*cloudpdf.FoldersUpdateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

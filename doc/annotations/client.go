@@ -52,7 +52,7 @@ func (c *Client) ListAll(
 	ctx context.Context,
 	request *doc.ListAllAnnotationsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocAnnotationsListAll200Response, error) {
+) (cloudpdf.DocAnnotationsListAllResponse, error) {
 	response, err := c.WithRawResponse.ListAll(
 		ctx,
 		request,
@@ -79,7 +79,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListAnnotationsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocAnnotationsList200Response, error) {
+) (cloudpdf.DocAnnotationsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -111,7 +111,7 @@ func (c *Client) Create(
 	ctx context.Context,
 	request *doc.CreateAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsCreate200Response, error) {
+) (*cloudpdf.DocAnnotationsCreateResponse, error) {
 	response, err := c.WithRawResponse.Create(
 		ctx,
 		request,
@@ -129,7 +129,7 @@ func (c *Client) Create(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	}
 //	client.Doc.Annotations.Delete(
 //	    context.TODO(),
@@ -139,7 +139,7 @@ func (c *Client) Delete(
 	ctx context.Context,
 	request *doc.DeleteAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsDelete200Response, error) {
+) (*cloudpdf.DocAnnotationsDeleteResponse, error) {
 	response, err := c.WithRawResponse.Delete(
 		ctx,
 		request,
@@ -157,7 +157,7 @@ func (c *Client) Delete(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	    Body: map[string]any{
 //	        "key": "value",
 //	    },
@@ -170,7 +170,7 @@ func (c *Client) Update(
 	ctx context.Context,
 	request *doc.UpdateAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsUpdate200Response, error) {
+) (*cloudpdf.DocAnnotationsUpdateResponse, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -188,7 +188,7 @@ func (c *Client) Update(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	}
 //	client.Doc.Annotations.ReadAppearance(
 //	    context.TODO(),
@@ -218,7 +218,7 @@ func (c *Client) ReadAppearance(
 //	    DocID: "docId",
 //	    LayerName: "layerName",
 //	    PageKey: "pageKey",
-//	    AnnotKey: "annotKey",
+//	    AnnotationKey: "annotationKey",
 //	}
 //	client.Doc.Annotations.ReadFile(
 //	    context.TODO(),
@@ -290,7 +290,7 @@ func (c *Client) Flatten(
 	ctx context.Context,
 	request *doc.FlattenAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsFlatten200Response, error) {
+) (*cloudpdf.DocAnnotationsFlattenResponse, error) {
 	response, err := c.WithRawResponse.Flatten(
 		ctx,
 		request,
@@ -331,7 +331,7 @@ func (c *Client) Reorder(
 	ctx context.Context,
 	request *doc.DocAnnotationsReorderRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocAnnotationsReorder200Response, error) {
+) (*cloudpdf.DocAnnotationsReorderResponse, error) {
 	response, err := c.WithRawResponse.Reorder(
 		ctx,
 		request,

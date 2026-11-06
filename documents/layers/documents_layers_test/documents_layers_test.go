@@ -90,7 +90,7 @@ func TestDocumentsLayersListWithWireMock(
 	)
 	request := &documents.ListLayersRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 	}
 	_, invocationErr := client.Documents.Layers.List(
 		context.TODO(),
@@ -101,7 +101,7 @@ func TestDocumentsLayersListWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsLayersListWithWireMock", "GET", "/v1/tenants/tenantId/documents/id/layers", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsLayersListWithWireMock", "GET", "/v1/tenants/tenantId/documents/docId/layers", nil, 1)
 }
 
 func TestDocumentsLayersDeleteWithWireMock(
@@ -117,7 +117,7 @@ func TestDocumentsLayersDeleteWithWireMock(
 	)
 	request := &documents.DeleteLayersRequest{
 		TenantID:  "tenantId",
-		ID:        "id",
+		DocID:     "docId",
 		LayerName: "layerName",
 	}
 	invocationErr := client.Documents.Layers.Delete(
@@ -129,5 +129,5 @@ func TestDocumentsLayersDeleteWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsLayersDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId/documents/id/layers/layerName", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsLayersDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId/documents/docId/layers/layerName", nil, 1)
 }

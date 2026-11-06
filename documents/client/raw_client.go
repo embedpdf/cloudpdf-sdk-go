@@ -38,7 +38,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *cloudpdf.ListDocumentsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsList200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -60,7 +60,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.DocumentsList200Response
+	var response *cloudpdf.DocumentsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -79,7 +79,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsList200Response]{
+	return &core.Response[*cloudpdf.DocumentsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -90,7 +90,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *cloudpdf.GetDocumentsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsGet200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -100,13 +100,13 @@ func (r *RawClient) Get(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.DocumentsGet200Response
+	var response *cloudpdf.DocumentsGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -125,7 +125,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsGet200Response]{
+	return &core.Response[*cloudpdf.DocumentsGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -146,7 +146,7 @@ func (r *RawClient) Delete(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -180,7 +180,7 @@ func (r *RawClient) Update(
 	ctx context.Context,
 	request *cloudpdf.DocumentsUpdateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsUpdate200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsUpdateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -190,14 +190,14 @@ func (r *RawClient) Update(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocumentsUpdate200Response
+	var response *cloudpdf.DocumentsUpdateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -217,7 +217,7 @@ func (r *RawClient) Update(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsUpdate200Response]{
+	return &core.Response[*cloudpdf.DocumentsUpdateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -228,7 +228,7 @@ func (r *RawClient) Commit(
 	ctx context.Context,
 	request *cloudpdf.DocumentsCommitRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsCommit200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsCommitResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -238,14 +238,14 @@ func (r *RawClient) Commit(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/commit",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocumentsCommit200Response
+	var response *cloudpdf.DocumentsCommitResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -265,7 +265,7 @@ func (r *RawClient) Commit(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsCommit200Response]{
+	return &core.Response[*cloudpdf.DocumentsCommitResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -286,7 +286,7 @@ func (r *RawClient) Download(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/download",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -332,7 +332,7 @@ func (r *RawClient) Thumbnail(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/thumbnail",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -368,7 +368,7 @@ func (r *RawClient) UploadProxy(
 	ctx context.Context,
 	request *cloudpdf.UploadProxyDocumentsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsUploadProxy200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsUploadProxyResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -378,7 +378,7 @@ func (r *RawClient) UploadProxy(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/upload-proxy",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -393,7 +393,7 @@ func (r *RawClient) UploadProxy(
 	}
 	headers.Set("Content-Type", writer.ContentType())
 
-	var response *cloudpdf.DocumentsUploadProxy200Response
+	var response *cloudpdf.DocumentsUploadProxyResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -413,7 +413,7 @@ func (r *RawClient) UploadProxy(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsUploadProxy200Response]{
+	return &core.Response[*cloudpdf.DocumentsUploadProxyResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -471,7 +471,7 @@ func (r *RawClient) Init(
 	ctx context.Context,
 	request *cloudpdf.DocumentsInitRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsInit200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsInitResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -487,7 +487,7 @@ func (r *RawClient) Init(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocumentsInit200Response
+	var response *cloudpdf.DocumentsInitResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -507,7 +507,7 @@ func (r *RawClient) Init(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsInit200Response]{
+	return &core.Response[*cloudpdf.DocumentsInitResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

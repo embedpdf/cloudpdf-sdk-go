@@ -36,7 +36,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *cloudpdf.ListTenantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TenantsList200Response], error) {
+) (*core.Response[*cloudpdf.TenantsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -55,7 +55,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.TenantsList200Response
+	var response *cloudpdf.TenantsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -74,7 +74,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TenantsList200Response]{
+	return &core.Response[*cloudpdf.TenantsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -85,7 +85,7 @@ func (r *RawClient) Create(
 	ctx context.Context,
 	request *cloudpdf.TenantsCreateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TenantsCreate200Response], error) {
+) (*core.Response[*cloudpdf.TenantsCreateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -98,7 +98,7 @@ func (r *RawClient) Create(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.TenantsCreate200Response
+	var response *cloudpdf.TenantsCreateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -118,7 +118,7 @@ func (r *RawClient) Create(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TenantsCreate200Response]{
+	return &core.Response[*cloudpdf.TenantsCreateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -129,7 +129,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *cloudpdf.GetTenantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TenantsGet200Response], error) {
+) (*core.Response[*cloudpdf.TenantsGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -144,7 +144,7 @@ func (r *RawClient) Get(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.TenantsGet200Response
+	var response *cloudpdf.TenantsGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -163,7 +163,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TenantsGet200Response]{
+	return &core.Response[*cloudpdf.TenantsGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -217,7 +217,7 @@ func (r *RawClient) Update(
 	ctx context.Context,
 	request *cloudpdf.TenantsUpdateRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TenantsUpdate200Response], error) {
+) (*core.Response[*cloudpdf.TenantsUpdateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -233,7 +233,7 @@ func (r *RawClient) Update(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.TenantsUpdate200Response
+	var response *cloudpdf.TenantsUpdateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -253,7 +253,7 @@ func (r *RawClient) Update(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TenantsUpdate200Response]{
+	return &core.Response[*cloudpdf.TenantsUpdateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -352,7 +352,7 @@ func (r *RawClient) Usage(
 	ctx context.Context,
 	request *cloudpdf.UsageTenantsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TenantsUsage200Response], error) {
+) (*core.Response[*cloudpdf.TenantsUsageResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -374,7 +374,7 @@ func (r *RawClient) Usage(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.TenantsUsage200Response
+	var response *cloudpdf.TenantsUsageResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -393,7 +393,7 @@ func (r *RawClient) Usage(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TenantsUsage200Response]{
+	return &core.Response[*cloudpdf.TenantsUsageResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

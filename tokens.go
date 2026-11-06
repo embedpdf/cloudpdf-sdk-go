@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
+	time "time"
 )
 
 var (
@@ -49,17 +50,17 @@ func (i *IssueTokensRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
-	tokensRevokeRequestFieldTenantID         = big.NewInt(1 << 0)
-	tokensRevokeRequestFieldJti              = big.NewInt(1 << 1)
-	tokensRevokeRequestFieldReason           = big.NewInt(1 << 2)
-	tokensRevokeRequestFieldExpiresAtSeconds = big.NewInt(1 << 3)
+	tokensRevokeRequestFieldTenantID  = big.NewInt(1 << 0)
+	tokensRevokeRequestFieldJti       = big.NewInt(1 << 1)
+	tokensRevokeRequestFieldReason    = big.NewInt(1 << 2)
+	tokensRevokeRequestFieldExpiresAt = big.NewInt(1 << 3)
 )
 
 type TokensRevokeRequest struct {
-	TenantID         string  `json:"-" url:"-"`
-	Jti              string  `json:"-" url:"-"`
-	Reason           *string `json:"reason,omitempty" url:"-"`
-	ExpiresAtSeconds *int    `json:"expiresAtSeconds,omitempty" url:"-"`
+	TenantID  string     `json:"-" url:"-"`
+	Jti       string     `json:"-" url:"-"`
+	Reason    *string    `json:"reason,omitempty" url:"-"`
+	ExpiresAt *time.Time `json:"expiresAt,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93,11 +94,11 @@ func (t *TokensRevokeRequest) SetReason(reason *string) {
 	t.require(tokensRevokeRequestFieldReason)
 }
 
-// SetExpiresAtSeconds sets the ExpiresAtSeconds field and marks it as non-optional;
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensRevokeRequest) SetExpiresAtSeconds(expiresAtSeconds *int) {
-	t.ExpiresAtSeconds = expiresAtSeconds
-	t.require(tokensRevokeRequestFieldExpiresAtSeconds)
+func (t *TokensRevokeRequest) SetExpiresAt(expiresAt *time.Time) {
+	t.ExpiresAt = expiresAt
+	t.require(tokensRevokeRequestFieldExpiresAt)
 }
 
 func (t *TokensRevokeRequest) UnmarshalJSON(data []byte) error {
@@ -114,127 +115,13 @@ func (t *TokensRevokeRequest) MarshalJSON() ([]byte, error) {
 	type embed TokensRevokeRequest
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt,omitempty"`
 	}{
-		embed: embed(*t),
+		embed:     embed(*t),
+		ExpiresAt: internal.NewOptionalDateTime(t.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
 	return json.Marshal(explicitMarshaler)
-}
-
-var (
-	tokensIssue200ResponseFieldToken     = big.NewInt(1 << 0)
-	tokensIssue200ResponseFieldJti       = big.NewInt(1 << 1)
-	tokensIssue200ResponseFieldExpiresAt = big.NewInt(1 << 2)
-)
-
-type TokensIssue200Response struct {
-	Token     string  `json:"token" url:"token"`
-	Jti       string  `json:"jti" url:"jti"`
-	ExpiresAt float64 `json:"expiresAt" url:"expiresAt"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (t *TokensIssue200Response) GetToken() string {
-	if t == nil {
-		return ""
-	}
-	return t.Token
-}
-
-func (t *TokensIssue200Response) GetJti() string {
-	if t == nil {
-		return ""
-	}
-	return t.Jti
-}
-
-func (t *TokensIssue200Response) GetExpiresAt() float64 {
-	if t == nil {
-		return 0
-	}
-	return t.ExpiresAt
-}
-
-func (t *TokensIssue200Response) GetExtraProperties() map[string]interface{} {
-	if t == nil {
-		return nil
-	}
-	return t.extraProperties
-}
-
-func (t *TokensIssue200Response) require(field *big.Int) {
-	if t.explicitFields == nil {
-		t.explicitFields = big.NewInt(0)
-	}
-	t.explicitFields.Or(t.explicitFields, field)
-}
-
-// SetToken sets the Token field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssue200Response) SetToken(token string) {
-	t.Token = token
-	t.require(tokensIssue200ResponseFieldToken)
-}
-
-// SetJti sets the Jti field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssue200Response) SetJti(jti string) {
-	t.Jti = jti
-	t.require(tokensIssue200ResponseFieldJti)
-}
-
-// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssue200Response) SetExpiresAt(expiresAt float64) {
-	t.ExpiresAt = expiresAt
-	t.require(tokensIssue200ResponseFieldExpiresAt)
-}
-
-func (t *TokensIssue200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler TokensIssue200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*t = TokensIssue200Response(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *t)
-	if err != nil {
-		return err
-	}
-	t.extraProperties = extraProperties
-	t.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (t *TokensIssue200Response) MarshalJSON() ([]byte, error) {
-	type embed TokensIssue200Response
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*t),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (t *TokensIssue200Response) String() string {
-	if t == nil {
-		return "<nil>"
-	}
-	if len(t.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(t); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", t)
 }
 
 type TokensIssueRequest struct {
@@ -388,23 +275,23 @@ func (t *TokensIssueRequest) validate() error {
 }
 
 var (
-	tokensIssueRequestDocFieldSub       = big.NewInt(1 << 0)
-	tokensIssueRequestDocFieldDocID     = big.NewInt(1 << 1)
-	tokensIssueRequestDocFieldLayerName = big.NewInt(1 << 2)
-	tokensIssueRequestDocFieldScope     = big.NewInt(1 << 3)
-	tokensIssueRequestDocFieldIdentity  = big.NewInt(1 << 4)
-	tokensIssueRequestDocFieldOrigins   = big.NewInt(1 << 5)
-	tokensIssueRequestDocFieldExpiresIn = big.NewInt(1 << 6)
+	tokensIssueRequestDocFieldSub              = big.NewInt(1 << 0)
+	tokensIssueRequestDocFieldDocID            = big.NewInt(1 << 1)
+	tokensIssueRequestDocFieldLayerName        = big.NewInt(1 << 2)
+	tokensIssueRequestDocFieldScope            = big.NewInt(1 << 3)
+	tokensIssueRequestDocFieldIdentity         = big.NewInt(1 << 4)
+	tokensIssueRequestDocFieldOrigins          = big.NewInt(1 << 5)
+	tokensIssueRequestDocFieldExpiresInSeconds = big.NewInt(1 << 6)
 )
 
 type TokensIssueRequestDoc struct {
-	Sub       string    `json:"sub" url:"sub"`
-	DocID     string    `json:"docId" url:"docId"`
-	LayerName *string   `json:"layerName,omitempty" url:"layerName,omitempty"`
-	Scope     []string  `json:"scope" url:"scope"`
-	Identity  *Identity `json:"identity,omitempty" url:"identity,omitempty"`
-	Origins   []string  `json:"origins,omitempty" url:"origins,omitempty"`
-	ExpiresIn int       `json:"expiresIn" url:"expiresIn"`
+	Sub              string    `json:"sub" url:"sub"`
+	DocID            string    `json:"docId" url:"docId"`
+	LayerName        *string   `json:"layerName,omitempty" url:"layerName,omitempty"`
+	Scope            []string  `json:"scope" url:"scope"`
+	Identity         *Identity `json:"identity,omitempty" url:"identity,omitempty"`
+	Origins          []string  `json:"origins,omitempty" url:"origins,omitempty"`
+	ExpiresInSeconds int       `json:"expiresInSeconds" url:"expiresInSeconds"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -455,11 +342,11 @@ func (t *TokensIssueRequestDoc) GetOrigins() []string {
 	return t.Origins
 }
 
-func (t *TokensIssueRequestDoc) GetExpiresIn() int {
+func (t *TokensIssueRequestDoc) GetExpiresInSeconds() int {
 	if t == nil {
 		return 0
 	}
-	return t.ExpiresIn
+	return t.ExpiresInSeconds
 }
 
 func (t *TokensIssueRequestDoc) GetExtraProperties() map[string]interface{} {
@@ -518,11 +405,11 @@ func (t *TokensIssueRequestDoc) SetOrigins(origins []string) {
 	t.require(tokensIssueRequestDocFieldOrigins)
 }
 
-// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// SetExpiresInSeconds sets the ExpiresInSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestDoc) SetExpiresIn(expiresIn int) {
-	t.ExpiresIn = expiresIn
-	t.require(tokensIssueRequestDocFieldExpiresIn)
+func (t *TokensIssueRequestDoc) SetExpiresInSeconds(expiresInSeconds int) {
+	t.ExpiresInSeconds = expiresInSeconds
+	t.require(tokensIssueRequestDocFieldExpiresInSeconds)
 }
 
 func (t *TokensIssueRequestDoc) UnmarshalJSON(data []byte) error {
@@ -568,15 +455,15 @@ func (t *TokensIssueRequestDoc) String() string {
 }
 
 var (
-	tokensIssueRequestTenantFieldSub       = big.NewInt(1 << 0)
-	tokensIssueRequestTenantFieldScope     = big.NewInt(1 << 1)
-	tokensIssueRequestTenantFieldExpiresIn = big.NewInt(1 << 2)
+	tokensIssueRequestTenantFieldSub              = big.NewInt(1 << 0)
+	tokensIssueRequestTenantFieldScope            = big.NewInt(1 << 1)
+	tokensIssueRequestTenantFieldExpiresInSeconds = big.NewInt(1 << 2)
 )
 
 type TokensIssueRequestTenant struct {
-	Sub       string   `json:"sub" url:"sub"`
-	Scope     []string `json:"scope" url:"scope"`
-	ExpiresIn int      `json:"expiresIn" url:"expiresIn"`
+	Sub              string   `json:"sub" url:"sub"`
+	Scope            []string `json:"scope" url:"scope"`
+	ExpiresInSeconds int      `json:"expiresInSeconds" url:"expiresInSeconds"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -599,11 +486,11 @@ func (t *TokensIssueRequestTenant) GetScope() []string {
 	return t.Scope
 }
 
-func (t *TokensIssueRequestTenant) GetExpiresIn() int {
+func (t *TokensIssueRequestTenant) GetExpiresInSeconds() int {
 	if t == nil {
 		return 0
 	}
-	return t.ExpiresIn
+	return t.ExpiresInSeconds
 }
 
 func (t *TokensIssueRequestTenant) GetExtraProperties() map[string]interface{} {
@@ -634,11 +521,11 @@ func (t *TokensIssueRequestTenant) SetScope(scope []string) {
 	t.require(tokensIssueRequestTenantFieldScope)
 }
 
-// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// SetExpiresInSeconds sets the ExpiresInSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestTenant) SetExpiresIn(expiresIn int) {
-	t.ExpiresIn = expiresIn
-	t.require(tokensIssueRequestTenantFieldExpiresIn)
+func (t *TokensIssueRequestTenant) SetExpiresInSeconds(expiresInSeconds int) {
+	t.ExpiresInSeconds = expiresInSeconds
+	t.require(tokensIssueRequestTenantFieldExpiresInSeconds)
 }
 
 func (t *TokensIssueRequestTenant) UnmarshalJSON(data []byte) error {
@@ -684,24 +571,24 @@ func (t *TokensIssueRequestTenant) String() string {
 }
 
 var (
-	tokensIssueRequestUploadFieldSub       = big.NewInt(1 << 0)
-	tokensIssueRequestUploadFieldFolderID  = big.NewInt(1 << 1)
-	tokensIssueRequestUploadFieldMetadata  = big.NewInt(1 << 2)
-	tokensIssueRequestUploadFieldMaxFiles  = big.NewInt(1 << 3)
-	tokensIssueRequestUploadFieldMaxBytes  = big.NewInt(1 << 4)
-	tokensIssueRequestUploadFieldOrigins   = big.NewInt(1 << 5)
-	tokensIssueRequestUploadFieldExpiresIn = big.NewInt(1 << 6)
+	tokensIssueRequestUploadFieldSub              = big.NewInt(1 << 0)
+	tokensIssueRequestUploadFieldFolderID         = big.NewInt(1 << 1)
+	tokensIssueRequestUploadFieldMetadata         = big.NewInt(1 << 2)
+	tokensIssueRequestUploadFieldMaxFiles         = big.NewInt(1 << 3)
+	tokensIssueRequestUploadFieldMaxBytes         = big.NewInt(1 << 4)
+	tokensIssueRequestUploadFieldOrigins          = big.NewInt(1 << 5)
+	tokensIssueRequestUploadFieldExpiresInSeconds = big.NewInt(1 << 6)
 )
 
 type TokensIssueRequestUpload struct {
 	Sub string `json:"sub" url:"sub"`
 	// A folder id, or root for the top level.
-	FolderID  *string        `json:"folderId,omitempty" url:"folderId,omitempty"`
-	Metadata  map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
-	MaxFiles  *int           `json:"maxFiles,omitempty" url:"maxFiles,omitempty"`
-	MaxBytes  *int           `json:"maxBytes,omitempty" url:"maxBytes,omitempty"`
-	Origins   []string       `json:"origins,omitempty" url:"origins,omitempty"`
-	ExpiresIn int            `json:"expiresIn" url:"expiresIn"`
+	FolderID         *string        `json:"folderId,omitempty" url:"folderId,omitempty"`
+	Metadata         map[string]any `json:"metadata,omitempty" url:"metadata,omitempty"`
+	MaxFiles         *int           `json:"maxFiles,omitempty" url:"maxFiles,omitempty"`
+	MaxBytes         *int           `json:"maxBytes,omitempty" url:"maxBytes,omitempty"`
+	Origins          []string       `json:"origins,omitempty" url:"origins,omitempty"`
+	ExpiresInSeconds int            `json:"expiresInSeconds" url:"expiresInSeconds"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -752,11 +639,11 @@ func (t *TokensIssueRequestUpload) GetOrigins() []string {
 	return t.Origins
 }
 
-func (t *TokensIssueRequestUpload) GetExpiresIn() int {
+func (t *TokensIssueRequestUpload) GetExpiresInSeconds() int {
 	if t == nil {
 		return 0
 	}
-	return t.ExpiresIn
+	return t.ExpiresInSeconds
 }
 
 func (t *TokensIssueRequestUpload) GetExtraProperties() map[string]interface{} {
@@ -815,11 +702,11 @@ func (t *TokensIssueRequestUpload) SetOrigins(origins []string) {
 	t.require(tokensIssueRequestUploadFieldOrigins)
 }
 
-// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// SetExpiresInSeconds sets the ExpiresInSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *TokensIssueRequestUpload) SetExpiresIn(expiresIn int) {
-	t.ExpiresIn = expiresIn
-	t.require(tokensIssueRequestUploadFieldExpiresIn)
+func (t *TokensIssueRequestUpload) SetExpiresInSeconds(expiresInSeconds int) {
+	t.ExpiresInSeconds = expiresInSeconds
+	t.require(tokensIssueRequestUploadFieldExpiresInSeconds)
 }
 
 func (t *TokensIssueRequestUpload) UnmarshalJSON(data []byte) error {
@@ -850,6 +737,130 @@ func (t *TokensIssueRequestUpload) MarshalJSON() ([]byte, error) {
 }
 
 func (t *TokensIssueRequestUpload) String() string {
+	if t == nil {
+		return "<nil>"
+	}
+	if len(t.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(t.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(t); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", t)
+}
+
+var (
+	tokensIssueResponseFieldToken     = big.NewInt(1 << 0)
+	tokensIssueResponseFieldJti       = big.NewInt(1 << 1)
+	tokensIssueResponseFieldExpiresAt = big.NewInt(1 << 2)
+)
+
+type TokensIssueResponse struct {
+	Token     string    `json:"token" url:"token"`
+	Jti       string    `json:"jti" url:"jti"`
+	ExpiresAt time.Time `json:"expiresAt" url:"expiresAt"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (t *TokensIssueResponse) GetToken() string {
+	if t == nil {
+		return ""
+	}
+	return t.Token
+}
+
+func (t *TokensIssueResponse) GetJti() string {
+	if t == nil {
+		return ""
+	}
+	return t.Jti
+}
+
+func (t *TokensIssueResponse) GetExpiresAt() time.Time {
+	if t == nil {
+		return time.Time{}
+	}
+	return t.ExpiresAt
+}
+
+func (t *TokensIssueResponse) GetExtraProperties() map[string]interface{} {
+	if t == nil {
+		return nil
+	}
+	return t.extraProperties
+}
+
+func (t *TokensIssueResponse) require(field *big.Int) {
+	if t.explicitFields == nil {
+		t.explicitFields = big.NewInt(0)
+	}
+	t.explicitFields.Or(t.explicitFields, field)
+}
+
+// SetToken sets the Token field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueResponse) SetToken(token string) {
+	t.Token = token
+	t.require(tokensIssueResponseFieldToken)
+}
+
+// SetJti sets the Jti field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueResponse) SetJti(jti string) {
+	t.Jti = jti
+	t.require(tokensIssueResponseFieldJti)
+}
+
+// SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (t *TokensIssueResponse) SetExpiresAt(expiresAt time.Time) {
+	t.ExpiresAt = expiresAt
+	t.require(tokensIssueResponseFieldExpiresAt)
+}
+
+func (t *TokensIssueResponse) UnmarshalJSON(data []byte) error {
+	type embed TokensIssueResponse
+	var unmarshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed: embed(*t),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	*t = TokensIssueResponse(unmarshaler.embed)
+	t.ExpiresAt = unmarshaler.ExpiresAt.Time()
+	extraProperties, err := internal.ExtractExtraProperties(data, *t)
+	if err != nil {
+		return err
+	}
+	t.extraProperties = extraProperties
+	t.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (t *TokensIssueResponse) MarshalJSON() ([]byte, error) {
+	type embed TokensIssueResponse
+	var marshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed:     embed(*t),
+		ExpiresAt: internal.NewDateTime(t.ExpiresAt),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, t.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (t *TokensIssueResponse) String() string {
 	if t == nil {
 		return "<nil>"
 	}

@@ -7,6 +7,7 @@ import (
 	fmt "fmt"
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	big "math/big"
+	time "time"
 )
 
 var (
@@ -207,18 +208,18 @@ func (l *ListFoldersRequest) SetParentID(parentID *string) {
 }
 
 var (
-	foldersMoveIntoRequestFieldTenantID    = big.NewInt(1 << 0)
-	foldersMoveIntoRequestFieldFolderID    = big.NewInt(1 << 1)
-	foldersMoveIntoRequestFieldDocumentIDs = big.NewInt(1 << 2)
-	foldersMoveIntoRequestFieldFolderIDs   = big.NewInt(1 << 3)
+	foldersMoveIntoRequestFieldTenantID  = big.NewInt(1 << 0)
+	foldersMoveIntoRequestFieldFolderID  = big.NewInt(1 << 1)
+	foldersMoveIntoRequestFieldDocIDs    = big.NewInt(1 << 2)
+	foldersMoveIntoRequestFieldFolderIDs = big.NewInt(1 << 3)
 )
 
 type FoldersMoveIntoRequest struct {
 	TenantID string `json:"-" url:"-"`
 	// A folder id, or root for the top level.
-	FolderID    string   `json:"-" url:"-"`
-	DocumentIDs []string `json:"documentIds,omitempty" url:"-"`
-	FolderIDs   []string `json:"folderIds,omitempty" url:"-"`
+	FolderID  string   `json:"-" url:"-"`
+	DocIDs    []string `json:"docIds,omitempty" url:"-"`
+	FolderIDs []string `json:"folderIds,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -245,11 +246,11 @@ func (f *FoldersMoveIntoRequest) SetFolderID(folderID string) {
 	f.require(foldersMoveIntoRequestFieldFolderID)
 }
 
-// SetDocumentIDs sets the DocumentIDs field and marks it as non-optional;
+// SetDocIDs sets the DocIDs field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersMoveIntoRequest) SetDocumentIDs(documentIDs []string) {
-	f.DocumentIDs = documentIDs
-	f.require(foldersMoveIntoRequestFieldDocumentIDs)
+func (f *FoldersMoveIntoRequest) SetDocIDs(docIDs []string) {
+	f.DocIDs = docIDs
+	f.require(foldersMoveIntoRequestFieldDocIDs)
 }
 
 // SetFolderIDs sets the FolderIDs field and marks it as non-optional;
@@ -281,11 +282,11 @@ func (f *FoldersMoveIntoRequest) MarshalJSON() ([]byte, error) {
 }
 
 var (
-	foldersCreate200ResponseFieldFolder = big.NewInt(1 << 0)
+	foldersCreateResponseFieldFolder = big.NewInt(1 << 0)
 )
 
-type FoldersCreate200Response struct {
-	Folder *FoldersCreate200ResponseFolder `json:"folder" url:"folder"`
+type FoldersCreateResponse struct {
+	Folder *FoldersCreateResponseFolder `json:"folder" url:"folder"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -294,21 +295,21 @@ type FoldersCreate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersCreate200Response) GetFolder() *FoldersCreate200ResponseFolder {
+func (f *FoldersCreateResponse) GetFolder() *FoldersCreateResponseFolder {
 	if f == nil {
 		return nil
 	}
 	return f.Folder
 }
 
-func (f *FoldersCreate200Response) GetExtraProperties() map[string]interface{} {
+func (f *FoldersCreateResponse) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersCreate200Response) require(field *big.Int) {
+func (f *FoldersCreateResponse) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -317,18 +318,18 @@ func (f *FoldersCreate200Response) require(field *big.Int) {
 
 // SetFolder sets the Folder field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200Response) SetFolder(folder *FoldersCreate200ResponseFolder) {
+func (f *FoldersCreateResponse) SetFolder(folder *FoldersCreateResponseFolder) {
 	f.Folder = folder
-	f.require(foldersCreate200ResponseFieldFolder)
+	f.require(foldersCreateResponseFieldFolder)
 }
 
-func (f *FoldersCreate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersCreate200Response
+func (f *FoldersCreateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler FoldersCreateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FoldersCreate200Response(value)
+	*f = FoldersCreateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -338,8 +339,8 @@ func (f *FoldersCreate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersCreate200Response) MarshalJSON() ([]byte, error) {
-	type embed FoldersCreate200Response
+func (f *FoldersCreateResponse) MarshalJSON() ([]byte, error) {
+	type embed FoldersCreateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -349,7 +350,7 @@ func (f *FoldersCreate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersCreate200Response) String() string {
+func (f *FoldersCreateResponse) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -365,24 +366,24 @@ func (f *FoldersCreate200Response) String() string {
 }
 
 var (
-	foldersCreate200ResponseFolderFieldID        = big.NewInt(1 << 0)
-	foldersCreate200ResponseFolderFieldTenantID  = big.NewInt(1 << 1)
-	foldersCreate200ResponseFolderFieldParentID  = big.NewInt(1 << 2)
-	foldersCreate200ResponseFolderFieldName      = big.NewInt(1 << 3)
-	foldersCreate200ResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
-	foldersCreate200ResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
-	foldersCreate200ResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
+	foldersCreateResponseFolderFieldID        = big.NewInt(1 << 0)
+	foldersCreateResponseFolderFieldTenantID  = big.NewInt(1 << 1)
+	foldersCreateResponseFolderFieldParentID  = big.NewInt(1 << 2)
+	foldersCreateResponseFolderFieldName      = big.NewInt(1 << 3)
+	foldersCreateResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
+	foldersCreateResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
+	foldersCreateResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
 )
 
-type FoldersCreate200ResponseFolder struct {
+type FoldersCreateResponseFolder struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	// The folder it is in, or root.
-	ParentID  string  `json:"parentId" url:"parentId"`
-	Name      string  `json:"name" url:"name"`
-	CreatedAt float64 `json:"createdAt" url:"createdAt"`
-	UpdatedAt float64 `json:"updatedAt" url:"updatedAt"`
-	CreatedBy *string `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ParentID  string    `json:"parentId" url:"parentId"`
+	Name      string    `json:"name" url:"name"`
+	CreatedAt time.Time `json:"createdAt" url:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt" url:"updatedAt"`
+	CreatedBy *string   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -391,63 +392,63 @@ type FoldersCreate200ResponseFolder struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersCreate200ResponseFolder) GetID() string {
+func (f *FoldersCreateResponseFolder) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FoldersCreate200ResponseFolder) GetTenantID() string {
+func (f *FoldersCreateResponseFolder) GetTenantID() string {
 	if f == nil {
 		return ""
 	}
 	return f.TenantID
 }
 
-func (f *FoldersCreate200ResponseFolder) GetParentID() string {
+func (f *FoldersCreateResponseFolder) GetParentID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ParentID
 }
 
-func (f *FoldersCreate200ResponseFolder) GetName() string {
+func (f *FoldersCreateResponseFolder) GetName() string {
 	if f == nil {
 		return ""
 	}
 	return f.Name
 }
 
-func (f *FoldersCreate200ResponseFolder) GetCreatedAt() float64 {
+func (f *FoldersCreateResponseFolder) GetCreatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.CreatedAt
 }
 
-func (f *FoldersCreate200ResponseFolder) GetUpdatedAt() float64 {
+func (f *FoldersCreateResponseFolder) GetUpdatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.UpdatedAt
 }
 
-func (f *FoldersCreate200ResponseFolder) GetCreatedBy() *string {
+func (f *FoldersCreateResponseFolder) GetCreatedBy() *string {
 	if f == nil {
 		return nil
 	}
 	return f.CreatedBy
 }
 
-func (f *FoldersCreate200ResponseFolder) GetExtraProperties() map[string]interface{} {
+func (f *FoldersCreateResponseFolder) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersCreate200ResponseFolder) require(field *big.Int) {
+func (f *FoldersCreateResponseFolder) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -456,60 +457,68 @@ func (f *FoldersCreate200ResponseFolder) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetID(id string) {
+func (f *FoldersCreateResponseFolder) SetID(id string) {
 	f.ID = id
-	f.require(foldersCreate200ResponseFolderFieldID)
+	f.require(foldersCreateResponseFolderFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetTenantID(tenantID string) {
+func (f *FoldersCreateResponseFolder) SetTenantID(tenantID string) {
 	f.TenantID = tenantID
-	f.require(foldersCreate200ResponseFolderFieldTenantID)
+	f.require(foldersCreateResponseFolderFieldTenantID)
 }
 
 // SetParentID sets the ParentID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetParentID(parentID string) {
+func (f *FoldersCreateResponseFolder) SetParentID(parentID string) {
 	f.ParentID = parentID
-	f.require(foldersCreate200ResponseFolderFieldParentID)
+	f.require(foldersCreateResponseFolderFieldParentID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetName(name string) {
+func (f *FoldersCreateResponseFolder) SetName(name string) {
 	f.Name = name
-	f.require(foldersCreate200ResponseFolderFieldName)
+	f.require(foldersCreateResponseFolderFieldName)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetCreatedAt(createdAt float64) {
+func (f *FoldersCreateResponseFolder) SetCreatedAt(createdAt time.Time) {
 	f.CreatedAt = createdAt
-	f.require(foldersCreate200ResponseFolderFieldCreatedAt)
+	f.require(foldersCreateResponseFolderFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetUpdatedAt(updatedAt float64) {
+func (f *FoldersCreateResponseFolder) SetUpdatedAt(updatedAt time.Time) {
 	f.UpdatedAt = updatedAt
-	f.require(foldersCreate200ResponseFolderFieldUpdatedAt)
+	f.require(foldersCreateResponseFolderFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersCreate200ResponseFolder) SetCreatedBy(createdBy *string) {
+func (f *FoldersCreateResponseFolder) SetCreatedBy(createdBy *string) {
 	f.CreatedBy = createdBy
-	f.require(foldersCreate200ResponseFolderFieldCreatedBy)
+	f.require(foldersCreateResponseFolderFieldCreatedBy)
 }
 
-func (f *FoldersCreate200ResponseFolder) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersCreate200ResponseFolder
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (f *FoldersCreateResponseFolder) UnmarshalJSON(data []byte) error {
+	type embed FoldersCreateResponseFolder
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*f),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*f = FoldersCreate200ResponseFolder(value)
+	*f = FoldersCreateResponseFolder(unmarshaler.embed)
+	f.CreatedAt = unmarshaler.CreatedAt.Time()
+	f.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -519,18 +528,22 @@ func (f *FoldersCreate200ResponseFolder) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersCreate200ResponseFolder) MarshalJSON() ([]byte, error) {
-	type embed FoldersCreate200ResponseFolder
+func (f *FoldersCreateResponseFolder) MarshalJSON() ([]byte, error) {
+	type embed FoldersCreateResponseFolder
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*f),
+		embed:     embed(*f),
+		CreatedAt: internal.NewDateTime(f.CreatedAt),
+		UpdatedAt: internal.NewDateTime(f.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersCreate200ResponseFolder) String() string {
+func (f *FoldersCreateResponseFolder) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -546,14 +559,14 @@ func (f *FoldersCreate200ResponseFolder) String() string {
 }
 
 var (
-	foldersGet200ResponseFieldFolder = big.NewInt(1 << 0)
-	foldersGet200ResponseFieldPath   = big.NewInt(1 << 1)
+	foldersGetResponseFieldFolder = big.NewInt(1 << 0)
+	foldersGetResponseFieldPath   = big.NewInt(1 << 1)
 )
 
-type FoldersGet200Response struct {
-	Folder *FoldersGet200ResponseFolder `json:"folder" url:"folder"`
+type FoldersGetResponse struct {
+	Folder *FoldersGetResponseFolder `json:"folder" url:"folder"`
 	// The folders above this one, from the top level down. Neither root nor the folder itself.
-	Path []*FoldersGet200ResponsePathItem `json:"path" url:"path"`
+	Path []*FoldersGetResponsePathItem `json:"path" url:"path"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -562,28 +575,28 @@ type FoldersGet200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersGet200Response) GetFolder() *FoldersGet200ResponseFolder {
+func (f *FoldersGetResponse) GetFolder() *FoldersGetResponseFolder {
 	if f == nil {
 		return nil
 	}
 	return f.Folder
 }
 
-func (f *FoldersGet200Response) GetPath() []*FoldersGet200ResponsePathItem {
+func (f *FoldersGetResponse) GetPath() []*FoldersGetResponsePathItem {
 	if f == nil {
 		return nil
 	}
 	return f.Path
 }
 
-func (f *FoldersGet200Response) GetExtraProperties() map[string]interface{} {
+func (f *FoldersGetResponse) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersGet200Response) require(field *big.Int) {
+func (f *FoldersGetResponse) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -592,25 +605,25 @@ func (f *FoldersGet200Response) require(field *big.Int) {
 
 // SetFolder sets the Folder field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200Response) SetFolder(folder *FoldersGet200ResponseFolder) {
+func (f *FoldersGetResponse) SetFolder(folder *FoldersGetResponseFolder) {
 	f.Folder = folder
-	f.require(foldersGet200ResponseFieldFolder)
+	f.require(foldersGetResponseFieldFolder)
 }
 
 // SetPath sets the Path field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200Response) SetPath(path []*FoldersGet200ResponsePathItem) {
+func (f *FoldersGetResponse) SetPath(path []*FoldersGetResponsePathItem) {
 	f.Path = path
-	f.require(foldersGet200ResponseFieldPath)
+	f.require(foldersGetResponseFieldPath)
 }
 
-func (f *FoldersGet200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersGet200Response
+func (f *FoldersGetResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler FoldersGetResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FoldersGet200Response(value)
+	*f = FoldersGetResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -620,8 +633,8 @@ func (f *FoldersGet200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersGet200Response) MarshalJSON() ([]byte, error) {
-	type embed FoldersGet200Response
+func (f *FoldersGetResponse) MarshalJSON() ([]byte, error) {
+	type embed FoldersGetResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -631,7 +644,7 @@ func (f *FoldersGet200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersGet200Response) String() string {
+func (f *FoldersGetResponse) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -647,24 +660,24 @@ func (f *FoldersGet200Response) String() string {
 }
 
 var (
-	foldersGet200ResponseFolderFieldID        = big.NewInt(1 << 0)
-	foldersGet200ResponseFolderFieldTenantID  = big.NewInt(1 << 1)
-	foldersGet200ResponseFolderFieldParentID  = big.NewInt(1 << 2)
-	foldersGet200ResponseFolderFieldName      = big.NewInt(1 << 3)
-	foldersGet200ResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
-	foldersGet200ResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
-	foldersGet200ResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
+	foldersGetResponseFolderFieldID        = big.NewInt(1 << 0)
+	foldersGetResponseFolderFieldTenantID  = big.NewInt(1 << 1)
+	foldersGetResponseFolderFieldParentID  = big.NewInt(1 << 2)
+	foldersGetResponseFolderFieldName      = big.NewInt(1 << 3)
+	foldersGetResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
+	foldersGetResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
+	foldersGetResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
 )
 
-type FoldersGet200ResponseFolder struct {
+type FoldersGetResponseFolder struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	// The folder it is in, or root.
-	ParentID  string  `json:"parentId" url:"parentId"`
-	Name      string  `json:"name" url:"name"`
-	CreatedAt float64 `json:"createdAt" url:"createdAt"`
-	UpdatedAt float64 `json:"updatedAt" url:"updatedAt"`
-	CreatedBy *string `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ParentID  string    `json:"parentId" url:"parentId"`
+	Name      string    `json:"name" url:"name"`
+	CreatedAt time.Time `json:"createdAt" url:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt" url:"updatedAt"`
+	CreatedBy *string   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -673,63 +686,63 @@ type FoldersGet200ResponseFolder struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersGet200ResponseFolder) GetID() string {
+func (f *FoldersGetResponseFolder) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FoldersGet200ResponseFolder) GetTenantID() string {
+func (f *FoldersGetResponseFolder) GetTenantID() string {
 	if f == nil {
 		return ""
 	}
 	return f.TenantID
 }
 
-func (f *FoldersGet200ResponseFolder) GetParentID() string {
+func (f *FoldersGetResponseFolder) GetParentID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ParentID
 }
 
-func (f *FoldersGet200ResponseFolder) GetName() string {
+func (f *FoldersGetResponseFolder) GetName() string {
 	if f == nil {
 		return ""
 	}
 	return f.Name
 }
 
-func (f *FoldersGet200ResponseFolder) GetCreatedAt() float64 {
+func (f *FoldersGetResponseFolder) GetCreatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.CreatedAt
 }
 
-func (f *FoldersGet200ResponseFolder) GetUpdatedAt() float64 {
+func (f *FoldersGetResponseFolder) GetUpdatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.UpdatedAt
 }
 
-func (f *FoldersGet200ResponseFolder) GetCreatedBy() *string {
+func (f *FoldersGetResponseFolder) GetCreatedBy() *string {
 	if f == nil {
 		return nil
 	}
 	return f.CreatedBy
 }
 
-func (f *FoldersGet200ResponseFolder) GetExtraProperties() map[string]interface{} {
+func (f *FoldersGetResponseFolder) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersGet200ResponseFolder) require(field *big.Int) {
+func (f *FoldersGetResponseFolder) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -738,60 +751,68 @@ func (f *FoldersGet200ResponseFolder) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetID(id string) {
+func (f *FoldersGetResponseFolder) SetID(id string) {
 	f.ID = id
-	f.require(foldersGet200ResponseFolderFieldID)
+	f.require(foldersGetResponseFolderFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetTenantID(tenantID string) {
+func (f *FoldersGetResponseFolder) SetTenantID(tenantID string) {
 	f.TenantID = tenantID
-	f.require(foldersGet200ResponseFolderFieldTenantID)
+	f.require(foldersGetResponseFolderFieldTenantID)
 }
 
 // SetParentID sets the ParentID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetParentID(parentID string) {
+func (f *FoldersGetResponseFolder) SetParentID(parentID string) {
 	f.ParentID = parentID
-	f.require(foldersGet200ResponseFolderFieldParentID)
+	f.require(foldersGetResponseFolderFieldParentID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetName(name string) {
+func (f *FoldersGetResponseFolder) SetName(name string) {
 	f.Name = name
-	f.require(foldersGet200ResponseFolderFieldName)
+	f.require(foldersGetResponseFolderFieldName)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetCreatedAt(createdAt float64) {
+func (f *FoldersGetResponseFolder) SetCreatedAt(createdAt time.Time) {
 	f.CreatedAt = createdAt
-	f.require(foldersGet200ResponseFolderFieldCreatedAt)
+	f.require(foldersGetResponseFolderFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetUpdatedAt(updatedAt float64) {
+func (f *FoldersGetResponseFolder) SetUpdatedAt(updatedAt time.Time) {
 	f.UpdatedAt = updatedAt
-	f.require(foldersGet200ResponseFolderFieldUpdatedAt)
+	f.require(foldersGetResponseFolderFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponseFolder) SetCreatedBy(createdBy *string) {
+func (f *FoldersGetResponseFolder) SetCreatedBy(createdBy *string) {
 	f.CreatedBy = createdBy
-	f.require(foldersGet200ResponseFolderFieldCreatedBy)
+	f.require(foldersGetResponseFolderFieldCreatedBy)
 }
 
-func (f *FoldersGet200ResponseFolder) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersGet200ResponseFolder
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (f *FoldersGetResponseFolder) UnmarshalJSON(data []byte) error {
+	type embed FoldersGetResponseFolder
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*f),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*f = FoldersGet200ResponseFolder(value)
+	*f = FoldersGetResponseFolder(unmarshaler.embed)
+	f.CreatedAt = unmarshaler.CreatedAt.Time()
+	f.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -801,18 +822,22 @@ func (f *FoldersGet200ResponseFolder) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersGet200ResponseFolder) MarshalJSON() ([]byte, error) {
-	type embed FoldersGet200ResponseFolder
+func (f *FoldersGetResponseFolder) MarshalJSON() ([]byte, error) {
+	type embed FoldersGetResponseFolder
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*f),
+		embed:     embed(*f),
+		CreatedAt: internal.NewDateTime(f.CreatedAt),
+		UpdatedAt: internal.NewDateTime(f.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersGet200ResponseFolder) String() string {
+func (f *FoldersGetResponseFolder) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -828,11 +853,11 @@ func (f *FoldersGet200ResponseFolder) String() string {
 }
 
 var (
-	foldersGet200ResponsePathItemFieldID   = big.NewInt(1 << 0)
-	foldersGet200ResponsePathItemFieldName = big.NewInt(1 << 1)
+	foldersGetResponsePathItemFieldID   = big.NewInt(1 << 0)
+	foldersGetResponsePathItemFieldName = big.NewInt(1 << 1)
 )
 
-type FoldersGet200ResponsePathItem struct {
+type FoldersGetResponsePathItem struct {
 	ID   string `json:"id" url:"id"`
 	Name string `json:"name" url:"name"`
 
@@ -843,28 +868,28 @@ type FoldersGet200ResponsePathItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersGet200ResponsePathItem) GetID() string {
+func (f *FoldersGetResponsePathItem) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FoldersGet200ResponsePathItem) GetName() string {
+func (f *FoldersGetResponsePathItem) GetName() string {
 	if f == nil {
 		return ""
 	}
 	return f.Name
 }
 
-func (f *FoldersGet200ResponsePathItem) GetExtraProperties() map[string]interface{} {
+func (f *FoldersGetResponsePathItem) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersGet200ResponsePathItem) require(field *big.Int) {
+func (f *FoldersGetResponsePathItem) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -873,25 +898,25 @@ func (f *FoldersGet200ResponsePathItem) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponsePathItem) SetID(id string) {
+func (f *FoldersGetResponsePathItem) SetID(id string) {
 	f.ID = id
-	f.require(foldersGet200ResponsePathItemFieldID)
+	f.require(foldersGetResponsePathItemFieldID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersGet200ResponsePathItem) SetName(name string) {
+func (f *FoldersGetResponsePathItem) SetName(name string) {
 	f.Name = name
-	f.require(foldersGet200ResponsePathItemFieldName)
+	f.require(foldersGetResponsePathItemFieldName)
 }
 
-func (f *FoldersGet200ResponsePathItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersGet200ResponsePathItem
+func (f *FoldersGetResponsePathItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler FoldersGetResponsePathItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FoldersGet200ResponsePathItem(value)
+	*f = FoldersGetResponsePathItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -901,8 +926,8 @@ func (f *FoldersGet200ResponsePathItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersGet200ResponsePathItem) MarshalJSON() ([]byte, error) {
-	type embed FoldersGet200ResponsePathItem
+func (f *FoldersGetResponsePathItem) MarshalJSON() ([]byte, error) {
+	type embed FoldersGetResponsePathItem
 	var marshaler = struct {
 		embed
 	}{
@@ -912,7 +937,7 @@ func (f *FoldersGet200ResponsePathItem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersGet200ResponsePathItem) String() string {
+func (f *FoldersGetResponsePathItem) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -928,13 +953,13 @@ func (f *FoldersGet200ResponsePathItem) String() string {
 }
 
 var (
-	foldersList200ResponseFieldFolders    = big.NewInt(1 << 0)
-	foldersList200ResponseFieldNextCursor = big.NewInt(1 << 1)
+	foldersListResponseFieldFolders    = big.NewInt(1 << 0)
+	foldersListResponseFieldNextCursor = big.NewInt(1 << 1)
 )
 
-type FoldersList200Response struct {
-	Folders    []*FoldersList200ResponseFoldersItem `json:"folders" url:"folders"`
-	NextCursor *string                              `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+type FoldersListResponse struct {
+	Folders    []*FoldersListResponseFoldersItem `json:"folders" url:"folders"`
+	NextCursor *string                           `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -943,28 +968,28 @@ type FoldersList200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersList200Response) GetFolders() []*FoldersList200ResponseFoldersItem {
+func (f *FoldersListResponse) GetFolders() []*FoldersListResponseFoldersItem {
 	if f == nil {
 		return nil
 	}
 	return f.Folders
 }
 
-func (f *FoldersList200Response) GetNextCursor() *string {
+func (f *FoldersListResponse) GetNextCursor() *string {
 	if f == nil {
 		return nil
 	}
 	return f.NextCursor
 }
 
-func (f *FoldersList200Response) GetExtraProperties() map[string]interface{} {
+func (f *FoldersListResponse) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersList200Response) require(field *big.Int) {
+func (f *FoldersListResponse) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -973,25 +998,25 @@ func (f *FoldersList200Response) require(field *big.Int) {
 
 // SetFolders sets the Folders field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200Response) SetFolders(folders []*FoldersList200ResponseFoldersItem) {
+func (f *FoldersListResponse) SetFolders(folders []*FoldersListResponseFoldersItem) {
 	f.Folders = folders
-	f.require(foldersList200ResponseFieldFolders)
+	f.require(foldersListResponseFieldFolders)
 }
 
 // SetNextCursor sets the NextCursor field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200Response) SetNextCursor(nextCursor *string) {
+func (f *FoldersListResponse) SetNextCursor(nextCursor *string) {
 	f.NextCursor = nextCursor
-	f.require(foldersList200ResponseFieldNextCursor)
+	f.require(foldersListResponseFieldNextCursor)
 }
 
-func (f *FoldersList200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersList200Response
+func (f *FoldersListResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler FoldersListResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FoldersList200Response(value)
+	*f = FoldersListResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -1001,8 +1026,8 @@ func (f *FoldersList200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersList200Response) MarshalJSON() ([]byte, error) {
-	type embed FoldersList200Response
+func (f *FoldersListResponse) MarshalJSON() ([]byte, error) {
+	type embed FoldersListResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1012,7 +1037,7 @@ func (f *FoldersList200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersList200Response) String() string {
+func (f *FoldersListResponse) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -1028,24 +1053,24 @@ func (f *FoldersList200Response) String() string {
 }
 
 var (
-	foldersList200ResponseFoldersItemFieldID        = big.NewInt(1 << 0)
-	foldersList200ResponseFoldersItemFieldTenantID  = big.NewInt(1 << 1)
-	foldersList200ResponseFoldersItemFieldParentID  = big.NewInt(1 << 2)
-	foldersList200ResponseFoldersItemFieldName      = big.NewInt(1 << 3)
-	foldersList200ResponseFoldersItemFieldCreatedAt = big.NewInt(1 << 4)
-	foldersList200ResponseFoldersItemFieldUpdatedAt = big.NewInt(1 << 5)
-	foldersList200ResponseFoldersItemFieldCreatedBy = big.NewInt(1 << 6)
+	foldersListResponseFoldersItemFieldID        = big.NewInt(1 << 0)
+	foldersListResponseFoldersItemFieldTenantID  = big.NewInt(1 << 1)
+	foldersListResponseFoldersItemFieldParentID  = big.NewInt(1 << 2)
+	foldersListResponseFoldersItemFieldName      = big.NewInt(1 << 3)
+	foldersListResponseFoldersItemFieldCreatedAt = big.NewInt(1 << 4)
+	foldersListResponseFoldersItemFieldUpdatedAt = big.NewInt(1 << 5)
+	foldersListResponseFoldersItemFieldCreatedBy = big.NewInt(1 << 6)
 )
 
-type FoldersList200ResponseFoldersItem struct {
+type FoldersListResponseFoldersItem struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	// The folder it is in, or root.
-	ParentID  string  `json:"parentId" url:"parentId"`
-	Name      string  `json:"name" url:"name"`
-	CreatedAt float64 `json:"createdAt" url:"createdAt"`
-	UpdatedAt float64 `json:"updatedAt" url:"updatedAt"`
-	CreatedBy *string `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ParentID  string    `json:"parentId" url:"parentId"`
+	Name      string    `json:"name" url:"name"`
+	CreatedAt time.Time `json:"createdAt" url:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt" url:"updatedAt"`
+	CreatedBy *string   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1054,63 +1079,63 @@ type FoldersList200ResponseFoldersItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetID() string {
+func (f *FoldersListResponseFoldersItem) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetTenantID() string {
+func (f *FoldersListResponseFoldersItem) GetTenantID() string {
 	if f == nil {
 		return ""
 	}
 	return f.TenantID
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetParentID() string {
+func (f *FoldersListResponseFoldersItem) GetParentID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ParentID
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetName() string {
+func (f *FoldersListResponseFoldersItem) GetName() string {
 	if f == nil {
 		return ""
 	}
 	return f.Name
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetCreatedAt() float64 {
+func (f *FoldersListResponseFoldersItem) GetCreatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.CreatedAt
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetUpdatedAt() float64 {
+func (f *FoldersListResponseFoldersItem) GetUpdatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.UpdatedAt
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetCreatedBy() *string {
+func (f *FoldersListResponseFoldersItem) GetCreatedBy() *string {
 	if f == nil {
 		return nil
 	}
 	return f.CreatedBy
 }
 
-func (f *FoldersList200ResponseFoldersItem) GetExtraProperties() map[string]interface{} {
+func (f *FoldersListResponseFoldersItem) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersList200ResponseFoldersItem) require(field *big.Int) {
+func (f *FoldersListResponseFoldersItem) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -1119,60 +1144,68 @@ func (f *FoldersList200ResponseFoldersItem) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetID(id string) {
+func (f *FoldersListResponseFoldersItem) SetID(id string) {
 	f.ID = id
-	f.require(foldersList200ResponseFoldersItemFieldID)
+	f.require(foldersListResponseFoldersItemFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetTenantID(tenantID string) {
+func (f *FoldersListResponseFoldersItem) SetTenantID(tenantID string) {
 	f.TenantID = tenantID
-	f.require(foldersList200ResponseFoldersItemFieldTenantID)
+	f.require(foldersListResponseFoldersItemFieldTenantID)
 }
 
 // SetParentID sets the ParentID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetParentID(parentID string) {
+func (f *FoldersListResponseFoldersItem) SetParentID(parentID string) {
 	f.ParentID = parentID
-	f.require(foldersList200ResponseFoldersItemFieldParentID)
+	f.require(foldersListResponseFoldersItemFieldParentID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetName(name string) {
+func (f *FoldersListResponseFoldersItem) SetName(name string) {
 	f.Name = name
-	f.require(foldersList200ResponseFoldersItemFieldName)
+	f.require(foldersListResponseFoldersItemFieldName)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetCreatedAt(createdAt float64) {
+func (f *FoldersListResponseFoldersItem) SetCreatedAt(createdAt time.Time) {
 	f.CreatedAt = createdAt
-	f.require(foldersList200ResponseFoldersItemFieldCreatedAt)
+	f.require(foldersListResponseFoldersItemFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetUpdatedAt(updatedAt float64) {
+func (f *FoldersListResponseFoldersItem) SetUpdatedAt(updatedAt time.Time) {
 	f.UpdatedAt = updatedAt
-	f.require(foldersList200ResponseFoldersItemFieldUpdatedAt)
+	f.require(foldersListResponseFoldersItemFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersList200ResponseFoldersItem) SetCreatedBy(createdBy *string) {
+func (f *FoldersListResponseFoldersItem) SetCreatedBy(createdBy *string) {
 	f.CreatedBy = createdBy
-	f.require(foldersList200ResponseFoldersItemFieldCreatedBy)
+	f.require(foldersListResponseFoldersItemFieldCreatedBy)
 }
 
-func (f *FoldersList200ResponseFoldersItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersList200ResponseFoldersItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (f *FoldersListResponseFoldersItem) UnmarshalJSON(data []byte) error {
+	type embed FoldersListResponseFoldersItem
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*f),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*f = FoldersList200ResponseFoldersItem(value)
+	*f = FoldersListResponseFoldersItem(unmarshaler.embed)
+	f.CreatedAt = unmarshaler.CreatedAt.Time()
+	f.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -1182,18 +1215,22 @@ func (f *FoldersList200ResponseFoldersItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersList200ResponseFoldersItem) MarshalJSON() ([]byte, error) {
-	type embed FoldersList200ResponseFoldersItem
+func (f *FoldersListResponseFoldersItem) MarshalJSON() ([]byte, error) {
+	type embed FoldersListResponseFoldersItem
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*f),
+		embed:     embed(*f),
+		CreatedAt: internal.NewDateTime(f.CreatedAt),
+		UpdatedAt: internal.NewDateTime(f.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersList200ResponseFoldersItem) String() string {
+func (f *FoldersListResponseFoldersItem) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -1209,11 +1246,11 @@ func (f *FoldersList200ResponseFoldersItem) String() string {
 }
 
 var (
-	foldersUpdate200ResponseFieldFolder = big.NewInt(1 << 0)
+	foldersUpdateResponseFieldFolder = big.NewInt(1 << 0)
 )
 
-type FoldersUpdate200Response struct {
-	Folder *FoldersUpdate200ResponseFolder `json:"folder" url:"folder"`
+type FoldersUpdateResponse struct {
+	Folder *FoldersUpdateResponseFolder `json:"folder" url:"folder"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1222,21 +1259,21 @@ type FoldersUpdate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersUpdate200Response) GetFolder() *FoldersUpdate200ResponseFolder {
+func (f *FoldersUpdateResponse) GetFolder() *FoldersUpdateResponseFolder {
 	if f == nil {
 		return nil
 	}
 	return f.Folder
 }
 
-func (f *FoldersUpdate200Response) GetExtraProperties() map[string]interface{} {
+func (f *FoldersUpdateResponse) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersUpdate200Response) require(field *big.Int) {
+func (f *FoldersUpdateResponse) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -1245,18 +1282,18 @@ func (f *FoldersUpdate200Response) require(field *big.Int) {
 
 // SetFolder sets the Folder field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200Response) SetFolder(folder *FoldersUpdate200ResponseFolder) {
+func (f *FoldersUpdateResponse) SetFolder(folder *FoldersUpdateResponseFolder) {
 	f.Folder = folder
-	f.require(foldersUpdate200ResponseFieldFolder)
+	f.require(foldersUpdateResponseFieldFolder)
 }
 
-func (f *FoldersUpdate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersUpdate200Response
+func (f *FoldersUpdateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler FoldersUpdateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*f = FoldersUpdate200Response(value)
+	*f = FoldersUpdateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -1266,8 +1303,8 @@ func (f *FoldersUpdate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersUpdate200Response) MarshalJSON() ([]byte, error) {
-	type embed FoldersUpdate200Response
+func (f *FoldersUpdateResponse) MarshalJSON() ([]byte, error) {
+	type embed FoldersUpdateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1277,7 +1314,7 @@ func (f *FoldersUpdate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersUpdate200Response) String() string {
+func (f *FoldersUpdateResponse) String() string {
 	if f == nil {
 		return "<nil>"
 	}
@@ -1293,24 +1330,24 @@ func (f *FoldersUpdate200Response) String() string {
 }
 
 var (
-	foldersUpdate200ResponseFolderFieldID        = big.NewInt(1 << 0)
-	foldersUpdate200ResponseFolderFieldTenantID  = big.NewInt(1 << 1)
-	foldersUpdate200ResponseFolderFieldParentID  = big.NewInt(1 << 2)
-	foldersUpdate200ResponseFolderFieldName      = big.NewInt(1 << 3)
-	foldersUpdate200ResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
-	foldersUpdate200ResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
-	foldersUpdate200ResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
+	foldersUpdateResponseFolderFieldID        = big.NewInt(1 << 0)
+	foldersUpdateResponseFolderFieldTenantID  = big.NewInt(1 << 1)
+	foldersUpdateResponseFolderFieldParentID  = big.NewInt(1 << 2)
+	foldersUpdateResponseFolderFieldName      = big.NewInt(1 << 3)
+	foldersUpdateResponseFolderFieldCreatedAt = big.NewInt(1 << 4)
+	foldersUpdateResponseFolderFieldUpdatedAt = big.NewInt(1 << 5)
+	foldersUpdateResponseFolderFieldCreatedBy = big.NewInt(1 << 6)
 )
 
-type FoldersUpdate200ResponseFolder struct {
+type FoldersUpdateResponseFolder struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	// The folder it is in, or root.
-	ParentID  string  `json:"parentId" url:"parentId"`
-	Name      string  `json:"name" url:"name"`
-	CreatedAt float64 `json:"createdAt" url:"createdAt"`
-	UpdatedAt float64 `json:"updatedAt" url:"updatedAt"`
-	CreatedBy *string `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	ParentID  string    `json:"parentId" url:"parentId"`
+	Name      string    `json:"name" url:"name"`
+	CreatedAt time.Time `json:"createdAt" url:"createdAt"`
+	UpdatedAt time.Time `json:"updatedAt" url:"updatedAt"`
+	CreatedBy *string   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1319,63 +1356,63 @@ type FoldersUpdate200ResponseFolder struct {
 	rawJSON         json.RawMessage
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetID() string {
+func (f *FoldersUpdateResponseFolder) GetID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ID
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetTenantID() string {
+func (f *FoldersUpdateResponseFolder) GetTenantID() string {
 	if f == nil {
 		return ""
 	}
 	return f.TenantID
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetParentID() string {
+func (f *FoldersUpdateResponseFolder) GetParentID() string {
 	if f == nil {
 		return ""
 	}
 	return f.ParentID
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetName() string {
+func (f *FoldersUpdateResponseFolder) GetName() string {
 	if f == nil {
 		return ""
 	}
 	return f.Name
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetCreatedAt() float64 {
+func (f *FoldersUpdateResponseFolder) GetCreatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.CreatedAt
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetUpdatedAt() float64 {
+func (f *FoldersUpdateResponseFolder) GetUpdatedAt() time.Time {
 	if f == nil {
-		return 0
+		return time.Time{}
 	}
 	return f.UpdatedAt
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetCreatedBy() *string {
+func (f *FoldersUpdateResponseFolder) GetCreatedBy() *string {
 	if f == nil {
 		return nil
 	}
 	return f.CreatedBy
 }
 
-func (f *FoldersUpdate200ResponseFolder) GetExtraProperties() map[string]interface{} {
+func (f *FoldersUpdateResponseFolder) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
 	}
 	return f.extraProperties
 }
 
-func (f *FoldersUpdate200ResponseFolder) require(field *big.Int) {
+func (f *FoldersUpdateResponseFolder) require(field *big.Int) {
 	if f.explicitFields == nil {
 		f.explicitFields = big.NewInt(0)
 	}
@@ -1384,60 +1421,68 @@ func (f *FoldersUpdate200ResponseFolder) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetID(id string) {
+func (f *FoldersUpdateResponseFolder) SetID(id string) {
 	f.ID = id
-	f.require(foldersUpdate200ResponseFolderFieldID)
+	f.require(foldersUpdateResponseFolderFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetTenantID(tenantID string) {
+func (f *FoldersUpdateResponseFolder) SetTenantID(tenantID string) {
 	f.TenantID = tenantID
-	f.require(foldersUpdate200ResponseFolderFieldTenantID)
+	f.require(foldersUpdateResponseFolderFieldTenantID)
 }
 
 // SetParentID sets the ParentID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetParentID(parentID string) {
+func (f *FoldersUpdateResponseFolder) SetParentID(parentID string) {
 	f.ParentID = parentID
-	f.require(foldersUpdate200ResponseFolderFieldParentID)
+	f.require(foldersUpdateResponseFolderFieldParentID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetName(name string) {
+func (f *FoldersUpdateResponseFolder) SetName(name string) {
 	f.Name = name
-	f.require(foldersUpdate200ResponseFolderFieldName)
+	f.require(foldersUpdateResponseFolderFieldName)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetCreatedAt(createdAt float64) {
+func (f *FoldersUpdateResponseFolder) SetCreatedAt(createdAt time.Time) {
 	f.CreatedAt = createdAt
-	f.require(foldersUpdate200ResponseFolderFieldCreatedAt)
+	f.require(foldersUpdateResponseFolderFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetUpdatedAt(updatedAt float64) {
+func (f *FoldersUpdateResponseFolder) SetUpdatedAt(updatedAt time.Time) {
 	f.UpdatedAt = updatedAt
-	f.require(foldersUpdate200ResponseFolderFieldUpdatedAt)
+	f.require(foldersUpdateResponseFolderFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FoldersUpdate200ResponseFolder) SetCreatedBy(createdBy *string) {
+func (f *FoldersUpdateResponseFolder) SetCreatedBy(createdBy *string) {
 	f.CreatedBy = createdBy
-	f.require(foldersUpdate200ResponseFolderFieldCreatedBy)
+	f.require(foldersUpdateResponseFolderFieldCreatedBy)
 }
 
-func (f *FoldersUpdate200ResponseFolder) UnmarshalJSON(data []byte) error {
-	type unmarshaler FoldersUpdate200ResponseFolder
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (f *FoldersUpdateResponseFolder) UnmarshalJSON(data []byte) error {
+	type embed FoldersUpdateResponseFolder
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*f),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*f = FoldersUpdate200ResponseFolder(value)
+	*f = FoldersUpdateResponseFolder(unmarshaler.embed)
+	f.CreatedAt = unmarshaler.CreatedAt.Time()
+	f.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *f)
 	if err != nil {
 		return err
@@ -1447,18 +1492,22 @@ func (f *FoldersUpdate200ResponseFolder) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (f *FoldersUpdate200ResponseFolder) MarshalJSON() ([]byte, error) {
-	type embed FoldersUpdate200ResponseFolder
+func (f *FoldersUpdateResponseFolder) MarshalJSON() ([]byte, error) {
+	type embed FoldersUpdateResponseFolder
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*f),
+		embed:     embed(*f),
+		CreatedAt: internal.NewDateTime(f.CreatedAt),
+		UpdatedAt: internal.NewDateTime(f.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (f *FoldersUpdate200ResponseFolder) String() string {
+func (f *FoldersUpdateResponseFolder) String() string {
 	if f == nil {
 		return "<nil>"
 	}

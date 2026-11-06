@@ -212,10 +212,10 @@ func TestDocFormsDeleteWidgetWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.DeleteWidgetFormsRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		PageKey:   "pageKey",
-		AnnotKey:  "annotKey",
+		DocID:         "docId",
+		LayerName:     "layerName",
+		PageKey:       "pageKey",
+		AnnotationKey: "annotationKey",
 	}
 	_, invocationErr := client.Doc.Forms.DeleteWidget(
 		context.TODO(),
@@ -226,7 +226,7 @@ func TestDocFormsDeleteWidgetWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFormsDeleteWidgetWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocFormsDeleteWidgetWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotationKey", nil, 1)
 }
 
 func TestDocFormsUpdateWidgetWithWireMock(
@@ -241,11 +241,11 @@ func TestDocFormsUpdateWidgetWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.DocFormsUpdateWidgetRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		PageKey:   "pageKey",
-		AnnotKey:  "annotKey",
-		Patch:     &cloudpdf.WidgetPatch{},
+		DocID:         "docId",
+		LayerName:     "layerName",
+		PageKey:       "pageKey",
+		AnnotationKey: "annotationKey",
+		Patch:         &cloudpdf.WidgetPatch{},
 	}
 	_, invocationErr := client.Doc.Forms.UpdateWidget(
 		context.TODO(),
@@ -256,7 +256,7 @@ func TestDocFormsUpdateWidgetWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFormsUpdateWidgetWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocFormsUpdateWidgetWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/form/widgets/pageKey/annotationKey", nil, 1)
 }
 
 func TestDocFormsReorderWidgetsWithWireMock(

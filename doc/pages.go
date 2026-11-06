@@ -288,7 +288,7 @@ type DocPagesSetScaleRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string                          `json:"-" url:"-"`
 	Measure *DocPagesSetScaleRequestMeasure `json:"measure,omitempty" url:"-"`
 
@@ -2393,7 +2393,7 @@ type ViewportsPagesRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted

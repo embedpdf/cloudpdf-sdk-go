@@ -15,7 +15,7 @@ var (
 	deleteWidgetFormsRequestFieldDocID            = big.NewInt(1 << 2)
 	deleteWidgetFormsRequestFieldLayerName        = big.NewInt(1 << 3)
 	deleteWidgetFormsRequestFieldPageKey          = big.NewInt(1 << 4)
-	deleteWidgetFormsRequestFieldAnnotKey         = big.NewInt(1 << 5)
+	deleteWidgetFormsRequestFieldAnnotationKey    = big.NewInt(1 << 5)
 )
 
 type DeleteWidgetFormsRequest struct {
@@ -25,10 +25,10 @@ type DeleteWidgetFormsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string `json:"-" url:"-"`
+	AnnotationKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -76,11 +76,11 @@ func (d *DeleteWidgetFormsRequest) SetPageKey(pageKey string) {
 	d.require(deleteWidgetFormsRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeleteWidgetFormsRequest) SetAnnotKey(annotKey string) {
-	d.AnnotKey = annotKey
-	d.require(deleteWidgetFormsRequestFieldAnnotKey)
+func (d *DeleteWidgetFormsRequest) SetAnnotationKey(annotationKey string) {
+	d.AnnotationKey = annotationKey
+	d.require(deleteWidgetFormsRequestFieldAnnotationKey)
 }
 
 var (
@@ -237,7 +237,7 @@ type DocFormsReorderWidgetsRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey  string                 `json:"-" url:"-"`
 	Widgets  []*v3.AnnotationRef    `json:"widgets" url:"-"`
 	Position *v3.AnnotationPosition `json:"position" url:"-"`
@@ -490,7 +490,7 @@ var (
 	docFormsUpdateWidgetRequestFieldDocID            = big.NewInt(1 << 2)
 	docFormsUpdateWidgetRequestFieldLayerName        = big.NewInt(1 << 3)
 	docFormsUpdateWidgetRequestFieldPageKey          = big.NewInt(1 << 4)
-	docFormsUpdateWidgetRequestFieldAnnotKey         = big.NewInt(1 << 5)
+	docFormsUpdateWidgetRequestFieldAnnotationKey    = big.NewInt(1 << 5)
 	docFormsUpdateWidgetRequestFieldPatch            = big.NewInt(1 << 6)
 )
 
@@ -501,11 +501,11 @@ type DocFormsUpdateWidgetRequest struct {
 	IdempotencyKey *string `json:"-" url:"-"`
 	DocID          string  `json:"-" url:"-"`
 	LayerName      string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 	// The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
-	AnnotKey string          `json:"-" url:"-"`
-	Patch    *v3.WidgetPatch `json:"patch" url:"-"`
+	AnnotationKey string          `json:"-" url:"-"`
+	Patch         *v3.WidgetPatch `json:"patch" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -553,11 +553,11 @@ func (d *DocFormsUpdateWidgetRequest) SetPageKey(pageKey string) {
 	d.require(docFormsUpdateWidgetRequestFieldPageKey)
 }
 
-// SetAnnotKey sets the AnnotKey field and marks it as non-optional;
+// SetAnnotationKey sets the AnnotationKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocFormsUpdateWidgetRequest) SetAnnotKey(annotKey string) {
-	d.AnnotKey = annotKey
-	d.require(docFormsUpdateWidgetRequestFieldAnnotKey)
+func (d *DocFormsUpdateWidgetRequest) SetAnnotationKey(annotationKey string) {
+	d.AnnotationKey = annotationKey
+	d.require(docFormsUpdateWidgetRequestFieldAnnotationKey)
 }
 
 // SetPatch sets the Patch field and marks it as non-optional;

@@ -51,7 +51,7 @@ func (c *Client) SetScale(
 	ctx context.Context,
 	request *doc.DocPagesSetScaleRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesSetScale200Response, error) {
+) (*cloudpdf.DocPagesSetScaleResponse, error) {
 	response, err := c.WithRawResponse.SetScale(
 		ctx,
 		request,
@@ -78,7 +78,7 @@ func (c *Client) Viewports(
 	ctx context.Context,
 	request *doc.ViewportsPagesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesViewports200Response, error) {
+) (*cloudpdf.DocPagesViewportsResponse, error) {
 	response, err := c.WithRawResponse.Viewports(
 		ctx,
 		request,
@@ -140,7 +140,7 @@ func (c *Client) Flatten(
 	ctx context.Context,
 	request *doc.FlattenPagesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesFlatten200Response, error) {
+) (*cloudpdf.DocPagesFlattenResponse, error) {
 	response, err := c.WithRawResponse.Flatten(
 		ctx,
 		request,
@@ -169,7 +169,7 @@ func (c *Client) SetName(
 	ctx context.Context,
 	request *doc.SetNamePagesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesSetName200Response, error) {
+) (*cloudpdf.DocPagesSetNameResponse, error) {
 	response, err := c.WithRawResponse.SetName(
 		ctx,
 		request,
@@ -198,7 +198,7 @@ func (c *Client) RemoveName(
 	ctx context.Context,
 	request *doc.RemoveNamePagesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocPagesRemoveName200Response, error) {
+) (*cloudpdf.DocPagesRemoveNameResponse, error) {
 	response, err := c.WithRawResponse.RemoveName(
 		ctx,
 		request,
