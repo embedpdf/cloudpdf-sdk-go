@@ -44798,18 +44798,20 @@ func (f FieldPositionZero) Ptr() *FieldPositionZero {
 var (
 	fontFieldName           = big.NewInt(1 << 0)
 	fontFieldSource         = big.NewInt(1 << 1)
-	fontFieldFamilyName     = big.NewInt(1 << 2)
-	fontFieldWeight         = big.NewInt(1 << 3)
-	fontFieldItalic         = big.NewInt(1 << 4)
-	fontFieldPostScriptName = big.NewInt(1 << 5)
-	fontFieldCanChoose      = big.NewInt(1 << 6)
-	fontFieldRestrictions   = big.NewInt(1 << 7)
-	fontFieldPrograms       = big.NewInt(1 << 8)
+	fontFieldBuiltIn        = big.NewInt(1 << 2)
+	fontFieldFamilyName     = big.NewInt(1 << 3)
+	fontFieldWeight         = big.NewInt(1 << 4)
+	fontFieldItalic         = big.NewInt(1 << 5)
+	fontFieldPostScriptName = big.NewInt(1 << 6)
+	fontFieldCanChoose      = big.NewInt(1 << 7)
+	fontFieldRestrictions   = big.NewInt(1 << 8)
+	fontFieldPrograms       = big.NewInt(1 << 9)
 )
 
 type Font struct {
 	Name           string                 `json:"name" url:"name"`
 	Source         FontSource             `json:"source" url:"source"`
+	BuiltIn        bool                   `json:"builtIn" url:"builtIn"`
 	FamilyName     string                 `json:"familyName" url:"familyName"`
 	Weight         int                    `json:"weight" url:"weight"`
 	Italic         bool                   `json:"italic" url:"italic"`
@@ -44837,6 +44839,13 @@ func (f *Font) GetSource() FontSource {
 		return ""
 	}
 	return f.Source
+}
+
+func (f *Font) GetBuiltIn() bool {
+	if f == nil {
+		return false
+	}
+	return f.BuiltIn
 }
 
 func (f *Font) GetFamilyName() string {
@@ -44914,6 +44923,13 @@ func (f *Font) SetName(name string) {
 func (f *Font) SetSource(source FontSource) {
 	f.Source = source
 	f.require(fontFieldSource)
+}
+
+// SetBuiltIn sets the BuiltIn field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *Font) SetBuiltIn(builtIn bool) {
+	f.BuiltIn = builtIn
+	f.require(fontFieldBuiltIn)
 }
 
 // SetFamilyName sets the FamilyName field and marks it as non-optional;

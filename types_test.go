@@ -104291,6 +104291,14 @@ func TestSettersFont(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetBuiltIn", func(t *testing.T) {
+		obj := &Font{}
+		var fernTestValueBuiltIn bool
+		obj.SetBuiltIn(fernTestValueBuiltIn)
+		assert.Equal(t, fernTestValueBuiltIn, obj.BuiltIn)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 	t.Run("SetFamilyName", func(t *testing.T) {
 		obj := &Font{}
 		var fernTestValueFamilyName string
@@ -104394,6 +104402,29 @@ func TestGettersFont(t *testing.T) {
 			}
 		}()
 		_ = obj.GetSource() // Should return zero value
+	})
+
+	t.Run("GetBuiltIn", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &Font{}
+		var expected bool
+		obj.BuiltIn = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetBuiltIn(), "getter should return the property value")
+	})
+
+	t.Run("GetBuiltIn_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *Font
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetBuiltIn() // Should return zero value
 	})
 
 	t.Run("GetFamilyName", func(t *testing.T) {
@@ -104629,6 +104660,37 @@ func TestSettersMarkExplicitFont(t *testing.T) {
 
 		// Act
 		obj.SetSource(fernTestValueSource)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
+	t.Run("SetBuiltIn_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &Font{}
+		var fernTestValueBuiltIn bool
+
+		// Act
+		obj.SetBuiltIn(fernTestValueBuiltIn)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
