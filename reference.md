@@ -69,7 +69,7 @@ client.Deployment.Modules(
 </details>
 
 ## Doc
-<details><summary><code>client.Doc.Head(DocID) -> *cloudpdf.DocHead200Response</code></summary>
+<details><summary><code>client.Doc.Head(DocID) -> *cloudpdf.DocHeadResponse</code></summary>
 <dl>
 <dd>
 
@@ -123,7 +123,7 @@ client.Doc.Head(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Changes(DocID, LayerName, request) -> *cloudpdf.DocChanges200Response</code></summary>
+<details><summary><code>client.Doc.Changes(DocID, LayerName, request) -> *cloudpdf.DocChangesResponse</code></summary>
 <dl>
 <dd>
 
@@ -276,7 +276,7 @@ client.Doc.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.DownloadLink(DocID, LayerName, request) -> *cloudpdf.DocDownloadLink200Response</code></summary>
+<details><summary><code>client.Doc.DownloadLink(DocID, LayerName, request) -> *cloudpdf.DocDownloadLinkResponse</code></summary>
 <dl>
 <dd>
 
@@ -349,7 +349,7 @@ client.Doc.DownloadLink(
 <dl>
 <dd>
 
-**expiresIn:** `*int` 
+**expiresInSeconds:** `*int` 
     
 </dd>
 </dl>
@@ -361,7 +361,7 @@ client.Doc.DownloadLink(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Manifest(DocID, LayerName) -> *cloudpdf.DocManifest200Response</code></summary>
+<details><summary><code>client.Doc.Manifest(DocID, LayerName) -> *cloudpdf.DocManifestResponse</code></summary>
 <dl>
 <dd>
 
@@ -490,7 +490,7 @@ client.Doc.Render(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -510,7 +510,7 @@ client.Doc.Render(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Text(DocID, LayerName, PageKey) -> *cloudpdf.DocText200Response</code></summary>
+<details><summary><code>client.Doc.Text(DocID, LayerName, PageKey) -> *cloudpdf.DocTextResponse</code></summary>
 <dl>
 <dd>
 
@@ -562,7 +562,7 @@ client.Doc.Text(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -583,7 +583,7 @@ client.Doc.Text(
 </details>
 
 ## Grants
-<details><summary><code>client.Grants.Exchange(request) -> *cloudpdf.GrantsExchange200Response</code></summary>
+<details><summary><code>client.Grants.Exchange(request) -> *cloudpdf.GrantsExchangeResponse</code></summary>
 <dl>
 <dd>
 
@@ -675,7 +675,7 @@ client.Grants.Exchange(
 </dl>
 </details>
 
-<details><summary><code>client.Grants.List(TenantID) -> *cloudpdf.GrantsList200Response</code></summary>
+<details><summary><code>client.Grants.List(TenantID) -> *cloudpdf.GrantsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -753,7 +753,7 @@ client.Grants.List(
 </dl>
 </details>
 
-<details><summary><code>client.Grants.Create(TenantID, request) -> *cloudpdf.GrantsCreate200Response</code></summary>
+<details><summary><code>client.Grants.Create(TenantID, request) -> *cloudpdf.GrantsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -909,7 +909,7 @@ client.Grants.Create(
 <dl>
 <dd>
 
-**expiresAt:** `*int` 
+**expiresAt:** `*time.Time` 
     
 </dd>
 </dl>
@@ -921,7 +921,7 @@ client.Grants.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Grants.Get(TenantID, GrantID) -> *cloudpdf.GrantsGet200Response</code></summary>
+<details><summary><code>client.Grants.Get(TenantID, GrantID) -> *cloudpdf.GrantsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1031,7 +1031,7 @@ client.Grants.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Grants.Update(TenantID, GrantID, request) -> *cloudpdf.GrantsUpdate200Response</code></summary>
+<details><summary><code>client.Grants.Update(TenantID, GrantID, request) -> *cloudpdf.GrantsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1178,7 +1178,7 @@ client.Grants.Update(
 <dl>
 <dd>
 
-**expiresAt:** `*int` 
+**expiresAt:** `*time.Time` 
     
 </dd>
 </dl>
@@ -1190,7 +1190,7 @@ client.Grants.Update(
 </dl>
 </details>
 
-<details><summary><code>client.Grants.Archive(TenantID, GrantID) -> *cloudpdf.GrantsArchive200Response</code></summary>
+<details><summary><code>client.Grants.Archive(TenantID, GrantID) -> *cloudpdf.GrantsArchiveResponse</code></summary>
 <dl>
 <dd>
 
@@ -1260,7 +1260,7 @@ client.Grants.Archive(
 </details>
 
 ## Tenants
-<details><summary><code>client.Tenants.List() -> *cloudpdf.TenantsList200Response</code></summary>
+<details><summary><code>client.Tenants.List() -> *cloudpdf.TenantsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1312,7 +1312,7 @@ client.Tenants.List(
 </dl>
 </details>
 
-<details><summary><code>client.Tenants.Create(request) -> *cloudpdf.TenantsCreate200Response</code></summary>
+<details><summary><code>client.Tenants.Create(request) -> *cloudpdf.TenantsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1366,7 +1366,7 @@ client.Tenants.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Tenants.Get(TenantID) -> *cloudpdf.TenantsGet200Response</code></summary>
+<details><summary><code>client.Tenants.Get(TenantID) -> *cloudpdf.TenantsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1472,7 +1472,7 @@ client.Tenants.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Tenants.Update(TenantID, request) -> *cloudpdf.TenantsUpdate200Response</code></summary>
+<details><summary><code>client.Tenants.Update(TenantID, request) -> *cloudpdf.TenantsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1659,7 +1659,7 @@ client.Tenants.Suspend(
 </dl>
 </details>
 
-<details><summary><code>client.Tenants.Usage(TenantID) -> *cloudpdf.TenantsUsage200Response</code></summary>
+<details><summary><code>client.Tenants.Usage(TenantID) -> *cloudpdf.TenantsUsageResponse</code></summary>
 <dl>
 <dd>
 
@@ -1744,7 +1744,7 @@ client.Tenants.Usage(
 </details>
 
 ## Documents
-<details><summary><code>client.Documents.List(TenantID) -> *cloudpdf.DocumentsList200Response</code></summary>
+<details><summary><code>client.Documents.List(TenantID) -> *cloudpdf.DocumentsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -1846,7 +1846,7 @@ client.Documents.List(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Get(TenantID, ID) -> *cloudpdf.DocumentsGet200Response</code></summary>
+<details><summary><code>client.Documents.Get(TenantID, DocID) -> *cloudpdf.DocumentsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -1861,7 +1861,7 @@ client.Documents.List(
 ```go
 request := &cloudpdf.GetDocumentsRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
 }
 client.Documents.Get(
     context.TODO(),
@@ -1889,7 +1889,7 @@ client.Documents.Get(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -1901,7 +1901,7 @@ client.Documents.Get(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Delete(TenantID, ID) -> error</code></summary>
+<details><summary><code>client.Documents.Delete(TenantID, DocID) -> error</code></summary>
 <dl>
 <dd>
 
@@ -1916,7 +1916,7 @@ client.Documents.Get(
 ```go
 request := &cloudpdf.DeleteDocumentsRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
 }
 client.Documents.Delete(
     context.TODO(),
@@ -1944,7 +1944,7 @@ client.Documents.Delete(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -1956,7 +1956,7 @@ client.Documents.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Update(TenantID, ID, request) -> *cloudpdf.DocumentsUpdate200Response</code></summary>
+<details><summary><code>client.Documents.Update(TenantID, DocID, request) -> *cloudpdf.DocumentsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -1985,7 +1985,7 @@ A document that is being deleted answers 404.
 ```go
 request := &cloudpdf.DocumentsUpdateRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
     Name: "name",
 }
 client.Documents.Update(
@@ -2014,7 +2014,7 @@ client.Documents.Update(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -2034,7 +2034,7 @@ client.Documents.Update(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Commit(TenantID, ID, request) -> *cloudpdf.DocumentsCommit200Response</code></summary>
+<details><summary><code>client.Documents.Commit(TenantID, DocID, request) -> *cloudpdf.DocumentsCommitResponse</code></summary>
 <dl>
 <dd>
 
@@ -2063,7 +2063,7 @@ An upload token commits only the documents it started; any other document answer
 ```go
 request := &cloudpdf.DocumentsCommitRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
     Sha256: "sha256",
 }
 client.Documents.Commit(
@@ -2092,7 +2092,7 @@ client.Documents.Commit(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -2112,7 +2112,7 @@ client.Documents.Commit(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Download(TenantID, ID) -> string</code></summary>
+<details><summary><code>client.Documents.Download(TenantID, DocID) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2127,7 +2127,7 @@ client.Documents.Commit(
 ```go
 request := &cloudpdf.DownloadDocumentsRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
 }
 client.Documents.Download(
     context.TODO(),
@@ -2155,7 +2155,7 @@ client.Documents.Download(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -2167,7 +2167,7 @@ client.Documents.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Thumbnail(TenantID, ID) -> string</code></summary>
+<details><summary><code>client.Documents.Thumbnail(TenantID, DocID) -> string</code></summary>
 <dl>
 <dd>
 
@@ -2182,7 +2182,7 @@ client.Documents.Download(
 ```go
 request := &cloudpdf.ThumbnailDocumentsRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
 }
 client.Documents.Thumbnail(
     context.TODO(),
@@ -2210,7 +2210,7 @@ client.Documents.Thumbnail(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -2222,7 +2222,7 @@ client.Documents.Thumbnail(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.UploadProxy(TenantID, ID, request) -> *cloudpdf.DocumentsUploadProxy200Response</code></summary>
+<details><summary><code>client.Documents.UploadProxy(TenantID, DocID, request) -> *cloudpdf.DocumentsUploadProxyResponse</code></summary>
 <dl>
 <dd>
 
@@ -2251,7 +2251,7 @@ This bounded origin-mediated fallback must only be used after documents.init ret
 ```go
 request := &cloudpdf.UploadProxyDocumentsRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
     File: strings.NewReader(
         "",
     ),
@@ -2282,7 +2282,7 @@ client.Documents.UploadProxy(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -2431,7 +2431,7 @@ client.Documents.ImportFrom(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Init(TenantID, request) -> *cloudpdf.DocumentsInit200Response</code></summary>
+<details><summary><code>client.Documents.Init(TenantID, request) -> *cloudpdf.DocumentsInitResponse</code></summary>
 <dl>
 <dd>
 
@@ -2443,7 +2443,7 @@ client.Documents.ImportFrom(
 <dl>
 <dd>
 
-With an upload token, the document goes into the token's folder with the token's metadata, whatever the request says; contentLength must be within the token's maxBytes, and the token makes at most maxFiles documents (403 after). docId, idempotencyKey and dedupMode reuse-existing are refused (400): each could reach a document the token didn't make.
+With an upload token, the document goes into the token's folder with the token's metadata, whatever the request says; sizeBytes must be within the token's maxBytes, and the token makes at most maxFiles documents (403 after). docId, idempotencyKey and dedupMode reuse-existing are refused (400): each could reach a document the token didn't make.
 </dd>
 </dl>
 </dd>
@@ -2460,7 +2460,7 @@ With an upload token, the document goes into the token's folder with the token's
 ```go
 request := &cloudpdf.DocumentsInitRequest{
     TenantID: "tenantId",
-    ContentLength: 1.1,
+    SizeBytes: 1,
     ContentSha256: "contentSha256",
 }
 client.Documents.Init(
@@ -2489,7 +2489,7 @@ client.Documents.Init(
 <dl>
 <dd>
 
-**contentLength:** `float64` 
+**sizeBytes:** `int` 
     
 </dd>
 </dl>
@@ -2553,7 +2553,7 @@ client.Documents.Init(
 <dl>
 <dd>
 
-**uploadTTLSec:** `*float64` 
+**uploadTTLSeconds:** `*int` 
     
 </dd>
 </dl>
@@ -2574,7 +2574,7 @@ client.Documents.Init(
 </details>
 
 ## Folders
-<details><summary><code>client.Folders.List(TenantID) -> *cloudpdf.FoldersList200Response</code></summary>
+<details><summary><code>client.Folders.List(TenantID) -> *cloudpdf.FoldersListResponse</code></summary>
 <dl>
 <dd>
 
@@ -2644,7 +2644,7 @@ client.Folders.List(
 </dl>
 </details>
 
-<details><summary><code>client.Folders.Create(TenantID, request) -> *cloudpdf.FoldersCreate200Response</code></summary>
+<details><summary><code>client.Folders.Create(TenantID, request) -> *cloudpdf.FoldersCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -2721,7 +2721,7 @@ client.Folders.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Folders.Get(TenantID, FolderID) -> *cloudpdf.FoldersGet200Response</code></summary>
+<details><summary><code>client.Folders.Get(TenantID, FolderID) -> *cloudpdf.FoldersGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -2853,7 +2853,7 @@ client.Folders.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Folders.Update(TenantID, FolderID, request) -> *cloudpdf.FoldersUpdate200Response</code></summary>
+<details><summary><code>client.Folders.Update(TenantID, FolderID, request) -> *cloudpdf.FoldersUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -2943,7 +2943,7 @@ client.Folders.Update(
 <dl>
 <dd>
 
-Up to 1,000 ids in total. A folder moves with everything in it. 404 NotFound names the ids that do not exist or are being deleted in `details.documentIds` and `details.folderIds`. 409 Conflict carries `details.reason`: `cycle` (the destination is a moved folder or inside one; `details.folderId`), `too-deep` (the move would nest folders deeper than 100 levels; `details.maxDepth`) or `name-taken` (a moved folder's name is taken in the destination, ignoring case; `details.name`).
+Up to 1,000 ids in total. A folder moves with everything in it. 404 NotFound names the ids that do not exist or are being deleted in `details.docIds` and `details.folderIds`. 409 Conflict carries `details.reason`: `cycle` (the destination is a moved folder or inside one; `details.folderId`), `too-deep` (the move would nest folders deeper than 100 levels; `details.maxDepth`) or `name-taken` (a moved folder's name is taken in the destination, ignoring case; `details.name`).
 </dd>
 </dl>
 </dd>
@@ -2996,7 +2996,7 @@ client.Folders.MoveInto(
 <dl>
 <dd>
 
-**documentIDs:** `[]string` 
+**docIDs:** `[]string` 
     
 </dd>
 </dl>
@@ -3017,7 +3017,7 @@ client.Folders.MoveInto(
 </details>
 
 ## Tokens
-<details><summary><code>client.Tokens.Issue(TenantID, request) -> *cloudpdf.TokensIssue200Response</code></summary>
+<details><summary><code>client.Tokens.Issue(TenantID, request) -> *cloudpdf.TokensIssueResponse</code></summary>
 <dl>
 <dd>
 
@@ -3053,7 +3053,7 @@ request := &cloudpdf.IssueTokensRequest{
             Scope: []string{
                 "scope",
             },
-            ExpiresIn: 1,
+            ExpiresInSeconds: 1,
         },
     },
 }
@@ -3168,7 +3168,7 @@ client.Tokens.Revoke(
 <dl>
 <dd>
 
-**expiresAtSeconds:** `*int` 
+**expiresAt:** `*time.Time` 
     
 </dd>
 </dl>
@@ -3181,7 +3181,7 @@ client.Tokens.Revoke(
 </details>
 
 ## Doc Annotations
-<details><summary><code>client.Doc.Annotations.ListAll(DocID, LayerName) -> cloudpdf.DocAnnotationsListAll200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.ListAll(DocID, LayerName) -> cloudpdf.DocAnnotationsListAllResponse</code></summary>
 <dl>
 <dd>
 
@@ -3258,7 +3258,7 @@ client.Doc.Annotations.ListAll(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.List(DocID, LayerName, PageKey) -> cloudpdf.DocAnnotationsList200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.List(DocID, LayerName, PageKey) -> cloudpdf.DocAnnotationsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -3310,7 +3310,7 @@ client.Doc.Annotations.List(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3330,7 +3330,7 @@ client.Doc.Annotations.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Create(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsCreate200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Create(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsCreateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3399,7 +3399,7 @@ client.Doc.Annotations.Create(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3435,7 +3435,7 @@ client.Doc.Annotations.Create(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Delete(DocID, LayerName, PageKey, AnnotKey) -> *cloudpdf.DocAnnotationsDelete200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Delete(DocID, LayerName, PageKey, AnnotationKey) -> *cloudpdf.DocAnnotationsDeleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -3452,7 +3452,7 @@ request := &doc.DeleteAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
 }
 client.Doc.Annotations.Delete(
     context.TODO(),
@@ -3488,7 +3488,7 @@ client.Doc.Annotations.Delete(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3496,7 +3496,7 @@ client.Doc.Annotations.Delete(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -3524,7 +3524,7 @@ client.Doc.Annotations.Delete(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Update(DocID, LayerName, PageKey, AnnotKey, request) -> *cloudpdf.DocAnnotationsUpdate200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Update(DocID, LayerName, PageKey, AnnotationKey, request) -> *cloudpdf.DocAnnotationsUpdateResponse</code></summary>
 <dl>
 <dd>
 
@@ -3541,7 +3541,7 @@ request := &doc.UpdateAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
     Body: map[string]any{
         "key": "value",
     },
@@ -3580,7 +3580,7 @@ client.Doc.Annotations.Update(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3588,7 +3588,7 @@ client.Doc.Annotations.Update(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -3624,7 +3624,7 @@ client.Doc.Annotations.Update(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.ReadAppearance(DocID, LayerName, PageKey, AnnotKey) -> string</code></summary>
+<details><summary><code>client.Doc.Annotations.ReadAppearance(DocID, LayerName, PageKey, AnnotationKey) -> string</code></summary>
 <dl>
 <dd>
 
@@ -3641,7 +3641,7 @@ request := &doc.ReadAppearanceAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
 }
 client.Doc.Annotations.ReadAppearance(
     context.TODO(),
@@ -3677,7 +3677,7 @@ client.Doc.Annotations.ReadAppearance(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3685,7 +3685,7 @@ client.Doc.Annotations.ReadAppearance(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -3705,7 +3705,7 @@ client.Doc.Annotations.ReadAppearance(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.ReadFile(DocID, LayerName, PageKey, AnnotKey) -> string</code></summary>
+<details><summary><code>client.Doc.Annotations.ReadFile(DocID, LayerName, PageKey, AnnotationKey) -> string</code></summary>
 <dl>
 <dd>
 
@@ -3736,7 +3736,7 @@ request := &doc.ReadFileAnnotationsRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
 }
 client.Doc.Annotations.ReadFile(
     context.TODO(),
@@ -3772,7 +3772,7 @@ client.Doc.Annotations.ReadFile(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3780,7 +3780,7 @@ client.Doc.Annotations.ReadFile(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -3857,7 +3857,7 @@ client.Doc.Annotations.ExportAppearance(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3885,7 +3885,7 @@ client.Doc.Annotations.ExportAppearance(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Flatten(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsFlatten200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Flatten(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsFlattenResponse</code></summary>
 <dl>
 <dd>
 
@@ -3940,7 +3940,7 @@ client.Doc.Annotations.Flatten(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -3976,7 +3976,7 @@ client.Doc.Annotations.Flatten(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Annotations.Reorder(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsReorder200Response</code></summary>
+<details><summary><code>client.Doc.Annotations.Reorder(DocID, LayerName, PageKey, request) -> *cloudpdf.DocAnnotationsReorderResponse</code></summary>
 <dl>
 <dd>
 
@@ -4042,7 +4042,7 @@ client.Doc.Annotations.Reorder(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -4173,7 +4173,7 @@ client.Doc.Attachments.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Attachments.List(DocID, LayerName) -> cloudpdf.DocAttachmentsList200Response</code></summary>
+<details><summary><code>client.Doc.Attachments.List(DocID, LayerName) -> cloudpdf.DocAttachmentsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4251,7 +4251,7 @@ client.Doc.Attachments.List(
 </details>
 
 ## Doc Fonts
-<details><summary><code>client.Doc.Fonts.List(DocID, LayerName) -> cloudpdf.DocFontsList200Response</code></summary>
+<details><summary><code>client.Doc.Fonts.List(DocID, LayerName) -> cloudpdf.DocFontsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4314,7 +4314,7 @@ client.Doc.Fonts.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Fonts.Resolve(DocID, LayerName, request) -> cloudpdf.DocFontsResolve200Response</code></summary>
+<details><summary><code>client.Doc.Fonts.Resolve(DocID, LayerName, request) -> cloudpdf.DocFontsResolveResponse</code></summary>
 <dl>
 <dd>
 
@@ -4393,7 +4393,7 @@ client.Doc.Fonts.Resolve(
 </details>
 
 ## Doc Forms
-<details><summary><code>client.Doc.Forms.List(DocID, LayerName) -> *cloudpdf.DocFormsList200Response</code></summary>
+<details><summary><code>client.Doc.Forms.List(DocID, LayerName) -> *cloudpdf.DocFormsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -4456,7 +4456,7 @@ client.Doc.Forms.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.ReorderCalculations(DocID, LayerName, request) -> *cloudpdf.DocFormsReorderCalculations200Response</code></summary>
+<details><summary><code>client.Doc.Forms.ReorderCalculations(DocID, LayerName, request) -> *cloudpdf.DocFormsReorderCalculationsResponse</code></summary>
 <dl>
 <dd>
 
@@ -4553,7 +4553,7 @@ client.Doc.Forms.ReorderCalculations(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.SetValue(DocID, LayerName, FieldKey, request) -> *cloudpdf.DocFormsSetValue200Response</code></summary>
+<details><summary><code>client.Doc.Forms.SetValue(DocID, LayerName, FieldKey, request) -> *cloudpdf.DocFormsSetValueResponse</code></summary>
 <dl>
 <dd>
 
@@ -4644,7 +4644,7 @@ client.Doc.Forms.SetValue(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.Reset(DocID, LayerName, request) -> *cloudpdf.DocFormsReset200Response</code></summary>
+<details><summary><code>client.Doc.Forms.Reset(DocID, LayerName, request) -> *cloudpdf.DocFormsResetResponse</code></summary>
 <dl>
 <dd>
 
@@ -4723,7 +4723,7 @@ client.Doc.Forms.Reset(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.DeleteWidget(DocID, LayerName, PageKey, AnnotKey) -> *cloudpdf.DocFormsDeleteWidget200Response</code></summary>
+<details><summary><code>client.Doc.Forms.DeleteWidget(DocID, LayerName, PageKey, AnnotationKey) -> *cloudpdf.DocFormsDeleteWidgetResponse</code></summary>
 <dl>
 <dd>
 
@@ -4740,7 +4740,7 @@ request := &doc.DeleteWidgetFormsRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
 }
 client.Doc.Forms.DeleteWidget(
     context.TODO(),
@@ -4776,7 +4776,7 @@ client.Doc.Forms.DeleteWidget(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -4784,7 +4784,7 @@ client.Doc.Forms.DeleteWidget(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -4812,7 +4812,7 @@ client.Doc.Forms.DeleteWidget(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.UpdateWidget(DocID, LayerName, PageKey, AnnotKey, request) -> *cloudpdf.DocFormsUpdateWidget200Response</code></summary>
+<details><summary><code>client.Doc.Forms.UpdateWidget(DocID, LayerName, PageKey, AnnotationKey, request) -> *cloudpdf.DocFormsUpdateWidgetResponse</code></summary>
 <dl>
 <dd>
 
@@ -4829,7 +4829,7 @@ request := &doc.DocFormsUpdateWidgetRequest{
     DocID: "docId",
     LayerName: "layerName",
     PageKey: "pageKey",
-    AnnotKey: "annotKey",
+    AnnotationKey: "annotationKey",
     Patch: &cloudpdf.WidgetPatch{},
 }
 client.Doc.Forms.UpdateWidget(
@@ -4866,7 +4866,7 @@ client.Doc.Forms.UpdateWidget(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -4874,7 +4874,7 @@ client.Doc.Forms.UpdateWidget(
 <dl>
 <dd>
 
-**annotKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
+**annotationKey:** `string` — The annotation's address on the page: `obj:N`, its indirect object number, or `base:N` for an annotation the uploaded file stored inline (without an object number of its own), the position it was born at in the page's /Annots. The name the annotation's `ref` carries for life.
     
 </dd>
 </dl>
@@ -4910,7 +4910,7 @@ client.Doc.Forms.UpdateWidget(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Forms.ReorderWidgets(DocID, LayerName, PageKey, request) -> *cloudpdf.DocFormsReorderWidgets200Response</code></summary>
+<details><summary><code>client.Doc.Forms.ReorderWidgets(DocID, LayerName, PageKey, request) -> *cloudpdf.DocFormsReorderWidgetsResponse</code></summary>
 <dl>
 <dd>
 
@@ -4976,7 +4976,7 @@ client.Doc.Forms.ReorderWidgets(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -5021,7 +5021,7 @@ client.Doc.Forms.ReorderWidgets(
 </details>
 
 ## Doc Metadata
-<details><summary><code>client.Doc.Metadata.Get(DocID, LayerName) -> cloudpdf.DocMetadataGet200Response</code></summary>
+<details><summary><code>client.Doc.Metadata.Get(DocID, LayerName) -> cloudpdf.DocMetadataGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -5085,7 +5085,7 @@ client.Doc.Metadata.Get(
 </details>
 
 ## Doc Outline
-<details><summary><code>client.Doc.Outline.Get(DocID, LayerName) -> cloudpdf.DocOutlineGet200Response</code></summary>
+<details><summary><code>client.Doc.Outline.Get(DocID, LayerName) -> cloudpdf.DocOutlineGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -5149,7 +5149,7 @@ client.Doc.Outline.Get(
 </details>
 
 ## Doc Pages
-<details><summary><code>client.Doc.Pages.SetScale(DocID, LayerName, PageKey, request) -> *cloudpdf.DocPagesSetScale200Response</code></summary>
+<details><summary><code>client.Doc.Pages.SetScale(DocID, LayerName, PageKey, request) -> *cloudpdf.DocPagesSetScaleResponse</code></summary>
 <dl>
 <dd>
 
@@ -5201,7 +5201,7 @@ client.Doc.Pages.SetScale(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -5237,7 +5237,7 @@ client.Doc.Pages.SetScale(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Pages.Viewports(DocID, LayerName, PageKey) -> *cloudpdf.DocPagesViewports200Response</code></summary>
+<details><summary><code>client.Doc.Pages.Viewports(DocID, LayerName, PageKey) -> *cloudpdf.DocPagesViewportsResponse</code></summary>
 <dl>
 <dd>
 
@@ -5289,7 +5289,7 @@ client.Doc.Pages.Viewports(
 <dl>
 <dd>
 
-**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+**pageKey:** `string` — The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
     
 </dd>
 </dl>
@@ -5399,7 +5399,7 @@ client.Doc.Pages.Extract(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Pages.Flatten(DocID, LayerName, request) -> *cloudpdf.DocPagesFlatten200Response</code></summary>
+<details><summary><code>client.Doc.Pages.Flatten(DocID, LayerName, request) -> *cloudpdf.DocPagesFlattenResponse</code></summary>
 <dl>
 <dd>
 
@@ -5481,7 +5481,7 @@ client.Doc.Pages.Flatten(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Pages.SetName(DocID, LayerName, request) -> *cloudpdf.DocPagesSetName200Response</code></summary>
+<details><summary><code>client.Doc.Pages.SetName(DocID, LayerName, request) -> *cloudpdf.DocPagesSetNameResponse</code></summary>
 <dl>
 <dd>
 
@@ -5563,7 +5563,7 @@ client.Doc.Pages.SetName(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Pages.RemoveName(DocID, LayerName, request) -> *cloudpdf.DocPagesRemoveName200Response</code></summary>
+<details><summary><code>client.Doc.Pages.RemoveName(DocID, LayerName, request) -> *cloudpdf.DocPagesRemoveNameResponse</code></summary>
 <dl>
 <dd>
 
@@ -5646,7 +5646,7 @@ client.Doc.Pages.RemoveName(
 </details>
 
 ## Doc Redactions
-<details><summary><code>client.Doc.Redactions.Apply(DocID, LayerName, request) -> *cloudpdf.DocRedactionsApply200Response</code></summary>
+<details><summary><code>client.Doc.Redactions.Apply(DocID, LayerName, request) -> *cloudpdf.DocRedactionsApplyResponse</code></summary>
 <dl>
 <dd>
 
@@ -5734,7 +5734,7 @@ client.Doc.Redactions.Apply(
 </details>
 
 ## Doc Signatures
-<details><summary><code>client.Doc.Signatures.List(DocID, LayerName) -> *cloudpdf.DocSignaturesList200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.List(DocID, LayerName) -> *cloudpdf.DocSignaturesListResponse</code></summary>
 <dl>
 <dd>
 
@@ -5811,7 +5811,7 @@ client.Doc.Signatures.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Signatures.Cancel(DocID, LayerName, SigningID) -> *cloudpdf.DocSignaturesCancel200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.Cancel(DocID, LayerName, SigningID) -> *cloudpdf.DocSignaturesCancelResponse</code></summary>
 <dl>
 <dd>
 
@@ -5883,7 +5883,7 @@ client.Doc.Signatures.Cancel(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Signatures.Complete(DocID, LayerName, SigningID, request) -> *cloudpdf.DocSignaturesComplete200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.Complete(DocID, LayerName, SigningID, request) -> *cloudpdf.DocSignaturesCompleteResponse</code></summary>
 <dl>
 <dd>
 
@@ -5990,7 +5990,7 @@ client.Doc.Signatures.Complete(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Signatures.Analysis(DocID, LayerName) -> *cloudpdf.DocSignaturesAnalysis200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.Analysis(DocID, LayerName) -> *cloudpdf.DocSignaturesAnalysisResponse</code></summary>
 <dl>
 <dd>
 
@@ -6091,7 +6091,7 @@ client.Doc.Signatures.Analysis(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Signatures.Prepare(DocID, LayerName, request) -> *cloudpdf.DocSignaturesPrepare200Response</code></summary>
+<details><summary><code>client.Doc.Signatures.Prepare(DocID, LayerName, request) -> *cloudpdf.DocSignaturesPrepareResponse</code></summary>
 <dl>
 <dd>
 
@@ -6172,7 +6172,7 @@ client.Doc.Signatures.Prepare(
 </details>
 
 ## Doc Versions
-<details><summary><code>client.Doc.Versions.List(DocID, LayerName) -> *cloudpdf.DocVersionsList200Response</code></summary>
+<details><summary><code>client.Doc.Versions.List(DocID, LayerName) -> *cloudpdf.DocVersionsListResponse</code></summary>
 <dl>
 <dd>
 
@@ -6249,7 +6249,7 @@ client.Doc.Versions.List(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Analysis(DocID, LayerName, Sha) -> *cloudpdf.DocVersionsAnalysis200Response</code></summary>
+<details><summary><code>client.Doc.Versions.Analysis(DocID, LayerName, Sha256) -> *cloudpdf.DocVersionsAnalysisResponse</code></summary>
 <dl>
 <dd>
 
@@ -6279,7 +6279,7 @@ Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults
 request := &doc.AnalysisVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
 }
 client.Doc.Versions.Analysis(
     context.TODO(),
@@ -6315,7 +6315,7 @@ client.Doc.Versions.Analysis(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6375,7 +6375,7 @@ client.Doc.Versions.Analysis(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Download(DocID, LayerName, Sha) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.Download(DocID, LayerName, Sha256) -> string</code></summary>
 <dl>
 <dd>
 
@@ -6391,7 +6391,7 @@ client.Doc.Versions.Analysis(
 request := &doc.DownloadVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
 }
 client.Doc.Versions.Download(
     context.TODO(),
@@ -6427,7 +6427,7 @@ client.Doc.Versions.Download(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6447,7 +6447,7 @@ client.Doc.Versions.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Revision(DocID, LayerName, Sha, Index) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.Revision(DocID, LayerName, Sha256, Index) -> string</code></summary>
 <dl>
 <dd>
 
@@ -6463,7 +6463,7 @@ client.Doc.Versions.Download(
 request := &doc.RevisionVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
     Index: 1,
 }
 client.Doc.Versions.Revision(
@@ -6500,7 +6500,7 @@ client.Doc.Versions.Revision(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6528,7 +6528,7 @@ client.Doc.Versions.Revision(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.Signatures(DocID, LayerName, Sha) -> *cloudpdf.DocVersionsSignatures200Response</code></summary>
+<details><summary><code>client.Doc.Versions.Signatures(DocID, LayerName, Sha256) -> *cloudpdf.DocVersionsSignaturesResponse</code></summary>
 <dl>
 <dd>
 
@@ -6544,7 +6544,7 @@ client.Doc.Versions.Revision(
 request := &doc.SignaturesVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
 }
 client.Doc.Versions.Signatures(
     context.TODO(),
@@ -6580,7 +6580,7 @@ client.Doc.Versions.Signatures(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6600,7 +6600,7 @@ client.Doc.Versions.Signatures(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.SignatureContents(DocID, LayerName, Sha, FieldKey) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.SignatureContents(DocID, LayerName, Sha256, FieldKey) -> string</code></summary>
 <dl>
 <dd>
 
@@ -6630,7 +6630,7 @@ client.Doc.Versions.Signatures(
 request := &doc.SignatureContentsVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
     FieldKey: "fieldKey",
 }
 client.Doc.Versions.SignatureContents(
@@ -6667,7 +6667,7 @@ client.Doc.Versions.SignatureContents(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6695,7 +6695,7 @@ client.Doc.Versions.SignatureContents(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Versions.SignatureDigest(DocID, LayerName, Sha, FieldKey, Algorithm) -> string</code></summary>
+<details><summary><code>client.Doc.Versions.SignatureDigest(DocID, LayerName, Sha256, FieldKey, Algorithm) -> string</code></summary>
 <dl>
 <dd>
 
@@ -6725,7 +6725,7 @@ What a CMS verifier compares its message digest to.
 request := &doc.SignatureDigestVersionsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    Sha: "sha",
+    Sha256: "sha256",
     FieldKey: "fieldKey",
     Algorithm: doc.SignatureDigestVersionsRequestAlgorithmSha1,
 }
@@ -6763,7 +6763,7 @@ client.Doc.Versions.SignatureDigest(
 <dl>
 <dd>
 
-**sha:** `string` 
+**sha256:** `string` 
     
 </dd>
 </dl>
@@ -6800,7 +6800,7 @@ client.Doc.Versions.SignatureDigest(
 </details>
 
 ## Doc Fonts Programs
-<details><summary><code>client.Doc.Fonts.Programs.Download(DocID, LayerName, DisplayHash) -> string</code></summary>
+<details><summary><code>client.Doc.Fonts.Programs.Download(DocID, LayerName, DisplaySha256) -> string</code></summary>
 <dl>
 <dd>
 
@@ -6830,7 +6830,7 @@ A document token needs any one of the listed capabilities: one that may write te
 request := &fonts.DownloadProgramsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    DisplayHash: "displayHash",
+    DisplaySha256: "displaySha256",
 }
 client.Doc.Fonts.Programs.Download(
     context.TODO(),
@@ -6866,7 +6866,7 @@ client.Doc.Fonts.Programs.Download(
 <dl>
 <dd>
 
-**displayHash:** `string` 
+**displaySha256:** `string` 
     
 </dd>
 </dl>
@@ -6886,7 +6886,7 @@ client.Doc.Fonts.Programs.Download(
 </dl>
 </details>
 
-<details><summary><code>client.Doc.Fonts.Programs.Get(DocID, LayerName, DisplayHash) -> cloudpdf.DocFontsProgramsGet200Response</code></summary>
+<details><summary><code>client.Doc.Fonts.Programs.Get(DocID, LayerName, DisplaySha256) -> cloudpdf.DocFontsProgramsGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -6902,7 +6902,7 @@ client.Doc.Fonts.Programs.Download(
 request := &fonts.GetProgramsRequest{
     DocID: "docId",
     LayerName: "layerName",
-    DisplayHash: "displayHash",
+    DisplaySha256: "displaySha256",
 }
 client.Doc.Fonts.Programs.Get(
     context.TODO(),
@@ -6938,7 +6938,7 @@ client.Doc.Fonts.Programs.Get(
 <dl>
 <dd>
 
-**displayHash:** `string` 
+**displaySha256:** `string` 
     
 </dd>
 </dl>
@@ -6959,7 +6959,7 @@ client.Doc.Fonts.Programs.Get(
 </details>
 
 ## Doc Metadata Custom
-<details><summary><code>client.Doc.Metadata.Custom.Get(DocID, LayerName) -> cloudpdf.DocMetadataCustomGet200Response</code></summary>
+<details><summary><code>client.Doc.Metadata.Custom.Get(DocID, LayerName) -> cloudpdf.DocMetadataCustomGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -7023,7 +7023,7 @@ client.Doc.Metadata.Custom.Get(
 </details>
 
 ## Documents Layers
-<details><summary><code>client.Documents.Layers.List(TenantID, ID) -> *cloudpdf.DocumentsLayersList200Response</code></summary>
+<details><summary><code>client.Documents.Layers.List(TenantID, DocID) -> *cloudpdf.DocumentsLayersListResponse</code></summary>
 <dl>
 <dd>
 
@@ -7038,7 +7038,7 @@ client.Doc.Metadata.Custom.Get(
 ```go
 request := &documents.ListLayersRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
 }
 client.Documents.Layers.List(
     context.TODO(),
@@ -7066,7 +7066,7 @@ client.Documents.Layers.List(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -7102,7 +7102,7 @@ client.Documents.Layers.List(
 </dl>
 </details>
 
-<details><summary><code>client.Documents.Layers.Delete(TenantID, ID, LayerName) -> error</code></summary>
+<details><summary><code>client.Documents.Layers.Delete(TenantID, DocID, LayerName) -> error</code></summary>
 <dl>
 <dd>
 
@@ -7117,7 +7117,7 @@ client.Documents.Layers.List(
 ```go
 request := &documents.DeleteLayersRequest{
     TenantID: "tenantId",
-    ID: "id",
+    DocID: "docId",
     LayerName: "layerName",
 }
 client.Documents.Layers.Delete(
@@ -7146,7 +7146,7 @@ client.Documents.Layers.Delete(
 <dl>
 <dd>
 
-**id:** `string` 
+**docID:** `string` 
     
 </dd>
 </dl>
@@ -7167,7 +7167,7 @@ client.Documents.Layers.Delete(
 </details>
 
 ## Grants Visitors
-<details><summary><code>client.Grants.Visitors.List(TenantID, GrantID) -> *cloudpdf.GrantsVisitorsList200Response</code></summary>
+<details><summary><code>client.Grants.Visitors.List(TenantID, GrantID) -> *cloudpdf.GrantsVisitorsListResponse</code></summary>
 <dl>
 <dd>
 

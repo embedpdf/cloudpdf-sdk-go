@@ -50,7 +50,7 @@ func (r *RawClient) Download(
 		baseURL+"/v1/docs/%v/layers/%v/font-program-files/%v",
 		request.DocID,
 		request.LayerName,
-		request.DisplayHash,
+		request.DisplaySha256,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -90,7 +90,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *fonts.GetProgramsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocFontsProgramsGet200Response], error) {
+) (*core.Response[cloudpdf.DocFontsProgramsGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -101,7 +101,7 @@ func (r *RawClient) Get(
 		baseURL+"/v1/docs/%v/layers/%v/font-programs/%v",
 		request.DocID,
 		request.LayerName,
-		request.DisplayHash,
+		request.DisplaySha256,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -111,7 +111,7 @@ func (r *RawClient) Get(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocFontsProgramsGet200Response
+	var response cloudpdf.DocFontsProgramsGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -130,7 +130,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocFontsProgramsGet200Response]{
+	return &core.Response[cloudpdf.DocFontsProgramsGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

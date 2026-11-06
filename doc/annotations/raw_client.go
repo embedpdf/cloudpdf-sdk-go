@@ -39,7 +39,7 @@ func (r *RawClient) ListAll(
 	ctx context.Context,
 	request *doc.ListAllAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocAnnotationsListAll200Response], error) {
+) (*core.Response[cloudpdf.DocAnnotationsListAllResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -59,7 +59,7 @@ func (r *RawClient) ListAll(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocAnnotationsListAll200Response
+	var response cloudpdf.DocAnnotationsListAllResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -78,7 +78,7 @@ func (r *RawClient) ListAll(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocAnnotationsListAll200Response]{
+	return &core.Response[cloudpdf.DocAnnotationsListAllResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -89,7 +89,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocAnnotationsList200Response], error) {
+) (*core.Response[cloudpdf.DocAnnotationsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -110,7 +110,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocAnnotationsList200Response
+	var response cloudpdf.DocAnnotationsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -129,7 +129,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocAnnotationsList200Response]{
+	return &core.Response[cloudpdf.DocAnnotationsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -140,7 +140,7 @@ func (r *RawClient) Create(
 	ctx context.Context,
 	request *doc.CreateAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocAnnotationsCreate200Response], error) {
+) (*core.Response[*cloudpdf.DocAnnotationsCreateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -164,7 +164,7 @@ func (r *RawClient) Create(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocAnnotationsCreate200Response
+	var response *cloudpdf.DocAnnotationsCreateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -184,7 +184,7 @@ func (r *RawClient) Create(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocAnnotationsCreate200Response]{
+	return &core.Response[*cloudpdf.DocAnnotationsCreateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -195,7 +195,7 @@ func (r *RawClient) Delete(
 	ctx context.Context,
 	request *doc.DeleteAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocAnnotationsDelete200Response], error) {
+) (*core.Response[*cloudpdf.DocAnnotationsDeleteResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -207,7 +207,7 @@ func (r *RawClient) Delete(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -220,7 +220,7 @@ func (r *RawClient) Delete(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 
-	var response *cloudpdf.DocAnnotationsDelete200Response
+	var response *cloudpdf.DocAnnotationsDeleteResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -239,7 +239,7 @@ func (r *RawClient) Delete(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocAnnotationsDelete200Response]{
+	return &core.Response[*cloudpdf.DocAnnotationsDeleteResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -250,7 +250,7 @@ func (r *RawClient) Update(
 	ctx context.Context,
 	request *doc.UpdateAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocAnnotationsUpdate200Response], error) {
+) (*core.Response[*cloudpdf.DocAnnotationsUpdateResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -262,7 +262,7 @@ func (r *RawClient) Update(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -275,7 +275,7 @@ func (r *RawClient) Update(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocAnnotationsUpdate200Response
+	var response *cloudpdf.DocAnnotationsUpdateResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -295,7 +295,7 @@ func (r *RawClient) Update(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocAnnotationsUpdate200Response]{
+	return &core.Response[*cloudpdf.DocAnnotationsUpdateResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -318,7 +318,7 @@ func (r *RawClient) ReadAppearance(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -370,7 +370,7 @@ func (r *RawClient) ReadFile(
 		request.DocID,
 		request.LayerName,
 		request.PageKey,
-		request.AnnotKey,
+		request.AnnotationKey,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -462,7 +462,7 @@ func (r *RawClient) Flatten(
 	ctx context.Context,
 	request *doc.FlattenAnnotationsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocAnnotationsFlatten200Response], error) {
+) (*core.Response[*cloudpdf.DocAnnotationsFlattenResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -486,7 +486,7 @@ func (r *RawClient) Flatten(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocAnnotationsFlatten200Response
+	var response *cloudpdf.DocAnnotationsFlattenResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -506,7 +506,7 @@ func (r *RawClient) Flatten(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocAnnotationsFlatten200Response]{
+	return &core.Response[*cloudpdf.DocAnnotationsFlattenResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -517,7 +517,7 @@ func (r *RawClient) Reorder(
 	ctx context.Context,
 	request *doc.DocAnnotationsReorderRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocAnnotationsReorder200Response], error) {
+) (*core.Response[*cloudpdf.DocAnnotationsReorderResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -541,7 +541,7 @@ func (r *RawClient) Reorder(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocAnnotationsReorder200Response
+	var response *cloudpdf.DocAnnotationsReorderResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -561,7 +561,7 @@ func (r *RawClient) Reorder(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocAnnotationsReorder200Response]{
+	return &core.Response[*cloudpdf.DocAnnotationsReorderResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

@@ -34,11 +34,11 @@ func TestSettersDownloadProgramsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetDisplayHash", func(t *testing.T) {
+	t.Run("SetDisplaySha256", func(t *testing.T) {
 		obj := &DownloadProgramsRequest{}
-		var fernTestValueDisplayHash string
-		obj.SetDisplayHash(fernTestValueDisplayHash)
-		assert.Equal(t, fernTestValueDisplayHash, obj.DisplayHash)
+		var fernTestValueDisplaySha256 string
+		obj.SetDisplaySha256(fernTestValueDisplaySha256)
+		assert.Equal(t, fernTestValueDisplaySha256, obj.DisplaySha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -138,14 +138,14 @@ func TestSettersMarkExplicitDownloadProgramsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetDisplayHash_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDisplaySha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DownloadProgramsRequest{}
-		var fernTestValueDisplayHash string
+		var fernTestValueDisplaySha256 string
 
 		// Act
-		obj.SetDisplayHash(fernTestValueDisplayHash)
+		obj.SetDisplaySha256(fernTestValueDisplaySha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -196,11 +196,11 @@ func TestSettersGetProgramsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetDisplayHash", func(t *testing.T) {
+	t.Run("SetDisplaySha256", func(t *testing.T) {
 		obj := &GetProgramsRequest{}
-		var fernTestValueDisplayHash string
-		obj.SetDisplayHash(fernTestValueDisplayHash)
-		assert.Equal(t, fernTestValueDisplayHash, obj.DisplayHash)
+		var fernTestValueDisplaySha256 string
+		obj.SetDisplaySha256(fernTestValueDisplaySha256)
+		assert.Equal(t, fernTestValueDisplaySha256, obj.DisplaySha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -300,14 +300,14 @@ func TestSettersMarkExplicitGetProgramsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetDisplayHash_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDisplaySha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &GetProgramsRequest{}
-		var fernTestValueDisplayHash string
+		var fernTestValueDisplaySha256 string
 
 		// Act
-		obj.SetDisplayHash(fernTestValueDisplayHash)
+		obj.SetDisplaySha256(fernTestValueDisplaySha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

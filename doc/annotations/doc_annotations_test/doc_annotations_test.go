@@ -176,10 +176,10 @@ func TestDocAnnotationsDeleteWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.DeleteAnnotationsRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		PageKey:   "pageKey",
-		AnnotKey:  "annotKey",
+		DocID:         "docId",
+		LayerName:     "layerName",
+		PageKey:       "pageKey",
+		AnnotationKey: "annotationKey",
 	}
 	_, invocationErr := client.Doc.Annotations.Delete(
 		context.TODO(),
@@ -190,7 +190,7 @@ func TestDocAnnotationsDeleteWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsDeleteWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsDeleteWithWireMock", "DELETE", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotationKey", nil, 1)
 }
 
 func TestDocAnnotationsUpdateWithWireMock(
@@ -205,10 +205,10 @@ func TestDocAnnotationsUpdateWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &doc.UpdateAnnotationsRequest{
-		DocID:     "docId",
-		LayerName: "layerName",
-		PageKey:   "pageKey",
-		AnnotKey:  "annotKey",
+		DocID:         "docId",
+		LayerName:     "layerName",
+		PageKey:       "pageKey",
+		AnnotationKey: "annotationKey",
 		Body: map[string]any{
 			"key": "value",
 		},
@@ -222,7 +222,7 @@ func TestDocAnnotationsUpdateWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocAnnotationsUpdateWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotKey", nil, 1)
+	VerifyRequestCount(t, "TestDocAnnotationsUpdateWithWireMock", "PATCH", "/v1/docs/docId/layers/layerName/annotations/pages/pageKey/items/annotationKey", nil, 1)
 }
 
 func TestDocAnnotationsFlattenWithWireMock(

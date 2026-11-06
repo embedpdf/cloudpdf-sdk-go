@@ -78,7 +78,7 @@ func (c *Client) Head(
 	ctx context.Context,
 	request *cloudpdf.HeadDocRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocHead200Response, error) {
+) (*cloudpdf.DocHeadResponse, error) {
 	response, err := c.WithRawResponse.Head(
 		ctx,
 		request,
@@ -111,7 +111,7 @@ func (c *Client) Changes(
 	ctx context.Context,
 	request *cloudpdf.DocChangesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocChanges200Response, error) {
+) (*cloudpdf.DocChangesResponse, error) {
 	response, err := c.WithRawResponse.Changes(
 		ctx,
 		request,
@@ -165,7 +165,7 @@ func (c *Client) DownloadLink(
 	ctx context.Context,
 	request *cloudpdf.DocDownloadLinkRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocDownloadLink200Response, error) {
+) (*cloudpdf.DocDownloadLinkResponse, error) {
 	response, err := c.WithRawResponse.DownloadLink(
 		ctx,
 		request,
@@ -191,7 +191,7 @@ func (c *Client) Manifest(
 	ctx context.Context,
 	request *cloudpdf.ManifestDocRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocManifest200Response, error) {
+) (*cloudpdf.DocManifestResponse, error) {
 	response, err := c.WithRawResponse.Manifest(
 		ctx,
 		request,
@@ -247,7 +247,7 @@ func (c *Client) Text(
 	ctx context.Context,
 	request *cloudpdf.TextDocRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocText200Response, error) {
+) (*cloudpdf.DocTextResponse, error) {
 	response, err := c.WithRawResponse.Text(
 		ctx,
 		request,

@@ -37,7 +37,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *documents.ListLayersRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocumentsLayersList200Response], error) {
+) (*core.Response[*cloudpdf.DocumentsLayersListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -47,7 +47,7 @@ func (r *RawClient) List(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/layers",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 	)
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {
@@ -60,7 +60,7 @@ func (r *RawClient) List(
 		r.options.ToHeader(),
 		options.ToHeader(),
 	)
-	var response *cloudpdf.DocumentsLayersList200Response
+	var response *cloudpdf.DocumentsLayersListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -79,7 +79,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocumentsLayersList200Response]{
+	return &core.Response[*cloudpdf.DocumentsLayersListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -100,7 +100,7 @@ func (r *RawClient) Delete(
 	endpointURL := internal.EncodeURL(
 		baseURL+"/v1/tenants/%v/documents/%v/layers/%v",
 		request.TenantID,
-		request.ID,
+		request.DocID,
 		request.LayerName,
 	)
 	headers := internal.MergeHeaders(

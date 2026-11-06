@@ -51,7 +51,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListSignaturesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesList200Response, error) {
+) (*cloudpdf.DocSignaturesListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -78,7 +78,7 @@ func (c *Client) Cancel(
 	ctx context.Context,
 	request *doc.CancelSignaturesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesCancel200Response, error) {
+) (*cloudpdf.DocSignaturesCancelResponse, error) {
 	response, err := c.WithRawResponse.Cancel(
 		ctx,
 		request,
@@ -112,7 +112,7 @@ func (c *Client) Complete(
 	ctx context.Context,
 	request *doc.DocSignaturesCompleteRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesComplete200Response, error) {
+) (*cloudpdf.DocSignaturesCompleteResponse, error) {
 	response, err := c.WithRawResponse.Complete(
 		ctx,
 		request,
@@ -140,7 +140,7 @@ func (c *Client) Analysis(
 	ctx context.Context,
 	request *doc.AnalysisSignaturesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesAnalysis200Response, error) {
+) (*cloudpdf.DocSignaturesAnalysisResponse, error) {
 	response, err := c.WithRawResponse.Analysis(
 		ctx,
 		request,
@@ -171,7 +171,7 @@ func (c *Client) Prepare(
 	ctx context.Context,
 	request *doc.PrepareSignaturesRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocSignaturesPrepare200Response, error) {
+) (*cloudpdf.DocSignaturesPrepareResponse, error) {
 	response, err := c.WithRawResponse.Prepare(
 		ctx,
 		request,

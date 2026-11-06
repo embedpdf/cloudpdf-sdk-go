@@ -52,7 +52,7 @@ func (c *Client) Exchange(
 	ctx context.Context,
 	request *cloudpdf.GrantsExchangeRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsExchange200Response, error) {
+) (*cloudpdf.GrantsExchangeResponse, error) {
 	response, err := c.WithRawResponse.Exchange(
 		ctx,
 		request,
@@ -77,7 +77,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *cloudpdf.ListGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsList200Response, error) {
+) (*cloudpdf.GrantsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -108,7 +108,7 @@ func (c *Client) Create(
 	ctx context.Context,
 	request *cloudpdf.GrantsCreateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsCreate200Response, error) {
+) (*cloudpdf.GrantsCreateResponse, error) {
 	response, err := c.WithRawResponse.Create(
 		ctx,
 		request,
@@ -134,7 +134,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *cloudpdf.GetGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsGet200Response, error) {
+) (*cloudpdf.GrantsGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,
@@ -186,7 +186,7 @@ func (c *Client) Update(
 	ctx context.Context,
 	request *cloudpdf.GrantsUpdateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsUpdate200Response, error) {
+) (*cloudpdf.GrantsUpdateResponse, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -214,7 +214,7 @@ func (c *Client) Archive(
 	ctx context.Context,
 	request *cloudpdf.ArchiveGrantsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsArchive200Response, error) {
+) (*cloudpdf.GrantsArchiveResponse, error) {
 	response, err := c.WithRawResponse.Archive(
 		ctx,
 		request,

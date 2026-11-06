@@ -37,7 +37,7 @@ func (r *RawClient) Apply(
 	ctx context.Context,
 	request *doc.DocRedactionsApplyRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocRedactionsApply200Response], error) {
+) (*core.Response[*cloudpdf.DocRedactionsApplyResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -60,7 +60,7 @@ func (r *RawClient) Apply(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocRedactionsApply200Response
+	var response *cloudpdf.DocRedactionsApplyResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -80,7 +80,7 @@ func (r *RawClient) Apply(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocRedactionsApply200Response]{
+	return &core.Response[*cloudpdf.DocRedactionsApplyResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

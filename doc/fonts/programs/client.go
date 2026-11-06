@@ -43,7 +43,7 @@ func NewClient(options *core.RequestOptions) *Client {
 //	request := &fonts.DownloadProgramsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    DisplayHash: "displayHash",
+//	    DisplaySha256: "displaySha256",
 //	}
 //	client.Doc.Fonts.Programs.Download(
 //	    context.TODO(),
@@ -70,7 +70,7 @@ func (c *Client) Download(
 //	request := &fonts.GetProgramsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    DisplayHash: "displayHash",
+//	    DisplaySha256: "displaySha256",
 //	}
 //	client.Doc.Fonts.Programs.Get(
 //	    context.TODO(),
@@ -80,7 +80,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *fonts.GetProgramsRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocFontsProgramsGet200Response, error) {
+) (cloudpdf.DocFontsProgramsGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,

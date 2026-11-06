@@ -39,7 +39,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListVersionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocVersionsList200Response], error) {
+) (*core.Response[*cloudpdf.DocVersionsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -59,7 +59,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocVersionsList200Response
+	var response *cloudpdf.DocVersionsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -78,7 +78,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocVersionsList200Response]{
+	return &core.Response[*cloudpdf.DocVersionsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -89,7 +89,7 @@ func (r *RawClient) Analysis(
 	ctx context.Context,
 	request *doc.AnalysisVersionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocVersionsAnalysis200Response], error) {
+) (*core.Response[*cloudpdf.DocVersionsAnalysisResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -100,7 +100,7 @@ func (r *RawClient) Analysis(
 		baseURL+"/v1/docs/%v/layers/%v/versions/analysis/%v",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 	)
 	queryParams, err := internal.QueryValues(request)
 	if err != nil {
@@ -117,7 +117,7 @@ func (r *RawClient) Analysis(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocVersionsAnalysis200Response
+	var response *cloudpdf.DocVersionsAnalysisResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -136,7 +136,7 @@ func (r *RawClient) Analysis(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocVersionsAnalysis200Response]{
+	return &core.Response[*cloudpdf.DocVersionsAnalysisResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -158,7 +158,7 @@ func (r *RawClient) Download(
 		baseURL+"/v1/docs/%v/layers/%v/versions/download/%v",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -209,7 +209,7 @@ func (r *RawClient) Revision(
 		baseURL+"/v1/docs/%v/layers/%v/versions/revisions/%v/%v",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 		request.Index,
 	)
 	headers := internal.MergeHeaders(
@@ -250,7 +250,7 @@ func (r *RawClient) Signatures(
 	ctx context.Context,
 	request *doc.SignaturesVersionsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocVersionsSignatures200Response], error) {
+) (*core.Response[*cloudpdf.DocVersionsSignaturesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -261,7 +261,7 @@ func (r *RawClient) Signatures(
 		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 	)
 	headers := internal.MergeHeaders(
 		r.options.ToHeader(),
@@ -271,7 +271,7 @@ func (r *RawClient) Signatures(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocVersionsSignatures200Response
+	var response *cloudpdf.DocVersionsSignaturesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -290,7 +290,7 @@ func (r *RawClient) Signatures(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocVersionsSignatures200Response]{
+	return &core.Response[*cloudpdf.DocVersionsSignaturesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -312,7 +312,7 @@ func (r *RawClient) SignatureContents(
 		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v/%v/contents",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 		request.FieldKey,
 	)
 	headers := internal.MergeHeaders(
@@ -364,7 +364,7 @@ func (r *RawClient) SignatureDigest(
 		baseURL+"/v1/docs/%v/layers/%v/versions/signatures/%v/%v/digest/%v",
 		request.DocID,
 		request.LayerName,
-		request.Sha,
+		request.Sha256,
 		request.FieldKey,
 		request.Algorithm,
 	)

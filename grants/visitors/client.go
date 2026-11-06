@@ -51,7 +51,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *grants.ListVisitorsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.GrantsVisitorsList200Response, error) {
+) (*cloudpdf.GrantsVisitorsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,

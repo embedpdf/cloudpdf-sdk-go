@@ -39,7 +39,7 @@ func (r *RawClient) SetScale(
 	ctx context.Context,
 	request *doc.DocPagesSetScaleRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesSetScale200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesSetScaleResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -63,7 +63,7 @@ func (r *RawClient) SetScale(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocPagesSetScale200Response
+	var response *cloudpdf.DocPagesSetScaleResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -83,7 +83,7 @@ func (r *RawClient) SetScale(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocPagesSetScale200Response]{
+	return &core.Response[*cloudpdf.DocPagesSetScaleResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -94,7 +94,7 @@ func (r *RawClient) Viewports(
 	ctx context.Context,
 	request *doc.ViewportsPagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesViewports200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesViewportsResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -115,7 +115,7 @@ func (r *RawClient) Viewports(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocPagesViewports200Response
+	var response *cloudpdf.DocPagesViewportsResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -134,7 +134,7 @@ func (r *RawClient) Viewports(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocPagesViewports200Response]{
+	return &core.Response[*cloudpdf.DocPagesViewportsResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -196,7 +196,7 @@ func (r *RawClient) Flatten(
 	ctx context.Context,
 	request *doc.FlattenPagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesFlatten200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesFlattenResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -219,7 +219,7 @@ func (r *RawClient) Flatten(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocPagesFlatten200Response
+	var response *cloudpdf.DocPagesFlattenResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -239,7 +239,7 @@ func (r *RawClient) Flatten(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocPagesFlatten200Response]{
+	return &core.Response[*cloudpdf.DocPagesFlattenResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -250,7 +250,7 @@ func (r *RawClient) SetName(
 	ctx context.Context,
 	request *doc.SetNamePagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesSetName200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesSetNameResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -273,7 +273,7 @@ func (r *RawClient) SetName(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocPagesSetName200Response
+	var response *cloudpdf.DocPagesSetNameResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -293,7 +293,7 @@ func (r *RawClient) SetName(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocPagesSetName200Response]{
+	return &core.Response[*cloudpdf.DocPagesSetNameResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -304,7 +304,7 @@ func (r *RawClient) RemoveName(
 	ctx context.Context,
 	request *doc.RemoveNamePagesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocPagesRemoveName200Response], error) {
+) (*core.Response[*cloudpdf.DocPagesRemoveNameResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -327,7 +327,7 @@ func (r *RawClient) RemoveName(
 		headers.Add("Idempotency-Key", *request.IdempotencyKey)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocPagesRemoveName200Response
+	var response *cloudpdf.DocPagesRemoveNameResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -347,7 +347,7 @@ func (r *RawClient) RemoveName(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocPagesRemoveName200Response]{
+	return &core.Response[*cloudpdf.DocPagesRemoveNameResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

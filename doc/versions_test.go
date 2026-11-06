@@ -34,11 +34,11 @@ func TestSettersAnalysisVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &AnalysisVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -178,14 +178,14 @@ func TestSettersMarkExplicitAnalysisVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &AnalysisVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -391,11 +391,11 @@ func TestSettersDownloadVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &DownloadVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -495,14 +495,14 @@ func TestSettersMarkExplicitDownloadVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DownloadVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -676,11 +676,11 @@ func TestSettersRevisionVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &RevisionVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -788,14 +788,14 @@ func TestSettersMarkExplicitRevisionVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &RevisionVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -877,11 +877,11 @@ func TestSettersSignatureContentsVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &SignatureContentsVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -989,14 +989,14 @@ func TestSettersMarkExplicitSignatureContentsVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SignatureContentsVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1078,11 +1078,11 @@ func TestSettersSignatureDigestVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &SignatureDigestVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1198,14 +1198,14 @@ func TestSettersMarkExplicitSignatureDigestVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SignatureDigestVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1318,11 +1318,11 @@ func TestSettersSignaturesVersionsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetSha", func(t *testing.T) {
+	t.Run("SetSha256", func(t *testing.T) {
 		obj := &SignaturesVersionsRequest{}
-		var fernTestValueSha string
-		obj.SetSha(fernTestValueSha)
-		assert.Equal(t, fernTestValueSha, obj.Sha)
+		var fernTestValueSha256 string
+		obj.SetSha256(fernTestValueSha256)
+		assert.Equal(t, fernTestValueSha256, obj.Sha256)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1422,14 +1422,14 @@ func TestSettersMarkExplicitSignaturesVersionsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetSha_MarksExplicit", func(t *testing.T) {
+	t.Run("SetSha256_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &SignaturesVersionsRequest{}
-		var fernTestValueSha string
+		var fernTestValueSha256 string
 
 		// Act
-		obj.SetSha(fernTestValueSha)
+		obj.SetSha256(fernTestValueSha256)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

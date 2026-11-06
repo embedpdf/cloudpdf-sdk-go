@@ -52,7 +52,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *doc.GetMetadataRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocMetadataGet200Response, error) {
+) (cloudpdf.DocMetadataGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,

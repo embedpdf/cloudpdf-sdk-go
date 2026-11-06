@@ -49,7 +49,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *doc.GetOutlineRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocOutlineGet200Response, error) {
+) (cloudpdf.DocOutlineGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,

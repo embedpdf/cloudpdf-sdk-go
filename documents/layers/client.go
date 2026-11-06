@@ -39,7 +39,7 @@ func NewClient(options *core.RequestOptions) *Client {
 //
 //	request := &documents.ListLayersRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	}
 //	client.Documents.Layers.List(
 //	    context.TODO(),
@@ -49,7 +49,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *documents.ListLayersRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsLayersList200Response, error) {
+) (*cloudpdf.DocumentsLayersListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -65,7 +65,7 @@ func (c *Client) List(
 //
 //	request := &documents.DeleteLayersRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	    LayerName: "layerName",
 //	}
 //	client.Documents.Layers.Delete(

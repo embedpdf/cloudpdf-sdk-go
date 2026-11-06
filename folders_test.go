@@ -7,6 +7,7 @@ import (
 	assert "github.com/stretchr/testify/assert"
 	require "github.com/stretchr/testify/require"
 	testing "testing"
+	time "time"
 )
 
 func TestSettersFoldersCreateRequest(t *testing.T) {
@@ -518,11 +519,11 @@ func TestSettersFoldersMoveIntoRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetDocumentIDs", func(t *testing.T) {
+	t.Run("SetDocIDs", func(t *testing.T) {
 		obj := &FoldersMoveIntoRequest{}
-		var fernTestValueDocumentIDs []string
-		obj.SetDocumentIDs(fernTestValueDocumentIDs)
-		assert.Equal(t, fernTestValueDocumentIDs, obj.DocumentIDs)
+		var fernTestValueDocIDs []string
+		obj.SetDocIDs(fernTestValueDocIDs)
+		assert.Equal(t, fernTestValueDocIDs, obj.DocIDs)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -599,14 +600,14 @@ func TestSettersMarkExplicitFoldersMoveIntoRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetDocumentIDs_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocIDs_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &FoldersMoveIntoRequest{}
-		var fernTestValueDocumentIDs []string
+		var fernTestValueDocIDs []string
 
 		// Act
-		obj.SetDocumentIDs(fernTestValueDocumentIDs)
+		obj.SetDocIDs(fernTestValueDocIDs)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -663,10 +664,10 @@ func TestSettersMarkExplicitFoldersMoveIntoRequest(t *testing.T) {
 
 }
 
-func TestSettersFoldersCreate200Response(t *testing.T) {
+func TestSettersFoldersCreateResponse(t *testing.T) {
 	t.Run("SetFolder", func(t *testing.T) {
-		obj := &FoldersCreate200Response{}
-		var fernTestValueFolder *FoldersCreate200ResponseFolder
+		obj := &FoldersCreateResponse{}
+		var fernTestValueFolder *FoldersCreateResponseFolder
 		obj.SetFolder(fernTestValueFolder)
 		assert.Equal(t, fernTestValueFolder, obj.Folder)
 		assert.NotNil(t, obj.explicitFields)
@@ -674,12 +675,12 @@ func TestSettersFoldersCreate200Response(t *testing.T) {
 
 }
 
-func TestGettersFoldersCreate200Response(t *testing.T) {
+func TestGettersFoldersCreateResponse(t *testing.T) {
 	t.Run("GetFolder", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200Response{}
-		var expected *FoldersCreate200ResponseFolder
+		obj := &FoldersCreateResponse{}
+		var expected *FoldersCreateResponseFolder
 		obj.Folder = expected
 
 		// Act & Assert
@@ -689,7 +690,7 @@ func TestGettersFoldersCreate200Response(t *testing.T) {
 	t.Run("GetFolder_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200Response{}
+		obj := &FoldersCreateResponse{}
 		obj.Folder = nil
 
 		// Act & Assert
@@ -698,7 +699,7 @@ func TestGettersFoldersCreate200Response(t *testing.T) {
 
 	t.Run("GetFolder_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200Response
+		var obj *FoldersCreateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -710,12 +711,12 @@ func TestGettersFoldersCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersCreate200Response(t *testing.T) {
+func TestSettersMarkExplicitFoldersCreateResponse(t *testing.T) {
 	t.Run("SetFolder_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200Response{}
-		var fernTestValueFolder *FoldersCreate200ResponseFolder
+		obj := &FoldersCreateResponse{}
+		var fernTestValueFolder *FoldersCreateResponseFolder
 
 		// Act
 		obj.SetFolder(fernTestValueFolder)
@@ -744,9 +745,9 @@ func TestSettersMarkExplicitFoldersCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
+func TestSettersFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -754,7 +755,7 @@ func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -762,7 +763,7 @@ func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetParentID", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueParentID string
 		obj.SetParentID(fernTestValueParentID)
 		assert.Equal(t, fernTestValueParentID, obj.ParentID)
@@ -770,7 +771,7 @@ func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -778,23 +779,23 @@ func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersCreateResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersCreateResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -803,11 +804,11 @@ func TestSettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 }
 
-func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
+func TestGettersFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var expected string
 		obj.ID = expected
 
@@ -817,7 +818,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -830,7 +831,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var expected string
 		obj.TenantID = expected
 
@@ -840,7 +841,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -853,7 +854,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetParentID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var expected string
 		obj.ParentID = expected
 
@@ -863,7 +864,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetParentID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -876,7 +877,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var expected string
 		obj.Name = expected
 
@@ -886,7 +887,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -899,8 +900,8 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
-		var expected float64
+		obj := &FoldersCreateResponseFolder{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -909,7 +910,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -922,8 +923,8 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
-		var expected float64
+		obj := &FoldersCreateResponseFolder{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -932,7 +933,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -945,7 +946,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -956,7 +957,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -965,7 +966,7 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -977,11 +978,11 @@ func TestGettersFoldersCreate200ResponseFolder(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
+func TestSettersMarkExplicitFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueID string
 
 		// Act
@@ -1012,7 +1013,7 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -1043,7 +1044,7 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetParentID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueParentID string
 
 		// Act
@@ -1074,7 +1075,7 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueName string
 
 		// Act
@@ -1105,8 +1106,8 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersCreateResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -1136,8 +1137,8 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersCreateResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -1167,7 +1168,7 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -1197,18 +1198,18 @@ func TestSettersMarkExplicitFoldersCreate200ResponseFolder(t *testing.T) {
 
 }
 
-func TestSettersFoldersGet200Response(t *testing.T) {
+func TestSettersFoldersGetResponse(t *testing.T) {
 	t.Run("SetFolder", func(t *testing.T) {
-		obj := &FoldersGet200Response{}
-		var fernTestValueFolder *FoldersGet200ResponseFolder
+		obj := &FoldersGetResponse{}
+		var fernTestValueFolder *FoldersGetResponseFolder
 		obj.SetFolder(fernTestValueFolder)
 		assert.Equal(t, fernTestValueFolder, obj.Folder)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPath", func(t *testing.T) {
-		obj := &FoldersGet200Response{}
-		var fernTestValuePath []*FoldersGet200ResponsePathItem
+		obj := &FoldersGetResponse{}
+		var fernTestValuePath []*FoldersGetResponsePathItem
 		obj.SetPath(fernTestValuePath)
 		assert.Equal(t, fernTestValuePath, obj.Path)
 		assert.NotNil(t, obj.explicitFields)
@@ -1216,12 +1217,12 @@ func TestSettersFoldersGet200Response(t *testing.T) {
 
 }
 
-func TestGettersFoldersGet200Response(t *testing.T) {
+func TestGettersFoldersGetResponse(t *testing.T) {
 	t.Run("GetFolder", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
-		var expected *FoldersGet200ResponseFolder
+		obj := &FoldersGetResponse{}
+		var expected *FoldersGetResponseFolder
 		obj.Folder = expected
 
 		// Act & Assert
@@ -1231,7 +1232,7 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 	t.Run("GetFolder_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
+		obj := &FoldersGetResponse{}
 		obj.Folder = nil
 
 		// Act & Assert
@@ -1240,7 +1241,7 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 
 	t.Run("GetFolder_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200Response
+		var obj *FoldersGetResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1253,8 +1254,8 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 	t.Run("GetPath", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
-		var expected []*FoldersGet200ResponsePathItem
+		obj := &FoldersGetResponse{}
+		var expected []*FoldersGetResponsePathItem
 		obj.Path = expected
 
 		// Act & Assert
@@ -1264,7 +1265,7 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 	t.Run("GetPath_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
+		obj := &FoldersGetResponse{}
 		obj.Path = nil
 
 		// Act & Assert
@@ -1273,7 +1274,7 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 
 	t.Run("GetPath_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200Response
+		var obj *FoldersGetResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1285,12 +1286,12 @@ func TestGettersFoldersGet200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersGet200Response(t *testing.T) {
+func TestSettersMarkExplicitFoldersGetResponse(t *testing.T) {
 	t.Run("SetFolder_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
-		var fernTestValueFolder *FoldersGet200ResponseFolder
+		obj := &FoldersGetResponse{}
+		var fernTestValueFolder *FoldersGetResponseFolder
 
 		// Act
 		obj.SetFolder(fernTestValueFolder)
@@ -1320,8 +1321,8 @@ func TestSettersMarkExplicitFoldersGet200Response(t *testing.T) {
 	t.Run("SetPath_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
-		var fernTestValuePath []*FoldersGet200ResponsePathItem
+		obj := &FoldersGetResponse{}
+		var fernTestValuePath []*FoldersGetResponsePathItem
 
 		// Act
 		obj.SetPath(fernTestValuePath)
@@ -1350,9 +1351,9 @@ func TestSettersMarkExplicitFoldersGet200Response(t *testing.T) {
 
 }
 
-func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
+func TestSettersFoldersGetResponseFolder(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1360,7 +1361,7 @@ func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -1368,7 +1369,7 @@ func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetParentID", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueParentID string
 		obj.SetParentID(fernTestValueParentID)
 		assert.Equal(t, fernTestValueParentID, obj.ParentID)
@@ -1376,7 +1377,7 @@ func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1384,23 +1385,23 @@ func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersGetResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersGetResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -1409,11 +1410,11 @@ func TestSettersFoldersGet200ResponseFolder(t *testing.T) {
 
 }
 
-func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
+func TestGettersFoldersGetResponseFolder(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var expected string
 		obj.ID = expected
 
@@ -1423,7 +1424,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1436,7 +1437,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var expected string
 		obj.TenantID = expected
 
@@ -1446,7 +1447,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1459,7 +1460,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetParentID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var expected string
 		obj.ParentID = expected
 
@@ -1469,7 +1470,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetParentID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1482,7 +1483,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var expected string
 		obj.Name = expected
 
@@ -1492,7 +1493,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1505,8 +1506,8 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
-		var expected float64
+		obj := &FoldersGetResponseFolder{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -1515,7 +1516,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1528,8 +1529,8 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
-		var expected float64
+		obj := &FoldersGetResponseFolder{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -1538,7 +1539,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1551,7 +1552,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -1562,7 +1563,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -1571,7 +1572,7 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1583,11 +1584,11 @@ func TestGettersFoldersGet200ResponseFolder(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
+func TestSettersMarkExplicitFoldersGetResponseFolder(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueID string
 
 		// Act
@@ -1618,7 +1619,7 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -1649,7 +1650,7 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetParentID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueParentID string
 
 		// Act
@@ -1680,7 +1681,7 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueName string
 
 		// Act
@@ -1711,8 +1712,8 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersGetResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -1742,8 +1743,8 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersGetResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -1773,7 +1774,7 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -1803,9 +1804,9 @@ func TestSettersMarkExplicitFoldersGet200ResponseFolder(t *testing.T) {
 
 }
 
-func TestSettersFoldersGet200ResponsePathItem(t *testing.T) {
+func TestSettersFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1813,7 +1814,7 @@ func TestSettersFoldersGet200ResponsePathItem(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1822,11 +1823,11 @@ func TestSettersFoldersGet200ResponsePathItem(t *testing.T) {
 
 }
 
-func TestGettersFoldersGet200ResponsePathItem(t *testing.T) {
+func TestGettersFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var expected string
 		obj.ID = expected
 
@@ -1836,7 +1837,7 @@ func TestGettersFoldersGet200ResponsePathItem(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponsePathItem
+		var obj *FoldersGetResponsePathItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1849,7 +1850,7 @@ func TestGettersFoldersGet200ResponsePathItem(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var expected string
 		obj.Name = expected
 
@@ -1859,7 +1860,7 @@ func TestGettersFoldersGet200ResponsePathItem(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponsePathItem
+		var obj *FoldersGetResponsePathItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1871,11 +1872,11 @@ func TestGettersFoldersGet200ResponsePathItem(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersGet200ResponsePathItem(t *testing.T) {
+func TestSettersMarkExplicitFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var fernTestValueID string
 
 		// Act
@@ -1906,7 +1907,7 @@ func TestSettersMarkExplicitFoldersGet200ResponsePathItem(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		var fernTestValueName string
 
 		// Act
@@ -1936,17 +1937,17 @@ func TestSettersMarkExplicitFoldersGet200ResponsePathItem(t *testing.T) {
 
 }
 
-func TestSettersFoldersList200Response(t *testing.T) {
+func TestSettersFoldersListResponse(t *testing.T) {
 	t.Run("SetFolders", func(t *testing.T) {
-		obj := &FoldersList200Response{}
-		var fernTestValueFolders []*FoldersList200ResponseFoldersItem
+		obj := &FoldersListResponse{}
+		var fernTestValueFolders []*FoldersListResponseFoldersItem
 		obj.SetFolders(fernTestValueFolders)
 		assert.Equal(t, fernTestValueFolders, obj.Folders)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetNextCursor", func(t *testing.T) {
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		var fernTestValueNextCursor *string
 		obj.SetNextCursor(fernTestValueNextCursor)
 		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
@@ -1955,12 +1956,12 @@ func TestSettersFoldersList200Response(t *testing.T) {
 
 }
 
-func TestGettersFoldersList200Response(t *testing.T) {
+func TestGettersFoldersListResponse(t *testing.T) {
 	t.Run("GetFolders", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
-		var expected []*FoldersList200ResponseFoldersItem
+		obj := &FoldersListResponse{}
+		var expected []*FoldersListResponseFoldersItem
 		obj.Folders = expected
 
 		// Act & Assert
@@ -1970,7 +1971,7 @@ func TestGettersFoldersList200Response(t *testing.T) {
 	t.Run("GetFolders_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		obj.Folders = nil
 
 		// Act & Assert
@@ -1979,7 +1980,7 @@ func TestGettersFoldersList200Response(t *testing.T) {
 
 	t.Run("GetFolders_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200Response
+		var obj *FoldersListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1992,7 +1993,7 @@ func TestGettersFoldersList200Response(t *testing.T) {
 	t.Run("GetNextCursor", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		var expected *string
 		obj.NextCursor = expected
 
@@ -2003,7 +2004,7 @@ func TestGettersFoldersList200Response(t *testing.T) {
 	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		obj.NextCursor = nil
 
 		// Act & Assert
@@ -2012,7 +2013,7 @@ func TestGettersFoldersList200Response(t *testing.T) {
 
 	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200Response
+		var obj *FoldersListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2024,12 +2025,12 @@ func TestGettersFoldersList200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersList200Response(t *testing.T) {
+func TestSettersMarkExplicitFoldersListResponse(t *testing.T) {
 	t.Run("SetFolders_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
-		var fernTestValueFolders []*FoldersList200ResponseFoldersItem
+		obj := &FoldersListResponse{}
+		var fernTestValueFolders []*FoldersListResponseFoldersItem
 
 		// Act
 		obj.SetFolders(fernTestValueFolders)
@@ -2059,7 +2060,7 @@ func TestSettersMarkExplicitFoldersList200Response(t *testing.T) {
 	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		var fernTestValueNextCursor *string
 
 		// Act
@@ -2089,9 +2090,9 @@ func TestSettersMarkExplicitFoldersList200Response(t *testing.T) {
 
 }
 
-func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestSettersFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -2099,7 +2100,7 @@ func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -2107,7 +2108,7 @@ func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	})
 
 	t.Run("SetParentID", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueParentID string
 		obj.SetParentID(fernTestValueParentID)
 		assert.Equal(t, fernTestValueParentID, obj.ParentID)
@@ -2115,7 +2116,7 @@ func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -2123,23 +2124,23 @@ func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersListResponseFoldersItem{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersListResponseFoldersItem{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -2148,11 +2149,11 @@ func TestSettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 }
 
-func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestGettersFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var expected string
 		obj.ID = expected
 
@@ -2162,7 +2163,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2175,7 +2176,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var expected string
 		obj.TenantID = expected
 
@@ -2185,7 +2186,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2198,7 +2199,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetParentID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var expected string
 		obj.ParentID = expected
 
@@ -2208,7 +2209,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetParentID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2221,7 +2222,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var expected string
 		obj.Name = expected
 
@@ -2231,7 +2232,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2244,8 +2245,8 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
-		var expected float64
+		obj := &FoldersListResponseFoldersItem{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -2254,7 +2255,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2267,8 +2268,8 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
-		var expected float64
+		obj := &FoldersListResponseFoldersItem{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -2277,7 +2278,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2290,7 +2291,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -2301,7 +2302,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -2310,7 +2311,7 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2322,11 +2323,11 @@ func TestGettersFoldersList200ResponseFoldersItem(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestSettersMarkExplicitFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueID string
 
 		// Act
@@ -2357,7 +2358,7 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -2388,7 +2389,7 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetParentID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueParentID string
 
 		// Act
@@ -2419,7 +2420,7 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueName string
 
 		// Act
@@ -2450,8 +2451,8 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersListResponseFoldersItem{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -2481,8 +2482,8 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersListResponseFoldersItem{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -2512,7 +2513,7 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -2542,10 +2543,10 @@ func TestSettersMarkExplicitFoldersList200ResponseFoldersItem(t *testing.T) {
 
 }
 
-func TestSettersFoldersUpdate200Response(t *testing.T) {
+func TestSettersFoldersUpdateResponse(t *testing.T) {
 	t.Run("SetFolder", func(t *testing.T) {
-		obj := &FoldersUpdate200Response{}
-		var fernTestValueFolder *FoldersUpdate200ResponseFolder
+		obj := &FoldersUpdateResponse{}
+		var fernTestValueFolder *FoldersUpdateResponseFolder
 		obj.SetFolder(fernTestValueFolder)
 		assert.Equal(t, fernTestValueFolder, obj.Folder)
 		assert.NotNil(t, obj.explicitFields)
@@ -2553,12 +2554,12 @@ func TestSettersFoldersUpdate200Response(t *testing.T) {
 
 }
 
-func TestGettersFoldersUpdate200Response(t *testing.T) {
+func TestGettersFoldersUpdateResponse(t *testing.T) {
 	t.Run("GetFolder", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200Response{}
-		var expected *FoldersUpdate200ResponseFolder
+		obj := &FoldersUpdateResponse{}
+		var expected *FoldersUpdateResponseFolder
 		obj.Folder = expected
 
 		// Act & Assert
@@ -2568,7 +2569,7 @@ func TestGettersFoldersUpdate200Response(t *testing.T) {
 	t.Run("GetFolder_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200Response{}
+		obj := &FoldersUpdateResponse{}
 		obj.Folder = nil
 
 		// Act & Assert
@@ -2577,7 +2578,7 @@ func TestGettersFoldersUpdate200Response(t *testing.T) {
 
 	t.Run("GetFolder_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200Response
+		var obj *FoldersUpdateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2589,12 +2590,12 @@ func TestGettersFoldersUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersUpdate200Response(t *testing.T) {
+func TestSettersMarkExplicitFoldersUpdateResponse(t *testing.T) {
 	t.Run("SetFolder_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200Response{}
-		var fernTestValueFolder *FoldersUpdate200ResponseFolder
+		obj := &FoldersUpdateResponse{}
+		var fernTestValueFolder *FoldersUpdateResponseFolder
 
 		// Act
 		obj.SetFolder(fernTestValueFolder)
@@ -2623,9 +2624,9 @@ func TestSettersMarkExplicitFoldersUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestSettersFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -2633,7 +2634,7 @@ func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -2641,7 +2642,7 @@ func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetParentID", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueParentID string
 		obj.SetParentID(fernTestValueParentID)
 		assert.Equal(t, fernTestValueParentID, obj.ParentID)
@@ -2649,7 +2650,7 @@ func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -2657,23 +2658,23 @@ func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersUpdateResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetUpdatedAt", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersUpdateResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
 		assert.Equal(t, fernTestValueUpdatedAt, obj.UpdatedAt)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreatedBy", func(t *testing.T) {
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueCreatedBy *string
 		obj.SetCreatedBy(fernTestValueCreatedBy)
 		assert.Equal(t, fernTestValueCreatedBy, obj.CreatedBy)
@@ -2682,11 +2683,11 @@ func TestSettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 }
 
-func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestGettersFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var expected string
 		obj.ID = expected
 
@@ -2696,7 +2697,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2709,7 +2710,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var expected string
 		obj.TenantID = expected
 
@@ -2719,7 +2720,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2732,7 +2733,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetParentID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var expected string
 		obj.ParentID = expected
 
@@ -2742,7 +2743,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetParentID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2755,7 +2756,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var expected string
 		obj.Name = expected
 
@@ -2765,7 +2766,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2778,8 +2779,8 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
-		var expected float64
+		obj := &FoldersUpdateResponseFolder{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -2788,7 +2789,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2801,8 +2802,8 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetUpdatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
-		var expected float64
+		obj := &FoldersUpdateResponseFolder{}
+		var expected time.Time
 		obj.UpdatedAt = expected
 
 		// Act & Assert
@@ -2811,7 +2812,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetUpdatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2824,7 +2825,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var expected *string
 		obj.CreatedBy = expected
 
@@ -2835,7 +2836,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("GetCreatedBy_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		obj.CreatedBy = nil
 
 		// Act & Assert
@@ -2844,7 +2845,7 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetCreatedBy_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2856,11 +2857,11 @@ func TestGettersFoldersUpdate200ResponseFolder(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestSettersMarkExplicitFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueID string
 
 		// Act
@@ -2891,7 +2892,7 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -2922,7 +2923,7 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetParentID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueParentID string
 
 		// Act
@@ -2953,7 +2954,7 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueName string
 
 		// Act
@@ -2984,8 +2985,8 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
-		var fernTestValueCreatedAt float64
+		obj := &FoldersUpdateResponseFolder{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -3015,8 +3016,8 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetUpdatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
-		var fernTestValueUpdatedAt float64
+		obj := &FoldersUpdateResponseFolder{}
+		var fernTestValueUpdatedAt time.Time
 
 		// Act
 		obj.SetUpdatedAt(fernTestValueUpdatedAt)
@@ -3046,7 +3047,7 @@ func TestSettersMarkExplicitFoldersUpdate200ResponseFolder(t *testing.T) {
 	t.Run("SetCreatedBy_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		var fernTestValueCreatedBy *string
 
 		// Act
@@ -3199,11 +3200,11 @@ func TestSettersMarkExplicitFoldersUpdateRequest(t *testing.T) {
 
 }
 
-func TestJSONMarshalingFoldersCreate200Response(t *testing.T) {
+func TestJSONMarshalingFoldersCreateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200Response{}
+		obj := &FoldersCreateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3212,31 +3213,31 @@ func TestJSONMarshalingFoldersCreate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersCreate200Response
+		var unmarshaled FoldersCreateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersCreate200Response
+		var obj FoldersCreateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersCreate200Response
+		var obj FoldersCreateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersCreate200ResponseFolder(t *testing.T) {
+func TestJSONMarshalingFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3245,31 +3246,31 @@ func TestJSONMarshalingFoldersCreate200ResponseFolder(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersCreate200ResponseFolder
+		var unmarshaled FoldersCreateResponseFolder
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersCreate200ResponseFolder
+		var obj FoldersCreateResponseFolder
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersCreate200ResponseFolder
+		var obj FoldersCreateResponseFolder
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersGet200Response(t *testing.T) {
+func TestJSONMarshalingFoldersGetResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200Response{}
+		obj := &FoldersGetResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3278,31 +3279,31 @@ func TestJSONMarshalingFoldersGet200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersGet200Response
+		var unmarshaled FoldersGetResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200Response
+		var obj FoldersGetResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200Response
+		var obj FoldersGetResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersGet200ResponseFolder(t *testing.T) {
+func TestJSONMarshalingFoldersGetResponseFolder(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3311,31 +3312,31 @@ func TestJSONMarshalingFoldersGet200ResponseFolder(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersGet200ResponseFolder
+		var unmarshaled FoldersGetResponseFolder
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200ResponseFolder
+		var obj FoldersGetResponseFolder
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200ResponseFolder
+		var obj FoldersGetResponseFolder
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersGet200ResponsePathItem(t *testing.T) {
+func TestJSONMarshalingFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3344,31 +3345,31 @@ func TestJSONMarshalingFoldersGet200ResponsePathItem(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersGet200ResponsePathItem
+		var unmarshaled FoldersGetResponsePathItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200ResponsePathItem
+		var obj FoldersGetResponsePathItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersGet200ResponsePathItem
+		var obj FoldersGetResponsePathItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersList200Response(t *testing.T) {
+func TestJSONMarshalingFoldersListResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3377,31 +3378,31 @@ func TestJSONMarshalingFoldersList200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersList200Response
+		var unmarshaled FoldersListResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersList200Response
+		var obj FoldersListResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersList200Response
+		var obj FoldersListResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestJSONMarshalingFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3410,31 +3411,31 @@ func TestJSONMarshalingFoldersList200ResponseFoldersItem(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersList200ResponseFoldersItem
+		var unmarshaled FoldersListResponseFoldersItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersList200ResponseFoldersItem
+		var obj FoldersListResponseFoldersItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersList200ResponseFoldersItem
+		var obj FoldersListResponseFoldersItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersUpdate200Response(t *testing.T) {
+func TestJSONMarshalingFoldersUpdateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200Response{}
+		obj := &FoldersUpdateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3443,31 +3444,31 @@ func TestJSONMarshalingFoldersUpdate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersUpdate200Response
+		var unmarshaled FoldersUpdateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersUpdate200Response
+		var obj FoldersUpdateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersUpdate200Response
+		var obj FoldersUpdateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestJSONMarshalingFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3476,174 +3477,174 @@ func TestJSONMarshalingFoldersUpdate200ResponseFolder(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled FoldersUpdate200ResponseFolder
+		var unmarshaled FoldersUpdateResponseFolder
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersUpdate200ResponseFolder
+		var obj FoldersUpdateResponseFolder
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj FoldersUpdate200ResponseFolder
+		var obj FoldersUpdateResponseFolder
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestStringFoldersCreate200Response(t *testing.T) {
+func TestStringFoldersCreateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersCreate200Response{}
+		obj := &FoldersCreateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200Response
+		var obj *FoldersCreateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersCreate200ResponseFolder(t *testing.T) {
+func TestStringFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersGet200Response(t *testing.T) {
+func TestStringFoldersGetResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200Response{}
+		obj := &FoldersGetResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200Response
+		var obj *FoldersGetResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersGet200ResponseFolder(t *testing.T) {
+func TestStringFoldersGetResponseFolder(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersGet200ResponsePathItem(t *testing.T) {
+func TestStringFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponsePathItem
+		var obj *FoldersGetResponsePathItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersList200Response(t *testing.T) {
+func TestStringFoldersListResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200Response
+		var obj *FoldersListResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestStringFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersUpdate200Response(t *testing.T) {
+func TestStringFoldersUpdateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersUpdate200Response{}
+		obj := &FoldersUpdateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200Response
+		var obj *FoldersUpdateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestStringFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestExtraPropertiesFoldersCreate200Response(t *testing.T) {
+func TestExtraPropertiesFoldersCreateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersCreate200Response{}
+		obj := &FoldersCreateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3657,16 +3658,16 @@ func TestExtraPropertiesFoldersCreate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200Response
+		var obj *FoldersCreateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersCreate200ResponseFolder(t *testing.T) {
+func TestExtraPropertiesFoldersCreateResponseFolder(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersCreate200ResponseFolder{}
+		obj := &FoldersCreateResponseFolder{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3680,16 +3681,16 @@ func TestExtraPropertiesFoldersCreate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersCreate200ResponseFolder
+		var obj *FoldersCreateResponseFolder
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersGet200Response(t *testing.T) {
+func TestExtraPropertiesFoldersGetResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200Response{}
+		obj := &FoldersGetResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3703,16 +3704,16 @@ func TestExtraPropertiesFoldersGet200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200Response
+		var obj *FoldersGetResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersGet200ResponseFolder(t *testing.T) {
+func TestExtraPropertiesFoldersGetResponseFolder(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200ResponseFolder{}
+		obj := &FoldersGetResponseFolder{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3726,16 +3727,16 @@ func TestExtraPropertiesFoldersGet200ResponseFolder(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponseFolder
+		var obj *FoldersGetResponseFolder
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersGet200ResponsePathItem(t *testing.T) {
+func TestExtraPropertiesFoldersGetResponsePathItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersGet200ResponsePathItem{}
+		obj := &FoldersGetResponsePathItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3749,16 +3750,16 @@ func TestExtraPropertiesFoldersGet200ResponsePathItem(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersGet200ResponsePathItem
+		var obj *FoldersGetResponsePathItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersList200Response(t *testing.T) {
+func TestExtraPropertiesFoldersListResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersList200Response{}
+		obj := &FoldersListResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3772,16 +3773,16 @@ func TestExtraPropertiesFoldersList200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200Response
+		var obj *FoldersListResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersList200ResponseFoldersItem(t *testing.T) {
+func TestExtraPropertiesFoldersListResponseFoldersItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersList200ResponseFoldersItem{}
+		obj := &FoldersListResponseFoldersItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3795,16 +3796,16 @@ func TestExtraPropertiesFoldersList200ResponseFoldersItem(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersList200ResponseFoldersItem
+		var obj *FoldersListResponseFoldersItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersUpdate200Response(t *testing.T) {
+func TestExtraPropertiesFoldersUpdateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersUpdate200Response{}
+		obj := &FoldersUpdateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3818,16 +3819,16 @@ func TestExtraPropertiesFoldersUpdate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200Response
+		var obj *FoldersUpdateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesFoldersUpdate200ResponseFolder(t *testing.T) {
+func TestExtraPropertiesFoldersUpdateResponseFolder(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &FoldersUpdate200ResponseFolder{}
+		obj := &FoldersUpdateResponseFolder{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -3841,7 +3842,7 @@ func TestExtraPropertiesFoldersUpdate200ResponseFolder(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *FoldersUpdate200ResponseFolder
+		var obj *FoldersUpdateResponseFolder
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

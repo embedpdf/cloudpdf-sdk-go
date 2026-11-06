@@ -117,7 +117,7 @@ func TestDocumentsGetWithWireMock(
 	)
 	request := &cloudpdf.GetDocumentsRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 	}
 	_, invocationErr := client.Documents.Get(
 		context.TODO(),
@@ -128,7 +128,7 @@ func TestDocumentsGetWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsGetWithWireMock", "GET", "/v1/tenants/tenantId/documents/id", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsGetWithWireMock", "GET", "/v1/tenants/tenantId/documents/docId", nil, 1)
 }
 
 func TestDocumentsDeleteWithWireMock(
@@ -144,7 +144,7 @@ func TestDocumentsDeleteWithWireMock(
 	)
 	request := &cloudpdf.DeleteDocumentsRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 	}
 	invocationErr := client.Documents.Delete(
 		context.TODO(),
@@ -155,7 +155,7 @@ func TestDocumentsDeleteWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId/documents/id", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsDeleteWithWireMock", "DELETE", "/v1/tenants/tenantId/documents/docId", nil, 1)
 }
 
 func TestDocumentsUpdateWithWireMock(
@@ -171,7 +171,7 @@ func TestDocumentsUpdateWithWireMock(
 	)
 	request := &cloudpdf.DocumentsUpdateRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 		Name:     "name",
 	}
 	_, invocationErr := client.Documents.Update(
@@ -183,7 +183,7 @@ func TestDocumentsUpdateWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsUpdateWithWireMock", "PATCH", "/v1/tenants/tenantId/documents/id", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsUpdateWithWireMock", "PATCH", "/v1/tenants/tenantId/documents/docId", nil, 1)
 }
 
 func TestDocumentsCommitWithWireMock(
@@ -199,7 +199,7 @@ func TestDocumentsCommitWithWireMock(
 	)
 	request := &cloudpdf.DocumentsCommitRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 		Sha256:   "sha256",
 	}
 	_, invocationErr := client.Documents.Commit(
@@ -211,7 +211,7 @@ func TestDocumentsCommitWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsCommitWithWireMock", "POST", "/v1/tenants/tenantId/documents/id/commit", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsCommitWithWireMock", "POST", "/v1/tenants/tenantId/documents/docId/commit", nil, 1)
 }
 
 func TestDocumentsUploadProxyWithWireMock(
@@ -227,7 +227,7 @@ func TestDocumentsUploadProxyWithWireMock(
 	)
 	request := &cloudpdf.UploadProxyDocumentsRequest{
 		TenantID: "tenantId",
-		ID:       "id",
+		DocID:    "docId",
 		File: strings.NewReader(
 			"",
 		),
@@ -241,7 +241,7 @@ func TestDocumentsUploadProxyWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocumentsUploadProxyWithWireMock", "POST", "/v1/tenants/tenantId/documents/id/upload-proxy", nil, 1)
+	VerifyRequestCount(t, "TestDocumentsUploadProxyWithWireMock", "POST", "/v1/tenants/tenantId/documents/docId/upload-proxy", nil, 1)
 }
 
 func TestDocumentsImportFromWithWireMock(
@@ -288,7 +288,7 @@ func TestDocumentsInitWithWireMock(
 	)
 	request := &cloudpdf.DocumentsInitRequest{
 		TenantID:      "tenantId",
-		ContentLength: 1.1,
+		SizeBytes:     1,
 		ContentSha256: "contentSha256",
 	}
 	_, invocationErr := client.Documents.Init(

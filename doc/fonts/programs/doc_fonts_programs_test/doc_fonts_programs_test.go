@@ -89,9 +89,9 @@ func TestDocFontsProgramsGetWithWireMock(
 		option.WithToken("test-token"),
 	)
 	request := &fonts.GetProgramsRequest{
-		DocID:       "docId",
-		LayerName:   "layerName",
-		DisplayHash: "displayHash",
+		DocID:         "docId",
+		LayerName:     "layerName",
+		DisplaySha256: "displaySha256",
 	}
 	_, invocationErr := client.Doc.Fonts.Programs.Get(
 		context.TODO(),
@@ -102,5 +102,5 @@ func TestDocFontsProgramsGetWithWireMock(
 	)
 
 	require.NoError(t, invocationErr, "Client method call should succeed")
-	VerifyRequestCount(t, "TestDocFontsProgramsGetWithWireMock", "GET", "/v1/docs/docId/layers/layerName/font-programs/displayHash", nil, 1)
+	VerifyRequestCount(t, "TestDocFontsProgramsGetWithWireMock", "GET", "/v1/docs/docId/layers/layerName/font-programs/displaySha256", nil, 1)
 }

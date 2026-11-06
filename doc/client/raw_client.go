@@ -38,7 +38,7 @@ func (r *RawClient) Head(
 	ctx context.Context,
 	request *cloudpdf.HeadDocRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocHead200Response], error) {
+) (*core.Response[*cloudpdf.DocHeadResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) Head(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocHead200Response
+	var response *cloudpdf.DocHeadResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) Head(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocHead200Response]{
+	return &core.Response[*cloudpdf.DocHeadResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -87,7 +87,7 @@ func (r *RawClient) Changes(
 	ctx context.Context,
 	request *cloudpdf.DocChangesRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocChanges200Response], error) {
+) (*core.Response[*cloudpdf.DocChangesResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -107,7 +107,7 @@ func (r *RawClient) Changes(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocChanges200Response
+	var response *cloudpdf.DocChangesResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -127,7 +127,7 @@ func (r *RawClient) Changes(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocChanges200Response]{
+	return &core.Response[*cloudpdf.DocChangesResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -188,7 +188,7 @@ func (r *RawClient) DownloadLink(
 	ctx context.Context,
 	request *cloudpdf.DocDownloadLinkRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocDownloadLink200Response], error) {
+) (*core.Response[*cloudpdf.DocDownloadLinkResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -208,7 +208,7 @@ func (r *RawClient) DownloadLink(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.DocDownloadLink200Response
+	var response *cloudpdf.DocDownloadLinkResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -228,7 +228,7 @@ func (r *RawClient) DownloadLink(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocDownloadLink200Response]{
+	return &core.Response[*cloudpdf.DocDownloadLinkResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -239,7 +239,7 @@ func (r *RawClient) Manifest(
 	ctx context.Context,
 	request *cloudpdf.ManifestDocRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocManifest200Response], error) {
+) (*core.Response[*cloudpdf.DocManifestResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -259,7 +259,7 @@ func (r *RawClient) Manifest(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocManifest200Response
+	var response *cloudpdf.DocManifestResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -278,7 +278,7 @@ func (r *RawClient) Manifest(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocManifest200Response]{
+	return &core.Response[*cloudpdf.DocManifestResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -340,7 +340,7 @@ func (r *RawClient) Text(
 	ctx context.Context,
 	request *cloudpdf.TextDocRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.DocText200Response], error) {
+) (*core.Response[*cloudpdf.DocTextResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -361,7 +361,7 @@ func (r *RawClient) Text(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response *cloudpdf.DocText200Response
+	var response *cloudpdf.DocTextResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -380,7 +380,7 @@ func (r *RawClient) Text(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.DocText200Response]{
+	return &core.Response[*cloudpdf.DocTextResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

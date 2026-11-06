@@ -90,7 +90,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListAttachmentsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocAttachmentsList200Response], error) {
+) (*core.Response[cloudpdf.DocAttachmentsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -110,7 +110,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocAttachmentsList200Response
+	var response cloudpdf.DocAttachmentsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -129,7 +129,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocAttachmentsList200Response]{
+	return &core.Response[cloudpdf.DocAttachmentsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

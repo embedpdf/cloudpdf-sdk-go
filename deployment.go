@@ -16,9 +16,9 @@ var (
 )
 
 type DeploymentLicenseStatusResponse struct {
-	License   any `json:"license,omitempty" url:"license,omitempty"`
-	Reporting any `json:"reporting,omitempty" url:"reporting,omitempty"`
-	Usage     any `json:"usage,omitempty" url:"usage,omitempty"`
+	License   map[string]any `json:"license" url:"license"`
+	Reporting map[string]any `json:"reporting,omitempty" url:"reporting,omitempty"`
+	Usage     map[string]any `json:"usage,omitempty" url:"usage,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -27,21 +27,21 @@ type DeploymentLicenseStatusResponse struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DeploymentLicenseStatusResponse) GetLicense() any {
+func (d *DeploymentLicenseStatusResponse) GetLicense() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.License
 }
 
-func (d *DeploymentLicenseStatusResponse) GetReporting() any {
+func (d *DeploymentLicenseStatusResponse) GetReporting() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Reporting
 }
 
-func (d *DeploymentLicenseStatusResponse) GetUsage() any {
+func (d *DeploymentLicenseStatusResponse) GetUsage() map[string]any {
 	if d == nil {
 		return nil
 	}
@@ -64,21 +64,21 @@ func (d *DeploymentLicenseStatusResponse) require(field *big.Int) {
 
 // SetLicense sets the License field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeploymentLicenseStatusResponse) SetLicense(license any) {
+func (d *DeploymentLicenseStatusResponse) SetLicense(license map[string]any) {
 	d.License = license
 	d.require(deploymentLicenseStatusResponseFieldLicense)
 }
 
 // SetReporting sets the Reporting field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeploymentLicenseStatusResponse) SetReporting(reporting any) {
+func (d *DeploymentLicenseStatusResponse) SetReporting(reporting map[string]any) {
 	d.Reporting = reporting
 	d.require(deploymentLicenseStatusResponseFieldReporting)
 }
 
 // SetUsage sets the Usage field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeploymentLicenseStatusResponse) SetUsage(usage any) {
+func (d *DeploymentLicenseStatusResponse) SetUsage(usage map[string]any) {
 	d.Usage = usage
 	d.require(deploymentLicenseStatusResponseFieldUsage)
 }

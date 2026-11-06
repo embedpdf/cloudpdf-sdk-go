@@ -37,7 +37,7 @@ func (r *RawClient) List(
 	ctx context.Context,
 	request *doc.ListFontsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocFontsList200Response], error) {
+) (*core.Response[cloudpdf.DocFontsListResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) List(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocFontsList200Response
+	var response cloudpdf.DocFontsListResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) List(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocFontsList200Response]{
+	return &core.Response[cloudpdf.DocFontsListResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,
@@ -87,7 +87,7 @@ func (r *RawClient) Resolve(
 	ctx context.Context,
 	request *doc.ResolveFontsRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocFontsResolve200Response], error) {
+) (*core.Response[cloudpdf.DocFontsResolveResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -107,7 +107,7 @@ func (r *RawClient) Resolve(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 	headers.Add("Content-Type", "application/json")
-	var response cloudpdf.DocFontsResolve200Response
+	var response cloudpdf.DocFontsResolveResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -127,7 +127,7 @@ func (r *RawClient) Resolve(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocFontsResolve200Response]{
+	return &core.Response[cloudpdf.DocFontsResolveResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

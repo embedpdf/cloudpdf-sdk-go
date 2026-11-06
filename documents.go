@@ -8,17 +8,18 @@ import (
 	internal "github.com/embedpdf/cloudpdf-sdk-go/v3/internal"
 	io "io"
 	big "math/big"
+	time "time"
 )
 
 var (
 	documentsCommitRequestFieldTenantID = big.NewInt(1 << 0)
-	documentsCommitRequestFieldID       = big.NewInt(1 << 1)
+	documentsCommitRequestFieldDocID    = big.NewInt(1 << 1)
 	documentsCommitRequestFieldSha256   = big.NewInt(1 << 2)
 )
 
 type DocumentsCommitRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 	Sha256   string `json:"sha256" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -39,11 +40,11 @@ func (d *DocumentsCommitRequest) SetTenantID(tenantID string) {
 	d.require(documentsCommitRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommitRequest) SetID(id string) {
-	d.ID = id
-	d.require(documentsCommitRequestFieldID)
+func (d *DocumentsCommitRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(documentsCommitRequestFieldDocID)
 }
 
 // SetSha256 sets the Sha256 field and marks it as non-optional;
@@ -76,12 +77,12 @@ func (d *DocumentsCommitRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	deleteDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
-	deleteDocumentsRequestFieldID       = big.NewInt(1 << 1)
+	deleteDocumentsRequestFieldDocID    = big.NewInt(1 << 1)
 )
 
 type DeleteDocumentsRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -101,21 +102,21 @@ func (d *DeleteDocumentsRequest) SetTenantID(tenantID string) {
 	d.require(deleteDocumentsRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DeleteDocumentsRequest) SetID(id string) {
-	d.ID = id
-	d.require(deleteDocumentsRequestFieldID)
+func (d *DeleteDocumentsRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(deleteDocumentsRequestFieldDocID)
 }
 
 var (
 	downloadDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
-	downloadDocumentsRequestFieldID       = big.NewInt(1 << 1)
+	downloadDocumentsRequestFieldDocID    = big.NewInt(1 << 1)
 )
 
 type DownloadDocumentsRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -135,21 +136,21 @@ func (d *DownloadDocumentsRequest) SetTenantID(tenantID string) {
 	d.require(downloadDocumentsRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DownloadDocumentsRequest) SetID(id string) {
-	d.ID = id
-	d.require(downloadDocumentsRequestFieldID)
+func (d *DownloadDocumentsRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(downloadDocumentsRequestFieldDocID)
 }
 
 var (
 	getDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
-	getDocumentsRequestFieldID       = big.NewInt(1 << 1)
+	getDocumentsRequestFieldDocID    = big.NewInt(1 << 1)
 )
 
 type GetDocumentsRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -169,11 +170,11 @@ func (g *GetDocumentsRequest) SetTenantID(tenantID string) {
 	g.require(getDocumentsRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (g *GetDocumentsRequest) SetID(id string) {
-	g.ID = id
-	g.require(getDocumentsRequestFieldID)
+func (g *GetDocumentsRequest) SetDocID(docID string) {
+	g.DocID = docID
+	g.require(getDocumentsRequestFieldDocID)
 }
 
 var (
@@ -312,7 +313,7 @@ func (d *DocumentsImportFromRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	documentsInitRequestFieldTenantID         = big.NewInt(1 << 0)
-	documentsInitRequestFieldContentLength    = big.NewInt(1 << 1)
+	documentsInitRequestFieldSizeBytes        = big.NewInt(1 << 1)
 	documentsInitRequestFieldContentSha256    = big.NewInt(1 << 2)
 	documentsInitRequestFieldName             = big.NewInt(1 << 3)
 	documentsInitRequestFieldFolderID         = big.NewInt(1 << 4)
@@ -320,14 +321,14 @@ var (
 	documentsInitRequestFieldIdempotencyKey   = big.NewInt(1 << 6)
 	documentsInitRequestFieldDedupMode        = big.NewInt(1 << 7)
 	documentsInitRequestFieldDocID            = big.NewInt(1 << 8)
-	documentsInitRequestFieldUploadTTLSec     = big.NewInt(1 << 9)
+	documentsInitRequestFieldUploadTTLSeconds = big.NewInt(1 << 9)
 	documentsInitRequestFieldUploadPreference = big.NewInt(1 << 10)
 )
 
 type DocumentsInitRequest struct {
-	TenantID      string  `json:"-" url:"-"`
-	ContentLength float64 `json:"contentLength" url:"-"`
-	ContentSha256 string  `json:"contentSha256" url:"-"`
+	TenantID      string `json:"-" url:"-"`
+	SizeBytes     int    `json:"sizeBytes" url:"-"`
+	ContentSha256 string `json:"contentSha256" url:"-"`
 	// What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
 	Name *string `json:"name,omitempty" url:"-"`
 	// A folder id, or root for the top level.
@@ -337,7 +338,7 @@ type DocumentsInitRequest struct {
 	// always-create (default) creates a new document every time. reuse-existing returns a document that already holds the same content instead of storing it twice.
 	DedupMode        *DocumentsInitRequestDedupMode        `json:"dedupMode,omitempty" url:"-"`
 	DocID            *string                               `json:"docId,omitempty" url:"-"`
-	UploadTTLSec     *float64                              `json:"uploadTtlSec,omitempty" url:"-"`
+	UploadTTLSeconds *int                                  `json:"uploadTtlSeconds,omitempty" url:"-"`
 	UploadPreference *DocumentsInitRequestUploadPreference `json:"uploadPreference,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -358,11 +359,11 @@ func (d *DocumentsInitRequest) SetTenantID(tenantID string) {
 	d.require(documentsInitRequestFieldTenantID)
 }
 
-// SetContentLength sets the ContentLength field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInitRequest) SetContentLength(contentLength float64) {
-	d.ContentLength = contentLength
-	d.require(documentsInitRequestFieldContentLength)
+func (d *DocumentsInitRequest) SetSizeBytes(sizeBytes int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsInitRequestFieldSizeBytes)
 }
 
 // SetContentSha256 sets the ContentSha256 field and marks it as non-optional;
@@ -414,11 +415,11 @@ func (d *DocumentsInitRequest) SetDocID(docID *string) {
 	d.require(documentsInitRequestFieldDocID)
 }
 
-// SetUploadTTLSec sets the UploadTTLSec field and marks it as non-optional;
+// SetUploadTTLSeconds sets the UploadTTLSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInitRequest) SetUploadTTLSec(uploadTTLSec *float64) {
-	d.UploadTTLSec = uploadTTLSec
-	d.require(documentsInitRequestFieldUploadTTLSec)
+func (d *DocumentsInitRequest) SetUploadTTLSeconds(uploadTTLSeconds *int) {
+	d.UploadTTLSeconds = uploadTTLSeconds
+	d.require(documentsInitRequestFieldUploadTTLSeconds)
 }
 
 // SetUploadPreference sets the UploadPreference field and marks it as non-optional;
@@ -544,12 +545,12 @@ func (l *ListDocumentsRequest) SetOrder(order *ListDocumentsRequestOrder) {
 
 var (
 	thumbnailDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
-	thumbnailDocumentsRequestFieldID       = big.NewInt(1 << 1)
+	thumbnailDocumentsRequestFieldDocID    = big.NewInt(1 << 1)
 )
 
 type ThumbnailDocumentsRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -569,19 +570,19 @@ func (t *ThumbnailDocumentsRequest) SetTenantID(tenantID string) {
 	t.require(thumbnailDocumentsRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (t *ThumbnailDocumentsRequest) SetID(id string) {
-	t.ID = id
-	t.require(thumbnailDocumentsRequestFieldID)
+func (t *ThumbnailDocumentsRequest) SetDocID(docID string) {
+	t.DocID = docID
+	t.require(thumbnailDocumentsRequestFieldDocID)
 }
 
 var (
-	documentsCommit200ResponseFieldDocument = big.NewInt(1 << 0)
+	documentsCommitResponseFieldDocument = big.NewInt(1 << 0)
 )
 
-type DocumentsCommit200Response struct {
-	Document *DocumentsCommit200ResponseDocument `json:"document" url:"document"`
+type DocumentsCommitResponse struct {
+	Document *DocumentsCommitResponseDocument `json:"document" url:"document"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -590,21 +591,21 @@ type DocumentsCommit200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsCommit200Response) GetDocument() *DocumentsCommit200ResponseDocument {
+func (d *DocumentsCommitResponse) GetDocument() *DocumentsCommitResponseDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsCommit200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsCommitResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsCommit200Response) require(field *big.Int) {
+func (d *DocumentsCommitResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -613,18 +614,18 @@ func (d *DocumentsCommit200Response) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200Response) SetDocument(document *DocumentsCommit200ResponseDocument) {
+func (d *DocumentsCommitResponse) SetDocument(document *DocumentsCommitResponseDocument) {
 	d.Document = document
-	d.require(documentsCommit200ResponseFieldDocument)
+	d.require(documentsCommitResponseFieldDocument)
 }
 
-func (d *DocumentsCommit200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsCommit200Response
+func (d *DocumentsCommitResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsCommitResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsCommit200Response(value)
+	*d = DocumentsCommitResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -634,8 +635,8 @@ func (d *DocumentsCommit200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsCommit200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsCommit200Response
+func (d *DocumentsCommitResponse) MarshalJSON() ([]byte, error) {
+	type embed DocumentsCommitResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -645,7 +646,7 @@ func (d *DocumentsCommit200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsCommit200Response) String() string {
+func (d *DocumentsCommitResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -661,40 +662,40 @@ func (d *DocumentsCommit200Response) String() string {
 }
 
 var (
-	documentsCommit200ResponseDocumentFieldID               = big.NewInt(1 << 0)
-	documentsCommit200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsCommit200ResponseDocumentFieldName             = big.NewInt(1 << 2)
-	documentsCommit200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsCommit200ResponseDocumentFieldState            = big.NewInt(1 << 4)
-	documentsCommit200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsCommit200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsCommit200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsCommit200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsCommit200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsCommit200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsCommit200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsCommit200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsCommit200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsCommit200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsCommitResponseDocumentFieldID             = big.NewInt(1 << 0)
+	documentsCommitResponseDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsCommitResponseDocumentFieldName           = big.NewInt(1 << 2)
+	documentsCommitResponseDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsCommitResponseDocumentFieldState          = big.NewInt(1 << 4)
+	documentsCommitResponseDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsCommitResponseDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsCommitResponseDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsCommitResponseDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsCommitResponseDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsCommitResponseDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsCommitResponseDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsCommitResponseDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsCommitResponseDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsCommitResponseDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsCommit200ResponseDocument struct {
+type DocumentsCommitResponseDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                            `json:"folderId" url:"folderId"`
-	State            DocumentsCommit200ResponseDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                           `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                          `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                    `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                           `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                           `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsCommit200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                           `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                           `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                           `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                        `json:"folderId" url:"folderId"`
+	State          DocumentsCommitResponseDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                       `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                          `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                       `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                       `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsCommitResponseDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                       `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                     `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                     `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -703,119 +704,119 @@ type DocumentsCommit200ResponseDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetID() string {
+func (d *DocumentsCommitResponseDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetTenantID() string {
+func (d *DocumentsCommitResponseDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetName() string {
+func (d *DocumentsCommitResponseDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetFolderID() string {
+func (d *DocumentsCommitResponseDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetState() DocumentsCommit200ResponseDocumentState {
+func (d *DocumentsCommitResponseDocument) GetState() DocumentsCommitResponseDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetBaseSha() *string {
+func (d *DocumentsCommitResponseDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsCommitResponseDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetMetadata() map[string]any {
+func (d *DocumentsCommitResponseDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetIdempotencyKey() *string {
+func (d *DocumentsCommitResponseDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetFailureReason() *string {
+func (d *DocumentsCommitResponseDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetThumbnailState() *DocumentsCommit200ResponseDocumentThumbnailState {
+func (d *DocumentsCommitResponseDocument) GetThumbnailState() DocumentsCommitResponseDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetThumbnailURL() *string {
+func (d *DocumentsCommitResponseDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetCreatedAt() float64 {
+func (d *DocumentsCommitResponseDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetUpdatedAt() float64 {
+func (d *DocumentsCommitResponseDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetCreatedBy() *string {
+func (d *DocumentsCommitResponseDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsCommit200ResponseDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsCommitResponseDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsCommit200ResponseDocument) require(field *big.Int) {
+func (d *DocumentsCommitResponseDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -824,116 +825,124 @@ func (d *DocumentsCommit200ResponseDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetID(id string) {
+func (d *DocumentsCommitResponseDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsCommit200ResponseDocumentFieldID)
+	d.require(documentsCommitResponseDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetTenantID(tenantID string) {
+func (d *DocumentsCommitResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsCommit200ResponseDocumentFieldTenantID)
+	d.require(documentsCommitResponseDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetName(name string) {
+func (d *DocumentsCommitResponseDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsCommit200ResponseDocumentFieldName)
+	d.require(documentsCommitResponseDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetFolderID(folderID string) {
+func (d *DocumentsCommitResponseDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsCommit200ResponseDocumentFieldFolderID)
+	d.require(documentsCommitResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetState(state DocumentsCommit200ResponseDocumentState) {
+func (d *DocumentsCommitResponseDocument) SetState(state DocumentsCommitResponseDocumentState) {
 	d.State = state
-	d.require(documentsCommit200ResponseDocumentFieldState)
+	d.require(documentsCommitResponseDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsCommit200ResponseDocumentFieldBaseSha)
+func (d *DocumentsCommitResponseDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsCommitResponseDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsCommit200ResponseDocumentFieldStorageSizeBytes)
+func (d *DocumentsCommitResponseDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsCommitResponseDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsCommitResponseDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsCommit200ResponseDocumentFieldMetadata)
+	d.require(documentsCommitResponseDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsCommitResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsCommit200ResponseDocumentFieldIdempotencyKey)
+	d.require(documentsCommitResponseDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsCommitResponseDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsCommit200ResponseDocumentFieldFailureReason)
+	d.require(documentsCommitResponseDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsCommit200ResponseDocumentThumbnailState) {
+func (d *DocumentsCommitResponseDocument) SetThumbnailState(thumbnailState DocumentsCommitResponseDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsCommit200ResponseDocumentFieldThumbnailState)
+	d.require(documentsCommitResponseDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsCommitResponseDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsCommit200ResponseDocumentFieldThumbnailURL)
+	d.require(documentsCommitResponseDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsCommitResponseDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsCommit200ResponseDocumentFieldCreatedAt)
+	d.require(documentsCommitResponseDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsCommitResponseDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsCommit200ResponseDocumentFieldUpdatedAt)
+	d.require(documentsCommitResponseDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsCommit200ResponseDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsCommitResponseDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsCommit200ResponseDocumentFieldCreatedBy)
+	d.require(documentsCommitResponseDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsCommit200ResponseDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsCommit200ResponseDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsCommitResponseDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsCommitResponseDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsCommit200ResponseDocument(value)
+	*d = DocumentsCommitResponseDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -943,18 +952,22 @@ func (d *DocumentsCommit200ResponseDocument) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsCommit200ResponseDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsCommit200ResponseDocument
+func (d *DocumentsCommitResponseDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsCommitResponseDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsCommit200ResponseDocument) String() string {
+func (d *DocumentsCommitResponseDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -969,68 +982,68 @@ func (d *DocumentsCommit200ResponseDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsCommit200ResponseDocumentState string
+type DocumentsCommitResponseDocumentState string
 
 const (
-	DocumentsCommit200ResponseDocumentStatePending  DocumentsCommit200ResponseDocumentState = "pending"
-	DocumentsCommit200ResponseDocumentStateReady    DocumentsCommit200ResponseDocumentState = "ready"
-	DocumentsCommit200ResponseDocumentStateFailed   DocumentsCommit200ResponseDocumentState = "failed"
-	DocumentsCommit200ResponseDocumentStateDeleting DocumentsCommit200ResponseDocumentState = "deleting"
+	DocumentsCommitResponseDocumentStatePending  DocumentsCommitResponseDocumentState = "pending"
+	DocumentsCommitResponseDocumentStateReady    DocumentsCommitResponseDocumentState = "ready"
+	DocumentsCommitResponseDocumentStateFailed   DocumentsCommitResponseDocumentState = "failed"
+	DocumentsCommitResponseDocumentStateDeleting DocumentsCommitResponseDocumentState = "deleting"
 )
 
-func NewDocumentsCommit200ResponseDocumentStateFromString(s string) (DocumentsCommit200ResponseDocumentState, error) {
+func NewDocumentsCommitResponseDocumentStateFromString(s string) (DocumentsCommitResponseDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsCommit200ResponseDocumentStatePending, nil
+		return DocumentsCommitResponseDocumentStatePending, nil
 	case "ready":
-		return DocumentsCommit200ResponseDocumentStateReady, nil
+		return DocumentsCommitResponseDocumentStateReady, nil
 	case "failed":
-		return DocumentsCommit200ResponseDocumentStateFailed, nil
+		return DocumentsCommitResponseDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsCommit200ResponseDocumentStateDeleting, nil
+		return DocumentsCommitResponseDocumentStateDeleting, nil
 	}
-	var t DocumentsCommit200ResponseDocumentState
+	var t DocumentsCommitResponseDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsCommit200ResponseDocumentState) Ptr() *DocumentsCommit200ResponseDocumentState {
+func (d DocumentsCommitResponseDocumentState) Ptr() *DocumentsCommitResponseDocumentState {
 	return &d
 }
 
-type DocumentsCommit200ResponseDocumentThumbnailState string
+type DocumentsCommitResponseDocumentThumbnailState string
 
 const (
-	DocumentsCommit200ResponseDocumentThumbnailStatePending DocumentsCommit200ResponseDocumentThumbnailState = "pending"
-	DocumentsCommit200ResponseDocumentThumbnailStateReady   DocumentsCommit200ResponseDocumentThumbnailState = "ready"
-	DocumentsCommit200ResponseDocumentThumbnailStateLocked  DocumentsCommit200ResponseDocumentThumbnailState = "locked"
-	DocumentsCommit200ResponseDocumentThumbnailStateFailed  DocumentsCommit200ResponseDocumentThumbnailState = "failed"
+	DocumentsCommitResponseDocumentThumbnailStatePending DocumentsCommitResponseDocumentThumbnailState = "pending"
+	DocumentsCommitResponseDocumentThumbnailStateReady   DocumentsCommitResponseDocumentThumbnailState = "ready"
+	DocumentsCommitResponseDocumentThumbnailStateLocked  DocumentsCommitResponseDocumentThumbnailState = "locked"
+	DocumentsCommitResponseDocumentThumbnailStateFailed  DocumentsCommitResponseDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsCommit200ResponseDocumentThumbnailStateFromString(s string) (DocumentsCommit200ResponseDocumentThumbnailState, error) {
+func NewDocumentsCommitResponseDocumentThumbnailStateFromString(s string) (DocumentsCommitResponseDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsCommit200ResponseDocumentThumbnailStatePending, nil
+		return DocumentsCommitResponseDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsCommit200ResponseDocumentThumbnailStateReady, nil
+		return DocumentsCommitResponseDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsCommit200ResponseDocumentThumbnailStateLocked, nil
+		return DocumentsCommitResponseDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsCommit200ResponseDocumentThumbnailStateFailed, nil
+		return DocumentsCommitResponseDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsCommit200ResponseDocumentThumbnailState
+	var t DocumentsCommitResponseDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsCommit200ResponseDocumentThumbnailState) Ptr() *DocumentsCommit200ResponseDocumentThumbnailState {
+func (d DocumentsCommitResponseDocumentThumbnailState) Ptr() *DocumentsCommitResponseDocumentThumbnailState {
 	return &d
 }
 
 var (
-	documentsGet200ResponseFieldDocument = big.NewInt(1 << 0)
+	documentsGetResponseFieldDocument = big.NewInt(1 << 0)
 )
 
-type DocumentsGet200Response struct {
-	Document *DocumentsGet200ResponseDocument `json:"document" url:"document"`
+type DocumentsGetResponse struct {
+	Document *DocumentsGetResponseDocument `json:"document" url:"document"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1039,21 +1052,21 @@ type DocumentsGet200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsGet200Response) GetDocument() *DocumentsGet200ResponseDocument {
+func (d *DocumentsGetResponse) GetDocument() *DocumentsGetResponseDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsGet200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsGetResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsGet200Response) require(field *big.Int) {
+func (d *DocumentsGetResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -1062,18 +1075,18 @@ func (d *DocumentsGet200Response) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200Response) SetDocument(document *DocumentsGet200ResponseDocument) {
+func (d *DocumentsGetResponse) SetDocument(document *DocumentsGetResponseDocument) {
 	d.Document = document
-	d.require(documentsGet200ResponseFieldDocument)
+	d.require(documentsGetResponseFieldDocument)
 }
 
-func (d *DocumentsGet200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsGet200Response
+func (d *DocumentsGetResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsGetResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsGet200Response(value)
+	*d = DocumentsGetResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -1083,8 +1096,8 @@ func (d *DocumentsGet200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsGet200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsGet200Response
+func (d *DocumentsGetResponse) MarshalJSON() ([]byte, error) {
+	type embed DocumentsGetResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -1094,7 +1107,7 @@ func (d *DocumentsGet200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsGet200Response) String() string {
+func (d *DocumentsGetResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -1110,40 +1123,40 @@ func (d *DocumentsGet200Response) String() string {
 }
 
 var (
-	documentsGet200ResponseDocumentFieldID               = big.NewInt(1 << 0)
-	documentsGet200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsGet200ResponseDocumentFieldName             = big.NewInt(1 << 2)
-	documentsGet200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsGet200ResponseDocumentFieldState            = big.NewInt(1 << 4)
-	documentsGet200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsGet200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsGet200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsGet200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsGet200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsGet200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsGet200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsGet200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsGet200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsGet200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsGetResponseDocumentFieldID             = big.NewInt(1 << 0)
+	documentsGetResponseDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsGetResponseDocumentFieldName           = big.NewInt(1 << 2)
+	documentsGetResponseDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsGetResponseDocumentFieldState          = big.NewInt(1 << 4)
+	documentsGetResponseDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsGetResponseDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsGetResponseDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsGetResponseDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsGetResponseDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsGetResponseDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsGetResponseDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsGetResponseDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsGetResponseDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsGetResponseDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsGet200ResponseDocument struct {
+type DocumentsGetResponseDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                         `json:"folderId" url:"folderId"`
-	State            DocumentsGet200ResponseDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                        `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                       `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                 `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                        `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                        `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsGet200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                        `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                        `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                        `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                        `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                     `json:"folderId" url:"folderId"`
+	State          DocumentsGetResponseDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                    `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                       `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                             `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                    `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                    `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsGetResponseDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                    `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                  `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                  `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                    `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1152,119 +1165,119 @@ type DocumentsGet200ResponseDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsGet200ResponseDocument) GetID() string {
+func (d *DocumentsGetResponseDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsGet200ResponseDocument) GetTenantID() string {
+func (d *DocumentsGetResponseDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsGet200ResponseDocument) GetName() string {
+func (d *DocumentsGetResponseDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsGet200ResponseDocument) GetFolderID() string {
+func (d *DocumentsGetResponseDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsGet200ResponseDocument) GetState() DocumentsGet200ResponseDocumentState {
+func (d *DocumentsGetResponseDocument) GetState() DocumentsGetResponseDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsGet200ResponseDocument) GetBaseSha() *string {
+func (d *DocumentsGetResponseDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsGet200ResponseDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsGetResponseDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsGet200ResponseDocument) GetMetadata() map[string]any {
+func (d *DocumentsGetResponseDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsGet200ResponseDocument) GetIdempotencyKey() *string {
+func (d *DocumentsGetResponseDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsGet200ResponseDocument) GetFailureReason() *string {
+func (d *DocumentsGetResponseDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsGet200ResponseDocument) GetThumbnailState() *DocumentsGet200ResponseDocumentThumbnailState {
+func (d *DocumentsGetResponseDocument) GetThumbnailState() DocumentsGetResponseDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsGet200ResponseDocument) GetThumbnailURL() *string {
+func (d *DocumentsGetResponseDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsGet200ResponseDocument) GetCreatedAt() float64 {
+func (d *DocumentsGetResponseDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsGet200ResponseDocument) GetUpdatedAt() float64 {
+func (d *DocumentsGetResponseDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsGet200ResponseDocument) GetCreatedBy() *string {
+func (d *DocumentsGetResponseDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsGet200ResponseDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsGetResponseDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsGet200ResponseDocument) require(field *big.Int) {
+func (d *DocumentsGetResponseDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -1273,116 +1286,124 @@ func (d *DocumentsGet200ResponseDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetID(id string) {
+func (d *DocumentsGetResponseDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsGet200ResponseDocumentFieldID)
+	d.require(documentsGetResponseDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetTenantID(tenantID string) {
+func (d *DocumentsGetResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsGet200ResponseDocumentFieldTenantID)
+	d.require(documentsGetResponseDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetName(name string) {
+func (d *DocumentsGetResponseDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsGet200ResponseDocumentFieldName)
+	d.require(documentsGetResponseDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetFolderID(folderID string) {
+func (d *DocumentsGetResponseDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsGet200ResponseDocumentFieldFolderID)
+	d.require(documentsGetResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetState(state DocumentsGet200ResponseDocumentState) {
+func (d *DocumentsGetResponseDocument) SetState(state DocumentsGetResponseDocumentState) {
 	d.State = state
-	d.require(documentsGet200ResponseDocumentFieldState)
+	d.require(documentsGetResponseDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsGet200ResponseDocumentFieldBaseSha)
+func (d *DocumentsGetResponseDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsGetResponseDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsGet200ResponseDocumentFieldStorageSizeBytes)
+func (d *DocumentsGetResponseDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsGetResponseDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsGetResponseDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsGet200ResponseDocumentFieldMetadata)
+	d.require(documentsGetResponseDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsGetResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsGet200ResponseDocumentFieldIdempotencyKey)
+	d.require(documentsGetResponseDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsGetResponseDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsGet200ResponseDocumentFieldFailureReason)
+	d.require(documentsGetResponseDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsGet200ResponseDocumentThumbnailState) {
+func (d *DocumentsGetResponseDocument) SetThumbnailState(thumbnailState DocumentsGetResponseDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsGet200ResponseDocumentFieldThumbnailState)
+	d.require(documentsGetResponseDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsGetResponseDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsGet200ResponseDocumentFieldThumbnailURL)
+	d.require(documentsGetResponseDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsGetResponseDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsGet200ResponseDocumentFieldCreatedAt)
+	d.require(documentsGetResponseDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsGetResponseDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsGet200ResponseDocumentFieldUpdatedAt)
+	d.require(documentsGetResponseDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsGet200ResponseDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsGetResponseDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsGet200ResponseDocumentFieldCreatedBy)
+	d.require(documentsGetResponseDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsGet200ResponseDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsGet200ResponseDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsGetResponseDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsGetResponseDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsGet200ResponseDocument(value)
+	*d = DocumentsGetResponseDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -1392,18 +1413,22 @@ func (d *DocumentsGet200ResponseDocument) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsGet200ResponseDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsGet200ResponseDocument
+func (d *DocumentsGetResponseDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsGetResponseDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsGet200ResponseDocument) String() string {
+func (d *DocumentsGetResponseDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -1418,69 +1443,69 @@ func (d *DocumentsGet200ResponseDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsGet200ResponseDocumentState string
+type DocumentsGetResponseDocumentState string
 
 const (
-	DocumentsGet200ResponseDocumentStatePending  DocumentsGet200ResponseDocumentState = "pending"
-	DocumentsGet200ResponseDocumentStateReady    DocumentsGet200ResponseDocumentState = "ready"
-	DocumentsGet200ResponseDocumentStateFailed   DocumentsGet200ResponseDocumentState = "failed"
-	DocumentsGet200ResponseDocumentStateDeleting DocumentsGet200ResponseDocumentState = "deleting"
+	DocumentsGetResponseDocumentStatePending  DocumentsGetResponseDocumentState = "pending"
+	DocumentsGetResponseDocumentStateReady    DocumentsGetResponseDocumentState = "ready"
+	DocumentsGetResponseDocumentStateFailed   DocumentsGetResponseDocumentState = "failed"
+	DocumentsGetResponseDocumentStateDeleting DocumentsGetResponseDocumentState = "deleting"
 )
 
-func NewDocumentsGet200ResponseDocumentStateFromString(s string) (DocumentsGet200ResponseDocumentState, error) {
+func NewDocumentsGetResponseDocumentStateFromString(s string) (DocumentsGetResponseDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsGet200ResponseDocumentStatePending, nil
+		return DocumentsGetResponseDocumentStatePending, nil
 	case "ready":
-		return DocumentsGet200ResponseDocumentStateReady, nil
+		return DocumentsGetResponseDocumentStateReady, nil
 	case "failed":
-		return DocumentsGet200ResponseDocumentStateFailed, nil
+		return DocumentsGetResponseDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsGet200ResponseDocumentStateDeleting, nil
+		return DocumentsGetResponseDocumentStateDeleting, nil
 	}
-	var t DocumentsGet200ResponseDocumentState
+	var t DocumentsGetResponseDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsGet200ResponseDocumentState) Ptr() *DocumentsGet200ResponseDocumentState {
+func (d DocumentsGetResponseDocumentState) Ptr() *DocumentsGetResponseDocumentState {
 	return &d
 }
 
-type DocumentsGet200ResponseDocumentThumbnailState string
+type DocumentsGetResponseDocumentThumbnailState string
 
 const (
-	DocumentsGet200ResponseDocumentThumbnailStatePending DocumentsGet200ResponseDocumentThumbnailState = "pending"
-	DocumentsGet200ResponseDocumentThumbnailStateReady   DocumentsGet200ResponseDocumentThumbnailState = "ready"
-	DocumentsGet200ResponseDocumentThumbnailStateLocked  DocumentsGet200ResponseDocumentThumbnailState = "locked"
-	DocumentsGet200ResponseDocumentThumbnailStateFailed  DocumentsGet200ResponseDocumentThumbnailState = "failed"
+	DocumentsGetResponseDocumentThumbnailStatePending DocumentsGetResponseDocumentThumbnailState = "pending"
+	DocumentsGetResponseDocumentThumbnailStateReady   DocumentsGetResponseDocumentThumbnailState = "ready"
+	DocumentsGetResponseDocumentThumbnailStateLocked  DocumentsGetResponseDocumentThumbnailState = "locked"
+	DocumentsGetResponseDocumentThumbnailStateFailed  DocumentsGetResponseDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsGet200ResponseDocumentThumbnailStateFromString(s string) (DocumentsGet200ResponseDocumentThumbnailState, error) {
+func NewDocumentsGetResponseDocumentThumbnailStateFromString(s string) (DocumentsGetResponseDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsGet200ResponseDocumentThumbnailStatePending, nil
+		return DocumentsGetResponseDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsGet200ResponseDocumentThumbnailStateReady, nil
+		return DocumentsGetResponseDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsGet200ResponseDocumentThumbnailStateLocked, nil
+		return DocumentsGetResponseDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsGet200ResponseDocumentThumbnailStateFailed, nil
+		return DocumentsGetResponseDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsGet200ResponseDocumentThumbnailState
+	var t DocumentsGetResponseDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsGet200ResponseDocumentThumbnailState) Ptr() *DocumentsGet200ResponseDocumentThumbnailState {
+func (d DocumentsGetResponseDocumentThumbnailState) Ptr() *DocumentsGetResponseDocumentThumbnailState {
 	return &d
 }
 
 var (
-	documentsImportFrom200ResponseFieldTag      = big.NewInt(1 << 0)
+	documentsImportFrom200ResponseFieldStatus   = big.NewInt(1 << 0)
 	documentsImportFrom200ResponseFieldDocument = big.NewInt(1 << 1)
 )
 
 type DocumentsImportFrom200Response struct {
-	Tag      DocumentsImportFrom200ResponseTag       `json:"tag" url:"tag"`
+	Status   DocumentsImportFrom200ResponseStatus    `json:"status" url:"status"`
 	Document *DocumentsImportFrom200ResponseDocument `json:"document" url:"document"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -1490,11 +1515,11 @@ type DocumentsImportFrom200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsImportFrom200Response) GetTag() DocumentsImportFrom200ResponseTag {
+func (d *DocumentsImportFrom200Response) GetStatus() DocumentsImportFrom200ResponseStatus {
 	if d == nil {
 		return ""
 	}
-	return d.Tag
+	return d.Status
 }
 
 func (d *DocumentsImportFrom200Response) GetDocument() *DocumentsImportFrom200ResponseDocument {
@@ -1518,11 +1543,11 @@ func (d *DocumentsImportFrom200Response) require(field *big.Int) {
 	d.explicitFields.Or(d.explicitFields, field)
 }
 
-// SetTag sets the Tag field and marks it as non-optional;
+// SetStatus sets the Status field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200Response) SetTag(tag DocumentsImportFrom200ResponseTag) {
-	d.Tag = tag
-	d.require(documentsImportFrom200ResponseFieldTag)
+func (d *DocumentsImportFrom200Response) SetStatus(status DocumentsImportFrom200ResponseStatus) {
+	d.Status = status
+	d.require(documentsImportFrom200ResponseFieldStatus)
 }
 
 // SetDocument sets the Document field and marks it as non-optional;
@@ -1575,21 +1600,21 @@ func (d *DocumentsImportFrom200Response) String() string {
 }
 
 var (
-	documentsImportFrom200ResponseDocumentFieldID               = big.NewInt(1 << 0)
-	documentsImportFrom200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsImportFrom200ResponseDocumentFieldName             = big.NewInt(1 << 2)
-	documentsImportFrom200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsImportFrom200ResponseDocumentFieldState            = big.NewInt(1 << 4)
-	documentsImportFrom200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsImportFrom200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsImportFrom200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsImportFrom200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsImportFrom200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsImportFrom200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsImportFrom200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsImportFrom200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsImportFrom200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsImportFrom200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsImportFrom200ResponseDocumentFieldID             = big.NewInt(1 << 0)
+	documentsImportFrom200ResponseDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsImportFrom200ResponseDocumentFieldName           = big.NewInt(1 << 2)
+	documentsImportFrom200ResponseDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsImportFrom200ResponseDocumentFieldState          = big.NewInt(1 << 4)
+	documentsImportFrom200ResponseDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsImportFrom200ResponseDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsImportFrom200ResponseDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsImportFrom200ResponseDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsImportFrom200ResponseDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsImportFrom200ResponseDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsImportFrom200ResponseDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsImportFrom200ResponseDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsImportFrom200ResponseDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsImportFrom200ResponseDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
 type DocumentsImportFrom200ResponseDocument struct {
@@ -1597,18 +1622,18 @@ type DocumentsImportFrom200ResponseDocument struct {
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                                `json:"folderId" url:"folderId"`
-	State            DocumentsImportFrom200ResponseDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                               `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                              `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                        `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                               `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                               `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsImportFrom200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                               `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                               `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                               `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                               `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                               `json:"folderId" url:"folderId"`
+	State          DocumentsImportFrom200ResponseDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                              `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                                 `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                       `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                              `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                              `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsImportFrom200ResponseDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                              `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                            `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                            `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                              `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -1652,18 +1677,18 @@ func (d *DocumentsImportFrom200ResponseDocument) GetState() DocumentsImportFrom2
 	return d.State
 }
 
-func (d *DocumentsImportFrom200ResponseDocument) GetBaseSha() *string {
+func (d *DocumentsImportFrom200ResponseDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsImportFrom200ResponseDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsImportFrom200ResponseDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
 func (d *DocumentsImportFrom200ResponseDocument) GetMetadata() map[string]any {
@@ -1687,9 +1712,9 @@ func (d *DocumentsImportFrom200ResponseDocument) GetFailureReason() *string {
 	return d.FailureReason
 }
 
-func (d *DocumentsImportFrom200ResponseDocument) GetThumbnailState() *DocumentsImportFrom200ResponseDocumentThumbnailState {
+func (d *DocumentsImportFrom200ResponseDocument) GetThumbnailState() DocumentsImportFrom200ResponseDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
@@ -1701,16 +1726,16 @@ func (d *DocumentsImportFrom200ResponseDocument) GetThumbnailURL() *string {
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsImportFrom200ResponseDocument) GetCreatedAt() float64 {
+func (d *DocumentsImportFrom200ResponseDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsImportFrom200ResponseDocument) GetUpdatedAt() float64 {
+func (d *DocumentsImportFrom200ResponseDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
@@ -1771,18 +1796,18 @@ func (d *DocumentsImportFrom200ResponseDocument) SetState(state DocumentsImportF
 	d.require(documentsImportFrom200ResponseDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200ResponseDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsImportFrom200ResponseDocumentFieldBaseSha)
+func (d *DocumentsImportFrom200ResponseDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsImportFrom200ResponseDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsImportFrom200ResponseDocumentFieldStorageSizeBytes)
+func (d *DocumentsImportFrom200ResponseDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsImportFrom200ResponseDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
@@ -1808,7 +1833,7 @@ func (d *DocumentsImportFrom200ResponseDocument) SetFailureReason(failureReason 
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsImportFrom200ResponseDocumentThumbnailState) {
+func (d *DocumentsImportFrom200ResponseDocument) SetThumbnailState(thumbnailState DocumentsImportFrom200ResponseDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
 	d.require(documentsImportFrom200ResponseDocumentFieldThumbnailState)
 }
@@ -1822,14 +1847,14 @@ func (d *DocumentsImportFrom200ResponseDocument) SetThumbnailURL(thumbnailURL *s
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200ResponseDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsImportFrom200ResponseDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
 	d.require(documentsImportFrom200ResponseDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsImportFrom200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsImportFrom200ResponseDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
 	d.require(documentsImportFrom200ResponseDocumentFieldUpdatedAt)
 }
@@ -1842,12 +1867,20 @@ func (d *DocumentsImportFrom200ResponseDocument) SetCreatedBy(createdBy *string)
 }
 
 func (d *DocumentsImportFrom200ResponseDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsImportFrom200ResponseDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+	type embed DocumentsImportFrom200ResponseDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsImportFrom200ResponseDocument(value)
+	*d = DocumentsImportFrom200ResponseDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -1861,8 +1894,12 @@ func (d *DocumentsImportFrom200ResponseDocument) MarshalJSON() ([]byte, error) {
 	type embed DocumentsImportFrom200ResponseDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
@@ -1939,94 +1976,94 @@ func (d DocumentsImportFrom200ResponseDocumentThumbnailState) Ptr() *DocumentsIm
 	return &d
 }
 
-type DocumentsImportFrom200ResponseTag string
+type DocumentsImportFrom200ResponseStatus string
 
 const (
-	DocumentsImportFrom200ResponseTagImported DocumentsImportFrom200ResponseTag = "imported"
-	DocumentsImportFrom200ResponseTagDeduped  DocumentsImportFrom200ResponseTag = "deduped"
-	DocumentsImportFrom200ResponseTagAccepted DocumentsImportFrom200ResponseTag = "accepted"
+	DocumentsImportFrom200ResponseStatusImported DocumentsImportFrom200ResponseStatus = "imported"
+	DocumentsImportFrom200ResponseStatusDeduped  DocumentsImportFrom200ResponseStatus = "deduped"
+	DocumentsImportFrom200ResponseStatusAccepted DocumentsImportFrom200ResponseStatus = "accepted"
 )
 
-func NewDocumentsImportFrom200ResponseTagFromString(s string) (DocumentsImportFrom200ResponseTag, error) {
+func NewDocumentsImportFrom200ResponseStatusFromString(s string) (DocumentsImportFrom200ResponseStatus, error) {
 	switch s {
 	case "imported":
-		return DocumentsImportFrom200ResponseTagImported, nil
+		return DocumentsImportFrom200ResponseStatusImported, nil
 	case "deduped":
-		return DocumentsImportFrom200ResponseTagDeduped, nil
+		return DocumentsImportFrom200ResponseStatusDeduped, nil
 	case "accepted":
-		return DocumentsImportFrom200ResponseTagAccepted, nil
+		return DocumentsImportFrom200ResponseStatusAccepted, nil
 	}
-	var t DocumentsImportFrom200ResponseTag
+	var t DocumentsImportFrom200ResponseStatus
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsImportFrom200ResponseTag) Ptr() *DocumentsImportFrom200ResponseTag {
+func (d DocumentsImportFrom200ResponseStatus) Ptr() *DocumentsImportFrom200ResponseStatus {
 	return &d
 }
 
-type DocumentsInit200Response struct {
-	Tag     string
-	Created *DocumentsInit200ResponseCreated
-	Resumed *DocumentsInit200ResponseResumed
-	Deduped *DocumentsInit200ResponseDeduped
+type DocumentsInitResponse struct {
+	Status  string
+	Created *DocumentsInitResponseCreated
+	Resumed *DocumentsInitResponseResumed
+	Deduped *DocumentsInitResponseDeduped
 
 	rawJSON json.RawMessage
 }
 
-func (d *DocumentsInit200Response) GetTag() string {
+func (d *DocumentsInitResponse) GetStatus() string {
 	if d == nil {
 		return ""
 	}
-	return d.Tag
+	return d.Status
 }
 
-func (d *DocumentsInit200Response) GetCreated() *DocumentsInit200ResponseCreated {
+func (d *DocumentsInitResponse) GetCreated() *DocumentsInitResponseCreated {
 	if d == nil {
 		return nil
 	}
 	return d.Created
 }
 
-func (d *DocumentsInit200Response) GetResumed() *DocumentsInit200ResponseResumed {
+func (d *DocumentsInitResponse) GetResumed() *DocumentsInitResponseResumed {
 	if d == nil {
 		return nil
 	}
 	return d.Resumed
 }
 
-func (d *DocumentsInit200Response) GetDeduped() *DocumentsInit200ResponseDeduped {
+func (d *DocumentsInitResponse) GetDeduped() *DocumentsInitResponseDeduped {
 	if d == nil {
 		return nil
 	}
 	return d.Deduped
 }
 
-func (d *DocumentsInit200Response) UnmarshalJSON(data []byte) error {
+func (d *DocumentsInitResponse) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
-		Tag string `json:"tag"`
+		Status string `json:"status"`
 	}
 	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	d.Tag = unmarshaler.Tag
-	if unmarshaler.Tag == "" {
-		return fmt.Errorf("%T did not include discriminant tag", d)
+	d.Status = unmarshaler.Status
+	if unmarshaler.Status == "" {
+		return fmt.Errorf("%T did not include discriminant status", d)
 	}
-	switch unmarshaler.Tag {
+	switch unmarshaler.Status {
 	case "created":
-		value := new(DocumentsInit200ResponseCreated)
+		value := new(DocumentsInitResponseCreated)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		d.Created = value
 	case "resumed":
-		value := new(DocumentsInit200ResponseResumed)
+		value := new(DocumentsInitResponseResumed)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		d.Resumed = value
 	case "deduped":
-		value := new(DocumentsInit200ResponseDeduped)
+		value := new(DocumentsInitResponseDeduped)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
@@ -2036,18 +2073,18 @@ func (d *DocumentsInit200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d DocumentsInit200Response) MarshalJSON() ([]byte, error) {
+func (d DocumentsInitResponse) MarshalJSON() ([]byte, error) {
 	if err := d.validate(); err != nil {
 		return nil, err
 	}
 	if d.Created != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Created, "tag", "created")
+		return internal.MarshalJSONWithExtraProperty(d.Created, "status", "created")
 	}
 	if d.Resumed != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Resumed, "tag", "resumed")
+		return internal.MarshalJSONWithExtraProperty(d.Resumed, "status", "resumed")
 	}
 	if d.Deduped != nil {
-		return internal.MarshalJSONWithExtraProperty(d.Deduped, "tag", "deduped")
+		return internal.MarshalJSONWithExtraProperty(d.Deduped, "status", "deduped")
 	}
 	if len(d.rawJSON) > 0 {
 		return d.rawJSON, nil
@@ -2055,13 +2092,13 @@ func (d DocumentsInit200Response) MarshalJSON() ([]byte, error) {
 	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-type DocumentsInit200ResponseVisitor interface {
-	VisitCreated(*DocumentsInit200ResponseCreated) error
-	VisitResumed(*DocumentsInit200ResponseResumed) error
-	VisitDeduped(*DocumentsInit200ResponseDeduped) error
+type DocumentsInitResponseVisitor interface {
+	VisitCreated(*DocumentsInitResponseCreated) error
+	VisitResumed(*DocumentsInitResponseResumed) error
+	VisitDeduped(*DocumentsInitResponseDeduped) error
 }
 
-func (d *DocumentsInit200Response) Accept(visitor DocumentsInit200ResponseVisitor) error {
+func (d *DocumentsInitResponse) Accept(visitor DocumentsInitResponseVisitor) error {
 	if d.Created != nil {
 		return visitor.VisitCreated(d.Created)
 	}
@@ -2074,7 +2111,7 @@ func (d *DocumentsInit200Response) Accept(visitor DocumentsInit200ResponseVisito
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-func (d *DocumentsInit200Response) validate() error {
+func (d *DocumentsInitResponse) validate() error {
 	if d == nil {
 		return fmt.Errorf("type %T is nil", d)
 	}
@@ -2089,24 +2126,24 @@ func (d *DocumentsInit200Response) validate() error {
 		fields = append(fields, "deduped")
 	}
 	if len(fields) == 0 {
-		if d.Tag != "" {
+		if d.Status != "" {
 			if len(d.rawJSON) > 0 {
 				return nil
 			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Tag)
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", d, d.Status)
 		}
 		return fmt.Errorf("type %T is empty", d)
 	}
 	if len(fields) > 1 {
 		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", d, fields)
 	}
-	if d.Tag != "" {
+	if d.Status != "" {
 		field := fields[0]
-		if d.Tag != field {
+		if d.Status != field {
 			return fmt.Errorf(
 				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
 				d,
-				d.Tag,
+				d.Status,
 				d,
 			)
 		}
@@ -2115,13 +2152,13 @@ func (d *DocumentsInit200Response) validate() error {
 }
 
 var (
-	documentsInit200ResponseCreatedFieldDocument = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedFieldUpload   = big.NewInt(1 << 1)
+	documentsInitResponseCreatedFieldDocument = big.NewInt(1 << 0)
+	documentsInitResponseCreatedFieldUpload   = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseCreated struct {
-	Document *DocumentsInit200ResponseCreatedDocument `json:"document" url:"document"`
-	Upload   *DocumentsInit200ResponseCreatedUpload   `json:"upload" url:"upload"`
+type DocumentsInitResponseCreated struct {
+	Document *DocumentsInitResponseCreatedDocument `json:"document" url:"document"`
+	Upload   *DocumentsInitResponseCreatedUpload   `json:"upload" url:"upload"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2130,28 +2167,28 @@ type DocumentsInit200ResponseCreated struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreated) GetDocument() *DocumentsInit200ResponseCreatedDocument {
+func (d *DocumentsInitResponseCreated) GetDocument() *DocumentsInitResponseCreatedDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsInit200ResponseCreated) GetUpload() *DocumentsInit200ResponseCreatedUpload {
+func (d *DocumentsInitResponseCreated) GetUpload() *DocumentsInitResponseCreatedUpload {
 	if d == nil {
 		return nil
 	}
 	return d.Upload
 }
 
-func (d *DocumentsInit200ResponseCreated) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseCreated) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseCreated) require(field *big.Int) {
+func (d *DocumentsInitResponseCreated) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -2160,25 +2197,25 @@ func (d *DocumentsInit200ResponseCreated) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreated) SetDocument(document *DocumentsInit200ResponseCreatedDocument) {
+func (d *DocumentsInitResponseCreated) SetDocument(document *DocumentsInitResponseCreatedDocument) {
 	d.Document = document
-	d.require(documentsInit200ResponseCreatedFieldDocument)
+	d.require(documentsInitResponseCreatedFieldDocument)
 }
 
 // SetUpload sets the Upload field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreated) SetUpload(upload *DocumentsInit200ResponseCreatedUpload) {
+func (d *DocumentsInitResponseCreated) SetUpload(upload *DocumentsInitResponseCreatedUpload) {
 	d.Upload = upload
-	d.require(documentsInit200ResponseCreatedFieldUpload)
+	d.require(documentsInitResponseCreatedFieldUpload)
 }
 
-func (d *DocumentsInit200ResponseCreated) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreated
+func (d *DocumentsInitResponseCreated) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseCreated
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseCreated(value)
+	*d = DocumentsInitResponseCreated(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -2188,8 +2225,8 @@ func (d *DocumentsInit200ResponseCreated) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsInit200ResponseCreated) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreated
+func (d *DocumentsInitResponseCreated) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseCreated
 	var marshaler = struct {
 		embed
 	}{
@@ -2199,7 +2236,7 @@ func (d *DocumentsInit200ResponseCreated) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseCreated) String() string {
+func (d *DocumentsInitResponseCreated) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -2215,40 +2252,40 @@ func (d *DocumentsInit200ResponseCreated) String() string {
 }
 
 var (
-	documentsInit200ResponseCreatedDocumentFieldID               = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseCreatedDocumentFieldName             = big.NewInt(1 << 2)
-	documentsInit200ResponseCreatedDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsInit200ResponseCreatedDocumentFieldState            = big.NewInt(1 << 4)
-	documentsInit200ResponseCreatedDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsInit200ResponseCreatedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsInit200ResponseCreatedDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsInit200ResponseCreatedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsInit200ResponseCreatedDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsInit200ResponseCreatedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsInit200ResponseCreatedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsInit200ResponseCreatedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsInit200ResponseCreatedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsInit200ResponseCreatedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsInitResponseCreatedDocumentFieldID             = big.NewInt(1 << 0)
+	documentsInitResponseCreatedDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsInitResponseCreatedDocumentFieldName           = big.NewInt(1 << 2)
+	documentsInitResponseCreatedDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsInitResponseCreatedDocumentFieldState          = big.NewInt(1 << 4)
+	documentsInitResponseCreatedDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsInitResponseCreatedDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsInitResponseCreatedDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsInitResponseCreatedDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsInitResponseCreatedDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsInitResponseCreatedDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsInitResponseCreatedDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsInitResponseCreatedDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsInitResponseCreatedDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsInitResponseCreatedDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsInit200ResponseCreatedDocument struct {
+type DocumentsInitResponseCreatedDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                                 `json:"folderId" url:"folderId"`
-	State            DocumentsInit200ResponseCreatedDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                         `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                                `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                                `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsInit200ResponseCreatedDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                                `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                                `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                                `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                                `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                             `json:"folderId" url:"folderId"`
+	State          DocumentsInitResponseCreatedDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                            `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                               `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                     `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                            `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                            `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsInitResponseCreatedDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                            `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                          `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                          `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2257,119 +2294,119 @@ type DocumentsInit200ResponseCreatedDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetID() string {
+func (d *DocumentsInitResponseCreatedDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetTenantID() string {
+func (d *DocumentsInitResponseCreatedDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetName() string {
+func (d *DocumentsInitResponseCreatedDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetFolderID() string {
+func (d *DocumentsInitResponseCreatedDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetState() DocumentsInit200ResponseCreatedDocumentState {
+func (d *DocumentsInitResponseCreatedDocument) GetState() DocumentsInitResponseCreatedDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetBaseSha() *string {
+func (d *DocumentsInitResponseCreatedDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsInitResponseCreatedDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetMetadata() map[string]any {
+func (d *DocumentsInitResponseCreatedDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetIdempotencyKey() *string {
+func (d *DocumentsInitResponseCreatedDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetFailureReason() *string {
+func (d *DocumentsInitResponseCreatedDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetThumbnailState() *DocumentsInit200ResponseCreatedDocumentThumbnailState {
+func (d *DocumentsInitResponseCreatedDocument) GetThumbnailState() DocumentsInitResponseCreatedDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetThumbnailURL() *string {
+func (d *DocumentsInitResponseCreatedDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetCreatedAt() float64 {
+func (d *DocumentsInitResponseCreatedDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetUpdatedAt() float64 {
+func (d *DocumentsInitResponseCreatedDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetCreatedBy() *string {
+func (d *DocumentsInitResponseCreatedDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseCreatedDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) require(field *big.Int) {
+func (d *DocumentsInitResponseCreatedDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -2378,116 +2415,124 @@ func (d *DocumentsInit200ResponseCreatedDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetID(id string) {
+func (d *DocumentsInitResponseCreatedDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsInit200ResponseCreatedDocumentFieldID)
+	d.require(documentsInitResponseCreatedDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetTenantID(tenantID string) {
+func (d *DocumentsInitResponseCreatedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsInit200ResponseCreatedDocumentFieldTenantID)
+	d.require(documentsInitResponseCreatedDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetName(name string) {
+func (d *DocumentsInitResponseCreatedDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsInit200ResponseCreatedDocumentFieldName)
+	d.require(documentsInitResponseCreatedDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetFolderID(folderID string) {
+func (d *DocumentsInitResponseCreatedDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsInit200ResponseCreatedDocumentFieldFolderID)
+	d.require(documentsInitResponseCreatedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetState(state DocumentsInit200ResponseCreatedDocumentState) {
+func (d *DocumentsInitResponseCreatedDocument) SetState(state DocumentsInitResponseCreatedDocumentState) {
 	d.State = state
-	d.require(documentsInit200ResponseCreatedDocumentFieldState)
+	d.require(documentsInitResponseCreatedDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsInit200ResponseCreatedDocumentFieldBaseSha)
+func (d *DocumentsInitResponseCreatedDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsInitResponseCreatedDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsInit200ResponseCreatedDocumentFieldStorageSizeBytes)
+func (d *DocumentsInitResponseCreatedDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsInitResponseCreatedDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsInitResponseCreatedDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsInit200ResponseCreatedDocumentFieldMetadata)
+	d.require(documentsInitResponseCreatedDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsInitResponseCreatedDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsInit200ResponseCreatedDocumentFieldIdempotencyKey)
+	d.require(documentsInitResponseCreatedDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsInitResponseCreatedDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsInit200ResponseCreatedDocumentFieldFailureReason)
+	d.require(documentsInitResponseCreatedDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetThumbnailState(thumbnailState *DocumentsInit200ResponseCreatedDocumentThumbnailState) {
+func (d *DocumentsInitResponseCreatedDocument) SetThumbnailState(thumbnailState DocumentsInitResponseCreatedDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsInit200ResponseCreatedDocumentFieldThumbnailState)
+	d.require(documentsInitResponseCreatedDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsInitResponseCreatedDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsInit200ResponseCreatedDocumentFieldThumbnailURL)
+	d.require(documentsInitResponseCreatedDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsInitResponseCreatedDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsInit200ResponseCreatedDocumentFieldCreatedAt)
+	d.require(documentsInitResponseCreatedDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsInitResponseCreatedDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsInit200ResponseCreatedDocumentFieldUpdatedAt)
+	d.require(documentsInitResponseCreatedDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsInitResponseCreatedDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsInit200ResponseCreatedDocumentFieldCreatedBy)
+	d.require(documentsInitResponseCreatedDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreatedDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsInitResponseCreatedDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsInitResponseCreatedDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseCreatedDocument(value)
+	*d = DocumentsInitResponseCreatedDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -2497,18 +2542,22 @@ func (d *DocumentsInit200ResponseCreatedDocument) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreatedDocument
+func (d *DocumentsInitResponseCreatedDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseCreatedDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseCreatedDocument) String() string {
+func (d *DocumentsInitResponseCreatedDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -2523,92 +2572,92 @@ func (d *DocumentsInit200ResponseCreatedDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsInit200ResponseCreatedDocumentState string
+type DocumentsInitResponseCreatedDocumentState string
 
 const (
-	DocumentsInit200ResponseCreatedDocumentStatePending  DocumentsInit200ResponseCreatedDocumentState = "pending"
-	DocumentsInit200ResponseCreatedDocumentStateReady    DocumentsInit200ResponseCreatedDocumentState = "ready"
-	DocumentsInit200ResponseCreatedDocumentStateFailed   DocumentsInit200ResponseCreatedDocumentState = "failed"
-	DocumentsInit200ResponseCreatedDocumentStateDeleting DocumentsInit200ResponseCreatedDocumentState = "deleting"
+	DocumentsInitResponseCreatedDocumentStatePending  DocumentsInitResponseCreatedDocumentState = "pending"
+	DocumentsInitResponseCreatedDocumentStateReady    DocumentsInitResponseCreatedDocumentState = "ready"
+	DocumentsInitResponseCreatedDocumentStateFailed   DocumentsInitResponseCreatedDocumentState = "failed"
+	DocumentsInitResponseCreatedDocumentStateDeleting DocumentsInitResponseCreatedDocumentState = "deleting"
 )
 
-func NewDocumentsInit200ResponseCreatedDocumentStateFromString(s string) (DocumentsInit200ResponseCreatedDocumentState, error) {
+func NewDocumentsInitResponseCreatedDocumentStateFromString(s string) (DocumentsInitResponseCreatedDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseCreatedDocumentStatePending, nil
+		return DocumentsInitResponseCreatedDocumentStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseCreatedDocumentStateReady, nil
+		return DocumentsInitResponseCreatedDocumentStateReady, nil
 	case "failed":
-		return DocumentsInit200ResponseCreatedDocumentStateFailed, nil
+		return DocumentsInitResponseCreatedDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsInit200ResponseCreatedDocumentStateDeleting, nil
+		return DocumentsInitResponseCreatedDocumentStateDeleting, nil
 	}
-	var t DocumentsInit200ResponseCreatedDocumentState
+	var t DocumentsInitResponseCreatedDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseCreatedDocumentState) Ptr() *DocumentsInit200ResponseCreatedDocumentState {
+func (d DocumentsInitResponseCreatedDocumentState) Ptr() *DocumentsInitResponseCreatedDocumentState {
 	return &d
 }
 
-type DocumentsInit200ResponseCreatedDocumentThumbnailState string
+type DocumentsInitResponseCreatedDocumentThumbnailState string
 
 const (
-	DocumentsInit200ResponseCreatedDocumentThumbnailStatePending DocumentsInit200ResponseCreatedDocumentThumbnailState = "pending"
-	DocumentsInit200ResponseCreatedDocumentThumbnailStateReady   DocumentsInit200ResponseCreatedDocumentThumbnailState = "ready"
-	DocumentsInit200ResponseCreatedDocumentThumbnailStateLocked  DocumentsInit200ResponseCreatedDocumentThumbnailState = "locked"
-	DocumentsInit200ResponseCreatedDocumentThumbnailStateFailed  DocumentsInit200ResponseCreatedDocumentThumbnailState = "failed"
+	DocumentsInitResponseCreatedDocumentThumbnailStatePending DocumentsInitResponseCreatedDocumentThumbnailState = "pending"
+	DocumentsInitResponseCreatedDocumentThumbnailStateReady   DocumentsInitResponseCreatedDocumentThumbnailState = "ready"
+	DocumentsInitResponseCreatedDocumentThumbnailStateLocked  DocumentsInitResponseCreatedDocumentThumbnailState = "locked"
+	DocumentsInitResponseCreatedDocumentThumbnailStateFailed  DocumentsInitResponseCreatedDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsInit200ResponseCreatedDocumentThumbnailStateFromString(s string) (DocumentsInit200ResponseCreatedDocumentThumbnailState, error) {
+func NewDocumentsInitResponseCreatedDocumentThumbnailStateFromString(s string) (DocumentsInitResponseCreatedDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseCreatedDocumentThumbnailStatePending, nil
+		return DocumentsInitResponseCreatedDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseCreatedDocumentThumbnailStateReady, nil
+		return DocumentsInitResponseCreatedDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsInit200ResponseCreatedDocumentThumbnailStateLocked, nil
+		return DocumentsInitResponseCreatedDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsInit200ResponseCreatedDocumentThumbnailStateFailed, nil
+		return DocumentsInitResponseCreatedDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsInit200ResponseCreatedDocumentThumbnailState
+	var t DocumentsInitResponseCreatedDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseCreatedDocumentThumbnailState) Ptr() *DocumentsInit200ResponseCreatedDocumentThumbnailState {
+func (d DocumentsInitResponseCreatedDocumentThumbnailState) Ptr() *DocumentsInitResponseCreatedDocumentThumbnailState {
 	return &d
 }
 
-type DocumentsInit200ResponseCreatedUpload struct {
+type DocumentsInitResponseCreatedUpload struct {
 	Kind      string
-	Presigned *DocumentsInit200ResponseCreatedUploadPresigned
-	Proxy     *DocumentsInit200ResponseCreatedUploadProxy
+	Presigned *DocumentsInitResponseCreatedUploadPresigned
+	Proxy     *DocumentsInitResponseCreatedUploadProxy
 
 	rawJSON json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) GetKind() string {
+func (d *DocumentsInitResponseCreatedUpload) GetKind() string {
 	if d == nil {
 		return ""
 	}
 	return d.Kind
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) GetPresigned() *DocumentsInit200ResponseCreatedUploadPresigned {
+func (d *DocumentsInitResponseCreatedUpload) GetPresigned() *DocumentsInitResponseCreatedUploadPresigned {
 	if d == nil {
 		return nil
 	}
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) GetProxy() *DocumentsInit200ResponseCreatedUploadProxy {
+func (d *DocumentsInitResponseCreatedUpload) GetProxy() *DocumentsInitResponseCreatedUploadProxy {
 	if d == nil {
 		return nil
 	}
 	return d.Proxy
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) UnmarshalJSON(data []byte) error {
+func (d *DocumentsInitResponseCreatedUpload) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
 		Kind string `json:"kind"`
 	}
@@ -2621,13 +2670,13 @@ func (d *DocumentsInit200ResponseCreatedUpload) UnmarshalJSON(data []byte) error
 	}
 	switch unmarshaler.Kind {
 	case "presigned":
-		value := new(DocumentsInit200ResponseCreatedUploadPresigned)
+		value := new(DocumentsInitResponseCreatedUploadPresigned)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		d.Presigned = value
 	case "proxy":
-		value := new(DocumentsInit200ResponseCreatedUploadProxy)
+		value := new(DocumentsInitResponseCreatedUploadProxy)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
@@ -2637,7 +2686,7 @@ func (d *DocumentsInit200ResponseCreatedUpload) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (d DocumentsInit200ResponseCreatedUpload) MarshalJSON() ([]byte, error) {
+func (d DocumentsInitResponseCreatedUpload) MarshalJSON() ([]byte, error) {
 	if err := d.validate(); err != nil {
 		return nil, err
 	}
@@ -2653,12 +2702,12 @@ func (d DocumentsInit200ResponseCreatedUpload) MarshalJSON() ([]byte, error) {
 	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-type DocumentsInit200ResponseCreatedUploadVisitor interface {
-	VisitPresigned(*DocumentsInit200ResponseCreatedUploadPresigned) error
-	VisitProxy(*DocumentsInit200ResponseCreatedUploadProxy) error
+type DocumentsInitResponseCreatedUploadVisitor interface {
+	VisitPresigned(*DocumentsInitResponseCreatedUploadPresigned) error
+	VisitProxy(*DocumentsInitResponseCreatedUploadProxy) error
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) Accept(visitor DocumentsInit200ResponseCreatedUploadVisitor) error {
+func (d *DocumentsInitResponseCreatedUpload) Accept(visitor DocumentsInitResponseCreatedUploadVisitor) error {
 	if d.Presigned != nil {
 		return visitor.VisitPresigned(d.Presigned)
 	}
@@ -2668,7 +2717,7 @@ func (d *DocumentsInit200ResponseCreatedUpload) Accept(visitor DocumentsInit200R
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-func (d *DocumentsInit200ResponseCreatedUpload) validate() error {
+func (d *DocumentsInitResponseCreatedUpload) validate() error {
 	if d == nil {
 		return fmt.Errorf("type %T is nil", d)
 	}
@@ -2706,13 +2755,13 @@ func (d *DocumentsInit200ResponseCreatedUpload) validate() error {
 }
 
 var (
-	documentsInit200ResponseCreatedUploadPresignedFieldPresigned = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedUploadPresignedFieldKey       = big.NewInt(1 << 1)
+	documentsInitResponseCreatedUploadPresignedFieldPresigned = big.NewInt(1 << 0)
+	documentsInitResponseCreatedUploadPresignedFieldKey       = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseCreatedUploadPresigned struct {
-	Presigned *DocumentsInit200ResponseCreatedUploadPresignedPresigned `json:"presigned" url:"presigned"`
-	Key       string                                                   `json:"key" url:"key"`
+type DocumentsInitResponseCreatedUploadPresigned struct {
+	Presigned *DocumentsInitResponseCreatedUploadPresignedPresigned `json:"presigned" url:"presigned"`
+	Key       string                                                `json:"key" url:"key"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2721,28 +2770,28 @@ type DocumentsInit200ResponseCreatedUploadPresigned struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) GetPresigned() *DocumentsInit200ResponseCreatedUploadPresignedPresigned {
+func (d *DocumentsInitResponseCreatedUploadPresigned) GetPresigned() *DocumentsInitResponseCreatedUploadPresignedPresigned {
 	if d == nil {
 		return nil
 	}
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) GetKey() string {
+func (d *DocumentsInitResponseCreatedUploadPresigned) GetKey() string {
 	if d == nil {
 		return ""
 	}
 	return d.Key
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseCreatedUploadPresigned) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) require(field *big.Int) {
+func (d *DocumentsInitResponseCreatedUploadPresigned) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -2751,25 +2800,25 @@ func (d *DocumentsInit200ResponseCreatedUploadPresigned) require(field *big.Int)
 
 // SetPresigned sets the Presigned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) SetPresigned(presigned *DocumentsInit200ResponseCreatedUploadPresignedPresigned) {
+func (d *DocumentsInitResponseCreatedUploadPresigned) SetPresigned(presigned *DocumentsInitResponseCreatedUploadPresignedPresigned) {
 	d.Presigned = presigned
-	d.require(documentsInit200ResponseCreatedUploadPresignedFieldPresigned)
+	d.require(documentsInitResponseCreatedUploadPresignedFieldPresigned)
 }
 
 // SetKey sets the Key field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) SetKey(key string) {
+func (d *DocumentsInitResponseCreatedUploadPresigned) SetKey(key string) {
 	d.Key = key
-	d.require(documentsInit200ResponseCreatedUploadPresignedFieldKey)
+	d.require(documentsInitResponseCreatedUploadPresignedFieldKey)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreatedUploadPresigned
+func (d *DocumentsInitResponseCreatedUploadPresigned) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseCreatedUploadPresigned
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseCreatedUploadPresigned(value)
+	*d = DocumentsInitResponseCreatedUploadPresigned(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -2779,8 +2828,8 @@ func (d *DocumentsInit200ResponseCreatedUploadPresigned) UnmarshalJSON(data []by
 	return nil
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreatedUploadPresigned
+func (d *DocumentsInitResponseCreatedUploadPresigned) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseCreatedUploadPresigned
 	var marshaler = struct {
 		embed
 	}{
@@ -2790,7 +2839,7 @@ func (d *DocumentsInit200ResponseCreatedUploadPresigned) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresigned) String() string {
+func (d *DocumentsInitResponseCreatedUploadPresigned) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -2806,17 +2855,17 @@ func (d *DocumentsInit200ResponseCreatedUploadPresigned) String() string {
 }
 
 var (
-	documentsInit200ResponseCreatedUploadPresignedPresignedFieldURL       = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedUploadPresignedPresignedFieldHeaders   = big.NewInt(1 << 1)
-	documentsInit200ResponseCreatedUploadPresignedPresignedFieldMethod    = big.NewInt(1 << 2)
-	documentsInit200ResponseCreatedUploadPresignedPresignedFieldExpiresAt = big.NewInt(1 << 3)
+	documentsInitResponseCreatedUploadPresignedPresignedFieldURL       = big.NewInt(1 << 0)
+	documentsInitResponseCreatedUploadPresignedPresignedFieldHeaders   = big.NewInt(1 << 1)
+	documentsInitResponseCreatedUploadPresignedPresignedFieldMethod    = big.NewInt(1 << 2)
+	documentsInitResponseCreatedUploadPresignedPresignedFieldExpiresAt = big.NewInt(1 << 3)
 )
 
-type DocumentsInit200ResponseCreatedUploadPresignedPresigned struct {
-	URL       string                                                        `json:"url" url:"url"`
-	Headers   map[string]string                                             `json:"headers" url:"headers"`
-	Method    DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod `json:"method" url:"method"`
-	ExpiresAt float64                                                       `json:"expiresAt" url:"expiresAt"`
+type DocumentsInitResponseCreatedUploadPresignedPresigned struct {
+	URL       string                                                     `json:"url" url:"url"`
+	Headers   map[string]string                                          `json:"headers" url:"headers"`
+	Method    DocumentsInitResponseCreatedUploadPresignedPresignedMethod `json:"method" url:"method"`
+	ExpiresAt time.Time                                                  `json:"expiresAt" url:"expiresAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -2825,42 +2874,42 @@ type DocumentsInit200ResponseCreatedUploadPresignedPresigned struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) GetURL() string {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) GetURL() string {
 	if d == nil {
 		return ""
 	}
 	return d.URL
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) GetHeaders() map[string]string {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) GetHeaders() map[string]string {
 	if d == nil {
 		return nil
 	}
 	return d.Headers
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) GetMethod() DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) GetMethod() DocumentsInitResponseCreatedUploadPresignedPresignedMethod {
 	if d == nil {
 		return ""
 	}
 	return d.Method
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) GetExpiresAt() float64 {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) GetExpiresAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.ExpiresAt
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) require(field *big.Int) {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -2869,39 +2918,45 @@ func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) require(field 
 
 // SetURL sets the URL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) SetURL(url string) {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) SetURL(url string) {
 	d.URL = url
-	d.require(documentsInit200ResponseCreatedUploadPresignedPresignedFieldURL)
+	d.require(documentsInitResponseCreatedUploadPresignedPresignedFieldURL)
 }
 
 // SetHeaders sets the Headers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) SetHeaders(headers map[string]string) {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) SetHeaders(headers map[string]string) {
 	d.Headers = headers
-	d.require(documentsInit200ResponseCreatedUploadPresignedPresignedFieldHeaders)
+	d.require(documentsInitResponseCreatedUploadPresignedPresignedFieldHeaders)
 }
 
 // SetMethod sets the Method field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) SetMethod(method DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod) {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) SetMethod(method DocumentsInitResponseCreatedUploadPresignedPresignedMethod) {
 	d.Method = method
-	d.require(documentsInit200ResponseCreatedUploadPresignedPresignedFieldMethod)
+	d.require(documentsInitResponseCreatedUploadPresignedPresignedFieldMethod)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) SetExpiresAt(expiresAt float64) {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) SetExpiresAt(expiresAt time.Time) {
 	d.ExpiresAt = expiresAt
-	d.require(documentsInit200ResponseCreatedUploadPresignedPresignedFieldExpiresAt)
+	d.require(documentsInitResponseCreatedUploadPresignedPresignedFieldExpiresAt)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreatedUploadPresignedPresigned
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) UnmarshalJSON(data []byte) error {
+	type embed DocumentsInitResponseCreatedUploadPresignedPresigned
+	var unmarshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseCreatedUploadPresignedPresigned(value)
+	*d = DocumentsInitResponseCreatedUploadPresignedPresigned(unmarshaler.embed)
+	d.ExpiresAt = unmarshaler.ExpiresAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -2911,18 +2966,20 @@ func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) UnmarshalJSON(
 	return nil
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreatedUploadPresignedPresigned
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseCreatedUploadPresignedPresigned
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		ExpiresAt: internal.NewDateTime(d.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) String() string {
+func (d *DocumentsInitResponseCreatedUploadPresignedPresigned) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -2937,31 +2994,31 @@ func (d *DocumentsInit200ResponseCreatedUploadPresignedPresigned) String() strin
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod string
+type DocumentsInitResponseCreatedUploadPresignedPresignedMethod string
 
 const (
-	DocumentsInit200ResponseCreatedUploadPresignedPresignedMethodPut DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod = "PUT"
+	DocumentsInitResponseCreatedUploadPresignedPresignedMethodPut DocumentsInitResponseCreatedUploadPresignedPresignedMethod = "PUT"
 )
 
-func NewDocumentsInit200ResponseCreatedUploadPresignedPresignedMethodFromString(s string) (DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod, error) {
+func NewDocumentsInitResponseCreatedUploadPresignedPresignedMethodFromString(s string) (DocumentsInitResponseCreatedUploadPresignedPresignedMethod, error) {
 	switch s {
 	case "PUT":
-		return DocumentsInit200ResponseCreatedUploadPresignedPresignedMethodPut, nil
+		return DocumentsInitResponseCreatedUploadPresignedPresignedMethodPut, nil
 	}
-	var t DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod
+	var t DocumentsInitResponseCreatedUploadPresignedPresignedMethod
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod) Ptr() *DocumentsInit200ResponseCreatedUploadPresignedPresignedMethod {
+func (d DocumentsInitResponseCreatedUploadPresignedPresignedMethod) Ptr() *DocumentsInitResponseCreatedUploadPresignedPresignedMethod {
 	return &d
 }
 
 var (
-	documentsInit200ResponseCreatedUploadProxyFieldURL = big.NewInt(1 << 0)
-	documentsInit200ResponseCreatedUploadProxyFieldKey = big.NewInt(1 << 1)
+	documentsInitResponseCreatedUploadProxyFieldURL = big.NewInt(1 << 0)
+	documentsInitResponseCreatedUploadProxyFieldKey = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseCreatedUploadProxy struct {
+type DocumentsInitResponseCreatedUploadProxy struct {
 	URL string `json:"url" url:"url"`
 	Key string `json:"key" url:"key"`
 
@@ -2972,28 +3029,28 @@ type DocumentsInit200ResponseCreatedUploadProxy struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) GetURL() string {
+func (d *DocumentsInitResponseCreatedUploadProxy) GetURL() string {
 	if d == nil {
 		return ""
 	}
 	return d.URL
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) GetKey() string {
+func (d *DocumentsInitResponseCreatedUploadProxy) GetKey() string {
 	if d == nil {
 		return ""
 	}
 	return d.Key
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseCreatedUploadProxy) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) require(field *big.Int) {
+func (d *DocumentsInitResponseCreatedUploadProxy) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -3002,25 +3059,25 @@ func (d *DocumentsInit200ResponseCreatedUploadProxy) require(field *big.Int) {
 
 // SetURL sets the URL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadProxy) SetURL(url string) {
+func (d *DocumentsInitResponseCreatedUploadProxy) SetURL(url string) {
 	d.URL = url
-	d.require(documentsInit200ResponseCreatedUploadProxyFieldURL)
+	d.require(documentsInitResponseCreatedUploadProxyFieldURL)
 }
 
 // SetKey sets the Key field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseCreatedUploadProxy) SetKey(key string) {
+func (d *DocumentsInitResponseCreatedUploadProxy) SetKey(key string) {
 	d.Key = key
-	d.require(documentsInit200ResponseCreatedUploadProxyFieldKey)
+	d.require(documentsInitResponseCreatedUploadProxyFieldKey)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseCreatedUploadProxy
+func (d *DocumentsInitResponseCreatedUploadProxy) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseCreatedUploadProxy
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseCreatedUploadProxy(value)
+	*d = DocumentsInitResponseCreatedUploadProxy(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -3030,8 +3087,8 @@ func (d *DocumentsInit200ResponseCreatedUploadProxy) UnmarshalJSON(data []byte) 
 	return nil
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseCreatedUploadProxy
+func (d *DocumentsInitResponseCreatedUploadProxy) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseCreatedUploadProxy
 	var marshaler = struct {
 		embed
 	}{
@@ -3041,7 +3098,7 @@ func (d *DocumentsInit200ResponseCreatedUploadProxy) MarshalJSON() ([]byte, erro
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseCreatedUploadProxy) String() string {
+func (d *DocumentsInitResponseCreatedUploadProxy) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -3057,11 +3114,11 @@ func (d *DocumentsInit200ResponseCreatedUploadProxy) String() string {
 }
 
 var (
-	documentsInit200ResponseDedupedFieldDocument = big.NewInt(1 << 0)
+	documentsInitResponseDedupedFieldDocument = big.NewInt(1 << 0)
 )
 
-type DocumentsInit200ResponseDeduped struct {
-	Document *DocumentsInit200ResponseDedupedDocument `json:"document" url:"document"`
+type DocumentsInitResponseDeduped struct {
+	Document *DocumentsInitResponseDedupedDocument `json:"document" url:"document"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3070,21 +3127,21 @@ type DocumentsInit200ResponseDeduped struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseDeduped) GetDocument() *DocumentsInit200ResponseDedupedDocument {
+func (d *DocumentsInitResponseDeduped) GetDocument() *DocumentsInitResponseDedupedDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsInit200ResponseDeduped) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseDeduped) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseDeduped) require(field *big.Int) {
+func (d *DocumentsInitResponseDeduped) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -3093,18 +3150,18 @@ func (d *DocumentsInit200ResponseDeduped) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDeduped) SetDocument(document *DocumentsInit200ResponseDedupedDocument) {
+func (d *DocumentsInitResponseDeduped) SetDocument(document *DocumentsInitResponseDedupedDocument) {
 	d.Document = document
-	d.require(documentsInit200ResponseDedupedFieldDocument)
+	d.require(documentsInitResponseDedupedFieldDocument)
 }
 
-func (d *DocumentsInit200ResponseDeduped) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseDeduped
+func (d *DocumentsInitResponseDeduped) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseDeduped
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseDeduped(value)
+	*d = DocumentsInitResponseDeduped(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -3114,8 +3171,8 @@ func (d *DocumentsInit200ResponseDeduped) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsInit200ResponseDeduped) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseDeduped
+func (d *DocumentsInitResponseDeduped) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseDeduped
 	var marshaler = struct {
 		embed
 	}{
@@ -3125,7 +3182,7 @@ func (d *DocumentsInit200ResponseDeduped) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseDeduped) String() string {
+func (d *DocumentsInitResponseDeduped) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -3141,40 +3198,40 @@ func (d *DocumentsInit200ResponseDeduped) String() string {
 }
 
 var (
-	documentsInit200ResponseDedupedDocumentFieldID               = big.NewInt(1 << 0)
-	documentsInit200ResponseDedupedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseDedupedDocumentFieldName             = big.NewInt(1 << 2)
-	documentsInit200ResponseDedupedDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsInit200ResponseDedupedDocumentFieldState            = big.NewInt(1 << 4)
-	documentsInit200ResponseDedupedDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsInit200ResponseDedupedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsInit200ResponseDedupedDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsInit200ResponseDedupedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsInit200ResponseDedupedDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsInit200ResponseDedupedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsInit200ResponseDedupedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsInit200ResponseDedupedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsInit200ResponseDedupedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsInit200ResponseDedupedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsInitResponseDedupedDocumentFieldID             = big.NewInt(1 << 0)
+	documentsInitResponseDedupedDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsInitResponseDedupedDocumentFieldName           = big.NewInt(1 << 2)
+	documentsInitResponseDedupedDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsInitResponseDedupedDocumentFieldState          = big.NewInt(1 << 4)
+	documentsInitResponseDedupedDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsInitResponseDedupedDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsInitResponseDedupedDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsInitResponseDedupedDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsInitResponseDedupedDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsInitResponseDedupedDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsInitResponseDedupedDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsInitResponseDedupedDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsInitResponseDedupedDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsInitResponseDedupedDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsInit200ResponseDedupedDocument struct {
+type DocumentsInitResponseDedupedDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                                 `json:"folderId" url:"folderId"`
-	State            DocumentsInit200ResponseDedupedDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                         `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                                `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                                `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsInit200ResponseDedupedDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                                `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                                `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                                `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                                `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                             `json:"folderId" url:"folderId"`
+	State          DocumentsInitResponseDedupedDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                            `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                               `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                     `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                            `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                            `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsInitResponseDedupedDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                            `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                          `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                          `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3183,119 +3240,119 @@ type DocumentsInit200ResponseDedupedDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetID() string {
+func (d *DocumentsInitResponseDedupedDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetTenantID() string {
+func (d *DocumentsInitResponseDedupedDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetName() string {
+func (d *DocumentsInitResponseDedupedDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetFolderID() string {
+func (d *DocumentsInitResponseDedupedDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetState() DocumentsInit200ResponseDedupedDocumentState {
+func (d *DocumentsInitResponseDedupedDocument) GetState() DocumentsInitResponseDedupedDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetBaseSha() *string {
+func (d *DocumentsInitResponseDedupedDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsInitResponseDedupedDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetMetadata() map[string]any {
+func (d *DocumentsInitResponseDedupedDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetIdempotencyKey() *string {
+func (d *DocumentsInitResponseDedupedDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetFailureReason() *string {
+func (d *DocumentsInitResponseDedupedDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetThumbnailState() *DocumentsInit200ResponseDedupedDocumentThumbnailState {
+func (d *DocumentsInitResponseDedupedDocument) GetThumbnailState() DocumentsInitResponseDedupedDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetThumbnailURL() *string {
+func (d *DocumentsInitResponseDedupedDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetCreatedAt() float64 {
+func (d *DocumentsInitResponseDedupedDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetUpdatedAt() float64 {
+func (d *DocumentsInitResponseDedupedDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetCreatedBy() *string {
+func (d *DocumentsInitResponseDedupedDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseDedupedDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) require(field *big.Int) {
+func (d *DocumentsInitResponseDedupedDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -3304,116 +3361,124 @@ func (d *DocumentsInit200ResponseDedupedDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetID(id string) {
+func (d *DocumentsInitResponseDedupedDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsInit200ResponseDedupedDocumentFieldID)
+	d.require(documentsInitResponseDedupedDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetTenantID(tenantID string) {
+func (d *DocumentsInitResponseDedupedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsInit200ResponseDedupedDocumentFieldTenantID)
+	d.require(documentsInitResponseDedupedDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetName(name string) {
+func (d *DocumentsInitResponseDedupedDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsInit200ResponseDedupedDocumentFieldName)
+	d.require(documentsInitResponseDedupedDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetFolderID(folderID string) {
+func (d *DocumentsInitResponseDedupedDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsInit200ResponseDedupedDocumentFieldFolderID)
+	d.require(documentsInitResponseDedupedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetState(state DocumentsInit200ResponseDedupedDocumentState) {
+func (d *DocumentsInitResponseDedupedDocument) SetState(state DocumentsInitResponseDedupedDocumentState) {
 	d.State = state
-	d.require(documentsInit200ResponseDedupedDocumentFieldState)
+	d.require(documentsInitResponseDedupedDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsInit200ResponseDedupedDocumentFieldBaseSha)
+func (d *DocumentsInitResponseDedupedDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsInitResponseDedupedDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsInit200ResponseDedupedDocumentFieldStorageSizeBytes)
+func (d *DocumentsInitResponseDedupedDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsInitResponseDedupedDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsInitResponseDedupedDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsInit200ResponseDedupedDocumentFieldMetadata)
+	d.require(documentsInitResponseDedupedDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsInitResponseDedupedDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsInit200ResponseDedupedDocumentFieldIdempotencyKey)
+	d.require(documentsInitResponseDedupedDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsInitResponseDedupedDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsInit200ResponseDedupedDocumentFieldFailureReason)
+	d.require(documentsInitResponseDedupedDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetThumbnailState(thumbnailState *DocumentsInit200ResponseDedupedDocumentThumbnailState) {
+func (d *DocumentsInitResponseDedupedDocument) SetThumbnailState(thumbnailState DocumentsInitResponseDedupedDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsInit200ResponseDedupedDocumentFieldThumbnailState)
+	d.require(documentsInitResponseDedupedDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsInitResponseDedupedDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsInit200ResponseDedupedDocumentFieldThumbnailURL)
+	d.require(documentsInitResponseDedupedDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsInitResponseDedupedDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsInit200ResponseDedupedDocumentFieldCreatedAt)
+	d.require(documentsInitResponseDedupedDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsInitResponseDedupedDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsInit200ResponseDedupedDocumentFieldUpdatedAt)
+	d.require(documentsInitResponseDedupedDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseDedupedDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsInitResponseDedupedDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsInit200ResponseDedupedDocumentFieldCreatedBy)
+	d.require(documentsInitResponseDedupedDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseDedupedDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsInitResponseDedupedDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsInitResponseDedupedDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseDedupedDocument(value)
+	*d = DocumentsInitResponseDedupedDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -3423,18 +3488,22 @@ func (d *DocumentsInit200ResponseDedupedDocument) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseDedupedDocument
+func (d *DocumentsInitResponseDedupedDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseDedupedDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseDedupedDocument) String() string {
+func (d *DocumentsInitResponseDedupedDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -3449,70 +3518,70 @@ func (d *DocumentsInit200ResponseDedupedDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsInit200ResponseDedupedDocumentState string
+type DocumentsInitResponseDedupedDocumentState string
 
 const (
-	DocumentsInit200ResponseDedupedDocumentStatePending  DocumentsInit200ResponseDedupedDocumentState = "pending"
-	DocumentsInit200ResponseDedupedDocumentStateReady    DocumentsInit200ResponseDedupedDocumentState = "ready"
-	DocumentsInit200ResponseDedupedDocumentStateFailed   DocumentsInit200ResponseDedupedDocumentState = "failed"
-	DocumentsInit200ResponseDedupedDocumentStateDeleting DocumentsInit200ResponseDedupedDocumentState = "deleting"
+	DocumentsInitResponseDedupedDocumentStatePending  DocumentsInitResponseDedupedDocumentState = "pending"
+	DocumentsInitResponseDedupedDocumentStateReady    DocumentsInitResponseDedupedDocumentState = "ready"
+	DocumentsInitResponseDedupedDocumentStateFailed   DocumentsInitResponseDedupedDocumentState = "failed"
+	DocumentsInitResponseDedupedDocumentStateDeleting DocumentsInitResponseDedupedDocumentState = "deleting"
 )
 
-func NewDocumentsInit200ResponseDedupedDocumentStateFromString(s string) (DocumentsInit200ResponseDedupedDocumentState, error) {
+func NewDocumentsInitResponseDedupedDocumentStateFromString(s string) (DocumentsInitResponseDedupedDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseDedupedDocumentStatePending, nil
+		return DocumentsInitResponseDedupedDocumentStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseDedupedDocumentStateReady, nil
+		return DocumentsInitResponseDedupedDocumentStateReady, nil
 	case "failed":
-		return DocumentsInit200ResponseDedupedDocumentStateFailed, nil
+		return DocumentsInitResponseDedupedDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsInit200ResponseDedupedDocumentStateDeleting, nil
+		return DocumentsInitResponseDedupedDocumentStateDeleting, nil
 	}
-	var t DocumentsInit200ResponseDedupedDocumentState
+	var t DocumentsInitResponseDedupedDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseDedupedDocumentState) Ptr() *DocumentsInit200ResponseDedupedDocumentState {
+func (d DocumentsInitResponseDedupedDocumentState) Ptr() *DocumentsInitResponseDedupedDocumentState {
 	return &d
 }
 
-type DocumentsInit200ResponseDedupedDocumentThumbnailState string
+type DocumentsInitResponseDedupedDocumentThumbnailState string
 
 const (
-	DocumentsInit200ResponseDedupedDocumentThumbnailStatePending DocumentsInit200ResponseDedupedDocumentThumbnailState = "pending"
-	DocumentsInit200ResponseDedupedDocumentThumbnailStateReady   DocumentsInit200ResponseDedupedDocumentThumbnailState = "ready"
-	DocumentsInit200ResponseDedupedDocumentThumbnailStateLocked  DocumentsInit200ResponseDedupedDocumentThumbnailState = "locked"
-	DocumentsInit200ResponseDedupedDocumentThumbnailStateFailed  DocumentsInit200ResponseDedupedDocumentThumbnailState = "failed"
+	DocumentsInitResponseDedupedDocumentThumbnailStatePending DocumentsInitResponseDedupedDocumentThumbnailState = "pending"
+	DocumentsInitResponseDedupedDocumentThumbnailStateReady   DocumentsInitResponseDedupedDocumentThumbnailState = "ready"
+	DocumentsInitResponseDedupedDocumentThumbnailStateLocked  DocumentsInitResponseDedupedDocumentThumbnailState = "locked"
+	DocumentsInitResponseDedupedDocumentThumbnailStateFailed  DocumentsInitResponseDedupedDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsInit200ResponseDedupedDocumentThumbnailStateFromString(s string) (DocumentsInit200ResponseDedupedDocumentThumbnailState, error) {
+func NewDocumentsInitResponseDedupedDocumentThumbnailStateFromString(s string) (DocumentsInitResponseDedupedDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseDedupedDocumentThumbnailStatePending, nil
+		return DocumentsInitResponseDedupedDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseDedupedDocumentThumbnailStateReady, nil
+		return DocumentsInitResponseDedupedDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsInit200ResponseDedupedDocumentThumbnailStateLocked, nil
+		return DocumentsInitResponseDedupedDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsInit200ResponseDedupedDocumentThumbnailStateFailed, nil
+		return DocumentsInitResponseDedupedDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsInit200ResponseDedupedDocumentThumbnailState
+	var t DocumentsInitResponseDedupedDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseDedupedDocumentThumbnailState) Ptr() *DocumentsInit200ResponseDedupedDocumentThumbnailState {
+func (d DocumentsInitResponseDedupedDocumentThumbnailState) Ptr() *DocumentsInitResponseDedupedDocumentThumbnailState {
 	return &d
 }
 
 var (
-	documentsInit200ResponseResumedFieldDocument = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedFieldUpload   = big.NewInt(1 << 1)
+	documentsInitResponseResumedFieldDocument = big.NewInt(1 << 0)
+	documentsInitResponseResumedFieldUpload   = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseResumed struct {
-	Document *DocumentsInit200ResponseResumedDocument `json:"document" url:"document"`
-	Upload   *DocumentsInit200ResponseResumedUpload   `json:"upload" url:"upload"`
+type DocumentsInitResponseResumed struct {
+	Document *DocumentsInitResponseResumedDocument `json:"document" url:"document"`
+	Upload   *DocumentsInitResponseResumedUpload   `json:"upload" url:"upload"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3521,28 +3590,28 @@ type DocumentsInit200ResponseResumed struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumed) GetDocument() *DocumentsInit200ResponseResumedDocument {
+func (d *DocumentsInitResponseResumed) GetDocument() *DocumentsInitResponseResumedDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsInit200ResponseResumed) GetUpload() *DocumentsInit200ResponseResumedUpload {
+func (d *DocumentsInitResponseResumed) GetUpload() *DocumentsInitResponseResumedUpload {
 	if d == nil {
 		return nil
 	}
 	return d.Upload
 }
 
-func (d *DocumentsInit200ResponseResumed) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseResumed) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseResumed) require(field *big.Int) {
+func (d *DocumentsInitResponseResumed) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -3551,25 +3620,25 @@ func (d *DocumentsInit200ResponseResumed) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumed) SetDocument(document *DocumentsInit200ResponseResumedDocument) {
+func (d *DocumentsInitResponseResumed) SetDocument(document *DocumentsInitResponseResumedDocument) {
 	d.Document = document
-	d.require(documentsInit200ResponseResumedFieldDocument)
+	d.require(documentsInitResponseResumedFieldDocument)
 }
 
 // SetUpload sets the Upload field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumed) SetUpload(upload *DocumentsInit200ResponseResumedUpload) {
+func (d *DocumentsInitResponseResumed) SetUpload(upload *DocumentsInitResponseResumedUpload) {
 	d.Upload = upload
-	d.require(documentsInit200ResponseResumedFieldUpload)
+	d.require(documentsInitResponseResumedFieldUpload)
 }
 
-func (d *DocumentsInit200ResponseResumed) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumed
+func (d *DocumentsInitResponseResumed) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseResumed
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseResumed(value)
+	*d = DocumentsInitResponseResumed(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -3579,8 +3648,8 @@ func (d *DocumentsInit200ResponseResumed) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsInit200ResponseResumed) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumed
+func (d *DocumentsInitResponseResumed) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseResumed
 	var marshaler = struct {
 		embed
 	}{
@@ -3590,7 +3659,7 @@ func (d *DocumentsInit200ResponseResumed) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseResumed) String() string {
+func (d *DocumentsInitResponseResumed) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -3606,40 +3675,40 @@ func (d *DocumentsInit200ResponseResumed) String() string {
 }
 
 var (
-	documentsInit200ResponseResumedDocumentFieldID               = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsInit200ResponseResumedDocumentFieldName             = big.NewInt(1 << 2)
-	documentsInit200ResponseResumedDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsInit200ResponseResumedDocumentFieldState            = big.NewInt(1 << 4)
-	documentsInit200ResponseResumedDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsInit200ResponseResumedDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsInit200ResponseResumedDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsInit200ResponseResumedDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsInit200ResponseResumedDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsInit200ResponseResumedDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsInit200ResponseResumedDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsInit200ResponseResumedDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsInit200ResponseResumedDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsInit200ResponseResumedDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsInitResponseResumedDocumentFieldID             = big.NewInt(1 << 0)
+	documentsInitResponseResumedDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsInitResponseResumedDocumentFieldName           = big.NewInt(1 << 2)
+	documentsInitResponseResumedDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsInitResponseResumedDocumentFieldState          = big.NewInt(1 << 4)
+	documentsInitResponseResumedDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsInitResponseResumedDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsInitResponseResumedDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsInitResponseResumedDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsInitResponseResumedDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsInitResponseResumedDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsInitResponseResumedDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsInitResponseResumedDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsInitResponseResumedDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsInitResponseResumedDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsInit200ResponseResumedDocument struct {
+type DocumentsInitResponseResumedDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                                 `json:"folderId" url:"folderId"`
-	State            DocumentsInit200ResponseResumedDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                                `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                               `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                         `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                                `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                                `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsInit200ResponseResumedDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                                `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                                `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                                `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                                `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                             `json:"folderId" url:"folderId"`
+	State          DocumentsInitResponseResumedDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                            `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                               `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                     `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                            `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                            `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsInitResponseResumedDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                            `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                          `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                          `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                            `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -3648,119 +3717,119 @@ type DocumentsInit200ResponseResumedDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetID() string {
+func (d *DocumentsInitResponseResumedDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetTenantID() string {
+func (d *DocumentsInitResponseResumedDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetName() string {
+func (d *DocumentsInitResponseResumedDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetFolderID() string {
+func (d *DocumentsInitResponseResumedDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetState() DocumentsInit200ResponseResumedDocumentState {
+func (d *DocumentsInitResponseResumedDocument) GetState() DocumentsInitResponseResumedDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetBaseSha() *string {
+func (d *DocumentsInitResponseResumedDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsInitResponseResumedDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetMetadata() map[string]any {
+func (d *DocumentsInitResponseResumedDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetIdempotencyKey() *string {
+func (d *DocumentsInitResponseResumedDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetFailureReason() *string {
+func (d *DocumentsInitResponseResumedDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetThumbnailState() *DocumentsInit200ResponseResumedDocumentThumbnailState {
+func (d *DocumentsInitResponseResumedDocument) GetThumbnailState() DocumentsInitResponseResumedDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetThumbnailURL() *string {
+func (d *DocumentsInitResponseResumedDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetCreatedAt() float64 {
+func (d *DocumentsInitResponseResumedDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetUpdatedAt() float64 {
+func (d *DocumentsInitResponseResumedDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetCreatedBy() *string {
+func (d *DocumentsInitResponseResumedDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseResumedDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) require(field *big.Int) {
+func (d *DocumentsInitResponseResumedDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -3769,116 +3838,124 @@ func (d *DocumentsInit200ResponseResumedDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetID(id string) {
+func (d *DocumentsInitResponseResumedDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsInit200ResponseResumedDocumentFieldID)
+	d.require(documentsInitResponseResumedDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetTenantID(tenantID string) {
+func (d *DocumentsInitResponseResumedDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsInit200ResponseResumedDocumentFieldTenantID)
+	d.require(documentsInitResponseResumedDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetName(name string) {
+func (d *DocumentsInitResponseResumedDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsInit200ResponseResumedDocumentFieldName)
+	d.require(documentsInitResponseResumedDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetFolderID(folderID string) {
+func (d *DocumentsInitResponseResumedDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsInit200ResponseResumedDocumentFieldFolderID)
+	d.require(documentsInitResponseResumedDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetState(state DocumentsInit200ResponseResumedDocumentState) {
+func (d *DocumentsInitResponseResumedDocument) SetState(state DocumentsInitResponseResumedDocumentState) {
 	d.State = state
-	d.require(documentsInit200ResponseResumedDocumentFieldState)
+	d.require(documentsInitResponseResumedDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsInit200ResponseResumedDocumentFieldBaseSha)
+func (d *DocumentsInitResponseResumedDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsInitResponseResumedDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsInit200ResponseResumedDocumentFieldStorageSizeBytes)
+func (d *DocumentsInitResponseResumedDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsInitResponseResumedDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsInitResponseResumedDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsInit200ResponseResumedDocumentFieldMetadata)
+	d.require(documentsInitResponseResumedDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsInitResponseResumedDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsInit200ResponseResumedDocumentFieldIdempotencyKey)
+	d.require(documentsInitResponseResumedDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsInitResponseResumedDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsInit200ResponseResumedDocumentFieldFailureReason)
+	d.require(documentsInitResponseResumedDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetThumbnailState(thumbnailState *DocumentsInit200ResponseResumedDocumentThumbnailState) {
+func (d *DocumentsInitResponseResumedDocument) SetThumbnailState(thumbnailState DocumentsInitResponseResumedDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsInit200ResponseResumedDocumentFieldThumbnailState)
+	d.require(documentsInitResponseResumedDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsInitResponseResumedDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsInit200ResponseResumedDocumentFieldThumbnailURL)
+	d.require(documentsInitResponseResumedDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsInitResponseResumedDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsInit200ResponseResumedDocumentFieldCreatedAt)
+	d.require(documentsInitResponseResumedDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsInitResponseResumedDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsInit200ResponseResumedDocumentFieldUpdatedAt)
+	d.require(documentsInitResponseResumedDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsInitResponseResumedDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsInit200ResponseResumedDocumentFieldCreatedBy)
+	d.require(documentsInitResponseResumedDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumedDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsInitResponseResumedDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsInitResponseResumedDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseResumedDocument(value)
+	*d = DocumentsInitResponseResumedDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -3888,18 +3965,22 @@ func (d *DocumentsInit200ResponseResumedDocument) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumedDocument
+func (d *DocumentsInitResponseResumedDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseResumedDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseResumedDocument) String() string {
+func (d *DocumentsInitResponseResumedDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -3914,92 +3995,92 @@ func (d *DocumentsInit200ResponseResumedDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsInit200ResponseResumedDocumentState string
+type DocumentsInitResponseResumedDocumentState string
 
 const (
-	DocumentsInit200ResponseResumedDocumentStatePending  DocumentsInit200ResponseResumedDocumentState = "pending"
-	DocumentsInit200ResponseResumedDocumentStateReady    DocumentsInit200ResponseResumedDocumentState = "ready"
-	DocumentsInit200ResponseResumedDocumentStateFailed   DocumentsInit200ResponseResumedDocumentState = "failed"
-	DocumentsInit200ResponseResumedDocumentStateDeleting DocumentsInit200ResponseResumedDocumentState = "deleting"
+	DocumentsInitResponseResumedDocumentStatePending  DocumentsInitResponseResumedDocumentState = "pending"
+	DocumentsInitResponseResumedDocumentStateReady    DocumentsInitResponseResumedDocumentState = "ready"
+	DocumentsInitResponseResumedDocumentStateFailed   DocumentsInitResponseResumedDocumentState = "failed"
+	DocumentsInitResponseResumedDocumentStateDeleting DocumentsInitResponseResumedDocumentState = "deleting"
 )
 
-func NewDocumentsInit200ResponseResumedDocumentStateFromString(s string) (DocumentsInit200ResponseResumedDocumentState, error) {
+func NewDocumentsInitResponseResumedDocumentStateFromString(s string) (DocumentsInitResponseResumedDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseResumedDocumentStatePending, nil
+		return DocumentsInitResponseResumedDocumentStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseResumedDocumentStateReady, nil
+		return DocumentsInitResponseResumedDocumentStateReady, nil
 	case "failed":
-		return DocumentsInit200ResponseResumedDocumentStateFailed, nil
+		return DocumentsInitResponseResumedDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsInit200ResponseResumedDocumentStateDeleting, nil
+		return DocumentsInitResponseResumedDocumentStateDeleting, nil
 	}
-	var t DocumentsInit200ResponseResumedDocumentState
+	var t DocumentsInitResponseResumedDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseResumedDocumentState) Ptr() *DocumentsInit200ResponseResumedDocumentState {
+func (d DocumentsInitResponseResumedDocumentState) Ptr() *DocumentsInitResponseResumedDocumentState {
 	return &d
 }
 
-type DocumentsInit200ResponseResumedDocumentThumbnailState string
+type DocumentsInitResponseResumedDocumentThumbnailState string
 
 const (
-	DocumentsInit200ResponseResumedDocumentThumbnailStatePending DocumentsInit200ResponseResumedDocumentThumbnailState = "pending"
-	DocumentsInit200ResponseResumedDocumentThumbnailStateReady   DocumentsInit200ResponseResumedDocumentThumbnailState = "ready"
-	DocumentsInit200ResponseResumedDocumentThumbnailStateLocked  DocumentsInit200ResponseResumedDocumentThumbnailState = "locked"
-	DocumentsInit200ResponseResumedDocumentThumbnailStateFailed  DocumentsInit200ResponseResumedDocumentThumbnailState = "failed"
+	DocumentsInitResponseResumedDocumentThumbnailStatePending DocumentsInitResponseResumedDocumentThumbnailState = "pending"
+	DocumentsInitResponseResumedDocumentThumbnailStateReady   DocumentsInitResponseResumedDocumentThumbnailState = "ready"
+	DocumentsInitResponseResumedDocumentThumbnailStateLocked  DocumentsInitResponseResumedDocumentThumbnailState = "locked"
+	DocumentsInitResponseResumedDocumentThumbnailStateFailed  DocumentsInitResponseResumedDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsInit200ResponseResumedDocumentThumbnailStateFromString(s string) (DocumentsInit200ResponseResumedDocumentThumbnailState, error) {
+func NewDocumentsInitResponseResumedDocumentThumbnailStateFromString(s string) (DocumentsInitResponseResumedDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsInit200ResponseResumedDocumentThumbnailStatePending, nil
+		return DocumentsInitResponseResumedDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsInit200ResponseResumedDocumentThumbnailStateReady, nil
+		return DocumentsInitResponseResumedDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsInit200ResponseResumedDocumentThumbnailStateLocked, nil
+		return DocumentsInitResponseResumedDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsInit200ResponseResumedDocumentThumbnailStateFailed, nil
+		return DocumentsInitResponseResumedDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsInit200ResponseResumedDocumentThumbnailState
+	var t DocumentsInitResponseResumedDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseResumedDocumentThumbnailState) Ptr() *DocumentsInit200ResponseResumedDocumentThumbnailState {
+func (d DocumentsInitResponseResumedDocumentThumbnailState) Ptr() *DocumentsInitResponseResumedDocumentThumbnailState {
 	return &d
 }
 
-type DocumentsInit200ResponseResumedUpload struct {
+type DocumentsInitResponseResumedUpload struct {
 	Kind      string
-	Presigned *DocumentsInit200ResponseResumedUploadPresigned
-	Proxy     *DocumentsInit200ResponseResumedUploadProxy
+	Presigned *DocumentsInitResponseResumedUploadPresigned
+	Proxy     *DocumentsInitResponseResumedUploadProxy
 
 	rawJSON json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) GetKind() string {
+func (d *DocumentsInitResponseResumedUpload) GetKind() string {
 	if d == nil {
 		return ""
 	}
 	return d.Kind
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) GetPresigned() *DocumentsInit200ResponseResumedUploadPresigned {
+func (d *DocumentsInitResponseResumedUpload) GetPresigned() *DocumentsInitResponseResumedUploadPresigned {
 	if d == nil {
 		return nil
 	}
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) GetProxy() *DocumentsInit200ResponseResumedUploadProxy {
+func (d *DocumentsInitResponseResumedUpload) GetProxy() *DocumentsInitResponseResumedUploadProxy {
 	if d == nil {
 		return nil
 	}
 	return d.Proxy
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) UnmarshalJSON(data []byte) error {
+func (d *DocumentsInitResponseResumedUpload) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
 		Kind string `json:"kind"`
 	}
@@ -4012,13 +4093,13 @@ func (d *DocumentsInit200ResponseResumedUpload) UnmarshalJSON(data []byte) error
 	}
 	switch unmarshaler.Kind {
 	case "presigned":
-		value := new(DocumentsInit200ResponseResumedUploadPresigned)
+		value := new(DocumentsInitResponseResumedUploadPresigned)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		d.Presigned = value
 	case "proxy":
-		value := new(DocumentsInit200ResponseResumedUploadProxy)
+		value := new(DocumentsInitResponseResumedUploadProxy)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
@@ -4028,7 +4109,7 @@ func (d *DocumentsInit200ResponseResumedUpload) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (d DocumentsInit200ResponseResumedUpload) MarshalJSON() ([]byte, error) {
+func (d DocumentsInitResponseResumedUpload) MarshalJSON() ([]byte, error) {
 	if err := d.validate(); err != nil {
 		return nil, err
 	}
@@ -4044,12 +4125,12 @@ func (d DocumentsInit200ResponseResumedUpload) MarshalJSON() ([]byte, error) {
 	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-type DocumentsInit200ResponseResumedUploadVisitor interface {
-	VisitPresigned(*DocumentsInit200ResponseResumedUploadPresigned) error
-	VisitProxy(*DocumentsInit200ResponseResumedUploadProxy) error
+type DocumentsInitResponseResumedUploadVisitor interface {
+	VisitPresigned(*DocumentsInitResponseResumedUploadPresigned) error
+	VisitProxy(*DocumentsInitResponseResumedUploadProxy) error
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) Accept(visitor DocumentsInit200ResponseResumedUploadVisitor) error {
+func (d *DocumentsInitResponseResumedUpload) Accept(visitor DocumentsInitResponseResumedUploadVisitor) error {
 	if d.Presigned != nil {
 		return visitor.VisitPresigned(d.Presigned)
 	}
@@ -4059,7 +4140,7 @@ func (d *DocumentsInit200ResponseResumedUpload) Accept(visitor DocumentsInit200R
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-func (d *DocumentsInit200ResponseResumedUpload) validate() error {
+func (d *DocumentsInitResponseResumedUpload) validate() error {
 	if d == nil {
 		return fmt.Errorf("type %T is nil", d)
 	}
@@ -4097,13 +4178,13 @@ func (d *DocumentsInit200ResponseResumedUpload) validate() error {
 }
 
 var (
-	documentsInit200ResponseResumedUploadPresignedFieldPresigned = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedUploadPresignedFieldKey       = big.NewInt(1 << 1)
+	documentsInitResponseResumedUploadPresignedFieldPresigned = big.NewInt(1 << 0)
+	documentsInitResponseResumedUploadPresignedFieldKey       = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseResumedUploadPresigned struct {
-	Presigned *DocumentsInit200ResponseResumedUploadPresignedPresigned `json:"presigned" url:"presigned"`
-	Key       string                                                   `json:"key" url:"key"`
+type DocumentsInitResponseResumedUploadPresigned struct {
+	Presigned *DocumentsInitResponseResumedUploadPresignedPresigned `json:"presigned" url:"presigned"`
+	Key       string                                                `json:"key" url:"key"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4112,28 +4193,28 @@ type DocumentsInit200ResponseResumedUploadPresigned struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) GetPresigned() *DocumentsInit200ResponseResumedUploadPresignedPresigned {
+func (d *DocumentsInitResponseResumedUploadPresigned) GetPresigned() *DocumentsInitResponseResumedUploadPresignedPresigned {
 	if d == nil {
 		return nil
 	}
 	return d.Presigned
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) GetKey() string {
+func (d *DocumentsInitResponseResumedUploadPresigned) GetKey() string {
 	if d == nil {
 		return ""
 	}
 	return d.Key
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseResumedUploadPresigned) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) require(field *big.Int) {
+func (d *DocumentsInitResponseResumedUploadPresigned) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4142,25 +4223,25 @@ func (d *DocumentsInit200ResponseResumedUploadPresigned) require(field *big.Int)
 
 // SetPresigned sets the Presigned field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresigned) SetPresigned(presigned *DocumentsInit200ResponseResumedUploadPresignedPresigned) {
+func (d *DocumentsInitResponseResumedUploadPresigned) SetPresigned(presigned *DocumentsInitResponseResumedUploadPresignedPresigned) {
 	d.Presigned = presigned
-	d.require(documentsInit200ResponseResumedUploadPresignedFieldPresigned)
+	d.require(documentsInitResponseResumedUploadPresignedFieldPresigned)
 }
 
 // SetKey sets the Key field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresigned) SetKey(key string) {
+func (d *DocumentsInitResponseResumedUploadPresigned) SetKey(key string) {
 	d.Key = key
-	d.require(documentsInit200ResponseResumedUploadPresignedFieldKey)
+	d.require(documentsInitResponseResumedUploadPresignedFieldKey)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumedUploadPresigned
+func (d *DocumentsInitResponseResumedUploadPresigned) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseResumedUploadPresigned
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseResumedUploadPresigned(value)
+	*d = DocumentsInitResponseResumedUploadPresigned(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4170,8 +4251,8 @@ func (d *DocumentsInit200ResponseResumedUploadPresigned) UnmarshalJSON(data []by
 	return nil
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumedUploadPresigned
+func (d *DocumentsInitResponseResumedUploadPresigned) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseResumedUploadPresigned
 	var marshaler = struct {
 		embed
 	}{
@@ -4181,7 +4262,7 @@ func (d *DocumentsInit200ResponseResumedUploadPresigned) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresigned) String() string {
+func (d *DocumentsInitResponseResumedUploadPresigned) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4197,17 +4278,17 @@ func (d *DocumentsInit200ResponseResumedUploadPresigned) String() string {
 }
 
 var (
-	documentsInit200ResponseResumedUploadPresignedPresignedFieldURL       = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedUploadPresignedPresignedFieldHeaders   = big.NewInt(1 << 1)
-	documentsInit200ResponseResumedUploadPresignedPresignedFieldMethod    = big.NewInt(1 << 2)
-	documentsInit200ResponseResumedUploadPresignedPresignedFieldExpiresAt = big.NewInt(1 << 3)
+	documentsInitResponseResumedUploadPresignedPresignedFieldURL       = big.NewInt(1 << 0)
+	documentsInitResponseResumedUploadPresignedPresignedFieldHeaders   = big.NewInt(1 << 1)
+	documentsInitResponseResumedUploadPresignedPresignedFieldMethod    = big.NewInt(1 << 2)
+	documentsInitResponseResumedUploadPresignedPresignedFieldExpiresAt = big.NewInt(1 << 3)
 )
 
-type DocumentsInit200ResponseResumedUploadPresignedPresigned struct {
-	URL       string                                                        `json:"url" url:"url"`
-	Headers   map[string]string                                             `json:"headers" url:"headers"`
-	Method    DocumentsInit200ResponseResumedUploadPresignedPresignedMethod `json:"method" url:"method"`
-	ExpiresAt float64                                                       `json:"expiresAt" url:"expiresAt"`
+type DocumentsInitResponseResumedUploadPresignedPresigned struct {
+	URL       string                                                     `json:"url" url:"url"`
+	Headers   map[string]string                                          `json:"headers" url:"headers"`
+	Method    DocumentsInitResponseResumedUploadPresignedPresignedMethod `json:"method" url:"method"`
+	ExpiresAt time.Time                                                  `json:"expiresAt" url:"expiresAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4216,42 +4297,42 @@ type DocumentsInit200ResponseResumedUploadPresignedPresigned struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) GetURL() string {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) GetURL() string {
 	if d == nil {
 		return ""
 	}
 	return d.URL
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) GetHeaders() map[string]string {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) GetHeaders() map[string]string {
 	if d == nil {
 		return nil
 	}
 	return d.Headers
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) GetMethod() DocumentsInit200ResponseResumedUploadPresignedPresignedMethod {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) GetMethod() DocumentsInitResponseResumedUploadPresignedPresignedMethod {
 	if d == nil {
 		return ""
 	}
 	return d.Method
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) GetExpiresAt() float64 {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) GetExpiresAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.ExpiresAt
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) require(field *big.Int) {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4260,39 +4341,45 @@ func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) require(field 
 
 // SetURL sets the URL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) SetURL(url string) {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) SetURL(url string) {
 	d.URL = url
-	d.require(documentsInit200ResponseResumedUploadPresignedPresignedFieldURL)
+	d.require(documentsInitResponseResumedUploadPresignedPresignedFieldURL)
 }
 
 // SetHeaders sets the Headers field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) SetHeaders(headers map[string]string) {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) SetHeaders(headers map[string]string) {
 	d.Headers = headers
-	d.require(documentsInit200ResponseResumedUploadPresignedPresignedFieldHeaders)
+	d.require(documentsInitResponseResumedUploadPresignedPresignedFieldHeaders)
 }
 
 // SetMethod sets the Method field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) SetMethod(method DocumentsInit200ResponseResumedUploadPresignedPresignedMethod) {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) SetMethod(method DocumentsInitResponseResumedUploadPresignedPresignedMethod) {
 	d.Method = method
-	d.require(documentsInit200ResponseResumedUploadPresignedPresignedFieldMethod)
+	d.require(documentsInitResponseResumedUploadPresignedPresignedFieldMethod)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) SetExpiresAt(expiresAt float64) {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) SetExpiresAt(expiresAt time.Time) {
 	d.ExpiresAt = expiresAt
-	d.require(documentsInit200ResponseResumedUploadPresignedPresignedFieldExpiresAt)
+	d.require(documentsInitResponseResumedUploadPresignedPresignedFieldExpiresAt)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumedUploadPresignedPresigned
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) UnmarshalJSON(data []byte) error {
+	type embed DocumentsInitResponseResumedUploadPresignedPresigned
+	var unmarshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseResumedUploadPresignedPresigned(value)
+	*d = DocumentsInitResponseResumedUploadPresignedPresigned(unmarshaler.embed)
+	d.ExpiresAt = unmarshaler.ExpiresAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4302,18 +4389,20 @@ func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) UnmarshalJSON(
 	return nil
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumedUploadPresignedPresigned
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseResumedUploadPresignedPresigned
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		ExpiresAt: internal.NewDateTime(d.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) String() string {
+func (d *DocumentsInitResponseResumedUploadPresignedPresigned) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4328,31 +4417,31 @@ func (d *DocumentsInit200ResponseResumedUploadPresignedPresigned) String() strin
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsInit200ResponseResumedUploadPresignedPresignedMethod string
+type DocumentsInitResponseResumedUploadPresignedPresignedMethod string
 
 const (
-	DocumentsInit200ResponseResumedUploadPresignedPresignedMethodPut DocumentsInit200ResponseResumedUploadPresignedPresignedMethod = "PUT"
+	DocumentsInitResponseResumedUploadPresignedPresignedMethodPut DocumentsInitResponseResumedUploadPresignedPresignedMethod = "PUT"
 )
 
-func NewDocumentsInit200ResponseResumedUploadPresignedPresignedMethodFromString(s string) (DocumentsInit200ResponseResumedUploadPresignedPresignedMethod, error) {
+func NewDocumentsInitResponseResumedUploadPresignedPresignedMethodFromString(s string) (DocumentsInitResponseResumedUploadPresignedPresignedMethod, error) {
 	switch s {
 	case "PUT":
-		return DocumentsInit200ResponseResumedUploadPresignedPresignedMethodPut, nil
+		return DocumentsInitResponseResumedUploadPresignedPresignedMethodPut, nil
 	}
-	var t DocumentsInit200ResponseResumedUploadPresignedPresignedMethod
+	var t DocumentsInitResponseResumedUploadPresignedPresignedMethod
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsInit200ResponseResumedUploadPresignedPresignedMethod) Ptr() *DocumentsInit200ResponseResumedUploadPresignedPresignedMethod {
+func (d DocumentsInitResponseResumedUploadPresignedPresignedMethod) Ptr() *DocumentsInitResponseResumedUploadPresignedPresignedMethod {
 	return &d
 }
 
 var (
-	documentsInit200ResponseResumedUploadProxyFieldURL = big.NewInt(1 << 0)
-	documentsInit200ResponseResumedUploadProxyFieldKey = big.NewInt(1 << 1)
+	documentsInitResponseResumedUploadProxyFieldURL = big.NewInt(1 << 0)
+	documentsInitResponseResumedUploadProxyFieldKey = big.NewInt(1 << 1)
 )
 
-type DocumentsInit200ResponseResumedUploadProxy struct {
+type DocumentsInitResponseResumedUploadProxy struct {
 	URL string `json:"url" url:"url"`
 	Key string `json:"key" url:"key"`
 
@@ -4363,28 +4452,28 @@ type DocumentsInit200ResponseResumedUploadProxy struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) GetURL() string {
+func (d *DocumentsInitResponseResumedUploadProxy) GetURL() string {
 	if d == nil {
 		return ""
 	}
 	return d.URL
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) GetKey() string {
+func (d *DocumentsInitResponseResumedUploadProxy) GetKey() string {
 	if d == nil {
 		return ""
 	}
 	return d.Key
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsInitResponseResumedUploadProxy) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) require(field *big.Int) {
+func (d *DocumentsInitResponseResumedUploadProxy) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4393,25 +4482,25 @@ func (d *DocumentsInit200ResponseResumedUploadProxy) require(field *big.Int) {
 
 // SetURL sets the URL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadProxy) SetURL(url string) {
+func (d *DocumentsInitResponseResumedUploadProxy) SetURL(url string) {
 	d.URL = url
-	d.require(documentsInit200ResponseResumedUploadProxyFieldURL)
+	d.require(documentsInitResponseResumedUploadProxyFieldURL)
 }
 
 // SetKey sets the Key field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsInit200ResponseResumedUploadProxy) SetKey(key string) {
+func (d *DocumentsInitResponseResumedUploadProxy) SetKey(key string) {
 	d.Key = key
-	d.require(documentsInit200ResponseResumedUploadProxyFieldKey)
+	d.require(documentsInitResponseResumedUploadProxyFieldKey)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsInit200ResponseResumedUploadProxy
+func (d *DocumentsInitResponseResumedUploadProxy) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsInitResponseResumedUploadProxy
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsInit200ResponseResumedUploadProxy(value)
+	*d = DocumentsInitResponseResumedUploadProxy(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4421,8 +4510,8 @@ func (d *DocumentsInit200ResponseResumedUploadProxy) UnmarshalJSON(data []byte) 
 	return nil
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) MarshalJSON() ([]byte, error) {
-	type embed DocumentsInit200ResponseResumedUploadProxy
+func (d *DocumentsInitResponseResumedUploadProxy) MarshalJSON() ([]byte, error) {
+	type embed DocumentsInitResponseResumedUploadProxy
 	var marshaler = struct {
 		embed
 	}{
@@ -4432,7 +4521,7 @@ func (d *DocumentsInit200ResponseResumedUploadProxy) MarshalJSON() ([]byte, erro
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsInit200ResponseResumedUploadProxy) String() string {
+func (d *DocumentsInitResponseResumedUploadProxy) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4448,13 +4537,13 @@ func (d *DocumentsInit200ResponseResumedUploadProxy) String() string {
 }
 
 var (
-	documentsList200ResponseFieldDocuments  = big.NewInt(1 << 0)
-	documentsList200ResponseFieldNextCursor = big.NewInt(1 << 1)
+	documentsListResponseFieldDocuments  = big.NewInt(1 << 0)
+	documentsListResponseFieldNextCursor = big.NewInt(1 << 1)
 )
 
-type DocumentsList200Response struct {
-	Documents  []*DocumentsList200ResponseDocumentsItem `json:"documents" url:"documents"`
-	NextCursor *string                                  `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
+type DocumentsListResponse struct {
+	Documents  []*DocumentsListResponseDocumentsItem `json:"documents" url:"documents"`
+	NextCursor *string                               `json:"nextCursor,omitempty" url:"nextCursor,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4463,28 +4552,28 @@ type DocumentsList200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsList200Response) GetDocuments() []*DocumentsList200ResponseDocumentsItem {
+func (d *DocumentsListResponse) GetDocuments() []*DocumentsListResponseDocumentsItem {
 	if d == nil {
 		return nil
 	}
 	return d.Documents
 }
 
-func (d *DocumentsList200Response) GetNextCursor() *string {
+func (d *DocumentsListResponse) GetNextCursor() *string {
 	if d == nil {
 		return nil
 	}
 	return d.NextCursor
 }
 
-func (d *DocumentsList200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsListResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsList200Response) require(field *big.Int) {
+func (d *DocumentsListResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4493,25 +4582,25 @@ func (d *DocumentsList200Response) require(field *big.Int) {
 
 // SetDocuments sets the Documents field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200Response) SetDocuments(documents []*DocumentsList200ResponseDocumentsItem) {
+func (d *DocumentsListResponse) SetDocuments(documents []*DocumentsListResponseDocumentsItem) {
 	d.Documents = documents
-	d.require(documentsList200ResponseFieldDocuments)
+	d.require(documentsListResponseFieldDocuments)
 }
 
 // SetNextCursor sets the NextCursor field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200Response) SetNextCursor(nextCursor *string) {
+func (d *DocumentsListResponse) SetNextCursor(nextCursor *string) {
 	d.NextCursor = nextCursor
-	d.require(documentsList200ResponseFieldNextCursor)
+	d.require(documentsListResponseFieldNextCursor)
 }
 
-func (d *DocumentsList200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsList200Response
+func (d *DocumentsListResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsListResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsList200Response(value)
+	*d = DocumentsListResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4521,8 +4610,8 @@ func (d *DocumentsList200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsList200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsList200Response
+func (d *DocumentsListResponse) MarshalJSON() ([]byte, error) {
+	type embed DocumentsListResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -4532,7 +4621,7 @@ func (d *DocumentsList200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsList200Response) String() string {
+func (d *DocumentsListResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4548,40 +4637,40 @@ func (d *DocumentsList200Response) String() string {
 }
 
 var (
-	documentsList200ResponseDocumentsItemFieldID               = big.NewInt(1 << 0)
-	documentsList200ResponseDocumentsItemFieldTenantID         = big.NewInt(1 << 1)
-	documentsList200ResponseDocumentsItemFieldName             = big.NewInt(1 << 2)
-	documentsList200ResponseDocumentsItemFieldFolderID         = big.NewInt(1 << 3)
-	documentsList200ResponseDocumentsItemFieldState            = big.NewInt(1 << 4)
-	documentsList200ResponseDocumentsItemFieldBaseSha          = big.NewInt(1 << 5)
-	documentsList200ResponseDocumentsItemFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsList200ResponseDocumentsItemFieldMetadata         = big.NewInt(1 << 7)
-	documentsList200ResponseDocumentsItemFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsList200ResponseDocumentsItemFieldFailureReason    = big.NewInt(1 << 9)
-	documentsList200ResponseDocumentsItemFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsList200ResponseDocumentsItemFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsList200ResponseDocumentsItemFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsList200ResponseDocumentsItemFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsList200ResponseDocumentsItemFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsListResponseDocumentsItemFieldID             = big.NewInt(1 << 0)
+	documentsListResponseDocumentsItemFieldTenantID       = big.NewInt(1 << 1)
+	documentsListResponseDocumentsItemFieldName           = big.NewInt(1 << 2)
+	documentsListResponseDocumentsItemFieldFolderID       = big.NewInt(1 << 3)
+	documentsListResponseDocumentsItemFieldState          = big.NewInt(1 << 4)
+	documentsListResponseDocumentsItemFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsListResponseDocumentsItemFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsListResponseDocumentsItemFieldMetadata       = big.NewInt(1 << 7)
+	documentsListResponseDocumentsItemFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsListResponseDocumentsItemFieldFailureReason  = big.NewInt(1 << 9)
+	documentsListResponseDocumentsItemFieldThumbnailState = big.NewInt(1 << 10)
+	documentsListResponseDocumentsItemFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsListResponseDocumentsItemFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsListResponseDocumentsItemFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsListResponseDocumentsItemFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsList200ResponseDocumentsItem struct {
+type DocumentsListResponseDocumentsItem struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                               `json:"folderId" url:"folderId"`
-	State            DocumentsList200ResponseDocumentsItemState           `json:"state" url:"state"`
-	BaseSha          *string                                              `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                             `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                       `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                              `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                              `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsList200ResponseDocumentsItemThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                              `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                              `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                              `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                              `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                           `json:"folderId" url:"folderId"`
+	State          DocumentsListResponseDocumentsItemState          `json:"state" url:"state"`
+	BaseSha256     *string                                          `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                             `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                   `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                          `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                          `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsListResponseDocumentsItemThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                          `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                        `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                        `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                          `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4590,119 +4679,119 @@ type DocumentsList200ResponseDocumentsItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetID() string {
+func (d *DocumentsListResponseDocumentsItem) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetTenantID() string {
+func (d *DocumentsListResponseDocumentsItem) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetName() string {
+func (d *DocumentsListResponseDocumentsItem) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetFolderID() string {
+func (d *DocumentsListResponseDocumentsItem) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetState() DocumentsList200ResponseDocumentsItemState {
+func (d *DocumentsListResponseDocumentsItem) GetState() DocumentsListResponseDocumentsItemState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetBaseSha() *string {
+func (d *DocumentsListResponseDocumentsItem) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetStorageSizeBytes() *float64 {
+func (d *DocumentsListResponseDocumentsItem) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetMetadata() map[string]any {
+func (d *DocumentsListResponseDocumentsItem) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetIdempotencyKey() *string {
+func (d *DocumentsListResponseDocumentsItem) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetFailureReason() *string {
+func (d *DocumentsListResponseDocumentsItem) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetThumbnailState() *DocumentsList200ResponseDocumentsItemThumbnailState {
+func (d *DocumentsListResponseDocumentsItem) GetThumbnailState() DocumentsListResponseDocumentsItemThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetThumbnailURL() *string {
+func (d *DocumentsListResponseDocumentsItem) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetCreatedAt() float64 {
+func (d *DocumentsListResponseDocumentsItem) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetUpdatedAt() float64 {
+func (d *DocumentsListResponseDocumentsItem) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetCreatedBy() *string {
+func (d *DocumentsListResponseDocumentsItem) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsListResponseDocumentsItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) require(field *big.Int) {
+func (d *DocumentsListResponseDocumentsItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4711,116 +4800,124 @@ func (d *DocumentsList200ResponseDocumentsItem) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetID(id string) {
+func (d *DocumentsListResponseDocumentsItem) SetID(id string) {
 	d.ID = id
-	d.require(documentsList200ResponseDocumentsItemFieldID)
+	d.require(documentsListResponseDocumentsItemFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetTenantID(tenantID string) {
+func (d *DocumentsListResponseDocumentsItem) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsList200ResponseDocumentsItemFieldTenantID)
+	d.require(documentsListResponseDocumentsItemFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetName(name string) {
+func (d *DocumentsListResponseDocumentsItem) SetName(name string) {
 	d.Name = name
-	d.require(documentsList200ResponseDocumentsItemFieldName)
+	d.require(documentsListResponseDocumentsItemFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetFolderID(folderID string) {
+func (d *DocumentsListResponseDocumentsItem) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsList200ResponseDocumentsItemFieldFolderID)
+	d.require(documentsListResponseDocumentsItemFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetState(state DocumentsList200ResponseDocumentsItemState) {
+func (d *DocumentsListResponseDocumentsItem) SetState(state DocumentsListResponseDocumentsItemState) {
 	d.State = state
-	d.require(documentsList200ResponseDocumentsItemFieldState)
+	d.require(documentsListResponseDocumentsItemFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsList200ResponseDocumentsItemFieldBaseSha)
+func (d *DocumentsListResponseDocumentsItem) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsListResponseDocumentsItemFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsList200ResponseDocumentsItemFieldStorageSizeBytes)
+func (d *DocumentsListResponseDocumentsItem) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsListResponseDocumentsItemFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetMetadata(metadata map[string]any) {
+func (d *DocumentsListResponseDocumentsItem) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsList200ResponseDocumentsItemFieldMetadata)
+	d.require(documentsListResponseDocumentsItemFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsListResponseDocumentsItem) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsList200ResponseDocumentsItemFieldIdempotencyKey)
+	d.require(documentsListResponseDocumentsItemFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetFailureReason(failureReason *string) {
+func (d *DocumentsListResponseDocumentsItem) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsList200ResponseDocumentsItemFieldFailureReason)
+	d.require(documentsListResponseDocumentsItemFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetThumbnailState(thumbnailState *DocumentsList200ResponseDocumentsItemThumbnailState) {
+func (d *DocumentsListResponseDocumentsItem) SetThumbnailState(thumbnailState DocumentsListResponseDocumentsItemThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsList200ResponseDocumentsItemFieldThumbnailState)
+	d.require(documentsListResponseDocumentsItemFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsListResponseDocumentsItem) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsList200ResponseDocumentsItemFieldThumbnailURL)
+	d.require(documentsListResponseDocumentsItemFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetCreatedAt(createdAt float64) {
+func (d *DocumentsListResponseDocumentsItem) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsList200ResponseDocumentsItemFieldCreatedAt)
+	d.require(documentsListResponseDocumentsItemFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsListResponseDocumentsItem) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsList200ResponseDocumentsItemFieldUpdatedAt)
+	d.require(documentsListResponseDocumentsItemFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsList200ResponseDocumentsItem) SetCreatedBy(createdBy *string) {
+func (d *DocumentsListResponseDocumentsItem) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsList200ResponseDocumentsItemFieldCreatedBy)
+	d.require(documentsListResponseDocumentsItemFieldCreatedBy)
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsList200ResponseDocumentsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsListResponseDocumentsItem) UnmarshalJSON(data []byte) error {
+	type embed DocumentsListResponseDocumentsItem
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsList200ResponseDocumentsItem(value)
+	*d = DocumentsListResponseDocumentsItem(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4830,18 +4927,22 @@ func (d *DocumentsList200ResponseDocumentsItem) UnmarshalJSON(data []byte) error
 	return nil
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) MarshalJSON() ([]byte, error) {
-	type embed DocumentsList200ResponseDocumentsItem
+func (d *DocumentsListResponseDocumentsItem) MarshalJSON() ([]byte, error) {
+	type embed DocumentsListResponseDocumentsItem
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsList200ResponseDocumentsItem) String() string {
+func (d *DocumentsListResponseDocumentsItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4856,68 +4957,68 @@ func (d *DocumentsList200ResponseDocumentsItem) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsList200ResponseDocumentsItemState string
+type DocumentsListResponseDocumentsItemState string
 
 const (
-	DocumentsList200ResponseDocumentsItemStatePending  DocumentsList200ResponseDocumentsItemState = "pending"
-	DocumentsList200ResponseDocumentsItemStateReady    DocumentsList200ResponseDocumentsItemState = "ready"
-	DocumentsList200ResponseDocumentsItemStateFailed   DocumentsList200ResponseDocumentsItemState = "failed"
-	DocumentsList200ResponseDocumentsItemStateDeleting DocumentsList200ResponseDocumentsItemState = "deleting"
+	DocumentsListResponseDocumentsItemStatePending  DocumentsListResponseDocumentsItemState = "pending"
+	DocumentsListResponseDocumentsItemStateReady    DocumentsListResponseDocumentsItemState = "ready"
+	DocumentsListResponseDocumentsItemStateFailed   DocumentsListResponseDocumentsItemState = "failed"
+	DocumentsListResponseDocumentsItemStateDeleting DocumentsListResponseDocumentsItemState = "deleting"
 )
 
-func NewDocumentsList200ResponseDocumentsItemStateFromString(s string) (DocumentsList200ResponseDocumentsItemState, error) {
+func NewDocumentsListResponseDocumentsItemStateFromString(s string) (DocumentsListResponseDocumentsItemState, error) {
 	switch s {
 	case "pending":
-		return DocumentsList200ResponseDocumentsItemStatePending, nil
+		return DocumentsListResponseDocumentsItemStatePending, nil
 	case "ready":
-		return DocumentsList200ResponseDocumentsItemStateReady, nil
+		return DocumentsListResponseDocumentsItemStateReady, nil
 	case "failed":
-		return DocumentsList200ResponseDocumentsItemStateFailed, nil
+		return DocumentsListResponseDocumentsItemStateFailed, nil
 	case "deleting":
-		return DocumentsList200ResponseDocumentsItemStateDeleting, nil
+		return DocumentsListResponseDocumentsItemStateDeleting, nil
 	}
-	var t DocumentsList200ResponseDocumentsItemState
+	var t DocumentsListResponseDocumentsItemState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsList200ResponseDocumentsItemState) Ptr() *DocumentsList200ResponseDocumentsItemState {
+func (d DocumentsListResponseDocumentsItemState) Ptr() *DocumentsListResponseDocumentsItemState {
 	return &d
 }
 
-type DocumentsList200ResponseDocumentsItemThumbnailState string
+type DocumentsListResponseDocumentsItemThumbnailState string
 
 const (
-	DocumentsList200ResponseDocumentsItemThumbnailStatePending DocumentsList200ResponseDocumentsItemThumbnailState = "pending"
-	DocumentsList200ResponseDocumentsItemThumbnailStateReady   DocumentsList200ResponseDocumentsItemThumbnailState = "ready"
-	DocumentsList200ResponseDocumentsItemThumbnailStateLocked  DocumentsList200ResponseDocumentsItemThumbnailState = "locked"
-	DocumentsList200ResponseDocumentsItemThumbnailStateFailed  DocumentsList200ResponseDocumentsItemThumbnailState = "failed"
+	DocumentsListResponseDocumentsItemThumbnailStatePending DocumentsListResponseDocumentsItemThumbnailState = "pending"
+	DocumentsListResponseDocumentsItemThumbnailStateReady   DocumentsListResponseDocumentsItemThumbnailState = "ready"
+	DocumentsListResponseDocumentsItemThumbnailStateLocked  DocumentsListResponseDocumentsItemThumbnailState = "locked"
+	DocumentsListResponseDocumentsItemThumbnailStateFailed  DocumentsListResponseDocumentsItemThumbnailState = "failed"
 )
 
-func NewDocumentsList200ResponseDocumentsItemThumbnailStateFromString(s string) (DocumentsList200ResponseDocumentsItemThumbnailState, error) {
+func NewDocumentsListResponseDocumentsItemThumbnailStateFromString(s string) (DocumentsListResponseDocumentsItemThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsList200ResponseDocumentsItemThumbnailStatePending, nil
+		return DocumentsListResponseDocumentsItemThumbnailStatePending, nil
 	case "ready":
-		return DocumentsList200ResponseDocumentsItemThumbnailStateReady, nil
+		return DocumentsListResponseDocumentsItemThumbnailStateReady, nil
 	case "locked":
-		return DocumentsList200ResponseDocumentsItemThumbnailStateLocked, nil
+		return DocumentsListResponseDocumentsItemThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsList200ResponseDocumentsItemThumbnailStateFailed, nil
+		return DocumentsListResponseDocumentsItemThumbnailStateFailed, nil
 	}
-	var t DocumentsList200ResponseDocumentsItemThumbnailState
+	var t DocumentsListResponseDocumentsItemThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsList200ResponseDocumentsItemThumbnailState) Ptr() *DocumentsList200ResponseDocumentsItemThumbnailState {
+func (d DocumentsListResponseDocumentsItemThumbnailState) Ptr() *DocumentsListResponseDocumentsItemThumbnailState {
 	return &d
 }
 
 var (
-	documentsUpdate200ResponseFieldDocument = big.NewInt(1 << 0)
+	documentsUpdateResponseFieldDocument = big.NewInt(1 << 0)
 )
 
-type DocumentsUpdate200Response struct {
-	Document *DocumentsUpdate200ResponseDocument `json:"document" url:"document"`
+type DocumentsUpdateResponse struct {
+	Document *DocumentsUpdateResponseDocument `json:"document" url:"document"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -4926,21 +5027,21 @@ type DocumentsUpdate200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsUpdate200Response) GetDocument() *DocumentsUpdate200ResponseDocument {
+func (d *DocumentsUpdateResponse) GetDocument() *DocumentsUpdateResponseDocument {
 	if d == nil {
 		return nil
 	}
 	return d.Document
 }
 
-func (d *DocumentsUpdate200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsUpdateResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsUpdate200Response) require(field *big.Int) {
+func (d *DocumentsUpdateResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -4949,18 +5050,18 @@ func (d *DocumentsUpdate200Response) require(field *big.Int) {
 
 // SetDocument sets the Document field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200Response) SetDocument(document *DocumentsUpdate200ResponseDocument) {
+func (d *DocumentsUpdateResponse) SetDocument(document *DocumentsUpdateResponseDocument) {
 	d.Document = document
-	d.require(documentsUpdate200ResponseFieldDocument)
+	d.require(documentsUpdateResponseFieldDocument)
 }
 
-func (d *DocumentsUpdate200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsUpdate200Response
+func (d *DocumentsUpdateResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUpdateResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsUpdate200Response(value)
+	*d = DocumentsUpdateResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -4970,8 +5071,8 @@ func (d *DocumentsUpdate200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsUpdate200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsUpdate200Response
+func (d *DocumentsUpdateResponse) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUpdateResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -4981,7 +5082,7 @@ func (d *DocumentsUpdate200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsUpdate200Response) String() string {
+func (d *DocumentsUpdateResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -4997,40 +5098,40 @@ func (d *DocumentsUpdate200Response) String() string {
 }
 
 var (
-	documentsUpdate200ResponseDocumentFieldID               = big.NewInt(1 << 0)
-	documentsUpdate200ResponseDocumentFieldTenantID         = big.NewInt(1 << 1)
-	documentsUpdate200ResponseDocumentFieldName             = big.NewInt(1 << 2)
-	documentsUpdate200ResponseDocumentFieldFolderID         = big.NewInt(1 << 3)
-	documentsUpdate200ResponseDocumentFieldState            = big.NewInt(1 << 4)
-	documentsUpdate200ResponseDocumentFieldBaseSha          = big.NewInt(1 << 5)
-	documentsUpdate200ResponseDocumentFieldStorageSizeBytes = big.NewInt(1 << 6)
-	documentsUpdate200ResponseDocumentFieldMetadata         = big.NewInt(1 << 7)
-	documentsUpdate200ResponseDocumentFieldIdempotencyKey   = big.NewInt(1 << 8)
-	documentsUpdate200ResponseDocumentFieldFailureReason    = big.NewInt(1 << 9)
-	documentsUpdate200ResponseDocumentFieldThumbnailState   = big.NewInt(1 << 10)
-	documentsUpdate200ResponseDocumentFieldThumbnailURL     = big.NewInt(1 << 11)
-	documentsUpdate200ResponseDocumentFieldCreatedAt        = big.NewInt(1 << 12)
-	documentsUpdate200ResponseDocumentFieldUpdatedAt        = big.NewInt(1 << 13)
-	documentsUpdate200ResponseDocumentFieldCreatedBy        = big.NewInt(1 << 14)
+	documentsUpdateResponseDocumentFieldID             = big.NewInt(1 << 0)
+	documentsUpdateResponseDocumentFieldTenantID       = big.NewInt(1 << 1)
+	documentsUpdateResponseDocumentFieldName           = big.NewInt(1 << 2)
+	documentsUpdateResponseDocumentFieldFolderID       = big.NewInt(1 << 3)
+	documentsUpdateResponseDocumentFieldState          = big.NewInt(1 << 4)
+	documentsUpdateResponseDocumentFieldBaseSha256     = big.NewInt(1 << 5)
+	documentsUpdateResponseDocumentFieldSizeBytes      = big.NewInt(1 << 6)
+	documentsUpdateResponseDocumentFieldMetadata       = big.NewInt(1 << 7)
+	documentsUpdateResponseDocumentFieldIdempotencyKey = big.NewInt(1 << 8)
+	documentsUpdateResponseDocumentFieldFailureReason  = big.NewInt(1 << 9)
+	documentsUpdateResponseDocumentFieldThumbnailState = big.NewInt(1 << 10)
+	documentsUpdateResponseDocumentFieldThumbnailURL   = big.NewInt(1 << 11)
+	documentsUpdateResponseDocumentFieldCreatedAt      = big.NewInt(1 << 12)
+	documentsUpdateResponseDocumentFieldUpdatedAt      = big.NewInt(1 << 13)
+	documentsUpdateResponseDocumentFieldCreatedBy      = big.NewInt(1 << 14)
 )
 
-type DocumentsUpdate200ResponseDocument struct {
+type DocumentsUpdateResponseDocument struct {
 	ID       string `json:"id" url:"id"`
 	TenantID string `json:"tenantId" url:"tenantId"`
 	Name     string `json:"name" url:"name"`
 	// The folder the document is in, or root.
-	FolderID         string                                            `json:"folderId" url:"folderId"`
-	State            DocumentsUpdate200ResponseDocumentState           `json:"state" url:"state"`
-	BaseSha          *string                                           `json:"baseSha,omitempty" url:"baseSha,omitempty"`
-	StorageSizeBytes *float64                                          `json:"storageSizeBytes,omitempty" url:"storageSizeBytes,omitempty"`
-	Metadata         map[string]any                                    `json:"metadata,omitempty" url:"metadata,omitempty"`
-	IdempotencyKey   *string                                           `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
-	FailureReason    *string                                           `json:"failureReason,omitempty" url:"failureReason,omitempty"`
-	ThumbnailState   *DocumentsUpdate200ResponseDocumentThumbnailState `json:"thumbnailState,omitempty" url:"thumbnailState,omitempty"`
-	ThumbnailURL     *string                                           `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
-	CreatedAt        float64                                           `json:"createdAt" url:"createdAt"`
-	UpdatedAt        float64                                           `json:"updatedAt" url:"updatedAt"`
-	CreatedBy        *string                                           `json:"createdBy,omitempty" url:"createdBy,omitempty"`
+	FolderID       string                                        `json:"folderId" url:"folderId"`
+	State          DocumentsUpdateResponseDocumentState          `json:"state" url:"state"`
+	BaseSha256     *string                                       `json:"baseSha256,omitempty" url:"baseSha256,omitempty"`
+	SizeBytes      *int                                          `json:"sizeBytes,omitempty" url:"sizeBytes,omitempty"`
+	Metadata       map[string]any                                `json:"metadata,omitempty" url:"metadata,omitempty"`
+	IdempotencyKey *string                                       `json:"idempotencyKey,omitempty" url:"idempotencyKey,omitempty"`
+	FailureReason  *string                                       `json:"failureReason,omitempty" url:"failureReason,omitempty"`
+	ThumbnailState DocumentsUpdateResponseDocumentThumbnailState `json:"thumbnailState" url:"thumbnailState"`
+	ThumbnailURL   *string                                       `json:"thumbnailUrl,omitempty" url:"thumbnailUrl,omitempty"`
+	CreatedAt      time.Time                                     `json:"createdAt" url:"createdAt"`
+	UpdatedAt      time.Time                                     `json:"updatedAt" url:"updatedAt"`
+	CreatedBy      *string                                       `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -5039,119 +5140,119 @@ type DocumentsUpdate200ResponseDocument struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetID() string {
+func (d *DocumentsUpdateResponseDocument) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetTenantID() string {
+func (d *DocumentsUpdateResponseDocument) GetTenantID() string {
 	if d == nil {
 		return ""
 	}
 	return d.TenantID
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetName() string {
+func (d *DocumentsUpdateResponseDocument) GetName() string {
 	if d == nil {
 		return ""
 	}
 	return d.Name
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetFolderID() string {
+func (d *DocumentsUpdateResponseDocument) GetFolderID() string {
 	if d == nil {
 		return ""
 	}
 	return d.FolderID
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetState() DocumentsUpdate200ResponseDocumentState {
+func (d *DocumentsUpdateResponseDocument) GetState() DocumentsUpdateResponseDocumentState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetBaseSha() *string {
+func (d *DocumentsUpdateResponseDocument) GetBaseSha256() *string {
 	if d == nil {
 		return nil
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetStorageSizeBytes() *float64 {
+func (d *DocumentsUpdateResponseDocument) GetSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetMetadata() map[string]any {
+func (d *DocumentsUpdateResponseDocument) GetMetadata() map[string]any {
 	if d == nil {
 		return nil
 	}
 	return d.Metadata
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetIdempotencyKey() *string {
+func (d *DocumentsUpdateResponseDocument) GetIdempotencyKey() *string {
 	if d == nil {
 		return nil
 	}
 	return d.IdempotencyKey
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetFailureReason() *string {
+func (d *DocumentsUpdateResponseDocument) GetFailureReason() *string {
 	if d == nil {
 		return nil
 	}
 	return d.FailureReason
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetThumbnailState() *DocumentsUpdate200ResponseDocumentThumbnailState {
+func (d *DocumentsUpdateResponseDocument) GetThumbnailState() DocumentsUpdateResponseDocumentThumbnailState {
 	if d == nil {
-		return nil
+		return ""
 	}
 	return d.ThumbnailState
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetThumbnailURL() *string {
+func (d *DocumentsUpdateResponseDocument) GetThumbnailURL() *string {
 	if d == nil {
 		return nil
 	}
 	return d.ThumbnailURL
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetCreatedAt() float64 {
+func (d *DocumentsUpdateResponseDocument) GetCreatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.CreatedAt
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetUpdatedAt() float64 {
+func (d *DocumentsUpdateResponseDocument) GetUpdatedAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.UpdatedAt
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetCreatedBy() *string {
+func (d *DocumentsUpdateResponseDocument) GetCreatedBy() *string {
 	if d == nil {
 		return nil
 	}
 	return d.CreatedBy
 }
 
-func (d *DocumentsUpdate200ResponseDocument) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsUpdateResponseDocument) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsUpdate200ResponseDocument) require(field *big.Int) {
+func (d *DocumentsUpdateResponseDocument) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -5160,116 +5261,124 @@ func (d *DocumentsUpdate200ResponseDocument) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetID(id string) {
+func (d *DocumentsUpdateResponseDocument) SetID(id string) {
 	d.ID = id
-	d.require(documentsUpdate200ResponseDocumentFieldID)
+	d.require(documentsUpdateResponseDocumentFieldID)
 }
 
 // SetTenantID sets the TenantID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetTenantID(tenantID string) {
+func (d *DocumentsUpdateResponseDocument) SetTenantID(tenantID string) {
 	d.TenantID = tenantID
-	d.require(documentsUpdate200ResponseDocumentFieldTenantID)
+	d.require(documentsUpdateResponseDocumentFieldTenantID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetName(name string) {
+func (d *DocumentsUpdateResponseDocument) SetName(name string) {
 	d.Name = name
-	d.require(documentsUpdate200ResponseDocumentFieldName)
+	d.require(documentsUpdateResponseDocumentFieldName)
 }
 
 // SetFolderID sets the FolderID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetFolderID(folderID string) {
+func (d *DocumentsUpdateResponseDocument) SetFolderID(folderID string) {
 	d.FolderID = folderID
-	d.require(documentsUpdate200ResponseDocumentFieldFolderID)
+	d.require(documentsUpdateResponseDocumentFieldFolderID)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetState(state DocumentsUpdate200ResponseDocumentState) {
+func (d *DocumentsUpdateResponseDocument) SetState(state DocumentsUpdateResponseDocumentState) {
 	d.State = state
-	d.require(documentsUpdate200ResponseDocumentFieldState)
+	d.require(documentsUpdateResponseDocumentFieldState)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetBaseSha(baseSha *string) {
-	d.BaseSha = baseSha
-	d.require(documentsUpdate200ResponseDocumentFieldBaseSha)
+func (d *DocumentsUpdateResponseDocument) SetBaseSha256(baseSha256 *string) {
+	d.BaseSha256 = baseSha256
+	d.require(documentsUpdateResponseDocumentFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetStorageSizeBytes(storageSizeBytes *float64) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(documentsUpdate200ResponseDocumentFieldStorageSizeBytes)
+func (d *DocumentsUpdateResponseDocument) SetSizeBytes(sizeBytes *int) {
+	d.SizeBytes = sizeBytes
+	d.require(documentsUpdateResponseDocumentFieldSizeBytes)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetMetadata(metadata map[string]any) {
+func (d *DocumentsUpdateResponseDocument) SetMetadata(metadata map[string]any) {
 	d.Metadata = metadata
-	d.require(documentsUpdate200ResponseDocumentFieldMetadata)
+	d.require(documentsUpdateResponseDocumentFieldMetadata)
 }
 
 // SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
+func (d *DocumentsUpdateResponseDocument) SetIdempotencyKey(idempotencyKey *string) {
 	d.IdempotencyKey = idempotencyKey
-	d.require(documentsUpdate200ResponseDocumentFieldIdempotencyKey)
+	d.require(documentsUpdateResponseDocumentFieldIdempotencyKey)
 }
 
 // SetFailureReason sets the FailureReason field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetFailureReason(failureReason *string) {
+func (d *DocumentsUpdateResponseDocument) SetFailureReason(failureReason *string) {
 	d.FailureReason = failureReason
-	d.require(documentsUpdate200ResponseDocumentFieldFailureReason)
+	d.require(documentsUpdateResponseDocumentFieldFailureReason)
 }
 
 // SetThumbnailState sets the ThumbnailState field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetThumbnailState(thumbnailState *DocumentsUpdate200ResponseDocumentThumbnailState) {
+func (d *DocumentsUpdateResponseDocument) SetThumbnailState(thumbnailState DocumentsUpdateResponseDocumentThumbnailState) {
 	d.ThumbnailState = thumbnailState
-	d.require(documentsUpdate200ResponseDocumentFieldThumbnailState)
+	d.require(documentsUpdateResponseDocumentFieldThumbnailState)
 }
 
 // SetThumbnailURL sets the ThumbnailURL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetThumbnailURL(thumbnailURL *string) {
+func (d *DocumentsUpdateResponseDocument) SetThumbnailURL(thumbnailURL *string) {
 	d.ThumbnailURL = thumbnailURL
-	d.require(documentsUpdate200ResponseDocumentFieldThumbnailURL)
+	d.require(documentsUpdateResponseDocumentFieldThumbnailURL)
 }
 
 // SetCreatedAt sets the CreatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetCreatedAt(createdAt float64) {
+func (d *DocumentsUpdateResponseDocument) SetCreatedAt(createdAt time.Time) {
 	d.CreatedAt = createdAt
-	d.require(documentsUpdate200ResponseDocumentFieldCreatedAt)
+	d.require(documentsUpdateResponseDocumentFieldCreatedAt)
 }
 
 // SetUpdatedAt sets the UpdatedAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetUpdatedAt(updatedAt float64) {
+func (d *DocumentsUpdateResponseDocument) SetUpdatedAt(updatedAt time.Time) {
 	d.UpdatedAt = updatedAt
-	d.require(documentsUpdate200ResponseDocumentFieldUpdatedAt)
+	d.require(documentsUpdateResponseDocumentFieldUpdatedAt)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdate200ResponseDocument) SetCreatedBy(createdBy *string) {
+func (d *DocumentsUpdateResponseDocument) SetCreatedBy(createdBy *string) {
 	d.CreatedBy = createdBy
-	d.require(documentsUpdate200ResponseDocumentFieldCreatedBy)
+	d.require(documentsUpdateResponseDocumentFieldCreatedBy)
 }
 
-func (d *DocumentsUpdate200ResponseDocument) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsUpdate200ResponseDocument
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocumentsUpdateResponseDocument) UnmarshalJSON(data []byte) error {
+	type embed DocumentsUpdateResponseDocument
+	var unmarshaler = struct {
+		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocumentsUpdate200ResponseDocument(value)
+	*d = DocumentsUpdateResponseDocument(unmarshaler.embed)
+	d.CreatedAt = unmarshaler.CreatedAt.Time()
+	d.UpdatedAt = unmarshaler.UpdatedAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -5279,18 +5388,22 @@ func (d *DocumentsUpdate200ResponseDocument) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsUpdate200ResponseDocument) MarshalJSON() ([]byte, error) {
-	type embed DocumentsUpdate200ResponseDocument
+func (d *DocumentsUpdateResponseDocument) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUpdateResponseDocument
 	var marshaler = struct {
 		embed
+		CreatedAt *internal.DateTime `json:"createdAt"`
+		UpdatedAt *internal.DateTime `json:"updatedAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		CreatedAt: internal.NewDateTime(d.CreatedAt),
+		UpdatedAt: internal.NewDateTime(d.UpdatedAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsUpdate200ResponseDocument) String() string {
+func (d *DocumentsUpdateResponseDocument) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -5305,67 +5418,67 @@ func (d *DocumentsUpdate200ResponseDocument) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocumentsUpdate200ResponseDocumentState string
+type DocumentsUpdateResponseDocumentState string
 
 const (
-	DocumentsUpdate200ResponseDocumentStatePending  DocumentsUpdate200ResponseDocumentState = "pending"
-	DocumentsUpdate200ResponseDocumentStateReady    DocumentsUpdate200ResponseDocumentState = "ready"
-	DocumentsUpdate200ResponseDocumentStateFailed   DocumentsUpdate200ResponseDocumentState = "failed"
-	DocumentsUpdate200ResponseDocumentStateDeleting DocumentsUpdate200ResponseDocumentState = "deleting"
+	DocumentsUpdateResponseDocumentStatePending  DocumentsUpdateResponseDocumentState = "pending"
+	DocumentsUpdateResponseDocumentStateReady    DocumentsUpdateResponseDocumentState = "ready"
+	DocumentsUpdateResponseDocumentStateFailed   DocumentsUpdateResponseDocumentState = "failed"
+	DocumentsUpdateResponseDocumentStateDeleting DocumentsUpdateResponseDocumentState = "deleting"
 )
 
-func NewDocumentsUpdate200ResponseDocumentStateFromString(s string) (DocumentsUpdate200ResponseDocumentState, error) {
+func NewDocumentsUpdateResponseDocumentStateFromString(s string) (DocumentsUpdateResponseDocumentState, error) {
 	switch s {
 	case "pending":
-		return DocumentsUpdate200ResponseDocumentStatePending, nil
+		return DocumentsUpdateResponseDocumentStatePending, nil
 	case "ready":
-		return DocumentsUpdate200ResponseDocumentStateReady, nil
+		return DocumentsUpdateResponseDocumentStateReady, nil
 	case "failed":
-		return DocumentsUpdate200ResponseDocumentStateFailed, nil
+		return DocumentsUpdateResponseDocumentStateFailed, nil
 	case "deleting":
-		return DocumentsUpdate200ResponseDocumentStateDeleting, nil
+		return DocumentsUpdateResponseDocumentStateDeleting, nil
 	}
-	var t DocumentsUpdate200ResponseDocumentState
+	var t DocumentsUpdateResponseDocumentState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsUpdate200ResponseDocumentState) Ptr() *DocumentsUpdate200ResponseDocumentState {
+func (d DocumentsUpdateResponseDocumentState) Ptr() *DocumentsUpdateResponseDocumentState {
 	return &d
 }
 
-type DocumentsUpdate200ResponseDocumentThumbnailState string
+type DocumentsUpdateResponseDocumentThumbnailState string
 
 const (
-	DocumentsUpdate200ResponseDocumentThumbnailStatePending DocumentsUpdate200ResponseDocumentThumbnailState = "pending"
-	DocumentsUpdate200ResponseDocumentThumbnailStateReady   DocumentsUpdate200ResponseDocumentThumbnailState = "ready"
-	DocumentsUpdate200ResponseDocumentThumbnailStateLocked  DocumentsUpdate200ResponseDocumentThumbnailState = "locked"
-	DocumentsUpdate200ResponseDocumentThumbnailStateFailed  DocumentsUpdate200ResponseDocumentThumbnailState = "failed"
+	DocumentsUpdateResponseDocumentThumbnailStatePending DocumentsUpdateResponseDocumentThumbnailState = "pending"
+	DocumentsUpdateResponseDocumentThumbnailStateReady   DocumentsUpdateResponseDocumentThumbnailState = "ready"
+	DocumentsUpdateResponseDocumentThumbnailStateLocked  DocumentsUpdateResponseDocumentThumbnailState = "locked"
+	DocumentsUpdateResponseDocumentThumbnailStateFailed  DocumentsUpdateResponseDocumentThumbnailState = "failed"
 )
 
-func NewDocumentsUpdate200ResponseDocumentThumbnailStateFromString(s string) (DocumentsUpdate200ResponseDocumentThumbnailState, error) {
+func NewDocumentsUpdateResponseDocumentThumbnailStateFromString(s string) (DocumentsUpdateResponseDocumentThumbnailState, error) {
 	switch s {
 	case "pending":
-		return DocumentsUpdate200ResponseDocumentThumbnailStatePending, nil
+		return DocumentsUpdateResponseDocumentThumbnailStatePending, nil
 	case "ready":
-		return DocumentsUpdate200ResponseDocumentThumbnailStateReady, nil
+		return DocumentsUpdateResponseDocumentThumbnailStateReady, nil
 	case "locked":
-		return DocumentsUpdate200ResponseDocumentThumbnailStateLocked, nil
+		return DocumentsUpdateResponseDocumentThumbnailStateLocked, nil
 	case "failed":
-		return DocumentsUpdate200ResponseDocumentThumbnailStateFailed, nil
+		return DocumentsUpdateResponseDocumentThumbnailStateFailed, nil
 	}
-	var t DocumentsUpdate200ResponseDocumentThumbnailState
+	var t DocumentsUpdateResponseDocumentThumbnailState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocumentsUpdate200ResponseDocumentThumbnailState) Ptr() *DocumentsUpdate200ResponseDocumentThumbnailState {
+func (d DocumentsUpdateResponseDocumentThumbnailState) Ptr() *DocumentsUpdateResponseDocumentThumbnailState {
 	return &d
 }
 
 var (
-	documentsUploadProxy200ResponseFieldSha256 = big.NewInt(1 << 0)
+	documentsUploadProxyResponseFieldSha256 = big.NewInt(1 << 0)
 )
 
-type DocumentsUploadProxy200Response struct {
+type DocumentsUploadProxyResponse struct {
 	Sha256 string `json:"sha256" url:"sha256"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -5375,21 +5488,21 @@ type DocumentsUploadProxy200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocumentsUploadProxy200Response) GetSha256() string {
+func (d *DocumentsUploadProxyResponse) GetSha256() string {
 	if d == nil {
 		return ""
 	}
 	return d.Sha256
 }
 
-func (d *DocumentsUploadProxy200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocumentsUploadProxyResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocumentsUploadProxy200Response) require(field *big.Int) {
+func (d *DocumentsUploadProxyResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -5398,18 +5511,18 @@ func (d *DocumentsUploadProxy200Response) require(field *big.Int) {
 
 // SetSha256 sets the Sha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUploadProxy200Response) SetSha256(sha256 string) {
+func (d *DocumentsUploadProxyResponse) SetSha256(sha256 string) {
 	d.Sha256 = sha256
-	d.require(documentsUploadProxy200ResponseFieldSha256)
+	d.require(documentsUploadProxyResponseFieldSha256)
 }
 
-func (d *DocumentsUploadProxy200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocumentsUploadProxy200Response
+func (d *DocumentsUploadProxyResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocumentsUploadProxyResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocumentsUploadProxy200Response(value)
+	*d = DocumentsUploadProxyResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -5419,8 +5532,8 @@ func (d *DocumentsUploadProxy200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocumentsUploadProxy200Response) MarshalJSON() ([]byte, error) {
-	type embed DocumentsUploadProxy200Response
+func (d *DocumentsUploadProxyResponse) MarshalJSON() ([]byte, error) {
+	type embed DocumentsUploadProxyResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -5430,7 +5543,7 @@ func (d *DocumentsUploadProxy200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocumentsUploadProxy200Response) String() string {
+func (d *DocumentsUploadProxyResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -6057,13 +6170,13 @@ func (l ListDocumentsRequestState) Ptr() *ListDocumentsRequestState {
 
 var (
 	documentsUpdateRequestFieldTenantID = big.NewInt(1 << 0)
-	documentsUpdateRequestFieldID       = big.NewInt(1 << 1)
+	documentsUpdateRequestFieldDocID    = big.NewInt(1 << 1)
 	documentsUpdateRequestFieldName     = big.NewInt(1 << 2)
 )
 
 type DocumentsUpdateRequest struct {
 	TenantID string `json:"-" url:"-"`
-	ID       string `json:"-" url:"-"`
+	DocID    string `json:"-" url:"-"`
 	// What people call the document: shown in dashboards, searched and sorted by. 1 to 255 characters, no control characters, no leading or trailing whitespace. Names need not be unique.
 	Name string `json:"name" url:"-"`
 
@@ -6085,11 +6198,11 @@ func (d *DocumentsUpdateRequest) SetTenantID(tenantID string) {
 	d.require(documentsUpdateRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocumentsUpdateRequest) SetID(id string) {
-	d.ID = id
-	d.require(documentsUpdateRequestFieldID)
+func (d *DocumentsUpdateRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(documentsUpdateRequestFieldDocID)
 }
 
 // SetName sets the Name field and marks it as non-optional;
@@ -6122,12 +6235,12 @@ func (d *DocumentsUpdateRequest) MarshalJSON() ([]byte, error) {
 
 var (
 	uploadProxyDocumentsRequestFieldTenantID = big.NewInt(1 << 0)
-	uploadProxyDocumentsRequestFieldID       = big.NewInt(1 << 1)
+	uploadProxyDocumentsRequestFieldDocID    = big.NewInt(1 << 1)
 )
 
 type UploadProxyDocumentsRequest struct {
 	TenantID string    `json:"-" url:"-"`
-	ID       string    `json:"-" url:"-"`
+	DocID    string    `json:"-" url:"-"`
 	File     io.Reader `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -6148,11 +6261,11 @@ func (u *UploadProxyDocumentsRequest) SetTenantID(tenantID string) {
 	u.require(uploadProxyDocumentsRequestFieldTenantID)
 }
 
-// SetID sets the ID field and marks it as non-optional;
+// SetDocID sets the DocID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (u *UploadProxyDocumentsRequest) SetID(id string) {
-	u.ID = id
-	u.require(uploadProxyDocumentsRequestFieldID)
+func (u *UploadProxyDocumentsRequest) SetDocID(docID string) {
+	u.DocID = docID
+	u.require(uploadProxyDocumentsRequestFieldDocID)
 }
 
 func (u *UploadProxyDocumentsRequest) UnmarshalJSON(data []byte) error {

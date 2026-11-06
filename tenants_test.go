@@ -7,6 +7,7 @@ import (
 	assert "github.com/stretchr/testify/assert"
 	require "github.com/stretchr/testify/require"
 	testing "testing"
+	time "time"
 )
 
 func TestSettersTenantsCreateRequest(t *testing.T) {
@@ -539,17 +540,17 @@ func TestSettersMarkExplicitTenantFeature(t *testing.T) {
 
 }
 
-func TestSettersTenantsCreate200Response(t *testing.T) {
+func TestSettersTenantsCreateResponse(t *testing.T) {
 	t.Run("SetTenant", func(t *testing.T) {
-		obj := &TenantsCreate200Response{}
-		var fernTestValueTenant *TenantsCreate200ResponseTenant
+		obj := &TenantsCreateResponse{}
+		var fernTestValueTenant *TenantsCreateResponseTenant
 		obj.SetTenant(fernTestValueTenant)
 		assert.Equal(t, fernTestValueTenant, obj.Tenant)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetCreated", func(t *testing.T) {
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		var fernTestValueCreated bool
 		obj.SetCreated(fernTestValueCreated)
 		assert.Equal(t, fernTestValueCreated, obj.Created)
@@ -558,12 +559,12 @@ func TestSettersTenantsCreate200Response(t *testing.T) {
 
 }
 
-func TestGettersTenantsCreate200Response(t *testing.T) {
+func TestGettersTenantsCreateResponse(t *testing.T) {
 	t.Run("GetTenant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
-		var expected *TenantsCreate200ResponseTenant
+		obj := &TenantsCreateResponse{}
+		var expected *TenantsCreateResponseTenant
 		obj.Tenant = expected
 
 		// Act & Assert
@@ -573,7 +574,7 @@ func TestGettersTenantsCreate200Response(t *testing.T) {
 	t.Run("GetTenant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		obj.Tenant = nil
 
 		// Act & Assert
@@ -582,7 +583,7 @@ func TestGettersTenantsCreate200Response(t *testing.T) {
 
 	t.Run("GetTenant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200Response
+		var obj *TenantsCreateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -595,7 +596,7 @@ func TestGettersTenantsCreate200Response(t *testing.T) {
 	t.Run("GetCreated", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		var expected bool
 		obj.Created = expected
 
@@ -605,7 +606,7 @@ func TestGettersTenantsCreate200Response(t *testing.T) {
 
 	t.Run("GetCreated_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200Response
+		var obj *TenantsCreateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -617,12 +618,12 @@ func TestGettersTenantsCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsCreate200Response(t *testing.T) {
+func TestSettersMarkExplicitTenantsCreateResponse(t *testing.T) {
 	t.Run("SetTenant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
-		var fernTestValueTenant *TenantsCreate200ResponseTenant
+		obj := &TenantsCreateResponse{}
+		var fernTestValueTenant *TenantsCreateResponseTenant
 
 		// Act
 		obj.SetTenant(fernTestValueTenant)
@@ -652,7 +653,7 @@ func TestSettersMarkExplicitTenantsCreate200Response(t *testing.T) {
 	t.Run("SetCreated_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		var fernTestValueCreated bool
 
 		// Act
@@ -682,9 +683,9 @@ func TestSettersMarkExplicitTenantsCreate200Response(t *testing.T) {
 
 }
 
-func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
+func TestSettersTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -692,7 +693,7 @@ func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -700,7 +701,7 @@ func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetAutoProvisioned", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 		obj.SetAutoProvisioned(fernTestValueAutoProvisioned)
 		assert.Equal(t, fernTestValueAutoProvisioned, obj.AutoProvisioned)
@@ -708,15 +709,15 @@ func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetStatus", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
-		var fernTestValueStatus *TenantsCreate200ResponseTenantStatus
+		obj := &TenantsCreateResponseTenant{}
+		var fernTestValueStatus *TenantsCreateResponseTenantStatus
 		obj.SetStatus(fernTestValueStatus)
 		assert.Equal(t, fernTestValueStatus, obj.Status)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetFeatures", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 		obj.SetFeatures(fernTestValueFeatures)
 		assert.Equal(t, fernTestValueFeatures, obj.Features)
@@ -724,8 +725,8 @@ func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &TenantsCreate200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsCreateResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -733,11 +734,11 @@ func TestSettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
+func TestGettersTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var expected string
 		obj.ID = expected
 
@@ -747,7 +748,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -760,7 +761,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var expected string
 		obj.Name = expected
 
@@ -770,7 +771,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -783,7 +784,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetAutoProvisioned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var expected bool
 		obj.AutoProvisioned = expected
 
@@ -793,7 +794,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetAutoProvisioned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -806,8 +807,8 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
-		var expected *TenantsCreate200ResponseTenantStatus
+		obj := &TenantsCreateResponseTenant{}
+		var expected *TenantsCreateResponseTenantStatus
 		obj.Status = expected
 
 		// Act & Assert
@@ -817,7 +818,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		obj.Status = nil
 
 		// Act & Assert
@@ -826,7 +827,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -839,7 +840,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var expected []*TenantFeature
 		obj.Features = expected
 
@@ -850,7 +851,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		obj.Features = nil
 
 		// Act & Assert
@@ -859,7 +860,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetFeatures_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -872,8 +873,8 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
-		var expected float64
+		obj := &TenantsCreateResponseTenant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -882,7 +883,7 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -894,11 +895,11 @@ func TestGettersTenantsCreate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
+func TestSettersMarkExplicitTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueID string
 
 		// Act
@@ -929,7 +930,7 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueName string
 
 		// Act
@@ -960,7 +961,7 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("SetAutoProvisioned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 
 		// Act
@@ -991,8 +992,8 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("SetStatus_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
-		var fernTestValueStatus *TenantsCreate200ResponseTenantStatus
+		obj := &TenantsCreateResponseTenant{}
+		var fernTestValueStatus *TenantsCreateResponseTenantStatus
 
 		// Act
 		obj.SetStatus(fernTestValueStatus)
@@ -1022,7 +1023,7 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("SetFeatures_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 
 		// Act
@@ -1053,8 +1054,8 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsCreateResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -1083,10 +1084,10 @@ func TestSettersMarkExplicitTenantsCreate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersTenantsGet200Response(t *testing.T) {
+func TestSettersTenantsGetResponse(t *testing.T) {
 	t.Run("SetTenant", func(t *testing.T) {
-		obj := &TenantsGet200Response{}
-		var fernTestValueTenant *TenantsGet200ResponseTenant
+		obj := &TenantsGetResponse{}
+		var fernTestValueTenant *TenantsGetResponseTenant
 		obj.SetTenant(fernTestValueTenant)
 		assert.Equal(t, fernTestValueTenant, obj.Tenant)
 		assert.NotNil(t, obj.explicitFields)
@@ -1094,12 +1095,12 @@ func TestSettersTenantsGet200Response(t *testing.T) {
 
 }
 
-func TestGettersTenantsGet200Response(t *testing.T) {
+func TestGettersTenantsGetResponse(t *testing.T) {
 	t.Run("GetTenant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200Response{}
-		var expected *TenantsGet200ResponseTenant
+		obj := &TenantsGetResponse{}
+		var expected *TenantsGetResponseTenant
 		obj.Tenant = expected
 
 		// Act & Assert
@@ -1109,7 +1110,7 @@ func TestGettersTenantsGet200Response(t *testing.T) {
 	t.Run("GetTenant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200Response{}
+		obj := &TenantsGetResponse{}
 		obj.Tenant = nil
 
 		// Act & Assert
@@ -1118,7 +1119,7 @@ func TestGettersTenantsGet200Response(t *testing.T) {
 
 	t.Run("GetTenant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200Response
+		var obj *TenantsGetResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1130,12 +1131,12 @@ func TestGettersTenantsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsGet200Response(t *testing.T) {
+func TestSettersMarkExplicitTenantsGetResponse(t *testing.T) {
 	t.Run("SetTenant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200Response{}
-		var fernTestValueTenant *TenantsGet200ResponseTenant
+		obj := &TenantsGetResponse{}
+		var fernTestValueTenant *TenantsGetResponseTenant
 
 		// Act
 		obj.SetTenant(fernTestValueTenant)
@@ -1164,9 +1165,9 @@ func TestSettersMarkExplicitTenantsGet200Response(t *testing.T) {
 
 }
 
-func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
+func TestSettersTenantsGetResponseTenant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1174,7 +1175,7 @@ func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1182,7 +1183,7 @@ func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetAutoProvisioned", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 		obj.SetAutoProvisioned(fernTestValueAutoProvisioned)
 		assert.Equal(t, fernTestValueAutoProvisioned, obj.AutoProvisioned)
@@ -1190,15 +1191,15 @@ func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetStatus", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
-		var fernTestValueStatus *TenantsGet200ResponseTenantStatus
+		obj := &TenantsGetResponseTenant{}
+		var fernTestValueStatus *TenantsGetResponseTenantStatus
 		obj.SetStatus(fernTestValueStatus)
 		assert.Equal(t, fernTestValueStatus, obj.Status)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetFeatures", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 		obj.SetFeatures(fernTestValueFeatures)
 		assert.Equal(t, fernTestValueFeatures, obj.Features)
@@ -1206,8 +1207,8 @@ func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &TenantsGet200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsGetResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -1215,11 +1216,11 @@ func TestSettersTenantsGet200ResponseTenant(t *testing.T) {
 
 }
 
-func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
+func TestGettersTenantsGetResponseTenant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var expected string
 		obj.ID = expected
 
@@ -1229,7 +1230,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1242,7 +1243,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var expected string
 		obj.Name = expected
 
@@ -1252,7 +1253,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1265,7 +1266,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetAutoProvisioned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var expected bool
 		obj.AutoProvisioned = expected
 
@@ -1275,7 +1276,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetAutoProvisioned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1288,8 +1289,8 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
-		var expected *TenantsGet200ResponseTenantStatus
+		obj := &TenantsGetResponseTenant{}
+		var expected *TenantsGetResponseTenantStatus
 		obj.Status = expected
 
 		// Act & Assert
@@ -1299,7 +1300,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		obj.Status = nil
 
 		// Act & Assert
@@ -1308,7 +1309,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1321,7 +1322,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var expected []*TenantFeature
 		obj.Features = expected
 
@@ -1332,7 +1333,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		obj.Features = nil
 
 		// Act & Assert
@@ -1341,7 +1342,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetFeatures_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1354,8 +1355,8 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
-		var expected float64
+		obj := &TenantsGetResponseTenant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -1364,7 +1365,7 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1376,11 +1377,11 @@ func TestGettersTenantsGet200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
+func TestSettersMarkExplicitTenantsGetResponseTenant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueID string
 
 		// Act
@@ -1411,7 +1412,7 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueName string
 
 		// Act
@@ -1442,7 +1443,7 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("SetAutoProvisioned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 
 		// Act
@@ -1473,8 +1474,8 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("SetStatus_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
-		var fernTestValueStatus *TenantsGet200ResponseTenantStatus
+		obj := &TenantsGetResponseTenant{}
+		var fernTestValueStatus *TenantsGetResponseTenantStatus
 
 		// Act
 		obj.SetStatus(fernTestValueStatus)
@@ -1504,7 +1505,7 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("SetFeatures_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 
 		// Act
@@ -1535,8 +1536,8 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsGetResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -1565,17 +1566,17 @@ func TestSettersMarkExplicitTenantsGet200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersTenantsList200Response(t *testing.T) {
+func TestSettersTenantsListResponse(t *testing.T) {
 	t.Run("SetTenants", func(t *testing.T) {
-		obj := &TenantsList200Response{}
-		var fernTestValueTenants []*TenantsList200ResponseTenantsItem
+		obj := &TenantsListResponse{}
+		var fernTestValueTenants []*TenantsListResponseTenantsItem
 		obj.SetTenants(fernTestValueTenants)
 		assert.Equal(t, fernTestValueTenants, obj.Tenants)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetNextCursor", func(t *testing.T) {
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		var fernTestValueNextCursor *string
 		obj.SetNextCursor(fernTestValueNextCursor)
 		assert.Equal(t, fernTestValueNextCursor, obj.NextCursor)
@@ -1584,12 +1585,12 @@ func TestSettersTenantsList200Response(t *testing.T) {
 
 }
 
-func TestGettersTenantsList200Response(t *testing.T) {
+func TestGettersTenantsListResponse(t *testing.T) {
 	t.Run("GetTenants", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
-		var expected []*TenantsList200ResponseTenantsItem
+		obj := &TenantsListResponse{}
+		var expected []*TenantsListResponseTenantsItem
 		obj.Tenants = expected
 
 		// Act & Assert
@@ -1599,7 +1600,7 @@ func TestGettersTenantsList200Response(t *testing.T) {
 	t.Run("GetTenants_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		obj.Tenants = nil
 
 		// Act & Assert
@@ -1608,7 +1609,7 @@ func TestGettersTenantsList200Response(t *testing.T) {
 
 	t.Run("GetTenants_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200Response
+		var obj *TenantsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1621,7 +1622,7 @@ func TestGettersTenantsList200Response(t *testing.T) {
 	t.Run("GetNextCursor", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		var expected *string
 		obj.NextCursor = expected
 
@@ -1632,7 +1633,7 @@ func TestGettersTenantsList200Response(t *testing.T) {
 	t.Run("GetNextCursor_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		obj.NextCursor = nil
 
 		// Act & Assert
@@ -1641,7 +1642,7 @@ func TestGettersTenantsList200Response(t *testing.T) {
 
 	t.Run("GetNextCursor_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200Response
+		var obj *TenantsListResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1653,12 +1654,12 @@ func TestGettersTenantsList200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsList200Response(t *testing.T) {
+func TestSettersMarkExplicitTenantsListResponse(t *testing.T) {
 	t.Run("SetTenants_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
-		var fernTestValueTenants []*TenantsList200ResponseTenantsItem
+		obj := &TenantsListResponse{}
+		var fernTestValueTenants []*TenantsListResponseTenantsItem
 
 		// Act
 		obj.SetTenants(fernTestValueTenants)
@@ -1688,7 +1689,7 @@ func TestSettersMarkExplicitTenantsList200Response(t *testing.T) {
 	t.Run("SetNextCursor_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		var fernTestValueNextCursor *string
 
 		// Act
@@ -1718,9 +1719,9 @@ func TestSettersMarkExplicitTenantsList200Response(t *testing.T) {
 
 }
 
-func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestSettersTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -1728,7 +1729,7 @@ func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -1736,7 +1737,7 @@ func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	})
 
 	t.Run("SetAutoProvisioned", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueAutoProvisioned bool
 		obj.SetAutoProvisioned(fernTestValueAutoProvisioned)
 		assert.Equal(t, fernTestValueAutoProvisioned, obj.AutoProvisioned)
@@ -1744,15 +1745,15 @@ func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	})
 
 	t.Run("SetStatus", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
-		var fernTestValueStatus *TenantsList200ResponseTenantsItemStatus
+		obj := &TenantsListResponseTenantsItem{}
+		var fernTestValueStatus *TenantsListResponseTenantsItemStatus
 		obj.SetStatus(fernTestValueStatus)
 		assert.Equal(t, fernTestValueStatus, obj.Status)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetFeatures", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueFeatures []*TenantFeature
 		obj.SetFeatures(fernTestValueFeatures)
 		assert.Equal(t, fernTestValueFeatures, obj.Features)
@@ -1760,8 +1761,8 @@ func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &TenantsList200ResponseTenantsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsListResponseTenantsItem{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -1769,11 +1770,11 @@ func TestSettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 }
 
-func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestGettersTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var expected string
 		obj.ID = expected
 
@@ -1783,7 +1784,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1796,7 +1797,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var expected string
 		obj.Name = expected
 
@@ -1806,7 +1807,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1819,7 +1820,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetAutoProvisioned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var expected bool
 		obj.AutoProvisioned = expected
 
@@ -1829,7 +1830,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetAutoProvisioned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1842,8 +1843,8 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
-		var expected *TenantsList200ResponseTenantsItemStatus
+		obj := &TenantsListResponseTenantsItem{}
+		var expected *TenantsListResponseTenantsItemStatus
 		obj.Status = expected
 
 		// Act & Assert
@@ -1853,7 +1854,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetStatus_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		obj.Status = nil
 
 		// Act & Assert
@@ -1862,7 +1863,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1875,7 +1876,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetFeatures", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var expected []*TenantFeature
 		obj.Features = expected
 
@@ -1886,7 +1887,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetFeatures_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		obj.Features = nil
 
 		// Act & Assert
@@ -1895,7 +1896,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetFeatures_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1908,8 +1909,8 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
-		var expected float64
+		obj := &TenantsListResponseTenantsItem{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -1918,7 +1919,7 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -1930,11 +1931,11 @@ func TestGettersTenantsList200ResponseTenantsItem(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestSettersMarkExplicitTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueID string
 
 		// Act
@@ -1965,7 +1966,7 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueName string
 
 		// Act
@@ -1996,7 +1997,7 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("SetAutoProvisioned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueAutoProvisioned bool
 
 		// Act
@@ -2027,8 +2028,8 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("SetStatus_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
-		var fernTestValueStatus *TenantsList200ResponseTenantsItemStatus
+		obj := &TenantsListResponseTenantsItem{}
+		var fernTestValueStatus *TenantsListResponseTenantsItemStatus
 
 		// Act
 		obj.SetStatus(fernTestValueStatus)
@@ -2058,7 +2059,7 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("SetFeatures_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		var fernTestValueFeatures []*TenantFeature
 
 		// Act
@@ -2089,8 +2090,8 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsListResponseTenantsItem{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -2119,10 +2120,10 @@ func TestSettersMarkExplicitTenantsList200ResponseTenantsItem(t *testing.T) {
 
 }
 
-func TestSettersTenantsUpdate200Response(t *testing.T) {
+func TestSettersTenantsUpdateResponse(t *testing.T) {
 	t.Run("SetTenant", func(t *testing.T) {
-		obj := &TenantsUpdate200Response{}
-		var fernTestValueTenant *TenantsUpdate200ResponseTenant
+		obj := &TenantsUpdateResponse{}
+		var fernTestValueTenant *TenantsUpdateResponseTenant
 		obj.SetTenant(fernTestValueTenant)
 		assert.Equal(t, fernTestValueTenant, obj.Tenant)
 		assert.NotNil(t, obj.explicitFields)
@@ -2130,12 +2131,12 @@ func TestSettersTenantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestGettersTenantsUpdate200Response(t *testing.T) {
+func TestGettersTenantsUpdateResponse(t *testing.T) {
 	t.Run("GetTenant", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200Response{}
-		var expected *TenantsUpdate200ResponseTenant
+		obj := &TenantsUpdateResponse{}
+		var expected *TenantsUpdateResponseTenant
 		obj.Tenant = expected
 
 		// Act & Assert
@@ -2145,7 +2146,7 @@ func TestGettersTenantsUpdate200Response(t *testing.T) {
 	t.Run("GetTenant_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200Response{}
+		obj := &TenantsUpdateResponse{}
 		obj.Tenant = nil
 
 		// Act & Assert
@@ -2154,7 +2155,7 @@ func TestGettersTenantsUpdate200Response(t *testing.T) {
 
 	t.Run("GetTenant_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200Response
+		var obj *TenantsUpdateResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2166,12 +2167,12 @@ func TestGettersTenantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsUpdate200Response(t *testing.T) {
+func TestSettersMarkExplicitTenantsUpdateResponse(t *testing.T) {
 	t.Run("SetTenant_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200Response{}
-		var fernTestValueTenant *TenantsUpdate200ResponseTenant
+		obj := &TenantsUpdateResponse{}
+		var fernTestValueTenant *TenantsUpdateResponseTenant
 
 		// Act
 		obj.SetTenant(fernTestValueTenant)
@@ -2200,9 +2201,9 @@ func TestSettersMarkExplicitTenantsUpdate200Response(t *testing.T) {
 
 }
 
-func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestSettersTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("SetID", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueID string
 		obj.SetID(fernTestValueID)
 		assert.Equal(t, fernTestValueID, obj.ID)
@@ -2210,7 +2211,7 @@ func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetName", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueName string
 		obj.SetName(fernTestValueName)
 		assert.Equal(t, fernTestValueName, obj.Name)
@@ -2218,7 +2219,7 @@ func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetAutoProvisioned", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 		obj.SetAutoProvisioned(fernTestValueAutoProvisioned)
 		assert.Equal(t, fernTestValueAutoProvisioned, obj.AutoProvisioned)
@@ -2226,15 +2227,15 @@ func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetStatus", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
-		var fernTestValueStatus *TenantsUpdate200ResponseTenantStatus
+		obj := &TenantsUpdateResponseTenant{}
+		var fernTestValueStatus *TenantsUpdateResponseTenantStatus
 		obj.SetStatus(fernTestValueStatus)
 		assert.Equal(t, fernTestValueStatus, obj.Status)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetFeatures", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 		obj.SetFeatures(fernTestValueFeatures)
 		assert.Equal(t, fernTestValueFeatures, obj.Features)
@@ -2242,8 +2243,8 @@ func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	})
 
 	t.Run("SetCreatedAt", func(t *testing.T) {
-		obj := &TenantsUpdate200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsUpdateResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 		obj.SetCreatedAt(fernTestValueCreatedAt)
 		assert.Equal(t, fernTestValueCreatedAt, obj.CreatedAt)
 		assert.NotNil(t, obj.explicitFields)
@@ -2251,11 +2252,11 @@ func TestSettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestGettersTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("GetID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var expected string
 		obj.ID = expected
 
@@ -2265,7 +2266,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2278,7 +2279,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetName", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var expected string
 		obj.Name = expected
 
@@ -2288,7 +2289,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetName_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2301,7 +2302,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetAutoProvisioned", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var expected bool
 		obj.AutoProvisioned = expected
 
@@ -2311,7 +2312,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetAutoProvisioned_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2324,8 +2325,8 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
-		var expected *TenantsUpdate200ResponseTenantStatus
+		obj := &TenantsUpdateResponseTenant{}
+		var expected *TenantsUpdateResponseTenantStatus
 		obj.Status = expected
 
 		// Act & Assert
@@ -2335,7 +2336,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetStatus_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		obj.Status = nil
 
 		// Act & Assert
@@ -2344,7 +2345,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetStatus_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2357,7 +2358,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var expected []*TenantFeature
 		obj.Features = expected
 
@@ -2368,7 +2369,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetFeatures_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		obj.Features = nil
 
 		// Act & Assert
@@ -2377,7 +2378,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetFeatures_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2390,8 +2391,8 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("GetCreatedAt", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
-		var expected float64
+		obj := &TenantsUpdateResponseTenant{}
+		var expected time.Time
 		obj.CreatedAt = expected
 
 		// Act & Assert
@@ -2400,7 +2401,7 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetCreatedAt_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2412,11 +2413,11 @@ func TestGettersTenantsUpdate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestSettersMarkExplicitTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("SetID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueID string
 
 		// Act
@@ -2447,7 +2448,7 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("SetName_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueName string
 
 		// Act
@@ -2478,7 +2479,7 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("SetAutoProvisioned_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueAutoProvisioned bool
 
 		// Act
@@ -2509,8 +2510,8 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("SetStatus_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
-		var fernTestValueStatus *TenantsUpdate200ResponseTenantStatus
+		obj := &TenantsUpdateResponseTenant{}
+		var fernTestValueStatus *TenantsUpdateResponseTenantStatus
 
 		// Act
 		obj.SetStatus(fernTestValueStatus)
@@ -2540,7 +2541,7 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("SetFeatures_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		var fernTestValueFeatures []*TenantFeature
 
 		// Act
@@ -2571,8 +2572,8 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 	t.Run("SetCreatedAt_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
-		var fernTestValueCreatedAt float64
+		obj := &TenantsUpdateResponseTenant{}
+		var fernTestValueCreatedAt time.Time
 
 		// Act
 		obj.SetCreatedAt(fernTestValueCreatedAt)
@@ -2601,9 +2602,9 @@ func TestSettersMarkExplicitTenantsUpdate200ResponseTenant(t *testing.T) {
 
 }
 
-func TestSettersTenantsUsage200Response(t *testing.T) {
+func TestSettersTenantsUsageResponse(t *testing.T) {
 	t.Run("SetTenantID", func(t *testing.T) {
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValueTenantID string
 		obj.SetTenantID(fernTestValueTenantID)
 		assert.Equal(t, fernTestValueTenantID, obj.TenantID)
@@ -2611,7 +2612,7 @@ func TestSettersTenantsUsage200Response(t *testing.T) {
 	})
 
 	t.Run("SetPeriodStart", func(t *testing.T) {
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValuePeriodStart string
 		obj.SetPeriodStart(fernTestValuePeriodStart)
 		assert.Equal(t, fernTestValuePeriodStart, obj.PeriodStart)
@@ -2619,7 +2620,7 @@ func TestSettersTenantsUsage200Response(t *testing.T) {
 	})
 
 	t.Run("SetPeriodEnd", func(t *testing.T) {
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValuePeriodEnd string
 		obj.SetPeriodEnd(fernTestValuePeriodEnd)
 		assert.Equal(t, fernTestValuePeriodEnd, obj.PeriodEnd)
@@ -2627,20 +2628,28 @@ func TestSettersTenantsUsage200Response(t *testing.T) {
 	})
 
 	t.Run("SetMetrics", func(t *testing.T) {
-		obj := &TenantsUsage200Response{}
-		var fernTestValueMetrics *TenantsUsage200ResponseMetrics
+		obj := &TenantsUsageResponse{}
+		var fernTestValueMetrics *TenantsUsageResponseMetrics
 		obj.SetMetrics(fernTestValueMetrics)
 		assert.Equal(t, fernTestValueMetrics, obj.Metrics)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
+	t.Run("SetModuleMeters", func(t *testing.T) {
+		obj := &TenantsUsageResponse{}
+		var fernTestValueModuleMeters map[string]int
+		obj.SetModuleMeters(fernTestValueModuleMeters)
+		assert.Equal(t, fernTestValueModuleMeters, obj.ModuleMeters)
+		assert.NotNil(t, obj.explicitFields)
+	})
+
 }
 
-func TestGettersTenantsUsage200Response(t *testing.T) {
+func TestGettersTenantsUsageResponse(t *testing.T) {
 	t.Run("GetTenantID", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var expected string
 		obj.TenantID = expected
 
@@ -2650,7 +2659,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 
 	t.Run("GetTenantID_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2663,7 +2672,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 	t.Run("GetPeriodStart", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var expected string
 		obj.PeriodStart = expected
 
@@ -2673,7 +2682,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 
 	t.Run("GetPeriodStart_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2686,7 +2695,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 	t.Run("GetPeriodEnd", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var expected string
 		obj.PeriodEnd = expected
 
@@ -2696,7 +2705,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 
 	t.Run("GetPeriodEnd_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2709,8 +2718,8 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 	t.Run("GetMetrics", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
-		var expected *TenantsUsage200ResponseMetrics
+		obj := &TenantsUsageResponse{}
+		var expected *TenantsUsageResponseMetrics
 		obj.Metrics = expected
 
 		// Act & Assert
@@ -2720,7 +2729,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 	t.Run("GetMetrics_NilValue", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		obj.Metrics = nil
 
 		// Act & Assert
@@ -2729,7 +2738,7 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 
 	t.Run("GetMetrics_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2739,13 +2748,46 @@ func TestGettersTenantsUsage200Response(t *testing.T) {
 		_ = obj.GetMetrics() // Should return zero value
 	})
 
+	t.Run("GetModuleMeters", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &TenantsUsageResponse{}
+		var expected map[string]int
+		obj.ModuleMeters = expected
+
+		// Act & Assert
+		assert.Equal(t, expected, obj.GetModuleMeters(), "getter should return the property value")
+	})
+
+	t.Run("GetModuleMeters_NilValue", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &TenantsUsageResponse{}
+		obj.ModuleMeters = nil
+
+		// Act & Assert
+		assert.Nil(t, obj.GetModuleMeters(), "getter should return nil when property is nil")
+	})
+
+	t.Run("GetModuleMeters_NilReceiver", func(t *testing.T) {
+		t.Parallel()
+		var obj *TenantsUsageResponse
+		// Should not panic - getters should handle nil receiver gracefully
+		defer func() {
+			if r := recover(); r != nil {
+				t.Errorf("Getter panicked on nil receiver: %v", r)
+			}
+		}()
+		_ = obj.GetModuleMeters() // Should return zero value
+	})
+
 }
 
-func TestSettersMarkExplicitTenantsUsage200Response(t *testing.T) {
+func TestSettersMarkExplicitTenantsUsageResponse(t *testing.T) {
 	t.Run("SetTenantID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValueTenantID string
 
 		// Act
@@ -2776,7 +2818,7 @@ func TestSettersMarkExplicitTenantsUsage200Response(t *testing.T) {
 	t.Run("SetPeriodStart_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValuePeriodStart string
 
 		// Act
@@ -2807,7 +2849,7 @@ func TestSettersMarkExplicitTenantsUsage200Response(t *testing.T) {
 	t.Run("SetPeriodEnd_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		var fernTestValuePeriodEnd string
 
 		// Act
@@ -2838,8 +2880,8 @@ func TestSettersMarkExplicitTenantsUsage200Response(t *testing.T) {
 	t.Run("SetMetrics_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
-		var fernTestValueMetrics *TenantsUsage200ResponseMetrics
+		obj := &TenantsUsageResponse{}
+		var fernTestValueMetrics *TenantsUsageResponseMetrics
 
 		// Act
 		obj.SetMetrics(fernTestValueMetrics)
@@ -2866,28 +2908,59 @@ func TestSettersMarkExplicitTenantsUsage200Response(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
+	t.Run("SetModuleMeters_MarksExplicit", func(t *testing.T) {
+		t.Parallel()
+		// Arrange
+		obj := &TenantsUsageResponse{}
+		var fernTestValueModuleMeters map[string]int
+
+		// Act
+		obj.SetModuleMeters(fernTestValueModuleMeters)
+
+		// Assert - object with explicitly set field can be marshaled/unmarshaled
+		bytes, err := json.Marshal(obj)
+		require.NoError(t, err, "marshaling should succeed for test setup")
+
+		// This test ensures JSON marshaling and unmarshaling succeed when the field has a zero/nil value
+		// Detect if marshaled JSON is an object or primitive to use correct unmarshal target
+		if len(bytes) > 0 && bytes[0] == '{' {
+			// JSON object - unmarshal into map
+			var unmarshaled map[string]interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		} else {
+			// JSON primitive (string, number, boolean, null) - unmarshal into interface{}
+			var unmarshaled interface{}
+			err = json.Unmarshal(bytes, &unmarshaled)
+			require.NoError(t, err, "unmarshaling should succeed for test verification")
+		}
+
+		// Note: This does not explicitly assert the presence of a specific JSON field
+		// It verifies that setting a field via setter allows successful JSON round-trip
+	})
+
 }
 
-func TestSettersTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestSettersTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("SetPdfViews", func(t *testing.T) {
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValuePdfViews float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValuePdfViews int
 		obj.SetPdfViews(fernTestValuePdfViews)
 		assert.Equal(t, fernTestValuePdfViews, obj.PdfViews)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetPdfUploads", func(t *testing.T) {
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValuePdfUploads float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValuePdfUploads int
 		obj.SetPdfUploads(fernTestValuePdfUploads)
 		assert.Equal(t, fernTestValuePdfUploads, obj.PdfUploads)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
 	t.Run("SetStorageBytes", func(t *testing.T) {
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValueStorageBytes float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValueStorageBytes int
 		obj.SetStorageBytes(fernTestValueStorageBytes)
 		assert.Equal(t, fernTestValueStorageBytes, obj.StorageBytes)
 		assert.NotNil(t, obj.explicitFields)
@@ -2895,12 +2968,12 @@ func TestSettersTenantsUsage200ResponseMetrics(t *testing.T) {
 
 }
 
-func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestGettersTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("GetPdfViews", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var expected float64
+		obj := &TenantsUsageResponseMetrics{}
+		var expected int
 		obj.PdfViews = expected
 
 		// Act & Assert
@@ -2909,7 +2982,7 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 
 	t.Run("GetPdfViews_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200ResponseMetrics
+		var obj *TenantsUsageResponseMetrics
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2922,8 +2995,8 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 	t.Run("GetPdfUploads", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var expected float64
+		obj := &TenantsUsageResponseMetrics{}
+		var expected int
 		obj.PdfUploads = expected
 
 		// Act & Assert
@@ -2932,7 +3005,7 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 
 	t.Run("GetPdfUploads_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200ResponseMetrics
+		var obj *TenantsUsageResponseMetrics
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2945,8 +3018,8 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 	t.Run("GetStorageBytes", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var expected float64
+		obj := &TenantsUsageResponseMetrics{}
+		var expected int
 		obj.StorageBytes = expected
 
 		// Act & Assert
@@ -2955,7 +3028,7 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 
 	t.Run("GetStorageBytes_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200ResponseMetrics
+		var obj *TenantsUsageResponseMetrics
 		// Should not panic - getters should handle nil receiver gracefully
 		defer func() {
 			if r := recover(); r != nil {
@@ -2967,12 +3040,12 @@ func TestGettersTenantsUsage200ResponseMetrics(t *testing.T) {
 
 }
 
-func TestSettersMarkExplicitTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestSettersMarkExplicitTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("SetPdfViews_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValuePdfViews float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValuePdfViews int
 
 		// Act
 		obj.SetPdfViews(fernTestValuePdfViews)
@@ -3002,8 +3075,8 @@ func TestSettersMarkExplicitTenantsUsage200ResponseMetrics(t *testing.T) {
 	t.Run("SetPdfUploads_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValuePdfUploads float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValuePdfUploads int
 
 		// Act
 		obj.SetPdfUploads(fernTestValuePdfUploads)
@@ -3033,8 +3106,8 @@ func TestSettersMarkExplicitTenantsUsage200ResponseMetrics(t *testing.T) {
 	t.Run("SetStorageBytes_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
-		var fernTestValueStorageBytes float64
+		obj := &TenantsUsageResponseMetrics{}
+		var fernTestValueStorageBytes int
 
 		// Act
 		obj.SetStorageBytes(fernTestValueStorageBytes)
@@ -3342,11 +3415,11 @@ func TestJSONMarshalingTenantFeature(t *testing.T) {
 	})
 }
 
-func TestJSONMarshalingTenantsCreate200Response(t *testing.T) {
+func TestJSONMarshalingTenantsCreateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3355,31 +3428,31 @@ func TestJSONMarshalingTenantsCreate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsCreate200Response
+		var unmarshaled TenantsCreateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsCreate200Response
+		var obj TenantsCreateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsCreate200Response
+		var obj TenantsCreateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsCreate200ResponseTenant(t *testing.T) {
+func TestJSONMarshalingTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3388,31 +3461,31 @@ func TestJSONMarshalingTenantsCreate200ResponseTenant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsCreate200ResponseTenant
+		var unmarshaled TenantsCreateResponseTenant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsCreate200ResponseTenant
+		var obj TenantsCreateResponseTenant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsCreate200ResponseTenant
+		var obj TenantsCreateResponseTenant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsGet200Response(t *testing.T) {
+func TestJSONMarshalingTenantsGetResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200Response{}
+		obj := &TenantsGetResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3421,31 +3494,31 @@ func TestJSONMarshalingTenantsGet200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsGet200Response
+		var unmarshaled TenantsGetResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsGet200Response
+		var obj TenantsGetResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsGet200Response
+		var obj TenantsGetResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsGet200ResponseTenant(t *testing.T) {
+func TestJSONMarshalingTenantsGetResponseTenant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3454,31 +3527,31 @@ func TestJSONMarshalingTenantsGet200ResponseTenant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsGet200ResponseTenant
+		var unmarshaled TenantsGetResponseTenant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsGet200ResponseTenant
+		var obj TenantsGetResponseTenant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsGet200ResponseTenant
+		var obj TenantsGetResponseTenant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsList200Response(t *testing.T) {
+func TestJSONMarshalingTenantsListResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3487,31 +3560,31 @@ func TestJSONMarshalingTenantsList200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsList200Response
+		var unmarshaled TenantsListResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsList200Response
+		var obj TenantsListResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsList200Response
+		var obj TenantsListResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestJSONMarshalingTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3520,31 +3593,31 @@ func TestJSONMarshalingTenantsList200ResponseTenantsItem(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsList200ResponseTenantsItem
+		var unmarshaled TenantsListResponseTenantsItem
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsList200ResponseTenantsItem
+		var obj TenantsListResponseTenantsItem
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsList200ResponseTenantsItem
+		var obj TenantsListResponseTenantsItem
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsUpdate200Response(t *testing.T) {
+func TestJSONMarshalingTenantsUpdateResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200Response{}
+		obj := &TenantsUpdateResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3553,31 +3626,31 @@ func TestJSONMarshalingTenantsUpdate200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsUpdate200Response
+		var unmarshaled TenantsUpdateResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUpdate200Response
+		var obj TenantsUpdateResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUpdate200Response
+		var obj TenantsUpdateResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestJSONMarshalingTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3586,31 +3659,31 @@ func TestJSONMarshalingTenantsUpdate200ResponseTenant(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsUpdate200ResponseTenant
+		var unmarshaled TenantsUpdateResponseTenant
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUpdate200ResponseTenant
+		var obj TenantsUpdateResponseTenant
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUpdate200ResponseTenant
+		var obj TenantsUpdateResponseTenant
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsUsage200Response(t *testing.T) {
+func TestJSONMarshalingTenantsUsageResponse(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3619,31 +3692,31 @@ func TestJSONMarshalingTenantsUsage200Response(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsUsage200Response
+		var unmarshaled TenantsUsageResponse
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUsage200Response
+		var obj TenantsUsageResponse
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUsage200Response
+		var obj TenantsUsageResponse
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
 }
 
-func TestJSONMarshalingTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestJSONMarshalingTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("MarshalUnmarshal", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
-		obj := &TenantsUsage200ResponseMetrics{}
+		obj := &TenantsUsageResponseMetrics{}
 
 		// Act - Marshal to JSON
 		data, err := json.Marshal(obj)
@@ -3652,21 +3725,21 @@ func TestJSONMarshalingTenantsUsage200ResponseMetrics(t *testing.T) {
 		assert.NotEmpty(t, data, "marshaled data should not be empty")
 
 		// Unmarshal back and verify round-trip
-		var unmarshaled TenantsUsage200ResponseMetrics
+		var unmarshaled TenantsUsageResponseMetrics
 		err = json.Unmarshal(data, &unmarshaled)
 		assert.NoError(t, err, "round-trip unmarshal should succeed")
 	})
 
 	t.Run("UnmarshalInvalidJSON", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUsage200ResponseMetrics
+		var obj TenantsUsageResponseMetrics
 		err := json.Unmarshal([]byte(`{invalid json}`), &obj)
 		assert.Error(t, err, "unmarshaling invalid JSON should return an error")
 	})
 
 	t.Run("UnmarshalEmptyObject", func(t *testing.T) {
 		t.Parallel()
-		var obj TenantsUsage200ResponseMetrics
+		var obj TenantsUsageResponseMetrics
 		err := json.Unmarshal([]byte(`{}`), &obj)
 		assert.NoError(t, err, "unmarshaling empty object should succeed")
 	})
@@ -3688,161 +3761,161 @@ func TestStringTenantFeature(t *testing.T) {
 	})
 }
 
-func TestStringTenantsCreate200Response(t *testing.T) {
+func TestStringTenantsCreateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200Response
+		var obj *TenantsCreateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsCreate200ResponseTenant(t *testing.T) {
+func TestStringTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsGet200Response(t *testing.T) {
+func TestStringTenantsGetResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsGet200Response{}
+		obj := &TenantsGetResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200Response
+		var obj *TenantsGetResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsGet200ResponseTenant(t *testing.T) {
+func TestStringTenantsGetResponseTenant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsList200Response(t *testing.T) {
+func TestStringTenantsListResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200Response
+		var obj *TenantsListResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestStringTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsUpdate200Response(t *testing.T) {
+func TestStringTenantsUpdateResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUpdate200Response{}
+		obj := &TenantsUpdateResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200Response
+		var obj *TenantsUpdateResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestStringTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsUsage200Response(t *testing.T) {
+func TestStringTenantsUsageResponse(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
 }
 
-func TestStringTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestStringTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("StringMethod", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUsage200ResponseMetrics{}
+		obj := &TenantsUsageResponseMetrics{}
 		result := obj.String()
 		assert.NotEmpty(t, result, "String() should return a non-empty representation")
 	})
 
 	t.Run("StringMethod_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200ResponseMetrics
+		var obj *TenantsUsageResponseMetrics
 		result := obj.String()
 		assert.Equal(t, "<nil>", result, "String() should return <nil> for nil receiver")
 	})
@@ -3870,28 +3943,28 @@ func TestEnumTenantFeatureStopped(t *testing.T) {
 	})
 }
 
-func TestEnumTenantsCreate200ResponseTenantStatus(t *testing.T) {
+func TestEnumTenantsCreateResponseTenantStatus(t *testing.T) {
 	t.Run("NewFromString_active", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsCreate200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsCreateResponseTenantStatusFromString("active")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsCreate200ResponseTenantStatus("active"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsCreateResponseTenantStatus("active"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_suspended", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsCreate200ResponseTenantStatusFromString("suspended")
+		val, err := NewTenantsCreateResponseTenantStatusFromString("suspended")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsCreate200ResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsCreateResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewTenantsCreate200ResponseTenantStatusFromString("invalid_value_that_does_not_exist")
+		_, err := NewTenantsCreateResponseTenantStatusFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewTenantsCreate200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsCreateResponseTenantStatusFromString("active")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -3899,28 +3972,28 @@ func TestEnumTenantsCreate200ResponseTenantStatus(t *testing.T) {
 	})
 }
 
-func TestEnumTenantsGet200ResponseTenantStatus(t *testing.T) {
+func TestEnumTenantsGetResponseTenantStatus(t *testing.T) {
 	t.Run("NewFromString_active", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsGet200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsGetResponseTenantStatusFromString("active")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsGet200ResponseTenantStatus("active"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsGetResponseTenantStatus("active"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_suspended", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsGet200ResponseTenantStatusFromString("suspended")
+		val, err := NewTenantsGetResponseTenantStatusFromString("suspended")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsGet200ResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsGetResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewTenantsGet200ResponseTenantStatusFromString("invalid_value_that_does_not_exist")
+		_, err := NewTenantsGetResponseTenantStatusFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewTenantsGet200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsGetResponseTenantStatusFromString("active")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -3928,28 +4001,28 @@ func TestEnumTenantsGet200ResponseTenantStatus(t *testing.T) {
 	})
 }
 
-func TestEnumTenantsList200ResponseTenantsItemStatus(t *testing.T) {
+func TestEnumTenantsListResponseTenantsItemStatus(t *testing.T) {
 	t.Run("NewFromString_active", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsList200ResponseTenantsItemStatusFromString("active")
+		val, err := NewTenantsListResponseTenantsItemStatusFromString("active")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsList200ResponseTenantsItemStatus("active"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsListResponseTenantsItemStatus("active"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_suspended", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsList200ResponseTenantsItemStatusFromString("suspended")
+		val, err := NewTenantsListResponseTenantsItemStatusFromString("suspended")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsList200ResponseTenantsItemStatus("suspended"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsListResponseTenantsItemStatus("suspended"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewTenantsList200ResponseTenantsItemStatusFromString("invalid_value_that_does_not_exist")
+		_, err := NewTenantsListResponseTenantsItemStatusFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewTenantsList200ResponseTenantsItemStatusFromString("active")
+		val, err := NewTenantsListResponseTenantsItemStatusFromString("active")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -3957,28 +4030,28 @@ func TestEnumTenantsList200ResponseTenantsItemStatus(t *testing.T) {
 	})
 }
 
-func TestEnumTenantsUpdate200ResponseTenantStatus(t *testing.T) {
+func TestEnumTenantsUpdateResponseTenantStatus(t *testing.T) {
 	t.Run("NewFromString_active", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsUpdate200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsUpdateResponseTenantStatusFromString("active")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsUpdate200ResponseTenantStatus("active"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsUpdateResponseTenantStatus("active"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_suspended", func(t *testing.T) {
 		t.Parallel()
-		val, err := NewTenantsUpdate200ResponseTenantStatusFromString("suspended")
+		val, err := NewTenantsUpdateResponseTenantStatusFromString("suspended")
 		assert.NoError(t, err, "valid enum value should not return error")
-		assert.Equal(t, TenantsUpdate200ResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
+		assert.Equal(t, TenantsUpdateResponseTenantStatus("suspended"), val, "enum value should match expected wire value")
 	})
 
 	t.Run("NewFromString_Invalid", func(t *testing.T) {
-		_, err := NewTenantsUpdate200ResponseTenantStatusFromString("invalid_value_that_does_not_exist")
+		_, err := NewTenantsUpdateResponseTenantStatusFromString("invalid_value_that_does_not_exist")
 		assert.Error(t, err)
 	})
 
 	t.Run("Ptr", func(t *testing.T) {
-		val, err := NewTenantsUpdate200ResponseTenantStatusFromString("active")
+		val, err := NewTenantsUpdateResponseTenantStatusFromString("active")
 		assert.NoError(t, err)
 		ptr := val.Ptr()
 		assert.NotNil(t, ptr)
@@ -4009,10 +4082,10 @@ func TestExtraPropertiesTenantFeature(t *testing.T) {
 	})
 }
 
-func TestExtraPropertiesTenantsCreate200Response(t *testing.T) {
+func TestExtraPropertiesTenantsCreateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsCreate200Response{}
+		obj := &TenantsCreateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4026,16 +4099,16 @@ func TestExtraPropertiesTenantsCreate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200Response
+		var obj *TenantsCreateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsCreate200ResponseTenant(t *testing.T) {
+func TestExtraPropertiesTenantsCreateResponseTenant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsCreate200ResponseTenant{}
+		obj := &TenantsCreateResponseTenant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4049,16 +4122,16 @@ func TestExtraPropertiesTenantsCreate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsCreate200ResponseTenant
+		var obj *TenantsCreateResponseTenant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsGet200Response(t *testing.T) {
+func TestExtraPropertiesTenantsGetResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsGet200Response{}
+		obj := &TenantsGetResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4072,16 +4145,16 @@ func TestExtraPropertiesTenantsGet200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200Response
+		var obj *TenantsGetResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsGet200ResponseTenant(t *testing.T) {
+func TestExtraPropertiesTenantsGetResponseTenant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsGet200ResponseTenant{}
+		obj := &TenantsGetResponseTenant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4095,16 +4168,16 @@ func TestExtraPropertiesTenantsGet200ResponseTenant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsGet200ResponseTenant
+		var obj *TenantsGetResponseTenant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsList200Response(t *testing.T) {
+func TestExtraPropertiesTenantsListResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsList200Response{}
+		obj := &TenantsListResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4118,16 +4191,16 @@ func TestExtraPropertiesTenantsList200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200Response
+		var obj *TenantsListResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsList200ResponseTenantsItem(t *testing.T) {
+func TestExtraPropertiesTenantsListResponseTenantsItem(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsList200ResponseTenantsItem{}
+		obj := &TenantsListResponseTenantsItem{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4141,16 +4214,16 @@ func TestExtraPropertiesTenantsList200ResponseTenantsItem(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsList200ResponseTenantsItem
+		var obj *TenantsListResponseTenantsItem
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsUpdate200Response(t *testing.T) {
+func TestExtraPropertiesTenantsUpdateResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUpdate200Response{}
+		obj := &TenantsUpdateResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4164,16 +4237,16 @@ func TestExtraPropertiesTenantsUpdate200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200Response
+		var obj *TenantsUpdateResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsUpdate200ResponseTenant(t *testing.T) {
+func TestExtraPropertiesTenantsUpdateResponseTenant(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUpdate200ResponseTenant{}
+		obj := &TenantsUpdateResponseTenant{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4187,16 +4260,16 @@ func TestExtraPropertiesTenantsUpdate200ResponseTenant(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUpdate200ResponseTenant
+		var obj *TenantsUpdateResponseTenant
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsUsage200Response(t *testing.T) {
+func TestExtraPropertiesTenantsUsageResponse(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUsage200Response{}
+		obj := &TenantsUsageResponse{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4210,16 +4283,16 @@ func TestExtraPropertiesTenantsUsage200Response(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200Response
+		var obj *TenantsUsageResponse
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})
 }
 
-func TestExtraPropertiesTenantsUsage200ResponseMetrics(t *testing.T) {
+func TestExtraPropertiesTenantsUsageResponseMetrics(t *testing.T) {
 	t.Run("GetExtraProperties", func(t *testing.T) {
 		t.Parallel()
-		obj := &TenantsUsage200ResponseMetrics{}
+		obj := &TenantsUsageResponseMetrics{}
 		// Should not panic when calling GetExtraProperties()
 		defer func() {
 			if r := recover(); r != nil {
@@ -4233,7 +4306,7 @@ func TestExtraPropertiesTenantsUsage200ResponseMetrics(t *testing.T) {
 
 	t.Run("GetExtraProperties_NilReceiver", func(t *testing.T) {
 		t.Parallel()
-		var obj *TenantsUsage200ResponseMetrics
+		var obj *TenantsUsageResponseMetrics
 		extraProps := obj.GetExtraProperties()
 		assert.Nil(t, extraProps, "nil receiver should return nil without panicking")
 	})

@@ -52,7 +52,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *doc.ListVersionsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocVersionsList200Response, error) {
+) (*cloudpdf.DocVersionsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -71,7 +71,7 @@ func (c *Client) List(
 //	request := &doc.AnalysisVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	}
 //	client.Doc.Versions.Analysis(
 //	    context.TODO(),
@@ -81,7 +81,7 @@ func (c *Client) Analysis(
 	ctx context.Context,
 	request *doc.AnalysisVersionsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocVersionsAnalysis200Response, error) {
+) (*cloudpdf.DocVersionsAnalysisResponse, error) {
 	response, err := c.WithRawResponse.Analysis(
 		ctx,
 		request,
@@ -98,7 +98,7 @@ func (c *Client) Analysis(
 //	request := &doc.DownloadVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	}
 //	client.Doc.Versions.Download(
 //	    context.TODO(),
@@ -125,7 +125,7 @@ func (c *Client) Download(
 //	request := &doc.RevisionVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	    Index: 1,
 //	}
 //	client.Doc.Versions.Revision(
@@ -153,7 +153,7 @@ func (c *Client) Revision(
 //	request := &doc.SignaturesVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	}
 //	client.Doc.Versions.Signatures(
 //	    context.TODO(),
@@ -163,7 +163,7 @@ func (c *Client) Signatures(
 	ctx context.Context,
 	request *doc.SignaturesVersionsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocVersionsSignatures200Response, error) {
+) (*cloudpdf.DocVersionsSignaturesResponse, error) {
 	response, err := c.WithRawResponse.Signatures(
 		ctx,
 		request,
@@ -182,7 +182,7 @@ func (c *Client) Signatures(
 //	request := &doc.SignatureContentsVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	    FieldKey: "fieldKey",
 //	}
 //	client.Doc.Versions.SignatureContents(
@@ -212,7 +212,7 @@ func (c *Client) SignatureContents(
 //	request := &doc.SignatureDigestVersionsRequest{
 //	    DocID: "docId",
 //	    LayerName: "layerName",
-//	    Sha: "sha",
+//	    Sha256: "sha256",
 //	    FieldKey: "fieldKey",
 //	    Algorithm: doc.SignatureDigestVersionsRequestAlgorithmSha1,
 //	}

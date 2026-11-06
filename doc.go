@@ -132,7 +132,7 @@ var (
 	docDownloadLinkRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	docDownloadLinkRequestFieldDocID            = big.NewInt(1 << 1)
 	docDownloadLinkRequestFieldLayerName        = big.NewInt(1 << 2)
-	docDownloadLinkRequestFieldExpiresIn        = big.NewInt(1 << 3)
+	docDownloadLinkRequestFieldExpiresInSeconds = big.NewInt(1 << 3)
 )
 
 type DocDownloadLinkRequest struct {
@@ -140,7 +140,7 @@ type DocDownloadLinkRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	ExpiresIn        *int    `json:"expiresIn,omitempty" url:"-"`
+	ExpiresInSeconds *int    `json:"expiresInSeconds,omitempty" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -174,11 +174,11 @@ func (d *DocDownloadLinkRequest) SetLayerName(layerName string) {
 	d.require(docDownloadLinkRequestFieldLayerName)
 }
 
-// SetExpiresIn sets the ExpiresIn field and marks it as non-optional;
+// SetExpiresInSeconds sets the ExpiresInSeconds field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocDownloadLinkRequest) SetExpiresIn(expiresIn *int) {
-	d.ExpiresIn = expiresIn
-	d.require(docDownloadLinkRequestFieldExpiresIn)
+func (d *DocDownloadLinkRequest) SetExpiresInSeconds(expiresInSeconds *int) {
+	d.ExpiresInSeconds = expiresInSeconds
+	d.require(docDownloadLinkRequestFieldExpiresInSeconds)
 }
 
 func (d *DocDownloadLinkRequest) UnmarshalJSON(data []byte) error {
@@ -293,7 +293,7 @@ type RenderDocRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -347,7 +347,7 @@ type TextDocRequest struct {
 	DocumentPassword *string `json:"-" url:"-"`
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
-	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotKey` and `fieldKey`.
+	// The page's address, `obj:N`: the page's indirect object number, the durable identity every `PageLayout.ref` carries. Mirrors `annotationKey` and `fieldKey`.
 	PageKey string `json:"-" url:"-"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
@@ -31662,7 +31662,8 @@ var (
 	annotationDraftWidgetFieldCaption           = big.NewInt(1 << 42)
 	annotationDraftWidgetFieldCheckStyle        = big.NewInt(1 << 43)
 	annotationDraftWidgetFieldField             = big.NewInt(1 << 44)
-	annotationDraftWidgetFieldFieldFamily       = big.NewInt(1 << 45)
+	annotationDraftWidgetFieldFieldKind         = big.NewInt(1 << 45)
+	annotationDraftWidgetFieldHasMark           = big.NewInt(1 << 46)
 )
 
 type AnnotationDraftWidget struct {
@@ -31698,7 +31699,7 @@ type AnnotationDraftWidget struct {
 	ImportedBy        any                               `json:"importedBy,omitempty" url:"importedBy,omitempty"`
 	Actions           *WidgetActionsPatch               `json:"actions,omitempty" url:"actions,omitempty"`
 	Box               *AnnotationDraftWidgetBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation          *float64                          `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Rotation          *int                              `json:"rotation,omitempty" url:"rotation,omitempty"`
 	Color             *string                           `json:"color,omitempty" url:"color,omitempty"`
 	InteriorColor     *string                           `json:"interiorColor,omitempty" url:"interiorColor,omitempty"`
 	StrokeWidth       *float64                          `json:"strokeWidth,omitempty" url:"strokeWidth,omitempty"`
@@ -31711,7 +31712,8 @@ type AnnotationDraftWidget struct {
 	Caption           *string                           `json:"caption,omitempty" url:"caption,omitempty"`
 	CheckStyle        *AnnotationDraftWidgetCheckStyle  `json:"checkStyle,omitempty" url:"checkStyle,omitempty"`
 	Field             any                               `json:"field,omitempty" url:"field,omitempty"`
-	FieldFamily       any                               `json:"fieldFamily,omitempty" url:"fieldFamily,omitempty"`
+	FieldKind         any                               `json:"fieldKind,omitempty" url:"fieldKind,omitempty"`
+	HasMark           any                               `json:"hasMark,omitempty" url:"hasMark,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -31944,7 +31946,7 @@ func (a *AnnotationDraftWidget) GetBox() *AnnotationDraftWidgetBox {
 	return a.Box
 }
 
-func (a *AnnotationDraftWidget) GetRotation() *float64 {
+func (a *AnnotationDraftWidget) GetRotation() *int {
 	if a == nil {
 		return nil
 	}
@@ -32035,11 +32037,18 @@ func (a *AnnotationDraftWidget) GetField() any {
 	return a.Field
 }
 
-func (a *AnnotationDraftWidget) GetFieldFamily() any {
+func (a *AnnotationDraftWidget) GetFieldKind() any {
 	if a == nil {
 		return nil
 	}
-	return a.FieldFamily
+	return a.FieldKind
+}
+
+func (a *AnnotationDraftWidget) GetHasMark() any {
+	if a == nil {
+		return nil
+	}
+	return a.HasMark
 }
 
 func (a *AnnotationDraftWidget) GetExtraProperties() map[string]interface{} {
@@ -32282,7 +32291,7 @@ func (a *AnnotationDraftWidget) SetBox(box *AnnotationDraftWidgetBox) {
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftWidget) SetRotation(rotation *float64) {
+func (a *AnnotationDraftWidget) SetRotation(rotation *int) {
 	a.Rotation = rotation
 	a.require(annotationDraftWidgetFieldRotation)
 }
@@ -32371,11 +32380,18 @@ func (a *AnnotationDraftWidget) SetField(field any) {
 	a.require(annotationDraftWidgetFieldField)
 }
 
-// SetFieldFamily sets the FieldFamily field and marks it as non-optional;
+// SetFieldKind sets the FieldKind field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnnotationDraftWidget) SetFieldFamily(fieldFamily any) {
-	a.FieldFamily = fieldFamily
-	a.require(annotationDraftWidgetFieldFieldFamily)
+func (a *AnnotationDraftWidget) SetFieldKind(fieldKind any) {
+	a.FieldKind = fieldKind
+	a.require(annotationDraftWidgetFieldFieldKind)
+}
+
+// SetHasMark sets the HasMark field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (a *AnnotationDraftWidget) SetHasMark(hasMark any) {
+	a.HasMark = hasMark
+	a.require(annotationDraftWidgetFieldHasMark)
 }
 
 func (a *AnnotationDraftWidget) UnmarshalJSON(data []byte) error {
@@ -46807,7 +46823,8 @@ func (a AnnotationPatchLinkReplyType) Ptr() *AnnotationPatchLinkReplyType {
 
 type AnnotationPatchLinkTarget struct {
 	PdfLinkTargetWritableOptional *PdfLinkTargetWritable
-	PdfLinkTargetOptional         *PdfLinkTarget
+	// Where a link goes, by its `kind`. A newer server can add kinds: read one your client doesn't know as `unsupported`.
+	PdfLinkTargetOptional *PdfLinkTarget
 
 	typ string
 }
@@ -65574,7 +65591,7 @@ var (
 	attachmentMutationMetaFieldOpID              = big.NewInt(1 << 2)
 	attachmentMutationMetaFieldUndoable          = big.NewInt(1 << 3)
 	attachmentMutationMetaFieldMissingCharacters = big.NewInt(1 << 4)
-	attachmentMutationMetaFieldChanged           = big.NewInt(1 << 5)
+	attachmentMutationMetaFieldChangedRefs       = big.NewInt(1 << 5)
 )
 
 type AttachmentMutationMeta struct {
@@ -65583,7 +65600,7 @@ type AttachmentMutationMeta struct {
 	OpID              string           `json:"opId" url:"opId"`
 	Undoable          bool             `json:"undoable" url:"undoable"`
 	MissingCharacters []string         `json:"missingCharacters,omitempty" url:"missingCharacters,omitempty"`
-	Changed           []*AttachmentRef `json:"changed" url:"changed"`
+	ChangedRefs       []*AttachmentRef `json:"changedRefs" url:"changedRefs"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -65627,11 +65644,11 @@ func (a *AttachmentMutationMeta) GetMissingCharacters() []string {
 	return a.MissingCharacters
 }
 
-func (a *AttachmentMutationMeta) GetChanged() []*AttachmentRef {
+func (a *AttachmentMutationMeta) GetChangedRefs() []*AttachmentRef {
 	if a == nil {
 		return nil
 	}
-	return a.Changed
+	return a.ChangedRefs
 }
 
 func (a *AttachmentMutationMeta) GetExtraProperties() map[string]interface{} {
@@ -65683,11 +65700,11 @@ func (a *AttachmentMutationMeta) SetMissingCharacters(missingCharacters []string
 	a.require(attachmentMutationMetaFieldMissingCharacters)
 }
 
-// SetChanged sets the Changed field and marks it as non-optional;
+// SetChangedRefs sets the ChangedRefs field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AttachmentMutationMeta) SetChanged(changed []*AttachmentRef) {
-	a.Changed = changed
-	a.require(attachmentMutationMetaFieldChanged)
+func (a *AttachmentMutationMeta) SetChangedRefs(changedRefs []*AttachmentRef) {
+	a.ChangedRefs = changedRefs
+	a.require(attachmentMutationMetaFieldChangedRefs)
 }
 
 func (a *AttachmentMutationMeta) UnmarshalJSON(data []byte) error {
@@ -68110,10 +68127,11 @@ var (
 )
 
 type ChangeItemFormsDeleteWidget struct {
-	Widget *AnnotationRef    `json:"widget" url:"widget"`
-	Page   *PageRef          `json:"page" url:"page"`
-	Field  *FormField        `json:"field,omitempty" url:"field,omitempty"`
-	Meta   *FormMutationMeta `json:"meta" url:"meta"`
+	Widget *AnnotationRef `json:"widget" url:"widget"`
+	Page   *PageRef       `json:"page" url:"page"`
+	// A form field, by its `family`. A newer server can add families: read one your client doesn't know as `unknown`, keeping the fields every field has, with `rawValue` an empty string when the body has none.
+	Field *FormField        `json:"field,omitempty" url:"field,omitempty"`
+	Meta  *FormMutationMeta `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -68821,6 +68839,7 @@ var (
 )
 
 type ChangeItemFormsRestoreWidget struct {
+	// A form field, by its `family`. A newer server can add families: read one your client doesn't know as `unknown`, keeping the fields every field has, with `rawValue` an empty string when the body has none.
 	Field   *FormField          `json:"field,omitempty" url:"field,omitempty"`
 	Widgets []*WidgetAnnotation `json:"widgets" url:"widgets"`
 	Meta    *FormMutationMeta   `json:"meta" url:"meta"`
@@ -71526,7 +71545,7 @@ type ChangeItemPagesCopyLayoutPagesItem struct {
 	Ref        *PageRef                                      `json:"ref" url:"ref"`
 	Label      *string                                       `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesCopyLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                       `json:"rotation" url:"rotation"`
+	Rotation   int                                           `json:"rotation" url:"rotation"`
 	UserUnit   float64                                       `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesCopyLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesCopyLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -71568,7 +71587,7 @@ func (c *ChangeItemPagesCopyLayoutPagesItem) GetSize() *ChangeItemPagesCopyLayou
 	return c.Size
 }
 
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesCopyLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -71654,7 +71673,7 @@ func (c *ChangeItemPagesCopyLayoutPagesItem) SetSize(size *ChangeItemPagesCopyLa
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesCopyLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesCopyLayoutPagesItemFieldRotation)
 }
@@ -73719,7 +73738,7 @@ type ChangeItemPagesDeleteLayoutPagesItem struct {
 	Ref        *PageRef                                        `json:"ref" url:"ref"`
 	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesDeleteLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                         `json:"rotation" url:"rotation"`
+	Rotation   int                                             `json:"rotation" url:"rotation"`
 	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesDeleteLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesDeleteLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -73761,7 +73780,7 @@ func (c *ChangeItemPagesDeleteLayoutPagesItem) GetSize() *ChangeItemPagesDeleteL
 	return c.Size
 }
 
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesDeleteLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -73847,7 +73866,7 @@ func (c *ChangeItemPagesDeleteLayoutPagesItem) SetSize(size *ChangeItemPagesDele
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesDeleteLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesDeleteLayoutPagesItemFieldRotation)
 }
@@ -76028,7 +76047,7 @@ type ChangeItemPagesInsertBlankLayoutPagesItem struct {
 	Ref        *PageRef                                             `json:"ref" url:"ref"`
 	Label      *string                                              `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesInsertBlankLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                              `json:"rotation" url:"rotation"`
+	Rotation   int                                                  `json:"rotation" url:"rotation"`
 	UserUnit   float64                                              `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesInsertBlankLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesInsertBlankLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -76070,7 +76089,7 @@ func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetSize() *ChangeItemPagesIn
 	return c.Size
 }
 
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -76156,7 +76175,7 @@ func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetSize(size *ChangeItemPage
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldRotation)
 }
@@ -78105,7 +78124,7 @@ type ChangeItemPagesInsertLayoutPagesItem struct {
 	Ref        *PageRef                                        `json:"ref" url:"ref"`
 	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesInsertLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                         `json:"rotation" url:"rotation"`
+	Rotation   int                                             `json:"rotation" url:"rotation"`
 	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesInsertLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesInsertLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -78147,7 +78166,7 @@ func (c *ChangeItemPagesInsertLayoutPagesItem) GetSize() *ChangeItemPagesInsertL
 	return c.Size
 }
 
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesInsertLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -78233,7 +78252,7 @@ func (c *ChangeItemPagesInsertLayoutPagesItem) SetSize(size *ChangeItemPagesInse
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesInsertLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesInsertLayoutPagesItemFieldRotation)
 }
@@ -80298,7 +80317,7 @@ type ChangeItemPagesReorderLayoutPagesItem struct {
 	Ref        *PageRef                                         `json:"ref" url:"ref"`
 	Label      *string                                          `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesReorderLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                          `json:"rotation" url:"rotation"`
+	Rotation   int                                              `json:"rotation" url:"rotation"`
 	UserUnit   float64                                          `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesReorderLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesReorderLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -80340,7 +80359,7 @@ func (c *ChangeItemPagesReorderLayoutPagesItem) GetSize() *ChangeItemPagesReorde
 	return c.Size
 }
 
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesReorderLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -80426,7 +80445,7 @@ func (c *ChangeItemPagesReorderLayoutPagesItem) SetSize(size *ChangeItemPagesReo
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesReorderLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesReorderLayoutPagesItemFieldRotation)
 }
@@ -82491,7 +82510,7 @@ type ChangeItemPagesRestoreLayoutPagesItem struct {
 	Ref        *PageRef                                         `json:"ref" url:"ref"`
 	Label      *string                                          `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesRestoreLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                          `json:"rotation" url:"rotation"`
+	Rotation   int                                              `json:"rotation" url:"rotation"`
 	UserUnit   float64                                          `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesRestoreLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesRestoreLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -82533,7 +82552,7 @@ func (c *ChangeItemPagesRestoreLayoutPagesItem) GetSize() *ChangeItemPagesRestor
 	return c.Size
 }
 
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesRestoreLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -82619,7 +82638,7 @@ func (c *ChangeItemPagesRestoreLayoutPagesItem) SetSize(size *ChangeItemPagesRes
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesRestoreLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesRestoreLayoutPagesItemFieldRotation)
 }
@@ -83781,7 +83800,7 @@ var (
 
 type ChangeItemPagesRotate struct {
 	Pages    []*PageRef                   `json:"pages" url:"pages"`
-	Rotation float64                      `json:"rotation" url:"rotation"`
+	Rotation int                          `json:"rotation" url:"rotation"`
 	Layout   *ChangeItemPagesRotateLayout `json:"layout" url:"layout"`
 	Meta     *MutationMeta                `json:"meta" url:"meta"`
 
@@ -83799,7 +83818,7 @@ func (c *ChangeItemPagesRotate) GetPages() []*PageRef {
 	return c.Pages
 }
 
-func (c *ChangeItemPagesRotate) GetRotation() float64 {
+func (c *ChangeItemPagesRotate) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -83843,7 +83862,7 @@ func (c *ChangeItemPagesRotate) SetPages(pages []*PageRef) {
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotate) SetRotation(rotation float64) {
+func (c *ChangeItemPagesRotate) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesRotateFieldRotation)
 }
@@ -84700,7 +84719,7 @@ type ChangeItemPagesRotateLayoutPagesItem struct {
 	Ref        *PageRef                                        `json:"ref" url:"ref"`
 	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
 	Size       *ChangeItemPagesRotateLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   float64                                         `json:"rotation" url:"rotation"`
+	Rotation   int                                             `json:"rotation" url:"rotation"`
 	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
 	TabOrder   *ChangeItemPagesRotateLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
 	Boxes      *ChangeItemPagesRotateLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
@@ -84742,7 +84761,7 @@ func (c *ChangeItemPagesRotateLayoutPagesItem) GetSize() *ChangeItemPagesRotateL
 	return c.Size
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetRotation() float64 {
+func (c *ChangeItemPagesRotateLayoutPagesItem) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -84828,7 +84847,7 @@ func (c *ChangeItemPagesRotateLayoutPagesItem) SetSize(size *ChangeItemPagesRota
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetRotation(rotation float64) {
+func (c *ChangeItemPagesRotateLayoutPagesItem) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeItemPagesRotateLayoutPagesItemFieldRotation)
 }
@@ -91084,7 +91103,7 @@ var (
 
 type ChangeOpPagesRotate struct {
 	Pages    []*PageRef `json:"pages" url:"pages"`
-	Rotation float64    `json:"rotation" url:"rotation"`
+	Rotation int        `json:"rotation" url:"rotation"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -91100,7 +91119,7 @@ func (c *ChangeOpPagesRotate) GetPages() []*PageRef {
 	return c.Pages
 }
 
-func (c *ChangeOpPagesRotate) GetRotation() float64 {
+func (c *ChangeOpPagesRotate) GetRotation() int {
 	if c == nil {
 		return 0
 	}
@@ -91130,7 +91149,7 @@ func (c *ChangeOpPagesRotate) SetPages(pages []*PageRef) {
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeOpPagesRotate) SetRotation(rotation float64) {
+func (c *ChangeOpPagesRotate) SetRotation(rotation int) {
 	c.Rotation = rotation
 	c.require(changeOpPagesRotateFieldRotation)
 }
@@ -91278,11 +91297,11 @@ func (c *ChangeResult) String() string {
 }
 
 var (
-	docChanges200ResponseFieldChanges = big.NewInt(1 << 0)
+	docChangesResponseFieldChanges = big.NewInt(1 << 0)
 )
 
-type DocChanges200Response struct {
-	Changes []*DocChanges200ResponseChangesItem `json:"changes" url:"changes"`
+type DocChangesResponse struct {
+	Changes []*DocChangesResponseChangesItem `json:"changes" url:"changes"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -91291,21 +91310,21 @@ type DocChanges200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocChanges200Response) GetChanges() []*DocChanges200ResponseChangesItem {
+func (d *DocChangesResponse) GetChanges() []*DocChangesResponseChangesItem {
 	if d == nil {
 		return nil
 	}
 	return d.Changes
 }
 
-func (d *DocChanges200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocChangesResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocChanges200Response) require(field *big.Int) {
+func (d *DocChangesResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -91314,18 +91333,18 @@ func (d *DocChanges200Response) require(field *big.Int) {
 
 // SetChanges sets the Changes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocChanges200Response) SetChanges(changes []*DocChanges200ResponseChangesItem) {
+func (d *DocChangesResponse) SetChanges(changes []*DocChangesResponseChangesItem) {
 	d.Changes = changes
-	d.require(docChanges200ResponseFieldChanges)
+	d.require(docChangesResponseFieldChanges)
 }
 
-func (d *DocChanges200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocChanges200Response
+func (d *DocChangesResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocChangesResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocChanges200Response(value)
+	*d = DocChangesResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -91335,8 +91354,8 @@ func (d *DocChanges200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocChanges200Response) MarshalJSON() ([]byte, error) {
-	type embed DocChanges200Response
+func (d *DocChangesResponse) MarshalJSON() ([]byte, error) {
+	type embed DocChangesResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -91346,7 +91365,7 @@ func (d *DocChanges200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocChanges200Response) String() string {
+func (d *DocChangesResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -91361,36 +91380,36 @@ func (d *DocChanges200Response) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocChanges200ResponseChangesItem struct {
+type DocChangesResponseChangesItem struct {
 	Status  string
-	Applied *DocChanges200ResponseChangesItemApplied
-	Refused *DocChanges200ResponseChangesItemRefused
+	Applied *DocChangesResponseChangesItemApplied
+	Refused *DocChangesResponseChangesItemRefused
 
 	rawJSON json.RawMessage
 }
 
-func (d *DocChanges200ResponseChangesItem) GetStatus() string {
+func (d *DocChangesResponseChangesItem) GetStatus() string {
 	if d == nil {
 		return ""
 	}
 	return d.Status
 }
 
-func (d *DocChanges200ResponseChangesItem) GetApplied() *DocChanges200ResponseChangesItemApplied {
+func (d *DocChangesResponseChangesItem) GetApplied() *DocChangesResponseChangesItemApplied {
 	if d == nil {
 		return nil
 	}
 	return d.Applied
 }
 
-func (d *DocChanges200ResponseChangesItem) GetRefused() *DocChanges200ResponseChangesItemRefused {
+func (d *DocChangesResponseChangesItem) GetRefused() *DocChangesResponseChangesItemRefused {
 	if d == nil {
 		return nil
 	}
 	return d.Refused
 }
 
-func (d *DocChanges200ResponseChangesItem) UnmarshalJSON(data []byte) error {
+func (d *DocChangesResponseChangesItem) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
 		Status string `json:"status"`
 	}
@@ -91403,13 +91422,13 @@ func (d *DocChanges200ResponseChangesItem) UnmarshalJSON(data []byte) error {
 	}
 	switch unmarshaler.Status {
 	case "applied":
-		value := new(DocChanges200ResponseChangesItemApplied)
+		value := new(DocChangesResponseChangesItemApplied)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
 		d.Applied = value
 	case "refused":
-		value := new(DocChanges200ResponseChangesItemRefused)
+		value := new(DocChangesResponseChangesItemRefused)
 		if err := json.Unmarshal(data, &value); err != nil {
 			return err
 		}
@@ -91419,7 +91438,7 @@ func (d *DocChanges200ResponseChangesItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d DocChanges200ResponseChangesItem) MarshalJSON() ([]byte, error) {
+func (d DocChangesResponseChangesItem) MarshalJSON() ([]byte, error) {
 	if err := d.validate(); err != nil {
 		return nil, err
 	}
@@ -91435,12 +91454,12 @@ func (d DocChanges200ResponseChangesItem) MarshalJSON() ([]byte, error) {
 	return nil, fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-type DocChanges200ResponseChangesItemVisitor interface {
-	VisitApplied(*DocChanges200ResponseChangesItemApplied) error
-	VisitRefused(*DocChanges200ResponseChangesItemRefused) error
+type DocChangesResponseChangesItemVisitor interface {
+	VisitApplied(*DocChangesResponseChangesItemApplied) error
+	VisitRefused(*DocChangesResponseChangesItemRefused) error
 }
 
-func (d *DocChanges200ResponseChangesItem) Accept(visitor DocChanges200ResponseChangesItemVisitor) error {
+func (d *DocChangesResponseChangesItem) Accept(visitor DocChangesResponseChangesItemVisitor) error {
 	if d.Applied != nil {
 		return visitor.VisitApplied(d.Applied)
 	}
@@ -91450,7 +91469,7 @@ func (d *DocChanges200ResponseChangesItem) Accept(visitor DocChanges200ResponseC
 	return fmt.Errorf("type %T does not define a non-empty union type", d)
 }
 
-func (d *DocChanges200ResponseChangesItem) validate() error {
+func (d *DocChangesResponseChangesItem) validate() error {
 	if d == nil {
 		return fmt.Errorf("type %T is nil", d)
 	}
@@ -91488,11 +91507,11 @@ func (d *DocChanges200ResponseChangesItem) validate() error {
 }
 
 var (
-	docChanges200ResponseChangesItemAppliedFieldOpID   = big.NewInt(1 << 0)
-	docChanges200ResponseChangesItemAppliedFieldResult = big.NewInt(1 << 1)
+	docChangesResponseChangesItemAppliedFieldOpID   = big.NewInt(1 << 0)
+	docChangesResponseChangesItemAppliedFieldResult = big.NewInt(1 << 1)
 )
 
-type DocChanges200ResponseChangesItemApplied struct {
+type DocChangesResponseChangesItemApplied struct {
 	OpID   string        `json:"opId" url:"opId"`
 	Result *ChangeResult `json:"result" url:"result"`
 
@@ -91503,28 +91522,28 @@ type DocChanges200ResponseChangesItemApplied struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) GetOpID() string {
+func (d *DocChangesResponseChangesItemApplied) GetOpID() string {
 	if d == nil {
 		return ""
 	}
 	return d.OpID
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) GetResult() *ChangeResult {
+func (d *DocChangesResponseChangesItemApplied) GetResult() *ChangeResult {
 	if d == nil {
 		return nil
 	}
 	return d.Result
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) GetExtraProperties() map[string]interface{} {
+func (d *DocChangesResponseChangesItemApplied) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) require(field *big.Int) {
+func (d *DocChangesResponseChangesItemApplied) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -91533,25 +91552,25 @@ func (d *DocChanges200ResponseChangesItemApplied) require(field *big.Int) {
 
 // SetOpID sets the OpID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocChanges200ResponseChangesItemApplied) SetOpID(opID string) {
+func (d *DocChangesResponseChangesItemApplied) SetOpID(opID string) {
 	d.OpID = opID
-	d.require(docChanges200ResponseChangesItemAppliedFieldOpID)
+	d.require(docChangesResponseChangesItemAppliedFieldOpID)
 }
 
 // SetResult sets the Result field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocChanges200ResponseChangesItemApplied) SetResult(result *ChangeResult) {
+func (d *DocChangesResponseChangesItemApplied) SetResult(result *ChangeResult) {
 	d.Result = result
-	d.require(docChanges200ResponseChangesItemAppliedFieldResult)
+	d.require(docChangesResponseChangesItemAppliedFieldResult)
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocChanges200ResponseChangesItemApplied
+func (d *DocChangesResponseChangesItemApplied) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocChangesResponseChangesItemApplied
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocChanges200ResponseChangesItemApplied(value)
+	*d = DocChangesResponseChangesItemApplied(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -91561,8 +91580,8 @@ func (d *DocChanges200ResponseChangesItemApplied) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) MarshalJSON() ([]byte, error) {
-	type embed DocChanges200ResponseChangesItemApplied
+func (d *DocChangesResponseChangesItemApplied) MarshalJSON() ([]byte, error) {
+	type embed DocChangesResponseChangesItemApplied
 	var marshaler = struct {
 		embed
 	}{
@@ -91572,7 +91591,7 @@ func (d *DocChanges200ResponseChangesItemApplied) MarshalJSON() ([]byte, error) 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocChanges200ResponseChangesItemApplied) String() string {
+func (d *DocChangesResponseChangesItemApplied) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -91588,13 +91607,13 @@ func (d *DocChanges200ResponseChangesItemApplied) String() string {
 }
 
 var (
-	docChanges200ResponseChangesItemRefusedFieldOpID  = big.NewInt(1 << 0)
-	docChanges200ResponseChangesItemRefusedFieldError = big.NewInt(1 << 1)
+	docChangesResponseChangesItemRefusedFieldOpID  = big.NewInt(1 << 0)
+	docChangesResponseChangesItemRefusedFieldError = big.NewInt(1 << 1)
 )
 
-type DocChanges200ResponseChangesItemRefused struct {
-	OpID  string              `json:"opId" url:"opId"`
-	Error *EngineErrorPayload `json:"error" url:"error"`
+type DocChangesResponseChangesItemRefused struct {
+	OpID  string       `json:"opId" url:"opId"`
+	Error *EngineError `json:"error" url:"error"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -91603,28 +91622,28 @@ type DocChanges200ResponseChangesItemRefused struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) GetOpID() string {
+func (d *DocChangesResponseChangesItemRefused) GetOpID() string {
 	if d == nil {
 		return ""
 	}
 	return d.OpID
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) GetError() *EngineErrorPayload {
+func (d *DocChangesResponseChangesItemRefused) GetError() *EngineError {
 	if d == nil {
 		return nil
 	}
 	return d.Error
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) GetExtraProperties() map[string]interface{} {
+func (d *DocChangesResponseChangesItemRefused) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) require(field *big.Int) {
+func (d *DocChangesResponseChangesItemRefused) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -91633,25 +91652,25 @@ func (d *DocChanges200ResponseChangesItemRefused) require(field *big.Int) {
 
 // SetOpID sets the OpID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocChanges200ResponseChangesItemRefused) SetOpID(opID string) {
+func (d *DocChangesResponseChangesItemRefused) SetOpID(opID string) {
 	d.OpID = opID
-	d.require(docChanges200ResponseChangesItemRefusedFieldOpID)
+	d.require(docChangesResponseChangesItemRefusedFieldOpID)
 }
 
 // SetError sets the Error field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocChanges200ResponseChangesItemRefused) SetError(error_ *EngineErrorPayload) {
+func (d *DocChangesResponseChangesItemRefused) SetError(error_ *EngineError) {
 	d.Error = error_
-	d.require(docChanges200ResponseChangesItemRefusedFieldError)
+	d.require(docChangesResponseChangesItemRefusedFieldError)
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocChanges200ResponseChangesItemRefused
+func (d *DocChangesResponseChangesItemRefused) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocChangesResponseChangesItemRefused
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocChanges200ResponseChangesItemRefused(value)
+	*d = DocChangesResponseChangesItemRefused(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -91661,8 +91680,8 @@ func (d *DocChanges200ResponseChangesItemRefused) UnmarshalJSON(data []byte) err
 	return nil
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) MarshalJSON() ([]byte, error) {
-	type embed DocChanges200ResponseChangesItemRefused
+func (d *DocChangesResponseChangesItemRefused) MarshalJSON() ([]byte, error) {
+	type embed DocChangesResponseChangesItemRefused
 	var marshaler = struct {
 		embed
 	}{
@@ -91672,7 +91691,7 @@ func (d *DocChanges200ResponseChangesItemRefused) MarshalJSON() ([]byte, error) 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocChanges200ResponseChangesItemRefused) String() string {
+func (d *DocChangesResponseChangesItemRefused) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -91688,13 +91707,13 @@ func (d *DocChanges200ResponseChangesItemRefused) String() string {
 }
 
 var (
-	docDownloadLink200ResponseFieldURL       = big.NewInt(1 << 0)
-	docDownloadLink200ResponseFieldExpiresAt = big.NewInt(1 << 1)
+	docDownloadLinkResponseFieldURL       = big.NewInt(1 << 0)
+	docDownloadLinkResponseFieldExpiresAt = big.NewInt(1 << 1)
 )
 
-type DocDownloadLink200Response struct {
-	URL       string  `json:"url" url:"url"`
-	ExpiresAt float64 `json:"expiresAt" url:"expiresAt"`
+type DocDownloadLinkResponse struct {
+	URL       string    `json:"url" url:"url"`
+	ExpiresAt time.Time `json:"expiresAt" url:"expiresAt"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -91703,28 +91722,28 @@ type DocDownloadLink200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocDownloadLink200Response) GetURL() string {
+func (d *DocDownloadLinkResponse) GetURL() string {
 	if d == nil {
 		return ""
 	}
 	return d.URL
 }
 
-func (d *DocDownloadLink200Response) GetExpiresAt() float64 {
+func (d *DocDownloadLinkResponse) GetExpiresAt() time.Time {
 	if d == nil {
-		return 0
+		return time.Time{}
 	}
 	return d.ExpiresAt
 }
 
-func (d *DocDownloadLink200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocDownloadLinkResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocDownloadLink200Response) require(field *big.Int) {
+func (d *DocDownloadLinkResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -91733,25 +91752,31 @@ func (d *DocDownloadLink200Response) require(field *big.Int) {
 
 // SetURL sets the URL field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocDownloadLink200Response) SetURL(url string) {
+func (d *DocDownloadLinkResponse) SetURL(url string) {
 	d.URL = url
-	d.require(docDownloadLink200ResponseFieldURL)
+	d.require(docDownloadLinkResponseFieldURL)
 }
 
 // SetExpiresAt sets the ExpiresAt field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocDownloadLink200Response) SetExpiresAt(expiresAt float64) {
+func (d *DocDownloadLinkResponse) SetExpiresAt(expiresAt time.Time) {
 	d.ExpiresAt = expiresAt
-	d.require(docDownloadLink200ResponseFieldExpiresAt)
+	d.require(docDownloadLinkResponseFieldExpiresAt)
 }
 
-func (d *DocDownloadLink200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocDownloadLink200Response
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
+func (d *DocDownloadLinkResponse) UnmarshalJSON(data []byte) error {
+	type embed DocDownloadLinkResponse
+	var unmarshaler = struct {
+		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
+	}{
+		embed: embed(*d),
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	*d = DocDownloadLink200Response(value)
+	*d = DocDownloadLinkResponse(unmarshaler.embed)
+	d.ExpiresAt = unmarshaler.ExpiresAt.Time()
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -91761,18 +91786,20 @@ func (d *DocDownloadLink200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocDownloadLink200Response) MarshalJSON() ([]byte, error) {
-	type embed DocDownloadLink200Response
+func (d *DocDownloadLinkResponse) MarshalJSON() ([]byte, error) {
+	type embed DocDownloadLinkResponse
 	var marshaler = struct {
 		embed
+		ExpiresAt *internal.DateTime `json:"expiresAt"`
 	}{
-		embed: embed(*d),
+		embed:     embed(*d),
+		ExpiresAt: internal.NewDateTime(d.ExpiresAt),
 	}
 	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocDownloadLink200Response) String() string {
+func (d *DocDownloadLinkResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -91788,25 +91815,27 @@ func (d *DocDownloadLink200Response) String() string {
 }
 
 var (
-	docHead200ResponseFieldID               = big.NewInt(1 << 0)
-	docHead200ResponseFieldBaseSha          = big.NewInt(1 << 1)
-	docHead200ResponseFieldStorageSizeBytes = big.NewInt(1 << 2)
-	docHead200ResponseFieldDocVersion       = big.NewInt(1 << 3)
-	docHead200ResponseFieldState            = big.NewInt(1 << 4)
-	docHead200ResponseFieldEncryption       = big.NewInt(1 << 5)
-	docHead200ResponseFieldPermissions      = big.NewInt(1 << 6)
-	docHead200ResponseFieldAccess           = big.NewInt(1 << 7)
+	docHeadResponseFieldID          = big.NewInt(1 << 0)
+	docHeadResponseFieldBaseSha256  = big.NewInt(1 << 1)
+	docHeadResponseFieldSizeBytes   = big.NewInt(1 << 2)
+	docHeadResponseFieldDocVersion  = big.NewInt(1 << 3)
+	docHeadResponseFieldState       = big.NewInt(1 << 4)
+	docHeadResponseFieldEncryption  = big.NewInt(1 << 5)
+	docHeadResponseFieldPermissions = big.NewInt(1 << 6)
+	docHeadResponseFieldAccess      = big.NewInt(1 << 7)
+	docHeadResponseFieldEngine      = big.NewInt(1 << 8)
 )
 
-type DocHead200Response struct {
-	ID               string                         `json:"id" url:"id"`
-	BaseSha          string                         `json:"baseSha" url:"baseSha"`
-	StorageSizeBytes int                            `json:"storageSizeBytes" url:"storageSizeBytes"`
-	DocVersion       int                            `json:"docVersion" url:"docVersion"`
-	State            DocHead200ResponseState        `json:"state" url:"state"`
-	Encryption       *DocHead200ResponseEncryption  `json:"encryption" url:"encryption"`
-	Permissions      *DocHead200ResponsePermissions `json:"permissions" url:"permissions"`
-	Access           *DocHead200ResponseAccess      `json:"access" url:"access"`
+type DocHeadResponse struct {
+	ID          string                      `json:"id" url:"id"`
+	BaseSha256  string                      `json:"baseSha256" url:"baseSha256"`
+	SizeBytes   int                         `json:"sizeBytes" url:"sizeBytes"`
+	DocVersion  int                         `json:"docVersion" url:"docVersion"`
+	State       DocHeadResponseState        `json:"state" url:"state"`
+	Encryption  *DocHeadResponseEncryption  `json:"encryption" url:"encryption"`
+	Permissions *DocHeadResponsePermissions `json:"permissions" url:"permissions"`
+	Access      *DocHeadResponseAccess      `json:"access" url:"access"`
+	Engine      map[string]string           `json:"engine" url:"engine"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -91815,70 +91844,77 @@ type DocHead200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocHead200Response) GetID() string {
+func (d *DocHeadResponse) GetID() string {
 	if d == nil {
 		return ""
 	}
 	return d.ID
 }
 
-func (d *DocHead200Response) GetBaseSha() string {
+func (d *DocHeadResponse) GetBaseSha256() string {
 	if d == nil {
 		return ""
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocHead200Response) GetStorageSizeBytes() int {
+func (d *DocHeadResponse) GetSizeBytes() int {
 	if d == nil {
 		return 0
 	}
-	return d.StorageSizeBytes
+	return d.SizeBytes
 }
 
-func (d *DocHead200Response) GetDocVersion() int {
+func (d *DocHeadResponse) GetDocVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.DocVersion
 }
 
-func (d *DocHead200Response) GetState() DocHead200ResponseState {
+func (d *DocHeadResponse) GetState() DocHeadResponseState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocHead200Response) GetEncryption() *DocHead200ResponseEncryption {
+func (d *DocHeadResponse) GetEncryption() *DocHeadResponseEncryption {
 	if d == nil {
 		return nil
 	}
 	return d.Encryption
 }
 
-func (d *DocHead200Response) GetPermissions() *DocHead200ResponsePermissions {
+func (d *DocHeadResponse) GetPermissions() *DocHeadResponsePermissions {
 	if d == nil {
 		return nil
 	}
 	return d.Permissions
 }
 
-func (d *DocHead200Response) GetAccess() *DocHead200ResponseAccess {
+func (d *DocHeadResponse) GetAccess() *DocHeadResponseAccess {
 	if d == nil {
 		return nil
 	}
 	return d.Access
 }
 
-func (d *DocHead200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocHeadResponse) GetEngine() map[string]string {
+	if d == nil {
+		return nil
+	}
+	return d.Engine
+}
+
+func (d *DocHeadResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocHead200Response) require(field *big.Int) {
+func (d *DocHeadResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -91887,67 +91923,74 @@ func (d *DocHead200Response) require(field *big.Int) {
 
 // SetID sets the ID field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetID(id string) {
+func (d *DocHeadResponse) SetID(id string) {
 	d.ID = id
-	d.require(docHead200ResponseFieldID)
+	d.require(docHeadResponseFieldID)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetBaseSha(baseSha string) {
-	d.BaseSha = baseSha
-	d.require(docHead200ResponseFieldBaseSha)
+func (d *DocHeadResponse) SetBaseSha256(baseSha256 string) {
+	d.BaseSha256 = baseSha256
+	d.require(docHeadResponseFieldBaseSha256)
 }
 
-// SetStorageSizeBytes sets the StorageSizeBytes field and marks it as non-optional;
+// SetSizeBytes sets the SizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetStorageSizeBytes(storageSizeBytes int) {
-	d.StorageSizeBytes = storageSizeBytes
-	d.require(docHead200ResponseFieldStorageSizeBytes)
+func (d *DocHeadResponse) SetSizeBytes(sizeBytes int) {
+	d.SizeBytes = sizeBytes
+	d.require(docHeadResponseFieldSizeBytes)
 }
 
 // SetDocVersion sets the DocVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetDocVersion(docVersion int) {
+func (d *DocHeadResponse) SetDocVersion(docVersion int) {
 	d.DocVersion = docVersion
-	d.require(docHead200ResponseFieldDocVersion)
+	d.require(docHeadResponseFieldDocVersion)
 }
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetState(state DocHead200ResponseState) {
+func (d *DocHeadResponse) SetState(state DocHeadResponseState) {
 	d.State = state
-	d.require(docHead200ResponseFieldState)
+	d.require(docHeadResponseFieldState)
 }
 
 // SetEncryption sets the Encryption field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetEncryption(encryption *DocHead200ResponseEncryption) {
+func (d *DocHeadResponse) SetEncryption(encryption *DocHeadResponseEncryption) {
 	d.Encryption = encryption
-	d.require(docHead200ResponseFieldEncryption)
+	d.require(docHeadResponseFieldEncryption)
 }
 
 // SetPermissions sets the Permissions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetPermissions(permissions *DocHead200ResponsePermissions) {
+func (d *DocHeadResponse) SetPermissions(permissions *DocHeadResponsePermissions) {
 	d.Permissions = permissions
-	d.require(docHead200ResponseFieldPermissions)
+	d.require(docHeadResponseFieldPermissions)
 }
 
 // SetAccess sets the Access field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200Response) SetAccess(access *DocHead200ResponseAccess) {
+func (d *DocHeadResponse) SetAccess(access *DocHeadResponseAccess) {
 	d.Access = access
-	d.require(docHead200ResponseFieldAccess)
+	d.require(docHeadResponseFieldAccess)
 }
 
-func (d *DocHead200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocHead200Response
+// SetEngine sets the Engine field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocHeadResponse) SetEngine(engine map[string]string) {
+	d.Engine = engine
+	d.require(docHeadResponseFieldEngine)
+}
+
+func (d *DocHeadResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocHeadResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocHead200Response(value)
+	*d = DocHeadResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -91957,8 +92000,8 @@ func (d *DocHead200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocHead200Response) MarshalJSON() ([]byte, error) {
-	type embed DocHead200Response
+func (d *DocHeadResponse) MarshalJSON() ([]byte, error) {
+	type embed DocHeadResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -91968,7 +92011,7 @@ func (d *DocHead200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocHead200Response) String() string {
+func (d *DocHeadResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -91984,15 +92027,15 @@ func (d *DocHead200Response) String() string {
 }
 
 var (
-	docHead200ResponseAccessFieldRequired = big.NewInt(1 << 0)
-	docHead200ResponseAccessFieldReasons  = big.NewInt(1 << 1)
-	docHead200ResponseAccessFieldEndpoint = big.NewInt(1 << 2)
+	docHeadResponseAccessFieldRequired = big.NewInt(1 << 0)
+	docHeadResponseAccessFieldReasons  = big.NewInt(1 << 1)
+	docHeadResponseAccessFieldEndpoint = big.NewInt(1 << 2)
 )
 
-type DocHead200ResponseAccess struct {
-	Required bool                                  `json:"required" url:"required"`
-	Reasons  []DocHead200ResponseAccessReasonsItem `json:"reasons" url:"reasons"`
-	Endpoint *string                               `json:"endpoint,omitempty" url:"endpoint,omitempty"`
+type DocHeadResponseAccess struct {
+	Required bool                               `json:"required" url:"required"`
+	Reasons  []DocHeadResponseAccessReasonsItem `json:"reasons" url:"reasons"`
+	Endpoint *string                            `json:"endpoint,omitempty" url:"endpoint,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -92001,35 +92044,35 @@ type DocHead200ResponseAccess struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocHead200ResponseAccess) GetRequired() bool {
+func (d *DocHeadResponseAccess) GetRequired() bool {
 	if d == nil {
 		return false
 	}
 	return d.Required
 }
 
-func (d *DocHead200ResponseAccess) GetReasons() []DocHead200ResponseAccessReasonsItem {
+func (d *DocHeadResponseAccess) GetReasons() []DocHeadResponseAccessReasonsItem {
 	if d == nil {
 		return nil
 	}
 	return d.Reasons
 }
 
-func (d *DocHead200ResponseAccess) GetEndpoint() *string {
+func (d *DocHeadResponseAccess) GetEndpoint() *string {
 	if d == nil {
 		return nil
 	}
 	return d.Endpoint
 }
 
-func (d *DocHead200ResponseAccess) GetExtraProperties() map[string]interface{} {
+func (d *DocHeadResponseAccess) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocHead200ResponseAccess) require(field *big.Int) {
+func (d *DocHeadResponseAccess) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92038,32 +92081,32 @@ func (d *DocHead200ResponseAccess) require(field *big.Int) {
 
 // SetRequired sets the Required field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponseAccess) SetRequired(required bool) {
+func (d *DocHeadResponseAccess) SetRequired(required bool) {
 	d.Required = required
-	d.require(docHead200ResponseAccessFieldRequired)
+	d.require(docHeadResponseAccessFieldRequired)
 }
 
 // SetReasons sets the Reasons field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponseAccess) SetReasons(reasons []DocHead200ResponseAccessReasonsItem) {
+func (d *DocHeadResponseAccess) SetReasons(reasons []DocHeadResponseAccessReasonsItem) {
 	d.Reasons = reasons
-	d.require(docHead200ResponseAccessFieldReasons)
+	d.require(docHeadResponseAccessFieldReasons)
 }
 
 // SetEndpoint sets the Endpoint field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponseAccess) SetEndpoint(endpoint *string) {
+func (d *DocHeadResponseAccess) SetEndpoint(endpoint *string) {
 	d.Endpoint = endpoint
-	d.require(docHead200ResponseAccessFieldEndpoint)
+	d.require(docHeadResponseAccessFieldEndpoint)
 }
 
-func (d *DocHead200ResponseAccess) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocHead200ResponseAccess
+func (d *DocHeadResponseAccess) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocHeadResponseAccess
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocHead200ResponseAccess(value)
+	*d = DocHeadResponseAccess(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -92073,8 +92116,8 @@ func (d *DocHead200ResponseAccess) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocHead200ResponseAccess) MarshalJSON() ([]byte, error) {
-	type embed DocHead200ResponseAccess
+func (d *DocHeadResponseAccess) MarshalJSON() ([]byte, error) {
+	type embed DocHeadResponseAccess
 	var marshaler = struct {
 		embed
 	}{
@@ -92084,7 +92127,7 @@ func (d *DocHead200ResponseAccess) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocHead200ResponseAccess) String() string {
+func (d *DocHeadResponseAccess) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -92099,39 +92142,39 @@ func (d *DocHead200ResponseAccess) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocHead200ResponseAccessReasonsItem string
+type DocHeadResponseAccessReasonsItem string
 
 const (
-	DocHead200ResponseAccessReasonsItemPassword           DocHead200ResponseAccessReasonsItem = "password"
-	DocHead200ResponseAccessReasonsItemCdn                DocHead200ResponseAccessReasonsItem = "cdn"
-	DocHead200ResponseAccessReasonsItemPermissionsUnknown DocHead200ResponseAccessReasonsItem = "permissions-unknown"
+	DocHeadResponseAccessReasonsItemPassword           DocHeadResponseAccessReasonsItem = "password"
+	DocHeadResponseAccessReasonsItemCdn                DocHeadResponseAccessReasonsItem = "cdn"
+	DocHeadResponseAccessReasonsItemPermissionsUnknown DocHeadResponseAccessReasonsItem = "permissions-unknown"
 )
 
-func NewDocHead200ResponseAccessReasonsItemFromString(s string) (DocHead200ResponseAccessReasonsItem, error) {
+func NewDocHeadResponseAccessReasonsItemFromString(s string) (DocHeadResponseAccessReasonsItem, error) {
 	switch s {
 	case "password":
-		return DocHead200ResponseAccessReasonsItemPassword, nil
+		return DocHeadResponseAccessReasonsItemPassword, nil
 	case "cdn":
-		return DocHead200ResponseAccessReasonsItemCdn, nil
+		return DocHeadResponseAccessReasonsItemCdn, nil
 	case "permissions-unknown":
-		return DocHead200ResponseAccessReasonsItemPermissionsUnknown, nil
+		return DocHeadResponseAccessReasonsItemPermissionsUnknown, nil
 	}
-	var t DocHead200ResponseAccessReasonsItem
+	var t DocHeadResponseAccessReasonsItem
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocHead200ResponseAccessReasonsItem) Ptr() *DocHead200ResponseAccessReasonsItem {
+func (d DocHeadResponseAccessReasonsItem) Ptr() *DocHeadResponseAccessReasonsItem {
 	return &d
 }
 
 var (
-	docHead200ResponseEncryptionFieldState            = big.NewInt(1 << 0)
-	docHead200ResponseEncryptionFieldRequiresPassword = big.NewInt(1 << 1)
+	docHeadResponseEncryptionFieldState            = big.NewInt(1 << 0)
+	docHeadResponseEncryptionFieldRequiresPassword = big.NewInt(1 << 1)
 )
 
-type DocHead200ResponseEncryption struct {
-	State            DocHead200ResponseEncryptionState `json:"state" url:"state"`
-	RequiresPassword *bool                             `json:"requiresPassword,omitempty" url:"requiresPassword,omitempty"`
+type DocHeadResponseEncryption struct {
+	State            DocHeadResponseEncryptionState `json:"state" url:"state"`
+	RequiresPassword *bool                          `json:"requiresPassword,omitempty" url:"requiresPassword,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -92140,28 +92183,28 @@ type DocHead200ResponseEncryption struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocHead200ResponseEncryption) GetState() DocHead200ResponseEncryptionState {
+func (d *DocHeadResponseEncryption) GetState() DocHeadResponseEncryptionState {
 	if d == nil {
 		return ""
 	}
 	return d.State
 }
 
-func (d *DocHead200ResponseEncryption) GetRequiresPassword() *bool {
+func (d *DocHeadResponseEncryption) GetRequiresPassword() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.RequiresPassword
 }
 
-func (d *DocHead200ResponseEncryption) GetExtraProperties() map[string]interface{} {
+func (d *DocHeadResponseEncryption) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocHead200ResponseEncryption) require(field *big.Int) {
+func (d *DocHeadResponseEncryption) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92170,25 +92213,25 @@ func (d *DocHead200ResponseEncryption) require(field *big.Int) {
 
 // SetState sets the State field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponseEncryption) SetState(state DocHead200ResponseEncryptionState) {
+func (d *DocHeadResponseEncryption) SetState(state DocHeadResponseEncryptionState) {
 	d.State = state
-	d.require(docHead200ResponseEncryptionFieldState)
+	d.require(docHeadResponseEncryptionFieldState)
 }
 
 // SetRequiresPassword sets the RequiresPassword field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponseEncryption) SetRequiresPassword(requiresPassword *bool) {
+func (d *DocHeadResponseEncryption) SetRequiresPassword(requiresPassword *bool) {
 	d.RequiresPassword = requiresPassword
-	d.require(docHead200ResponseEncryptionFieldRequiresPassword)
+	d.require(docHeadResponseEncryptionFieldRequiresPassword)
 }
 
-func (d *DocHead200ResponseEncryption) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocHead200ResponseEncryption
+func (d *DocHeadResponseEncryption) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocHeadResponseEncryption
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocHead200ResponseEncryption(value)
+	*d = DocHeadResponseEncryption(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -92198,8 +92241,8 @@ func (d *DocHead200ResponseEncryption) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocHead200ResponseEncryption) MarshalJSON() ([]byte, error) {
-	type embed DocHead200ResponseEncryption
+func (d *DocHeadResponseEncryption) MarshalJSON() ([]byte, error) {
+	type embed DocHeadResponseEncryption
 	var marshaler = struct {
 		embed
 	}{
@@ -92209,7 +92252,7 @@ func (d *DocHead200ResponseEncryption) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocHead200ResponseEncryption) String() string {
+func (d *DocHeadResponseEncryption) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -92224,50 +92267,50 @@ func (d *DocHead200ResponseEncryption) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocHead200ResponseEncryptionState string
+type DocHeadResponseEncryptionState string
 
 const (
-	DocHead200ResponseEncryptionStateUnknown     DocHead200ResponseEncryptionState = "unknown"
-	DocHead200ResponseEncryptionStateNone        DocHead200ResponseEncryptionState = "none"
-	DocHead200ResponseEncryptionStateEncrypted   DocHead200ResponseEncryptionState = "encrypted"
-	DocHead200ResponseEncryptionStateUnsupported DocHead200ResponseEncryptionState = "unsupported"
+	DocHeadResponseEncryptionStateUnknown     DocHeadResponseEncryptionState = "unknown"
+	DocHeadResponseEncryptionStateNone        DocHeadResponseEncryptionState = "none"
+	DocHeadResponseEncryptionStateEncrypted   DocHeadResponseEncryptionState = "encrypted"
+	DocHeadResponseEncryptionStateUnsupported DocHeadResponseEncryptionState = "unsupported"
 )
 
-func NewDocHead200ResponseEncryptionStateFromString(s string) (DocHead200ResponseEncryptionState, error) {
+func NewDocHeadResponseEncryptionStateFromString(s string) (DocHeadResponseEncryptionState, error) {
 	switch s {
 	case "unknown":
-		return DocHead200ResponseEncryptionStateUnknown, nil
+		return DocHeadResponseEncryptionStateUnknown, nil
 	case "none":
-		return DocHead200ResponseEncryptionStateNone, nil
+		return DocHeadResponseEncryptionStateNone, nil
 	case "encrypted":
-		return DocHead200ResponseEncryptionStateEncrypted, nil
+		return DocHeadResponseEncryptionStateEncrypted, nil
 	case "unsupported":
-		return DocHead200ResponseEncryptionStateUnsupported, nil
+		return DocHeadResponseEncryptionStateUnsupported, nil
 	}
-	var t DocHead200ResponseEncryptionState
+	var t DocHeadResponseEncryptionState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocHead200ResponseEncryptionState) Ptr() *DocHead200ResponseEncryptionState {
+func (d DocHeadResponseEncryptionState) Ptr() *DocHeadResponseEncryptionState {
 	return &d
 }
 
 var (
-	docHead200ResponsePermissionsFieldKnown                   = big.NewInt(1 << 0)
-	docHead200ResponsePermissionsFieldBits                    = big.NewInt(1 << 1)
-	docHead200ResponsePermissionsFieldAllAllowed              = big.NewInt(1 << 2)
-	docHead200ResponsePermissionsFieldOpenedAs                = big.NewInt(1 << 3)
-	docHead200ResponsePermissionsFieldSecurityHandlerRevision = big.NewInt(1 << 4)
-	docHead200ResponsePermissionsFieldCanUpgradeToOwner       = big.NewInt(1 << 5)
+	docHeadResponsePermissionsFieldKnown                   = big.NewInt(1 << 0)
+	docHeadResponsePermissionsFieldFlags                   = big.NewInt(1 << 1)
+	docHeadResponsePermissionsFieldAllAllowed              = big.NewInt(1 << 2)
+	docHeadResponsePermissionsFieldOpenedAs                = big.NewInt(1 << 3)
+	docHeadResponsePermissionsFieldSecurityHandlerRevision = big.NewInt(1 << 4)
+	docHeadResponsePermissionsFieldCanUpgradeToOwner       = big.NewInt(1 << 5)
 )
 
-type DocHead200ResponsePermissions struct {
-	Known                   bool                                   `json:"known" url:"known"`
-	Bits                    *int                                   `json:"bits,omitempty" url:"bits,omitempty"`
-	AllAllowed              *bool                                  `json:"allAllowed,omitempty" url:"allAllowed,omitempty"`
-	OpenedAs                *DocHead200ResponsePermissionsOpenedAs `json:"openedAs,omitempty" url:"openedAs,omitempty"`
-	SecurityHandlerRevision *int                                   `json:"securityHandlerRevision,omitempty" url:"securityHandlerRevision,omitempty"`
-	CanUpgradeToOwner       bool                                   `json:"canUpgradeToOwner" url:"canUpgradeToOwner"`
+type DocHeadResponsePermissions struct {
+	Known                   bool                                `json:"known" url:"known"`
+	Flags                   *PdfPermissionFlags                 `json:"flags,omitempty" url:"flags,omitempty"`
+	AllAllowed              *bool                               `json:"allAllowed,omitempty" url:"allAllowed,omitempty"`
+	OpenedAs                *DocHeadResponsePermissionsOpenedAs `json:"openedAs,omitempty" url:"openedAs,omitempty"`
+	SecurityHandlerRevision *int                                `json:"securityHandlerRevision,omitempty" url:"securityHandlerRevision,omitempty"`
+	CanUpgradeToOwner       bool                                `json:"canUpgradeToOwner" url:"canUpgradeToOwner"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -92276,56 +92319,56 @@ type DocHead200ResponsePermissions struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocHead200ResponsePermissions) GetKnown() bool {
+func (d *DocHeadResponsePermissions) GetKnown() bool {
 	if d == nil {
 		return false
 	}
 	return d.Known
 }
 
-func (d *DocHead200ResponsePermissions) GetBits() *int {
+func (d *DocHeadResponsePermissions) GetFlags() *PdfPermissionFlags {
 	if d == nil {
 		return nil
 	}
-	return d.Bits
+	return d.Flags
 }
 
-func (d *DocHead200ResponsePermissions) GetAllAllowed() *bool {
+func (d *DocHeadResponsePermissions) GetAllAllowed() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.AllAllowed
 }
 
-func (d *DocHead200ResponsePermissions) GetOpenedAs() *DocHead200ResponsePermissionsOpenedAs {
+func (d *DocHeadResponsePermissions) GetOpenedAs() *DocHeadResponsePermissionsOpenedAs {
 	if d == nil {
 		return nil
 	}
 	return d.OpenedAs
 }
 
-func (d *DocHead200ResponsePermissions) GetSecurityHandlerRevision() *int {
+func (d *DocHeadResponsePermissions) GetSecurityHandlerRevision() *int {
 	if d == nil {
 		return nil
 	}
 	return d.SecurityHandlerRevision
 }
 
-func (d *DocHead200ResponsePermissions) GetCanUpgradeToOwner() bool {
+func (d *DocHeadResponsePermissions) GetCanUpgradeToOwner() bool {
 	if d == nil {
 		return false
 	}
 	return d.CanUpgradeToOwner
 }
 
-func (d *DocHead200ResponsePermissions) GetExtraProperties() map[string]interface{} {
+func (d *DocHeadResponsePermissions) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocHead200ResponsePermissions) require(field *big.Int) {
+func (d *DocHeadResponsePermissions) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92334,53 +92377,53 @@ func (d *DocHead200ResponsePermissions) require(field *big.Int) {
 
 // SetKnown sets the Known field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetKnown(known bool) {
+func (d *DocHeadResponsePermissions) SetKnown(known bool) {
 	d.Known = known
-	d.require(docHead200ResponsePermissionsFieldKnown)
+	d.require(docHeadResponsePermissionsFieldKnown)
 }
 
-// SetBits sets the Bits field and marks it as non-optional;
+// SetFlags sets the Flags field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetBits(bits *int) {
-	d.Bits = bits
-	d.require(docHead200ResponsePermissionsFieldBits)
+func (d *DocHeadResponsePermissions) SetFlags(flags *PdfPermissionFlags) {
+	d.Flags = flags
+	d.require(docHeadResponsePermissionsFieldFlags)
 }
 
 // SetAllAllowed sets the AllAllowed field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetAllAllowed(allAllowed *bool) {
+func (d *DocHeadResponsePermissions) SetAllAllowed(allAllowed *bool) {
 	d.AllAllowed = allAllowed
-	d.require(docHead200ResponsePermissionsFieldAllAllowed)
+	d.require(docHeadResponsePermissionsFieldAllAllowed)
 }
 
 // SetOpenedAs sets the OpenedAs field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetOpenedAs(openedAs *DocHead200ResponsePermissionsOpenedAs) {
+func (d *DocHeadResponsePermissions) SetOpenedAs(openedAs *DocHeadResponsePermissionsOpenedAs) {
 	d.OpenedAs = openedAs
-	d.require(docHead200ResponsePermissionsFieldOpenedAs)
+	d.require(docHeadResponsePermissionsFieldOpenedAs)
 }
 
 // SetSecurityHandlerRevision sets the SecurityHandlerRevision field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetSecurityHandlerRevision(securityHandlerRevision *int) {
+func (d *DocHeadResponsePermissions) SetSecurityHandlerRevision(securityHandlerRevision *int) {
 	d.SecurityHandlerRevision = securityHandlerRevision
-	d.require(docHead200ResponsePermissionsFieldSecurityHandlerRevision)
+	d.require(docHeadResponsePermissionsFieldSecurityHandlerRevision)
 }
 
 // SetCanUpgradeToOwner sets the CanUpgradeToOwner field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocHead200ResponsePermissions) SetCanUpgradeToOwner(canUpgradeToOwner bool) {
+func (d *DocHeadResponsePermissions) SetCanUpgradeToOwner(canUpgradeToOwner bool) {
 	d.CanUpgradeToOwner = canUpgradeToOwner
-	d.require(docHead200ResponsePermissionsFieldCanUpgradeToOwner)
+	d.require(docHeadResponsePermissionsFieldCanUpgradeToOwner)
 }
 
-func (d *DocHead200ResponsePermissions) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocHead200ResponsePermissions
+func (d *DocHeadResponsePermissions) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocHeadResponsePermissions
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocHead200ResponsePermissions(value)
+	*d = DocHeadResponsePermissions(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -92390,8 +92433,8 @@ func (d *DocHead200ResponsePermissions) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocHead200ResponsePermissions) MarshalJSON() ([]byte, error) {
-	type embed DocHead200ResponsePermissions
+func (d *DocHeadResponsePermissions) MarshalJSON() ([]byte, error) {
+	type embed DocHeadResponsePermissions
 	var marshaler = struct {
 		embed
 	}{
@@ -92401,7 +92444,7 @@ func (d *DocHead200ResponsePermissions) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocHead200ResponsePermissions) String() string {
+func (d *DocHeadResponsePermissions) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -92416,99 +92459,99 @@ func (d *DocHead200ResponsePermissions) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocHead200ResponsePermissionsOpenedAs string
+type DocHeadResponsePermissionsOpenedAs string
 
 const (
-	DocHead200ResponsePermissionsOpenedAsNone  DocHead200ResponsePermissionsOpenedAs = "none"
-	DocHead200ResponsePermissionsOpenedAsUser  DocHead200ResponsePermissionsOpenedAs = "user"
-	DocHead200ResponsePermissionsOpenedAsOwner DocHead200ResponsePermissionsOpenedAs = "owner"
+	DocHeadResponsePermissionsOpenedAsNone  DocHeadResponsePermissionsOpenedAs = "none"
+	DocHeadResponsePermissionsOpenedAsUser  DocHeadResponsePermissionsOpenedAs = "user"
+	DocHeadResponsePermissionsOpenedAsOwner DocHeadResponsePermissionsOpenedAs = "owner"
 )
 
-func NewDocHead200ResponsePermissionsOpenedAsFromString(s string) (DocHead200ResponsePermissionsOpenedAs, error) {
+func NewDocHeadResponsePermissionsOpenedAsFromString(s string) (DocHeadResponsePermissionsOpenedAs, error) {
 	switch s {
 	case "none":
-		return DocHead200ResponsePermissionsOpenedAsNone, nil
+		return DocHeadResponsePermissionsOpenedAsNone, nil
 	case "user":
-		return DocHead200ResponsePermissionsOpenedAsUser, nil
+		return DocHeadResponsePermissionsOpenedAsUser, nil
 	case "owner":
-		return DocHead200ResponsePermissionsOpenedAsOwner, nil
+		return DocHeadResponsePermissionsOpenedAsOwner, nil
 	}
-	var t DocHead200ResponsePermissionsOpenedAs
+	var t DocHeadResponsePermissionsOpenedAs
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocHead200ResponsePermissionsOpenedAs) Ptr() *DocHead200ResponsePermissionsOpenedAs {
+func (d DocHeadResponsePermissionsOpenedAs) Ptr() *DocHeadResponsePermissionsOpenedAs {
 	return &d
 }
 
-type DocHead200ResponseState string
+type DocHeadResponseState string
 
 const (
-	DocHead200ResponseStatePending  DocHead200ResponseState = "pending"
-	DocHead200ResponseStateReady    DocHead200ResponseState = "ready"
-	DocHead200ResponseStateFailed   DocHead200ResponseState = "failed"
-	DocHead200ResponseStateDeleting DocHead200ResponseState = "deleting"
+	DocHeadResponseStatePending  DocHeadResponseState = "pending"
+	DocHeadResponseStateReady    DocHeadResponseState = "ready"
+	DocHeadResponseStateFailed   DocHeadResponseState = "failed"
+	DocHeadResponseStateDeleting DocHeadResponseState = "deleting"
 )
 
-func NewDocHead200ResponseStateFromString(s string) (DocHead200ResponseState, error) {
+func NewDocHeadResponseStateFromString(s string) (DocHeadResponseState, error) {
 	switch s {
 	case "pending":
-		return DocHead200ResponseStatePending, nil
+		return DocHeadResponseStatePending, nil
 	case "ready":
-		return DocHead200ResponseStateReady, nil
+		return DocHeadResponseStateReady, nil
 	case "failed":
-		return DocHead200ResponseStateFailed, nil
+		return DocHeadResponseStateFailed, nil
 	case "deleting":
-		return DocHead200ResponseStateDeleting, nil
+		return DocHeadResponseStateDeleting, nil
 	}
-	var t DocHead200ResponseState
+	var t DocHeadResponseState
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocHead200ResponseState) Ptr() *DocHead200ResponseState {
+func (d DocHeadResponseState) Ptr() *DocHeadResponseState {
 	return &d
 }
 
 var (
-	docManifest200ResponseFieldDocVersion         = big.NewInt(1 << 0)
-	docManifest200ResponseFieldLayoutVersion      = big.NewInt(1 << 1)
-	docManifest200ResponseFieldMetadataVersion    = big.NewInt(1 << 2)
-	docManifest200ResponseFieldActionsVersion     = big.NewInt(1 << 3)
-	docManifest200ResponseFieldAttachmentsVersion = big.NewInt(1 << 4)
-	docManifest200ResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
-	docManifest200ResponseFieldFormsVersion       = big.NewInt(1 << 6)
-	docManifest200ResponseFieldOutlineVersion     = big.NewInt(1 << 7)
-	docManifest200ResponseFieldFontsVersion       = big.NewInt(1 << 8)
-	docManifest200ResponseFieldServerFonts        = big.NewInt(1 << 9)
-	docManifest200ResponseFieldAuditHead          = big.NewInt(1 << 10)
-	docManifest200ResponseFieldBaseSha            = big.NewInt(1 << 11)
-	docManifest200ResponseFieldLayerVersion       = big.NewInt(1 << 12)
-	docManifest200ResponseFieldWorking            = big.NewInt(1 << 13)
-	docManifest200ResponseFieldBaseByteLength     = big.NewInt(1 << 14)
-	docManifest200ResponseFieldScopes             = big.NewInt(1 << 15)
-	docManifest200ResponseFieldProtection         = big.NewInt(1 << 16)
-	docManifest200ResponseFieldPages              = big.NewInt(1 << 17)
+	docManifestResponseFieldDocVersion         = big.NewInt(1 << 0)
+	docManifestResponseFieldLayoutVersion      = big.NewInt(1 << 1)
+	docManifestResponseFieldMetadataVersion    = big.NewInt(1 << 2)
+	docManifestResponseFieldActionsVersion     = big.NewInt(1 << 3)
+	docManifestResponseFieldAttachmentsVersion = big.NewInt(1 << 4)
+	docManifestResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
+	docManifestResponseFieldFormsVersion       = big.NewInt(1 << 6)
+	docManifestResponseFieldOutlineVersion     = big.NewInt(1 << 7)
+	docManifestResponseFieldFontsVersion       = big.NewInt(1 << 8)
+	docManifestResponseFieldContentsVersion    = big.NewInt(1 << 9)
+	docManifestResponseFieldAuditHead          = big.NewInt(1 << 10)
+	docManifestResponseFieldBaseSha256         = big.NewInt(1 << 11)
+	docManifestResponseFieldLayerVersion       = big.NewInt(1 << 12)
+	docManifestResponseFieldWorking            = big.NewInt(1 << 13)
+	docManifestResponseFieldBaseSizeBytes      = big.NewInt(1 << 14)
+	docManifestResponseFieldScopes             = big.NewInt(1 << 15)
+	docManifestResponseFieldProtection         = big.NewInt(1 << 16)
+	docManifestResponseFieldPages              = big.NewInt(1 << 17)
 )
 
-type DocManifest200Response struct {
-	DocVersion         int                                `json:"docVersion" url:"docVersion"`
-	LayoutVersion      int                                `json:"layoutVersion" url:"layoutVersion"`
-	MetadataVersion    int                                `json:"metadataVersion" url:"metadataVersion"`
-	ActionsVersion     *int                               `json:"actionsVersion,omitempty" url:"actionsVersion,omitempty"`
-	AttachmentsVersion *int                               `json:"attachmentsVersion,omitempty" url:"attachmentsVersion,omitempty"`
-	AnnotationsVersion *int                               `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
-	FormsVersion       *int                               `json:"formsVersion,omitempty" url:"formsVersion,omitempty"`
-	OutlineVersion     *int                               `json:"outlineVersion,omitempty" url:"outlineVersion,omitempty"`
-	FontsVersion       *int                               `json:"fontsVersion,omitempty" url:"fontsVersion,omitempty"`
-	ServerFonts        string                             `json:"serverFonts" url:"serverFonts"`
-	AuditHead          int                                `json:"auditHead" url:"auditHead"`
-	BaseSha            string                             `json:"baseSha" url:"baseSha"`
-	LayerVersion       *int                               `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
-	Working            *bool                              `json:"working,omitempty" url:"working,omitempty"`
-	BaseByteLength     *int                               `json:"baseByteLength,omitempty" url:"baseByteLength,omitempty"`
-	Scopes             *DocManifest200ResponseScopes      `json:"scopes,omitempty" url:"scopes,omitempty"`
-	Protection         *DocManifest200ResponseProtection  `json:"protection,omitempty" url:"protection,omitempty"`
-	Pages              []*DocManifest200ResponsePagesItem `json:"pages" url:"pages"`
+type DocManifestResponse struct {
+	DocVersion         int                             `json:"docVersion" url:"docVersion"`
+	LayoutVersion      int                             `json:"layoutVersion" url:"layoutVersion"`
+	MetadataVersion    int                             `json:"metadataVersion" url:"metadataVersion"`
+	ActionsVersion     *int                            `json:"actionsVersion,omitempty" url:"actionsVersion,omitempty"`
+	AttachmentsVersion *int                            `json:"attachmentsVersion,omitempty" url:"attachmentsVersion,omitempty"`
+	AnnotationsVersion *int                            `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
+	FormsVersion       *int                            `json:"formsVersion,omitempty" url:"formsVersion,omitempty"`
+	OutlineVersion     *int                            `json:"outlineVersion,omitempty" url:"outlineVersion,omitempty"`
+	FontsVersion       *int                            `json:"fontsVersion,omitempty" url:"fontsVersion,omitempty"`
+	ContentsVersion    *int                            `json:"contentsVersion,omitempty" url:"contentsVersion,omitempty"`
+	AuditHead          int                             `json:"auditHead" url:"auditHead"`
+	BaseSha256         string                          `json:"baseSha256" url:"baseSha256"`
+	LayerVersion       *int                            `json:"layerVersion,omitempty" url:"layerVersion,omitempty"`
+	Working            *bool                           `json:"working,omitempty" url:"working,omitempty"`
+	BaseSizeBytes      *int                            `json:"baseSizeBytes,omitempty" url:"baseSizeBytes,omitempty"`
+	Scopes             *DocManifestResponseScopes      `json:"scopes,omitempty" url:"scopes,omitempty"`
+	Protection         *DocManifestResponseProtection  `json:"protection,omitempty" url:"protection,omitempty"`
+	Pages              []*DocManifestResponsePagesItem `json:"pages" url:"pages"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -92517,140 +92560,140 @@ type DocManifest200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200Response) GetDocVersion() int {
+func (d *DocManifestResponse) GetDocVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.DocVersion
 }
 
-func (d *DocManifest200Response) GetLayoutVersion() int {
+func (d *DocManifestResponse) GetLayoutVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.LayoutVersion
 }
 
-func (d *DocManifest200Response) GetMetadataVersion() int {
+func (d *DocManifestResponse) GetMetadataVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.MetadataVersion
 }
 
-func (d *DocManifest200Response) GetActionsVersion() *int {
+func (d *DocManifestResponse) GetActionsVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.ActionsVersion
 }
 
-func (d *DocManifest200Response) GetAttachmentsVersion() *int {
+func (d *DocManifestResponse) GetAttachmentsVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.AttachmentsVersion
 }
 
-func (d *DocManifest200Response) GetAnnotationsVersion() *int {
+func (d *DocManifestResponse) GetAnnotationsVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.AnnotationsVersion
 }
 
-func (d *DocManifest200Response) GetFormsVersion() *int {
+func (d *DocManifestResponse) GetFormsVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.FormsVersion
 }
 
-func (d *DocManifest200Response) GetOutlineVersion() *int {
+func (d *DocManifestResponse) GetOutlineVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.OutlineVersion
 }
 
-func (d *DocManifest200Response) GetFontsVersion() *int {
+func (d *DocManifestResponse) GetFontsVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.FontsVersion
 }
 
-func (d *DocManifest200Response) GetServerFonts() string {
+func (d *DocManifestResponse) GetContentsVersion() *int {
 	if d == nil {
-		return ""
+		return nil
 	}
-	return d.ServerFonts
+	return d.ContentsVersion
 }
 
-func (d *DocManifest200Response) GetAuditHead() int {
+func (d *DocManifestResponse) GetAuditHead() int {
 	if d == nil {
 		return 0
 	}
 	return d.AuditHead
 }
 
-func (d *DocManifest200Response) GetBaseSha() string {
+func (d *DocManifestResponse) GetBaseSha256() string {
 	if d == nil {
 		return ""
 	}
-	return d.BaseSha
+	return d.BaseSha256
 }
 
-func (d *DocManifest200Response) GetLayerVersion() *int {
+func (d *DocManifestResponse) GetLayerVersion() *int {
 	if d == nil {
 		return nil
 	}
 	return d.LayerVersion
 }
 
-func (d *DocManifest200Response) GetWorking() *bool {
+func (d *DocManifestResponse) GetWorking() *bool {
 	if d == nil {
 		return nil
 	}
 	return d.Working
 }
 
-func (d *DocManifest200Response) GetBaseByteLength() *int {
+func (d *DocManifestResponse) GetBaseSizeBytes() *int {
 	if d == nil {
 		return nil
 	}
-	return d.BaseByteLength
+	return d.BaseSizeBytes
 }
 
-func (d *DocManifest200Response) GetScopes() *DocManifest200ResponseScopes {
+func (d *DocManifestResponse) GetScopes() *DocManifestResponseScopes {
 	if d == nil {
 		return nil
 	}
 	return d.Scopes
 }
 
-func (d *DocManifest200Response) GetProtection() *DocManifest200ResponseProtection {
+func (d *DocManifestResponse) GetProtection() *DocManifestResponseProtection {
 	if d == nil {
 		return nil
 	}
 	return d.Protection
 }
 
-func (d *DocManifest200Response) GetPages() []*DocManifest200ResponsePagesItem {
+func (d *DocManifestResponse) GetPages() []*DocManifestResponsePagesItem {
 	if d == nil {
 		return nil
 	}
 	return d.Pages
 }
 
-func (d *DocManifest200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200Response) require(field *big.Int) {
+func (d *DocManifestResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92659,137 +92702,137 @@ func (d *DocManifest200Response) require(field *big.Int) {
 
 // SetDocVersion sets the DocVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetDocVersion(docVersion int) {
+func (d *DocManifestResponse) SetDocVersion(docVersion int) {
 	d.DocVersion = docVersion
-	d.require(docManifest200ResponseFieldDocVersion)
+	d.require(docManifestResponseFieldDocVersion)
 }
 
 // SetLayoutVersion sets the LayoutVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetLayoutVersion(layoutVersion int) {
+func (d *DocManifestResponse) SetLayoutVersion(layoutVersion int) {
 	d.LayoutVersion = layoutVersion
-	d.require(docManifest200ResponseFieldLayoutVersion)
+	d.require(docManifestResponseFieldLayoutVersion)
 }
 
 // SetMetadataVersion sets the MetadataVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetMetadataVersion(metadataVersion int) {
+func (d *DocManifestResponse) SetMetadataVersion(metadataVersion int) {
 	d.MetadataVersion = metadataVersion
-	d.require(docManifest200ResponseFieldMetadataVersion)
+	d.require(docManifestResponseFieldMetadataVersion)
 }
 
 // SetActionsVersion sets the ActionsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetActionsVersion(actionsVersion *int) {
+func (d *DocManifestResponse) SetActionsVersion(actionsVersion *int) {
 	d.ActionsVersion = actionsVersion
-	d.require(docManifest200ResponseFieldActionsVersion)
+	d.require(docManifestResponseFieldActionsVersion)
 }
 
 // SetAttachmentsVersion sets the AttachmentsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetAttachmentsVersion(attachmentsVersion *int) {
+func (d *DocManifestResponse) SetAttachmentsVersion(attachmentsVersion *int) {
 	d.AttachmentsVersion = attachmentsVersion
-	d.require(docManifest200ResponseFieldAttachmentsVersion)
+	d.require(docManifestResponseFieldAttachmentsVersion)
 }
 
 // SetAnnotationsVersion sets the AnnotationsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetAnnotationsVersion(annotationsVersion *int) {
+func (d *DocManifestResponse) SetAnnotationsVersion(annotationsVersion *int) {
 	d.AnnotationsVersion = annotationsVersion
-	d.require(docManifest200ResponseFieldAnnotationsVersion)
+	d.require(docManifestResponseFieldAnnotationsVersion)
 }
 
 // SetFormsVersion sets the FormsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetFormsVersion(formsVersion *int) {
+func (d *DocManifestResponse) SetFormsVersion(formsVersion *int) {
 	d.FormsVersion = formsVersion
-	d.require(docManifest200ResponseFieldFormsVersion)
+	d.require(docManifestResponseFieldFormsVersion)
 }
 
 // SetOutlineVersion sets the OutlineVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetOutlineVersion(outlineVersion *int) {
+func (d *DocManifestResponse) SetOutlineVersion(outlineVersion *int) {
 	d.OutlineVersion = outlineVersion
-	d.require(docManifest200ResponseFieldOutlineVersion)
+	d.require(docManifestResponseFieldOutlineVersion)
 }
 
 // SetFontsVersion sets the FontsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetFontsVersion(fontsVersion *int) {
+func (d *DocManifestResponse) SetFontsVersion(fontsVersion *int) {
 	d.FontsVersion = fontsVersion
-	d.require(docManifest200ResponseFieldFontsVersion)
+	d.require(docManifestResponseFieldFontsVersion)
 }
 
-// SetServerFonts sets the ServerFonts field and marks it as non-optional;
+// SetContentsVersion sets the ContentsVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetServerFonts(serverFonts string) {
-	d.ServerFonts = serverFonts
-	d.require(docManifest200ResponseFieldServerFonts)
+func (d *DocManifestResponse) SetContentsVersion(contentsVersion *int) {
+	d.ContentsVersion = contentsVersion
+	d.require(docManifestResponseFieldContentsVersion)
 }
 
 // SetAuditHead sets the AuditHead field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetAuditHead(auditHead int) {
+func (d *DocManifestResponse) SetAuditHead(auditHead int) {
 	d.AuditHead = auditHead
-	d.require(docManifest200ResponseFieldAuditHead)
+	d.require(docManifestResponseFieldAuditHead)
 }
 
-// SetBaseSha sets the BaseSha field and marks it as non-optional;
+// SetBaseSha256 sets the BaseSha256 field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetBaseSha(baseSha string) {
-	d.BaseSha = baseSha
-	d.require(docManifest200ResponseFieldBaseSha)
+func (d *DocManifestResponse) SetBaseSha256(baseSha256 string) {
+	d.BaseSha256 = baseSha256
+	d.require(docManifestResponseFieldBaseSha256)
 }
 
 // SetLayerVersion sets the LayerVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetLayerVersion(layerVersion *int) {
+func (d *DocManifestResponse) SetLayerVersion(layerVersion *int) {
 	d.LayerVersion = layerVersion
-	d.require(docManifest200ResponseFieldLayerVersion)
+	d.require(docManifestResponseFieldLayerVersion)
 }
 
 // SetWorking sets the Working field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetWorking(working *bool) {
+func (d *DocManifestResponse) SetWorking(working *bool) {
 	d.Working = working
-	d.require(docManifest200ResponseFieldWorking)
+	d.require(docManifestResponseFieldWorking)
 }
 
-// SetBaseByteLength sets the BaseByteLength field and marks it as non-optional;
+// SetBaseSizeBytes sets the BaseSizeBytes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetBaseByteLength(baseByteLength *int) {
-	d.BaseByteLength = baseByteLength
-	d.require(docManifest200ResponseFieldBaseByteLength)
+func (d *DocManifestResponse) SetBaseSizeBytes(baseSizeBytes *int) {
+	d.BaseSizeBytes = baseSizeBytes
+	d.require(docManifestResponseFieldBaseSizeBytes)
 }
 
 // SetScopes sets the Scopes field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetScopes(scopes *DocManifest200ResponseScopes) {
+func (d *DocManifestResponse) SetScopes(scopes *DocManifestResponseScopes) {
 	d.Scopes = scopes
-	d.require(docManifest200ResponseFieldScopes)
+	d.require(docManifestResponseFieldScopes)
 }
 
 // SetProtection sets the Protection field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetProtection(protection *DocManifest200ResponseProtection) {
+func (d *DocManifestResponse) SetProtection(protection *DocManifestResponseProtection) {
 	d.Protection = protection
-	d.require(docManifest200ResponseFieldProtection)
+	d.require(docManifestResponseFieldProtection)
 }
 
 // SetPages sets the Pages field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200Response) SetPages(pages []*DocManifest200ResponsePagesItem) {
+func (d *DocManifestResponse) SetPages(pages []*DocManifestResponsePagesItem) {
 	d.Pages = pages
-	d.require(docManifest200ResponseFieldPages)
+	d.require(docManifestResponseFieldPages)
 }
 
-func (d *DocManifest200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200Response
+func (d *DocManifestResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200Response(value)
+	*d = DocManifestResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -92799,8 +92842,8 @@ func (d *DocManifest200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocManifest200Response) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200Response
+func (d *DocManifestResponse) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -92810,7 +92853,7 @@ func (d *DocManifest200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200Response) String() string {
+func (d *DocManifestResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -92826,13 +92869,13 @@ func (d *DocManifest200Response) String() string {
 }
 
 var (
-	docManifest200ResponsePagesItemFieldPage  = big.NewInt(1 << 0)
-	docManifest200ResponsePagesItemFieldCache = big.NewInt(1 << 1)
+	docManifestResponsePagesItemFieldPage  = big.NewInt(1 << 0)
+	docManifestResponsePagesItemFieldCache = big.NewInt(1 << 1)
 )
 
-type DocManifest200ResponsePagesItem struct {
-	Page  *PageRef                              `json:"page" url:"page"`
-	Cache *DocManifest200ResponsePagesItemCache `json:"cache" url:"cache"`
+type DocManifestResponsePagesItem struct {
+	Page  *PageRef                           `json:"page" url:"page"`
+	Cache *DocManifestResponsePagesItemCache `json:"cache" url:"cache"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -92841,28 +92884,28 @@ type DocManifest200ResponsePagesItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponsePagesItem) GetPage() *PageRef {
+func (d *DocManifestResponsePagesItem) GetPage() *PageRef {
 	if d == nil {
 		return nil
 	}
 	return d.Page
 }
 
-func (d *DocManifest200ResponsePagesItem) GetCache() *DocManifest200ResponsePagesItemCache {
+func (d *DocManifestResponsePagesItem) GetCache() *DocManifestResponsePagesItemCache {
 	if d == nil {
 		return nil
 	}
 	return d.Cache
 }
 
-func (d *DocManifest200ResponsePagesItem) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponsePagesItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponsePagesItem) require(field *big.Int) {
+func (d *DocManifestResponsePagesItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92871,25 +92914,25 @@ func (d *DocManifest200ResponsePagesItem) require(field *big.Int) {
 
 // SetPage sets the Page field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponsePagesItem) SetPage(page *PageRef) {
+func (d *DocManifestResponsePagesItem) SetPage(page *PageRef) {
 	d.Page = page
-	d.require(docManifest200ResponsePagesItemFieldPage)
+	d.require(docManifestResponsePagesItemFieldPage)
 }
 
 // SetCache sets the Cache field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponsePagesItem) SetCache(cache *DocManifest200ResponsePagesItemCache) {
+func (d *DocManifestResponsePagesItem) SetCache(cache *DocManifestResponsePagesItemCache) {
 	d.Cache = cache
-	d.require(docManifest200ResponsePagesItemFieldCache)
+	d.require(docManifestResponsePagesItemFieldCache)
 }
 
-func (d *DocManifest200ResponsePagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponsePagesItem
+func (d *DocManifestResponsePagesItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponsePagesItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponsePagesItem(value)
+	*d = DocManifestResponsePagesItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -92899,8 +92942,8 @@ func (d *DocManifest200ResponsePagesItem) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocManifest200ResponsePagesItem) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponsePagesItem
+func (d *DocManifestResponsePagesItem) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponsePagesItem
 	var marshaler = struct {
 		embed
 	}{
@@ -92910,7 +92953,7 @@ func (d *DocManifest200ResponsePagesItem) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponsePagesItem) String() string {
+func (d *DocManifestResponsePagesItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -92926,12 +92969,12 @@ func (d *DocManifest200ResponsePagesItem) String() string {
 }
 
 var (
-	docManifest200ResponsePagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
-	docManifest200ResponsePagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
-	docManifest200ResponsePagesItemCacheFieldWidgetVersion     = big.NewInt(1 << 2)
+	docManifestResponsePagesItemCacheFieldContentVersion    = big.NewInt(1 << 0)
+	docManifestResponsePagesItemCacheFieldAnnotationVersion = big.NewInt(1 << 1)
+	docManifestResponsePagesItemCacheFieldWidgetVersion     = big.NewInt(1 << 2)
 )
 
-type DocManifest200ResponsePagesItemCache struct {
+type DocManifestResponsePagesItemCache struct {
 	ContentVersion    int `json:"contentVersion" url:"contentVersion"`
 	AnnotationVersion int `json:"annotationVersion" url:"annotationVersion"`
 	WidgetVersion     int `json:"widgetVersion" url:"widgetVersion"`
@@ -92943,35 +92986,35 @@ type DocManifest200ResponsePagesItemCache struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponsePagesItemCache) GetContentVersion() int {
+func (d *DocManifestResponsePagesItemCache) GetContentVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.ContentVersion
 }
 
-func (d *DocManifest200ResponsePagesItemCache) GetAnnotationVersion() int {
+func (d *DocManifestResponsePagesItemCache) GetAnnotationVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.AnnotationVersion
 }
 
-func (d *DocManifest200ResponsePagesItemCache) GetWidgetVersion() int {
+func (d *DocManifestResponsePagesItemCache) GetWidgetVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.WidgetVersion
 }
 
-func (d *DocManifest200ResponsePagesItemCache) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponsePagesItemCache) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponsePagesItemCache) require(field *big.Int) {
+func (d *DocManifestResponsePagesItemCache) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -92980,32 +93023,32 @@ func (d *DocManifest200ResponsePagesItemCache) require(field *big.Int) {
 
 // SetContentVersion sets the ContentVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponsePagesItemCache) SetContentVersion(contentVersion int) {
+func (d *DocManifestResponsePagesItemCache) SetContentVersion(contentVersion int) {
 	d.ContentVersion = contentVersion
-	d.require(docManifest200ResponsePagesItemCacheFieldContentVersion)
+	d.require(docManifestResponsePagesItemCacheFieldContentVersion)
 }
 
 // SetAnnotationVersion sets the AnnotationVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponsePagesItemCache) SetAnnotationVersion(annotationVersion int) {
+func (d *DocManifestResponsePagesItemCache) SetAnnotationVersion(annotationVersion int) {
 	d.AnnotationVersion = annotationVersion
-	d.require(docManifest200ResponsePagesItemCacheFieldAnnotationVersion)
+	d.require(docManifestResponsePagesItemCacheFieldAnnotationVersion)
 }
 
 // SetWidgetVersion sets the WidgetVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponsePagesItemCache) SetWidgetVersion(widgetVersion int) {
+func (d *DocManifestResponsePagesItemCache) SetWidgetVersion(widgetVersion int) {
 	d.WidgetVersion = widgetVersion
-	d.require(docManifest200ResponsePagesItemCacheFieldWidgetVersion)
+	d.require(docManifestResponsePagesItemCacheFieldWidgetVersion)
 }
 
-func (d *DocManifest200ResponsePagesItemCache) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponsePagesItemCache
+func (d *DocManifestResponsePagesItemCache) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponsePagesItemCache
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponsePagesItemCache(value)
+	*d = DocManifestResponsePagesItemCache(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -93015,8 +93058,8 @@ func (d *DocManifest200ResponsePagesItemCache) UnmarshalJSON(data []byte) error 
 	return nil
 }
 
-func (d *DocManifest200ResponsePagesItemCache) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponsePagesItemCache
+func (d *DocManifestResponsePagesItemCache) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponsePagesItemCache
 	var marshaler = struct {
 		embed
 	}{
@@ -93026,7 +93069,7 @@ func (d *DocManifest200ResponsePagesItemCache) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponsePagesItemCache) String() string {
+func (d *DocManifestResponsePagesItemCache) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -93042,19 +93085,19 @@ func (d *DocManifest200ResponsePagesItemCache) String() string {
 }
 
 var (
-	docManifest200ResponseProtectionFieldEnforced      = big.NewInt(1 << 0)
-	docManifest200ResponseProtectionFieldJudged        = big.NewInt(1 << 1)
-	docManifest200ResponseProtectionFieldCertification = big.NewInt(1 << 2)
-	docManifest200ResponseProtectionFieldFieldLocks    = big.NewInt(1 << 3)
-	docManifest200ResponseProtectionFieldPolicyVersion = big.NewInt(1 << 4)
+	docManifestResponseProtectionFieldEnforced      = big.NewInt(1 << 0)
+	docManifestResponseProtectionFieldJudged        = big.NewInt(1 << 1)
+	docManifestResponseProtectionFieldCertification = big.NewInt(1 << 2)
+	docManifestResponseProtectionFieldFieldLocks    = big.NewInt(1 << 3)
+	docManifestResponseProtectionFieldPolicyVersion = big.NewInt(1 << 4)
 )
 
-type DocManifest200ResponseProtection struct {
-	Enforced      *DocManifest200ResponseProtectionEnforced         `json:"enforced,omitempty" url:"enforced,omitempty"`
-	Judged        *DocManifest200ResponseProtectionJudged           `json:"judged,omitempty" url:"judged,omitempty"`
-	Certification *DocManifest200ResponseProtectionCertification    `json:"certification,omitempty" url:"certification,omitempty"`
-	FieldLocks    []*DocManifest200ResponseProtectionFieldLocksItem `json:"fieldLocks" url:"fieldLocks"`
-	PolicyVersion int                                               `json:"policyVersion" url:"policyVersion"`
+type DocManifestResponseProtection struct {
+	Enforced      *DocManifestResponseProtectionEnforced         `json:"enforced,omitempty" url:"enforced,omitempty"`
+	Judged        *DocManifestResponseProtectionJudged           `json:"judged,omitempty" url:"judged,omitempty"`
+	Certification *DocManifestResponseProtectionCertification    `json:"certification,omitempty" url:"certification,omitempty"`
+	FieldLocks    []*DocManifestResponseProtectionFieldLocksItem `json:"fieldLocks" url:"fieldLocks"`
+	PolicyVersion int                                            `json:"policyVersion" url:"policyVersion"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93063,49 +93106,49 @@ type DocManifest200ResponseProtection struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponseProtection) GetEnforced() *DocManifest200ResponseProtectionEnforced {
+func (d *DocManifestResponseProtection) GetEnforced() *DocManifestResponseProtectionEnforced {
 	if d == nil {
 		return nil
 	}
 	return d.Enforced
 }
 
-func (d *DocManifest200ResponseProtection) GetJudged() *DocManifest200ResponseProtectionJudged {
+func (d *DocManifestResponseProtection) GetJudged() *DocManifestResponseProtectionJudged {
 	if d == nil {
 		return nil
 	}
 	return d.Judged
 }
 
-func (d *DocManifest200ResponseProtection) GetCertification() *DocManifest200ResponseProtectionCertification {
+func (d *DocManifestResponseProtection) GetCertification() *DocManifestResponseProtectionCertification {
 	if d == nil {
 		return nil
 	}
 	return d.Certification
 }
 
-func (d *DocManifest200ResponseProtection) GetFieldLocks() []*DocManifest200ResponseProtectionFieldLocksItem {
+func (d *DocManifestResponseProtection) GetFieldLocks() []*DocManifestResponseProtectionFieldLocksItem {
 	if d == nil {
 		return nil
 	}
 	return d.FieldLocks
 }
 
-func (d *DocManifest200ResponseProtection) GetPolicyVersion() int {
+func (d *DocManifestResponseProtection) GetPolicyVersion() int {
 	if d == nil {
 		return 0
 	}
 	return d.PolicyVersion
 }
 
-func (d *DocManifest200ResponseProtection) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponseProtection) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponseProtection) require(field *big.Int) {
+func (d *DocManifestResponseProtection) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -93114,46 +93157,46 @@ func (d *DocManifest200ResponseProtection) require(field *big.Int) {
 
 // SetEnforced sets the Enforced field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtection) SetEnforced(enforced *DocManifest200ResponseProtectionEnforced) {
+func (d *DocManifestResponseProtection) SetEnforced(enforced *DocManifestResponseProtectionEnforced) {
 	d.Enforced = enforced
-	d.require(docManifest200ResponseProtectionFieldEnforced)
+	d.require(docManifestResponseProtectionFieldEnforced)
 }
 
 // SetJudged sets the Judged field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtection) SetJudged(judged *DocManifest200ResponseProtectionJudged) {
+func (d *DocManifestResponseProtection) SetJudged(judged *DocManifestResponseProtectionJudged) {
 	d.Judged = judged
-	d.require(docManifest200ResponseProtectionFieldJudged)
+	d.require(docManifestResponseProtectionFieldJudged)
 }
 
 // SetCertification sets the Certification field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtection) SetCertification(certification *DocManifest200ResponseProtectionCertification) {
+func (d *DocManifestResponseProtection) SetCertification(certification *DocManifestResponseProtectionCertification) {
 	d.Certification = certification
-	d.require(docManifest200ResponseProtectionFieldCertification)
+	d.require(docManifestResponseProtectionFieldCertification)
 }
 
 // SetFieldLocks sets the FieldLocks field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtection) SetFieldLocks(fieldLocks []*DocManifest200ResponseProtectionFieldLocksItem) {
+func (d *DocManifestResponseProtection) SetFieldLocks(fieldLocks []*DocManifestResponseProtectionFieldLocksItem) {
 	d.FieldLocks = fieldLocks
-	d.require(docManifest200ResponseProtectionFieldFieldLocks)
+	d.require(docManifestResponseProtectionFieldFieldLocks)
 }
 
 // SetPolicyVersion sets the PolicyVersion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtection) SetPolicyVersion(policyVersion int) {
+func (d *DocManifestResponseProtection) SetPolicyVersion(policyVersion int) {
 	d.PolicyVersion = policyVersion
-	d.require(docManifest200ResponseProtectionFieldPolicyVersion)
+	d.require(docManifestResponseProtectionFieldPolicyVersion)
 }
 
-func (d *DocManifest200ResponseProtection) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponseProtection
+func (d *DocManifestResponseProtection) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponseProtection
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponseProtection(value)
+	*d = DocManifestResponseProtection(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -93163,8 +93206,8 @@ func (d *DocManifest200ResponseProtection) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocManifest200ResponseProtection) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponseProtection
+func (d *DocManifestResponseProtection) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponseProtection
 	var marshaler = struct {
 		embed
 	}{
@@ -93174,7 +93217,7 @@ func (d *DocManifest200ResponseProtection) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponseProtection) String() string {
+func (d *DocManifestResponseProtection) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -93190,13 +93233,13 @@ func (d *DocManifest200ResponseProtection) String() string {
 }
 
 var (
-	docManifest200ResponseProtectionCertificationFieldSignatureIndex = big.NewInt(1 << 0)
-	docManifest200ResponseProtectionCertificationFieldPermission     = big.NewInt(1 << 1)
+	docManifestResponseProtectionCertificationFieldSignatureIndex = big.NewInt(1 << 0)
+	docManifestResponseProtectionCertificationFieldPermission     = big.NewInt(1 << 1)
 )
 
-type DocManifest200ResponseProtectionCertification struct {
-	SignatureIndex int     `json:"signatureIndex" url:"signatureIndex"`
-	Permission     float64 `json:"permission" url:"permission"`
+type DocManifestResponseProtectionCertification struct {
+	SignatureIndex int              `json:"signatureIndex" url:"signatureIndex"`
+	Permission     DocMdpPermission `json:"permission" url:"permission"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93205,28 +93248,28 @@ type DocManifest200ResponseProtectionCertification struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponseProtectionCertification) GetSignatureIndex() int {
+func (d *DocManifestResponseProtectionCertification) GetSignatureIndex() int {
 	if d == nil {
 		return 0
 	}
 	return d.SignatureIndex
 }
 
-func (d *DocManifest200ResponseProtectionCertification) GetPermission() float64 {
+func (d *DocManifestResponseProtectionCertification) GetPermission() DocMdpPermission {
 	if d == nil {
 		return 0
 	}
 	return d.Permission
 }
 
-func (d *DocManifest200ResponseProtectionCertification) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponseProtectionCertification) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponseProtectionCertification) require(field *big.Int) {
+func (d *DocManifestResponseProtectionCertification) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -93235,25 +93278,25 @@ func (d *DocManifest200ResponseProtectionCertification) require(field *big.Int) 
 
 // SetSignatureIndex sets the SignatureIndex field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionCertification) SetSignatureIndex(signatureIndex int) {
+func (d *DocManifestResponseProtectionCertification) SetSignatureIndex(signatureIndex int) {
 	d.SignatureIndex = signatureIndex
-	d.require(docManifest200ResponseProtectionCertificationFieldSignatureIndex)
+	d.require(docManifestResponseProtectionCertificationFieldSignatureIndex)
 }
 
 // SetPermission sets the Permission field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionCertification) SetPermission(permission float64) {
+func (d *DocManifestResponseProtectionCertification) SetPermission(permission DocMdpPermission) {
 	d.Permission = permission
-	d.require(docManifest200ResponseProtectionCertificationFieldPermission)
+	d.require(docManifestResponseProtectionCertificationFieldPermission)
 }
 
-func (d *DocManifest200ResponseProtectionCertification) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponseProtectionCertification
+func (d *DocManifestResponseProtectionCertification) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponseProtectionCertification
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponseProtectionCertification(value)
+	*d = DocManifestResponseProtectionCertification(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -93263,8 +93306,8 @@ func (d *DocManifest200ResponseProtectionCertification) UnmarshalJSON(data []byt
 	return nil
 }
 
-func (d *DocManifest200ResponseProtectionCertification) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponseProtectionCertification
+func (d *DocManifestResponseProtectionCertification) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponseProtectionCertification
 	var marshaler = struct {
 		embed
 	}{
@@ -93274,7 +93317,7 @@ func (d *DocManifest200ResponseProtectionCertification) MarshalJSON() ([]byte, e
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponseProtectionCertification) String() string {
+func (d *DocManifestResponseProtectionCertification) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -93289,44 +93332,44 @@ func (d *DocManifest200ResponseProtectionCertification) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocManifest200ResponseProtectionEnforced string
+type DocManifestResponseProtectionEnforced string
 
 const (
-	DocManifest200ResponseProtectionEnforcedNone     DocManifest200ResponseProtectionEnforced = "none"
-	DocManifest200ResponseProtectionEnforcedLta      DocManifest200ResponseProtectionEnforced = "lta"
-	DocManifest200ResponseProtectionEnforcedFill     DocManifest200ResponseProtectionEnforced = "fill"
-	DocManifest200ResponseProtectionEnforcedAnnotate DocManifest200ResponseProtectionEnforced = "annotate"
+	DocManifestResponseProtectionEnforcedNone     DocManifestResponseProtectionEnforced = "none"
+	DocManifestResponseProtectionEnforcedLta      DocManifestResponseProtectionEnforced = "lta"
+	DocManifestResponseProtectionEnforcedFill     DocManifestResponseProtectionEnforced = "fill"
+	DocManifestResponseProtectionEnforcedAnnotate DocManifestResponseProtectionEnforced = "annotate"
 )
 
-func NewDocManifest200ResponseProtectionEnforcedFromString(s string) (DocManifest200ResponseProtectionEnforced, error) {
+func NewDocManifestResponseProtectionEnforcedFromString(s string) (DocManifestResponseProtectionEnforced, error) {
 	switch s {
 	case "none":
-		return DocManifest200ResponseProtectionEnforcedNone, nil
+		return DocManifestResponseProtectionEnforcedNone, nil
 	case "lta":
-		return DocManifest200ResponseProtectionEnforcedLta, nil
+		return DocManifestResponseProtectionEnforcedLta, nil
 	case "fill":
-		return DocManifest200ResponseProtectionEnforcedFill, nil
+		return DocManifestResponseProtectionEnforcedFill, nil
 	case "annotate":
-		return DocManifest200ResponseProtectionEnforcedAnnotate, nil
+		return DocManifestResponseProtectionEnforcedAnnotate, nil
 	}
-	var t DocManifest200ResponseProtectionEnforced
+	var t DocManifestResponseProtectionEnforced
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseProtectionEnforced) Ptr() *DocManifest200ResponseProtectionEnforced {
+func (d DocManifestResponseProtectionEnforced) Ptr() *DocManifestResponseProtectionEnforced {
 	return &d
 }
 
 var (
-	docManifest200ResponseProtectionFieldLocksItemFieldSignatureIndex = big.NewInt(1 << 0)
-	docManifest200ResponseProtectionFieldLocksItemFieldSource         = big.NewInt(1 << 1)
-	docManifest200ResponseProtectionFieldLocksItemFieldSpec           = big.NewInt(1 << 2)
+	docManifestResponseProtectionFieldLocksItemFieldSignatureIndex = big.NewInt(1 << 0)
+	docManifestResponseProtectionFieldLocksItemFieldSource         = big.NewInt(1 << 1)
+	docManifestResponseProtectionFieldLocksItemFieldSpec           = big.NewInt(1 << 2)
 )
 
-type DocManifest200ResponseProtectionFieldLocksItem struct {
-	SignatureIndex int                                                  `json:"signatureIndex" url:"signatureIndex"`
-	Source         DocManifest200ResponseProtectionFieldLocksItemSource `json:"source" url:"source"`
-	Spec           *DocManifest200ResponseProtectionFieldLocksItemSpec  `json:"spec" url:"spec"`
+type DocManifestResponseProtectionFieldLocksItem struct {
+	SignatureIndex int                                               `json:"signatureIndex" url:"signatureIndex"`
+	Source         DocManifestResponseProtectionFieldLocksItemSource `json:"source" url:"source"`
+	Spec           *FieldLockSpec                                    `json:"spec" url:"spec"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93335,35 +93378,35 @@ type DocManifest200ResponseProtectionFieldLocksItem struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) GetSignatureIndex() int {
+func (d *DocManifestResponseProtectionFieldLocksItem) GetSignatureIndex() int {
 	if d == nil {
 		return 0
 	}
 	return d.SignatureIndex
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) GetSource() DocManifest200ResponseProtectionFieldLocksItemSource {
+func (d *DocManifestResponseProtectionFieldLocksItem) GetSource() DocManifestResponseProtectionFieldLocksItemSource {
 	if d == nil {
 		return ""
 	}
 	return d.Source
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) GetSpec() *DocManifest200ResponseProtectionFieldLocksItemSpec {
+func (d *DocManifestResponseProtectionFieldLocksItem) GetSpec() *FieldLockSpec {
 	if d == nil {
 		return nil
 	}
 	return d.Spec
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponseProtectionFieldLocksItem) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) require(field *big.Int) {
+func (d *DocManifestResponseProtectionFieldLocksItem) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -93372,32 +93415,32 @@ func (d *DocManifest200ResponseProtectionFieldLocksItem) require(field *big.Int)
 
 // SetSignatureIndex sets the SignatureIndex field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItem) SetSignatureIndex(signatureIndex int) {
+func (d *DocManifestResponseProtectionFieldLocksItem) SetSignatureIndex(signatureIndex int) {
 	d.SignatureIndex = signatureIndex
-	d.require(docManifest200ResponseProtectionFieldLocksItemFieldSignatureIndex)
+	d.require(docManifestResponseProtectionFieldLocksItemFieldSignatureIndex)
 }
 
 // SetSource sets the Source field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItem) SetSource(source DocManifest200ResponseProtectionFieldLocksItemSource) {
+func (d *DocManifestResponseProtectionFieldLocksItem) SetSource(source DocManifestResponseProtectionFieldLocksItemSource) {
 	d.Source = source
-	d.require(docManifest200ResponseProtectionFieldLocksItemFieldSource)
+	d.require(docManifestResponseProtectionFieldLocksItemFieldSource)
 }
 
 // SetSpec sets the Spec field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItem) SetSpec(spec *DocManifest200ResponseProtectionFieldLocksItemSpec) {
+func (d *DocManifestResponseProtectionFieldLocksItem) SetSpec(spec *FieldLockSpec) {
 	d.Spec = spec
-	d.require(docManifest200ResponseProtectionFieldLocksItemFieldSpec)
+	d.require(docManifestResponseProtectionFieldLocksItemFieldSpec)
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponseProtectionFieldLocksItem
+func (d *DocManifestResponseProtectionFieldLocksItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponseProtectionFieldLocksItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponseProtectionFieldLocksItem(value)
+	*d = DocManifestResponseProtectionFieldLocksItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -93407,8 +93450,8 @@ func (d *DocManifest200ResponseProtectionFieldLocksItem) UnmarshalJSON(data []by
 	return nil
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponseProtectionFieldLocksItem
+func (d *DocManifestResponseProtectionFieldLocksItem) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponseProtectionFieldLocksItem
 	var marshaler = struct {
 		embed
 	}{
@@ -93418,7 +93461,7 @@ func (d *DocManifest200ResponseProtectionFieldLocksItem) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponseProtectionFieldLocksItem) String() string {
+func (d *DocManifestResponseProtectionFieldLocksItem) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -93433,217 +93476,76 @@ func (d *DocManifest200ResponseProtectionFieldLocksItem) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocManifest200ResponseProtectionFieldLocksItemSource string
+type DocManifestResponseProtectionFieldLocksItemSource string
 
 const (
-	DocManifest200ResponseProtectionFieldLocksItemSourceFieldmdp DocManifest200ResponseProtectionFieldLocksItemSource = "fieldmdp"
-	DocManifest200ResponseProtectionFieldLocksItemSourceLock     DocManifest200ResponseProtectionFieldLocksItemSource = "lock"
+	DocManifestResponseProtectionFieldLocksItemSourceFieldmdp DocManifestResponseProtectionFieldLocksItemSource = "fieldmdp"
+	DocManifestResponseProtectionFieldLocksItemSourceLock     DocManifestResponseProtectionFieldLocksItemSource = "lock"
 )
 
-func NewDocManifest200ResponseProtectionFieldLocksItemSourceFromString(s string) (DocManifest200ResponseProtectionFieldLocksItemSource, error) {
+func NewDocManifestResponseProtectionFieldLocksItemSourceFromString(s string) (DocManifestResponseProtectionFieldLocksItemSource, error) {
 	switch s {
 	case "fieldmdp":
-		return DocManifest200ResponseProtectionFieldLocksItemSourceFieldmdp, nil
+		return DocManifestResponseProtectionFieldLocksItemSourceFieldmdp, nil
 	case "lock":
-		return DocManifest200ResponseProtectionFieldLocksItemSourceLock, nil
+		return DocManifestResponseProtectionFieldLocksItemSourceLock, nil
 	}
-	var t DocManifest200ResponseProtectionFieldLocksItemSource
+	var t DocManifestResponseProtectionFieldLocksItemSource
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseProtectionFieldLocksItemSource) Ptr() *DocManifest200ResponseProtectionFieldLocksItemSource {
+func (d DocManifestResponseProtectionFieldLocksItemSource) Ptr() *DocManifestResponseProtectionFieldLocksItemSource {
 	return &d
 }
 
-var (
-	docManifest200ResponseProtectionFieldLocksItemSpecFieldAction     = big.NewInt(1 << 0)
-	docManifest200ResponseProtectionFieldLocksItemSpecFieldFields     = big.NewInt(1 << 1)
-	docManifest200ResponseProtectionFieldLocksItemSpecFieldPermission = big.NewInt(1 << 2)
-)
-
-type DocManifest200ResponseProtectionFieldLocksItemSpec struct {
-	Action     DocManifest200ResponseProtectionFieldLocksItemSpecAction `json:"action" url:"action"`
-	Fields     []string                                                 `json:"fields" url:"fields"`
-	Permission *float64                                                 `json:"permission,omitempty" url:"permission,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) GetAction() DocManifest200ResponseProtectionFieldLocksItemSpecAction {
-	if d == nil {
-		return ""
-	}
-	return d.Action
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) GetFields() []string {
-	if d == nil {
-		return nil
-	}
-	return d.Fields
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) GetPermission() *float64 {
-	if d == nil {
-		return nil
-	}
-	return d.Permission
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) GetExtraProperties() map[string]interface{} {
-	if d == nil {
-		return nil
-	}
-	return d.extraProperties
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) require(field *big.Int) {
-	if d.explicitFields == nil {
-		d.explicitFields = big.NewInt(0)
-	}
-	d.explicitFields.Or(d.explicitFields, field)
-}
-
-// SetAction sets the Action field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) SetAction(action DocManifest200ResponseProtectionFieldLocksItemSpecAction) {
-	d.Action = action
-	d.require(docManifest200ResponseProtectionFieldLocksItemSpecFieldAction)
-}
-
-// SetFields sets the Fields field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) SetFields(fields []string) {
-	d.Fields = fields
-	d.require(docManifest200ResponseProtectionFieldLocksItemSpecFieldFields)
-}
-
-// SetPermission sets the Permission field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) SetPermission(permission *float64) {
-	d.Permission = permission
-	d.require(docManifest200ResponseProtectionFieldLocksItemSpecFieldPermission)
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponseProtectionFieldLocksItemSpec
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*d = DocManifest200ResponseProtectionFieldLocksItemSpec(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *d)
-	if err != nil {
-		return err
-	}
-	d.extraProperties = extraProperties
-	d.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponseProtectionFieldLocksItemSpec
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*d),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (d *DocManifest200ResponseProtectionFieldLocksItemSpec) String() string {
-	if d == nil {
-		return "<nil>"
-	}
-	if len(d.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(d); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", d)
-}
-
-type DocManifest200ResponseProtectionFieldLocksItemSpecAction string
+type DocManifestResponseProtectionJudged string
 
 const (
-	DocManifest200ResponseProtectionFieldLocksItemSpecActionAll     DocManifest200ResponseProtectionFieldLocksItemSpecAction = "all"
-	DocManifest200ResponseProtectionFieldLocksItemSpecActionInclude DocManifest200ResponseProtectionFieldLocksItemSpecAction = "include"
-	DocManifest200ResponseProtectionFieldLocksItemSpecActionExclude DocManifest200ResponseProtectionFieldLocksItemSpecAction = "exclude"
+	DocManifestResponseProtectionJudgedNone     DocManifestResponseProtectionJudged = "none"
+	DocManifestResponseProtectionJudgedLta      DocManifestResponseProtectionJudged = "lta"
+	DocManifestResponseProtectionJudgedFill     DocManifestResponseProtectionJudged = "fill"
+	DocManifestResponseProtectionJudgedAnnotate DocManifestResponseProtectionJudged = "annotate"
 )
 
-func NewDocManifest200ResponseProtectionFieldLocksItemSpecActionFromString(s string) (DocManifest200ResponseProtectionFieldLocksItemSpecAction, error) {
-	switch s {
-	case "all":
-		return DocManifest200ResponseProtectionFieldLocksItemSpecActionAll, nil
-	case "include":
-		return DocManifest200ResponseProtectionFieldLocksItemSpecActionInclude, nil
-	case "exclude":
-		return DocManifest200ResponseProtectionFieldLocksItemSpecActionExclude, nil
-	}
-	var t DocManifest200ResponseProtectionFieldLocksItemSpecAction
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (d DocManifest200ResponseProtectionFieldLocksItemSpecAction) Ptr() *DocManifest200ResponseProtectionFieldLocksItemSpecAction {
-	return &d
-}
-
-type DocManifest200ResponseProtectionJudged string
-
-const (
-	DocManifest200ResponseProtectionJudgedNone     DocManifest200ResponseProtectionJudged = "none"
-	DocManifest200ResponseProtectionJudgedLta      DocManifest200ResponseProtectionJudged = "lta"
-	DocManifest200ResponseProtectionJudgedFill     DocManifest200ResponseProtectionJudged = "fill"
-	DocManifest200ResponseProtectionJudgedAnnotate DocManifest200ResponseProtectionJudged = "annotate"
-)
-
-func NewDocManifest200ResponseProtectionJudgedFromString(s string) (DocManifest200ResponseProtectionJudged, error) {
+func NewDocManifestResponseProtectionJudgedFromString(s string) (DocManifestResponseProtectionJudged, error) {
 	switch s {
 	case "none":
-		return DocManifest200ResponseProtectionJudgedNone, nil
+		return DocManifestResponseProtectionJudgedNone, nil
 	case "lta":
-		return DocManifest200ResponseProtectionJudgedLta, nil
+		return DocManifestResponseProtectionJudgedLta, nil
 	case "fill":
-		return DocManifest200ResponseProtectionJudgedFill, nil
+		return DocManifestResponseProtectionJudgedFill, nil
 	case "annotate":
-		return DocManifest200ResponseProtectionJudgedAnnotate, nil
+		return DocManifestResponseProtectionJudgedAnnotate, nil
 	}
-	var t DocManifest200ResponseProtectionJudged
+	var t DocManifestResponseProtectionJudged
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseProtectionJudged) Ptr() *DocManifest200ResponseProtectionJudged {
+func (d DocManifestResponseProtectionJudged) Ptr() *DocManifestResponseProtectionJudged {
 	return &d
 }
 
 var (
-	docManifest200ResponseScopesFieldContent     = big.NewInt(1 << 0)
-	docManifest200ResponseScopesFieldAnnotations = big.NewInt(1 << 1)
-	docManifest200ResponseScopesFieldForms       = big.NewInt(1 << 2)
-	docManifest200ResponseScopesFieldLayout      = big.NewInt(1 << 3)
-	docManifest200ResponseScopesFieldAttachments = big.NewInt(1 << 4)
-	docManifest200ResponseScopesFieldMetadata    = big.NewInt(1 << 5)
-	docManifest200ResponseScopesFieldActions     = big.NewInt(1 << 6)
-	docManifest200ResponseScopesFieldOutline     = big.NewInt(1 << 7)
+	docManifestResponseScopesFieldContent     = big.NewInt(1 << 0)
+	docManifestResponseScopesFieldAnnotations = big.NewInt(1 << 1)
+	docManifestResponseScopesFieldForms       = big.NewInt(1 << 2)
+	docManifestResponseScopesFieldLayout      = big.NewInt(1 << 3)
+	docManifestResponseScopesFieldAttachments = big.NewInt(1 << 4)
+	docManifestResponseScopesFieldMetadata    = big.NewInt(1 << 5)
+	docManifestResponseScopesFieldActions     = big.NewInt(1 << 6)
+	docManifestResponseScopesFieldOutline     = big.NewInt(1 << 7)
 )
 
-type DocManifest200ResponseScopes struct {
-	Content     DocManifest200ResponseScopesContent     `json:"content" url:"content"`
-	Annotations DocManifest200ResponseScopesAnnotations `json:"annotations" url:"annotations"`
-	Forms       DocManifest200ResponseScopesForms       `json:"forms" url:"forms"`
-	Layout      DocManifest200ResponseScopesLayout      `json:"layout" url:"layout"`
-	Attachments DocManifest200ResponseScopesAttachments `json:"attachments" url:"attachments"`
-	Metadata    DocManifest200ResponseScopesMetadata    `json:"metadata" url:"metadata"`
-	Actions     DocManifest200ResponseScopesActions     `json:"actions" url:"actions"`
-	Outline     DocManifest200ResponseScopesOutline     `json:"outline" url:"outline"`
+type DocManifestResponseScopes struct {
+	Content     DocManifestResponseScopesContent     `json:"content" url:"content"`
+	Annotations DocManifestResponseScopesAnnotations `json:"annotations" url:"annotations"`
+	Forms       DocManifestResponseScopesForms       `json:"forms" url:"forms"`
+	Layout      DocManifestResponseScopesLayout      `json:"layout" url:"layout"`
+	Attachments DocManifestResponseScopesAttachments `json:"attachments" url:"attachments"`
+	Metadata    DocManifestResponseScopesMetadata    `json:"metadata" url:"metadata"`
+	Actions     DocManifestResponseScopesActions     `json:"actions" url:"actions"`
+	Outline     DocManifestResponseScopesOutline     `json:"outline" url:"outline"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -93652,70 +93554,70 @@ type DocManifest200ResponseScopes struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocManifest200ResponseScopes) GetContent() DocManifest200ResponseScopesContent {
+func (d *DocManifestResponseScopes) GetContent() DocManifestResponseScopesContent {
 	if d == nil {
 		return ""
 	}
 	return d.Content
 }
 
-func (d *DocManifest200ResponseScopes) GetAnnotations() DocManifest200ResponseScopesAnnotations {
+func (d *DocManifestResponseScopes) GetAnnotations() DocManifestResponseScopesAnnotations {
 	if d == nil {
 		return ""
 	}
 	return d.Annotations
 }
 
-func (d *DocManifest200ResponseScopes) GetForms() DocManifest200ResponseScopesForms {
+func (d *DocManifestResponseScopes) GetForms() DocManifestResponseScopesForms {
 	if d == nil {
 		return ""
 	}
 	return d.Forms
 }
 
-func (d *DocManifest200ResponseScopes) GetLayout() DocManifest200ResponseScopesLayout {
+func (d *DocManifestResponseScopes) GetLayout() DocManifestResponseScopesLayout {
 	if d == nil {
 		return ""
 	}
 	return d.Layout
 }
 
-func (d *DocManifest200ResponseScopes) GetAttachments() DocManifest200ResponseScopesAttachments {
+func (d *DocManifestResponseScopes) GetAttachments() DocManifestResponseScopesAttachments {
 	if d == nil {
 		return ""
 	}
 	return d.Attachments
 }
 
-func (d *DocManifest200ResponseScopes) GetMetadata() DocManifest200ResponseScopesMetadata {
+func (d *DocManifestResponseScopes) GetMetadata() DocManifestResponseScopesMetadata {
 	if d == nil {
 		return ""
 	}
 	return d.Metadata
 }
 
-func (d *DocManifest200ResponseScopes) GetActions() DocManifest200ResponseScopesActions {
+func (d *DocManifestResponseScopes) GetActions() DocManifestResponseScopesActions {
 	if d == nil {
 		return ""
 	}
 	return d.Actions
 }
 
-func (d *DocManifest200ResponseScopes) GetOutline() DocManifest200ResponseScopesOutline {
+func (d *DocManifestResponseScopes) GetOutline() DocManifestResponseScopesOutline {
 	if d == nil {
 		return ""
 	}
 	return d.Outline
 }
 
-func (d *DocManifest200ResponseScopes) GetExtraProperties() map[string]interface{} {
+func (d *DocManifestResponseScopes) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocManifest200ResponseScopes) require(field *big.Int) {
+func (d *DocManifestResponseScopes) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -93724,67 +93626,67 @@ func (d *DocManifest200ResponseScopes) require(field *big.Int) {
 
 // SetContent sets the Content field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetContent(content DocManifest200ResponseScopesContent) {
+func (d *DocManifestResponseScopes) SetContent(content DocManifestResponseScopesContent) {
 	d.Content = content
-	d.require(docManifest200ResponseScopesFieldContent)
+	d.require(docManifestResponseScopesFieldContent)
 }
 
 // SetAnnotations sets the Annotations field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetAnnotations(annotations DocManifest200ResponseScopesAnnotations) {
+func (d *DocManifestResponseScopes) SetAnnotations(annotations DocManifestResponseScopesAnnotations) {
 	d.Annotations = annotations
-	d.require(docManifest200ResponseScopesFieldAnnotations)
+	d.require(docManifestResponseScopesFieldAnnotations)
 }
 
 // SetForms sets the Forms field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetForms(forms DocManifest200ResponseScopesForms) {
+func (d *DocManifestResponseScopes) SetForms(forms DocManifestResponseScopesForms) {
 	d.Forms = forms
-	d.require(docManifest200ResponseScopesFieldForms)
+	d.require(docManifestResponseScopesFieldForms)
 }
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetLayout(layout DocManifest200ResponseScopesLayout) {
+func (d *DocManifestResponseScopes) SetLayout(layout DocManifestResponseScopesLayout) {
 	d.Layout = layout
-	d.require(docManifest200ResponseScopesFieldLayout)
+	d.require(docManifestResponseScopesFieldLayout)
 }
 
 // SetAttachments sets the Attachments field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetAttachments(attachments DocManifest200ResponseScopesAttachments) {
+func (d *DocManifestResponseScopes) SetAttachments(attachments DocManifestResponseScopesAttachments) {
 	d.Attachments = attachments
-	d.require(docManifest200ResponseScopesFieldAttachments)
+	d.require(docManifestResponseScopesFieldAttachments)
 }
 
 // SetMetadata sets the Metadata field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetMetadata(metadata DocManifest200ResponseScopesMetadata) {
+func (d *DocManifestResponseScopes) SetMetadata(metadata DocManifestResponseScopesMetadata) {
 	d.Metadata = metadata
-	d.require(docManifest200ResponseScopesFieldMetadata)
+	d.require(docManifestResponseScopesFieldMetadata)
 }
 
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetActions(actions DocManifest200ResponseScopesActions) {
+func (d *DocManifestResponseScopes) SetActions(actions DocManifestResponseScopesActions) {
 	d.Actions = actions
-	d.require(docManifest200ResponseScopesFieldActions)
+	d.require(docManifestResponseScopesFieldActions)
 }
 
 // SetOutline sets the Outline field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocManifest200ResponseScopes) SetOutline(outline DocManifest200ResponseScopesOutline) {
+func (d *DocManifestResponseScopes) SetOutline(outline DocManifestResponseScopesOutline) {
 	d.Outline = outline
-	d.require(docManifest200ResponseScopesFieldOutline)
+	d.require(docManifestResponseScopesFieldOutline)
 }
 
-func (d *DocManifest200ResponseScopes) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocManifest200ResponseScopes
+func (d *DocManifestResponseScopes) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocManifestResponseScopes
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocManifest200ResponseScopes(value)
+	*d = DocManifestResponseScopes(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -93794,8 +93696,8 @@ func (d *DocManifest200ResponseScopes) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocManifest200ResponseScopes) MarshalJSON() ([]byte, error) {
-	type embed DocManifest200ResponseScopes
+func (d *DocManifestResponseScopes) MarshalJSON() ([]byte, error) {
+	type embed DocManifestResponseScopes
 	var marshaler = struct {
 		embed
 	}{
@@ -93805,7 +93707,7 @@ func (d *DocManifest200ResponseScopes) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocManifest200ResponseScopes) String() string {
+func (d *DocManifestResponseScopes) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -93820,189 +93722,189 @@ func (d *DocManifest200ResponseScopes) String() string {
 	return fmt.Sprintf("%#v", d)
 }
 
-type DocManifest200ResponseScopesActions string
+type DocManifestResponseScopesActions string
 
 const (
-	DocManifest200ResponseScopesActionsBase  DocManifest200ResponseScopesActions = "base"
-	DocManifest200ResponseScopesActionsLayer DocManifest200ResponseScopesActions = "layer"
+	DocManifestResponseScopesActionsBase  DocManifestResponseScopesActions = "base"
+	DocManifestResponseScopesActionsLayer DocManifestResponseScopesActions = "layer"
 )
 
-func NewDocManifest200ResponseScopesActionsFromString(s string) (DocManifest200ResponseScopesActions, error) {
+func NewDocManifestResponseScopesActionsFromString(s string) (DocManifestResponseScopesActions, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesActionsBase, nil
+		return DocManifestResponseScopesActionsBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesActionsLayer, nil
+		return DocManifestResponseScopesActionsLayer, nil
 	}
-	var t DocManifest200ResponseScopesActions
+	var t DocManifestResponseScopesActions
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesActions) Ptr() *DocManifest200ResponseScopesActions {
+func (d DocManifestResponseScopesActions) Ptr() *DocManifestResponseScopesActions {
 	return &d
 }
 
-type DocManifest200ResponseScopesAnnotations string
+type DocManifestResponseScopesAnnotations string
 
 const (
-	DocManifest200ResponseScopesAnnotationsBase  DocManifest200ResponseScopesAnnotations = "base"
-	DocManifest200ResponseScopesAnnotationsLayer DocManifest200ResponseScopesAnnotations = "layer"
+	DocManifestResponseScopesAnnotationsBase  DocManifestResponseScopesAnnotations = "base"
+	DocManifestResponseScopesAnnotationsLayer DocManifestResponseScopesAnnotations = "layer"
 )
 
-func NewDocManifest200ResponseScopesAnnotationsFromString(s string) (DocManifest200ResponseScopesAnnotations, error) {
+func NewDocManifestResponseScopesAnnotationsFromString(s string) (DocManifestResponseScopesAnnotations, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesAnnotationsBase, nil
+		return DocManifestResponseScopesAnnotationsBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesAnnotationsLayer, nil
+		return DocManifestResponseScopesAnnotationsLayer, nil
 	}
-	var t DocManifest200ResponseScopesAnnotations
+	var t DocManifestResponseScopesAnnotations
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesAnnotations) Ptr() *DocManifest200ResponseScopesAnnotations {
+func (d DocManifestResponseScopesAnnotations) Ptr() *DocManifestResponseScopesAnnotations {
 	return &d
 }
 
-type DocManifest200ResponseScopesAttachments string
+type DocManifestResponseScopesAttachments string
 
 const (
-	DocManifest200ResponseScopesAttachmentsBase  DocManifest200ResponseScopesAttachments = "base"
-	DocManifest200ResponseScopesAttachmentsLayer DocManifest200ResponseScopesAttachments = "layer"
+	DocManifestResponseScopesAttachmentsBase  DocManifestResponseScopesAttachments = "base"
+	DocManifestResponseScopesAttachmentsLayer DocManifestResponseScopesAttachments = "layer"
 )
 
-func NewDocManifest200ResponseScopesAttachmentsFromString(s string) (DocManifest200ResponseScopesAttachments, error) {
+func NewDocManifestResponseScopesAttachmentsFromString(s string) (DocManifestResponseScopesAttachments, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesAttachmentsBase, nil
+		return DocManifestResponseScopesAttachmentsBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesAttachmentsLayer, nil
+		return DocManifestResponseScopesAttachmentsLayer, nil
 	}
-	var t DocManifest200ResponseScopesAttachments
+	var t DocManifestResponseScopesAttachments
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesAttachments) Ptr() *DocManifest200ResponseScopesAttachments {
+func (d DocManifestResponseScopesAttachments) Ptr() *DocManifestResponseScopesAttachments {
 	return &d
 }
 
-type DocManifest200ResponseScopesContent string
+type DocManifestResponseScopesContent string
 
 const (
-	DocManifest200ResponseScopesContentBase  DocManifest200ResponseScopesContent = "base"
-	DocManifest200ResponseScopesContentLayer DocManifest200ResponseScopesContent = "layer"
+	DocManifestResponseScopesContentBase  DocManifestResponseScopesContent = "base"
+	DocManifestResponseScopesContentLayer DocManifestResponseScopesContent = "layer"
 )
 
-func NewDocManifest200ResponseScopesContentFromString(s string) (DocManifest200ResponseScopesContent, error) {
+func NewDocManifestResponseScopesContentFromString(s string) (DocManifestResponseScopesContent, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesContentBase, nil
+		return DocManifestResponseScopesContentBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesContentLayer, nil
+		return DocManifestResponseScopesContentLayer, nil
 	}
-	var t DocManifest200ResponseScopesContent
+	var t DocManifestResponseScopesContent
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesContent) Ptr() *DocManifest200ResponseScopesContent {
+func (d DocManifestResponseScopesContent) Ptr() *DocManifestResponseScopesContent {
 	return &d
 }
 
-type DocManifest200ResponseScopesForms string
+type DocManifestResponseScopesForms string
 
 const (
-	DocManifest200ResponseScopesFormsBase  DocManifest200ResponseScopesForms = "base"
-	DocManifest200ResponseScopesFormsLayer DocManifest200ResponseScopesForms = "layer"
+	DocManifestResponseScopesFormsBase  DocManifestResponseScopesForms = "base"
+	DocManifestResponseScopesFormsLayer DocManifestResponseScopesForms = "layer"
 )
 
-func NewDocManifest200ResponseScopesFormsFromString(s string) (DocManifest200ResponseScopesForms, error) {
+func NewDocManifestResponseScopesFormsFromString(s string) (DocManifestResponseScopesForms, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesFormsBase, nil
+		return DocManifestResponseScopesFormsBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesFormsLayer, nil
+		return DocManifestResponseScopesFormsLayer, nil
 	}
-	var t DocManifest200ResponseScopesForms
+	var t DocManifestResponseScopesForms
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesForms) Ptr() *DocManifest200ResponseScopesForms {
+func (d DocManifestResponseScopesForms) Ptr() *DocManifestResponseScopesForms {
 	return &d
 }
 
-type DocManifest200ResponseScopesLayout string
+type DocManifestResponseScopesLayout string
 
 const (
-	DocManifest200ResponseScopesLayoutBase  DocManifest200ResponseScopesLayout = "base"
-	DocManifest200ResponseScopesLayoutLayer DocManifest200ResponseScopesLayout = "layer"
+	DocManifestResponseScopesLayoutBase  DocManifestResponseScopesLayout = "base"
+	DocManifestResponseScopesLayoutLayer DocManifestResponseScopesLayout = "layer"
 )
 
-func NewDocManifest200ResponseScopesLayoutFromString(s string) (DocManifest200ResponseScopesLayout, error) {
+func NewDocManifestResponseScopesLayoutFromString(s string) (DocManifestResponseScopesLayout, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesLayoutBase, nil
+		return DocManifestResponseScopesLayoutBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesLayoutLayer, nil
+		return DocManifestResponseScopesLayoutLayer, nil
 	}
-	var t DocManifest200ResponseScopesLayout
+	var t DocManifestResponseScopesLayout
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesLayout) Ptr() *DocManifest200ResponseScopesLayout {
+func (d DocManifestResponseScopesLayout) Ptr() *DocManifestResponseScopesLayout {
 	return &d
 }
 
-type DocManifest200ResponseScopesMetadata string
+type DocManifestResponseScopesMetadata string
 
 const (
-	DocManifest200ResponseScopesMetadataBase  DocManifest200ResponseScopesMetadata = "base"
-	DocManifest200ResponseScopesMetadataLayer DocManifest200ResponseScopesMetadata = "layer"
+	DocManifestResponseScopesMetadataBase  DocManifestResponseScopesMetadata = "base"
+	DocManifestResponseScopesMetadataLayer DocManifestResponseScopesMetadata = "layer"
 )
 
-func NewDocManifest200ResponseScopesMetadataFromString(s string) (DocManifest200ResponseScopesMetadata, error) {
+func NewDocManifestResponseScopesMetadataFromString(s string) (DocManifestResponseScopesMetadata, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesMetadataBase, nil
+		return DocManifestResponseScopesMetadataBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesMetadataLayer, nil
+		return DocManifestResponseScopesMetadataLayer, nil
 	}
-	var t DocManifest200ResponseScopesMetadata
+	var t DocManifestResponseScopesMetadata
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesMetadata) Ptr() *DocManifest200ResponseScopesMetadata {
+func (d DocManifestResponseScopesMetadata) Ptr() *DocManifestResponseScopesMetadata {
 	return &d
 }
 
-type DocManifest200ResponseScopesOutline string
+type DocManifestResponseScopesOutline string
 
 const (
-	DocManifest200ResponseScopesOutlineBase  DocManifest200ResponseScopesOutline = "base"
-	DocManifest200ResponseScopesOutlineLayer DocManifest200ResponseScopesOutline = "layer"
+	DocManifestResponseScopesOutlineBase  DocManifestResponseScopesOutline = "base"
+	DocManifestResponseScopesOutlineLayer DocManifestResponseScopesOutline = "layer"
 )
 
-func NewDocManifest200ResponseScopesOutlineFromString(s string) (DocManifest200ResponseScopesOutline, error) {
+func NewDocManifestResponseScopesOutlineFromString(s string) (DocManifestResponseScopesOutline, error) {
 	switch s {
 	case "base":
-		return DocManifest200ResponseScopesOutlineBase, nil
+		return DocManifestResponseScopesOutlineBase, nil
 	case "layer":
-		return DocManifest200ResponseScopesOutlineLayer, nil
+		return DocManifestResponseScopesOutlineLayer, nil
 	}
-	var t DocManifest200ResponseScopesOutline
+	var t DocManifestResponseScopesOutline
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (d DocManifest200ResponseScopesOutline) Ptr() *DocManifest200ResponseScopesOutline {
+func (d DocManifestResponseScopesOutline) Ptr() *DocManifestResponseScopesOutline {
 	return &d
 }
 
 var (
-	docText200ResponseFieldText      = big.NewInt(1 << 0)
-	docText200ResponseFieldCharCount = big.NewInt(1 << 1)
-	docText200ResponseFieldCharMap   = big.NewInt(1 << 2)
+	docTextResponseFieldText      = big.NewInt(1 << 0)
+	docTextResponseFieldCharCount = big.NewInt(1 << 1)
+	docTextResponseFieldCharMap   = big.NewInt(1 << 2)
 )
 
-type DocText200Response struct {
+type DocTextResponse struct {
 	Text      string  `json:"text" url:"text"`
 	CharCount int     `json:"charCount" url:"charCount"`
 	CharMap   [][]any `json:"charMap,omitempty" url:"charMap,omitempty"`
@@ -94014,35 +93916,35 @@ type DocText200Response struct {
 	rawJSON         json.RawMessage
 }
 
-func (d *DocText200Response) GetText() string {
+func (d *DocTextResponse) GetText() string {
 	if d == nil {
 		return ""
 	}
 	return d.Text
 }
 
-func (d *DocText200Response) GetCharCount() int {
+func (d *DocTextResponse) GetCharCount() int {
 	if d == nil {
 		return 0
 	}
 	return d.CharCount
 }
 
-func (d *DocText200Response) GetCharMap() [][]any {
+func (d *DocTextResponse) GetCharMap() [][]any {
 	if d == nil {
 		return nil
 	}
 	return d.CharMap
 }
 
-func (d *DocText200Response) GetExtraProperties() map[string]interface{} {
+func (d *DocTextResponse) GetExtraProperties() map[string]interface{} {
 	if d == nil {
 		return nil
 	}
 	return d.extraProperties
 }
 
-func (d *DocText200Response) require(field *big.Int) {
+func (d *DocTextResponse) require(field *big.Int) {
 	if d.explicitFields == nil {
 		d.explicitFields = big.NewInt(0)
 	}
@@ -94051,32 +93953,32 @@ func (d *DocText200Response) require(field *big.Int) {
 
 // SetText sets the Text field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocText200Response) SetText(text string) {
+func (d *DocTextResponse) SetText(text string) {
 	d.Text = text
-	d.require(docText200ResponseFieldText)
+	d.require(docTextResponseFieldText)
 }
 
 // SetCharCount sets the CharCount field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocText200Response) SetCharCount(charCount int) {
+func (d *DocTextResponse) SetCharCount(charCount int) {
 	d.CharCount = charCount
-	d.require(docText200ResponseFieldCharCount)
+	d.require(docTextResponseFieldCharCount)
 }
 
 // SetCharMap sets the CharMap field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (d *DocText200Response) SetCharMap(charMap [][]any) {
+func (d *DocTextResponse) SetCharMap(charMap [][]any) {
 	d.CharMap = charMap
-	d.require(docText200ResponseFieldCharMap)
+	d.require(docTextResponseFieldCharMap)
 }
 
-func (d *DocText200Response) UnmarshalJSON(data []byte) error {
-	type unmarshaler DocText200Response
+func (d *DocTextResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocTextResponse
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*d = DocText200Response(value)
+	*d = DocTextResponse(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *d)
 	if err != nil {
 		return err
@@ -94086,8 +93988,8 @@ func (d *DocText200Response) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (d *DocText200Response) MarshalJSON() ([]byte, error) {
-	type embed DocText200Response
+func (d *DocTextResponse) MarshalJSON() ([]byte, error) {
+	type embed DocTextResponse
 	var marshaler = struct {
 		embed
 	}{
@@ -94097,7 +93999,7 @@ func (d *DocText200Response) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (d *DocText200Response) String() string {
+func (d *DocTextResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
@@ -94113,17 +94015,17 @@ func (d *DocText200Response) String() string {
 }
 
 var (
-	engineErrorPayloadFieldName    = big.NewInt(1 << 0)
-	engineErrorPayloadFieldCode    = big.NewInt(1 << 1)
-	engineErrorPayloadFieldMessage = big.NewInt(1 << 2)
-	engineErrorPayloadFieldDetails = big.NewInt(1 << 3)
+	engineErrorFieldCode    = big.NewInt(1 << 0)
+	engineErrorFieldMessage = big.NewInt(1 << 1)
+	engineErrorFieldDetails = big.NewInt(1 << 2)
 )
 
-type EngineErrorPayload struct {
-	Name    EngineErrorPayloadName `json:"name" url:"name"`
-	Code    EngineErrorPayloadCode `json:"code" url:"code"`
-	Message string                 `json:"message" url:"message"`
-	Details map[string]any         `json:"details,omitempty" url:"details,omitempty"`
+type EngineError struct {
+	// Why the request failed. A newer server can add codes: read one your client doesn't know as `Unknown`.
+	Code    EngineErrorCode `json:"code" url:"code"`
+	Message string          `json:"message" url:"message"`
+	// What a code carries besides its message, as each code says.
+	Details map[string]any `json:"details,omitempty" url:"details,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -94132,83 +94034,69 @@ type EngineErrorPayload struct {
 	rawJSON         json.RawMessage
 }
 
-func (e *EngineErrorPayload) GetName() EngineErrorPayloadName {
-	if e == nil {
-		return ""
-	}
-	return e.Name
-}
-
-func (e *EngineErrorPayload) GetCode() EngineErrorPayloadCode {
+func (e *EngineError) GetCode() EngineErrorCode {
 	if e == nil {
 		return ""
 	}
 	return e.Code
 }
 
-func (e *EngineErrorPayload) GetMessage() string {
+func (e *EngineError) GetMessage() string {
 	if e == nil {
 		return ""
 	}
 	return e.Message
 }
 
-func (e *EngineErrorPayload) GetDetails() map[string]any {
+func (e *EngineError) GetDetails() map[string]any {
 	if e == nil {
 		return nil
 	}
 	return e.Details
 }
 
-func (e *EngineErrorPayload) GetExtraProperties() map[string]interface{} {
+func (e *EngineError) GetExtraProperties() map[string]interface{} {
 	if e == nil {
 		return nil
 	}
 	return e.extraProperties
 }
 
-func (e *EngineErrorPayload) require(field *big.Int) {
+func (e *EngineError) require(field *big.Int) {
 	if e.explicitFields == nil {
 		e.explicitFields = big.NewInt(0)
 	}
 	e.explicitFields.Or(e.explicitFields, field)
 }
 
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EngineErrorPayload) SetName(name EngineErrorPayloadName) {
-	e.Name = name
-	e.require(engineErrorPayloadFieldName)
-}
-
 // SetCode sets the Code field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EngineErrorPayload) SetCode(code EngineErrorPayloadCode) {
+func (e *EngineError) SetCode(code EngineErrorCode) {
 	e.Code = code
-	e.require(engineErrorPayloadFieldCode)
+	e.require(engineErrorFieldCode)
 }
 
 // SetMessage sets the Message field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EngineErrorPayload) SetMessage(message string) {
+func (e *EngineError) SetMessage(message string) {
 	e.Message = message
-	e.require(engineErrorPayloadFieldMessage)
+	e.require(engineErrorFieldMessage)
 }
 
 // SetDetails sets the Details field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (e *EngineErrorPayload) SetDetails(details map[string]any) {
+func (e *EngineError) SetDetails(details map[string]any) {
 	e.Details = details
-	e.require(engineErrorPayloadFieldDetails)
+	e.require(engineErrorFieldDetails)
 }
 
-func (e *EngineErrorPayload) UnmarshalJSON(data []byte) error {
-	type unmarshaler EngineErrorPayload
+func (e *EngineError) UnmarshalJSON(data []byte) error {
+	type unmarshaler EngineError
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*e = EngineErrorPayload(value)
+	*e = EngineError(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *e)
 	if err != nil {
 		return err
@@ -94218,8 +94106,8 @@ func (e *EngineErrorPayload) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
-func (e *EngineErrorPayload) MarshalJSON() ([]byte, error) {
-	type embed EngineErrorPayload
+func (e *EngineError) MarshalJSON() ([]byte, error) {
+	type embed EngineError
 	var marshaler = struct {
 		embed
 	}{
@@ -94229,7 +94117,7 @@ func (e *EngineErrorPayload) MarshalJSON() ([]byte, error) {
 	return json.Marshal(explicitMarshaler)
 }
 
-func (e *EngineErrorPayload) String() string {
+func (e *EngineError) String() string {
 	if e == nil {
 		return "<nil>"
 	}
@@ -94244,128 +94132,152 @@ func (e *EngineErrorPayload) String() string {
 	return fmt.Sprintf("%#v", e)
 }
 
-type EngineErrorPayloadCode string
+// Why the request failed. A newer server can add codes: read one your client doesn't know as `Unknown`.
+type EngineErrorCode string
 
 const (
-	EngineErrorPayloadCodeUnknown                 EngineErrorPayloadCode = "Unknown"
-	EngineErrorPayloadCodeInvalidArg              EngineErrorPayloadCode = "InvalidArg"
-	EngineErrorPayloadCodeDocNotOpen              EngineErrorPayloadCode = "DocNotOpen"
-	EngineErrorPayloadCodeDocOpenFailed           EngineErrorPayloadCode = "DocOpenFailed"
-	EngineErrorPayloadCodeDocPasswordRequired     EngineErrorPayloadCode = "DocPasswordRequired"
-	EngineErrorPayloadCodeDocPasswordIncorrect    EngineErrorPayloadCode = "DocPasswordIncorrect"
-	EngineErrorPayloadCodeGrantPassphraseRequired EngineErrorPayloadCode = "GrantPassphraseRequired"
-	EngineErrorPayloadCodeAborted                 EngineErrorPayloadCode = "Aborted"
-	EngineErrorPayloadCodeNetwork                 EngineErrorPayloadCode = "Network"
-	EngineErrorPayloadCodeUnauthenticated         EngineErrorPayloadCode = "Unauthenticated"
-	EngineErrorPayloadCodeForbidden               EngineErrorPayloadCode = "Forbidden"
-	EngineErrorPayloadCodeNotFound                EngineErrorPayloadCode = "NotFound"
-	EngineErrorPayloadCodeWireFormat              EngineErrorPayloadCode = "WireFormat"
-	EngineErrorPayloadCodeRuntimeUnavailable      EngineErrorPayloadCode = "RuntimeUnavailable"
-	EngineErrorPayloadCodeLayerVersionConflict    EngineErrorPayloadCode = "LayerVersionConflict"
-	EngineErrorPayloadCodeNotImplemented          EngineErrorPayloadCode = "NotImplemented"
-	EngineErrorPayloadCodeMalformedPdf            EngineErrorPayloadCode = "MalformedPdf"
-	EngineErrorPayloadCodeSigningPending          EngineErrorPayloadCode = "SigningPending"
-	EngineErrorPayloadCodeSigningExpired          EngineErrorPayloadCode = "SigningExpired"
-	EngineErrorPayloadCodeSigningVersionMismatch  EngineErrorPayloadCode = "SigningVersionMismatch"
-	EngineErrorPayloadCodeSignatureRefused        EngineErrorPayloadCode = "SignatureRefused"
-	EngineErrorPayloadCodeProtectedDocument       EngineErrorPayloadCode = "ProtectedDocument"
-	EngineErrorPayloadCodePayloadTooLarge         EngineErrorPayloadCode = "PayloadTooLarge"
-	EngineErrorPayloadCodeObjectNumberUnavailable EngineErrorPayloadCode = "ObjectNumberUnavailable"
-	EngineErrorPayloadCodeLayerFull               EngineErrorPayloadCode = "LayerFull"
-	EngineErrorPayloadCodeChangeConflict          EngineErrorPayloadCode = "ChangeConflict"
-	EngineErrorPayloadCodeUndoUnavailable         EngineErrorPayloadCode = "UndoUnavailable"
-	EngineErrorPayloadCodeIdempotencyKeyReused    EngineErrorPayloadCode = "IdempotencyKeyReused"
-	EngineErrorPayloadCodeLayerDeleted            EngineErrorPayloadCode = "LayerDeleted"
-	EngineErrorPayloadCodeVisitorIdentityRequired EngineErrorPayloadCode = "VisitorIdentityRequired"
+	EngineErrorCodeUnknown                 EngineErrorCode = "Unknown"
+	EngineErrorCodeInvalidArg              EngineErrorCode = "InvalidArg"
+	EngineErrorCodeDocNotOpen              EngineErrorCode = "DocNotOpen"
+	EngineErrorCodeDocOpenFailed           EngineErrorCode = "DocOpenFailed"
+	EngineErrorCodeDocPasswordRequired     EngineErrorCode = "DocPasswordRequired"
+	EngineErrorCodeDocPasswordIncorrect    EngineErrorCode = "DocPasswordIncorrect"
+	EngineErrorCodeGrantPassphraseRequired EngineErrorCode = "GrantPassphraseRequired"
+	EngineErrorCodeAborted                 EngineErrorCode = "Aborted"
+	EngineErrorCodeNetwork                 EngineErrorCode = "Network"
+	EngineErrorCodeUnauthenticated         EngineErrorCode = "Unauthenticated"
+	EngineErrorCodeForbidden               EngineErrorCode = "Forbidden"
+	EngineErrorCodeNotFound                EngineErrorCode = "NotFound"
+	EngineErrorCodeWireFormat              EngineErrorCode = "WireFormat"
+	EngineErrorCodeRuntimeUnavailable      EngineErrorCode = "RuntimeUnavailable"
+	EngineErrorCodeLayerVersionConflict    EngineErrorCode = "LayerVersionConflict"
+	EngineErrorCodeNotImplemented          EngineErrorCode = "NotImplemented"
+	EngineErrorCodeMalformedPdf            EngineErrorCode = "MalformedPdf"
+	EngineErrorCodeSigningPending          EngineErrorCode = "SigningPending"
+	EngineErrorCodeSigningExpired          EngineErrorCode = "SigningExpired"
+	EngineErrorCodeSigningVersionMismatch  EngineErrorCode = "SigningVersionMismatch"
+	EngineErrorCodeSignatureRefused        EngineErrorCode = "SignatureRefused"
+	EngineErrorCodeProtectedDocument       EngineErrorCode = "ProtectedDocument"
+	EngineErrorCodePayloadTooLarge         EngineErrorCode = "PayloadTooLarge"
+	EngineErrorCodeObjectNumberUnavailable EngineErrorCode = "ObjectNumberUnavailable"
+	EngineErrorCodeLayerFull               EngineErrorCode = "LayerFull"
+	EngineErrorCodeChangeConflict          EngineErrorCode = "ChangeConflict"
+	EngineErrorCodeUndoUnavailable         EngineErrorCode = "UndoUnavailable"
+	EngineErrorCodeIdempotencyKeyReused    EngineErrorCode = "IdempotencyKeyReused"
+	EngineErrorCodeLayerDeleted            EngineErrorCode = "LayerDeleted"
+	EngineErrorCodeVisitorIdentityRequired EngineErrorCode = "VisitorIdentityRequired"
+	EngineErrorCodeConflict                EngineErrorCode = "Conflict"
+	EngineErrorCodeEngineBusy              EngineErrorCode = "EngineBusy"
+	EngineErrorCodeEngineRestarting        EngineErrorCode = "EngineRestarting"
+	EngineErrorCodeDocumentQuarantined     EngineErrorCode = "DocumentQuarantined"
+	EngineErrorCodeThumbnailNotReady       EngineErrorCode = "ThumbnailNotReady"
+	EngineErrorCodeTooManyRequests         EngineErrorCode = "TooManyRequests"
+	EngineErrorCodeGrantExpired            EngineErrorCode = "GrantExpired"
+	EngineErrorCodeOriginRequired          EngineErrorCode = "OriginRequired"
+	EngineErrorCodeOriginNotAllowed        EngineErrorCode = "OriginNotAllowed"
+	EngineErrorCodeFeatureNotEnabled       EngineErrorCode = "FeatureNotEnabled"
+	EngineErrorCodeFeatureStopped          EngineErrorCode = "FeatureStopped"
+	EngineErrorCodeLicenseInvalid          EngineErrorCode = "LicenseInvalid"
+	EngineErrorCodeLicenseUsageLimit       EngineErrorCode = "LicenseUsageLimit"
+	EngineErrorCodeUpstreamError           EngineErrorCode = "UpstreamError"
 )
 
-func NewEngineErrorPayloadCodeFromString(s string) (EngineErrorPayloadCode, error) {
+func NewEngineErrorCodeFromString(s string) (EngineErrorCode, error) {
 	switch s {
 	case "Unknown":
-		return EngineErrorPayloadCodeUnknown, nil
+		return EngineErrorCodeUnknown, nil
 	case "InvalidArg":
-		return EngineErrorPayloadCodeInvalidArg, nil
+		return EngineErrorCodeInvalidArg, nil
 	case "DocNotOpen":
-		return EngineErrorPayloadCodeDocNotOpen, nil
+		return EngineErrorCodeDocNotOpen, nil
 	case "DocOpenFailed":
-		return EngineErrorPayloadCodeDocOpenFailed, nil
+		return EngineErrorCodeDocOpenFailed, nil
 	case "DocPasswordRequired":
-		return EngineErrorPayloadCodeDocPasswordRequired, nil
+		return EngineErrorCodeDocPasswordRequired, nil
 	case "DocPasswordIncorrect":
-		return EngineErrorPayloadCodeDocPasswordIncorrect, nil
+		return EngineErrorCodeDocPasswordIncorrect, nil
 	case "GrantPassphraseRequired":
-		return EngineErrorPayloadCodeGrantPassphraseRequired, nil
+		return EngineErrorCodeGrantPassphraseRequired, nil
 	case "Aborted":
-		return EngineErrorPayloadCodeAborted, nil
+		return EngineErrorCodeAborted, nil
 	case "Network":
-		return EngineErrorPayloadCodeNetwork, nil
+		return EngineErrorCodeNetwork, nil
 	case "Unauthenticated":
-		return EngineErrorPayloadCodeUnauthenticated, nil
+		return EngineErrorCodeUnauthenticated, nil
 	case "Forbidden":
-		return EngineErrorPayloadCodeForbidden, nil
+		return EngineErrorCodeForbidden, nil
 	case "NotFound":
-		return EngineErrorPayloadCodeNotFound, nil
+		return EngineErrorCodeNotFound, nil
 	case "WireFormat":
-		return EngineErrorPayloadCodeWireFormat, nil
+		return EngineErrorCodeWireFormat, nil
 	case "RuntimeUnavailable":
-		return EngineErrorPayloadCodeRuntimeUnavailable, nil
+		return EngineErrorCodeRuntimeUnavailable, nil
 	case "LayerVersionConflict":
-		return EngineErrorPayloadCodeLayerVersionConflict, nil
+		return EngineErrorCodeLayerVersionConflict, nil
 	case "NotImplemented":
-		return EngineErrorPayloadCodeNotImplemented, nil
+		return EngineErrorCodeNotImplemented, nil
 	case "MalformedPdf":
-		return EngineErrorPayloadCodeMalformedPdf, nil
+		return EngineErrorCodeMalformedPdf, nil
 	case "SigningPending":
-		return EngineErrorPayloadCodeSigningPending, nil
+		return EngineErrorCodeSigningPending, nil
 	case "SigningExpired":
-		return EngineErrorPayloadCodeSigningExpired, nil
+		return EngineErrorCodeSigningExpired, nil
 	case "SigningVersionMismatch":
-		return EngineErrorPayloadCodeSigningVersionMismatch, nil
+		return EngineErrorCodeSigningVersionMismatch, nil
 	case "SignatureRefused":
-		return EngineErrorPayloadCodeSignatureRefused, nil
+		return EngineErrorCodeSignatureRefused, nil
 	case "ProtectedDocument":
-		return EngineErrorPayloadCodeProtectedDocument, nil
+		return EngineErrorCodeProtectedDocument, nil
 	case "PayloadTooLarge":
-		return EngineErrorPayloadCodePayloadTooLarge, nil
+		return EngineErrorCodePayloadTooLarge, nil
 	case "ObjectNumberUnavailable":
-		return EngineErrorPayloadCodeObjectNumberUnavailable, nil
+		return EngineErrorCodeObjectNumberUnavailable, nil
 	case "LayerFull":
-		return EngineErrorPayloadCodeLayerFull, nil
+		return EngineErrorCodeLayerFull, nil
 	case "ChangeConflict":
-		return EngineErrorPayloadCodeChangeConflict, nil
+		return EngineErrorCodeChangeConflict, nil
 	case "UndoUnavailable":
-		return EngineErrorPayloadCodeUndoUnavailable, nil
+		return EngineErrorCodeUndoUnavailable, nil
 	case "IdempotencyKeyReused":
-		return EngineErrorPayloadCodeIdempotencyKeyReused, nil
+		return EngineErrorCodeIdempotencyKeyReused, nil
 	case "LayerDeleted":
-		return EngineErrorPayloadCodeLayerDeleted, nil
+		return EngineErrorCodeLayerDeleted, nil
 	case "VisitorIdentityRequired":
-		return EngineErrorPayloadCodeVisitorIdentityRequired, nil
+		return EngineErrorCodeVisitorIdentityRequired, nil
+	case "Conflict":
+		return EngineErrorCodeConflict, nil
+	case "EngineBusy":
+		return EngineErrorCodeEngineBusy, nil
+	case "EngineRestarting":
+		return EngineErrorCodeEngineRestarting, nil
+	case "DocumentQuarantined":
+		return EngineErrorCodeDocumentQuarantined, nil
+	case "ThumbnailNotReady":
+		return EngineErrorCodeThumbnailNotReady, nil
+	case "TooManyRequests":
+		return EngineErrorCodeTooManyRequests, nil
+	case "GrantExpired":
+		return EngineErrorCodeGrantExpired, nil
+	case "OriginRequired":
+		return EngineErrorCodeOriginRequired, nil
+	case "OriginNotAllowed":
+		return EngineErrorCodeOriginNotAllowed, nil
+	case "FeatureNotEnabled":
+		return EngineErrorCodeFeatureNotEnabled, nil
+	case "FeatureStopped":
+		return EngineErrorCodeFeatureStopped, nil
+	case "LicenseInvalid":
+		return EngineErrorCodeLicenseInvalid, nil
+	case "LicenseUsageLimit":
+		return EngineErrorCodeLicenseUsageLimit, nil
+	case "UpstreamError":
+		return EngineErrorCodeUpstreamError, nil
 	}
-	var t EngineErrorPayloadCode
+	var t EngineErrorCode
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (e EngineErrorPayloadCode) Ptr() *EngineErrorPayloadCode {
-	return &e
-}
-
-type EngineErrorPayloadName string
-
-const (
-	EngineErrorPayloadNameEngineError EngineErrorPayloadName = "EngineError"
-)
-
-func NewEngineErrorPayloadNameFromString(s string) (EngineErrorPayloadName, error) {
-	switch s {
-	case "EngineError":
-		return EngineErrorPayloadNameEngineError, nil
-	}
-	var t EngineErrorPayloadName
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (e EngineErrorPayloadName) Ptr() *EngineErrorPayloadName {
+func (e EngineErrorCode) Ptr() *EngineErrorCode {
 	return &e
 }
 
@@ -94637,7 +94549,7 @@ func (f FieldScriptWriteType) Ptr() *FieldScriptWriteType {
 }
 
 type FormFieldDraft struct {
-	Family     string
+	Kind       string
 	Text       *FormFieldDraftText
 	Checkbox   *FormFieldDraftCheckbox
 	Radio      *FormFieldDraftRadio
@@ -94649,11 +94561,11 @@ type FormFieldDraft struct {
 	rawJSON json.RawMessage
 }
 
-func (f *FormFieldDraft) GetFamily() string {
+func (f *FormFieldDraft) GetKind() string {
 	if f == nil {
 		return ""
 	}
-	return f.Family
+	return f.Kind
 }
 
 func (f *FormFieldDraft) GetText() *FormFieldDraftText {
@@ -94707,16 +94619,16 @@ func (f *FormFieldDraft) GetSignature() *FormFieldDraftSignature {
 
 func (f *FormFieldDraft) UnmarshalJSON(data []byte) error {
 	var unmarshaler struct {
-		Family string `json:"family"`
+		Kind string `json:"kind"`
 	}
 	if err := json.Unmarshal(data, &unmarshaler); err != nil {
 		return err
 	}
-	f.Family = unmarshaler.Family
-	if unmarshaler.Family == "" {
-		return fmt.Errorf("%T did not include discriminant family", f)
+	f.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", f)
 	}
-	switch unmarshaler.Family {
+	switch unmarshaler.Kind {
 	case "text":
 		value := new(FormFieldDraftText)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -94769,25 +94681,25 @@ func (f FormFieldDraft) MarshalJSON() ([]byte, error) {
 		return nil, err
 	}
 	if f.Text != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Text, "family", "text")
+		return internal.MarshalJSONWithExtraProperty(f.Text, "kind", "text")
 	}
 	if f.Checkbox != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Checkbox, "family", "checkbox")
+		return internal.MarshalJSONWithExtraProperty(f.Checkbox, "kind", "checkbox")
 	}
 	if f.Radio != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Radio, "family", "radio")
+		return internal.MarshalJSONWithExtraProperty(f.Radio, "kind", "radio")
 	}
 	if f.Combobox != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Combobox, "family", "combobox")
+		return internal.MarshalJSONWithExtraProperty(f.Combobox, "kind", "combobox")
 	}
 	if f.Listbox != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Listbox, "family", "listbox")
+		return internal.MarshalJSONWithExtraProperty(f.Listbox, "kind", "listbox")
 	}
 	if f.Pushbutton != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Pushbutton, "family", "pushbutton")
+		return internal.MarshalJSONWithExtraProperty(f.Pushbutton, "kind", "pushbutton")
 	}
 	if f.Signature != nil {
-		return internal.MarshalJSONWithExtraProperty(f.Signature, "family", "signature")
+		return internal.MarshalJSONWithExtraProperty(f.Signature, "kind", "signature")
 	}
 	if len(f.rawJSON) > 0 {
 		return f.rawJSON, nil
@@ -94857,24 +94769,24 @@ func (f *FormFieldDraft) validate() error {
 		fields = append(fields, "signature")
 	}
 	if len(fields) == 0 {
-		if f.Family != "" {
+		if f.Kind != "" {
 			if len(f.rawJSON) > 0 {
 				return nil
 			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", f, f.Family)
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", f, f.Kind)
 		}
 		return fmt.Errorf("type %T is empty", f)
 	}
 	if len(fields) > 1 {
 		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", f, fields)
 	}
-	if f.Family != "" {
+	if f.Kind != "" {
 		field := fields[0]
-		if f.Family != field {
+		if f.Kind != field {
 			return fmt.Errorf(
 				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
 				f,
-				f.Family,
+				f.Kind,
 				f,
 			)
 		}
@@ -96783,7 +96695,7 @@ var (
 	formFieldPatchFieldMappingName    = big.NewInt(1 << 5)
 	formFieldPatchFieldGroupID        = big.NewInt(1 << 6)
 	formFieldPatchFieldActions        = big.NewInt(1 << 7)
-	formFieldPatchFieldFamily         = big.NewInt(1 << 8)
+	formFieldPatchFieldKind           = big.NewInt(1 << 8)
 	formFieldPatchFieldDefaultValue   = big.NewInt(1 << 9)
 	formFieldPatchFieldMaxLength      = big.NewInt(1 << 10)
 	formFieldPatchFieldMultiline      = big.NewInt(1 << 11)
@@ -96805,7 +96717,7 @@ type FormFieldPatch struct {
 	MappingName    *string                      `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID        *string                      `json:"groupId,omitempty" url:"groupId,omitempty"`
 	Actions        *FieldActionsPatch           `json:"actions,omitempty" url:"actions,omitempty"`
-	Family         *FormFieldPatchFamily        `json:"family,omitempty" url:"family,omitempty"`
+	Kind           *FormFieldPatchKind          `json:"kind,omitempty" url:"kind,omitempty"`
 	DefaultValue   *FormFieldPatchDefaultValue  `json:"defaultValue,omitempty" url:"defaultValue,omitempty"`
 	MaxLength      *int                         `json:"maxLength,omitempty" url:"maxLength,omitempty"`
 	Multiline      *bool                        `json:"multiline,omitempty" url:"multiline,omitempty"`
@@ -96880,11 +96792,11 @@ func (f *FormFieldPatch) GetActions() *FieldActionsPatch {
 	return f.Actions
 }
 
-func (f *FormFieldPatch) GetFamily() *FormFieldPatchFamily {
+func (f *FormFieldPatch) GetKind() *FormFieldPatchKind {
 	if f == nil {
 		return nil
 	}
-	return f.Family
+	return f.Kind
 }
 
 func (f *FormFieldPatch) GetDefaultValue() *FormFieldPatchDefaultValue {
@@ -97027,11 +96939,11 @@ func (f *FormFieldPatch) SetActions(actions *FieldActionsPatch) {
 	f.require(formFieldPatchFieldActions)
 }
 
-// SetFamily sets the Family field and marks it as non-optional;
+// SetKind sets the Kind field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (f *FormFieldPatch) SetFamily(family *FormFieldPatchFamily) {
-	f.Family = family
-	f.require(formFieldPatchFieldFamily)
+func (f *FormFieldPatch) SetKind(kind *FormFieldPatchKind) {
+	f.Kind = kind
+	f.require(formFieldPatchFieldKind)
 }
 
 // SetDefaultValue sets the DefaultValue field and marks it as non-optional;
@@ -97208,40 +97120,40 @@ func (f *FormFieldPatchDefaultValue) Accept(visitor FormFieldPatchDefaultValueVi
 	return fmt.Errorf("type %T does not include a non-empty union type", f)
 }
 
-type FormFieldPatchFamily string
+type FormFieldPatchKind string
 
 const (
-	FormFieldPatchFamilyText       FormFieldPatchFamily = "text"
-	FormFieldPatchFamilyCheckbox   FormFieldPatchFamily = "checkbox"
-	FormFieldPatchFamilyRadio      FormFieldPatchFamily = "radio"
-	FormFieldPatchFamilyCombobox   FormFieldPatchFamily = "combobox"
-	FormFieldPatchFamilyListbox    FormFieldPatchFamily = "listbox"
-	FormFieldPatchFamilyPushbutton FormFieldPatchFamily = "pushbutton"
-	FormFieldPatchFamilySignature  FormFieldPatchFamily = "signature"
+	FormFieldPatchKindText       FormFieldPatchKind = "text"
+	FormFieldPatchKindCheckbox   FormFieldPatchKind = "checkbox"
+	FormFieldPatchKindRadio      FormFieldPatchKind = "radio"
+	FormFieldPatchKindCombobox   FormFieldPatchKind = "combobox"
+	FormFieldPatchKindListbox    FormFieldPatchKind = "listbox"
+	FormFieldPatchKindPushbutton FormFieldPatchKind = "pushbutton"
+	FormFieldPatchKindSignature  FormFieldPatchKind = "signature"
 )
 
-func NewFormFieldPatchFamilyFromString(s string) (FormFieldPatchFamily, error) {
+func NewFormFieldPatchKindFromString(s string) (FormFieldPatchKind, error) {
 	switch s {
 	case "text":
-		return FormFieldPatchFamilyText, nil
+		return FormFieldPatchKindText, nil
 	case "checkbox":
-		return FormFieldPatchFamilyCheckbox, nil
+		return FormFieldPatchKindCheckbox, nil
 	case "radio":
-		return FormFieldPatchFamilyRadio, nil
+		return FormFieldPatchKindRadio, nil
 	case "combobox":
-		return FormFieldPatchFamilyCombobox, nil
+		return FormFieldPatchKindCombobox, nil
 	case "listbox":
-		return FormFieldPatchFamilyListbox, nil
+		return FormFieldPatchKindListbox, nil
 	case "pushbutton":
-		return FormFieldPatchFamilyPushbutton, nil
+		return FormFieldPatchKindPushbutton, nil
 	case "signature":
-		return FormFieldPatchFamilySignature, nil
+		return FormFieldPatchKindSignature, nil
 	}
-	var t FormFieldPatchFamily
+	var t FormFieldPatchKind
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (f FormFieldPatchFamily) Ptr() *FormFieldPatchFamily {
+func (f FormFieldPatchKind) Ptr() *FormFieldPatchKind {
 	return &f
 }
 
@@ -98028,7 +97940,7 @@ var (
 	outlineMutationMetaFieldOpID              = big.NewInt(1 << 2)
 	outlineMutationMetaFieldUndoable          = big.NewInt(1 << 3)
 	outlineMutationMetaFieldMissingCharacters = big.NewInt(1 << 4)
-	outlineMutationMetaFieldChanged           = big.NewInt(1 << 5)
+	outlineMutationMetaFieldChangedRefs       = big.NewInt(1 << 5)
 )
 
 type OutlineMutationMeta struct {
@@ -98037,7 +97949,7 @@ type OutlineMutationMeta struct {
 	OpID              string            `json:"opId" url:"opId"`
 	Undoable          bool              `json:"undoable" url:"undoable"`
 	MissingCharacters []string          `json:"missingCharacters,omitempty" url:"missingCharacters,omitempty"`
-	Changed           []*OutlineItemRef `json:"changed" url:"changed"`
+	ChangedRefs       []*OutlineItemRef `json:"changedRefs" url:"changedRefs"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -98081,11 +97993,11 @@ func (o *OutlineMutationMeta) GetMissingCharacters() []string {
 	return o.MissingCharacters
 }
 
-func (o *OutlineMutationMeta) GetChanged() []*OutlineItemRef {
+func (o *OutlineMutationMeta) GetChangedRefs() []*OutlineItemRef {
 	if o == nil {
 		return nil
 	}
-	return o.Changed
+	return o.ChangedRefs
 }
 
 func (o *OutlineMutationMeta) GetExtraProperties() map[string]interface{} {
@@ -98137,11 +98049,11 @@ func (o *OutlineMutationMeta) SetMissingCharacters(missingCharacters []string) {
 	o.require(outlineMutationMetaFieldMissingCharacters)
 }
 
-// SetChanged sets the Changed field and marks it as non-optional;
+// SetChangedRefs sets the ChangedRefs field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (o *OutlineMutationMeta) SetChanged(changed []*OutlineItemRef) {
-	o.Changed = changed
-	o.require(outlineMutationMetaFieldChanged)
+func (o *OutlineMutationMeta) SetChangedRefs(changedRefs []*OutlineItemRef) {
+	o.ChangedRefs = changedRefs
+	o.require(outlineMutationMetaFieldChangedRefs)
 }
 
 func (o *OutlineMutationMeta) UnmarshalJSON(data []byte) error {
@@ -99070,6 +98982,202 @@ func (p *PdfLinkTargetWritableURI) MarshalJSON() ([]byte, error) {
 }
 
 func (p *PdfLinkTargetWritableURI) String() string {
+	if p == nil {
+		return "<nil>"
+	}
+	if len(p.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(p.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(p); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", p)
+}
+
+var (
+	pdfPermissionFlagsFieldPrint                = big.NewInt(1 << 0)
+	pdfPermissionFlagsFieldModifyContents       = big.NewInt(1 << 1)
+	pdfPermissionFlagsFieldCopy                 = big.NewInt(1 << 2)
+	pdfPermissionFlagsFieldModifyAnnotations    = big.NewInt(1 << 3)
+	pdfPermissionFlagsFieldFillForms            = big.NewInt(1 << 4)
+	pdfPermissionFlagsFieldCopyForAccessibility = big.NewInt(1 << 5)
+	pdfPermissionFlagsFieldAssemble             = big.NewInt(1 << 6)
+	pdfPermissionFlagsFieldPrintHighQuality     = big.NewInt(1 << 7)
+)
+
+type PdfPermissionFlags struct {
+	Print                bool `json:"print" url:"print"`
+	ModifyContents       bool `json:"modifyContents" url:"modifyContents"`
+	Copy                 bool `json:"copy" url:"copy"`
+	ModifyAnnotations    bool `json:"modifyAnnotations" url:"modifyAnnotations"`
+	FillForms            bool `json:"fillForms" url:"fillForms"`
+	CopyForAccessibility bool `json:"copyForAccessibility" url:"copyForAccessibility"`
+	Assemble             bool `json:"assemble" url:"assemble"`
+	PrintHighQuality     bool `json:"printHighQuality" url:"printHighQuality"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (p *PdfPermissionFlags) GetPrint() bool {
+	if p == nil {
+		return false
+	}
+	return p.Print
+}
+
+func (p *PdfPermissionFlags) GetModifyContents() bool {
+	if p == nil {
+		return false
+	}
+	return p.ModifyContents
+}
+
+func (p *PdfPermissionFlags) GetCopy() bool {
+	if p == nil {
+		return false
+	}
+	return p.Copy
+}
+
+func (p *PdfPermissionFlags) GetModifyAnnotations() bool {
+	if p == nil {
+		return false
+	}
+	return p.ModifyAnnotations
+}
+
+func (p *PdfPermissionFlags) GetFillForms() bool {
+	if p == nil {
+		return false
+	}
+	return p.FillForms
+}
+
+func (p *PdfPermissionFlags) GetCopyForAccessibility() bool {
+	if p == nil {
+		return false
+	}
+	return p.CopyForAccessibility
+}
+
+func (p *PdfPermissionFlags) GetAssemble() bool {
+	if p == nil {
+		return false
+	}
+	return p.Assemble
+}
+
+func (p *PdfPermissionFlags) GetPrintHighQuality() bool {
+	if p == nil {
+		return false
+	}
+	return p.PrintHighQuality
+}
+
+func (p *PdfPermissionFlags) GetExtraProperties() map[string]interface{} {
+	if p == nil {
+		return nil
+	}
+	return p.extraProperties
+}
+
+func (p *PdfPermissionFlags) require(field *big.Int) {
+	if p.explicitFields == nil {
+		p.explicitFields = big.NewInt(0)
+	}
+	p.explicitFields.Or(p.explicitFields, field)
+}
+
+// SetPrint sets the Print field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetPrint(print bool) {
+	p.Print = print
+	p.require(pdfPermissionFlagsFieldPrint)
+}
+
+// SetModifyContents sets the ModifyContents field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetModifyContents(modifyContents bool) {
+	p.ModifyContents = modifyContents
+	p.require(pdfPermissionFlagsFieldModifyContents)
+}
+
+// SetCopy sets the Copy field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetCopy(copy bool) {
+	p.Copy = copy
+	p.require(pdfPermissionFlagsFieldCopy)
+}
+
+// SetModifyAnnotations sets the ModifyAnnotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetModifyAnnotations(modifyAnnotations bool) {
+	p.ModifyAnnotations = modifyAnnotations
+	p.require(pdfPermissionFlagsFieldModifyAnnotations)
+}
+
+// SetFillForms sets the FillForms field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetFillForms(fillForms bool) {
+	p.FillForms = fillForms
+	p.require(pdfPermissionFlagsFieldFillForms)
+}
+
+// SetCopyForAccessibility sets the CopyForAccessibility field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetCopyForAccessibility(copyForAccessibility bool) {
+	p.CopyForAccessibility = copyForAccessibility
+	p.require(pdfPermissionFlagsFieldCopyForAccessibility)
+}
+
+// SetAssemble sets the Assemble field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetAssemble(assemble bool) {
+	p.Assemble = assemble
+	p.require(pdfPermissionFlagsFieldAssemble)
+}
+
+// SetPrintHighQuality sets the PrintHighQuality field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (p *PdfPermissionFlags) SetPrintHighQuality(printHighQuality bool) {
+	p.PrintHighQuality = printHighQuality
+	p.require(pdfPermissionFlagsFieldPrintHighQuality)
+}
+
+func (p *PdfPermissionFlags) UnmarshalJSON(data []byte) error {
+	type unmarshaler PdfPermissionFlags
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*p = PdfPermissionFlags(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *p)
+	if err != nil {
+		return err
+	}
+	p.extraProperties = extraProperties
+	p.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (p *PdfPermissionFlags) MarshalJSON() ([]byte, error) {
+	type embed PdfPermissionFlags
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*p),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, p.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (p *PdfPermissionFlags) String() string {
 	if p == nil {
 		return "<nil>"
 	}
@@ -100488,7 +100596,7 @@ type WidgetPlacement struct {
 	Page          *PageRef                    `json:"page" url:"page"`
 	Rect          *WidgetPlacementRect        `json:"rect,omitempty" url:"rect,omitempty"`
 	Box           *WidgetPlacementBox         `json:"box,omitempty" url:"box,omitempty"`
-	Rotation      *float64                    `json:"rotation,omitempty" url:"rotation,omitempty"`
+	Rotation      *int                        `json:"rotation,omitempty" url:"rotation,omitempty"`
 	ExportValue   *string                     `json:"exportValue,omitempty" url:"exportValue,omitempty"`
 	Actions       *WidgetActionsPatch         `json:"actions,omitempty" url:"actions,omitempty"`
 	Color         *string                     `json:"color,omitempty" url:"color,omitempty"`
@@ -100531,7 +100639,7 @@ func (w *WidgetPlacement) GetBox() *WidgetPlacementBox {
 	return w.Box
 }
 
-func (w *WidgetPlacement) GetRotation() *float64 {
+func (w *WidgetPlacement) GetRotation() *int {
 	if w == nil {
 		return nil
 	}
@@ -100666,7 +100774,7 @@ func (w *WidgetPlacement) SetBox(box *WidgetPlacementBox) {
 
 // SetRotation sets the Rotation field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (w *WidgetPlacement) SetRotation(rotation *float64) {
+func (w *WidgetPlacement) SetRotation(rotation *int) {
 	w.Rotation = rotation
 	w.require(widgetPlacementFieldRotation)
 }

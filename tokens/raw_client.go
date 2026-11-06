@@ -36,7 +36,7 @@ func (r *RawClient) Issue(
 	ctx context.Context,
 	request *cloudpdf.IssueTokensRequest,
 	opts ...option.RequestOption,
-) (*core.Response[*cloudpdf.TokensIssue200Response], error) {
+) (*core.Response[*cloudpdf.TokensIssueResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -52,7 +52,7 @@ func (r *RawClient) Issue(
 		options.ToHeader(),
 	)
 	headers.Add("Content-Type", "application/json")
-	var response *cloudpdf.TokensIssue200Response
+	var response *cloudpdf.TokensIssueResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -72,7 +72,7 @@ func (r *RawClient) Issue(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[*cloudpdf.TokensIssue200Response]{
+	return &core.Response[*cloudpdf.TokensIssueResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

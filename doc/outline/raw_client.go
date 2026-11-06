@@ -37,7 +37,7 @@ func (r *RawClient) Get(
 	ctx context.Context,
 	request *doc.GetOutlineRequest,
 	opts ...option.RequestOption,
-) (*core.Response[cloudpdf.DocOutlineGet200Response], error) {
+) (*core.Response[cloudpdf.DocOutlineGetResponse], error) {
 	options := core.NewRequestOptions(opts...)
 	baseURL := internal.ResolveBaseURL(
 		options.BaseURL,
@@ -57,7 +57,7 @@ func (r *RawClient) Get(
 		headers.Add("X-Document-Password", *request.DocumentPassword)
 	}
 
-	var response cloudpdf.DocOutlineGet200Response
+	var response cloudpdf.DocOutlineGetResponse
 	raw, err := r.caller.Call(
 		ctx,
 		&internal.CallParams{
@@ -76,7 +76,7 @@ func (r *RawClient) Get(
 	if err != nil {
 		return nil, err
 	}
-	return &core.Response[cloudpdf.DocOutlineGet200Response]{
+	return &core.Response[cloudpdf.DocOutlineGetResponse]{
 		StatusCode: raw.StatusCode,
 		Header:     raw.Header,
 		Body:       response,

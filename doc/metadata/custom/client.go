@@ -49,7 +49,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *metadata.GetCustomRequest,
 	opts ...option.RequestOption,
-) (cloudpdf.DocMetadataCustomGet200Response, error) {
+) (cloudpdf.DocMetadataCustomGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,

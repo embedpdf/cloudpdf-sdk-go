@@ -252,11 +252,11 @@ func TestSettersDeleteAnnotationsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &DeleteAnnotationsRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -418,14 +418,14 @@ func TestSettersMarkExplicitDeleteAnnotationsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeleteAnnotationsRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1132,11 +1132,11 @@ func TestSettersReadAppearanceAnnotationsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &ReadAppearanceAnnotationsRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1267,14 +1267,14 @@ func TestSettersMarkExplicitReadAppearanceAnnotationsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ReadAppearanceAnnotationsRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1333,11 +1333,11 @@ func TestSettersReadFileAnnotationsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &ReadFileAnnotationsRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1468,14 +1468,14 @@ func TestSettersMarkExplicitReadFileAnnotationsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ReadFileAnnotationsRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1821,11 +1821,11 @@ func TestSettersUpdateAnnotationsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &UpdateAnnotationsRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1987,14 +1987,14 @@ func TestSettersMarkExplicitUpdateAnnotationsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &UpdateAnnotationsRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

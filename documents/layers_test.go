@@ -18,11 +18,11 @@ func TestSettersDeleteLayersRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &DeleteLayersRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -68,14 +68,14 @@ func TestSettersMarkExplicitDeleteLayersRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeleteLayersRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -141,11 +141,11 @@ func TestSettersListLayersRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetID", func(t *testing.T) {
+	t.Run("SetDocID", func(t *testing.T) {
 		obj := &ListLayersRequest{}
-		var fernTestValueID string
-		obj.SetID(fernTestValueID)
-		assert.Equal(t, fernTestValueID, obj.ID)
+		var fernTestValueDocID string
+		obj.SetDocID(fernTestValueDocID)
+		assert.Equal(t, fernTestValueDocID, obj.DocID)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -207,14 +207,14 @@ func TestSettersMarkExplicitListLayersRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetID_MarksExplicit", func(t *testing.T) {
+	t.Run("SetDocID_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &ListLayersRequest{}
-		var fernTestValueID string
+		var fernTestValueDocID string
 
 		// Act
-		obj.SetID(fernTestValueID)
+		obj.SetDocID(fernTestValueDocID)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

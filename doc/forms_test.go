@@ -51,11 +51,11 @@ func TestSettersDeleteWidgetFormsRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &DeleteWidgetFormsRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -217,14 +217,14 @@ func TestSettersMarkExplicitDeleteWidgetFormsRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DeleteWidgetFormsRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)
@@ -1335,11 +1335,11 @@ func TestSettersDocFormsUpdateWidgetRequest(t *testing.T) {
 		assert.NotNil(t, obj.explicitFields)
 	})
 
-	t.Run("SetAnnotKey", func(t *testing.T) {
+	t.Run("SetAnnotationKey", func(t *testing.T) {
 		obj := &DocFormsUpdateWidgetRequest{}
-		var fernTestValueAnnotKey string
-		obj.SetAnnotKey(fernTestValueAnnotKey)
-		assert.Equal(t, fernTestValueAnnotKey, obj.AnnotKey)
+		var fernTestValueAnnotationKey string
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
+		assert.Equal(t, fernTestValueAnnotationKey, obj.AnnotationKey)
 		assert.NotNil(t, obj.explicitFields)
 	})
 
@@ -1509,14 +1509,14 @@ func TestSettersMarkExplicitDocFormsUpdateWidgetRequest(t *testing.T) {
 		// It verifies that setting a field via setter allows successful JSON round-trip
 	})
 
-	t.Run("SetAnnotKey_MarksExplicit", func(t *testing.T) {
+	t.Run("SetAnnotationKey_MarksExplicit", func(t *testing.T) {
 		t.Parallel()
 		// Arrange
 		obj := &DocFormsUpdateWidgetRequest{}
-		var fernTestValueAnnotKey string
+		var fernTestValueAnnotationKey string
 
 		// Act
-		obj.SetAnnotKey(fernTestValueAnnotKey)
+		obj.SetAnnotationKey(fernTestValueAnnotationKey)
 
 		// Assert - object with explicitly set field can be marshaled/unmarshaled
 		bytes, err := json.Marshal(obj)

@@ -51,7 +51,7 @@ func (c *Client) List(
 	ctx context.Context,
 	request *cloudpdf.ListDocumentsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsList200Response, error) {
+) (*cloudpdf.DocumentsListResponse, error) {
 	response, err := c.WithRawResponse.List(
 		ctx,
 		request,
@@ -67,7 +67,7 @@ func (c *Client) List(
 //
 //	request := &cloudpdf.GetDocumentsRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	}
 //	client.Documents.Get(
 //	    context.TODO(),
@@ -77,7 +77,7 @@ func (c *Client) Get(
 	ctx context.Context,
 	request *cloudpdf.GetDocumentsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsGet200Response, error) {
+) (*cloudpdf.DocumentsGetResponse, error) {
 	response, err := c.WithRawResponse.Get(
 		ctx,
 		request,
@@ -93,7 +93,7 @@ func (c *Client) Get(
 //
 //	request := &cloudpdf.DeleteDocumentsRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	}
 //	client.Documents.Delete(
 //	    context.TODO(),
@@ -121,7 +121,7 @@ func (c *Client) Delete(
 //
 //	request := &cloudpdf.DocumentsUpdateRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	    Name: "name",
 //	}
 //	client.Documents.Update(
@@ -132,7 +132,7 @@ func (c *Client) Update(
 	ctx context.Context,
 	request *cloudpdf.DocumentsUpdateRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsUpdate200Response, error) {
+) (*cloudpdf.DocumentsUpdateResponse, error) {
 	response, err := c.WithRawResponse.Update(
 		ctx,
 		request,
@@ -150,7 +150,7 @@ func (c *Client) Update(
 //
 //	request := &cloudpdf.DocumentsCommitRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	    Sha256: "sha256",
 //	}
 //	client.Documents.Commit(
@@ -161,7 +161,7 @@ func (c *Client) Commit(
 	ctx context.Context,
 	request *cloudpdf.DocumentsCommitRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsCommit200Response, error) {
+) (*cloudpdf.DocumentsCommitResponse, error) {
 	response, err := c.WithRawResponse.Commit(
 		ctx,
 		request,
@@ -177,7 +177,7 @@ func (c *Client) Commit(
 //
 //	request := &cloudpdf.DownloadDocumentsRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	}
 //	client.Documents.Download(
 //	    context.TODO(),
@@ -203,7 +203,7 @@ func (c *Client) Download(
 //
 //	request := &cloudpdf.ThumbnailDocumentsRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	}
 //	client.Documents.Thumbnail(
 //	    context.TODO(),
@@ -231,7 +231,7 @@ func (c *Client) Thumbnail(
 //
 //	request := &cloudpdf.UploadProxyDocumentsRequest{
 //	    TenantID: "tenantId",
-//	    ID: "id",
+//	    DocID: "docId",
 //	    File: strings.NewReader(
 //	        "",
 //	    ),
@@ -244,7 +244,7 @@ func (c *Client) UploadProxy(
 	ctx context.Context,
 	request *cloudpdf.UploadProxyDocumentsRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsUploadProxy200Response, error) {
+) (*cloudpdf.DocumentsUploadProxyResponse, error) {
 	response, err := c.WithRawResponse.UploadProxy(
 		ctx,
 		request,
@@ -288,13 +288,13 @@ func (c *Client) ImportFrom(
 	return response.Body, nil
 }
 
-// With an upload token, the document goes into the token's folder with the token's metadata, whatever the request says; contentLength must be within the token's maxBytes, and the token makes at most maxFiles documents (403 after). docId, idempotencyKey and dedupMode reuse-existing are refused (400): each could reach a document the token didn't make.
+// With an upload token, the document goes into the token's folder with the token's metadata, whatever the request says; sizeBytes must be within the token's maxBytes, and the token makes at most maxFiles documents (403 after). docId, idempotencyKey and dedupMode reuse-existing are refused (400): each could reach a document the token didn't make.
 //
 // Example:
 //
 //	request := &cloudpdf.DocumentsInitRequest{
 //	    TenantID: "tenantId",
-//	    ContentLength: 1.1,
+//	    SizeBytes: 1,
 //	    ContentSha256: "contentSha256",
 //	}
 //	client.Documents.Init(
@@ -305,7 +305,7 @@ func (c *Client) Init(
 	ctx context.Context,
 	request *cloudpdf.DocumentsInitRequest,
 	opts ...option.RequestOption,
-) (*cloudpdf.DocumentsInit200Response, error) {
+) (*cloudpdf.DocumentsInitResponse, error) {
 	response, err := c.WithRawResponse.Init(
 		ctx,
 		request,
