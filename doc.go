@@ -65781,6 +65781,7 @@ type ChangeItem struct {
 	OutlineDelete               *ChangeItemOutlineDelete
 	OutlineRestore              *ChangeItemOutlineRestore
 	PagesRotate                 *ChangeItemPagesRotate
+	PagesSetScale               *ChangeItemPagesSetScale
 	PagesReorder                *ChangeItemPagesReorder
 	PagesDelete                 *ChangeItemPagesDelete
 	PagesInsertBlank            *ChangeItemPagesInsertBlank
@@ -66009,6 +66010,13 @@ func (c *ChangeItem) GetPagesRotate() *ChangeItemPagesRotate {
 		return nil
 	}
 	return c.PagesRotate
+}
+
+func (c *ChangeItem) GetPagesSetScale() *ChangeItemPagesSetScale {
+	if c == nil {
+		return nil
+	}
+	return c.PagesSetScale
 }
 
 func (c *ChangeItem) GetPagesReorder() *ChangeItemPagesReorder {
@@ -66266,6 +66274,12 @@ func (c *ChangeItem) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.PagesRotate = value
+	case "pages.setScale":
+		value := new(ChangeItemPagesSetScale)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.PagesSetScale = value
 	case "pages.reorder":
 		value := new(ChangeItemPagesReorder)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -66419,6 +66433,9 @@ func (c ChangeItem) MarshalJSON() ([]byte, error) {
 	if c.PagesRotate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesRotate, "type", "pages.rotate")
 	}
+	if c.PagesSetScale != nil {
+		return internal.MarshalJSONWithExtraProperty(c.PagesSetScale, "type", "pages.setScale")
+	}
 	if c.PagesReorder != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesReorder, "type", "pages.reorder")
 	}
@@ -66483,6 +66500,7 @@ type ChangeItemVisitor interface {
 	VisitOutlineDelete(*ChangeItemOutlineDelete) error
 	VisitOutlineRestore(*ChangeItemOutlineRestore) error
 	VisitPagesRotate(*ChangeItemPagesRotate) error
+	VisitPagesSetScale(*ChangeItemPagesSetScale) error
 	VisitPagesReorder(*ChangeItemPagesReorder) error
 	VisitPagesDelete(*ChangeItemPagesDelete) error
 	VisitPagesInsertBlank(*ChangeItemPagesInsertBlank) error
@@ -66584,6 +66602,9 @@ func (c *ChangeItem) Accept(visitor ChangeItemVisitor) error {
 	}
 	if c.PagesRotate != nil {
 		return visitor.VisitPagesRotate(c.PagesRotate)
+	}
+	if c.PagesSetScale != nil {
+		return visitor.VisitPagesSetScale(c.PagesSetScale)
 	}
 	if c.PagesReorder != nil {
 		return visitor.VisitPagesReorder(c.PagesReorder)
@@ -66709,6 +66730,9 @@ func (c *ChangeItem) validate() error {
 	}
 	if c.PagesRotate != nil {
 		fields = append(fields, "pages.rotate")
+	}
+	if c.PagesSetScale != nil {
+		fields = append(fields, "pages.setScale")
 	}
 	if c.PagesReorder != nil {
 		fields = append(fields, "pages.reorder")
@@ -70640,9 +70664,9 @@ var (
 )
 
 type ChangeItemPagesCopy struct {
-	InsertedPages []*PageRef                 `json:"insertedPages" url:"insertedPages"`
-	Layout        *ChangeItemPagesCopyLayout `json:"layout" url:"layout"`
-	Meta          *MutationMeta              `json:"meta" url:"meta"`
+	InsertedPages []*PageRef        `json:"insertedPages" url:"insertedPages"`
+	Layout        *PageListSnapshot `json:"layout" url:"layout"`
+	Meta          *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -70658,7 +70682,7 @@ func (c *ChangeItemPagesCopy) GetInsertedPages() []*PageRef {
 	return c.InsertedPages
 }
 
-func (c *ChangeItemPagesCopy) GetLayout() *ChangeItemPagesCopyLayout {
+func (c *ChangeItemPagesCopy) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -70695,7 +70719,7 @@ func (c *ChangeItemPagesCopy) SetInsertedPages(insertedPages []*PageRef) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopy) SetLayout(layout *ChangeItemPagesCopyLayout) {
+func (c *ChangeItemPagesCopy) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesCopyFieldLayout)
 }
@@ -70750,2092 +70774,15 @@ func (c *ChangeItemPagesCopy) String() string {
 }
 
 var (
-	changeItemPagesCopyLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayout struct {
-	PageCount  int                                        `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesCopyLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesCopyLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesCopyLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesCopyLayout) GetPages() []*ChangeItemPagesCopyLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesCopyLayout) GetLabels() []*ChangeItemPagesCopyLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesCopyLayout) GetNamedPages() []*ChangeItemPagesCopyLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesCopyLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesCopyLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayout) SetPages(pages []*ChangeItemPagesCopyLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesCopyLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayout) SetLabels(labels []*ChangeItemPagesCopyLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesCopyLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayout) SetNamedPages(namedPages []*ChangeItemPagesCopyLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesCopyLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesCopyLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutLabelsItem struct {
-	FirstPage   int                                       `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesCopyLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                       `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                    `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) GetStyle() *ChangeItemPagesCopyLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesCopyLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutLabelsItem) SetStyle(style *ChangeItemPagesCopyLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesCopyLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesCopyLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesCopyLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesCopyLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesCopyLayoutLabelsItemStyleDecimal      ChangeItemPagesCopyLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesCopyLayoutLabelsItemStyleUpperRoman   ChangeItemPagesCopyLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesCopyLayoutLabelsItemStyleLowerRoman   ChangeItemPagesCopyLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesCopyLayoutLabelsItemStyleUpperLetters ChangeItemPagesCopyLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesCopyLayoutLabelsItemStyleLowerLetters ChangeItemPagesCopyLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesCopyLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesCopyLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesCopyLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesCopyLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesCopyLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesCopyLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesCopyLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesCopyLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesCopyLayoutLabelsItemStyle) Ptr() *ChangeItemPagesCopyLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesCopyLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesCopyLayoutNamedPagesItem struct {
-	Name   string                                         `json:"name" url:"name"`
-	Target *ChangeItemPagesCopyLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetTarget() *ChangeItemPagesCopyLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesCopyLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesCopyLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesCopyLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesCopyLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesCopyLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesCopyLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesCopyLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesCopyLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesCopyLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesCopyLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesCopyLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesCopyLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesCopyLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesCopyLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesCopyLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesCopyLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesCopyLayoutPagesItem struct {
-	Index      int                                           `json:"index" url:"index"`
-	Ref        *PageRef                                      `json:"ref" url:"ref"`
-	Label      *string                                       `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesCopyLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                           `json:"rotation" url:"rotation"`
-	UserUnit   float64                                       `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesCopyLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesCopyLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesCopyLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                               `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetSize() *ChangeItemPagesCopyLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetTabOrder() *ChangeItemPagesCopyLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetBoxes() *ChangeItemPagesCopyLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesCopyLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesCopyLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesCopyLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesCopyLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetSize(size *ChangeItemPagesCopyLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesCopyLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesCopyLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesCopyLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesCopyLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesCopyLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesCopyLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesCopyLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesCopyLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesCopyLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesCopyLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesCopyLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesCopyLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesCopyLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesCopyLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesCopyLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesCopyLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesCopyLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesCopyLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesCopyLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetArt() *ChangeItemPagesCopyLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesCopyLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesCopyLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesCopyLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesCopyLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesCopyLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesCopyLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesCopyLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesCopyLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesCopyLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesCopyLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesCopyLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesCopyLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesCopyLayoutPagesItemTabOrderRows        ChangeItemPagesCopyLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesCopyLayoutPagesItemTabOrderColumns     ChangeItemPagesCopyLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesCopyLayoutPagesItemTabOrderStructure   ChangeItemPagesCopyLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesCopyLayoutPagesItemTabOrderAnnotations ChangeItemPagesCopyLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesCopyLayoutPagesItemTabOrderWidgets     ChangeItemPagesCopyLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesCopyLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesCopyLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesCopyLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesCopyLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesCopyLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesCopyLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesCopyLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesCopyLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesCopyLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesCopyLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
 	changeItemPagesDeleteFieldPages  = big.NewInt(1 << 0)
 	changeItemPagesDeleteFieldLayout = big.NewInt(1 << 1)
 	changeItemPagesDeleteFieldMeta   = big.NewInt(1 << 2)
 )
 
 type ChangeItemPagesDelete struct {
-	Pages  []*PageRef                   `json:"pages" url:"pages"`
-	Layout *ChangeItemPagesDeleteLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                `json:"meta" url:"meta"`
+	Pages  []*PageRef        `json:"pages" url:"pages"`
+	Layout *PageListSnapshot `json:"layout" url:"layout"`
+	Meta   *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -72851,7 +70798,7 @@ func (c *ChangeItemPagesDelete) GetPages() []*PageRef {
 	return c.Pages
 }
 
-func (c *ChangeItemPagesDelete) GetLayout() *ChangeItemPagesDeleteLayout {
+func (c *ChangeItemPagesDelete) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -72888,7 +70835,7 @@ func (c *ChangeItemPagesDelete) SetPages(pages []*PageRef) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDelete) SetLayout(layout *ChangeItemPagesDeleteLayout) {
+func (c *ChangeItemPagesDelete) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesDeleteFieldLayout)
 }
@@ -72943,2092 +70890,15 @@ func (c *ChangeItemPagesDelete) String() string {
 }
 
 var (
-	changeItemPagesDeleteLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayout struct {
-	PageCount  int                                          `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesDeleteLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesDeleteLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesDeleteLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesDeleteLayout) GetPages() []*ChangeItemPagesDeleteLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesDeleteLayout) GetLabels() []*ChangeItemPagesDeleteLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesDeleteLayout) GetNamedPages() []*ChangeItemPagesDeleteLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesDeleteLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesDeleteLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayout) SetPages(pages []*ChangeItemPagesDeleteLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesDeleteLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayout) SetLabels(labels []*ChangeItemPagesDeleteLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesDeleteLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayout) SetNamedPages(namedPages []*ChangeItemPagesDeleteLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesDeleteLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesDeleteLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutLabelsItem struct {
-	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesDeleteLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                      `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetStyle() *ChangeItemPagesDeleteLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesDeleteLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetStyle(style *ChangeItemPagesDeleteLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesDeleteLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesDeleteLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesDeleteLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesDeleteLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesDeleteLayoutLabelsItemStyleDecimal      ChangeItemPagesDeleteLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesDeleteLayoutLabelsItemStyleUpperRoman   ChangeItemPagesDeleteLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesDeleteLayoutLabelsItemStyleLowerRoman   ChangeItemPagesDeleteLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesDeleteLayoutLabelsItemStyleUpperLetters ChangeItemPagesDeleteLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesDeleteLayoutLabelsItemStyleLowerLetters ChangeItemPagesDeleteLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesDeleteLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesDeleteLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesDeleteLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesDeleteLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesDeleteLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesDeleteLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesDeleteLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesDeleteLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesDeleteLayoutLabelsItemStyle) Ptr() *ChangeItemPagesDeleteLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesDeleteLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesDeleteLayoutNamedPagesItem struct {
-	Name   string                                           `json:"name" url:"name"`
-	Target *ChangeItemPagesDeleteLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) GetTarget() *ChangeItemPagesDeleteLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesDeleteLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesDeleteLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesDeleteLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesDeleteLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesDeleteLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesDeleteLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesDeleteLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesDeleteLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesDeleteLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesDeleteLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesDeleteLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesDeleteLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesDeleteLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesDeleteLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItem struct {
-	Index      int                                             `json:"index" url:"index"`
-	Ref        *PageRef                                        `json:"ref" url:"ref"`
-	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesDeleteLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesDeleteLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesDeleteLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                 `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetSize() *ChangeItemPagesDeleteLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetTabOrder() *ChangeItemPagesDeleteLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetBoxes() *ChangeItemPagesDeleteLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetSize(size *ChangeItemPagesDeleteLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesDeleteLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesDeleteLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesDeleteLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesDeleteLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesDeleteLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetArt() *ChangeItemPagesDeleteLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesDeleteLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesDeleteLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesDeleteLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesDeleteLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesDeleteLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesDeleteLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesDeleteLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesDeleteLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesDeleteLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesDeleteLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesDeleteLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesDeleteLayoutPagesItemTabOrderRows        ChangeItemPagesDeleteLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesDeleteLayoutPagesItemTabOrderColumns     ChangeItemPagesDeleteLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesDeleteLayoutPagesItemTabOrderStructure   ChangeItemPagesDeleteLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesDeleteLayoutPagesItemTabOrderAnnotations ChangeItemPagesDeleteLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesDeleteLayoutPagesItemTabOrderWidgets     ChangeItemPagesDeleteLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesDeleteLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesDeleteLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesDeleteLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesDeleteLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesDeleteLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesDeleteLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesDeleteLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesDeleteLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesDeleteLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesDeleteLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
 	changeItemPagesInsertFieldInsertedPages = big.NewInt(1 << 0)
 	changeItemPagesInsertFieldLayout        = big.NewInt(1 << 1)
 	changeItemPagesInsertFieldMeta          = big.NewInt(1 << 2)
 )
 
 type ChangeItemPagesInsert struct {
-	InsertedPages []*PageRef                   `json:"insertedPages" url:"insertedPages"`
-	Layout        *ChangeItemPagesInsertLayout `json:"layout" url:"layout"`
-	Meta          *MutationMeta                `json:"meta" url:"meta"`
+	InsertedPages []*PageRef        `json:"insertedPages" url:"insertedPages"`
+	Layout        *PageListSnapshot `json:"layout" url:"layout"`
+	Meta          *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -75044,7 +70914,7 @@ func (c *ChangeItemPagesInsert) GetInsertedPages() []*PageRef {
 	return c.InsertedPages
 }
 
-func (c *ChangeItemPagesInsert) GetLayout() *ChangeItemPagesInsertLayout {
+func (c *ChangeItemPagesInsert) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -75081,7 +70951,7 @@ func (c *ChangeItemPagesInsert) SetInsertedPages(insertedPages []*PageRef) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsert) SetLayout(layout *ChangeItemPagesInsertLayout) {
+func (c *ChangeItemPagesInsert) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesInsertFieldLayout)
 }
@@ -75142,9 +71012,9 @@ var (
 )
 
 type ChangeItemPagesInsertBlank struct {
-	InsertedPages []*PageRef                        `json:"insertedPages" url:"insertedPages"`
-	Layout        *ChangeItemPagesInsertBlankLayout `json:"layout" url:"layout"`
-	Meta          *MutationMeta                     `json:"meta" url:"meta"`
+	InsertedPages []*PageRef        `json:"insertedPages" url:"insertedPages"`
+	Layout        *PageListSnapshot `json:"layout" url:"layout"`
+	Meta          *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -75160,7 +71030,7 @@ func (c *ChangeItemPagesInsertBlank) GetInsertedPages() []*PageRef {
 	return c.InsertedPages
 }
 
-func (c *ChangeItemPagesInsertBlank) GetLayout() *ChangeItemPagesInsertBlankLayout {
+func (c *ChangeItemPagesInsertBlank) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -75197,7 +71067,7 @@ func (c *ChangeItemPagesInsertBlank) SetInsertedPages(insertedPages []*PageRef) 
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlank) SetLayout(layout *ChangeItemPagesInsertBlankLayout) {
+func (c *ChangeItemPagesInsertBlank) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesInsertBlankFieldLayout)
 }
@@ -75252,4169 +71122,15 @@ func (c *ChangeItemPagesInsertBlank) String() string {
 }
 
 var (
-	changeItemPagesInsertBlankLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayout struct {
-	PageCount  int                                               `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesInsertBlankLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesInsertBlankLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesInsertBlankLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) GetPages() []*ChangeItemPagesInsertBlankLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) GetLabels() []*ChangeItemPagesInsertBlankLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) GetNamedPages() []*ChangeItemPagesInsertBlankLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesInsertBlankLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayout) SetPages(pages []*ChangeItemPagesInsertBlankLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesInsertBlankLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayout) SetLabels(labels []*ChangeItemPagesInsertBlankLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesInsertBlankLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayout) SetNamedPages(namedPages []*ChangeItemPagesInsertBlankLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesInsertBlankLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutLabelsItem struct {
-	FirstPage   int                                              `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesInsertBlankLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                              `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                           `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetStyle() *ChangeItemPagesInsertBlankLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetStyle(style *ChangeItemPagesInsertBlankLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesInsertBlankLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertBlankLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesInsertBlankLayoutLabelsItemStyleDecimal      ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperRoman   ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerRoman   ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperLetters ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerLetters ChangeItemPagesInsertBlankLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesInsertBlankLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesInsertBlankLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesInsertBlankLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesInsertBlankLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesInsertBlankLayoutLabelsItemStyle) Ptr() *ChangeItemPagesInsertBlankLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesInsertBlankLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItem struct {
-	Name   string                                                `json:"name" url:"name"`
-	Target *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) GetTarget() *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesInsertBlankLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesInsertBlankLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesInsertBlankLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesInsertBlankLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesInsertBlankLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesInsertBlankLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesInsertBlankLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesInsertBlankLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesInsertBlankLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItem struct {
-	Index      int                                                  `json:"index" url:"index"`
-	Ref        *PageRef                                             `json:"ref" url:"ref"`
-	Label      *string                                              `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesInsertBlankLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                                  `json:"rotation" url:"rotation"`
-	UserUnit   float64                                              `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesInsertBlankLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesInsertBlankLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                      `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetSize() *ChangeItemPagesInsertBlankLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetTabOrder() *ChangeItemPagesInsertBlankLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetBoxes() *ChangeItemPagesInsertBlankLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetSize(size *ChangeItemPagesInsertBlankLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesInsertBlankLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesInsertBlankLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetArt() *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesInsertBlankLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertBlankLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesInsertBlankLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesInsertBlankLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertBlankLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertBlankLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertBlankLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertBlankLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertBlankLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertBlankLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertBlankLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesInsertBlankLayoutPagesItemTabOrderRows        ChangeItemPagesInsertBlankLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesInsertBlankLayoutPagesItemTabOrderColumns     ChangeItemPagesInsertBlankLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesInsertBlankLayoutPagesItemTabOrderStructure   ChangeItemPagesInsertBlankLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesInsertBlankLayoutPagesItemTabOrderAnnotations ChangeItemPagesInsertBlankLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesInsertBlankLayoutPagesItemTabOrderWidgets     ChangeItemPagesInsertBlankLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesInsertBlankLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesInsertBlankLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesInsertBlankLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesInsertBlankLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesInsertBlankLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesInsertBlankLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesInsertBlankLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesInsertBlankLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesInsertBlankLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesInsertBlankLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
-	changeItemPagesInsertLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayout struct {
-	PageCount  int                                          `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesInsertLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesInsertLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesInsertLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesInsertLayout) GetPages() []*ChangeItemPagesInsertLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesInsertLayout) GetLabels() []*ChangeItemPagesInsertLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesInsertLayout) GetNamedPages() []*ChangeItemPagesInsertLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesInsertLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesInsertLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayout) SetPages(pages []*ChangeItemPagesInsertLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesInsertLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayout) SetLabels(labels []*ChangeItemPagesInsertLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesInsertLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayout) SetNamedPages(namedPages []*ChangeItemPagesInsertLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesInsertLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesInsertLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutLabelsItem struct {
-	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesInsertLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                      `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) GetStyle() *ChangeItemPagesInsertLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesInsertLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutLabelsItem) SetStyle(style *ChangeItemPagesInsertLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesInsertLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesInsertLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesInsertLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesInsertLayoutLabelsItemStyleDecimal      ChangeItemPagesInsertLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesInsertLayoutLabelsItemStyleUpperRoman   ChangeItemPagesInsertLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesInsertLayoutLabelsItemStyleLowerRoman   ChangeItemPagesInsertLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesInsertLayoutLabelsItemStyleUpperLetters ChangeItemPagesInsertLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesInsertLayoutLabelsItemStyleLowerLetters ChangeItemPagesInsertLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesInsertLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesInsertLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesInsertLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesInsertLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesInsertLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesInsertLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesInsertLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesInsertLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesInsertLayoutLabelsItemStyle) Ptr() *ChangeItemPagesInsertLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesInsertLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesInsertLayoutNamedPagesItem struct {
-	Name   string                                           `json:"name" url:"name"`
-	Target *ChangeItemPagesInsertLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) GetTarget() *ChangeItemPagesInsertLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesInsertLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesInsertLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesInsertLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesInsertLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesInsertLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesInsertLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesInsertLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesInsertLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesInsertLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesInsertLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesInsertLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesInsertLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesInsertLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesInsertLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesInsertLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesInsertLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesInsertLayoutPagesItem struct {
-	Index      int                                             `json:"index" url:"index"`
-	Ref        *PageRef                                        `json:"ref" url:"ref"`
-	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesInsertLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesInsertLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesInsertLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesInsertLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                 `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetSize() *ChangeItemPagesInsertLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetTabOrder() *ChangeItemPagesInsertLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetBoxes() *ChangeItemPagesInsertLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesInsertLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesInsertLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesInsertLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesInsertLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetSize(size *ChangeItemPagesInsertLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesInsertLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesInsertLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesInsertLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesInsertLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesInsertLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesInsertLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesInsertLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesInsertLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesInsertLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesInsertLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesInsertLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesInsertLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesInsertLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesInsertLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesInsertLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesInsertLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesInsertLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesInsertLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesInsertLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetArt() *ChangeItemPagesInsertLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesInsertLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesInsertLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesInsertLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesInsertLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesInsertLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesInsertLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesInsertLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesInsertLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesInsertLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesInsertLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesInsertLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesInsertLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesInsertLayoutPagesItemTabOrderRows        ChangeItemPagesInsertLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesInsertLayoutPagesItemTabOrderColumns     ChangeItemPagesInsertLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesInsertLayoutPagesItemTabOrderStructure   ChangeItemPagesInsertLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesInsertLayoutPagesItemTabOrderAnnotations ChangeItemPagesInsertLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesInsertLayoutPagesItemTabOrderWidgets     ChangeItemPagesInsertLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesInsertLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesInsertLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesInsertLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesInsertLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesInsertLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesInsertLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesInsertLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesInsertLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesInsertLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesInsertLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
 	changeItemPagesReorderFieldPages  = big.NewInt(1 << 0)
 	changeItemPagesReorderFieldLayout = big.NewInt(1 << 1)
 	changeItemPagesReorderFieldMeta   = big.NewInt(1 << 2)
 )
 
 type ChangeItemPagesReorder struct {
-	Pages  []*PageRef                    `json:"pages" url:"pages"`
-	Layout *ChangeItemPagesReorderLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                 `json:"meta" url:"meta"`
+	Pages  []*PageRef        `json:"pages" url:"pages"`
+	Layout *PageListSnapshot `json:"layout" url:"layout"`
+	Meta   *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -79430,7 +71146,7 @@ func (c *ChangeItemPagesReorder) GetPages() []*PageRef {
 	return c.Pages
 }
 
-func (c *ChangeItemPagesReorder) GetLayout() *ChangeItemPagesReorderLayout {
+func (c *ChangeItemPagesReorder) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -79467,7 +71183,7 @@ func (c *ChangeItemPagesReorder) SetPages(pages []*PageRef) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorder) SetLayout(layout *ChangeItemPagesReorderLayout) {
+func (c *ChangeItemPagesReorder) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesReorderFieldLayout)
 }
@@ -79522,2092 +71238,15 @@ func (c *ChangeItemPagesReorder) String() string {
 }
 
 var (
-	changeItemPagesReorderLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayout struct {
-	PageCount  int                                           `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesReorderLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesReorderLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesReorderLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesReorderLayout) GetPages() []*ChangeItemPagesReorderLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesReorderLayout) GetLabels() []*ChangeItemPagesReorderLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesReorderLayout) GetNamedPages() []*ChangeItemPagesReorderLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesReorderLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesReorderLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayout) SetPages(pages []*ChangeItemPagesReorderLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesReorderLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayout) SetLabels(labels []*ChangeItemPagesReorderLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesReorderLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayout) SetNamedPages(namedPages []*ChangeItemPagesReorderLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesReorderLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesReorderLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutLabelsItem struct {
-	FirstPage   int                                          `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesReorderLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                          `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                       `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) GetStyle() *ChangeItemPagesReorderLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesReorderLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutLabelsItem) SetStyle(style *ChangeItemPagesReorderLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesReorderLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesReorderLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesReorderLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesReorderLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesReorderLayoutLabelsItemStyleDecimal      ChangeItemPagesReorderLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesReorderLayoutLabelsItemStyleUpperRoman   ChangeItemPagesReorderLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesReorderLayoutLabelsItemStyleLowerRoman   ChangeItemPagesReorderLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesReorderLayoutLabelsItemStyleUpperLetters ChangeItemPagesReorderLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesReorderLayoutLabelsItemStyleLowerLetters ChangeItemPagesReorderLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesReorderLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesReorderLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesReorderLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesReorderLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesReorderLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesReorderLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesReorderLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesReorderLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesReorderLayoutLabelsItemStyle) Ptr() *ChangeItemPagesReorderLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesReorderLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesReorderLayoutNamedPagesItem struct {
-	Name   string                                            `json:"name" url:"name"`
-	Target *ChangeItemPagesReorderLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) GetTarget() *ChangeItemPagesReorderLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesReorderLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesReorderLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesReorderLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesReorderLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesReorderLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesReorderLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesReorderLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesReorderLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesReorderLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesReorderLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesReorderLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesReorderLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesReorderLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesReorderLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesReorderLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesReorderLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesReorderLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesReorderLayoutPagesItem struct {
-	Index      int                                              `json:"index" url:"index"`
-	Ref        *PageRef                                         `json:"ref" url:"ref"`
-	Label      *string                                          `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesReorderLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                              `json:"rotation" url:"rotation"`
-	UserUnit   float64                                          `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesReorderLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesReorderLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesReorderLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                  `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetSize() *ChangeItemPagesReorderLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetTabOrder() *ChangeItemPagesReorderLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetBoxes() *ChangeItemPagesReorderLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesReorderLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesReorderLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesReorderLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesReorderLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetSize(size *ChangeItemPagesReorderLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesReorderLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesReorderLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesReorderLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesReorderLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesReorderLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesReorderLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesReorderLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesReorderLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesReorderLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesReorderLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesReorderLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesReorderLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesReorderLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesReorderLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesReorderLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesReorderLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesReorderLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesReorderLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesReorderLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetArt() *ChangeItemPagesReorderLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesReorderLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesReorderLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesReorderLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesReorderLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesReorderLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesReorderLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesReorderLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesReorderLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesReorderLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesReorderLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesReorderLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesReorderLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesReorderLayoutPagesItemTabOrderRows        ChangeItemPagesReorderLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesReorderLayoutPagesItemTabOrderColumns     ChangeItemPagesReorderLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesReorderLayoutPagesItemTabOrderStructure   ChangeItemPagesReorderLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesReorderLayoutPagesItemTabOrderAnnotations ChangeItemPagesReorderLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesReorderLayoutPagesItemTabOrderWidgets     ChangeItemPagesReorderLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesReorderLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesReorderLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesReorderLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesReorderLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesReorderLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesReorderLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesReorderLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesReorderLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesReorderLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesReorderLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
 	changeItemPagesRestoreFieldPages  = big.NewInt(1 << 0)
 	changeItemPagesRestoreFieldLayout = big.NewInt(1 << 1)
 	changeItemPagesRestoreFieldMeta   = big.NewInt(1 << 2)
 )
 
 type ChangeItemPagesRestore struct {
-	Pages  []*PageRef                    `json:"pages" url:"pages"`
-	Layout *ChangeItemPagesRestoreLayout `json:"layout" url:"layout"`
-	Meta   *MutationMeta                 `json:"meta" url:"meta"`
+	Pages  []*PageRef        `json:"pages" url:"pages"`
+	Layout *PageListSnapshot `json:"layout" url:"layout"`
+	Meta   *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -81623,7 +71262,7 @@ func (c *ChangeItemPagesRestore) GetPages() []*PageRef {
 	return c.Pages
 }
 
-func (c *ChangeItemPagesRestore) GetLayout() *ChangeItemPagesRestoreLayout {
+func (c *ChangeItemPagesRestore) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -81660,7 +71299,7 @@ func (c *ChangeItemPagesRestore) SetPages(pages []*PageRef) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestore) SetLayout(layout *ChangeItemPagesRestoreLayout) {
+func (c *ChangeItemPagesRestore) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesRestoreFieldLayout)
 }
@@ -81715,2083 +71354,6 @@ func (c *ChangeItemPagesRestore) String() string {
 }
 
 var (
-	changeItemPagesRestoreLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutFieldNamedPages = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayout struct {
-	PageCount  int                                           `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesRestoreLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesRestoreLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesRestoreLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesRestoreLayout) GetPages() []*ChangeItemPagesRestoreLayoutPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.Pages
-}
-
-func (c *ChangeItemPagesRestoreLayout) GetLabels() []*ChangeItemPagesRestoreLayoutLabelsItem {
-	if c == nil {
-		return nil
-	}
-	return c.Labels
-}
-
-func (c *ChangeItemPagesRestoreLayout) GetNamedPages() []*ChangeItemPagesRestoreLayoutNamedPagesItem {
-	if c == nil {
-		return nil
-	}
-	return c.NamedPages
-}
-
-func (c *ChangeItemPagesRestoreLayout) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayout) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesRestoreLayoutFieldPageCount)
-}
-
-// SetPages sets the Pages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayout) SetPages(pages []*ChangeItemPagesRestoreLayoutPagesItem) {
-	c.Pages = pages
-	c.require(changeItemPagesRestoreLayoutFieldPages)
-}
-
-// SetLabels sets the Labels field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayout) SetLabels(labels []*ChangeItemPagesRestoreLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesRestoreLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayout) SetNamedPages(namedPages []*ChangeItemPagesRestoreLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesRestoreLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesRestoreLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutLabelsItem struct {
-	FirstPage   int                                          `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesRestoreLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                          `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                       `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetStyle() *ChangeItemPagesRestoreLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesRestoreLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetStyle(style *ChangeItemPagesRestoreLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesRestoreLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesRestoreLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesRestoreLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRestoreLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesRestoreLayoutLabelsItemStyleDecimal      ChangeItemPagesRestoreLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesRestoreLayoutLabelsItemStyleUpperRoman   ChangeItemPagesRestoreLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesRestoreLayoutLabelsItemStyleLowerRoman   ChangeItemPagesRestoreLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesRestoreLayoutLabelsItemStyleUpperLetters ChangeItemPagesRestoreLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesRestoreLayoutLabelsItemStyleLowerLetters ChangeItemPagesRestoreLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesRestoreLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesRestoreLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesRestoreLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesRestoreLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesRestoreLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesRestoreLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesRestoreLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesRestoreLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesRestoreLayoutLabelsItemStyle) Ptr() *ChangeItemPagesRestoreLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesRestoreLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesRestoreLayoutNamedPagesItem struct {
-	Name   string                                            `json:"name" url:"name"`
-	Target *ChangeItemPagesRestoreLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) GetTarget() *ChangeItemPagesRestoreLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesRestoreLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesRestoreLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRestoreLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesRestoreLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesRestoreLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesRestoreLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPage sets the Page field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
-	c.Page = page
-	c.require(changeItemPagesRestoreLayoutNamedPagesItemTargetPageFieldPage)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetPage) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.ObjectNumber
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesRestoreLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesRestoreLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesRestoreLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesRestoreLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesRestoreLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesRestoreLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesRestoreLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItem struct {
-	Index      int                                              `json:"index" url:"index"`
-	Ref        *PageRef                                         `json:"ref" url:"ref"`
-	Label      *string                                          `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesRestoreLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                              `json:"rotation" url:"rotation"`
-	UserUnit   float64                                          `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesRestoreLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesRestoreLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                  `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetRef() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Ref
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetLabel() *string {
-	if c == nil {
-		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetSize() *ChangeItemPagesRestoreLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetTabOrder() *ChangeItemPagesRestoreLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetBoxes() *ChangeItemPagesRestoreLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetSize(size *ChangeItemPagesRestoreLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesRestoreLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesRestoreLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesRestoreLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesRestoreLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesRestoreLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetArt() *ChangeItemPagesRestoreLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesArtFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesArtFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesArtFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesArtFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxesArt
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxesArt(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxesArt
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesArt) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesBleedFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxesBleed
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxesBleed(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxesBleed
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesBleed) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesRestoreLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRestoreLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesRestoreLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesRestoreLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRestoreLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRestoreLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRestoreLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRestoreLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRestoreLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRestoreLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRestoreLayoutPagesItemTabOrder string
-
-const (
-	ChangeItemPagesRestoreLayoutPagesItemTabOrderRows        ChangeItemPagesRestoreLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesRestoreLayoutPagesItemTabOrderColumns     ChangeItemPagesRestoreLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesRestoreLayoutPagesItemTabOrderStructure   ChangeItemPagesRestoreLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesRestoreLayoutPagesItemTabOrderAnnotations ChangeItemPagesRestoreLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesRestoreLayoutPagesItemTabOrderWidgets     ChangeItemPagesRestoreLayoutPagesItemTabOrder = "widgets"
-)
-
-func NewChangeItemPagesRestoreLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesRestoreLayoutPagesItemTabOrder, error) {
-	switch s {
-	case "rows":
-		return ChangeItemPagesRestoreLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesRestoreLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesRestoreLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesRestoreLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesRestoreLayoutPagesItemTabOrderWidgets, nil
-	}
-	var t ChangeItemPagesRestoreLayoutPagesItemTabOrder
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesRestoreLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesRestoreLayoutPagesItemTabOrder {
-	return &c
-}
-
-var (
 	changeItemPagesRotateFieldPages    = big.NewInt(1 << 0)
 	changeItemPagesRotateFieldRotation = big.NewInt(1 << 1)
 	changeItemPagesRotateFieldLayout   = big.NewInt(1 << 2)
@@ -83799,10 +71361,10 @@ var (
 )
 
 type ChangeItemPagesRotate struct {
-	Pages    []*PageRef                   `json:"pages" url:"pages"`
-	Rotation int                          `json:"rotation" url:"rotation"`
-	Layout   *ChangeItemPagesRotateLayout `json:"layout" url:"layout"`
-	Meta     *MutationMeta                `json:"meta" url:"meta"`
+	Pages    []*PageRef        `json:"pages" url:"pages"`
+	Rotation int               `json:"rotation" url:"rotation"`
+	Layout   *PageListSnapshot `json:"layout" url:"layout"`
+	Meta     *MutationMeta     `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -83825,7 +71387,7 @@ func (c *ChangeItemPagesRotate) GetRotation() int {
 	return c.Rotation
 }
 
-func (c *ChangeItemPagesRotate) GetLayout() *ChangeItemPagesRotateLayout {
+func (c *ChangeItemPagesRotate) GetLayout() *PageListSnapshot {
 	if c == nil {
 		return nil
 	}
@@ -83869,7 +71431,7 @@ func (c *ChangeItemPagesRotate) SetRotation(rotation int) {
 
 // SetLayout sets the Layout field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotate) SetLayout(layout *ChangeItemPagesRotateLayout) {
+func (c *ChangeItemPagesRotate) SetLayout(layout *PageListSnapshot) {
 	c.Layout = layout
 	c.require(changeItemPagesRotateFieldLayout)
 }
@@ -83924,17 +71486,19 @@ func (c *ChangeItemPagesRotate) String() string {
 }
 
 var (
-	changeItemPagesRotateLayoutFieldPageCount  = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutFieldPages      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutFieldLabels     = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutFieldNamedPages = big.NewInt(1 << 3)
+	changeItemPagesSetScaleFieldPages   = big.NewInt(1 << 0)
+	changeItemPagesSetScaleFieldMeasure = big.NewInt(1 << 1)
+	changeItemPagesSetScaleFieldPage    = big.NewInt(1 << 2)
+	changeItemPagesSetScaleFieldLayout  = big.NewInt(1 << 3)
+	changeItemPagesSetScaleFieldMeta    = big.NewInt(1 << 4)
 )
 
-type ChangeItemPagesRotateLayout struct {
-	PageCount  int                                          `json:"pageCount" url:"pageCount"`
-	Pages      []*ChangeItemPagesRotateLayoutPagesItem      `json:"pages" url:"pages"`
-	Labels     []*ChangeItemPagesRotateLayoutLabelsItem     `json:"labels" url:"labels"`
-	NamedPages []*ChangeItemPagesRotateLayoutNamedPagesItem `json:"namedPages" url:"namedPages"`
+type ChangeItemPagesSetScale struct {
+	Pages   []*PageRef                      `json:"pages" url:"pages"`
+	Measure *ChangeItemPagesSetScaleMeasure `json:"measure,omitempty" url:"measure,omitempty"`
+	Page    *PageRef                        `json:"page" url:"page"`
+	Layout  *PageListSnapshot               `json:"layout" url:"layout"`
+	Meta    *MutationMeta                   `json:"meta" url:"meta"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -83943,645 +71507,97 @@ type ChangeItemPagesRotateLayout struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *ChangeItemPagesRotateLayout) GetPageCount() int {
-	if c == nil {
-		return 0
-	}
-	return c.PageCount
-}
-
-func (c *ChangeItemPagesRotateLayout) GetPages() []*ChangeItemPagesRotateLayoutPagesItem {
+func (c *ChangeItemPagesSetScale) GetPages() []*PageRef {
 	if c == nil {
 		return nil
 	}
 	return c.Pages
 }
 
-func (c *ChangeItemPagesRotateLayout) GetLabels() []*ChangeItemPagesRotateLayoutLabelsItem {
+func (c *ChangeItemPagesSetScale) GetMeasure() *ChangeItemPagesSetScaleMeasure {
 	if c == nil {
 		return nil
 	}
-	return c.Labels
+	return c.Measure
 }
 
-func (c *ChangeItemPagesRotateLayout) GetNamedPages() []*ChangeItemPagesRotateLayoutNamedPagesItem {
+func (c *ChangeItemPagesSetScale) GetPage() *PageRef {
 	if c == nil {
 		return nil
 	}
-	return c.NamedPages
+	return c.Page
 }
 
-func (c *ChangeItemPagesRotateLayout) GetExtraProperties() map[string]interface{} {
+func (c *ChangeItemPagesSetScale) GetLayout() *PageListSnapshot {
+	if c == nil {
+		return nil
+	}
+	return c.Layout
+}
+
+func (c *ChangeItemPagesSetScale) GetMeta() *MutationMeta {
+	if c == nil {
+		return nil
+	}
+	return c.Meta
+}
+
+func (c *ChangeItemPagesSetScale) GetExtraProperties() map[string]interface{} {
 	if c == nil {
 		return nil
 	}
 	return c.extraProperties
 }
 
-func (c *ChangeItemPagesRotateLayout) require(field *big.Int) {
+func (c *ChangeItemPagesSetScale) require(field *big.Int) {
 	if c.explicitFields == nil {
 		c.explicitFields = big.NewInt(0)
 	}
 	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetPageCount sets the PageCount field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayout) SetPageCount(pageCount int) {
-	c.PageCount = pageCount
-	c.require(changeItemPagesRotateLayoutFieldPageCount)
 }
 
 // SetPages sets the Pages field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayout) SetPages(pages []*ChangeItemPagesRotateLayoutPagesItem) {
+func (c *ChangeItemPagesSetScale) SetPages(pages []*PageRef) {
 	c.Pages = pages
-	c.require(changeItemPagesRotateLayoutFieldPages)
+	c.require(changeItemPagesSetScaleFieldPages)
 }
 
-// SetLabels sets the Labels field and marks it as non-optional;
+// SetMeasure sets the Measure field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayout) SetLabels(labels []*ChangeItemPagesRotateLayoutLabelsItem) {
-	c.Labels = labels
-	c.require(changeItemPagesRotateLayoutFieldLabels)
-}
-
-// SetNamedPages sets the NamedPages field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayout) SetNamedPages(namedPages []*ChangeItemPagesRotateLayoutNamedPagesItem) {
-	c.NamedPages = namedPages
-	c.require(changeItemPagesRotateLayoutFieldNamedPages)
-}
-
-func (c *ChangeItemPagesRotateLayout) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayout
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayout(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayout) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayout
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayout) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutLabelsItemFieldFirstPage   = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutLabelsItemFieldStyle       = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutLabelsItemFieldFirstNumber = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutLabelsItemFieldPrefix      = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutLabelsItem struct {
-	FirstPage   int                                         `json:"firstPage" url:"firstPage"`
-	Style       *ChangeItemPagesRotateLayoutLabelsItemStyle `json:"style,omitempty" url:"style,omitempty"`
-	FirstNumber int                                         `json:"firstNumber" url:"firstNumber"`
-	Prefix      string                                      `json:"prefix" url:"prefix"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) GetFirstPage() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstPage
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) GetStyle() *ChangeItemPagesRotateLayoutLabelsItemStyle {
-	if c == nil {
-		return nil
-	}
-	return c.Style
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) GetFirstNumber() int {
-	if c == nil {
-		return 0
-	}
-	return c.FirstNumber
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) GetPrefix() string {
-	if c == nil {
-		return ""
-	}
-	return c.Prefix
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetFirstPage sets the FirstPage field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutLabelsItem) SetFirstPage(firstPage int) {
-	c.FirstPage = firstPage
-	c.require(changeItemPagesRotateLayoutLabelsItemFieldFirstPage)
-}
-
-// SetStyle sets the Style field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutLabelsItem) SetStyle(style *ChangeItemPagesRotateLayoutLabelsItemStyle) {
-	c.Style = style
-	c.require(changeItemPagesRotateLayoutLabelsItemFieldStyle)
-}
-
-// SetFirstNumber sets the FirstNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutLabelsItem) SetFirstNumber(firstNumber int) {
-	c.FirstNumber = firstNumber
-	c.require(changeItemPagesRotateLayoutLabelsItemFieldFirstNumber)
-}
-
-// SetPrefix sets the Prefix field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutLabelsItem) SetPrefix(prefix string) {
-	c.Prefix = prefix
-	c.require(changeItemPagesRotateLayoutLabelsItemFieldPrefix)
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutLabelsItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutLabelsItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutLabelsItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutLabelsItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRotateLayoutLabelsItemStyle string
-
-const (
-	ChangeItemPagesRotateLayoutLabelsItemStyleDecimal      ChangeItemPagesRotateLayoutLabelsItemStyle = "decimal"
-	ChangeItemPagesRotateLayoutLabelsItemStyleUpperRoman   ChangeItemPagesRotateLayoutLabelsItemStyle = "upperRoman"
-	ChangeItemPagesRotateLayoutLabelsItemStyleLowerRoman   ChangeItemPagesRotateLayoutLabelsItemStyle = "lowerRoman"
-	ChangeItemPagesRotateLayoutLabelsItemStyleUpperLetters ChangeItemPagesRotateLayoutLabelsItemStyle = "upperLetters"
-	ChangeItemPagesRotateLayoutLabelsItemStyleLowerLetters ChangeItemPagesRotateLayoutLabelsItemStyle = "lowerLetters"
-)
-
-func NewChangeItemPagesRotateLayoutLabelsItemStyleFromString(s string) (ChangeItemPagesRotateLayoutLabelsItemStyle, error) {
-	switch s {
-	case "decimal":
-		return ChangeItemPagesRotateLayoutLabelsItemStyleDecimal, nil
-	case "upperRoman":
-		return ChangeItemPagesRotateLayoutLabelsItemStyleUpperRoman, nil
-	case "lowerRoman":
-		return ChangeItemPagesRotateLayoutLabelsItemStyleLowerRoman, nil
-	case "upperLetters":
-		return ChangeItemPagesRotateLayoutLabelsItemStyleUpperLetters, nil
-	case "lowerLetters":
-		return ChangeItemPagesRotateLayoutLabelsItemStyleLowerLetters, nil
-	}
-	var t ChangeItemPagesRotateLayoutLabelsItemStyle
-	return "", fmt.Errorf("%s is not a valid %T", s, t)
-}
-
-func (c ChangeItemPagesRotateLayoutLabelsItemStyle) Ptr() *ChangeItemPagesRotateLayoutLabelsItemStyle {
-	return &c
-}
-
-var (
-	changeItemPagesRotateLayoutNamedPagesItemFieldName   = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutNamedPagesItemFieldTarget = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesRotateLayoutNamedPagesItem struct {
-	Name   string                                           `json:"name" url:"name"`
-	Target *ChangeItemPagesRotateLayoutNamedPagesItemTarget `json:"target" url:"target"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) GetName() string {
-	if c == nil {
-		return ""
-	}
-	return c.Name
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) GetTarget() *ChangeItemPagesRotateLayoutNamedPagesItemTarget {
-	if c == nil {
-		return nil
-	}
-	return c.Target
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetName sets the Name field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) SetName(name string) {
-	c.Name = name
-	c.require(changeItemPagesRotateLayoutNamedPagesItemFieldName)
-}
-
-// SetTarget sets the Target field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) SetTarget(target *ChangeItemPagesRotateLayoutNamedPagesItemTarget) {
-	c.Target = target
-	c.require(changeItemPagesRotateLayoutNamedPagesItemFieldTarget)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutNamedPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutNamedPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutNamedPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRotateLayoutNamedPagesItemTarget struct {
-	Kind     string
-	Page     *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage
-	Template *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate
-	Dangling *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling
-
-	rawJSON json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) GetKind() string {
-	if c == nil {
-		return ""
-	}
-	return c.Kind
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) GetPage() *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) GetTemplate() *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate {
-	if c == nil {
-		return nil
-	}
-	return c.Template
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) GetDangling() *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling {
-	if c == nil {
-		return nil
-	}
-	return c.Dangling
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) UnmarshalJSON(data []byte) error {
-	var unmarshaler struct {
-		Kind string `json:"kind"`
-	}
-	if err := json.Unmarshal(data, &unmarshaler); err != nil {
-		return err
-	}
-	c.Kind = unmarshaler.Kind
-	if unmarshaler.Kind == "" {
-		return fmt.Errorf("%T did not include discriminant kind", c)
-	}
-	switch unmarshaler.Kind {
-	case "page":
-		value := new(ChangeItemPagesRotateLayoutNamedPagesItemTargetPage)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Page = value
-	case "template":
-		value := new(ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Template = value
-	case "dangling":
-		value := new(ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling)
-		if err := json.Unmarshal(data, &value); err != nil {
-			return err
-		}
-		c.Dangling = value
-	}
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c ChangeItemPagesRotateLayoutNamedPagesItemTarget) MarshalJSON() ([]byte, error) {
-	if err := c.validate(); err != nil {
-		return nil, err
-	}
-	if c.Page != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Page, "kind", "page")
-	}
-	if c.Template != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Template, "kind", "template")
-	}
-	if c.Dangling != nil {
-		return internal.MarshalJSONWithExtraProperty(c.Dangling, "kind", "dangling")
-	}
-	if len(c.rawJSON) > 0 {
-		return c.rawJSON, nil
-	}
-	return nil, fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-type ChangeItemPagesRotateLayoutNamedPagesItemTargetVisitor interface {
-	VisitPage(*ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) error
-	VisitTemplate(*ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) error
-	VisitDangling(*ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) error
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) Accept(visitor ChangeItemPagesRotateLayoutNamedPagesItemTargetVisitor) error {
-	if c.Page != nil {
-		return visitor.VisitPage(c.Page)
-	}
-	if c.Template != nil {
-		return visitor.VisitTemplate(c.Template)
-	}
-	if c.Dangling != nil {
-		return visitor.VisitDangling(c.Dangling)
-	}
-	return fmt.Errorf("type %T does not define a non-empty union type", c)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTarget) validate() error {
-	if c == nil {
-		return fmt.Errorf("type %T is nil", c)
-	}
-	var fields []string
-	if c.Page != nil {
-		fields = append(fields, "page")
-	}
-	if c.Template != nil {
-		fields = append(fields, "template")
-	}
-	if c.Dangling != nil {
-		fields = append(fields, "dangling")
-	}
-	if len(fields) == 0 {
-		if c.Kind != "" {
-			if len(c.rawJSON) > 0 {
-				return nil
-			}
-			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", c, c.Kind)
-		}
-		return fmt.Errorf("type %T is empty", c)
-	}
-	if len(fields) > 1 {
-		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", c, fields)
-	}
-	if c.Kind != "" {
-		field := fields[0]
-		if c.Kind != field {
-			return fmt.Errorf(
-				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
-				c,
-				c.Kind,
-				c,
-			)
-		}
-	}
-	return nil
-}
-
-type ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling struct {
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetDangling) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutNamedPagesItemTargetPageFieldPage = big.NewInt(1 << 0)
-)
-
-type ChangeItemPagesRotateLayoutNamedPagesItemTargetPage struct {
-	Page *PageRef `json:"page" url:"page"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) GetPage() *PageRef {
-	if c == nil {
-		return nil
-	}
-	return c.Page
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
+func (c *ChangeItemPagesSetScale) SetMeasure(measure *ChangeItemPagesSetScaleMeasure) {
+	c.Measure = measure
+	c.require(changeItemPagesSetScaleFieldMeasure)
 }
 
 // SetPage sets the Page field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) SetPage(page *PageRef) {
+func (c *ChangeItemPagesSetScale) SetPage(page *PageRef) {
 	c.Page = page
-	c.require(changeItemPagesRotateLayoutNamedPagesItemTargetPageFieldPage)
+	c.require(changeItemPagesSetScaleFieldPage)
 }
 
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutNamedPagesItemTargetPage
+// SetLayout sets the Layout field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScale) SetLayout(layout *PageListSnapshot) {
+	c.Layout = layout
+	c.require(changeItemPagesSetScaleFieldLayout)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScale) SetMeta(meta *MutationMeta) {
+	c.Meta = meta
+	c.require(changeItemPagesSetScaleFieldMeta)
+}
+
+func (c *ChangeItemPagesSetScale) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScale
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*c = ChangeItemPagesRotateLayoutNamedPagesItemTargetPage(value)
+	*c = ChangeItemPagesSetScale(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *c)
 	if err != nil {
 		return err
@@ -84591,8 +71607,8 @@ func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) UnmarshalJSON(data
 	return nil
 }
 
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutNamedPagesItemTargetPage
+func (c *ChangeItemPagesSetScale) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScale
 	var marshaler = struct {
 		embed
 	}{
@@ -84602,7 +71618,7 @@ func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) MarshalJSON() ([]b
 	return json.Marshal(explicitMarshaler)
 }
 
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) String() string {
+func (c *ChangeItemPagesSetScale) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -84618,11 +71634,29 @@ func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetPage) String() string {
 }
 
 var (
-	changeItemPagesRotateLayoutNamedPagesItemTargetTemplateFieldObjectNumber = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureFieldSubtype  = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureFieldRatio    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureFieldX        = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureFieldY        = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureFieldDistance = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureFieldArea     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureFieldAngle    = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureFieldSlope    = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureFieldOrigin   = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureFieldCyx      = big.NewInt(1 << 9)
 )
 
-type ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate struct {
-	ObjectNumber int `json:"objectNumber" url:"objectNumber"`
+type ChangeItemPagesSetScaleMeasure struct {
+	Subtype  ChangeItemPagesSetScaleMeasureSubtype         `json:"subtype" url:"subtype"`
+	Ratio    *string                                       `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*ChangeItemPagesSetScaleMeasureXItem        `json:"x" url:"x"`
+	Y        []*ChangeItemPagesSetScaleMeasureYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*ChangeItemPagesSetScaleMeasureDistanceItem `json:"distance" url:"distance"`
+	Area     []*ChangeItemPagesSetScaleMeasureAreaItem     `json:"area" url:"area"`
+	Angle    []*ChangeItemPagesSetScaleMeasureAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*ChangeItemPagesSetScaleMeasureSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *ChangeItemPagesSetScaleMeasureOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                      `json:"cyx,omitempty" url:"cyx,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -84631,549 +71665,167 @@ type ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) GetObjectNumber() int {
+func (c *ChangeItemPagesSetScaleMeasure) GetSubtype() ChangeItemPagesSetScaleMeasureSubtype {
 	if c == nil {
-		return 0
+		return ""
 	}
-	return c.ObjectNumber
+	return c.Subtype
 }
 
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetObjectNumber sets the ObjectNumber field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) SetObjectNumber(objectNumber int) {
-	c.ObjectNumber = objectNumber
-	c.require(changeItemPagesRotateLayoutNamedPagesItemTargetTemplateFieldObjectNumber)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutNamedPagesItemTargetTemplate) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemFieldIndex      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemFieldRef        = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemFieldLabel      = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemFieldSize       = big.NewInt(1 << 3)
-	changeItemPagesRotateLayoutPagesItemFieldRotation   = big.NewInt(1 << 4)
-	changeItemPagesRotateLayoutPagesItemFieldUserUnit   = big.NewInt(1 << 5)
-	changeItemPagesRotateLayoutPagesItemFieldTabOrder   = big.NewInt(1 << 6)
-	changeItemPagesRotateLayoutPagesItemFieldBoxes      = big.NewInt(1 << 7)
-	changeItemPagesRotateLayoutPagesItemFieldPdfCropBox = big.NewInt(1 << 8)
-	changeItemPagesRotateLayoutPagesItemFieldActions    = big.NewInt(1 << 9)
-)
-
-type ChangeItemPagesRotateLayoutPagesItem struct {
-	Index      int                                             `json:"index" url:"index"`
-	Ref        *PageRef                                        `json:"ref" url:"ref"`
-	Label      *string                                         `json:"label,omitempty" url:"label,omitempty"`
-	Size       *ChangeItemPagesRotateLayoutPagesItemSize       `json:"size" url:"size"`
-	Rotation   int                                             `json:"rotation" url:"rotation"`
-	UserUnit   float64                                         `json:"userUnit" url:"userUnit"`
-	TabOrder   *ChangeItemPagesRotateLayoutPagesItemTabOrder   `json:"tabOrder,omitempty" url:"tabOrder,omitempty"`
-	Boxes      *ChangeItemPagesRotateLayoutPagesItemBoxes      `json:"boxes" url:"boxes"`
-	PdfCropBox *ChangeItemPagesRotateLayoutPagesItemPdfCropBox `json:"pdfCropBox" url:"pdfCropBox"`
-	Actions    *PdfPageActions                                 `json:"actions,omitempty" url:"actions,omitempty"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetIndex() int {
-	if c == nil {
-		return 0
-	}
-	return c.Index
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetRef() *PageRef {
+func (c *ChangeItemPagesSetScaleMeasure) GetRatio() *string {
 	if c == nil {
 		return nil
 	}
-	return c.Ref
+	return c.Ratio
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetLabel() *string {
+func (c *ChangeItemPagesSetScaleMeasure) GetX() []*ChangeItemPagesSetScaleMeasureXItem {
 	if c == nil {
 		return nil
-	}
-	return c.Label
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetSize() *ChangeItemPagesRotateLayoutPagesItemSize {
-	if c == nil {
-		return nil
-	}
-	return c.Size
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetRotation() int {
-	if c == nil {
-		return 0
-	}
-	return c.Rotation
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetUserUnit() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.UserUnit
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetTabOrder() *ChangeItemPagesRotateLayoutPagesItemTabOrder {
-	if c == nil {
-		return nil
-	}
-	return c.TabOrder
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetBoxes() *ChangeItemPagesRotateLayoutPagesItemBoxes {
-	if c == nil {
-		return nil
-	}
-	return c.Boxes
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetPdfCropBox() *ChangeItemPagesRotateLayoutPagesItemPdfCropBox {
-	if c == nil {
-		return nil
-	}
-	return c.PdfCropBox
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetActions() *PdfPageActions {
-	if c == nil {
-		return nil
-	}
-	return c.Actions
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetIndex sets the Index field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetIndex(index int) {
-	c.Index = index
-	c.require(changeItemPagesRotateLayoutPagesItemFieldIndex)
-}
-
-// SetRef sets the Ref field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetRef(ref *PageRef) {
-	c.Ref = ref
-	c.require(changeItemPagesRotateLayoutPagesItemFieldRef)
-}
-
-// SetLabel sets the Label field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetLabel(label *string) {
-	c.Label = label
-	c.require(changeItemPagesRotateLayoutPagesItemFieldLabel)
-}
-
-// SetSize sets the Size field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetSize(size *ChangeItemPagesRotateLayoutPagesItemSize) {
-	c.Size = size
-	c.require(changeItemPagesRotateLayoutPagesItemFieldSize)
-}
-
-// SetRotation sets the Rotation field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetRotation(rotation int) {
-	c.Rotation = rotation
-	c.require(changeItemPagesRotateLayoutPagesItemFieldRotation)
-}
-
-// SetUserUnit sets the UserUnit field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetUserUnit(userUnit float64) {
-	c.UserUnit = userUnit
-	c.require(changeItemPagesRotateLayoutPagesItemFieldUserUnit)
-}
-
-// SetTabOrder sets the TabOrder field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetTabOrder(tabOrder *ChangeItemPagesRotateLayoutPagesItemTabOrder) {
-	c.TabOrder = tabOrder
-	c.require(changeItemPagesRotateLayoutPagesItemFieldTabOrder)
-}
-
-// SetBoxes sets the Boxes field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetBoxes(boxes *ChangeItemPagesRotateLayoutPagesItemBoxes) {
-	c.Boxes = boxes
-	c.require(changeItemPagesRotateLayoutPagesItemFieldBoxes)
-}
-
-// SetPdfCropBox sets the PdfCropBox field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetPdfCropBox(pdfCropBox *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) {
-	c.PdfCropBox = pdfCropBox
-	c.require(changeItemPagesRotateLayoutPagesItemFieldPdfCropBox)
-}
-
-// SetActions sets the Actions field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItem) SetActions(actions *PdfPageActions) {
-	c.Actions = actions
-	c.require(changeItemPagesRotateLayoutPagesItemFieldActions)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItem
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItem(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItem
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItem) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemBoxesFieldMedia = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesFieldCrop  = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesFieldBleed = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesFieldTrim  = big.NewInt(1 << 3)
-	changeItemPagesRotateLayoutPagesItemBoxesFieldArt   = big.NewInt(1 << 4)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemBoxes struct {
-	Media *ChangeItemPagesRotateLayoutPagesItemBoxesMedia `json:"media" url:"media"`
-	Crop  *ChangeItemPagesRotateLayoutPagesItemBoxesCrop  `json:"crop" url:"crop"`
-	Bleed *ChangeItemPagesRotateLayoutPagesItemBoxesBleed `json:"bleed" url:"bleed"`
-	Trim  *ChangeItemPagesRotateLayoutPagesItemBoxesTrim  `json:"trim" url:"trim"`
-	Art   *ChangeItemPagesRotateLayoutPagesItemBoxesArt   `json:"art" url:"art"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetMedia() *ChangeItemPagesRotateLayoutPagesItemBoxesMedia {
-	if c == nil {
-		return nil
-	}
-	return c.Media
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetCrop() *ChangeItemPagesRotateLayoutPagesItemBoxesCrop {
-	if c == nil {
-		return nil
-	}
-	return c.Crop
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetBleed() *ChangeItemPagesRotateLayoutPagesItemBoxesBleed {
-	if c == nil {
-		return nil
-	}
-	return c.Bleed
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetTrim() *ChangeItemPagesRotateLayoutPagesItemBoxesTrim {
-	if c == nil {
-		return nil
-	}
-	return c.Trim
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetArt() *ChangeItemPagesRotateLayoutPagesItemBoxesArt {
-	if c == nil {
-		return nil
-	}
-	return c.Art
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetMedia sets the Media field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) SetMedia(media *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) {
-	c.Media = media
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesFieldMedia)
-}
-
-// SetCrop sets the Crop field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) SetCrop(crop *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) {
-	c.Crop = crop
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesFieldCrop)
-}
-
-// SetBleed sets the Bleed field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) SetBleed(bleed *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) {
-	c.Bleed = bleed
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesFieldBleed)
-}
-
-// SetTrim sets the Trim field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) SetTrim(trim *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) {
-	c.Trim = trim
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesFieldTrim)
-}
-
-// SetArt sets the Art field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) SetArt(art *ChangeItemPagesRotateLayoutPagesItemBoxesArt) {
-	c.Art = art
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesFieldArt)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxes
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxes(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxes
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxes) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemBoxesArtFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesArtFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesArtFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesArtFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemBoxesArt struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) GetX() float64 {
-	if c == nil {
-		return 0
 	}
 	return c.X
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) GetY() float64 {
+func (c *ChangeItemPagesSetScaleMeasure) GetY() []*ChangeItemPagesSetScaleMeasureYItem {
 	if c == nil {
-		return 0
+		return nil
 	}
 	return c.Y
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) GetWidth() float64 {
+func (c *ChangeItemPagesSetScaleMeasure) GetDistance() []*ChangeItemPagesSetScaleMeasureDistanceItem {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Width
+	return c.Distance
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) GetHeight() float64 {
+func (c *ChangeItemPagesSetScaleMeasure) GetArea() []*ChangeItemPagesSetScaleMeasureAreaItem {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Height
+	return c.Area
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) GetExtraProperties() map[string]interface{} {
+func (c *ChangeItemPagesSetScaleMeasure) GetAngle() []*ChangeItemPagesSetScaleMeasureAngleItem {
+	if c == nil {
+		return nil
+	}
+	return c.Angle
+}
+
+func (c *ChangeItemPagesSetScaleMeasure) GetSlope() []*ChangeItemPagesSetScaleMeasureSlopeItem {
+	if c == nil {
+		return nil
+	}
+	return c.Slope
+}
+
+func (c *ChangeItemPagesSetScaleMeasure) GetOrigin() *ChangeItemPagesSetScaleMeasureOrigin {
+	if c == nil {
+		return nil
+	}
+	return c.Origin
+}
+
+func (c *ChangeItemPagesSetScaleMeasure) GetCyx() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Cyx
+}
+
+func (c *ChangeItemPagesSetScaleMeasure) GetExtraProperties() map[string]interface{} {
 	if c == nil {
 		return nil
 	}
 	return c.extraProperties
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) require(field *big.Int) {
+func (c *ChangeItemPagesSetScaleMeasure) require(field *big.Int) {
 	if c.explicitFields == nil {
 		c.explicitFields = big.NewInt(0)
 	}
 	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetSubtype sets the Subtype field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetSubtype(subtype ChangeItemPagesSetScaleMeasureSubtype) {
+	c.Subtype = subtype
+	c.require(changeItemPagesSetScaleMeasureFieldSubtype)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetRatio(ratio *string) {
+	c.Ratio = ratio
+	c.require(changeItemPagesSetScaleMeasureFieldRatio)
 }
 
 // SetX sets the X field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) SetX(x float64) {
+func (c *ChangeItemPagesSetScaleMeasure) SetX(x []*ChangeItemPagesSetScaleMeasureXItem) {
 	c.X = x
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesArtFieldX)
+	c.require(changeItemPagesSetScaleMeasureFieldX)
 }
 
 // SetY sets the Y field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) SetY(y float64) {
+func (c *ChangeItemPagesSetScaleMeasure) SetY(y []*ChangeItemPagesSetScaleMeasureYItem) {
 	c.Y = y
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesArtFieldY)
+	c.require(changeItemPagesSetScaleMeasureFieldY)
 }
 
-// SetWidth sets the Width field and marks it as non-optional;
+// SetDistance sets the Distance field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesArtFieldWidth)
+func (c *ChangeItemPagesSetScaleMeasure) SetDistance(distance []*ChangeItemPagesSetScaleMeasureDistanceItem) {
+	c.Distance = distance
+	c.require(changeItemPagesSetScaleMeasureFieldDistance)
 }
 
-// SetHeight sets the Height field and marks it as non-optional;
+// SetArea sets the Area field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesArtFieldHeight)
+func (c *ChangeItemPagesSetScaleMeasure) SetArea(area []*ChangeItemPagesSetScaleMeasureAreaItem) {
+	c.Area = area
+	c.require(changeItemPagesSetScaleMeasureFieldArea)
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxesArt
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetAngle(angle []*ChangeItemPagesSetScaleMeasureAngleItem) {
+	c.Angle = angle
+	c.require(changeItemPagesSetScaleMeasureFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetSlope(slope []*ChangeItemPagesSetScaleMeasureSlopeItem) {
+	c.Slope = slope
+	c.require(changeItemPagesSetScaleMeasureFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetOrigin(origin *ChangeItemPagesSetScaleMeasureOrigin) {
+	c.Origin = origin
+	c.require(changeItemPagesSetScaleMeasureFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasure) SetCyx(cyx *float64) {
+	c.Cyx = cyx
+	c.require(changeItemPagesSetScaleMeasureFieldCyx)
+}
+
+func (c *ChangeItemPagesSetScaleMeasure) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasure
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxesArt(value)
+	*c = ChangeItemPagesSetScaleMeasure(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *c)
 	if err != nil {
 		return err
@@ -85183,8 +71835,8 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) UnmarshalJSON(data []byte
 	return nil
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxesArt
+func (c *ChangeItemPagesSetScaleMeasure) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasure
 	var marshaler = struct {
 		embed
 	}{
@@ -85194,7 +71846,7 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) MarshalJSON() ([]byte, er
 	return json.Marshal(explicitMarshaler)
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) String() string {
+func (c *ChangeItemPagesSetScaleMeasure) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -85210,17 +71862,29 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesArt) String() string {
 }
 
 var (
-	changeItemPagesRotateLayoutPagesItemBoxesBleedFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesBleedFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesBleedFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesBleedFieldHeight = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureAngleItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureAngleItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureAngleItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureAngleItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureAngleItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureAngleItemFieldLabelPosition = big.NewInt(1 << 9)
 )
 
-type ChangeItemPagesRotateLayoutPagesItemBoxesBleed struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
+type ChangeItemPagesSetScaleMeasureAngleItem struct {
+	Unit          string                                                `json:"unit" url:"unit"`
+	Conversion    *float64                                              `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                  `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                 `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                               `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                               `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                               `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                               `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -85229,83 +71893,167 @@ type ChangeItemPagesRotateLayoutPagesItemBoxesBleed struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) GetX() float64 {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetUnit() string {
 	if c == nil {
-		return 0
+		return ""
 	}
-	return c.X
+	return c.Unit
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) GetY() float64 {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetConversion() *float64 {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Y
+	return c.Conversion
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) GetWidth() float64 {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetFraction() *ChangeItemPagesSetScaleMeasureAngleItemFraction {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Width
+	return c.Fraction
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) GetHeight() float64 {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetPrecision() *int {
 	if c == nil {
-		return 0
+		return nil
 	}
-	return c.Height
+	return c.Precision
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) GetExtraProperties() map[string]interface{} {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureAngleItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) GetExtraProperties() map[string]interface{} {
 	if c == nil {
 		return nil
 	}
 	return c.extraProperties
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) require(field *big.Int) {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) require(field *big.Int) {
 	if c.explicitFields == nil {
 		c.explicitFields = big.NewInt(0)
 	}
 	c.explicitFields.Or(c.explicitFields, field)
 }
 
-// SetX sets the X field and marks it as non-optional;
+// SetUnit sets the Unit field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesBleedFieldX)
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldUnit)
 }
 
-// SetY sets the Y field and marks it as non-optional;
+// SetConversion sets the Conversion field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesBleedFieldY)
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldConversion)
 }
 
-// SetWidth sets the Width field and marks it as non-optional;
+// SetFraction sets the Fraction field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesBleedFieldWidth)
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureAngleItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldFraction)
 }
 
-// SetHeight sets the Height field and marks it as non-optional;
+// SetPrecision sets the Precision field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesBleedFieldHeight)
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldPrecision)
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxesBleed
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureAngleItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureAngleItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureAngleItem
 	var value unmarshaler
 	if err := json.Unmarshal(data, &value); err != nil {
 		return err
 	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxesBleed(value)
+	*c = ChangeItemPagesSetScaleMeasureAngleItem(value)
 	extraProperties, err := internal.ExtractExtraProperties(data, *c)
 	if err != nil {
 		return err
@@ -85315,8 +72063,8 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) UnmarshalJSON(data []by
 	return nil
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxesBleed
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureAngleItem
 	var marshaler = struct {
 		embed
 	}{
@@ -85326,7 +72074,7 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) MarshalJSON() ([]byte, 
 	return json.Marshal(explicitMarshaler)
 }
 
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) String() string {
+func (c *ChangeItemPagesSetScaleMeasureAngleItem) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -85341,662 +72089,1562 @@ func (c *ChangeItemPagesRotateLayoutPagesItemBoxesBleed) String() string {
 	return fmt.Sprintf("%#v", c)
 }
 
-var (
-	changeItemPagesRotateLayoutPagesItemBoxesCropFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesCropFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesCropFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesCropFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemBoxesCrop struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesCropFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesCropFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesCropFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesCropFieldHeight)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxesCrop
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxesCrop(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxesCrop
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesCrop) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemBoxesMediaFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesMediaFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesMediaFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesMediaFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemBoxesMedia struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesMediaFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesMediaFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesMediaFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesMediaFieldHeight)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxesMedia
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxesMedia(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxesMedia
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesMedia) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemBoxesTrimFieldX      = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemBoxesTrimFieldY      = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemBoxesTrimFieldWidth  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemBoxesTrimFieldHeight = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemBoxesTrim struct {
-	X      float64 `json:"x" url:"x"`
-	Y      float64 `json:"y" url:"y"`
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) GetX() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.X
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) GetY() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Y
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetX sets the X field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) SetX(x float64) {
-	c.X = x
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesTrimFieldX)
-}
-
-// SetY sets the Y field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) SetY(y float64) {
-	c.Y = y
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesTrimFieldY)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesTrimFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemBoxesTrimFieldHeight)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemBoxesTrim
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemBoxesTrim(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemBoxesTrim
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemBoxesTrim) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldLeft   = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldBottom = big.NewInt(1 << 1)
-	changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldRight  = big.NewInt(1 << 2)
-	changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldTop    = big.NewInt(1 << 3)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemPdfCropBox struct {
-	Left   float64 `json:"left" url:"left"`
-	Bottom float64 `json:"bottom" url:"bottom"`
-	Right  float64 `json:"right" url:"right"`
-	Top    float64 `json:"top" url:"top"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) GetLeft() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Left
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) GetBottom() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Bottom
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) GetRight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Right
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) GetTop() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Top
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetLeft sets the Left field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) SetLeft(left float64) {
-	c.Left = left
-	c.require(changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldLeft)
-}
-
-// SetBottom sets the Bottom field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) SetBottom(bottom float64) {
-	c.Bottom = bottom
-	c.require(changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldBottom)
-}
-
-// SetRight sets the Right field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) SetRight(right float64) {
-	c.Right = right
-	c.require(changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldRight)
-}
-
-// SetTop sets the Top field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) SetTop(top float64) {
-	c.Top = top
-	c.require(changeItemPagesRotateLayoutPagesItemPdfCropBoxFieldTop)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemPdfCropBox
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemPdfCropBox(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemPdfCropBox
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemPdfCropBox) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-var (
-	changeItemPagesRotateLayoutPagesItemSizeFieldWidth  = big.NewInt(1 << 0)
-	changeItemPagesRotateLayoutPagesItemSizeFieldHeight = big.NewInt(1 << 1)
-)
-
-type ChangeItemPagesRotateLayoutPagesItemSize struct {
-	Width  float64 `json:"width" url:"width"`
-	Height float64 `json:"height" url:"height"`
-
-	// Private bitmask of fields set to an explicit value and therefore not to be omitted
-	explicitFields *big.Int `json:"-" url:"-"`
-
-	extraProperties map[string]interface{}
-	rawJSON         json.RawMessage
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) GetWidth() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Width
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) GetHeight() float64 {
-	if c == nil {
-		return 0
-	}
-	return c.Height
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) GetExtraProperties() map[string]interface{} {
-	if c == nil {
-		return nil
-	}
-	return c.extraProperties
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) require(field *big.Int) {
-	if c.explicitFields == nil {
-		c.explicitFields = big.NewInt(0)
-	}
-	c.explicitFields.Or(c.explicitFields, field)
-}
-
-// SetWidth sets the Width field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) SetWidth(width float64) {
-	c.Width = width
-	c.require(changeItemPagesRotateLayoutPagesItemSizeFieldWidth)
-}
-
-// SetHeight sets the Height field and marks it as non-optional;
-// this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) SetHeight(height float64) {
-	c.Height = height
-	c.require(changeItemPagesRotateLayoutPagesItemSizeFieldHeight)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) UnmarshalJSON(data []byte) error {
-	type unmarshaler ChangeItemPagesRotateLayoutPagesItemSize
-	var value unmarshaler
-	if err := json.Unmarshal(data, &value); err != nil {
-		return err
-	}
-	*c = ChangeItemPagesRotateLayoutPagesItemSize(value)
-	extraProperties, err := internal.ExtractExtraProperties(data, *c)
-	if err != nil {
-		return err
-	}
-	c.extraProperties = extraProperties
-	c.rawJSON = json.RawMessage(data)
-	return nil
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) MarshalJSON() ([]byte, error) {
-	type embed ChangeItemPagesRotateLayoutPagesItemSize
-	var marshaler = struct {
-		embed
-	}{
-		embed: embed(*c),
-	}
-	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
-	return json.Marshal(explicitMarshaler)
-}
-
-func (c *ChangeItemPagesRotateLayoutPagesItemSize) String() string {
-	if c == nil {
-		return "<nil>"
-	}
-	if len(c.rawJSON) > 0 {
-		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
-			return value
-		}
-	}
-	if value, err := internal.StringifyJSON(c); err == nil {
-		return value
-	}
-	return fmt.Sprintf("%#v", c)
-}
-
-type ChangeItemPagesRotateLayoutPagesItemTabOrder string
+type ChangeItemPagesSetScaleMeasureAngleItemFraction string
 
 const (
-	ChangeItemPagesRotateLayoutPagesItemTabOrderRows        ChangeItemPagesRotateLayoutPagesItemTabOrder = "rows"
-	ChangeItemPagesRotateLayoutPagesItemTabOrderColumns     ChangeItemPagesRotateLayoutPagesItemTabOrder = "columns"
-	ChangeItemPagesRotateLayoutPagesItemTabOrderStructure   ChangeItemPagesRotateLayoutPagesItemTabOrder = "structure"
-	ChangeItemPagesRotateLayoutPagesItemTabOrderAnnotations ChangeItemPagesRotateLayoutPagesItemTabOrder = "annotations"
-	ChangeItemPagesRotateLayoutPagesItemTabOrderWidgets     ChangeItemPagesRotateLayoutPagesItemTabOrder = "widgets"
+	ChangeItemPagesSetScaleMeasureAngleItemFractionDecimal  ChangeItemPagesSetScaleMeasureAngleItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureAngleItemFractionFraction ChangeItemPagesSetScaleMeasureAngleItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureAngleItemFractionRound    ChangeItemPagesSetScaleMeasureAngleItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureAngleItemFractionTruncate ChangeItemPagesSetScaleMeasureAngleItemFraction = "truncate"
 )
 
-func NewChangeItemPagesRotateLayoutPagesItemTabOrderFromString(s string) (ChangeItemPagesRotateLayoutPagesItemTabOrder, error) {
+func NewChangeItemPagesSetScaleMeasureAngleItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureAngleItemFraction, error) {
 	switch s {
-	case "rows":
-		return ChangeItemPagesRotateLayoutPagesItemTabOrderRows, nil
-	case "columns":
-		return ChangeItemPagesRotateLayoutPagesItemTabOrderColumns, nil
-	case "structure":
-		return ChangeItemPagesRotateLayoutPagesItemTabOrderStructure, nil
-	case "annotations":
-		return ChangeItemPagesRotateLayoutPagesItemTabOrderAnnotations, nil
-	case "widgets":
-		return ChangeItemPagesRotateLayoutPagesItemTabOrderWidgets, nil
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureAngleItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureAngleItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureAngleItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureAngleItemFractionTruncate, nil
 	}
-	var t ChangeItemPagesRotateLayoutPagesItemTabOrder
+	var t ChangeItemPagesSetScaleMeasureAngleItemFraction
 	return "", fmt.Errorf("%s is not a valid %T", s, t)
 }
 
-func (c ChangeItemPagesRotateLayoutPagesItemTabOrder) Ptr() *ChangeItemPagesRotateLayoutPagesItemTabOrder {
+func (c ChangeItemPagesSetScaleMeasureAngleItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureAngleItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureAngleItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureAngleItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureAngleItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureAngleItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureAngleItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureAngleItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureAngleItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureAngleItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureAngleItemLabelPosition {
+	return &c
+}
+
+var (
+	changeItemPagesSetScaleMeasureAreaItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureAreaItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureAreaItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureAreaItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureAreaItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesSetScaleMeasureAreaItem struct {
+	Unit          string                                               `json:"unit" url:"unit"`
+	Conversion    *float64                                             `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                 `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                              `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                              `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                              `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                              `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetConversion() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Conversion
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetFraction() *ChangeItemPagesSetScaleMeasureAreaItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureAreaItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureAreaItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureAreaItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureAreaItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureAreaItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesSetScaleMeasureAreaItemFraction string
+
+const (
+	ChangeItemPagesSetScaleMeasureAreaItemFractionDecimal  ChangeItemPagesSetScaleMeasureAreaItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureAreaItemFractionFraction ChangeItemPagesSetScaleMeasureAreaItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureAreaItemFractionRound    ChangeItemPagesSetScaleMeasureAreaItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureAreaItemFractionTruncate ChangeItemPagesSetScaleMeasureAreaItemFraction = "truncate"
+)
+
+func NewChangeItemPagesSetScaleMeasureAreaItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureAreaItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureAreaItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureAreaItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureAreaItemFractionTruncate, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureAreaItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureAreaItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureAreaItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureAreaItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureAreaItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureAreaItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureAreaItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureAreaItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureAreaItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureAreaItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureAreaItemLabelPosition {
+	return &c
+}
+
+var (
+	changeItemPagesSetScaleMeasureDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesSetScaleMeasureDistanceItem struct {
+	Unit          string                                                   `json:"unit" url:"unit"`
+	Conversion    *float64                                                 `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                     `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                    `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                  `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                  `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                  `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                  `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetConversion() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Conversion
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetFraction() *ChangeItemPagesSetScaleMeasureDistanceItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureDistanceItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureDistanceItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureDistanceItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesSetScaleMeasureDistanceItemFraction string
+
+const (
+	ChangeItemPagesSetScaleMeasureDistanceItemFractionDecimal  ChangeItemPagesSetScaleMeasureDistanceItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureDistanceItemFractionFraction ChangeItemPagesSetScaleMeasureDistanceItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureDistanceItemFractionRound    ChangeItemPagesSetScaleMeasureDistanceItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureDistanceItemFractionTruncate ChangeItemPagesSetScaleMeasureDistanceItemFraction = "truncate"
+)
+
+func NewChangeItemPagesSetScaleMeasureDistanceItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureDistanceItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureDistanceItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureDistanceItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureDistanceItemFractionTruncate, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureDistanceItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureDistanceItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureDistanceItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureDistanceItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureDistanceItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureDistanceItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureDistanceItemLabelPosition {
+	return &c
+}
+
+var (
+	changeItemPagesSetScaleMeasureOriginFieldX = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureOriginFieldY = big.NewInt(1 << 1)
+)
+
+type ChangeItemPagesSetScaleMeasureOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureOrigin) SetX(x float64) {
+	c.X = x
+	c.require(changeItemPagesSetScaleMeasureOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureOrigin) SetY(y float64) {
+	c.Y = y
+	c.require(changeItemPagesSetScaleMeasureOriginFieldY)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureOrigin) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemPagesSetScaleMeasureSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesSetScaleMeasureSlopeItem struct {
+	Unit          string                                                `json:"unit" url:"unit"`
+	Conversion    *float64                                              `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                  `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                 `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                               `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                               `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                               `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                               `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetConversion() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Conversion
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetFraction() *ChangeItemPagesSetScaleMeasureSlopeItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureSlopeItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureSlopeItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureSlopeItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesSetScaleMeasureSlopeItemFraction string
+
+const (
+	ChangeItemPagesSetScaleMeasureSlopeItemFractionDecimal  ChangeItemPagesSetScaleMeasureSlopeItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureSlopeItemFractionFraction ChangeItemPagesSetScaleMeasureSlopeItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureSlopeItemFractionRound    ChangeItemPagesSetScaleMeasureSlopeItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureSlopeItemFractionTruncate ChangeItemPagesSetScaleMeasureSlopeItemFraction = "truncate"
+)
+
+func NewChangeItemPagesSetScaleMeasureSlopeItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureSlopeItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureSlopeItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureSlopeItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureSlopeItemFractionTruncate, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureSlopeItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureSlopeItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureSlopeItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureSlopeItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureSlopeItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureSlopeItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureSlopeItemLabelPosition {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureSubtype string
+
+const (
+	ChangeItemPagesSetScaleMeasureSubtypeRectilinear ChangeItemPagesSetScaleMeasureSubtype = "rectilinear"
+)
+
+func NewChangeItemPagesSetScaleMeasureSubtypeFromString(s string) (ChangeItemPagesSetScaleMeasureSubtype, error) {
+	switch s {
+	case "rectilinear":
+		return ChangeItemPagesSetScaleMeasureSubtypeRectilinear, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureSubtype
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureSubtype) Ptr() *ChangeItemPagesSetScaleMeasureSubtype {
+	return &c
+}
+
+var (
+	changeItemPagesSetScaleMeasureXItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureXItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureXItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureXItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureXItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureXItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureXItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesSetScaleMeasureXItem struct {
+	Unit          string                                            `json:"unit" url:"unit"`
+	Conversion    *float64                                          `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                              `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                             `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                           `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                           `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                           `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                           `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetConversion() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Conversion
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetFraction() *ChangeItemPagesSetScaleMeasureXItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureXItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureXItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureXItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureXItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureXItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureXItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesSetScaleMeasureXItemFraction string
+
+const (
+	ChangeItemPagesSetScaleMeasureXItemFractionDecimal  ChangeItemPagesSetScaleMeasureXItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureXItemFractionFraction ChangeItemPagesSetScaleMeasureXItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureXItemFractionRound    ChangeItemPagesSetScaleMeasureXItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureXItemFractionTruncate ChangeItemPagesSetScaleMeasureXItemFraction = "truncate"
+)
+
+func NewChangeItemPagesSetScaleMeasureXItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureXItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureXItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureXItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureXItemFractionTruncate, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureXItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureXItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureXItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureXItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureXItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureXItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureXItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureXItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureXItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureXItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureXItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureXItemLabelPosition {
+	return &c
+}
+
+var (
+	changeItemPagesSetScaleMeasureYItemFieldUnit          = big.NewInt(1 << 0)
+	changeItemPagesSetScaleMeasureYItemFieldConversion    = big.NewInt(1 << 1)
+	changeItemPagesSetScaleMeasureYItemFieldFraction      = big.NewInt(1 << 2)
+	changeItemPagesSetScaleMeasureYItemFieldPrecision     = big.NewInt(1 << 3)
+	changeItemPagesSetScaleMeasureYItemFieldFixed         = big.NewInt(1 << 4)
+	changeItemPagesSetScaleMeasureYItemFieldThousands     = big.NewInt(1 << 5)
+	changeItemPagesSetScaleMeasureYItemFieldDecimal       = big.NewInt(1 << 6)
+	changeItemPagesSetScaleMeasureYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeItemPagesSetScaleMeasureYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeItemPagesSetScaleMeasureYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeItemPagesSetScaleMeasureYItem struct {
+	Unit          string                                            `json:"unit" url:"unit"`
+	Conversion    *float64                                          `json:"conversion,omitempty" url:"conversion,omitempty"`
+	Fraction      *ChangeItemPagesSetScaleMeasureYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                              `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                             `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                           `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                           `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                           `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                           `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeItemPagesSetScaleMeasureYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetConversion() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Conversion
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetFraction() *ChangeItemPagesSetScaleMeasureYItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetLabelPosition() *ChangeItemPagesSetScaleMeasureYItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeItemPagesSetScaleMeasureYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetConversion(conversion *float64) {
+	c.Conversion = conversion
+	c.require(changeItemPagesSetScaleMeasureYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetFraction(fraction *ChangeItemPagesSetScaleMeasureYItemFraction) {
+	c.Fraction = fraction
+	c.require(changeItemPagesSetScaleMeasureYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeItemPagesSetScaleMeasureYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeItemPagesSetScaleMeasureYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeItemPagesSetScaleMeasureYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeItemPagesSetScaleMeasureYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeItemPagesSetScaleMeasureYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeItemPagesSetScaleMeasureYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemPagesSetScaleMeasureYItem) SetLabelPosition(labelPosition *ChangeItemPagesSetScaleMeasureYItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeItemPagesSetScaleMeasureYItemFieldLabelPosition)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemPagesSetScaleMeasureYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemPagesSetScaleMeasureYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemPagesSetScaleMeasureYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemPagesSetScaleMeasureYItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemPagesSetScaleMeasureYItemFraction string
+
+const (
+	ChangeItemPagesSetScaleMeasureYItemFractionDecimal  ChangeItemPagesSetScaleMeasureYItemFraction = "decimal"
+	ChangeItemPagesSetScaleMeasureYItemFractionFraction ChangeItemPagesSetScaleMeasureYItemFraction = "fraction"
+	ChangeItemPagesSetScaleMeasureYItemFractionRound    ChangeItemPagesSetScaleMeasureYItemFraction = "round"
+	ChangeItemPagesSetScaleMeasureYItemFractionTruncate ChangeItemPagesSetScaleMeasureYItemFraction = "truncate"
+)
+
+func NewChangeItemPagesSetScaleMeasureYItemFractionFromString(s string) (ChangeItemPagesSetScaleMeasureYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeItemPagesSetScaleMeasureYItemFractionDecimal, nil
+	case "fraction":
+		return ChangeItemPagesSetScaleMeasureYItemFractionFraction, nil
+	case "round":
+		return ChangeItemPagesSetScaleMeasureYItemFractionRound, nil
+	case "truncate":
+		return ChangeItemPagesSetScaleMeasureYItemFractionTruncate, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureYItemFraction) Ptr() *ChangeItemPagesSetScaleMeasureYItemFraction {
+	return &c
+}
+
+type ChangeItemPagesSetScaleMeasureYItemLabelPosition string
+
+const (
+	ChangeItemPagesSetScaleMeasureYItemLabelPositionSuffix ChangeItemPagesSetScaleMeasureYItemLabelPosition = "suffix"
+	ChangeItemPagesSetScaleMeasureYItemLabelPositionPrefix ChangeItemPagesSetScaleMeasureYItemLabelPosition = "prefix"
+)
+
+func NewChangeItemPagesSetScaleMeasureYItemLabelPositionFromString(s string) (ChangeItemPagesSetScaleMeasureYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeItemPagesSetScaleMeasureYItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeItemPagesSetScaleMeasureYItemLabelPositionPrefix, nil
+	}
+	var t ChangeItemPagesSetScaleMeasureYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemPagesSetScaleMeasureYItemLabelPosition) Ptr() *ChangeItemPagesSetScaleMeasureYItemLabelPosition {
 	return &c
 }
 
@@ -86128,6 +73776,7 @@ const (
 	ChangeItemSkippedOpOutlineMove                 ChangeItemSkippedOp = "outline.move"
 	ChangeItemSkippedOpOutlineDelete               ChangeItemSkippedOp = "outline.delete"
 	ChangeItemSkippedOpPagesRotate                 ChangeItemSkippedOp = "pages.rotate"
+	ChangeItemSkippedOpPagesSetScale               ChangeItemSkippedOp = "pages.setScale"
 	ChangeItemSkippedOpPagesReorder                ChangeItemSkippedOp = "pages.reorder"
 	ChangeItemSkippedOpPagesDelete                 ChangeItemSkippedOp = "pages.delete"
 	ChangeItemSkippedOpPagesInsertBlank            ChangeItemSkippedOp = "pages.insertBlank"
@@ -86195,6 +73844,8 @@ func NewChangeItemSkippedOpFromString(s string) (ChangeItemSkippedOp, error) {
 		return ChangeItemSkippedOpOutlineDelete, nil
 	case "pages.rotate":
 		return ChangeItemSkippedOpPagesRotate, nil
+	case "pages.setScale":
+		return ChangeItemSkippedOpPagesSetScale, nil
 	case "pages.reorder":
 		return ChangeItemSkippedOpPagesReorder, nil
 	case "pages.delete":
@@ -86257,6 +73908,7 @@ type ChangeOp struct {
 	OutlineMove                 *ChangeOpOutlineMove
 	OutlineDelete               *ChangeOpOutlineDelete
 	PagesRotate                 *ChangeOpPagesRotate
+	PagesSetScale               *ChangeOpPagesSetScale
 	PagesReorder                *ChangeOpPagesReorder
 	PagesDelete                 *ChangeOpPagesDelete
 	PagesInsertBlank            *ChangeOpPagesInsertBlank
@@ -86448,6 +74100,13 @@ func (c *ChangeOp) GetPagesRotate() *ChangeOpPagesRotate {
 		return nil
 	}
 	return c.PagesRotate
+}
+
+func (c *ChangeOp) GetPagesSetScale() *ChangeOpPagesSetScale {
+	if c == nil {
+		return nil
+	}
+	return c.PagesSetScale
 }
 
 func (c *ChangeOp) GetPagesReorder() *ChangeOpPagesReorder {
@@ -86661,6 +74320,12 @@ func (c *ChangeOp) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.PagesRotate = value
+	case "pages.setScale":
+		value := new(ChangeOpPagesSetScale)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.PagesSetScale = value
 	case "pages.reorder":
 		value := new(ChangeOpPagesReorder)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -86787,6 +74452,9 @@ func (c ChangeOp) MarshalJSON() ([]byte, error) {
 	if c.PagesRotate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesRotate, "type", "pages.rotate")
 	}
+	if c.PagesSetScale != nil {
+		return internal.MarshalJSONWithExtraProperty(c.PagesSetScale, "type", "pages.setScale")
+	}
 	if c.PagesReorder != nil {
 		return internal.MarshalJSONWithExtraProperty(c.PagesReorder, "type", "pages.reorder")
 	}
@@ -86840,6 +74508,7 @@ type ChangeOpVisitor interface {
 	VisitOutlineMove(*ChangeOpOutlineMove) error
 	VisitOutlineDelete(*ChangeOpOutlineDelete) error
 	VisitPagesRotate(*ChangeOpPagesRotate) error
+	VisitPagesSetScale(*ChangeOpPagesSetScale) error
 	VisitPagesReorder(*ChangeOpPagesReorder) error
 	VisitPagesDelete(*ChangeOpPagesDelete) error
 	VisitPagesInsertBlank(*ChangeOpPagesInsertBlank) error
@@ -86924,6 +74593,9 @@ func (c *ChangeOp) Accept(visitor ChangeOpVisitor) error {
 	}
 	if c.PagesRotate != nil {
 		return visitor.VisitPagesRotate(c.PagesRotate)
+	}
+	if c.PagesSetScale != nil {
+		return visitor.VisitPagesSetScale(c.PagesSetScale)
 	}
 	if c.PagesReorder != nil {
 		return visitor.VisitPagesReorder(c.PagesReorder)
@@ -87028,6 +74700,9 @@ func (c *ChangeOp) validate() error {
 	}
 	if c.PagesRotate != nil {
 		fields = append(fields, "pages.rotate")
+	}
+	if c.PagesSetScale != nil {
+		fields = append(fields, "pages.setScale")
 	}
 	if c.PagesReorder != nil {
 		fields = append(fields, "pages.reorder")
@@ -91197,6 +78872,2121 @@ func (c *ChangeOpPagesRotate) String() string {
 }
 
 var (
+	changeOpPagesSetScaleFieldPages   = big.NewInt(1 << 0)
+	changeOpPagesSetScaleFieldMeasure = big.NewInt(1 << 1)
+)
+
+type ChangeOpPagesSetScale struct {
+	Pages   []*PageRef                    `json:"pages" url:"pages"`
+	Measure *ChangeOpPagesSetScaleMeasure `json:"measure,omitempty" url:"measure,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScale) GetPages() []*PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Pages
+}
+
+func (c *ChangeOpPagesSetScale) GetMeasure() *ChangeOpPagesSetScaleMeasure {
+	if c == nil {
+		return nil
+	}
+	return c.Measure
+}
+
+func (c *ChangeOpPagesSetScale) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScale) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetPages sets the Pages field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScale) SetPages(pages []*PageRef) {
+	c.Pages = pages
+	c.require(changeOpPagesSetScaleFieldPages)
+}
+
+// SetMeasure sets the Measure field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScale) SetMeasure(measure *ChangeOpPagesSetScaleMeasure) {
+	c.Measure = measure
+	c.require(changeOpPagesSetScaleFieldMeasure)
+}
+
+func (c *ChangeOpPagesSetScale) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScale
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScale(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScale) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScale
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScale) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpPagesSetScaleMeasureFieldSubtype  = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureFieldRatio    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureFieldX        = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureFieldY        = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureFieldDistance = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureFieldArea     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureFieldAngle    = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureFieldSlope    = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureFieldOrigin   = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureFieldCyx      = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasure struct {
+	Subtype  ChangeOpPagesSetScaleMeasureSubtype         `json:"subtype" url:"subtype"`
+	Ratio    *string                                     `json:"ratio,omitempty" url:"ratio,omitempty"`
+	X        []*ChangeOpPagesSetScaleMeasureXItem        `json:"x" url:"x"`
+	Y        []*ChangeOpPagesSetScaleMeasureYItem        `json:"y,omitempty" url:"y,omitempty"`
+	Distance []*ChangeOpPagesSetScaleMeasureDistanceItem `json:"distance" url:"distance"`
+	Area     []*ChangeOpPagesSetScaleMeasureAreaItem     `json:"area" url:"area"`
+	Angle    []*ChangeOpPagesSetScaleMeasureAngleItem    `json:"angle,omitempty" url:"angle,omitempty"`
+	Slope    []*ChangeOpPagesSetScaleMeasureSlopeItem    `json:"slope,omitempty" url:"slope,omitempty"`
+	Origin   *ChangeOpPagesSetScaleMeasureOrigin         `json:"origin,omitempty" url:"origin,omitempty"`
+	Cyx      *float64                                    `json:"cyx,omitempty" url:"cyx,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetSubtype() ChangeOpPagesSetScaleMeasureSubtype {
+	if c == nil {
+		return ""
+	}
+	return c.Subtype
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetRatio() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Ratio
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetX() []*ChangeOpPagesSetScaleMeasureXItem {
+	if c == nil {
+		return nil
+	}
+	return c.X
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetY() []*ChangeOpPagesSetScaleMeasureYItem {
+	if c == nil {
+		return nil
+	}
+	return c.Y
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetDistance() []*ChangeOpPagesSetScaleMeasureDistanceItem {
+	if c == nil {
+		return nil
+	}
+	return c.Distance
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetArea() []*ChangeOpPagesSetScaleMeasureAreaItem {
+	if c == nil {
+		return nil
+	}
+	return c.Area
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetAngle() []*ChangeOpPagesSetScaleMeasureAngleItem {
+	if c == nil {
+		return nil
+	}
+	return c.Angle
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetSlope() []*ChangeOpPagesSetScaleMeasureSlopeItem {
+	if c == nil {
+		return nil
+	}
+	return c.Slope
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetOrigin() *ChangeOpPagesSetScaleMeasureOrigin {
+	if c == nil {
+		return nil
+	}
+	return c.Origin
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetCyx() *float64 {
+	if c == nil {
+		return nil
+	}
+	return c.Cyx
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetSubtype sets the Subtype field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetSubtype(subtype ChangeOpPagesSetScaleMeasureSubtype) {
+	c.Subtype = subtype
+	c.require(changeOpPagesSetScaleMeasureFieldSubtype)
+}
+
+// SetRatio sets the Ratio field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetRatio(ratio *string) {
+	c.Ratio = ratio
+	c.require(changeOpPagesSetScaleMeasureFieldRatio)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetX(x []*ChangeOpPagesSetScaleMeasureXItem) {
+	c.X = x
+	c.require(changeOpPagesSetScaleMeasureFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetY(y []*ChangeOpPagesSetScaleMeasureYItem) {
+	c.Y = y
+	c.require(changeOpPagesSetScaleMeasureFieldY)
+}
+
+// SetDistance sets the Distance field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetDistance(distance []*ChangeOpPagesSetScaleMeasureDistanceItem) {
+	c.Distance = distance
+	c.require(changeOpPagesSetScaleMeasureFieldDistance)
+}
+
+// SetArea sets the Area field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetArea(area []*ChangeOpPagesSetScaleMeasureAreaItem) {
+	c.Area = area
+	c.require(changeOpPagesSetScaleMeasureFieldArea)
+}
+
+// SetAngle sets the Angle field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetAngle(angle []*ChangeOpPagesSetScaleMeasureAngleItem) {
+	c.Angle = angle
+	c.require(changeOpPagesSetScaleMeasureFieldAngle)
+}
+
+// SetSlope sets the Slope field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetSlope(slope []*ChangeOpPagesSetScaleMeasureSlopeItem) {
+	c.Slope = slope
+	c.require(changeOpPagesSetScaleMeasureFieldSlope)
+}
+
+// SetOrigin sets the Origin field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetOrigin(origin *ChangeOpPagesSetScaleMeasureOrigin) {
+	c.Origin = origin
+	c.require(changeOpPagesSetScaleMeasureFieldOrigin)
+}
+
+// SetCyx sets the Cyx field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasure) SetCyx(cyx *float64) {
+	c.Cyx = cyx
+	c.require(changeOpPagesSetScaleMeasureFieldCyx)
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasure
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasure(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasure
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasure) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpPagesSetScaleMeasureAngleItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureAngleItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureAngleItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureAngleItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureAngleItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureAngleItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureAngleItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureAngleItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureAngleItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureAngleItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureAngleItem struct {
+	Unit          string                                              `json:"unit" url:"unit"`
+	Conversion    float64                                             `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureAngleItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureAngleItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetFraction() *ChangeOpPagesSetScaleMeasureAngleItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureAngleItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureAngleItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureAngleItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureAngleItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureAngleItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureAngleItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureAngleItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAngleItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureAngleItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureAngleItemFractionDecimal  ChangeOpPagesSetScaleMeasureAngleItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureAngleItemFractionFraction ChangeOpPagesSetScaleMeasureAngleItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureAngleItemFractionRound    ChangeOpPagesSetScaleMeasureAngleItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureAngleItemFractionTruncate ChangeOpPagesSetScaleMeasureAngleItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureAngleItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureAngleItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureAngleItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureAngleItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureAngleItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureAngleItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureAngleItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureAngleItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureAngleItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureAngleItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureAngleItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureAngleItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureAngleItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureAngleItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureAngleItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureAngleItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureAngleItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureAngleItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureAngleItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureAngleItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureAngleItemLabelPosition {
+	return &c
+}
+
+var (
+	changeOpPagesSetScaleMeasureAreaItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureAreaItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureAreaItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureAreaItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureAreaItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureAreaItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureAreaItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureAreaItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureAreaItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureAreaItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureAreaItem struct {
+	Unit          string                                             `json:"unit" url:"unit"`
+	Conversion    float64                                            `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureAreaItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                               `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                              `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                            `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                            `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                            `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                            `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureAreaItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetFraction() *ChangeOpPagesSetScaleMeasureAreaItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureAreaItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureAreaItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureAreaItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureAreaItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureAreaItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureAreaItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureAreaItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureAreaItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureAreaItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureAreaItemFractionDecimal  ChangeOpPagesSetScaleMeasureAreaItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureAreaItemFractionFraction ChangeOpPagesSetScaleMeasureAreaItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureAreaItemFractionRound    ChangeOpPagesSetScaleMeasureAreaItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureAreaItemFractionTruncate ChangeOpPagesSetScaleMeasureAreaItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureAreaItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureAreaItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureAreaItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureAreaItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureAreaItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureAreaItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureAreaItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureAreaItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureAreaItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureAreaItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureAreaItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureAreaItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureAreaItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureAreaItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureAreaItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureAreaItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureAreaItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureAreaItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureAreaItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureAreaItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureAreaItemLabelPosition {
+	return &c
+}
+
+var (
+	changeOpPagesSetScaleMeasureDistanceItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureDistanceItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureDistanceItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureDistanceItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureDistanceItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureDistanceItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureDistanceItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureDistanceItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureDistanceItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureDistanceItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureDistanceItem struct {
+	Unit          string                                                 `json:"unit" url:"unit"`
+	Conversion    float64                                                `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureDistanceItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                   `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                                  `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                                `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                                `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                                `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                                `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetFraction() *ChangeOpPagesSetScaleMeasureDistanceItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureDistanceItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureDistanceItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureDistanceItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureDistanceItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureDistanceItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureDistanceItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureDistanceItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureDistanceItemFractionDecimal  ChangeOpPagesSetScaleMeasureDistanceItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureDistanceItemFractionFraction ChangeOpPagesSetScaleMeasureDistanceItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureDistanceItemFractionRound    ChangeOpPagesSetScaleMeasureDistanceItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureDistanceItemFractionTruncate ChangeOpPagesSetScaleMeasureDistanceItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureDistanceItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureDistanceItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureDistanceItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureDistanceItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureDistanceItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureDistanceItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureDistanceItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureDistanceItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureDistanceItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureDistanceItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureDistanceItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureDistanceItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureDistanceItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureDistanceItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureDistanceItemLabelPosition {
+	return &c
+}
+
+var (
+	changeOpPagesSetScaleMeasureOriginFieldX = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureOriginFieldY = big.NewInt(1 << 1)
+)
+
+type ChangeOpPagesSetScaleMeasureOrigin struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureOrigin) SetX(x float64) {
+	c.X = x
+	c.require(changeOpPagesSetScaleMeasureOriginFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureOrigin) SetY(y float64) {
+	c.Y = y
+	c.require(changeOpPagesSetScaleMeasureOriginFieldY)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureOrigin
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureOrigin(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureOrigin
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureOrigin) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpPagesSetScaleMeasureSlopeItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureSlopeItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureSlopeItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureSlopeItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureSlopeItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureSlopeItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureSlopeItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureSlopeItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureSlopeItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureSlopeItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureSlopeItem struct {
+	Unit          string                                              `json:"unit" url:"unit"`
+	Conversion    float64                                             `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureSlopeItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                                `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                               `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                             `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                             `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                             `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                             `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetFraction() *ChangeOpPagesSetScaleMeasureSlopeItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureSlopeItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureSlopeItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureSlopeItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureSlopeItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureSlopeItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureSlopeItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureSlopeItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureSlopeItemFractionDecimal  ChangeOpPagesSetScaleMeasureSlopeItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureSlopeItemFractionFraction ChangeOpPagesSetScaleMeasureSlopeItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureSlopeItemFractionRound    ChangeOpPagesSetScaleMeasureSlopeItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureSlopeItemFractionTruncate ChangeOpPagesSetScaleMeasureSlopeItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureSlopeItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureSlopeItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureSlopeItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureSlopeItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureSlopeItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureSlopeItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureSlopeItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureSlopeItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureSlopeItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureSlopeItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureSlopeItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureSlopeItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureSlopeItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureSlopeItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureSlopeItemLabelPosition {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureSubtype string
+
+const (
+	ChangeOpPagesSetScaleMeasureSubtypeRectilinear ChangeOpPagesSetScaleMeasureSubtype = "rectilinear"
+)
+
+func NewChangeOpPagesSetScaleMeasureSubtypeFromString(s string) (ChangeOpPagesSetScaleMeasureSubtype, error) {
+	switch s {
+	case "rectilinear":
+		return ChangeOpPagesSetScaleMeasureSubtypeRectilinear, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureSubtype
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureSubtype) Ptr() *ChangeOpPagesSetScaleMeasureSubtype {
+	return &c
+}
+
+var (
+	changeOpPagesSetScaleMeasureXItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureXItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureXItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureXItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureXItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureXItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureXItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureXItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureXItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureXItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureXItem struct {
+	Unit          string                                          `json:"unit" url:"unit"`
+	Conversion    float64                                         `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureXItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureXItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetFraction() *ChangeOpPagesSetScaleMeasureXItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureXItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureXItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureXItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureXItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureXItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureXItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureXItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureXItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureXItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureXItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureXItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureXItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureXItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureXItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureXItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureXItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureXItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureXItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureXItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureXItemFractionDecimal  ChangeOpPagesSetScaleMeasureXItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureXItemFractionFraction ChangeOpPagesSetScaleMeasureXItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureXItemFractionRound    ChangeOpPagesSetScaleMeasureXItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureXItemFractionTruncate ChangeOpPagesSetScaleMeasureXItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureXItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureXItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureXItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureXItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureXItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureXItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureXItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureXItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureXItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureXItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureXItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureXItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureXItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureXItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureXItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureXItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureXItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureXItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureXItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureXItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureXItemLabelPosition {
+	return &c
+}
+
+var (
+	changeOpPagesSetScaleMeasureYItemFieldUnit          = big.NewInt(1 << 0)
+	changeOpPagesSetScaleMeasureYItemFieldConversion    = big.NewInt(1 << 1)
+	changeOpPagesSetScaleMeasureYItemFieldFraction      = big.NewInt(1 << 2)
+	changeOpPagesSetScaleMeasureYItemFieldPrecision     = big.NewInt(1 << 3)
+	changeOpPagesSetScaleMeasureYItemFieldFixed         = big.NewInt(1 << 4)
+	changeOpPagesSetScaleMeasureYItemFieldThousands     = big.NewInt(1 << 5)
+	changeOpPagesSetScaleMeasureYItemFieldDecimal       = big.NewInt(1 << 6)
+	changeOpPagesSetScaleMeasureYItemFieldPrefixSpacing = big.NewInt(1 << 7)
+	changeOpPagesSetScaleMeasureYItemFieldSuffixSpacing = big.NewInt(1 << 8)
+	changeOpPagesSetScaleMeasureYItemFieldLabelPosition = big.NewInt(1 << 9)
+)
+
+type ChangeOpPagesSetScaleMeasureYItem struct {
+	Unit          string                                          `json:"unit" url:"unit"`
+	Conversion    float64                                         `json:"conversion" url:"conversion"`
+	Fraction      *ChangeOpPagesSetScaleMeasureYItemFraction      `json:"fraction,omitempty" url:"fraction,omitempty"`
+	Precision     *int                                            `json:"precision,omitempty" url:"precision,omitempty"`
+	Fixed         *bool                                           `json:"fixed,omitempty" url:"fixed,omitempty"`
+	Thousands     *string                                         `json:"thousands,omitempty" url:"thousands,omitempty"`
+	Decimal       *string                                         `json:"decimal,omitempty" url:"decimal,omitempty"`
+	PrefixSpacing *string                                         `json:"prefixSpacing,omitempty" url:"prefixSpacing,omitempty"`
+	SuffixSpacing *string                                         `json:"suffixSpacing,omitempty" url:"suffixSpacing,omitempty"`
+	LabelPosition *ChangeOpPagesSetScaleMeasureYItemLabelPosition `json:"labelPosition,omitempty" url:"labelPosition,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetUnit() string {
+	if c == nil {
+		return ""
+	}
+	return c.Unit
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetConversion() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Conversion
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetFraction() *ChangeOpPagesSetScaleMeasureYItemFraction {
+	if c == nil {
+		return nil
+	}
+	return c.Fraction
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetPrecision() *int {
+	if c == nil {
+		return nil
+	}
+	return c.Precision
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetFixed() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Fixed
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetThousands() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Thousands
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetDecimal() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Decimal
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetPrefixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.PrefixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetSuffixSpacing() *string {
+	if c == nil {
+		return nil
+	}
+	return c.SuffixSpacing
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetLabelPosition() *ChangeOpPagesSetScaleMeasureYItemLabelPosition {
+	if c == nil {
+		return nil
+	}
+	return c.LabelPosition
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetUnit sets the Unit field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetUnit(unit string) {
+	c.Unit = unit
+	c.require(changeOpPagesSetScaleMeasureYItemFieldUnit)
+}
+
+// SetConversion sets the Conversion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetConversion(conversion float64) {
+	c.Conversion = conversion
+	c.require(changeOpPagesSetScaleMeasureYItemFieldConversion)
+}
+
+// SetFraction sets the Fraction field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetFraction(fraction *ChangeOpPagesSetScaleMeasureYItemFraction) {
+	c.Fraction = fraction
+	c.require(changeOpPagesSetScaleMeasureYItemFieldFraction)
+}
+
+// SetPrecision sets the Precision field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetPrecision(precision *int) {
+	c.Precision = precision
+	c.require(changeOpPagesSetScaleMeasureYItemFieldPrecision)
+}
+
+// SetFixed sets the Fixed field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetFixed(fixed *bool) {
+	c.Fixed = fixed
+	c.require(changeOpPagesSetScaleMeasureYItemFieldFixed)
+}
+
+// SetThousands sets the Thousands field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetThousands(thousands *string) {
+	c.Thousands = thousands
+	c.require(changeOpPagesSetScaleMeasureYItemFieldThousands)
+}
+
+// SetDecimal sets the Decimal field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetDecimal(decimal *string) {
+	c.Decimal = decimal
+	c.require(changeOpPagesSetScaleMeasureYItemFieldDecimal)
+}
+
+// SetPrefixSpacing sets the PrefixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetPrefixSpacing(prefixSpacing *string) {
+	c.PrefixSpacing = prefixSpacing
+	c.require(changeOpPagesSetScaleMeasureYItemFieldPrefixSpacing)
+}
+
+// SetSuffixSpacing sets the SuffixSpacing field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetSuffixSpacing(suffixSpacing *string) {
+	c.SuffixSpacing = suffixSpacing
+	c.require(changeOpPagesSetScaleMeasureYItemFieldSuffixSpacing)
+}
+
+// SetLabelPosition sets the LabelPosition field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpPagesSetScaleMeasureYItem) SetLabelPosition(labelPosition *ChangeOpPagesSetScaleMeasureYItemLabelPosition) {
+	c.LabelPosition = labelPosition
+	c.require(changeOpPagesSetScaleMeasureYItemFieldLabelPosition)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpPagesSetScaleMeasureYItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpPagesSetScaleMeasureYItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpPagesSetScaleMeasureYItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpPagesSetScaleMeasureYItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeOpPagesSetScaleMeasureYItemFraction string
+
+const (
+	ChangeOpPagesSetScaleMeasureYItemFractionDecimal  ChangeOpPagesSetScaleMeasureYItemFraction = "decimal"
+	ChangeOpPagesSetScaleMeasureYItemFractionFraction ChangeOpPagesSetScaleMeasureYItemFraction = "fraction"
+	ChangeOpPagesSetScaleMeasureYItemFractionRound    ChangeOpPagesSetScaleMeasureYItemFraction = "round"
+	ChangeOpPagesSetScaleMeasureYItemFractionTruncate ChangeOpPagesSetScaleMeasureYItemFraction = "truncate"
+)
+
+func NewChangeOpPagesSetScaleMeasureYItemFractionFromString(s string) (ChangeOpPagesSetScaleMeasureYItemFraction, error) {
+	switch s {
+	case "decimal":
+		return ChangeOpPagesSetScaleMeasureYItemFractionDecimal, nil
+	case "fraction":
+		return ChangeOpPagesSetScaleMeasureYItemFractionFraction, nil
+	case "round":
+		return ChangeOpPagesSetScaleMeasureYItemFractionRound, nil
+	case "truncate":
+		return ChangeOpPagesSetScaleMeasureYItemFractionTruncate, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureYItemFraction
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureYItemFraction) Ptr() *ChangeOpPagesSetScaleMeasureYItemFraction {
+	return &c
+}
+
+type ChangeOpPagesSetScaleMeasureYItemLabelPosition string
+
+const (
+	ChangeOpPagesSetScaleMeasureYItemLabelPositionSuffix ChangeOpPagesSetScaleMeasureYItemLabelPosition = "suffix"
+	ChangeOpPagesSetScaleMeasureYItemLabelPositionPrefix ChangeOpPagesSetScaleMeasureYItemLabelPosition = "prefix"
+)
+
+func NewChangeOpPagesSetScaleMeasureYItemLabelPositionFromString(s string) (ChangeOpPagesSetScaleMeasureYItemLabelPosition, error) {
+	switch s {
+	case "suffix":
+		return ChangeOpPagesSetScaleMeasureYItemLabelPositionSuffix, nil
+	case "prefix":
+		return ChangeOpPagesSetScaleMeasureYItemLabelPositionPrefix, nil
+	}
+	var t ChangeOpPagesSetScaleMeasureYItemLabelPosition
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeOpPagesSetScaleMeasureYItemLabelPosition) Ptr() *ChangeOpPagesSetScaleMeasureYItemLabelPosition {
+	return &c
+}
+
+var (
 	changeResultFieldItems = big.NewInt(1 << 0)
 	changeResultFieldMeta  = big.NewInt(1 << 1)
 )
@@ -92521,16 +82311,17 @@ var (
 	docManifestResponseFieldAnnotationsVersion = big.NewInt(1 << 5)
 	docManifestResponseFieldFormsVersion       = big.NewInt(1 << 6)
 	docManifestResponseFieldOutlineVersion     = big.NewInt(1 << 7)
-	docManifestResponseFieldFontsVersion       = big.NewInt(1 << 8)
-	docManifestResponseFieldContentsVersion    = big.NewInt(1 << 9)
-	docManifestResponseFieldAuditHead          = big.NewInt(1 << 10)
-	docManifestResponseFieldBaseSha256         = big.NewInt(1 << 11)
-	docManifestResponseFieldLayerVersion       = big.NewInt(1 << 12)
-	docManifestResponseFieldWorking            = big.NewInt(1 << 13)
-	docManifestResponseFieldBaseSizeBytes      = big.NewInt(1 << 14)
-	docManifestResponseFieldScopes             = big.NewInt(1 << 15)
-	docManifestResponseFieldProtection         = big.NewInt(1 << 16)
-	docManifestResponseFieldPages              = big.NewInt(1 << 17)
+	docManifestResponseFieldViewportsVersion   = big.NewInt(1 << 8)
+	docManifestResponseFieldFontsVersion       = big.NewInt(1 << 9)
+	docManifestResponseFieldContentsVersion    = big.NewInt(1 << 10)
+	docManifestResponseFieldAuditHead          = big.NewInt(1 << 11)
+	docManifestResponseFieldBaseSha256         = big.NewInt(1 << 12)
+	docManifestResponseFieldLayerVersion       = big.NewInt(1 << 13)
+	docManifestResponseFieldWorking            = big.NewInt(1 << 14)
+	docManifestResponseFieldBaseSizeBytes      = big.NewInt(1 << 15)
+	docManifestResponseFieldScopes             = big.NewInt(1 << 16)
+	docManifestResponseFieldProtection         = big.NewInt(1 << 17)
+	docManifestResponseFieldPages              = big.NewInt(1 << 18)
 )
 
 type DocManifestResponse struct {
@@ -92542,6 +82333,7 @@ type DocManifestResponse struct {
 	AnnotationsVersion *int                            `json:"annotationsVersion,omitempty" url:"annotationsVersion,omitempty"`
 	FormsVersion       *int                            `json:"formsVersion,omitempty" url:"formsVersion,omitempty"`
 	OutlineVersion     *int                            `json:"outlineVersion,omitempty" url:"outlineVersion,omitempty"`
+	ViewportsVersion   *int                            `json:"viewportsVersion,omitempty" url:"viewportsVersion,omitempty"`
 	FontsVersion       *int                            `json:"fontsVersion,omitempty" url:"fontsVersion,omitempty"`
 	ContentsVersion    *int                            `json:"contentsVersion,omitempty" url:"contentsVersion,omitempty"`
 	AuditHead          int                             `json:"auditHead" url:"auditHead"`
@@ -92614,6 +82406,13 @@ func (d *DocManifestResponse) GetOutlineVersion() *int {
 		return nil
 	}
 	return d.OutlineVersion
+}
+
+func (d *DocManifestResponse) GetViewportsVersion() *int {
+	if d == nil {
+		return nil
+	}
+	return d.ViewportsVersion
 }
 
 func (d *DocManifestResponse) GetFontsVersion() *int {
@@ -92754,6 +82553,13 @@ func (d *DocManifestResponse) SetFormsVersion(formsVersion *int) {
 func (d *DocManifestResponse) SetOutlineVersion(outlineVersion *int) {
 	d.OutlineVersion = outlineVersion
 	d.require(docManifestResponseFieldOutlineVersion)
+}
+
+// SetViewportsVersion sets the ViewportsVersion field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocManifestResponse) SetViewportsVersion(viewportsVersion *int) {
+	d.ViewportsVersion = viewportsVersion
+	d.require(docManifestResponseFieldViewportsVersion)
 }
 
 // SetFontsVersion sets the FontsVersion field and marks it as non-optional;
