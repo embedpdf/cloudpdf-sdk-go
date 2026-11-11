@@ -65756,12 +65756,14 @@ type ChangeItem struct {
 	AnnotationsUpdate           *ChangeItemAnnotationsUpdate
 	AnnotationsDelete           *ChangeItemAnnotationsDelete
 	AnnotationsReorder          *ChangeItemAnnotationsReorder
+	AnnotationsCopy             *ChangeItemAnnotationsCopy
 	AnnotationsRestore          *ChangeItemAnnotationsRestore
 	FormsSetValue               *ChangeItemFormsSetValue
 	FormsSetDisplay             *ChangeItemFormsSetDisplay
 	FormsSetAppearanceText      *ChangeItemFormsSetAppearanceText
 	FormsReset                  *ChangeItemFormsReset
 	FormsCreate                 *ChangeItemFormsCreate
+	FormsCopy                   *ChangeItemFormsCopy
 	FormsUpdate                 *ChangeItemFormsUpdate
 	FormsDelete                 *ChangeItemFormsDelete
 	FormsRestore                *ChangeItemFormsRestore
@@ -65837,6 +65839,13 @@ func (c *ChangeItem) GetAnnotationsReorder() *ChangeItemAnnotationsReorder {
 	return c.AnnotationsReorder
 }
 
+func (c *ChangeItem) GetAnnotationsCopy() *ChangeItemAnnotationsCopy {
+	if c == nil {
+		return nil
+	}
+	return c.AnnotationsCopy
+}
+
 func (c *ChangeItem) GetAnnotationsRestore() *ChangeItemAnnotationsRestore {
 	if c == nil {
 		return nil
@@ -65877,6 +65886,13 @@ func (c *ChangeItem) GetFormsCreate() *ChangeItemFormsCreate {
 		return nil
 	}
 	return c.FormsCreate
+}
+
+func (c *ChangeItem) GetFormsCopy() *ChangeItemFormsCopy {
+	if c == nil {
+		return nil
+	}
+	return c.FormsCopy
 }
 
 func (c *ChangeItem) GetFormsUpdate() *ChangeItemFormsUpdate {
@@ -66124,6 +66140,12 @@ func (c *ChangeItem) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.AnnotationsReorder = value
+	case "annotations.copy":
+		value := new(ChangeItemAnnotationsCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.AnnotationsCopy = value
 	case "annotations.restore":
 		value := new(ChangeItemAnnotationsRestore)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -66160,6 +66182,12 @@ func (c *ChangeItem) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.FormsCreate = value
+	case "forms.copy":
+		value := new(ChangeItemFormsCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.FormsCopy = value
 	case "forms.update":
 		value := new(ChangeItemFormsUpdate)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -66358,6 +66386,9 @@ func (c ChangeItem) MarshalJSON() ([]byte, error) {
 	if c.AnnotationsReorder != nil {
 		return internal.MarshalJSONWithExtraProperty(c.AnnotationsReorder, "type", "annotations.reorder")
 	}
+	if c.AnnotationsCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.AnnotationsCopy, "type", "annotations.copy")
+	}
 	if c.AnnotationsRestore != nil {
 		return internal.MarshalJSONWithExtraProperty(c.AnnotationsRestore, "type", "annotations.restore")
 	}
@@ -66375,6 +66406,9 @@ func (c ChangeItem) MarshalJSON() ([]byte, error) {
 	}
 	if c.FormsCreate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.FormsCreate, "type", "forms.create")
+	}
+	if c.FormsCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.FormsCopy, "type", "forms.copy")
 	}
 	if c.FormsUpdate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.FormsUpdate, "type", "forms.update")
@@ -66475,12 +66509,14 @@ type ChangeItemVisitor interface {
 	VisitAnnotationsUpdate(*ChangeItemAnnotationsUpdate) error
 	VisitAnnotationsDelete(*ChangeItemAnnotationsDelete) error
 	VisitAnnotationsReorder(*ChangeItemAnnotationsReorder) error
+	VisitAnnotationsCopy(*ChangeItemAnnotationsCopy) error
 	VisitAnnotationsRestore(*ChangeItemAnnotationsRestore) error
 	VisitFormsSetValue(*ChangeItemFormsSetValue) error
 	VisitFormsSetDisplay(*ChangeItemFormsSetDisplay) error
 	VisitFormsSetAppearanceText(*ChangeItemFormsSetAppearanceText) error
 	VisitFormsReset(*ChangeItemFormsReset) error
 	VisitFormsCreate(*ChangeItemFormsCreate) error
+	VisitFormsCopy(*ChangeItemFormsCopy) error
 	VisitFormsUpdate(*ChangeItemFormsUpdate) error
 	VisitFormsDelete(*ChangeItemFormsDelete) error
 	VisitFormsRestore(*ChangeItemFormsRestore) error
@@ -66528,6 +66564,9 @@ func (c *ChangeItem) Accept(visitor ChangeItemVisitor) error {
 	if c.AnnotationsReorder != nil {
 		return visitor.VisitAnnotationsReorder(c.AnnotationsReorder)
 	}
+	if c.AnnotationsCopy != nil {
+		return visitor.VisitAnnotationsCopy(c.AnnotationsCopy)
+	}
 	if c.AnnotationsRestore != nil {
 		return visitor.VisitAnnotationsRestore(c.AnnotationsRestore)
 	}
@@ -66545,6 +66584,9 @@ func (c *ChangeItem) Accept(visitor ChangeItemVisitor) error {
 	}
 	if c.FormsCreate != nil {
 		return visitor.VisitFormsCreate(c.FormsCreate)
+	}
+	if c.FormsCopy != nil {
+		return visitor.VisitFormsCopy(c.FormsCopy)
 	}
 	if c.FormsUpdate != nil {
 		return visitor.VisitFormsUpdate(c.FormsUpdate)
@@ -66656,6 +66698,9 @@ func (c *ChangeItem) validate() error {
 	if c.AnnotationsReorder != nil {
 		fields = append(fields, "annotations.reorder")
 	}
+	if c.AnnotationsCopy != nil {
+		fields = append(fields, "annotations.copy")
+	}
 	if c.AnnotationsRestore != nil {
 		fields = append(fields, "annotations.restore")
 	}
@@ -66673,6 +66718,9 @@ func (c *ChangeItem) validate() error {
 	}
 	if c.FormsCreate != nil {
 		fields = append(fields, "forms.create")
+	}
+	if c.FormsCopy != nil {
+		fields = append(fields, "forms.copy")
 	}
 	if c.FormsUpdate != nil {
 		fields = append(fields, "forms.update")
@@ -66785,6 +66833,400 @@ func (c *ChangeItem) validate() error {
 		}
 	}
 	return nil
+}
+
+var (
+	changeItemAnnotationsCopyFieldAnnotations = big.NewInt(1 << 0)
+	changeItemAnnotationsCopyFieldRefMap      = big.NewInt(1 << 1)
+	changeItemAnnotationsCopyFieldDropped     = big.NewInt(1 << 2)
+	changeItemAnnotationsCopyFieldMeta        = big.NewInt(1 << 3)
+)
+
+type ChangeItemAnnotationsCopy struct {
+	Annotations []*Annotation                           `json:"annotations" url:"annotations"`
+	RefMap      []*ChangeItemAnnotationsCopyRefMapItem  `json:"refMap" url:"refMap"`
+	Dropped     []*ChangeItemAnnotationsCopyDroppedItem `json:"dropped" url:"dropped"`
+	Meta        *AnnotationMutationMeta                 `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemAnnotationsCopy) GetAnnotations() []*Annotation {
+	if c == nil {
+		return nil
+	}
+	return c.Annotations
+}
+
+func (c *ChangeItemAnnotationsCopy) GetRefMap() []*ChangeItemAnnotationsCopyRefMapItem {
+	if c == nil {
+		return nil
+	}
+	return c.RefMap
+}
+
+func (c *ChangeItemAnnotationsCopy) GetDropped() []*ChangeItemAnnotationsCopyDroppedItem {
+	if c == nil {
+		return nil
+	}
+	return c.Dropped
+}
+
+func (c *ChangeItemAnnotationsCopy) GetMeta() *AnnotationMutationMeta {
+	if c == nil {
+		return nil
+	}
+	return c.Meta
+}
+
+func (c *ChangeItemAnnotationsCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemAnnotationsCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetAnnotations sets the Annotations field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopy) SetAnnotations(annotations []*Annotation) {
+	c.Annotations = annotations
+	c.require(changeItemAnnotationsCopyFieldAnnotations)
+}
+
+// SetRefMap sets the RefMap field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopy) SetRefMap(refMap []*ChangeItemAnnotationsCopyRefMapItem) {
+	c.RefMap = refMap
+	c.require(changeItemAnnotationsCopyFieldRefMap)
+}
+
+// SetDropped sets the Dropped field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopy) SetDropped(dropped []*ChangeItemAnnotationsCopyDroppedItem) {
+	c.Dropped = dropped
+	c.require(changeItemAnnotationsCopyFieldDropped)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopy) SetMeta(meta *AnnotationMutationMeta) {
+	c.Meta = meta
+	c.require(changeItemAnnotationsCopyFieldMeta)
+}
+
+func (c *ChangeItemAnnotationsCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemAnnotationsCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemAnnotationsCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemAnnotationsCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemAnnotationsCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemAnnotationsCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemAnnotationsCopyDroppedItemFieldRef    = big.NewInt(1 << 0)
+	changeItemAnnotationsCopyDroppedItemFieldField  = big.NewInt(1 << 1)
+	changeItemAnnotationsCopyDroppedItemFieldReason = big.NewInt(1 << 2)
+)
+
+type ChangeItemAnnotationsCopyDroppedItem struct {
+	Ref    *AnnotationRef                             `json:"ref" url:"ref"`
+	Field  *string                                    `json:"field,omitempty" url:"field,omitempty"`
+	Reason ChangeItemAnnotationsCopyDroppedItemReason `json:"reason" url:"reason"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) GetRef() *AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.Ref
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) GetField() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Field
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) GetReason() ChangeItemAnnotationsCopyDroppedItemReason {
+	if c == nil {
+		return ""
+	}
+	return c.Reason
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopyDroppedItem) SetRef(ref *AnnotationRef) {
+	c.Ref = ref
+	c.require(changeItemAnnotationsCopyDroppedItemFieldRef)
+}
+
+// SetField sets the Field field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopyDroppedItem) SetField(field *string) {
+	c.Field = field
+	c.require(changeItemAnnotationsCopyDroppedItemFieldField)
+}
+
+// SetReason sets the Reason field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopyDroppedItem) SetReason(reason ChangeItemAnnotationsCopyDroppedItemReason) {
+	c.Reason = reason
+	c.require(changeItemAnnotationsCopyDroppedItemFieldReason)
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemAnnotationsCopyDroppedItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemAnnotationsCopyDroppedItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemAnnotationsCopyDroppedItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemAnnotationsCopyDroppedItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemAnnotationsCopyDroppedItemReason string
+
+const (
+	ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedKind   ChangeItemAnnotationsCopyDroppedItemReason = "unsupported-kind"
+	ChangeItemAnnotationsCopyDroppedItemReasonWidget            ChangeItemAnnotationsCopyDroppedItemReason = "widget"
+	ChangeItemAnnotationsCopyDroppedItemReasonGeospatial        ChangeItemAnnotationsCopyDroppedItemReason = "geospatial"
+	ChangeItemAnnotationsCopyDroppedItemReasonUnknownMeasure    ChangeItemAnnotationsCopyDroppedItemReason = "unknown-measure"
+	ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedAction ChangeItemAnnotationsCopyDroppedItemReason = "unsupported-action"
+	ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedValue  ChangeItemAnnotationsCopyDroppedItemReason = "unsupported-value"
+	ChangeItemAnnotationsCopyDroppedItemReasonNameConflict      ChangeItemAnnotationsCopyDroppedItemReason = "name-conflict"
+	ChangeItemAnnotationsCopyDroppedItemReasonParentDropped     ChangeItemAnnotationsCopyDroppedItemReason = "parent-dropped"
+	ChangeItemAnnotationsCopyDroppedItemReasonParentMissing     ChangeItemAnnotationsCopyDroppedItemReason = "parent-missing"
+	ChangeItemAnnotationsCopyDroppedItemReasonPopupTaken        ChangeItemAnnotationsCopyDroppedItemReason = "popup-taken"
+)
+
+func NewChangeItemAnnotationsCopyDroppedItemReasonFromString(s string) (ChangeItemAnnotationsCopyDroppedItemReason, error) {
+	switch s {
+	case "unsupported-kind":
+		return ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedKind, nil
+	case "widget":
+		return ChangeItemAnnotationsCopyDroppedItemReasonWidget, nil
+	case "geospatial":
+		return ChangeItemAnnotationsCopyDroppedItemReasonGeospatial, nil
+	case "unknown-measure":
+		return ChangeItemAnnotationsCopyDroppedItemReasonUnknownMeasure, nil
+	case "unsupported-action":
+		return ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedAction, nil
+	case "unsupported-value":
+		return ChangeItemAnnotationsCopyDroppedItemReasonUnsupportedValue, nil
+	case "name-conflict":
+		return ChangeItemAnnotationsCopyDroppedItemReasonNameConflict, nil
+	case "parent-dropped":
+		return ChangeItemAnnotationsCopyDroppedItemReasonParentDropped, nil
+	case "parent-missing":
+		return ChangeItemAnnotationsCopyDroppedItemReasonParentMissing, nil
+	case "popup-taken":
+		return ChangeItemAnnotationsCopyDroppedItemReasonPopupTaken, nil
+	}
+	var t ChangeItemAnnotationsCopyDroppedItemReason
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemAnnotationsCopyDroppedItemReason) Ptr() *ChangeItemAnnotationsCopyDroppedItemReason {
+	return &c
+}
+
+var (
+	changeItemAnnotationsCopyRefMapItemFieldFrom = big.NewInt(1 << 0)
+	changeItemAnnotationsCopyRefMapItemFieldTo   = big.NewInt(1 << 1)
+)
+
+type ChangeItemAnnotationsCopyRefMapItem struct {
+	From *AnnotationRef `json:"from" url:"from"`
+	To   *AnnotationRef `json:"to" url:"to"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) GetFrom() *AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.From
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) GetTo() *AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.To
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFrom sets the From field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopyRefMapItem) SetFrom(from *AnnotationRef) {
+	c.From = from
+	c.require(changeItemAnnotationsCopyRefMapItemFieldFrom)
+}
+
+// SetTo sets the To field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemAnnotationsCopyRefMapItem) SetTo(to *AnnotationRef) {
+	c.To = to
+	c.require(changeItemAnnotationsCopyRefMapItemFieldTo)
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemAnnotationsCopyRefMapItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemAnnotationsCopyRefMapItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemAnnotationsCopyRefMapItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemAnnotationsCopyRefMapItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
 }
 
 var (
@@ -67897,6 +68339,433 @@ func (c *ChangeItemFormsAddWidget) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ChangeItemFormsAddWidget) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemFormsCopyFieldFields           = big.NewInt(1 << 0)
+	changeItemFormsCopyFieldWidgets          = big.NewInt(1 << 1)
+	changeItemFormsCopyFieldRefMap           = big.NewInt(1 << 2)
+	changeItemFormsCopyFieldDropped          = big.NewInt(1 << 3)
+	changeItemFormsCopyFieldCalculationOrder = big.NewInt(1 << 4)
+	changeItemFormsCopyFieldMeta             = big.NewInt(1 << 5)
+)
+
+type ChangeItemFormsCopy struct {
+	Fields           []*FormField                      `json:"fields" url:"fields"`
+	Widgets          []*WidgetAnnotation               `json:"widgets" url:"widgets"`
+	RefMap           []*ChangeItemFormsCopyRefMapItem  `json:"refMap" url:"refMap"`
+	Dropped          []*ChangeItemFormsCopyDroppedItem `json:"dropped" url:"dropped"`
+	CalculationOrder []*FormFieldRef                   `json:"calculationOrder,omitempty" url:"calculationOrder,omitempty"`
+	Meta             *FormMutationMeta                 `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemFormsCopy) GetFields() []*FormField {
+	if c == nil {
+		return nil
+	}
+	return c.Fields
+}
+
+func (c *ChangeItemFormsCopy) GetWidgets() []*WidgetAnnotation {
+	if c == nil {
+		return nil
+	}
+	return c.Widgets
+}
+
+func (c *ChangeItemFormsCopy) GetRefMap() []*ChangeItemFormsCopyRefMapItem {
+	if c == nil {
+		return nil
+	}
+	return c.RefMap
+}
+
+func (c *ChangeItemFormsCopy) GetDropped() []*ChangeItemFormsCopyDroppedItem {
+	if c == nil {
+		return nil
+	}
+	return c.Dropped
+}
+
+func (c *ChangeItemFormsCopy) GetCalculationOrder() []*FormFieldRef {
+	if c == nil {
+		return nil
+	}
+	return c.CalculationOrder
+}
+
+func (c *ChangeItemFormsCopy) GetMeta() *FormMutationMeta {
+	if c == nil {
+		return nil
+	}
+	return c.Meta
+}
+
+func (c *ChangeItemFormsCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemFormsCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetFields(fields []*FormField) {
+	c.Fields = fields
+	c.require(changeItemFormsCopyFieldFields)
+}
+
+// SetWidgets sets the Widgets field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetWidgets(widgets []*WidgetAnnotation) {
+	c.Widgets = widgets
+	c.require(changeItemFormsCopyFieldWidgets)
+}
+
+// SetRefMap sets the RefMap field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetRefMap(refMap []*ChangeItemFormsCopyRefMapItem) {
+	c.RefMap = refMap
+	c.require(changeItemFormsCopyFieldRefMap)
+}
+
+// SetDropped sets the Dropped field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetDropped(dropped []*ChangeItemFormsCopyDroppedItem) {
+	c.Dropped = dropped
+	c.require(changeItemFormsCopyFieldDropped)
+}
+
+// SetCalculationOrder sets the CalculationOrder field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetCalculationOrder(calculationOrder []*FormFieldRef) {
+	c.CalculationOrder = calculationOrder
+	c.require(changeItemFormsCopyFieldCalculationOrder)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopy) SetMeta(meta *FormMutationMeta) {
+	c.Meta = meta
+	c.require(changeItemFormsCopyFieldMeta)
+}
+
+func (c *ChangeItemFormsCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemFormsCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemFormsCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemFormsCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemFormsCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemFormsCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeItemFormsCopyDroppedItemFieldRef    = big.NewInt(1 << 0)
+	changeItemFormsCopyDroppedItemFieldWidget = big.NewInt(1 << 1)
+	changeItemFormsCopyDroppedItemFieldField  = big.NewInt(1 << 2)
+	changeItemFormsCopyDroppedItemFieldReason = big.NewInt(1 << 3)
+)
+
+type ChangeItemFormsCopyDroppedItem struct {
+	Ref    *FormFieldRef                        `json:"ref,omitempty" url:"ref,omitempty"`
+	Widget *AnnotationRef                       `json:"widget,omitempty" url:"widget,omitempty"`
+	Field  *string                              `json:"field,omitempty" url:"field,omitempty"`
+	Reason ChangeItemFormsCopyDroppedItemReason `json:"reason" url:"reason"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) GetRef() *FormFieldRef {
+	if c == nil {
+		return nil
+	}
+	return c.Ref
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) GetWidget() *AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.Widget
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) GetField() *string {
+	if c == nil {
+		return nil
+	}
+	return c.Field
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) GetReason() ChangeItemFormsCopyDroppedItemReason {
+	if c == nil {
+		return ""
+	}
+	return c.Reason
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetRef sets the Ref field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyDroppedItem) SetRef(ref *FormFieldRef) {
+	c.Ref = ref
+	c.require(changeItemFormsCopyDroppedItemFieldRef)
+}
+
+// SetWidget sets the Widget field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyDroppedItem) SetWidget(widget *AnnotationRef) {
+	c.Widget = widget
+	c.require(changeItemFormsCopyDroppedItemFieldWidget)
+}
+
+// SetField sets the Field field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyDroppedItem) SetField(field *string) {
+	c.Field = field
+	c.require(changeItemFormsCopyDroppedItemFieldField)
+}
+
+// SetReason sets the Reason field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyDroppedItem) SetReason(reason ChangeItemFormsCopyDroppedItemReason) {
+	c.Reason = reason
+	c.require(changeItemFormsCopyDroppedItemFieldReason)
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemFormsCopyDroppedItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemFormsCopyDroppedItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemFormsCopyDroppedItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemFormsCopyDroppedItem) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+type ChangeItemFormsCopyDroppedItemReason string
+
+const (
+	ChangeItemFormsCopyDroppedItemReasonNameConflict      ChangeItemFormsCopyDroppedItemReason = "name-conflict"
+	ChangeItemFormsCopyDroppedItemReasonNoField           ChangeItemFormsCopyDroppedItemReason = "no-field"
+	ChangeItemFormsCopyDroppedItemReasonUnsupportedKind   ChangeItemFormsCopyDroppedItemReason = "unsupported-kind"
+	ChangeItemFormsCopyDroppedItemReasonScriptNotAllowed  ChangeItemFormsCopyDroppedItemReason = "script-not-allowed"
+	ChangeItemFormsCopyDroppedItemReasonUnsupportedAction ChangeItemFormsCopyDroppedItemReason = "unsupported-action"
+)
+
+func NewChangeItemFormsCopyDroppedItemReasonFromString(s string) (ChangeItemFormsCopyDroppedItemReason, error) {
+	switch s {
+	case "name-conflict":
+		return ChangeItemFormsCopyDroppedItemReasonNameConflict, nil
+	case "no-field":
+		return ChangeItemFormsCopyDroppedItemReasonNoField, nil
+	case "unsupported-kind":
+		return ChangeItemFormsCopyDroppedItemReasonUnsupportedKind, nil
+	case "script-not-allowed":
+		return ChangeItemFormsCopyDroppedItemReasonScriptNotAllowed, nil
+	case "unsupported-action":
+		return ChangeItemFormsCopyDroppedItemReasonUnsupportedAction, nil
+	}
+	var t ChangeItemFormsCopyDroppedItemReason
+	return "", fmt.Errorf("%s is not a valid %T", s, t)
+}
+
+func (c ChangeItemFormsCopyDroppedItemReason) Ptr() *ChangeItemFormsCopyDroppedItemReason {
+	return &c
+}
+
+var (
+	changeItemFormsCopyRefMapItemFieldFrom = big.NewInt(1 << 0)
+	changeItemFormsCopyRefMapItemFieldTo   = big.NewInt(1 << 1)
+)
+
+type ChangeItemFormsCopyRefMapItem struct {
+	From *FormFieldRef `json:"from" url:"from"`
+	To   *FormFieldRef `json:"to" url:"to"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) GetFrom() *FormFieldRef {
+	if c == nil {
+		return nil
+	}
+	return c.From
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) GetTo() *FormFieldRef {
+	if c == nil {
+		return nil
+	}
+	return c.To
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFrom sets the From field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyRefMapItem) SetFrom(from *FormFieldRef) {
+	c.From = from
+	c.require(changeItemFormsCopyRefMapItemFieldFrom)
+}
+
+// SetTo sets the To field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeItemFormsCopyRefMapItem) SetTo(to *FormFieldRef) {
+	c.To = to
+	c.require(changeItemFormsCopyRefMapItemFieldTo)
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeItemFormsCopyRefMapItem
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeItemFormsCopyRefMapItem(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) MarshalJSON() ([]byte, error) {
+	type embed ChangeItemFormsCopyRefMapItem
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeItemFormsCopyRefMapItem) String() string {
 	if c == nil {
 		return "<nil>"
 	}
@@ -73755,11 +74624,13 @@ const (
 	ChangeItemSkippedOpAnnotationsUpdate           ChangeItemSkippedOp = "annotations.update"
 	ChangeItemSkippedOpAnnotationsDelete           ChangeItemSkippedOp = "annotations.delete"
 	ChangeItemSkippedOpAnnotationsReorder          ChangeItemSkippedOp = "annotations.reorder"
+	ChangeItemSkippedOpAnnotationsCopy             ChangeItemSkippedOp = "annotations.copy"
 	ChangeItemSkippedOpFormsSetValue               ChangeItemSkippedOp = "forms.setValue"
 	ChangeItemSkippedOpFormsSetDisplay             ChangeItemSkippedOp = "forms.setDisplay"
 	ChangeItemSkippedOpFormsSetAppearanceText      ChangeItemSkippedOp = "forms.setAppearanceText"
 	ChangeItemSkippedOpFormsReset                  ChangeItemSkippedOp = "forms.reset"
 	ChangeItemSkippedOpFormsCreate                 ChangeItemSkippedOp = "forms.create"
+	ChangeItemSkippedOpFormsCopy                   ChangeItemSkippedOp = "forms.copy"
 	ChangeItemSkippedOpFormsUpdate                 ChangeItemSkippedOp = "forms.update"
 	ChangeItemSkippedOpFormsDelete                 ChangeItemSkippedOp = "forms.delete"
 	ChangeItemSkippedOpFormsAddWidget              ChangeItemSkippedOp = "forms.addWidget"
@@ -73802,6 +74673,8 @@ func NewChangeItemSkippedOpFromString(s string) (ChangeItemSkippedOp, error) {
 		return ChangeItemSkippedOpAnnotationsDelete, nil
 	case "annotations.reorder":
 		return ChangeItemSkippedOpAnnotationsReorder, nil
+	case "annotations.copy":
+		return ChangeItemSkippedOpAnnotationsCopy, nil
 	case "forms.setValue":
 		return ChangeItemSkippedOpFormsSetValue, nil
 	case "forms.setDisplay":
@@ -73812,6 +74685,8 @@ func NewChangeItemSkippedOpFromString(s string) (ChangeItemSkippedOp, error) {
 		return ChangeItemSkippedOpFormsReset, nil
 	case "forms.create":
 		return ChangeItemSkippedOpFormsCreate, nil
+	case "forms.copy":
+		return ChangeItemSkippedOpFormsCopy, nil
 	case "forms.update":
 		return ChangeItemSkippedOpFormsUpdate, nil
 	case "forms.delete":
@@ -73887,11 +74762,13 @@ type ChangeOp struct {
 	AnnotationsUpdate           *ChangeOpAnnotationsUpdate
 	AnnotationsDelete           *ChangeOpAnnotationsDelete
 	AnnotationsReorder          *ChangeOpAnnotationsReorder
+	AnnotationsCopy             *ChangeOpAnnotationsCopy
 	FormsSetValue               *ChangeOpFormsSetValue
 	FormsSetDisplay             *ChangeOpFormsSetDisplay
 	FormsSetAppearanceText      *ChangeOpFormsSetAppearanceText
 	FormsReset                  *ChangeOpFormsReset
 	FormsCreate                 *ChangeOpFormsCreate
+	FormsCopy                   *ChangeOpFormsCopy
 	FormsUpdate                 *ChangeOpFormsUpdate
 	FormsDelete                 *ChangeOpFormsDelete
 	FormsAddWidget              *ChangeOpFormsAddWidget
@@ -73955,6 +74832,13 @@ func (c *ChangeOp) GetAnnotationsReorder() *ChangeOpAnnotationsReorder {
 	return c.AnnotationsReorder
 }
 
+func (c *ChangeOp) GetAnnotationsCopy() *ChangeOpAnnotationsCopy {
+	if c == nil {
+		return nil
+	}
+	return c.AnnotationsCopy
+}
+
 func (c *ChangeOp) GetFormsSetValue() *ChangeOpFormsSetValue {
 	if c == nil {
 		return nil
@@ -73988,6 +74872,13 @@ func (c *ChangeOp) GetFormsCreate() *ChangeOpFormsCreate {
 		return nil
 	}
 	return c.FormsCreate
+}
+
+func (c *ChangeOp) GetFormsCopy() *ChangeOpFormsCopy {
+	if c == nil {
+		return nil
+	}
+	return c.FormsCopy
 }
 
 func (c *ChangeOp) GetFormsUpdate() *ChangeOpFormsUpdate {
@@ -74194,6 +75085,12 @@ func (c *ChangeOp) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.AnnotationsReorder = value
+	case "annotations.copy":
+		value := new(ChangeOpAnnotationsCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.AnnotationsCopy = value
 	case "forms.setValue":
 		value := new(ChangeOpFormsSetValue)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -74224,6 +75121,12 @@ func (c *ChangeOp) UnmarshalJSON(data []byte) error {
 			return err
 		}
 		c.FormsCreate = value
+	case "forms.copy":
+		value := new(ChangeOpFormsCopy)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		c.FormsCopy = value
 	case "forms.update":
 		value := new(ChangeOpFormsUpdate)
 		if err := json.Unmarshal(data, &value); err != nil {
@@ -74389,6 +75292,9 @@ func (c ChangeOp) MarshalJSON() ([]byte, error) {
 	if c.AnnotationsReorder != nil {
 		return internal.MarshalJSONWithExtraProperty(c.AnnotationsReorder, "type", "annotations.reorder")
 	}
+	if c.AnnotationsCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.AnnotationsCopy, "type", "annotations.copy")
+	}
 	if c.FormsSetValue != nil {
 		return internal.MarshalJSONWithExtraProperty(c.FormsSetValue, "type", "forms.setValue")
 	}
@@ -74403,6 +75309,9 @@ func (c ChangeOp) MarshalJSON() ([]byte, error) {
 	}
 	if c.FormsCreate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.FormsCreate, "type", "forms.create")
+	}
+	if c.FormsCopy != nil {
+		return internal.MarshalJSONWithExtraProperty(c.FormsCopy, "type", "forms.copy")
 	}
 	if c.FormsUpdate != nil {
 		return internal.MarshalJSONWithExtraProperty(c.FormsUpdate, "type", "forms.update")
@@ -74487,11 +75396,13 @@ type ChangeOpVisitor interface {
 	VisitAnnotationsUpdate(*ChangeOpAnnotationsUpdate) error
 	VisitAnnotationsDelete(*ChangeOpAnnotationsDelete) error
 	VisitAnnotationsReorder(*ChangeOpAnnotationsReorder) error
+	VisitAnnotationsCopy(*ChangeOpAnnotationsCopy) error
 	VisitFormsSetValue(*ChangeOpFormsSetValue) error
 	VisitFormsSetDisplay(*ChangeOpFormsSetDisplay) error
 	VisitFormsSetAppearanceText(*ChangeOpFormsSetAppearanceText) error
 	VisitFormsReset(*ChangeOpFormsReset) error
 	VisitFormsCreate(*ChangeOpFormsCreate) error
+	VisitFormsCopy(*ChangeOpFormsCopy) error
 	VisitFormsUpdate(*ChangeOpFormsUpdate) error
 	VisitFormsDelete(*ChangeOpFormsDelete) error
 	VisitFormsAddWidget(*ChangeOpFormsAddWidget) error
@@ -74531,6 +75442,9 @@ func (c *ChangeOp) Accept(visitor ChangeOpVisitor) error {
 	if c.AnnotationsReorder != nil {
 		return visitor.VisitAnnotationsReorder(c.AnnotationsReorder)
 	}
+	if c.AnnotationsCopy != nil {
+		return visitor.VisitAnnotationsCopy(c.AnnotationsCopy)
+	}
 	if c.FormsSetValue != nil {
 		return visitor.VisitFormsSetValue(c.FormsSetValue)
 	}
@@ -74545,6 +75459,9 @@ func (c *ChangeOp) Accept(visitor ChangeOpVisitor) error {
 	}
 	if c.FormsCreate != nil {
 		return visitor.VisitFormsCreate(c.FormsCreate)
+	}
+	if c.FormsCopy != nil {
+		return visitor.VisitFormsCopy(c.FormsCopy)
 	}
 	if c.FormsUpdate != nil {
 		return visitor.VisitFormsUpdate(c.FormsUpdate)
@@ -74638,6 +75555,9 @@ func (c *ChangeOp) validate() error {
 	if c.AnnotationsReorder != nil {
 		fields = append(fields, "annotations.reorder")
 	}
+	if c.AnnotationsCopy != nil {
+		fields = append(fields, "annotations.copy")
+	}
 	if c.FormsSetValue != nil {
 		fields = append(fields, "forms.setValue")
 	}
@@ -74652,6 +75572,9 @@ func (c *ChangeOp) validate() error {
 	}
 	if c.FormsCreate != nil {
 		fields = append(fields, "forms.create")
+	}
+	if c.FormsCopy != nil {
+		fields = append(fields, "forms.copy")
 	}
 	if c.FormsUpdate != nil {
 		fields = append(fields, "forms.update")
@@ -74749,6 +75672,238 @@ func (c *ChangeOp) validate() error {
 		}
 	}
 	return nil
+}
+
+var (
+	changeOpAnnotationsCopyFieldRefs          = big.NewInt(1 << 0)
+	changeOpAnnotationsCopyFieldPage          = big.NewInt(1 << 1)
+	changeOpAnnotationsCopyFieldOffset        = big.NewInt(1 << 2)
+	changeOpAnnotationsCopyFieldObjectNumbers = big.NewInt(1 << 3)
+)
+
+type ChangeOpAnnotationsCopy struct {
+	Refs          []*AnnotationRef               `json:"refs" url:"refs"`
+	Page          *PageRef                       `json:"page,omitempty" url:"page,omitempty"`
+	Offset        *ChangeOpAnnotationsCopyOffset `json:"offset,omitempty" url:"offset,omitempty"`
+	ObjectNumbers []int                          `json:"objectNumbers,omitempty" url:"objectNumbers,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpAnnotationsCopy) GetRefs() []*AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.Refs
+}
+
+func (c *ChangeOpAnnotationsCopy) GetPage() *PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Page
+}
+
+func (c *ChangeOpAnnotationsCopy) GetOffset() *ChangeOpAnnotationsCopyOffset {
+	if c == nil {
+		return nil
+	}
+	return c.Offset
+}
+
+func (c *ChangeOpAnnotationsCopy) GetObjectNumbers() []int {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectNumbers
+}
+
+func (c *ChangeOpAnnotationsCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpAnnotationsCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetRefs sets the Refs field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopy) SetRefs(refs []*AnnotationRef) {
+	c.Refs = refs
+	c.require(changeOpAnnotationsCopyFieldRefs)
+}
+
+// SetPage sets the Page field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopy) SetPage(page *PageRef) {
+	c.Page = page
+	c.require(changeOpAnnotationsCopyFieldPage)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopy) SetOffset(offset *ChangeOpAnnotationsCopyOffset) {
+	c.Offset = offset
+	c.require(changeOpAnnotationsCopyFieldOffset)
+}
+
+// SetObjectNumbers sets the ObjectNumbers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopy) SetObjectNumbers(objectNumbers []int) {
+	c.ObjectNumbers = objectNumbers
+	c.require(changeOpAnnotationsCopyFieldObjectNumbers)
+}
+
+func (c *ChangeOpAnnotationsCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpAnnotationsCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpAnnotationsCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpAnnotationsCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpAnnotationsCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpAnnotationsCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpAnnotationsCopyOffsetFieldX = big.NewInt(1 << 0)
+	changeOpAnnotationsCopyOffsetFieldY = big.NewInt(1 << 1)
+)
+
+type ChangeOpAnnotationsCopyOffset struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopyOffset) SetX(x float64) {
+	c.X = x
+	c.require(changeOpAnnotationsCopyOffsetFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpAnnotationsCopyOffset) SetY(y float64) {
+	c.Y = y
+	c.require(changeOpAnnotationsCopyOffsetFieldY)
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpAnnotationsCopyOffset
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpAnnotationsCopyOffset(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpAnnotationsCopyOffset
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpAnnotationsCopyOffset) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
 }
 
 var (
@@ -75817,6 +76972,270 @@ func (c *ChangeOpFormsAddWidget) MarshalJSON() ([]byte, error) {
 }
 
 func (c *ChangeOpFormsAddWidget) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpFormsCopyFieldFields        = big.NewInt(1 << 0)
+	changeOpFormsCopyFieldWidgets       = big.NewInt(1 << 1)
+	changeOpFormsCopyFieldPage          = big.NewInt(1 << 2)
+	changeOpFormsCopyFieldOffset        = big.NewInt(1 << 3)
+	changeOpFormsCopyFieldValues        = big.NewInt(1 << 4)
+	changeOpFormsCopyFieldObjectNumbers = big.NewInt(1 << 5)
+)
+
+type ChangeOpFormsCopy struct {
+	Fields        []*FormFieldRef          `json:"fields" url:"fields"`
+	Widgets       []*AnnotationRef         `json:"widgets,omitempty" url:"widgets,omitempty"`
+	Page          *PageRef                 `json:"page,omitempty" url:"page,omitempty"`
+	Offset        *ChangeOpFormsCopyOffset `json:"offset,omitempty" url:"offset,omitempty"`
+	Values        *bool                    `json:"values,omitempty" url:"values,omitempty"`
+	ObjectNumbers []int                    `json:"objectNumbers,omitempty" url:"objectNumbers,omitempty"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpFormsCopy) GetFields() []*FormFieldRef {
+	if c == nil {
+		return nil
+	}
+	return c.Fields
+}
+
+func (c *ChangeOpFormsCopy) GetWidgets() []*AnnotationRef {
+	if c == nil {
+		return nil
+	}
+	return c.Widgets
+}
+
+func (c *ChangeOpFormsCopy) GetPage() *PageRef {
+	if c == nil {
+		return nil
+	}
+	return c.Page
+}
+
+func (c *ChangeOpFormsCopy) GetOffset() *ChangeOpFormsCopyOffset {
+	if c == nil {
+		return nil
+	}
+	return c.Offset
+}
+
+func (c *ChangeOpFormsCopy) GetValues() *bool {
+	if c == nil {
+		return nil
+	}
+	return c.Values
+}
+
+func (c *ChangeOpFormsCopy) GetObjectNumbers() []int {
+	if c == nil {
+		return nil
+	}
+	return c.ObjectNumbers
+}
+
+func (c *ChangeOpFormsCopy) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpFormsCopy) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetFields sets the Fields field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetFields(fields []*FormFieldRef) {
+	c.Fields = fields
+	c.require(changeOpFormsCopyFieldFields)
+}
+
+// SetWidgets sets the Widgets field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetWidgets(widgets []*AnnotationRef) {
+	c.Widgets = widgets
+	c.require(changeOpFormsCopyFieldWidgets)
+}
+
+// SetPage sets the Page field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetPage(page *PageRef) {
+	c.Page = page
+	c.require(changeOpFormsCopyFieldPage)
+}
+
+// SetOffset sets the Offset field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetOffset(offset *ChangeOpFormsCopyOffset) {
+	c.Offset = offset
+	c.require(changeOpFormsCopyFieldOffset)
+}
+
+// SetValues sets the Values field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetValues(values *bool) {
+	c.Values = values
+	c.require(changeOpFormsCopyFieldValues)
+}
+
+// SetObjectNumbers sets the ObjectNumbers field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopy) SetObjectNumbers(objectNumbers []int) {
+	c.ObjectNumbers = objectNumbers
+	c.require(changeOpFormsCopyFieldObjectNumbers)
+}
+
+func (c *ChangeOpFormsCopy) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpFormsCopy
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpFormsCopy(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpFormsCopy) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpFormsCopy
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpFormsCopy) String() string {
+	if c == nil {
+		return "<nil>"
+	}
+	if len(c.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(c.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(c); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", c)
+}
+
+var (
+	changeOpFormsCopyOffsetFieldX = big.NewInt(1 << 0)
+	changeOpFormsCopyOffsetFieldY = big.NewInt(1 << 1)
+)
+
+type ChangeOpFormsCopyOffset struct {
+	X float64 `json:"x" url:"x"`
+	Y float64 `json:"y" url:"y"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (c *ChangeOpFormsCopyOffset) GetX() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.X
+}
+
+func (c *ChangeOpFormsCopyOffset) GetY() float64 {
+	if c == nil {
+		return 0
+	}
+	return c.Y
+}
+
+func (c *ChangeOpFormsCopyOffset) GetExtraProperties() map[string]interface{} {
+	if c == nil {
+		return nil
+	}
+	return c.extraProperties
+}
+
+func (c *ChangeOpFormsCopyOffset) require(field *big.Int) {
+	if c.explicitFields == nil {
+		c.explicitFields = big.NewInt(0)
+	}
+	c.explicitFields.Or(c.explicitFields, field)
+}
+
+// SetX sets the X field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopyOffset) SetX(x float64) {
+	c.X = x
+	c.require(changeOpFormsCopyOffsetFieldX)
+}
+
+// SetY sets the Y field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (c *ChangeOpFormsCopyOffset) SetY(y float64) {
+	c.Y = y
+	c.require(changeOpFormsCopyOffsetFieldY)
+}
+
+func (c *ChangeOpFormsCopyOffset) UnmarshalJSON(data []byte) error {
+	type unmarshaler ChangeOpFormsCopyOffset
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*c = ChangeOpFormsCopyOffset(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *c)
+	if err != nil {
+		return err
+	}
+	c.extraProperties = extraProperties
+	c.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (c *ChangeOpFormsCopyOffset) MarshalJSON() ([]byte, error) {
+	type embed ChangeOpFormsCopyOffset
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*c),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, c.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (c *ChangeOpFormsCopyOffset) String() string {
 	if c == nil {
 		return "<nil>"
 	}
