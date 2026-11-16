@@ -302,3 +302,107 @@ func (r *RawClient) Prepare(
 		Body:       response,
 	}, nil
 }
+
+func (r *RawClient) ValidationInfo(
+	ctx context.Context,
+	request *doc.ValidationInfoSignaturesRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocSignaturesValidationInfoResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://engine.cloudpdf.com",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/signatures/validation-info",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+
+	var response *cloudpdf.DocSignaturesValidationInfoResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodGet,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocSignaturesValidationInfoResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}
+
+func (r *RawClient) AddValidationInfo(
+	ctx context.Context,
+	request *doc.DocSignaturesAddValidationInfoRequest,
+	opts ...option.RequestOption,
+) (*core.Response[*cloudpdf.DocSignaturesAddValidationInfoResponse], error) {
+	options := core.NewRequestOptions(opts...)
+	baseURL := internal.ResolveBaseURL(
+		options.BaseURL,
+		r.baseURL,
+		"https://engine.cloudpdf.com",
+	)
+	endpointURL := internal.EncodeURL(
+		baseURL+"/v1/docs/%v/layers/%v/signatures/validation-info",
+		request.DocID,
+		request.LayerName,
+	)
+	headers := internal.MergeHeaders(
+		r.options.ToHeader(),
+		options.ToHeader(),
+	)
+	if request.DocumentPassword != nil {
+		headers.Add("X-Document-Password", *request.DocumentPassword)
+	}
+	if request.IdempotencyKey != nil {
+		headers.Add("Idempotency-Key", *request.IdempotencyKey)
+	}
+	headers.Add("Content-Type", "application/json")
+	var response *cloudpdf.DocSignaturesAddValidationInfoResponse
+	raw, err := r.caller.Call(
+		ctx,
+		&internal.CallParams{
+			URL:             endpointURL,
+			Method:          http.MethodPost,
+			Headers:         headers,
+			MaxAttempts:     options.MaxAttempts,
+			DisableRetries:  options.DisableRetries,
+			BodyProperties:  options.BodyProperties,
+			QueryParameters: options.QueryParameters,
+			Client:          options.HTTPClient,
+			Request:         request,
+			Response:        &response,
+			ErrorDecoder:    internal.NewErrorDecoder(doc.ErrorCodes),
+		},
+	)
+	if err != nil {
+		return nil, err
+	}
+	return &core.Response[*cloudpdf.DocSignaturesAddValidationInfoResponse]{
+		StatusCode: raw.StatusCode,
+		Header:     raw.Header,
+		Body:       response,
+	}, nil
+}

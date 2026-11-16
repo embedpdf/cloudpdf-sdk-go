@@ -64,7 +64,7 @@ func (c *Client) List(
 	return response.Body, nil
 }
 
-// Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every caller.
+// Exactly one of `since.signature` / `since.revision`; `until=<revision>` defaults to the last. The same answer for every caller. A version never changes, but the rules that judge it can: with `engine`, the `analysis` value of the layer's head, a settled answer is `immutable`. Without it, or with another value, the answer is this server's own, with `no-store` and the current value in `EmbedPDF-Engine`.
 //
 // Example:
 //
@@ -148,6 +148,8 @@ func (c *Client) Revision(
 	return response.Body, nil
 }
 
+// A version never changes, but what the server reads from it can: with `engine`, the `signatures` value of the layer's head, the answer is `immutable`. Without it, or with another value, the answer is this server's own, with `no-store` and the current value in `EmbedPDF-Engine`.
+//
 // Example:
 //
 //	request := &doc.SignaturesVersionsRequest{

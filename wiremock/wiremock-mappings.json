@@ -2977,12 +2977,90 @@
       },
       "response": {
         "status": 200,
-        "body": "{\n  \"signingId\": \"signingId\",\n  \"digest\": \"digest\",\n  \"algorithm\": \"sha256\",\n  \"byteRange\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"contentsSizeBytes\": 1,\n  \"subFilter\": \"subFilter\",\n  \"expectedVersion\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"expiresAt\": \"2024-01-15T09:30:00Z\"\n}",
+        "body": "{\n  \"signingId\": \"signingId\",\n  \"digest\": \"digest\",\n  \"algorithm\": \"sha256\",\n  \"byteRange\": [\n    {\n      \"key\": \"value\"\n    }\n  ],\n  \"contentsSizeBytes\": 1,\n  \"subFilter\": \"subFilter\",\n  \"expectedVersion\": {\n    \"baseSha256\": \"baseSha256\",\n    \"editsVersion\": 1\n  },\n  \"expiresAt\": \"2024-01-15T09:30:00Z\",\n  \"field\": {\n    \"objectNumber\": 1,\n    \"kind\": \"objectNumber\"\n  }\n}",
         "headers": {
           "Content-Type": "application/json"
         }
       },
       "uuid": "00ecc5df-58ad-4298-96f6-64650922baaf",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "91d941b7-15f7-4790-b6f1-915b56d7b4ca",
+      "name": "The certificates, OCSP responses and CRLs the layer's file holds for checking its signatures with no network. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/validation-info",
+        "method": "GET",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"certificates\": [\n    \"certificates\"\n  ],\n  \"ocspResponses\": [\n    \"ocspResponses\"\n  ],\n  \"crls\": [\n    \"crls\"\n  ]\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "91d941b7-15f7-4790-b6f1-915b56d7b4ca",
+      "persistent": true,
+      "priority": 3,
+      "metadata": {
+        "mocklab": {
+          "created": {
+            "at": "2020-01-01T00:00:00.000Z",
+            "via": "SYSTEM"
+          }
+        }
+      }
+    },
+    {
+      "id": "e7eaf212-f65e-4631-99f6-dd5692e12aec",
+      "name": "Store certificates, OCSP responses and CRLs in the layer's file, so its signatures can be checked with no network. - default",
+      "request": {
+        "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/signatures/validation-info",
+        "method": "POST",
+        "headers": {
+          "Authorization": {
+            "matches": "Bearer .+"
+          }
+        },
+        "pathParameters": {
+          "docId": {
+            "equalTo": "docId"
+          },
+          "layerName": {
+            "equalTo": "layerName"
+          }
+        }
+      },
+      "response": {
+        "status": 200,
+        "body": "{\n  \"added\": {\n    \"certificates\": 1,\n    \"ocspResponses\": 1,\n    \"crls\": 1\n  },\n  \"meta\": {\n    \"affectedPages\": [\n      {\n        \"kind\": \"objectNumber\",\n        \"objectNumber\": 1\n      }\n    ],\n    \"cacheDelta\": {\n      \"previousDocVersion\": 1,\n      \"docVersion\": 1,\n      \"annotationsVersion\": 1,\n      \"formsVersion\": 1,\n      \"layoutVersion\": 1,\n      \"metadataVersion\": 1,\n      \"attachmentsVersion\": 1,\n      \"outlineVersion\": 1,\n      \"viewportsVersion\": 1,\n      \"fontsVersion\": 1,\n      \"contentsVersion\": 1,\n      \"layerVersion\": 1,\n      \"working\": true,\n      \"pages\": [\n        {\n          \"page\": {\n            \"kind\": \"objectNumber\",\n            \"objectNumber\": 1\n          },\n          \"cache\": {\n            \"contentVersion\": 1,\n            \"annotationVersion\": 1,\n            \"widgetVersion\": 1\n          }\n        }\n      ]\n    },\n    \"opId\": \"opId\",\n    \"undoable\": true,\n    \"missingCharacters\": [\n      \"missingCharacters\"\n    ]\n  }\n}",
+        "headers": {
+          "Content-Type": "application/json"
+        }
+      },
+      "uuid": "e7eaf212-f65e-4631-99f6-dd5692e12aec",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3034,8 +3112,8 @@
       }
     },
     {
-      "id": "477051b3-0858-485d-8f99-6f57b342bc09",
-      "name": "What changed between two revisions of one of a layer's versions (immutable). - default",
+      "id": "ab8fbe76-f5d2-4337-9a87-ab776805c355",
+      "name": "What changed between two revisions of one of a layer's versions. - default",
       "request": {
         "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/analysis/{sha256}",
         "method": "GET",
@@ -3063,7 +3141,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "477051b3-0858-485d-8f99-6f57b342bc09",
+      "uuid": "ab8fbe76-f5d2-4337-9a87-ab776805c355",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3163,8 +3241,8 @@
       }
     },
     {
-      "id": "ce9f14a9-d5c5-4063-bc0f-1067b59220c1",
-      "name": "The signature snapshot of one of a layer's versions (immutable). - default",
+      "id": "8bd31158-0033-4c02-8886-abbecf6374f6",
+      "name": "The signature snapshot of one of a layer's versions. - default",
       "request": {
         "urlPathTemplate": "/v1/docs/{docId}/layers/{layerName}/versions/signatures/{sha256}",
         "method": "GET",
@@ -3192,7 +3270,7 @@
           "Content-Type": "application/json"
         }
       },
-      "uuid": "ce9f14a9-d5c5-4063-bc0f-1067b59220c1",
+      "uuid": "8bd31158-0033-4c02-8886-abbecf6374f6",
       "persistent": true,
       "priority": 3,
       "metadata": {
@@ -3584,6 +3662,6 @@
     }
   ],
   "meta": {
-    "total": 91
+    "total": 93
   }
 }

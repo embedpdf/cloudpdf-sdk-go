@@ -222,3 +222,57 @@ func TestDocSignaturesPrepareWithWireMock(
 	require.NoError(t, invocationErr, "Client method call should succeed")
 	VerifyRequestCount(t, "TestDocSignaturesPrepareWithWireMock", "POST", "/v1/docs/docId/layers/layerName/signatures/prepare", nil, 1)
 }
+
+func TestDocSignaturesValidationInfoWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.ValidationInfoSignaturesRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+	}
+	_, invocationErr := client.Doc.Signatures.ValidationInfo(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocSignaturesValidationInfoWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocSignaturesValidationInfoWithWireMock", "GET", "/v1/docs/docId/layers/layerName/signatures/validation-info", nil, 1)
+}
+
+func TestDocSignaturesAddValidationInfoWithWireMock(
+	t *testing.T,
+) {
+	WireMockBaseURL := os.Getenv("WIREMOCK_URL")
+	if WireMockBaseURL == "" {
+		WireMockBaseURL = "http://localhost:8080"
+	}
+	client := client.NewClient(
+		option.WithBaseURL(WireMockBaseURL),
+		option.WithToken("test-token"),
+	)
+	request := &doc.DocSignaturesAddValidationInfoRequest{
+		DocID:     "docId",
+		LayerName: "layerName",
+	}
+	_, invocationErr := client.Doc.Signatures.AddValidationInfo(
+		context.TODO(),
+		request,
+		option.WithHTTPHeader(
+			http.Header{"X-Test-Id": []string{"TestDocSignaturesAddValidationInfoWithWireMock"}},
+		),
+	)
+
+	require.NoError(t, invocationErr, "Client method call should succeed")
+	VerifyRequestCount(t, "TestDocSignaturesAddValidationInfoWithWireMock", "POST", "/v1/docs/docId/layers/layerName/signatures/validation-info", nil, 1)
+}
