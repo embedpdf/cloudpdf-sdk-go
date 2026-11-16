@@ -11,6 +11,108 @@ import (
 )
 
 var (
+	docSignaturesAddValidationInfoRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	docSignaturesAddValidationInfoRequestFieldIdempotencyKey   = big.NewInt(1 << 1)
+	docSignaturesAddValidationInfoRequestFieldDocID            = big.NewInt(1 << 2)
+	docSignaturesAddValidationInfoRequestFieldLayerName        = big.NewInt(1 << 3)
+	docSignaturesAddValidationInfoRequestFieldCertificates     = big.NewInt(1 << 4)
+	docSignaturesAddValidationInfoRequestFieldOcspResponses    = big.NewInt(1 << 5)
+	docSignaturesAddValidationInfoRequestFieldCrls             = big.NewInt(1 << 6)
+)
+
+type DocSignaturesAddValidationInfoRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	// Names the change: 1 to 255 printable ASCII characters. A retry under the same key on the same layer answers with what the first request committed, and changes nothing.
+	IdempotencyKey *string  `json:"-" url:"-"`
+	DocID          string   `json:"-" url:"-"`
+	LayerName      string   `json:"-" url:"-"`
+	Certificates   []string `json:"certificates,omitempty" url:"-"`
+	OcspResponses  []string `json:"ocspResponses,omitempty" url:"-"`
+	Crls           []string `json:"crls,omitempty" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (d *DocSignaturesAddValidationInfoRequest) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetDocumentPassword(documentPassword *string) {
+	d.DocumentPassword = documentPassword
+	d.require(docSignaturesAddValidationInfoRequestFieldDocumentPassword)
+}
+
+// SetIdempotencyKey sets the IdempotencyKey field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetIdempotencyKey(idempotencyKey *string) {
+	d.IdempotencyKey = idempotencyKey
+	d.require(docSignaturesAddValidationInfoRequestFieldIdempotencyKey)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetDocID(docID string) {
+	d.DocID = docID
+	d.require(docSignaturesAddValidationInfoRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetLayerName(layerName string) {
+	d.LayerName = layerName
+	d.require(docSignaturesAddValidationInfoRequestFieldLayerName)
+}
+
+// SetCertificates sets the Certificates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetCertificates(certificates []string) {
+	d.Certificates = certificates
+	d.require(docSignaturesAddValidationInfoRequestFieldCertificates)
+}
+
+// SetOcspResponses sets the OcspResponses field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetOcspResponses(ocspResponses []string) {
+	d.OcspResponses = ocspResponses
+	d.require(docSignaturesAddValidationInfoRequestFieldOcspResponses)
+}
+
+// SetCrls sets the Crls field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoRequest) SetCrls(crls []string) {
+	d.Crls = crls
+	d.require(docSignaturesAddValidationInfoRequestFieldCrls)
+}
+
+func (d *DocSignaturesAddValidationInfoRequest) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocSignaturesAddValidationInfoRequest
+	var body unmarshaler
+	if err := json.Unmarshal(data, &body); err != nil {
+		return err
+	}
+	*d = DocSignaturesAddValidationInfoRequest(body)
+	return nil
+}
+
+func (d *DocSignaturesAddValidationInfoRequest) MarshalJSON() ([]byte, error) {
+	type embed DocSignaturesAddValidationInfoRequest
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+var (
 	analysisSignaturesRequestFieldDocumentPassword = big.NewInt(1 << 0)
 	analysisSignaturesRequestFieldDocID            = big.NewInt(1 << 1)
 	analysisSignaturesRequestFieldLayerName        = big.NewInt(1 << 2)
@@ -462,4 +564,48 @@ func (d *DocSignaturesCompleteRequestExpectedVersion) String() string {
 		return value
 	}
 	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	validationInfoSignaturesRequestFieldDocumentPassword = big.NewInt(1 << 0)
+	validationInfoSignaturesRequestFieldDocID            = big.NewInt(1 << 1)
+	validationInfoSignaturesRequestFieldLayerName        = big.NewInt(1 << 2)
+)
+
+type ValidationInfoSignaturesRequest struct {
+	// Base64-encoded password for an encrypted document. Valid only with the API token (403 anywhere else). An encrypted document answers 422 DocPasswordRequired when the header is absent. Viewer doc JWTs use the SDK password-session flow instead.
+	DocumentPassword *string `json:"-" url:"-"`
+	DocID            string  `json:"-" url:"-"`
+	LayerName        string  `json:"-" url:"-"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+}
+
+func (v *ValidationInfoSignaturesRequest) require(field *big.Int) {
+	if v.explicitFields == nil {
+		v.explicitFields = big.NewInt(0)
+	}
+	v.explicitFields.Or(v.explicitFields, field)
+}
+
+// SetDocumentPassword sets the DocumentPassword field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ValidationInfoSignaturesRequest) SetDocumentPassword(documentPassword *string) {
+	v.DocumentPassword = documentPassword
+	v.require(validationInfoSignaturesRequestFieldDocumentPassword)
+}
+
+// SetDocID sets the DocID field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ValidationInfoSignaturesRequest) SetDocID(docID string) {
+	v.DocID = docID
+	v.require(validationInfoSignaturesRequestFieldDocID)
+}
+
+// SetLayerName sets the LayerName field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (v *ValidationInfoSignaturesRequest) SetLayerName(layerName string) {
+	v.LayerName = layerName
+	v.require(validationInfoSignaturesRequestFieldLayerName)
 }

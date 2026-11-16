@@ -16,7 +16,7 @@ var (
 	analysisVersionsRequestFieldSinceRevision    = big.NewInt(1 << 5)
 	analysisVersionsRequestFieldLevel            = big.NewInt(1 << 6)
 	analysisVersionsRequestFieldUntil            = big.NewInt(1 << 7)
-	analysisVersionsRequestFieldPolicy           = big.NewInt(1 << 8)
+	analysisVersionsRequestFieldEngine           = big.NewInt(1 << 8)
 )
 
 type AnalysisVersionsRequest struct {
@@ -29,7 +29,8 @@ type AnalysisVersionsRequest struct {
 	SinceRevision    *int                          `json:"-" url:"since.revision,omitempty"`
 	Level            *AnalysisVersionsRequestLevel `json:"-" url:"level,omitempty"`
 	Until            *int                          `json:"-" url:"until,omitempty"`
-	Policy           *int                          `json:"-" url:"policy,omitempty"`
+	// The `analysis` engine value from the layer's head (`engine.analysis`): the rules the answer is judged with. With it, a settled answer is cached.
+	Engine *string `json:"-" url:"engine,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -98,11 +99,11 @@ func (a *AnalysisVersionsRequest) SetUntil(until *int) {
 	a.require(analysisVersionsRequestFieldUntil)
 }
 
-// SetPolicy sets the Policy field and marks it as non-optional;
+// SetEngine sets the Engine field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (a *AnalysisVersionsRequest) SetPolicy(policy *int) {
-	a.Policy = policy
-	a.require(analysisVersionsRequestFieldPolicy)
+func (a *AnalysisVersionsRequest) SetEngine(engine *string) {
+	a.Engine = engine
+	a.require(analysisVersionsRequestFieldEngine)
 }
 
 var (
@@ -402,6 +403,7 @@ var (
 	signaturesVersionsRequestFieldDocID            = big.NewInt(1 << 1)
 	signaturesVersionsRequestFieldLayerName        = big.NewInt(1 << 2)
 	signaturesVersionsRequestFieldSha256           = big.NewInt(1 << 3)
+	signaturesVersionsRequestFieldEngine           = big.NewInt(1 << 4)
 )
 
 type SignaturesVersionsRequest struct {
@@ -410,6 +412,8 @@ type SignaturesVersionsRequest struct {
 	DocID            string  `json:"-" url:"-"`
 	LayerName        string  `json:"-" url:"-"`
 	Sha256           string  `json:"-" url:"-"`
+	// The `signatures` engine value from the layer's head (`engine.signatures`): what the answer is computed with besides the file. With it, the answer is cached.
+	Engine *string `json:"-" url:"engine,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -448,6 +452,13 @@ func (s *SignaturesVersionsRequest) SetLayerName(layerName string) {
 func (s *SignaturesVersionsRequest) SetSha256(sha256 string) {
 	s.Sha256 = sha256
 	s.require(signaturesVersionsRequestFieldSha256)
+}
+
+// SetEngine sets the Engine field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (s *SignaturesVersionsRequest) SetEngine(engine *string) {
+	s.Engine = engine
+	s.require(signaturesVersionsRequestFieldEngine)
 }
 
 type AnalysisVersionsRequestLevel string

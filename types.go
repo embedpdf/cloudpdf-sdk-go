@@ -30030,6 +30030,222 @@ func (d *DocRedactionsApplyResponseScope) String() string {
 }
 
 var (
+	docSignaturesAddValidationInfoResponseFieldAdded = big.NewInt(1 << 0)
+	docSignaturesAddValidationInfoResponseFieldMeta  = big.NewInt(1 << 1)
+)
+
+type DocSignaturesAddValidationInfoResponse struct {
+	Added *DocSignaturesAddValidationInfoResponseAdded `json:"added" url:"added"`
+	Meta  *MutationMeta                                `json:"meta" url:"meta"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) GetAdded() *DocSignaturesAddValidationInfoResponseAdded {
+	if d == nil {
+		return nil
+	}
+	return d.Added
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) GetMeta() *MutationMeta {
+	if d == nil {
+		return nil
+	}
+	return d.Meta
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetAdded sets the Added field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoResponse) SetAdded(added *DocSignaturesAddValidationInfoResponseAdded) {
+	d.Added = added
+	d.require(docSignaturesAddValidationInfoResponseFieldAdded)
+}
+
+// SetMeta sets the Meta field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoResponse) SetMeta(meta *MutationMeta) {
+	d.Meta = meta
+	d.require(docSignaturesAddValidationInfoResponseFieldMeta)
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocSignaturesAddValidationInfoResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocSignaturesAddValidationInfoResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) MarshalJSON() ([]byte, error) {
+	type embed DocSignaturesAddValidationInfoResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocSignaturesAddValidationInfoResponse) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docSignaturesAddValidationInfoResponseAddedFieldCertificates  = big.NewInt(1 << 0)
+	docSignaturesAddValidationInfoResponseAddedFieldOcspResponses = big.NewInt(1 << 1)
+	docSignaturesAddValidationInfoResponseAddedFieldCrls          = big.NewInt(1 << 2)
+)
+
+type DocSignaturesAddValidationInfoResponseAdded struct {
+	Certificates  int `json:"certificates" url:"certificates"`
+	OcspResponses int `json:"ocspResponses" url:"ocspResponses"`
+	Crls          int `json:"crls" url:"crls"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) GetCertificates() int {
+	if d == nil {
+		return 0
+	}
+	return d.Certificates
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) GetOcspResponses() int {
+	if d == nil {
+		return 0
+	}
+	return d.OcspResponses
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) GetCrls() int {
+	if d == nil {
+		return 0
+	}
+	return d.Crls
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetCertificates sets the Certificates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoResponseAdded) SetCertificates(certificates int) {
+	d.Certificates = certificates
+	d.require(docSignaturesAddValidationInfoResponseAddedFieldCertificates)
+}
+
+// SetOcspResponses sets the OcspResponses field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoResponseAdded) SetOcspResponses(ocspResponses int) {
+	d.OcspResponses = ocspResponses
+	d.require(docSignaturesAddValidationInfoResponseAddedFieldOcspResponses)
+}
+
+// SetCrls sets the Crls field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesAddValidationInfoResponseAdded) SetCrls(crls int) {
+	d.Crls = crls
+	d.require(docSignaturesAddValidationInfoResponseAddedFieldCrls)
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocSignaturesAddValidationInfoResponseAdded
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocSignaturesAddValidationInfoResponseAdded(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) MarshalJSON() ([]byte, error) {
+	type embed DocSignaturesAddValidationInfoResponseAdded
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocSignaturesAddValidationInfoResponseAdded) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
 	docSignaturesAnalysisResponseFieldMode          = big.NewInt(1 << 0)
 	docSignaturesAnalysisResponseFieldPolicyVersion = big.NewInt(1 << 1)
 	docSignaturesAnalysisResponseFieldBasis         = big.NewInt(1 << 2)
@@ -34852,6 +35068,7 @@ var (
 	docSignaturesPrepareResponseFieldSubFilter         = big.NewInt(1 << 5)
 	docSignaturesPrepareResponseFieldExpectedVersion   = big.NewInt(1 << 6)
 	docSignaturesPrepareResponseFieldExpiresAt         = big.NewInt(1 << 7)
+	docSignaturesPrepareResponseFieldField             = big.NewInt(1 << 8)
 )
 
 type DocSignaturesPrepareResponse struct {
@@ -34863,6 +35080,7 @@ type DocSignaturesPrepareResponse struct {
 	SubFilter         string                                       `json:"subFilter" url:"subFilter"`
 	ExpectedVersion   *DocSignaturesPrepareResponseExpectedVersion `json:"expectedVersion" url:"expectedVersion"`
 	ExpiresAt         *time.Time                                   `json:"expiresAt,omitempty" url:"expiresAt,omitempty"`
+	Field             *FormFieldRef                                `json:"field,omitempty" url:"field,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -34925,6 +35143,13 @@ func (d *DocSignaturesPrepareResponse) GetExpiresAt() *time.Time {
 		return nil
 	}
 	return d.ExpiresAt
+}
+
+func (d *DocSignaturesPrepareResponse) GetField() *FormFieldRef {
+	if d == nil {
+		return nil
+	}
+	return d.Field
 }
 
 func (d *DocSignaturesPrepareResponse) GetExtraProperties() map[string]interface{} {
@@ -34995,6 +35220,13 @@ func (d *DocSignaturesPrepareResponse) SetExpectedVersion(expectedVersion *DocSi
 func (d *DocSignaturesPrepareResponse) SetExpiresAt(expiresAt *time.Time) {
 	d.ExpiresAt = expiresAt
 	d.require(docSignaturesPrepareResponseFieldExpiresAt)
+}
+
+// SetField sets the Field field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesPrepareResponse) SetField(field *FormFieldRef) {
+	d.Field = field
+	d.require(docSignaturesPrepareResponseFieldField)
 }
 
 func (d *DocSignaturesPrepareResponse) UnmarshalJSON(data []byte) error {
@@ -35158,6 +35390,122 @@ func (d *DocSignaturesPrepareResponseExpectedVersion) MarshalJSON() ([]byte, err
 }
 
 func (d *DocSignaturesPrepareResponseExpectedVersion) String() string {
+	if d == nil {
+		return "<nil>"
+	}
+	if len(d.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(d.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(d); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", d)
+}
+
+var (
+	docSignaturesValidationInfoResponseFieldCertificates  = big.NewInt(1 << 0)
+	docSignaturesValidationInfoResponseFieldOcspResponses = big.NewInt(1 << 1)
+	docSignaturesValidationInfoResponseFieldCrls          = big.NewInt(1 << 2)
+)
+
+type DocSignaturesValidationInfoResponse struct {
+	Certificates  []string `json:"certificates" url:"certificates"`
+	OcspResponses []string `json:"ocspResponses" url:"ocspResponses"`
+	Crls          []string `json:"crls" url:"crls"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (d *DocSignaturesValidationInfoResponse) GetCertificates() []string {
+	if d == nil {
+		return nil
+	}
+	return d.Certificates
+}
+
+func (d *DocSignaturesValidationInfoResponse) GetOcspResponses() []string {
+	if d == nil {
+		return nil
+	}
+	return d.OcspResponses
+}
+
+func (d *DocSignaturesValidationInfoResponse) GetCrls() []string {
+	if d == nil {
+		return nil
+	}
+	return d.Crls
+}
+
+func (d *DocSignaturesValidationInfoResponse) GetExtraProperties() map[string]interface{} {
+	if d == nil {
+		return nil
+	}
+	return d.extraProperties
+}
+
+func (d *DocSignaturesValidationInfoResponse) require(field *big.Int) {
+	if d.explicitFields == nil {
+		d.explicitFields = big.NewInt(0)
+	}
+	d.explicitFields.Or(d.explicitFields, field)
+}
+
+// SetCertificates sets the Certificates field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesValidationInfoResponse) SetCertificates(certificates []string) {
+	d.Certificates = certificates
+	d.require(docSignaturesValidationInfoResponseFieldCertificates)
+}
+
+// SetOcspResponses sets the OcspResponses field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesValidationInfoResponse) SetOcspResponses(ocspResponses []string) {
+	d.OcspResponses = ocspResponses
+	d.require(docSignaturesValidationInfoResponseFieldOcspResponses)
+}
+
+// SetCrls sets the Crls field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (d *DocSignaturesValidationInfoResponse) SetCrls(crls []string) {
+	d.Crls = crls
+	d.require(docSignaturesValidationInfoResponseFieldCrls)
+}
+
+func (d *DocSignaturesValidationInfoResponse) UnmarshalJSON(data []byte) error {
+	type unmarshaler DocSignaturesValidationInfoResponse
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*d = DocSignaturesValidationInfoResponse(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *d)
+	if err != nil {
+		return err
+	}
+	d.extraProperties = extraProperties
+	d.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (d *DocSignaturesValidationInfoResponse) MarshalJSON() ([]byte, error) {
+	type embed DocSignaturesValidationInfoResponse
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*d),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, d.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (d *DocSignaturesValidationInfoResponse) String() string {
 	if d == nil {
 		return "<nil>"
 	}
