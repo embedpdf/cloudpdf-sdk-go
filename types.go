@@ -42429,15 +42429,16 @@ var (
 	formFieldCheckboxFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldCheckboxFieldActions           = big.NewInt(1 << 10)
 	formFieldCheckboxFieldGroupID           = big.NewInt(1 << 11)
-	formFieldCheckboxFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldCheckboxFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldCheckboxFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldCheckboxFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldCheckboxFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldCheckboxFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldCheckboxFieldWidgets           = big.NewInt(1 << 18)
-	formFieldCheckboxFieldChecked           = big.NewInt(1 << 19)
-	formFieldCheckboxFieldExportValue       = big.NewInt(1 << 20)
+	formFieldCheckboxFieldPurpose           = big.NewInt(1 << 12)
+	formFieldCheckboxFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldCheckboxFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldCheckboxFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldCheckboxFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldCheckboxFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldCheckboxFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldCheckboxFieldWidgets           = big.NewInt(1 << 19)
+	formFieldCheckboxFieldChecked           = big.NewInt(1 << 20)
+	formFieldCheckboxFieldExportValue       = big.NewInt(1 << 21)
 )
 
 type FormFieldCheckbox struct {
@@ -42453,6 +42454,7 @@ type FormFieldCheckbox struct {
 	DefaultValueEntry *FormValueEntry                 `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions                `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                         `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                         `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                         `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                         `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -42552,6 +42554,13 @@ func (f *FormFieldCheckbox) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldCheckbox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldCheckbox) GetCreatedBy() *string {
@@ -42713,6 +42722,13 @@ func (f *FormFieldCheckbox) SetActions(actions *PdfFieldActions) {
 func (f *FormFieldCheckbox) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldCheckboxFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldCheckbox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldCheckboxFieldPurpose)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
@@ -43031,17 +43047,19 @@ var (
 	formFieldComboboxFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldComboboxFieldActions           = big.NewInt(1 << 10)
 	formFieldComboboxFieldGroupID           = big.NewInt(1 << 11)
-	formFieldComboboxFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldComboboxFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldComboboxFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldComboboxFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldComboboxFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldComboboxFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldComboboxFieldWidgets           = big.NewInt(1 << 18)
-	formFieldComboboxFieldValue             = big.NewInt(1 << 19)
-	formFieldComboboxFieldDefaultValue      = big.NewInt(1 << 20)
-	formFieldComboboxFieldEdit              = big.NewInt(1 << 21)
-	formFieldComboboxFieldOptions           = big.NewInt(1 << 22)
+	formFieldComboboxFieldPurpose           = big.NewInt(1 << 12)
+	formFieldComboboxFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldComboboxFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldComboboxFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldComboboxFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldComboboxFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldComboboxFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldComboboxFieldWidgets           = big.NewInt(1 << 19)
+	formFieldComboboxFieldValue             = big.NewInt(1 << 20)
+	formFieldComboboxFieldDefaultValue      = big.NewInt(1 << 21)
+	formFieldComboboxFieldEdit              = big.NewInt(1 << 22)
+	formFieldComboboxFieldOptions           = big.NewInt(1 << 23)
+	formFieldComboboxFieldFormat            = big.NewInt(1 << 24)
 )
 
 type FormFieldCombobox struct {
@@ -43057,6 +43075,7 @@ type FormFieldCombobox struct {
 	DefaultValueEntry *FormValueEntry                 `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions                `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                         `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                         `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                         `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time                      `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                         `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -43068,6 +43087,8 @@ type FormFieldCombobox struct {
 	DefaultValue      string                          `json:"defaultValue" url:"defaultValue"`
 	Edit              bool                            `json:"edit" url:"edit"`
 	Options           []*FormFieldComboboxOptionsItem `json:"options" url:"options"`
+	// The shape a text field's or a dropdown's value has, by its `kind`: a date or a time with the pattern it is shown in, or `other` for a format script the engine does not recognise. A newer server can add kinds: read one your client doesn't know as `other`.
+	Format *FormFieldFormat `json:"format,omitempty" url:"format,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -43160,6 +43181,13 @@ func (f *FormFieldCombobox) GetGroupID() *string {
 	return f.GroupID
 }
 
+func (f *FormFieldCombobox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
+}
+
 func (f *FormFieldCombobox) GetCreatedBy() *string {
 	if f == nil {
 		return nil
@@ -43235,6 +43263,13 @@ func (f *FormFieldCombobox) GetOptions() []*FormFieldComboboxOptionsItem {
 		return nil
 	}
 	return f.Options
+}
+
+func (f *FormFieldCombobox) GetFormat() *FormFieldFormat {
+	if f == nil {
+		return nil
+	}
+	return f.Format
 }
 
 func (f *FormFieldCombobox) GetExtraProperties() map[string]interface{} {
@@ -43335,6 +43370,13 @@ func (f *FormFieldCombobox) SetGroupID(groupID *string) {
 	f.require(formFieldComboboxFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldCombobox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldComboboxFieldPurpose)
+}
+
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldCombobox) SetCreatedBy(createdBy *string) {
@@ -43410,6 +43452,13 @@ func (f *FormFieldCombobox) SetEdit(edit bool) {
 func (f *FormFieldCombobox) SetOptions(options []*FormFieldComboboxOptionsItem) {
 	f.Options = options
 	f.require(formFieldComboboxFieldOptions)
+}
+
+// SetFormat sets the Format field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldCombobox) SetFormat(format *FormFieldFormat) {
+	f.Format = format
+	f.require(formFieldComboboxFieldFormat)
 }
 
 func (f *FormFieldCombobox) UnmarshalJSON(data []byte) error {
@@ -43604,6 +43653,390 @@ func (f FormFieldComboboxOrigin) Ptr() *FormFieldComboboxOrigin {
 	return &f
 }
 
+// The shape a text field's or a dropdown's value has, by its `kind`: a date or a time with the pattern it is shown in, or `other` for a format script the engine does not recognise. A newer server can add kinds: read one your client doesn't know as `other`.
+type FormFieldFormat struct {
+	Kind  string
+	Date  *FormFieldFormatDate
+	Time  *FormFieldFormatTime
+	Other *FormFieldFormatOther
+
+	rawJSON json.RawMessage
+}
+
+func (f *FormFieldFormat) GetKind() string {
+	if f == nil {
+		return ""
+	}
+	return f.Kind
+}
+
+func (f *FormFieldFormat) GetDate() *FormFieldFormatDate {
+	if f == nil {
+		return nil
+	}
+	return f.Date
+}
+
+func (f *FormFieldFormat) GetTime() *FormFieldFormatTime {
+	if f == nil {
+		return nil
+	}
+	return f.Time
+}
+
+func (f *FormFieldFormat) GetOther() *FormFieldFormatOther {
+	if f == nil {
+		return nil
+	}
+	return f.Other
+}
+
+func (f *FormFieldFormat) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	f.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", f)
+	}
+	switch unmarshaler.Kind {
+	case "date":
+		value := new(FormFieldFormatDate)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		f.Date = value
+	case "time":
+		value := new(FormFieldFormatTime)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		f.Time = value
+	case "other":
+		value := new(FormFieldFormatOther)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		f.Other = value
+	}
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f FormFieldFormat) MarshalJSON() ([]byte, error) {
+	if err := f.validate(); err != nil {
+		return nil, err
+	}
+	if f.Date != nil {
+		return internal.MarshalJSONWithExtraProperty(f.Date, "kind", "date")
+	}
+	if f.Time != nil {
+		return internal.MarshalJSONWithExtraProperty(f.Time, "kind", "time")
+	}
+	if f.Other != nil {
+		return internal.MarshalJSONWithExtraProperty(f.Other, "kind", "other")
+	}
+	if len(f.rawJSON) > 0 {
+		return f.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", f)
+}
+
+type FormFieldFormatVisitor interface {
+	VisitDate(*FormFieldFormatDate) error
+	VisitTime(*FormFieldFormatTime) error
+	VisitOther(*FormFieldFormatOther) error
+}
+
+func (f *FormFieldFormat) Accept(visitor FormFieldFormatVisitor) error {
+	if f.Date != nil {
+		return visitor.VisitDate(f.Date)
+	}
+	if f.Time != nil {
+		return visitor.VisitTime(f.Time)
+	}
+	if f.Other != nil {
+		return visitor.VisitOther(f.Other)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", f)
+}
+
+func (f *FormFieldFormat) validate() error {
+	if f == nil {
+		return fmt.Errorf("type %T is nil", f)
+	}
+	var fields []string
+	if f.Date != nil {
+		fields = append(fields, "date")
+	}
+	if f.Time != nil {
+		fields = append(fields, "time")
+	}
+	if f.Other != nil {
+		fields = append(fields, "other")
+	}
+	if len(fields) == 0 {
+		if f.Kind != "" {
+			if len(f.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", f, f.Kind)
+		}
+		return fmt.Errorf("type %T is empty", f)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", f, fields)
+	}
+	if f.Kind != "" {
+		field := fields[0]
+		if f.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				f,
+				f.Kind,
+				f,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	formFieldFormatDateFieldPattern = big.NewInt(1 << 0)
+)
+
+type FormFieldFormatDate struct {
+	Pattern string `json:"pattern" url:"pattern"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FormFieldFormatDate) GetPattern() string {
+	if f == nil {
+		return ""
+	}
+	return f.Pattern
+}
+
+func (f *FormFieldFormatDate) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FormFieldFormatDate) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetPattern sets the Pattern field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldFormatDate) SetPattern(pattern string) {
+	f.Pattern = pattern
+	f.require(formFieldFormatDateFieldPattern)
+}
+
+func (f *FormFieldFormatDate) UnmarshalJSON(data []byte) error {
+	type unmarshaler FormFieldFormatDate
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FormFieldFormatDate(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FormFieldFormatDate) MarshalJSON() ([]byte, error) {
+	type embed FormFieldFormatDate
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FormFieldFormatDate) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
+type FormFieldFormatOther struct {
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FormFieldFormatOther) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FormFieldFormatOther) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+func (f *FormFieldFormatOther) UnmarshalJSON(data []byte) error {
+	type unmarshaler FormFieldFormatOther
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FormFieldFormatOther(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FormFieldFormatOther) MarshalJSON() ([]byte, error) {
+	type embed FormFieldFormatOther
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FormFieldFormatOther) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
+var (
+	formFieldFormatTimeFieldPattern = big.NewInt(1 << 0)
+)
+
+type FormFieldFormatTime struct {
+	Pattern string `json:"pattern" url:"pattern"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FormFieldFormatTime) GetPattern() string {
+	if f == nil {
+		return ""
+	}
+	return f.Pattern
+}
+
+func (f *FormFieldFormatTime) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FormFieldFormatTime) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetPattern sets the Pattern field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldFormatTime) SetPattern(pattern string) {
+	f.Pattern = pattern
+	f.require(formFieldFormatTimeFieldPattern)
+}
+
+func (f *FormFieldFormatTime) UnmarshalJSON(data []byte) error {
+	type unmarshaler FormFieldFormatTime
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FormFieldFormatTime(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FormFieldFormatTime) MarshalJSON() ([]byte, error) {
+	type embed FormFieldFormatTime
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FormFieldFormatTime) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
 var (
 	formFieldListboxFieldRef               = big.NewInt(1 << 0)
 	formFieldListboxFieldName              = big.NewInt(1 << 1)
@@ -43617,18 +44050,19 @@ var (
 	formFieldListboxFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldListboxFieldActions           = big.NewInt(1 << 10)
 	formFieldListboxFieldGroupID           = big.NewInt(1 << 11)
-	formFieldListboxFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldListboxFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldListboxFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldListboxFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldListboxFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldListboxFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldListboxFieldWidgets           = big.NewInt(1 << 18)
-	formFieldListboxFieldSelectedValues    = big.NewInt(1 << 19)
-	formFieldListboxFieldDefaultValue      = big.NewInt(1 << 20)
-	formFieldListboxFieldMultiSelect       = big.NewInt(1 << 21)
-	formFieldListboxFieldOptions           = big.NewInt(1 << 22)
-	formFieldListboxFieldTopIndex          = big.NewInt(1 << 23)
+	formFieldListboxFieldPurpose           = big.NewInt(1 << 12)
+	formFieldListboxFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldListboxFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldListboxFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldListboxFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldListboxFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldListboxFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldListboxFieldWidgets           = big.NewInt(1 << 19)
+	formFieldListboxFieldSelectedValues    = big.NewInt(1 << 20)
+	formFieldListboxFieldDefaultValue      = big.NewInt(1 << 21)
+	formFieldListboxFieldMultiSelect       = big.NewInt(1 << 22)
+	formFieldListboxFieldOptions           = big.NewInt(1 << 23)
+	formFieldListboxFieldTopIndex          = big.NewInt(1 << 24)
 )
 
 type FormFieldListbox struct {
@@ -43644,6 +44078,7 @@ type FormFieldListbox struct {
 	DefaultValueEntry *FormValueEntry                `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions               `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                        `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                        `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                        `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time                     `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                        `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -43746,6 +44181,13 @@ func (f *FormFieldListbox) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldListbox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldListbox) GetCreatedBy() *string {
@@ -43928,6 +44370,13 @@ func (f *FormFieldListbox) SetActions(actions *PdfFieldActions) {
 func (f *FormFieldListbox) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldListboxFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldListbox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldListboxFieldPurpose)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
@@ -44219,13 +44668,14 @@ var (
 	formFieldPushbuttonFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldPushbuttonFieldActions           = big.NewInt(1 << 10)
 	formFieldPushbuttonFieldGroupID           = big.NewInt(1 << 11)
-	formFieldPushbuttonFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldPushbuttonFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldPushbuttonFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldPushbuttonFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldPushbuttonFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldPushbuttonFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldPushbuttonFieldWidgets           = big.NewInt(1 << 18)
+	formFieldPushbuttonFieldPurpose           = big.NewInt(1 << 12)
+	formFieldPushbuttonFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldPushbuttonFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldPushbuttonFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldPushbuttonFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldPushbuttonFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldPushbuttonFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldPushbuttonFieldWidgets           = big.NewInt(1 << 19)
 )
 
 type FormFieldPushbutton struct {
@@ -44241,6 +44691,7 @@ type FormFieldPushbutton struct {
 	DefaultValueEntry *FormValueEntry           `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions          `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                   `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                   `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                   `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time                `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                   `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -44338,6 +44789,13 @@ func (f *FormFieldPushbutton) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldPushbutton) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldPushbutton) GetCreatedBy() *string {
@@ -44487,6 +44945,13 @@ func (f *FormFieldPushbutton) SetGroupID(groupID *string) {
 	f.require(formFieldPushbuttonFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldPushbutton) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldPushbuttonFieldPurpose)
+}
+
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldPushbutton) SetCreatedBy(createdBy *string) {
@@ -44625,16 +45090,17 @@ var (
 	formFieldRadioFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldRadioFieldActions           = big.NewInt(1 << 10)
 	formFieldRadioFieldGroupID           = big.NewInt(1 << 11)
-	formFieldRadioFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldRadioFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldRadioFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldRadioFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldRadioFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldRadioFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldRadioFieldWidgets           = big.NewInt(1 << 18)
-	formFieldRadioFieldValue             = big.NewInt(1 << 19)
-	formFieldRadioFieldRadiosInUnison    = big.NewInt(1 << 20)
-	formFieldRadioFieldNoToggleToOff     = big.NewInt(1 << 21)
+	formFieldRadioFieldPurpose           = big.NewInt(1 << 12)
+	formFieldRadioFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldRadioFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldRadioFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldRadioFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldRadioFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldRadioFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldRadioFieldWidgets           = big.NewInt(1 << 19)
+	formFieldRadioFieldValue             = big.NewInt(1 << 20)
+	formFieldRadioFieldRadiosInUnison    = big.NewInt(1 << 21)
+	formFieldRadioFieldNoToggleToOff     = big.NewInt(1 << 22)
 )
 
 type FormFieldRadio struct {
@@ -44650,6 +45116,7 @@ type FormFieldRadio struct {
 	DefaultValueEntry *FormValueEntry              `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions             `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                      `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                      `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                      `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time                   `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                      `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -44750,6 +45217,13 @@ func (f *FormFieldRadio) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldRadio) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldRadio) GetCreatedBy() *string {
@@ -44918,6 +45392,13 @@ func (f *FormFieldRadio) SetActions(actions *PdfFieldActions) {
 func (f *FormFieldRadio) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldRadioFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldRadio) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldRadioFieldPurpose)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
@@ -45537,13 +46018,14 @@ var (
 	formFieldSignatureFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldSignatureFieldActions           = big.NewInt(1 << 10)
 	formFieldSignatureFieldGroupID           = big.NewInt(1 << 11)
-	formFieldSignatureFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldSignatureFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldSignatureFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldSignatureFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldSignatureFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldSignatureFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldSignatureFieldWidgets           = big.NewInt(1 << 18)
+	formFieldSignatureFieldPurpose           = big.NewInt(1 << 12)
+	formFieldSignatureFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldSignatureFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldSignatureFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldSignatureFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldSignatureFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldSignatureFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldSignatureFieldWidgets           = big.NewInt(1 << 19)
 )
 
 type FormFieldSignature struct {
@@ -45559,6 +46041,7 @@ type FormFieldSignature struct {
 	DefaultValueEntry *FormValueEntry          `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions         `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                  `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                  `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                  `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time               `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                  `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -45656,6 +46139,13 @@ func (f *FormFieldSignature) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldSignature) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldSignature) GetCreatedBy() *string {
@@ -45805,6 +46295,13 @@ func (f *FormFieldSignature) SetGroupID(groupID *string) {
 	f.require(formFieldSignatureFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldSignature) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldSignatureFieldPurpose)
+}
+
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldSignature) SetCreatedBy(createdBy *string) {
@@ -45943,19 +46440,21 @@ var (
 	formFieldTextFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldTextFieldActions           = big.NewInt(1 << 10)
 	formFieldTextFieldGroupID           = big.NewInt(1 << 11)
-	formFieldTextFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldTextFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldTextFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldTextFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldTextFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldTextFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldTextFieldWidgets           = big.NewInt(1 << 18)
-	formFieldTextFieldValue             = big.NewInt(1 << 19)
-	formFieldTextFieldDefaultValue      = big.NewInt(1 << 20)
-	formFieldTextFieldMaxLength         = big.NewInt(1 << 21)
-	formFieldTextFieldMultiline         = big.NewInt(1 << 22)
-	formFieldTextFieldPassword          = big.NewInt(1 << 23)
-	formFieldTextFieldComb              = big.NewInt(1 << 24)
+	formFieldTextFieldPurpose           = big.NewInt(1 << 12)
+	formFieldTextFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldTextFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldTextFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldTextFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldTextFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldTextFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldTextFieldWidgets           = big.NewInt(1 << 19)
+	formFieldTextFieldValue             = big.NewInt(1 << 20)
+	formFieldTextFieldDefaultValue      = big.NewInt(1 << 21)
+	formFieldTextFieldMaxLength         = big.NewInt(1 << 22)
+	formFieldTextFieldMultiline         = big.NewInt(1 << 23)
+	formFieldTextFieldPassword          = big.NewInt(1 << 24)
+	formFieldTextFieldComb              = big.NewInt(1 << 25)
+	formFieldTextFieldFormat            = big.NewInt(1 << 26)
 )
 
 type FormFieldText struct {
@@ -45971,6 +46470,7 @@ type FormFieldText struct {
 	DefaultValueEntry *FormValueEntry     `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions    `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string             `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string             `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string             `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time          `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string             `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -45984,6 +46484,8 @@ type FormFieldText struct {
 	Multiline         bool                `json:"multiline" url:"multiline"`
 	Password          bool                `json:"password" url:"password"`
 	Comb              bool                `json:"comb" url:"comb"`
+	// The shape a text field's or a dropdown's value has, by its `kind`: a date or a time with the pattern it is shown in, or `other` for a format script the engine does not recognise. A newer server can add kinds: read one your client doesn't know as `other`.
+	Format *FormFieldFormat `json:"format,omitempty" url:"format,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -46076,6 +46578,13 @@ func (f *FormFieldText) GetGroupID() *string {
 	return f.GroupID
 }
 
+func (f *FormFieldText) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
+}
+
 func (f *FormFieldText) GetCreatedBy() *string {
 	if f == nil {
 		return nil
@@ -46165,6 +46674,13 @@ func (f *FormFieldText) GetComb() bool {
 		return false
 	}
 	return f.Comb
+}
+
+func (f *FormFieldText) GetFormat() *FormFieldFormat {
+	if f == nil {
+		return nil
+	}
+	return f.Format
 }
 
 func (f *FormFieldText) GetExtraProperties() map[string]interface{} {
@@ -46265,6 +46781,13 @@ func (f *FormFieldText) SetGroupID(groupID *string) {
 	f.require(formFieldTextFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldText) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldTextFieldPurpose)
+}
+
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldText) SetCreatedBy(createdBy *string) {
@@ -46356,6 +46879,13 @@ func (f *FormFieldText) SetComb(comb bool) {
 	f.require(formFieldTextFieldComb)
 }
 
+// SetFormat sets the Format field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldText) SetFormat(format *FormFieldFormat) {
+	f.Format = format
+	f.require(formFieldTextFieldFormat)
+}
+
 func (f *FormFieldText) UnmarshalJSON(data []byte) error {
 	type embed FormFieldText
 	var unmarshaler = struct {
@@ -46445,14 +46975,15 @@ var (
 	formFieldUnknownFieldDefaultValueEntry = big.NewInt(1 << 9)
 	formFieldUnknownFieldActions           = big.NewInt(1 << 10)
 	formFieldUnknownFieldGroupID           = big.NewInt(1 << 11)
-	formFieldUnknownFieldCreatedBy         = big.NewInt(1 << 12)
-	formFieldUnknownFieldCreatedAt         = big.NewInt(1 << 13)
-	formFieldUnknownFieldFilledBy          = big.NewInt(1 << 14)
-	formFieldUnknownFieldFilledByName      = big.NewInt(1 << 15)
-	formFieldUnknownFieldFilledAt          = big.NewInt(1 << 16)
-	formFieldUnknownFieldImportedBy        = big.NewInt(1 << 17)
-	formFieldUnknownFieldWidgets           = big.NewInt(1 << 18)
-	formFieldUnknownFieldRawValue          = big.NewInt(1 << 19)
+	formFieldUnknownFieldPurpose           = big.NewInt(1 << 12)
+	formFieldUnknownFieldCreatedBy         = big.NewInt(1 << 13)
+	formFieldUnknownFieldCreatedAt         = big.NewInt(1 << 14)
+	formFieldUnknownFieldFilledBy          = big.NewInt(1 << 15)
+	formFieldUnknownFieldFilledByName      = big.NewInt(1 << 16)
+	formFieldUnknownFieldFilledAt          = big.NewInt(1 << 17)
+	formFieldUnknownFieldImportedBy        = big.NewInt(1 << 18)
+	formFieldUnknownFieldWidgets           = big.NewInt(1 << 19)
+	formFieldUnknownFieldRawValue          = big.NewInt(1 << 20)
 )
 
 type FormFieldUnknown struct {
@@ -46468,6 +46999,7 @@ type FormFieldUnknown struct {
 	DefaultValueEntry *FormValueEntry        `json:"defaultValueEntry" url:"defaultValueEntry"`
 	Actions           *PdfFieldActions       `json:"actions,omitempty" url:"actions,omitempty"`
 	GroupID           *string                `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose           *string                `json:"purpose,omitempty" url:"purpose,omitempty"`
 	CreatedBy         *string                `json:"createdBy,omitempty" url:"createdBy,omitempty"`
 	CreatedAt         *time.Time             `json:"createdAt,omitempty" url:"createdAt,omitempty"`
 	FilledBy          *string                `json:"filledBy,omitempty" url:"filledBy,omitempty"`
@@ -46566,6 +47098,13 @@ func (f *FormFieldUnknown) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldUnknown) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldUnknown) GetCreatedBy() *string {
@@ -46720,6 +47259,13 @@ func (f *FormFieldUnknown) SetActions(actions *PdfFieldActions) {
 func (f *FormFieldUnknown) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldUnknownFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldUnknown) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldUnknownFieldPurpose)
 }
 
 // SetCreatedBy sets the CreatedBy field and marks it as non-optional;
