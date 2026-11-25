@@ -78299,7 +78299,7 @@ var (
 )
 
 type ChangeOpFormsSetSignatureAppearanceResources struct {
-	Appearance string `json:"appearance" url:"appearance"`
+	Appearance *string `json:"appearance,omitempty" url:"appearance,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -78308,9 +78308,9 @@ type ChangeOpFormsSetSignatureAppearanceResources struct {
 	rawJSON         json.RawMessage
 }
 
-func (c *ChangeOpFormsSetSignatureAppearanceResources) GetAppearance() string {
+func (c *ChangeOpFormsSetSignatureAppearanceResources) GetAppearance() *string {
 	if c == nil {
-		return ""
+		return nil
 	}
 	return c.Appearance
 }
@@ -78331,7 +78331,7 @@ func (c *ChangeOpFormsSetSignatureAppearanceResources) require(field *big.Int) {
 
 // SetAppearance sets the Appearance field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
-func (c *ChangeOpFormsSetSignatureAppearanceResources) SetAppearance(appearance string) {
+func (c *ChangeOpFormsSetSignatureAppearanceResources) SetAppearance(appearance *string) {
 	c.Appearance = appearance
 	c.require(changeOpFormsSetSignatureAppearanceResourcesFieldAppearance)
 }
@@ -86027,8 +86027,9 @@ var (
 	formFieldDraftCheckboxFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftCheckboxFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftCheckboxFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftCheckboxFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftCheckboxFieldWidgets       = big.NewInt(1 << 8)
+	formFieldDraftCheckboxFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftCheckboxFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftCheckboxFieldWidgets       = big.NewInt(1 << 9)
 )
 
 type FormFieldDraftCheckbox struct {
@@ -86039,6 +86040,7 @@ type FormFieldDraftCheckbox struct {
 	AlternateName *string            `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName   *string            `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID       *string            `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string            `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions       *FieldActionsPatch `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets       []*WidgetPlacement `json:"widgets,omitempty" url:"widgets,omitempty"`
 
@@ -86096,6 +86098,13 @@ func (f *FormFieldDraftCheckbox) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldDraftCheckbox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldDraftCheckbox) GetActions() *FieldActionsPatch {
@@ -86175,6 +86184,13 @@ func (f *FormFieldDraftCheckbox) SetGroupID(groupID *string) {
 	f.require(formFieldDraftCheckboxFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftCheckbox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftCheckboxFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftCheckbox) SetActions(actions *FieldActionsPatch) {
@@ -86239,11 +86255,13 @@ var (
 	formFieldDraftComboboxFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftComboboxFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftComboboxFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftComboboxFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftComboboxFieldWidgets       = big.NewInt(1 << 8)
-	formFieldDraftComboboxFieldEdit          = big.NewInt(1 << 9)
-	formFieldDraftComboboxFieldOptions       = big.NewInt(1 << 10)
-	formFieldDraftComboboxFieldDefaultValue  = big.NewInt(1 << 11)
+	formFieldDraftComboboxFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftComboboxFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftComboboxFieldWidgets       = big.NewInt(1 << 9)
+	formFieldDraftComboboxFieldEdit          = big.NewInt(1 << 10)
+	formFieldDraftComboboxFieldOptions       = big.NewInt(1 << 11)
+	formFieldDraftComboboxFieldDefaultValue  = big.NewInt(1 << 12)
+	formFieldDraftComboboxFieldFormat        = big.NewInt(1 << 13)
 )
 
 type FormFieldDraftCombobox struct {
@@ -86254,11 +86272,13 @@ type FormFieldDraftCombobox struct {
 	AlternateName *string                              `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName   *string                              `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID       *string                              `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string                              `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions       *FieldActionsPatch                   `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets       []*WidgetPlacement                   `json:"widgets,omitempty" url:"widgets,omitempty"`
 	Edit          *bool                                `json:"edit,omitempty" url:"edit,omitempty"`
 	Options       []*FormFieldDraftComboboxOptionsItem `json:"options,omitempty" url:"options,omitempty"`
 	DefaultValue  *string                              `json:"defaultValue,omitempty" url:"defaultValue,omitempty"`
+	Format        *FormFieldFormatWritable             `json:"format,omitempty" url:"format,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -86316,6 +86336,13 @@ func (f *FormFieldDraftCombobox) GetGroupID() *string {
 	return f.GroupID
 }
 
+func (f *FormFieldDraftCombobox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
+}
+
 func (f *FormFieldDraftCombobox) GetActions() *FieldActionsPatch {
 	if f == nil {
 		return nil
@@ -86349,6 +86376,13 @@ func (f *FormFieldDraftCombobox) GetDefaultValue() *string {
 		return nil
 	}
 	return f.DefaultValue
+}
+
+func (f *FormFieldDraftCombobox) GetFormat() *FormFieldFormatWritable {
+	if f == nil {
+		return nil
+	}
+	return f.Format
 }
 
 func (f *FormFieldDraftCombobox) GetExtraProperties() map[string]interface{} {
@@ -86414,6 +86448,13 @@ func (f *FormFieldDraftCombobox) SetGroupID(groupID *string) {
 	f.require(formFieldDraftComboboxFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftCombobox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftComboboxFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftCombobox) SetActions(actions *FieldActionsPatch) {
@@ -86447,6 +86488,13 @@ func (f *FormFieldDraftCombobox) SetOptions(options []*FormFieldDraftComboboxOpt
 func (f *FormFieldDraftCombobox) SetDefaultValue(defaultValue *string) {
 	f.DefaultValue = defaultValue
 	f.require(formFieldDraftComboboxFieldDefaultValue)
+}
+
+// SetFormat sets the Format field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftCombobox) SetFormat(format *FormFieldFormatWritable) {
+	f.Format = format
+	f.require(formFieldDraftComboboxFieldFormat)
 }
 
 func (f *FormFieldDraftCombobox) UnmarshalJSON(data []byte) error {
@@ -86599,11 +86647,12 @@ var (
 	formFieldDraftListboxFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftListboxFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftListboxFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftListboxFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftListboxFieldWidgets       = big.NewInt(1 << 8)
-	formFieldDraftListboxFieldMultiSelect   = big.NewInt(1 << 9)
-	formFieldDraftListboxFieldOptions       = big.NewInt(1 << 10)
-	formFieldDraftListboxFieldDefaultValue  = big.NewInt(1 << 11)
+	formFieldDraftListboxFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftListboxFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftListboxFieldWidgets       = big.NewInt(1 << 9)
+	formFieldDraftListboxFieldMultiSelect   = big.NewInt(1 << 10)
+	formFieldDraftListboxFieldOptions       = big.NewInt(1 << 11)
+	formFieldDraftListboxFieldDefaultValue  = big.NewInt(1 << 12)
 )
 
 type FormFieldDraftListbox struct {
@@ -86614,6 +86663,7 @@ type FormFieldDraftListbox struct {
 	AlternateName *string                             `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName   *string                             `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID       *string                             `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string                             `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions       *FieldActionsPatch                  `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets       []*WidgetPlacement                  `json:"widgets,omitempty" url:"widgets,omitempty"`
 	MultiSelect   *bool                               `json:"multiSelect,omitempty" url:"multiSelect,omitempty"`
@@ -86674,6 +86724,13 @@ func (f *FormFieldDraftListbox) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldDraftListbox) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldDraftListbox) GetActions() *FieldActionsPatch {
@@ -86772,6 +86829,13 @@ func (f *FormFieldDraftListbox) SetMappingName(mappingName *string) {
 func (f *FormFieldDraftListbox) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldDraftListboxFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftListbox) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftListboxFieldPurpose)
 }
 
 // SetActions sets the Actions field and marks it as non-optional;
@@ -86959,8 +87023,9 @@ var (
 	formFieldDraftPushbuttonFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftPushbuttonFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftPushbuttonFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftPushbuttonFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftPushbuttonFieldWidgets       = big.NewInt(1 << 8)
+	formFieldDraftPushbuttonFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftPushbuttonFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftPushbuttonFieldWidgets       = big.NewInt(1 << 9)
 )
 
 type FormFieldDraftPushbutton struct {
@@ -86971,6 +87036,7 @@ type FormFieldDraftPushbutton struct {
 	AlternateName *string            `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName   *string            `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID       *string            `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string            `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions       *FieldActionsPatch `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets       []*WidgetPlacement `json:"widgets,omitempty" url:"widgets,omitempty"`
 
@@ -87028,6 +87094,13 @@ func (f *FormFieldDraftPushbutton) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldDraftPushbutton) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldDraftPushbutton) GetActions() *FieldActionsPatch {
@@ -87107,6 +87180,13 @@ func (f *FormFieldDraftPushbutton) SetGroupID(groupID *string) {
 	f.require(formFieldDraftPushbuttonFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftPushbutton) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftPushbuttonFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftPushbutton) SetActions(actions *FieldActionsPatch) {
@@ -87171,10 +87251,11 @@ var (
 	formFieldDraftRadioFieldAlternateName  = big.NewInt(1 << 4)
 	formFieldDraftRadioFieldMappingName    = big.NewInt(1 << 5)
 	formFieldDraftRadioFieldGroupID        = big.NewInt(1 << 6)
-	formFieldDraftRadioFieldActions        = big.NewInt(1 << 7)
-	formFieldDraftRadioFieldWidgets        = big.NewInt(1 << 8)
-	formFieldDraftRadioFieldRadiosInUnison = big.NewInt(1 << 9)
-	formFieldDraftRadioFieldNoToggleToOff  = big.NewInt(1 << 10)
+	formFieldDraftRadioFieldPurpose        = big.NewInt(1 << 7)
+	formFieldDraftRadioFieldActions        = big.NewInt(1 << 8)
+	formFieldDraftRadioFieldWidgets        = big.NewInt(1 << 9)
+	formFieldDraftRadioFieldRadiosInUnison = big.NewInt(1 << 10)
+	formFieldDraftRadioFieldNoToggleToOff  = big.NewInt(1 << 11)
 )
 
 type FormFieldDraftRadio struct {
@@ -87185,6 +87266,7 @@ type FormFieldDraftRadio struct {
 	AlternateName  *string            `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName    *string            `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID        *string            `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose        *string            `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions        *FieldActionsPatch `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets        []*WidgetPlacement `json:"widgets,omitempty" url:"widgets,omitempty"`
 	RadiosInUnison *bool              `json:"radiosInUnison,omitempty" url:"radiosInUnison,omitempty"`
@@ -87244,6 +87326,13 @@ func (f *FormFieldDraftRadio) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldDraftRadio) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldDraftRadio) GetActions() *FieldActionsPatch {
@@ -87337,6 +87426,13 @@ func (f *FormFieldDraftRadio) SetGroupID(groupID *string) {
 	f.require(formFieldDraftRadioFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftRadio) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftRadioFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftRadio) SetActions(actions *FieldActionsPatch) {
@@ -87415,8 +87511,9 @@ var (
 	formFieldDraftSignatureFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftSignatureFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftSignatureFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftSignatureFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftSignatureFieldWidgets       = big.NewInt(1 << 8)
+	formFieldDraftSignatureFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftSignatureFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftSignatureFieldWidgets       = big.NewInt(1 << 9)
 )
 
 type FormFieldDraftSignature struct {
@@ -87427,6 +87524,7 @@ type FormFieldDraftSignature struct {
 	AlternateName *string            `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName   *string            `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID       *string            `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string            `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions       *FieldActionsPatch `json:"actions,omitempty" url:"actions,omitempty"`
 	Widgets       []*WidgetPlacement `json:"widgets,omitempty" url:"widgets,omitempty"`
 
@@ -87484,6 +87582,13 @@ func (f *FormFieldDraftSignature) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldDraftSignature) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldDraftSignature) GetActions() *FieldActionsPatch {
@@ -87563,6 +87668,13 @@ func (f *FormFieldDraftSignature) SetGroupID(groupID *string) {
 	f.require(formFieldDraftSignatureFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftSignature) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftSignatureFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftSignature) SetActions(actions *FieldActionsPatch) {
@@ -87627,30 +87739,34 @@ var (
 	formFieldDraftTextFieldAlternateName = big.NewInt(1 << 4)
 	formFieldDraftTextFieldMappingName   = big.NewInt(1 << 5)
 	formFieldDraftTextFieldGroupID       = big.NewInt(1 << 6)
-	formFieldDraftTextFieldActions       = big.NewInt(1 << 7)
-	formFieldDraftTextFieldWidgets       = big.NewInt(1 << 8)
-	formFieldDraftTextFieldDefaultValue  = big.NewInt(1 << 9)
-	formFieldDraftTextFieldMaxLength     = big.NewInt(1 << 10)
-	formFieldDraftTextFieldMultiline     = big.NewInt(1 << 11)
-	formFieldDraftTextFieldPassword      = big.NewInt(1 << 12)
-	formFieldDraftTextFieldComb          = big.NewInt(1 << 13)
+	formFieldDraftTextFieldPurpose       = big.NewInt(1 << 7)
+	formFieldDraftTextFieldActions       = big.NewInt(1 << 8)
+	formFieldDraftTextFieldWidgets       = big.NewInt(1 << 9)
+	formFieldDraftTextFieldDefaultValue  = big.NewInt(1 << 10)
+	formFieldDraftTextFieldMaxLength     = big.NewInt(1 << 11)
+	formFieldDraftTextFieldMultiline     = big.NewInt(1 << 12)
+	formFieldDraftTextFieldPassword      = big.NewInt(1 << 13)
+	formFieldDraftTextFieldComb          = big.NewInt(1 << 14)
+	formFieldDraftTextFieldFormat        = big.NewInt(1 << 15)
 )
 
 type FormFieldDraftText struct {
-	Name          string             `json:"name" url:"name"`
-	ReadOnly      *bool              `json:"readOnly,omitempty" url:"readOnly,omitempty"`
-	Required      *bool              `json:"required,omitempty" url:"required,omitempty"`
-	NoExport      *bool              `json:"noExport,omitempty" url:"noExport,omitempty"`
-	AlternateName *string            `json:"alternateName,omitempty" url:"alternateName,omitempty"`
-	MappingName   *string            `json:"mappingName,omitempty" url:"mappingName,omitempty"`
-	GroupID       *string            `json:"groupId,omitempty" url:"groupId,omitempty"`
-	Actions       *FieldActionsPatch `json:"actions,omitempty" url:"actions,omitempty"`
-	Widgets       []*WidgetPlacement `json:"widgets,omitempty" url:"widgets,omitempty"`
-	DefaultValue  *string            `json:"defaultValue,omitempty" url:"defaultValue,omitempty"`
-	MaxLength     *int               `json:"maxLength,omitempty" url:"maxLength,omitempty"`
-	Multiline     *bool              `json:"multiline,omitempty" url:"multiline,omitempty"`
-	Password      *bool              `json:"password,omitempty" url:"password,omitempty"`
-	Comb          *bool              `json:"comb,omitempty" url:"comb,omitempty"`
+	Name          string                   `json:"name" url:"name"`
+	ReadOnly      *bool                    `json:"readOnly,omitempty" url:"readOnly,omitempty"`
+	Required      *bool                    `json:"required,omitempty" url:"required,omitempty"`
+	NoExport      *bool                    `json:"noExport,omitempty" url:"noExport,omitempty"`
+	AlternateName *string                  `json:"alternateName,omitempty" url:"alternateName,omitempty"`
+	MappingName   *string                  `json:"mappingName,omitempty" url:"mappingName,omitempty"`
+	GroupID       *string                  `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose       *string                  `json:"purpose,omitempty" url:"purpose,omitempty"`
+	Actions       *FieldActionsPatch       `json:"actions,omitempty" url:"actions,omitempty"`
+	Widgets       []*WidgetPlacement       `json:"widgets,omitempty" url:"widgets,omitempty"`
+	DefaultValue  *string                  `json:"defaultValue,omitempty" url:"defaultValue,omitempty"`
+	MaxLength     *int                     `json:"maxLength,omitempty" url:"maxLength,omitempty"`
+	Multiline     *bool                    `json:"multiline,omitempty" url:"multiline,omitempty"`
+	Password      *bool                    `json:"password,omitempty" url:"password,omitempty"`
+	Comb          *bool                    `json:"comb,omitempty" url:"comb,omitempty"`
+	Format        *FormFieldFormatWritable `json:"format,omitempty" url:"format,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -87708,6 +87824,13 @@ func (f *FormFieldDraftText) GetGroupID() *string {
 	return f.GroupID
 }
 
+func (f *FormFieldDraftText) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
+}
+
 func (f *FormFieldDraftText) GetActions() *FieldActionsPatch {
 	if f == nil {
 		return nil
@@ -87755,6 +87878,13 @@ func (f *FormFieldDraftText) GetComb() *bool {
 		return nil
 	}
 	return f.Comb
+}
+
+func (f *FormFieldDraftText) GetFormat() *FormFieldFormatWritable {
+	if f == nil {
+		return nil
+	}
+	return f.Format
 }
 
 func (f *FormFieldDraftText) GetExtraProperties() map[string]interface{} {
@@ -87820,6 +87950,13 @@ func (f *FormFieldDraftText) SetGroupID(groupID *string) {
 	f.require(formFieldDraftTextFieldGroupID)
 }
 
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftText) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldDraftTextFieldPurpose)
+}
+
 // SetActions sets the Actions field and marks it as non-optional;
 // this prevents an empty or null value for this field from being omitted during serialization.
 func (f *FormFieldDraftText) SetActions(actions *FieldActionsPatch) {
@@ -87869,6 +88006,13 @@ func (f *FormFieldDraftText) SetComb(comb *bool) {
 	f.require(formFieldDraftTextFieldComb)
 }
 
+// SetFormat sets the Format field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldDraftText) SetFormat(format *FormFieldFormatWritable) {
+	f.Format = format
+	f.require(formFieldDraftTextFieldFormat)
+}
+
 func (f *FormFieldDraftText) UnmarshalJSON(data []byte) error {
 	type unmarshaler FormFieldDraftText
 	var value unmarshaler
@@ -87911,6 +88055,300 @@ func (f *FormFieldDraftText) String() string {
 	return fmt.Sprintf("%#v", f)
 }
 
+type FormFieldFormatWritable struct {
+	Kind string
+	Date *FormFieldFormatWritableDate
+	Time *FormFieldFormatWritableTime
+
+	rawJSON json.RawMessage
+}
+
+func (f *FormFieldFormatWritable) GetKind() string {
+	if f == nil {
+		return ""
+	}
+	return f.Kind
+}
+
+func (f *FormFieldFormatWritable) GetDate() *FormFieldFormatWritableDate {
+	if f == nil {
+		return nil
+	}
+	return f.Date
+}
+
+func (f *FormFieldFormatWritable) GetTime() *FormFieldFormatWritableTime {
+	if f == nil {
+		return nil
+	}
+	return f.Time
+}
+
+func (f *FormFieldFormatWritable) UnmarshalJSON(data []byte) error {
+	var unmarshaler struct {
+		Kind string `json:"kind"`
+	}
+	if err := json.Unmarshal(data, &unmarshaler); err != nil {
+		return err
+	}
+	f.Kind = unmarshaler.Kind
+	if unmarshaler.Kind == "" {
+		return fmt.Errorf("%T did not include discriminant kind", f)
+	}
+	switch unmarshaler.Kind {
+	case "date":
+		value := new(FormFieldFormatWritableDate)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		f.Date = value
+	case "time":
+		value := new(FormFieldFormatWritableTime)
+		if err := json.Unmarshal(data, &value); err != nil {
+			return err
+		}
+		f.Time = value
+	}
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f FormFieldFormatWritable) MarshalJSON() ([]byte, error) {
+	if err := f.validate(); err != nil {
+		return nil, err
+	}
+	if f.Date != nil {
+		return internal.MarshalJSONWithExtraProperty(f.Date, "kind", "date")
+	}
+	if f.Time != nil {
+		return internal.MarshalJSONWithExtraProperty(f.Time, "kind", "time")
+	}
+	if len(f.rawJSON) > 0 {
+		return f.rawJSON, nil
+	}
+	return nil, fmt.Errorf("type %T does not define a non-empty union type", f)
+}
+
+type FormFieldFormatWritableVisitor interface {
+	VisitDate(*FormFieldFormatWritableDate) error
+	VisitTime(*FormFieldFormatWritableTime) error
+}
+
+func (f *FormFieldFormatWritable) Accept(visitor FormFieldFormatWritableVisitor) error {
+	if f.Date != nil {
+		return visitor.VisitDate(f.Date)
+	}
+	if f.Time != nil {
+		return visitor.VisitTime(f.Time)
+	}
+	return fmt.Errorf("type %T does not define a non-empty union type", f)
+}
+
+func (f *FormFieldFormatWritable) validate() error {
+	if f == nil {
+		return fmt.Errorf("type %T is nil", f)
+	}
+	var fields []string
+	if f.Date != nil {
+		fields = append(fields, "date")
+	}
+	if f.Time != nil {
+		fields = append(fields, "time")
+	}
+	if len(fields) == 0 {
+		if f.Kind != "" {
+			if len(f.rawJSON) > 0 {
+				return nil
+			}
+			return fmt.Errorf("type %T defines a discriminant set to %q but the field is not set", f, f.Kind)
+		}
+		return fmt.Errorf("type %T is empty", f)
+	}
+	if len(fields) > 1 {
+		return fmt.Errorf("type %T defines values for %s, but only one value is allowed", f, fields)
+	}
+	if f.Kind != "" {
+		field := fields[0]
+		if f.Kind != field {
+			return fmt.Errorf(
+				"type %T defines a discriminant set to %q, but it does not match the %T field; either remove or update the discriminant to match",
+				f,
+				f.Kind,
+				f,
+			)
+		}
+	}
+	return nil
+}
+
+var (
+	formFieldFormatWritableDateFieldPattern = big.NewInt(1 << 0)
+)
+
+type FormFieldFormatWritableDate struct {
+	Pattern string `json:"pattern" url:"pattern"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FormFieldFormatWritableDate) GetPattern() string {
+	if f == nil {
+		return ""
+	}
+	return f.Pattern
+}
+
+func (f *FormFieldFormatWritableDate) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FormFieldFormatWritableDate) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetPattern sets the Pattern field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldFormatWritableDate) SetPattern(pattern string) {
+	f.Pattern = pattern
+	f.require(formFieldFormatWritableDateFieldPattern)
+}
+
+func (f *FormFieldFormatWritableDate) UnmarshalJSON(data []byte) error {
+	type unmarshaler FormFieldFormatWritableDate
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FormFieldFormatWritableDate(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FormFieldFormatWritableDate) MarshalJSON() ([]byte, error) {
+	type embed FormFieldFormatWritableDate
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FormFieldFormatWritableDate) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
+var (
+	formFieldFormatWritableTimeFieldPattern = big.NewInt(1 << 0)
+)
+
+type FormFieldFormatWritableTime struct {
+	Pattern string `json:"pattern" url:"pattern"`
+
+	// Private bitmask of fields set to an explicit value and therefore not to be omitted
+	explicitFields *big.Int `json:"-" url:"-"`
+
+	extraProperties map[string]interface{}
+	rawJSON         json.RawMessage
+}
+
+func (f *FormFieldFormatWritableTime) GetPattern() string {
+	if f == nil {
+		return ""
+	}
+	return f.Pattern
+}
+
+func (f *FormFieldFormatWritableTime) GetExtraProperties() map[string]interface{} {
+	if f == nil {
+		return nil
+	}
+	return f.extraProperties
+}
+
+func (f *FormFieldFormatWritableTime) require(field *big.Int) {
+	if f.explicitFields == nil {
+		f.explicitFields = big.NewInt(0)
+	}
+	f.explicitFields.Or(f.explicitFields, field)
+}
+
+// SetPattern sets the Pattern field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldFormatWritableTime) SetPattern(pattern string) {
+	f.Pattern = pattern
+	f.require(formFieldFormatWritableTimeFieldPattern)
+}
+
+func (f *FormFieldFormatWritableTime) UnmarshalJSON(data []byte) error {
+	type unmarshaler FormFieldFormatWritableTime
+	var value unmarshaler
+	if err := json.Unmarshal(data, &value); err != nil {
+		return err
+	}
+	*f = FormFieldFormatWritableTime(value)
+	extraProperties, err := internal.ExtractExtraProperties(data, *f)
+	if err != nil {
+		return err
+	}
+	f.extraProperties = extraProperties
+	f.rawJSON = json.RawMessage(data)
+	return nil
+}
+
+func (f *FormFieldFormatWritableTime) MarshalJSON() ([]byte, error) {
+	type embed FormFieldFormatWritableTime
+	var marshaler = struct {
+		embed
+	}{
+		embed: embed(*f),
+	}
+	explicitMarshaler := internal.HandleExplicitFields(marshaler, f.explicitFields)
+	return json.Marshal(explicitMarshaler)
+}
+
+func (f *FormFieldFormatWritableTime) String() string {
+	if f == nil {
+		return "<nil>"
+	}
+	if len(f.rawJSON) > 0 {
+		if value, err := internal.StringifyJSON(f.rawJSON); err == nil {
+			return value
+		}
+	}
+	if value, err := internal.StringifyJSON(f); err == nil {
+		return value
+	}
+	return fmt.Sprintf("%#v", f)
+}
+
 var (
 	formFieldPatchFieldName           = big.NewInt(1 << 0)
 	formFieldPatchFieldReadOnly       = big.NewInt(1 << 1)
@@ -87919,18 +88357,20 @@ var (
 	formFieldPatchFieldAlternateName  = big.NewInt(1 << 4)
 	formFieldPatchFieldMappingName    = big.NewInt(1 << 5)
 	formFieldPatchFieldGroupID        = big.NewInt(1 << 6)
-	formFieldPatchFieldActions        = big.NewInt(1 << 7)
-	formFieldPatchFieldKind           = big.NewInt(1 << 8)
-	formFieldPatchFieldDefaultValue   = big.NewInt(1 << 9)
-	formFieldPatchFieldMaxLength      = big.NewInt(1 << 10)
-	formFieldPatchFieldMultiline      = big.NewInt(1 << 11)
-	formFieldPatchFieldPassword       = big.NewInt(1 << 12)
-	formFieldPatchFieldComb           = big.NewInt(1 << 13)
-	formFieldPatchFieldRadiosInUnison = big.NewInt(1 << 14)
-	formFieldPatchFieldNoToggleToOff  = big.NewInt(1 << 15)
-	formFieldPatchFieldEdit           = big.NewInt(1 << 16)
-	formFieldPatchFieldMultiSelect    = big.NewInt(1 << 17)
-	formFieldPatchFieldOptions        = big.NewInt(1 << 18)
+	formFieldPatchFieldPurpose        = big.NewInt(1 << 7)
+	formFieldPatchFieldActions        = big.NewInt(1 << 8)
+	formFieldPatchFieldKind           = big.NewInt(1 << 9)
+	formFieldPatchFieldDefaultValue   = big.NewInt(1 << 10)
+	formFieldPatchFieldMaxLength      = big.NewInt(1 << 11)
+	formFieldPatchFieldMultiline      = big.NewInt(1 << 12)
+	formFieldPatchFieldPassword       = big.NewInt(1 << 13)
+	formFieldPatchFieldComb           = big.NewInt(1 << 14)
+	formFieldPatchFieldRadiosInUnison = big.NewInt(1 << 15)
+	formFieldPatchFieldNoToggleToOff  = big.NewInt(1 << 16)
+	formFieldPatchFieldEdit           = big.NewInt(1 << 17)
+	formFieldPatchFieldMultiSelect    = big.NewInt(1 << 18)
+	formFieldPatchFieldOptions        = big.NewInt(1 << 19)
+	formFieldPatchFieldFormat         = big.NewInt(1 << 20)
 )
 
 type FormFieldPatch struct {
@@ -87941,6 +88381,7 @@ type FormFieldPatch struct {
 	AlternateName  *string                      `json:"alternateName,omitempty" url:"alternateName,omitempty"`
 	MappingName    *string                      `json:"mappingName,omitempty" url:"mappingName,omitempty"`
 	GroupID        *string                      `json:"groupId,omitempty" url:"groupId,omitempty"`
+	Purpose        *string                      `json:"purpose,omitempty" url:"purpose,omitempty"`
 	Actions        *FieldActionsPatch           `json:"actions,omitempty" url:"actions,omitempty"`
 	Kind           *FormFieldPatchKind          `json:"kind,omitempty" url:"kind,omitempty"`
 	DefaultValue   *FormFieldPatchDefaultValue  `json:"defaultValue,omitempty" url:"defaultValue,omitempty"`
@@ -87953,6 +88394,7 @@ type FormFieldPatch struct {
 	Edit           *bool                        `json:"edit,omitempty" url:"edit,omitempty"`
 	MultiSelect    *bool                        `json:"multiSelect,omitempty" url:"multiSelect,omitempty"`
 	Options        []*FormFieldPatchOptionsItem `json:"options,omitempty" url:"options,omitempty"`
+	Format         *FormFieldFormatWritable     `json:"format,omitempty" url:"format,omitempty"`
 
 	// Private bitmask of fields set to an explicit value and therefore not to be omitted
 	explicitFields *big.Int `json:"-" url:"-"`
@@ -88008,6 +88450,13 @@ func (f *FormFieldPatch) GetGroupID() *string {
 		return nil
 	}
 	return f.GroupID
+}
+
+func (f *FormFieldPatch) GetPurpose() *string {
+	if f == nil {
+		return nil
+	}
+	return f.Purpose
 }
 
 func (f *FormFieldPatch) GetActions() *FieldActionsPatch {
@@ -88094,6 +88543,13 @@ func (f *FormFieldPatch) GetOptions() []*FormFieldPatchOptionsItem {
 	return f.Options
 }
 
+func (f *FormFieldPatch) GetFormat() *FormFieldFormatWritable {
+	if f == nil {
+		return nil
+	}
+	return f.Format
+}
+
 func (f *FormFieldPatch) GetExtraProperties() map[string]interface{} {
 	if f == nil {
 		return nil
@@ -88155,6 +88611,13 @@ func (f *FormFieldPatch) SetMappingName(mappingName *string) {
 func (f *FormFieldPatch) SetGroupID(groupID *string) {
 	f.GroupID = groupID
 	f.require(formFieldPatchFieldGroupID)
+}
+
+// SetPurpose sets the Purpose field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldPatch) SetPurpose(purpose *string) {
+	f.Purpose = purpose
+	f.require(formFieldPatchFieldPurpose)
 }
 
 // SetActions sets the Actions field and marks it as non-optional;
@@ -88239,6 +88702,13 @@ func (f *FormFieldPatch) SetMultiSelect(multiSelect *bool) {
 func (f *FormFieldPatch) SetOptions(options []*FormFieldPatchOptionsItem) {
 	f.Options = options
 	f.require(formFieldPatchFieldOptions)
+}
+
+// SetFormat sets the Format field and marks it as non-optional;
+// this prevents an empty or null value for this field from being omitted during serialization.
+func (f *FormFieldPatch) SetFormat(format *FormFieldFormatWritable) {
+	f.Format = format
+	f.require(formFieldPatchFieldFormat)
 }
 
 func (f *FormFieldPatch) UnmarshalJSON(data []byte) error {

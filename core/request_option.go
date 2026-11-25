@@ -59,7 +59,7 @@ func (r *RequestOptions) ToHeader() http.Header {
 			header.Set("Authorization", "Bearer "+token)
 		}
 	}
-	header.Set("EmbedPDF-Version", fmt.Sprintf("%v", "3.3"))
+	header.Set("EmbedPDF-Version", fmt.Sprintf("%v", "3.4"))
 	return header
 }
 
@@ -67,8 +67,8 @@ func (r *RequestOptions) cloneHeader() http.Header {
 	headers := r.HTTPHeader.Clone()
 	headers.Set("X-Fern-Language", "Go")
 	headers.Set("X-Fern-SDK-Name", "github.com/embedpdf/cloudpdf-sdk-go/v3")
-	headers.Set("X-Fern-SDK-Version", "v3.3.0")
-	headers.Set("User-Agent", "github.com/embedpdf/cloudpdf-sdk-go/v3/3.3.0")
+	headers.Set("X-Fern-SDK-Version", "v3.4.0")
+	headers.Set("User-Agent", "github.com/embedpdf/cloudpdf-sdk-go/v3/3.4.0")
 	return headers
 }
 
